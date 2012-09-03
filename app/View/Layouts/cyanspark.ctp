@@ -6,7 +6,7 @@
 		<?php
 		echo $this -> Html -> meta('icon');
 
-		echo $this -> Html -> css('cyanspark/style');
+		echo $this -> Html -> css('style.cyanspark');
 		
 		echo $this -> Html -> script('cyanspark/cufon-yui');
 		echo $this -> Html -> script('cyanspark/arial');
