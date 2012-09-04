@@ -3,3 +3,5 @@
 *.pyo
 tmp/*
 app/tmp/*
+app/tmp/cache/persistent/myapp_cake_core_cake_dev_es-es
+app/tmp/cache/persistent/myapp_cake_core_file_map
