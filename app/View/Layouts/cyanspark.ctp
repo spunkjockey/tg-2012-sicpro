@@ -189,7 +189,7 @@
 								<ul>
 									<li>Empresa</li>
 									<li>Divisi&oacute;n</li>
-									<li>Departamento</li>
+									<li><?php echo $this->Html->link('Departamentos', array('controller' => 'departamentos')); ?></li>
 									<li>Municipio</li>
 									<li>Plaza</li>
 									<li>Cargo funcional</li>
@@ -212,7 +212,7 @@
 							<?php echo $this->fetch('content'); ?>
 						</div>
 
-						<div class="article">
+						<!--<div class="article">
 							<h2><span>Lorem Ipsum</span> Dolor Sit</h2>
 							<p>
 								Posted by <a href="#">Owner</a> | Filed under <a href="#">templates</a>, <a href="#">internet</a>
@@ -223,8 +223,8 @@
 							<img src="img/cyanspark/img3.jpg" width="287" height="97" alt="" class="fl" /><img src="img/cyanspark/img4.jpg" width="287" height="97" alt="" />
 							<p>
 								<a href="#">Read more</a> | March 15, 2015
-							</p>
-						</div>
+							</p> 
+						</div> -->
 					</div>
 					<div class="sidebar">
 						<!-- <div class="searchform">
@@ -235,7 +235,7 @@
 								</span>
 							</form>
 							<div class="clr"></div>
-						</div> -->
+						</div> 
 						<div class="gadget">
 							<h2 class="star"><span>Sidebar</span> Menu</h2>
 							<ul class="sb_menu">
@@ -258,39 +258,29 @@
 									<a href="#">Website Templates</a>
 								</li>
 							</ul>
-						</div>
+						</div> -->
 						<div class="gadget">
-							<h2 class="star"><span>Sponsors</span></h2>
+							<h2 class="star"><span>Notificaciones</span></h2>
 							<ul class="ex_menu">
 								<li>
-									<a href="#">DreamTemplate</a>
+									<a href="#">Cambio de Estado Proyecto 0610</a>
 									<br />
-									Over 6,000+ Premium Web Templates
+									El Proyecto 0610 ha cambiado de Licitacion a Iniciado
 								</li>
 								<li>
-									<a href="#">TemplateSOLD</a>
+									<a href="#">Estimacion Registrada</a>
 									<br />
-									Premium WordPress &amp; Joomla Themes
+									Estimacion 01 del Contrato 005/2011 ha sido registrada
 								</li>
 								<li>
-									<a href="#">ImHosted.com</a>
+									<a href="#">Informe Tecnico Registrado</a>
 									<br />
-									Affordable Web Hosting Provider
+									Informe Tecnico de Juan Perez ha sido registrado del contrato 005/2011
 								</li>
 								<li>
-									<a href="#">DreamStock</a>
+									<a href="#">Informe Tecnico Registrado</a>
 									<br />
-									Download Amazing Stock Photos
-								</li>
-								<li>
-									<a href="#">Evrsoft</a>
-									<br />
-									Website Builder Software &amp; Tools
-								</li>
-								<li>
-									<a href="#">MyVectorStore</a>
-									<br />
-									Royalty Free Stock Icons
+									Informe Tecnico de Pedro Lainez ha sido registrado del contrato 006/2011
 								</li>
 							</ul>
 						</div>
