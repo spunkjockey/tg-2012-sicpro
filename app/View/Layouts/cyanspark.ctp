@@ -55,31 +55,163 @@
 				</div>
 			</div>
 			<div class="content">
-				<div class="content_resize">
-					<div class="navmenu">
+				<div class="navmenu" style="margin:0px auto; width: 970px">
 						<ul id="menu">
-							<li>Empresa</li>
-							<li>Productos
+							<li>Planeaci&oacute;n
 								<ul>
-									<li>Televisores
+									<li>Proyectos
 										<ul>
-											<li>Plasma</li>
-											<li>LCD</li>
-											<li>LED</li>
+											<li>Registrar proyecto</li>
+											<li>Modificar proyecto</li>
+											<li>Asignar n&uacute;mero proyecto</li>
+											<li>Eliminar proyecto</li>
+										</ul>
+									</li>	
+									<li>Ficha t&eacute;cnica
+										<ul>
+											<li>Registrar ficha t&eacute;cnica</li>
+											<li>Modificar ficha t&eacute;cnica</li>
+											<li>Eliminar ficha t&eacute;cnica</li>
+											<li>Consultar ficha t&eacute;cnica</li>
 										</ul>
 									</li>
-									<li>Sonido
+									<li>Fuente de financiamiento
 										<ul>
-											<li>Minicadena</li>
-											<li>Micro</li>
+											<li>Registrar fuente de financiamiento</li>
+											<li>Modificar fuente de financiamiento</li>
+											<li>Eliminar fuente de financiamiento</li>
+											<li>Consultar fuente de financiamiento (en un periodo)</li>
 										</ul>
-									</li>
-									<li>Proyectores</li>
+									</li>	
+									<li>Asignaci&oacute;n de fondos</li>
 								</ul>
 							</li>
-							<li id="li3">Contacto</li>
+							<li>Contratos
+								<ul>
+									<li>Constructor
+										<ul>
+											<li>Registrar contrato constructor</li>
+											<li>Modificar contrato constructor</li>
+											<li>Eliminar contrato constructor</li>
+										</ul>
+									</li>
+									<li>Supervisor
+										<ul>
+											<li>Registrar contrato supervisor</li>
+											<li>Modificar contrato supervisor</li>
+											<li>Eliminar contrato supervisor</li>
+										</ul>
+									</li>	
+									<li>Consultar contrato</li>
+									<li>Actualizar estado de contrato</li>
+									<li>Asignaci&oacute;n de t&eacute;cnicos</li>
+									<li>Orden de inicio
+										<ul>
+											<li>Registrar Orden de Inicio</li>
+											<li>Modificar Orden de Inicio</li>
+										</ul>
+									</li>
+									<li>Orden de Cambio
+										<ul>
+											<li>Registrar orden de cambio</li>
+											<li>Modificar orden de cambio</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li>Control y seguimiento
+								<ul>
+									<li>Programaci&oacute;n de avance
+										<ul>
+											<li>Programaci&oacute;n de avance</li>
+											<li>Consultar Programaci&oacute;n</li>
+										</ul>
+									</li>
+									<li>Informe de supervisi&oacute;n
+										<ul>
+											<li>Registrar informe supervisi&oacute;n</li>
+											<li>Modificar informe supervisi&oacute;n</li>
+											<li>Eliminar informe supervisi&oacute;n</li>
+											<li>Consultar informe supervisi&oacute;n</li>
+										</ul>
+									</li>
+									<li>Estimaci&oacute;n de avance
+										<ul>
+											<li>Registrar estimaci&oacute;n de avance</li>
+											<li>Modificar estimaci&oacute;n de avance</li>
+											<li>Eliminar estimaci&oacute;n de avance</li>
+											<li>Consultar estimaci&oacute;n de avance</li>
+										</ul>
+									</li>	
+									<li>Informe t&eacute;cnico
+										<ul>
+											<li>Registrar informe t&eacute;cnico</li>
+											<li>Modificar informe t&eacute;cnico</li>
+											<li>Eliminar informe t&eacute;cnico</li>
+											<li>Consultar Informe T&eacute;cnico</li>
+										</ul>
+									</li>	
+									<li>Actualizar porcentaje de avance en las metas</li>
+								</ul>
+							</li>	
+							<li>Facturas
+								<ul>
+									<li>Registrar factura</li>
+									<li>Modificar factura</li>
+									<li>Eliminar factura</li>
+									<li>Consultar facturas por proyecto</li>
+									<li>Consultar facturas por contrato</li>
+								</ul>
+							</li>	
+							<li>Personal
+								<ul>
+									<li>Registrar personal</li>
+									<li>Modificar personal</li>
+									<li>Eliminar personal</li>
+									<li>Consultar personal</li>
+								</ul>
+							</li>
+							<li>Administraci&oacute;n de usuario
+								<ul>
+									<li>Registrar usuario</li>
+									<li>Modificar usuario</li>
+									<li>Eliminar usuario</li>
+									<li>Habilitar usuario</li>
+								</ul>
+							</li>
+							<li>Reportes
+								<ul>
+									<li>General de proyecto</li>
+									<li>Historial de empresas</li>
+									<li>Consultar avances de contratos</li>
+									<li>Estado de proyecto y contratos</li>
+									<li>Contratos asociados a proyectos</li>
+									<li>Lugares en los que se han desarrollado proyectos</li>
+									<li>Beneficiarios y empleos generados</li>
+									<li>Personal asignado &nbsp;por contrato</li>
+								</ul>
+							</li>
+							<li>Cat&aacute;logos
+								<ul>
+									<li>Empresa</li>
+									<li>Divisi&oacute;n</li>
+									<li>Departamento</li>
+									<li>Municipio</li>
+									<li>Plaza</li>
+									<li>Cargo funcional</li>
+									<li>Roles</li>
+								</ul>
+							</li>
+							<li>Perfil
+								<ul>
+									<li>Modificar perfil</li>
+									<li>Cambiar contrase&ntilde;a</li>
+									<li>Consultar perfil</li>
+								</ul>
+							</li>
 						</ul>
-					</div>	
+				</div>	
+				<div class="content_resize">
 					<div class="mainbar">
 						<div class="article">
 							<?php echo $this->Session->flash(); ?>

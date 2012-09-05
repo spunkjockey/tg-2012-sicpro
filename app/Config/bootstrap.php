@@ -179,3 +179,5 @@ CakeLog::config('error', array(
 	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
 	'file' => 'error',
 ));
+
+Inflector::rules('plural', array('irregular' => array('rol' => 'roles')));
