@@ -369,3 +369,27 @@
 2012-09-04 04:11:58 Error: [MissingControllerException] Controller class ImgController could not be found.
 #0 C:\wamp\www\sicpro2012\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2012-09-05 03:12:09 Error: [MissingControllerException] Controller class ImgController could not be found.
+#0 C:\wamp\www\sicpro2012\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-09-05 03:25:58 Error: [MissingControllerException] Controller class ImgController could not be found.
+#0 C:\wamp\www\sicpro2012\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-09-05 03:26:57 Error: [MissingControllerException] Controller class ImgController could not be found.
+#0 C:\wamp\www\sicpro2012\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-09-05 03:27:47 Error: [MissingControllerException] Controller class ImgController could not be found.
+#0 C:\wamp\www\sicpro2012\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-09-05 03:33:29 Error: [MissingControllerException] Controller class ImgController could not be found.
+#0 C:\wamp\www\sicpro2012\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-09-05 03:56:43 Error: [MissingControllerException] Controller class ImgController could not be found.
+#0 C:\wamp\www\sicpro2012\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-09-05 04:03:45 Error: [MissingControllerException] Controller class ImgController could not be found.
+#0 C:\wamp\www\sicpro2012\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-09-05 04:10:01 Error: [MissingControllerException] Controller class ImgController could not be found.
+#0 C:\wamp\www\sicpro2012\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
