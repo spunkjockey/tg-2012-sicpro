@@ -29,19 +29,13 @@
 				<div class="menu_nav_resize">
 					<ul>
 						<li class="active">
-							<a href="#">Home</a>
+							<a href="#">Inicio</a>
 						</li>
 						<li>
-							<a href="#">Support</a>
+							<a href="#">Como Navegar</a>
 						</li>
 						<li>
-							<a href="#">About Us</a>
-						</li>
-						<li>
-							<a href="#">Blog</a>
-						</li>
-						<li>
-							<a href="#">Contact Us</a>
+							<a href="#">Mapa</a>
 						</li>
 					</ul>
 				</div>
@@ -334,23 +328,17 @@
 			<div class="footer">
 				<div class="footer_resize">
 					<p class="lf">
-						&copy; Copyright MyWebSite. Designed by Blue <a href="http://www.bluewebtemplates.com/">Website Templates</a>
+						&copy; Sistema Informático para Control y Seguimiento de Proyectos. </a>
 					</p>
 					<ul class="fmenu">
 						<li class="active">
-							<a href="#">Home</a>
+							<a href="#">Inicio</a>
 						</li>
 						<li>
-							<a href="#">Support</a>
+							<a href="#">Como Navegar</a>
 						</li>
 						<li>
-							<a href="#">Blog</a>
-						</li>
-						<li>
-							<a href="#">About Us</a>
-						</li>
-						<li>
-							<a href="#">Contacts</a>
+							<a href="#">Mapa</a>
 						</li>
 					</ul>
 					<div class="clr"></div>
@@ -358,9 +346,11 @@
 			</div>
 		</div>
 	</body>
+	<!-- Scripts -->
 	<script>
 		$("document").ready(function(){
 			$("#menu").kendoMenu()
 		})
 	</script>
+
 </html>
