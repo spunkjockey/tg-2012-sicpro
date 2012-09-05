@@ -190,7 +190,7 @@
 									<li>Empresa</li>
 									<li>Divisi&oacute;n</li>
 									<li><?php echo $this->Html->link('Departamentos', array('controller' => 'departamentos','action'=>'index')); ?></li>
-									<li>Municipio</li>
+									<li><?php echo $this->Html->link('Municipios', array('controller' => 'municipios','action'=>'index')); ?></li>
 									<li>Plaza</li>
 									<li>Cargo funcional</li>
 									<li>Roles</li>
