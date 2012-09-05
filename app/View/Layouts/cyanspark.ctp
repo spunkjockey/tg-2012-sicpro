@@ -6,11 +6,16 @@
 		<?php
 		echo $this -> Html -> meta('icon');
 
-		echo $this -> Html -> css('cyanspark/style');
+		echo $this -> Html -> css('style.cyanspark');
+		echo $this -> Html -> css('kendostyles/kendo.common.min');
+		echo $this -> Html-> css('kendostyles/kendo.blueopal.min');
 		
 		echo $this -> Html -> script('cyanspark/cufon-yui');
 		echo $this -> Html -> script('cyanspark/arial');
 		echo $this -> Html -> script('cyanspark/cuf_run');
+		echo $this -> Html -> script('kendojs/jquery.min');
+		echo $this -> Html -> script('kendojs/kendo.web.min');
+		echo $this -> Html -> script('flot/jquery.flot');
 
 		echo $this -> fetch('meta');
 		echo $this -> fetch('css');
@@ -24,19 +29,13 @@
 				<div class="menu_nav_resize">
 					<ul>
 						<li class="active">
-							<a href="index.html">Home</a>
+							<a href="#">Inicio</a>
 						</li>
 						<li>
-							<a href="support.html">Support</a>
+							<a href="#">Como Navegar</a>
 						</li>
 						<li>
-							<a href="about.html">About Us</a>
-						</li>
-						<li>
-							<a href="blog.html">Blog</a>
-						</li>
-						<li>
-							<a href="contact.html">Contact Us</a>
+							<a href="#">Mapa</a>
 						</li>
 					</ul>
 				</div>
@@ -45,27 +44,175 @@
 			<div class="header">
 				<div class="header_resize">
 					<div class="logo">
-						<h1><a href="index.html">Welcome | CyanSpark</a></h1>
+						<h1><a href="#">Welcome | CyanSpark</a></h1>
 					</div>
 				</div>
 			</div>
 			<div class="content">
+				<div class="navmenu" style="margin:0px auto; width: 970px">
+						<ul id="menu">
+							<li>Planeaci&oacute;n
+								<ul>
+									<li>Proyectos
+										<ul>
+											<li>Registrar proyecto</li>
+											<li>Modificar proyecto</li>
+											<li>Asignar n&uacute;mero proyecto</li>
+											<li>Eliminar proyecto</li>
+										</ul>
+									</li>	
+									<li>Ficha t&eacute;cnica
+										<ul>
+											<li>Registrar ficha t&eacute;cnica</li>
+											<li>Modificar ficha t&eacute;cnica</li>
+											<li>Eliminar ficha t&eacute;cnica</li>
+											<li>Consultar ficha t&eacute;cnica</li>
+										</ul>
+									</li>
+									<li>Fuente de financiamiento
+										<ul>
+											<li>Registrar fuente de financiamiento</li>
+											<li>Modificar fuente de financiamiento</li>
+											<li>Eliminar fuente de financiamiento</li>
+											<li>Consultar fuente de financiamiento (en un periodo)</li>
+										</ul>
+									</li>	
+									<li>Asignaci&oacute;n de fondos</li>
+								</ul>
+							</li>
+							<li>Contratos
+								<ul>
+									<li>Constructor
+										<ul>
+											<li>Registrar contrato constructor</li>
+											<li>Modificar contrato constructor</li>
+											<li>Eliminar contrato constructor</li>
+										</ul>
+									</li>
+									<li>Supervisor
+										<ul>
+											<li>Registrar contrato supervisor</li>
+											<li>Modificar contrato supervisor</li>
+											<li>Eliminar contrato supervisor</li>
+										</ul>
+									</li>	
+									<li>Consultar contrato</li>
+									<li>Actualizar estado de contrato</li>
+									<li>Asignaci&oacute;n de t&eacute;cnicos</li>
+									<li>Orden de inicio
+										<ul>
+											<li>Registrar Orden de Inicio</li>
+											<li>Modificar Orden de Inicio</li>
+										</ul>
+									</li>
+									<li>Orden de Cambio
+										<ul>
+											<li>Registrar orden de cambio</li>
+											<li>Modificar orden de cambio</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li>Control y seguimiento
+								<ul>
+									<li>Programaci&oacute;n de avance
+										<ul>
+											<li>Programaci&oacute;n de avance</li>
+											<li>Consultar Programaci&oacute;n</li>
+										</ul>
+									</li>
+									<li>Informe de supervisi&oacute;n
+										<ul>
+											<li>Registrar informe supervisi&oacute;n</li>
+											<li>Modificar informe supervisi&oacute;n</li>
+											<li>Eliminar informe supervisi&oacute;n</li>
+											<li>Consultar informe supervisi&oacute;n</li>
+										</ul>
+									</li>
+									<li>Estimaci&oacute;n de avance
+										<ul>
+											<li>Registrar estimaci&oacute;n de avance</li>
+											<li>Modificar estimaci&oacute;n de avance</li>
+											<li>Eliminar estimaci&oacute;n de avance</li>
+											<li>Consultar estimaci&oacute;n de avance</li>
+										</ul>
+									</li>	
+									<li>Informe t&eacute;cnico
+										<ul>
+											<li>Registrar informe t&eacute;cnico</li>
+											<li>Modificar informe t&eacute;cnico</li>
+											<li>Eliminar informe t&eacute;cnico</li>
+											<li>Consultar Informe T&eacute;cnico</li>
+										</ul>
+									</li>	
+									<li>Actualizar porcentaje de avance en las metas</li>
+								</ul>
+							</li>	
+							<li>Facturas
+								<ul>
+									<li>Registrar factura</li>
+									<li>Modificar factura</li>
+									<li>Eliminar factura</li>
+									<li>Consultar facturas por proyecto</li>
+									<li>Consultar facturas por contrato</li>
+								</ul>
+							</li>	
+							<li>Personal
+								<ul>
+									<li>Registrar personal</li>
+									<li>Modificar personal</li>
+									<li>Eliminar personal</li>
+									<li>Consultar personal</li>
+								</ul>
+							</li>
+							<li>Administraci&oacute;n de usuario
+								<ul>
+									<li>Registrar usuario</li>
+									<li>Modificar usuario</li>
+									<li>Eliminar usuario</li>
+									<li>Habilitar usuario</li>
+								</ul>
+							</li>
+							<li>Reportes
+								<ul>
+									<li>General de proyecto</li>
+									<li>Historial de empresas</li>
+									<li>Consultar avances de contratos</li>
+									<li>Estado de proyecto y contratos</li>
+									<li>Contratos asociados a proyectos</li>
+									<li>Lugares en los que se han desarrollado proyectos</li>
+									<li>Beneficiarios y empleos generados</li>
+									<li>Personal asignado &nbsp;por contrato</li>
+								</ul>
+							</li>
+							<li>Cat&aacute;logos
+								<ul>
+									<li>Empresa</li>
+									<li>Divisi&oacute;n</li>
+									<li><?php echo $this->Html->link('Departamentos', array('controller' => 'departamentos','action'=>'index')); ?></li>
+									<li><?php echo $this->Html->link('Municipios', array('controller' => 'municipios','action'=>'index')); ?></li>
+									<li>Plaza</li>
+									<li>Cargo funcional</li>
+									<li>Roles</li>
+								</ul>
+							</li>
+							<li>Perfil
+								<ul>
+									<li>Modificar perfil</li>
+									<li>Cambiar contrase&ntilde;a</li>
+									<li>Consultar perfil</li>
+								</ul>
+							</li>
+						</ul>
+				</div>	
 				<div class="content_resize">
 					<div class="mainbar">
 						<div class="article">
-							<h2><span>Template License</span></h2>
-							<p>
-								Posted by <a href="#">Owner</a> | Filed under <a href="#">templates</a>, <a href="#">internet</a>
-							</p>
-							<p>
-								This is a free CSS website template by BlueWebTemplates. This work is distributed under the <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>, which means that you are free to use it for any personal or commercial purpose provided you credit me in the form of a link back to BlueWebTemplates.com.
-							</p>
-							<img src="img/cyanspark/img1.jpg" width="287" height="97" alt="" class="fl" /><img src="img/cyanspark/img2.jpg" width="287" height="97" alt="" />
-							<p>
-								<a href="#">Read more</a> | March 16, 2015
-							</p>
+							<?php echo $this->Session->flash(); ?>
+							<?php echo $this->fetch('content'); ?>
 						</div>
-						<div class="article">
+
+						<!--<div class="article">
 							<h2><span>Lorem Ipsum</span> Dolor Sit</h2>
 							<p>
 								Posted by <a href="#">Owner</a> | Filed under <a href="#">templates</a>, <a href="#">internet</a>
@@ -76,11 +223,11 @@
 							<img src="img/cyanspark/img3.jpg" width="287" height="97" alt="" class="fl" /><img src="img/cyanspark/img4.jpg" width="287" height="97" alt="" />
 							<p>
 								<a href="#">Read more</a> | March 15, 2015
-							</p>
-						</div>
+							</p> 
+						</div> -->
 					</div>
 					<div class="sidebar">
-						<div class="searchform">
+						<!-- <div class="searchform">
 							<form id="formsearch" name="formsearch" method="post" action="#">
 								<input name="button_search" src="img/cyanspark/search_btn.gif" class="button_search" type="image" />
 								<span>
@@ -88,7 +235,7 @@
 								</span>
 							</form>
 							<div class="clr"></div>
-						</div>
+						</div> 
 						<div class="gadget">
 							<h2 class="star"><span>Sidebar</span> Menu</h2>
 							<ul class="sb_menu">
@@ -111,39 +258,29 @@
 									<a href="#">Website Templates</a>
 								</li>
 							</ul>
-						</div>
+						</div> -->
 						<div class="gadget">
-							<h2 class="star"><span>Sponsors</span></h2>
+							<h2 class="star"><span>Notificaciones</span></h2>
 							<ul class="ex_menu">
 								<li>
-									<a href="#">DreamTemplate</a>
+									<a href="#">Cambio de Estado Proyecto 0610</a>
 									<br />
-									Over 6,000+ Premium Web Templates
+									El Proyecto 0610 ha cambiado de Licitacion a Iniciado
 								</li>
 								<li>
-									<a href="#">TemplateSOLD</a>
+									<a href="#">Estimacion Registrada</a>
 									<br />
-									Premium WordPress &amp; Joomla Themes
+									Estimacion 01 del Contrato 005/2011 ha sido registrada
 								</li>
 								<li>
-									<a href="#">ImHosted.com</a>
+									<a href="#">Informe Tecnico Registrado</a>
 									<br />
-									Affordable Web Hosting Provider
+									Informe Tecnico de Juan Perez ha sido registrado del contrato 005/2011
 								</li>
 								<li>
-									<a href="#">DreamStock</a>
+									<a href="#">Informe Tecnico Registrado</a>
 									<br />
-									Download Amazing Stock Photos
-								</li>
-								<li>
-									<a href="#">Evrsoft</a>
-									<br />
-									Website Builder Software &amp; Tools
-								</li>
-								<li>
-									<a href="#">MyVectorStore</a>
-									<br />
-									Royalty Free Stock Icons
+									Informe Tecnico de Pedro Lainez ha sido registrado del contrato 006/2011
 								</li>
 							</ul>
 						</div>
@@ -153,12 +290,9 @@
 			</div>
 			<div class="fbg">
 				
-				<div id="content">
-					<?php echo $this->Session->flash(); ?>
-					<?php echo $this->fetch('content'); ?>
-				</div>
+				
 
-				<div class="fbg_resize">
+				<!-- <div class="fbg_resize">
 					<div class="col c1">
 						<h2>Image Galley</h2>
 						<img src="img/cyanspark/pix1.jpg" width="58" height="58" alt="" /><img src="img/cyanspark/pix2.jpg" width="58" height="58" alt="" /><img src="img/cyanspark/pix3.jpg" width="58" height="58" alt="" /><img src="img/cyanspark/pix4.jpg" width="58" height="58" alt="" /><img src="img/cyanspark/pix5.jpg" width="58" height="58" alt="" /><img src="img/cyanspark/pix6.jpg" width="58" height="58" alt="" />
@@ -179,28 +313,22 @@
 						</p>
 					</div>
 					<div class="clr"></div>
-				</div>
+				</div> -->
 			</div>
 			<div class="footer">
 				<div class="footer_resize">
 					<p class="lf">
-						&copy; Copyright MyWebSite. Designed by Blue <a href="http://www.bluewebtemplates.com/">Website Templates</a>
+						&copy; Sistema Informático para Control y Seguimiento de Proyectos. </a>
 					</p>
 					<ul class="fmenu">
 						<li class="active">
-							<a href="index.html">Home</a>
+							<a href="#">Inicio</a>
 						</li>
 						<li>
-							<a href="support.html">Support</a>
+							<a href="#">Como Navegar</a>
 						</li>
 						<li>
-							<a href="blog.html">Blog</a>
-						</li>
-						<li>
-							<a href="about.html">About Us</a>
-						</li>
-						<li>
-							<a href="contact.html">Contacts</a>
+							<a href="#">Mapa</a>
 						</li>
 					</ul>
 					<div class="clr"></div>
@@ -208,4 +336,11 @@
 			</div>
 		</div>
 	</body>
+	<!-- Scripts -->
+	<script>
+		$("document").ready(function(){
+			$("#menu").kendoMenu()
+		})
+	</script>
+
 </html>
