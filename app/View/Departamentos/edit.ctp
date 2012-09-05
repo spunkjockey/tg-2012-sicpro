@@ -1,8 +1,8 @@
-<!-- File: /app/View/Departamentos/add.ctp -->
+<!-- File: /app/View/Departamentos/edit.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Agregar Departamento</h2>
+		<h2>Editar Departamento</h2>
 		<?php echo $this->Form->create('Departamento'); ?>
 		<ul>
 			<li>
@@ -24,17 +24,19 @@
 						'validationMessage' => 'Ingrese Nombre Departamento')); ?>
 			</li>
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar Departamento', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
+				<?php echo $this->Form->end(array('label' => 'Editar Departamento', 'class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
             </li>
 		</ul>
-		
-	</div>
-</div>
-
-            <style scoped>
+		 
+ 
+ 
+   </div>
+  </div>
+ <style scoped>
 
                 .k-textbox {
                     width: 11.8em;

@@ -21,25 +21,24 @@ class DepartamentosController extends AppController {
     }
 	
 	function edit($id = null) {
-		$this->layout = 'minimalism';
-	    $this->Empresa->id = $id;
+		$this->layout = 'cyanspark';
+	    $this->Departamento->id = $id;
 	    if ($this->request->is('get')) {
-	        $this->request->data = $this->Empresa->read();
+	        $this->request->data = $this->Departamento->read();
 	    } else {
-	        if ($this->Empresa->save($this->request->data)) {
-	            $this->Session->setFlash('Empresa ha sido actualizada.');
+	        if ($this->Departamento->save($this->request->data)) {
+	            $this->Session->setFlash('Departamento ha sido actualizado.');
 	            $this->redirect(array('action' => 'index'));
 	        }
 	    }
 	}
 	
 	function delete($id) {
-		$this->layout = 'minimalism';
-	    if (!$this->request->is('post')) {
+		if (!$this->request->is('post')) {
 	        throw new MethodNotAllowedException();
 	    }
-	    if ($this->Empresa->delete($id)) {
-	        $this->Session->setFlash('La empresa con id: ' . $id . ' ha sido eliminada.');
+	    if ($this->Departamento->delete($id)) {
+	        $this->Session->setFlash('El Departamento ha sido eliminado.');
 	        $this->redirect(array('action' => 'index'));
 	    }
 	}
