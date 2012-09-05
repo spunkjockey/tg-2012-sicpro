@@ -66,9 +66,9 @@ class DATABASE_CONFIG {
 		//'port' => '5432',
 		'login' => 'oscar',
 		'password' => 'qwerty',
-		'database' => 'testingdb',
+		'database' => 'sicprodb',
 		'prefix' => '',
-		'schema' => 'public',
+		'schema' => 'sicpro',
 		//'encoding' => 'utf8',
 	);
 
