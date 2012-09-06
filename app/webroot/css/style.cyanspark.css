@@ -17,7 +17,7 @@ a { color:#2ca8b2; text-decoration:underline;}
 .fbg, .footer { padding:16px 0;}
 
 /* header */
-.header { height:237px; background:url(../img/cyanspark/header_bg.jpg) repeat-x center top;}
+.header { height:158px; background:url(../img/cyanspark/header_bg.jpg) repeat-x center top;}
 .header_resize { margin:0 auto; padding:0; width:970px;}
 
 /* menu */

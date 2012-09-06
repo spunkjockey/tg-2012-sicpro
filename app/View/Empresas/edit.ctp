@@ -6,15 +6,6 @@
 		<?php echo $this->Form->create('Empresa'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('nitempresa', 
-					array(
-						'label' => 'NIT Empresa:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Numero de Identificacion Tributaria', 
-						'required', 
-						'validationMessage' => 'Ingrese NIT Empresa')); ?>
-			</li>
-			<li>
 				<?php echo $this->Form->input('nombreempresa', 
 					array(
 						'label' => 'Nombre:', 
@@ -39,6 +30,8 @@
 						'class' => 'k-textbox', 
 						'placeholder' => 'Direccion Empresa', 
 						'required', 
+						"cols"=>"5",
+						"rows"=>"5",
 						'validationMessage' => 'Ingrese Direccion Empresa')); ?>
 			</li>
 			<li>
@@ -75,7 +68,7 @@
  <style scoped>
 
                 .k-textbox {
-                    width: 11.8em;
+                    width: 300px;
                     margin-left: 5px;
                 }
 

@@ -33,19 +33,19 @@ public $useTable = 'empresa';
 			'maxLength' => array(
 	        	'rule'    => array('maxLength', 150),
 	        	'message' => 'El nombre del presentante debe ser maximo 150 caracteres.'
-	        	),
+	        	)
+	        ),
 	    'representantelegal' => array(
 	    	'regla1' => array(
 		        'rule'    => 'notEmpty',
 		        'required' => true,
-		        'message' => 'Debe insgresa el Nombre del  Representante'
+		        'message' => 'Debe ingresa el Nombre del  Representante'
 		    	),
 	        'maxLength' => array(
 	        	'rule'    => array('maxLength', 75),
 	        	'message' => 'El nombre del presentante debe ser maximo 75 caracteres.'
 	    		)
-			)
-		),
+			),
 		'direccionoficina'=> array(
 	        'maxLength' => array(
 	        	'rule'    => array('maxLength', 100),
