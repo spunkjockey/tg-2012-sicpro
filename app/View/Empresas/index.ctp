@@ -12,26 +12,19 @@
 </div> 
 <table id="grid">
     <tr>
-        <th data-field="nitempresa">NIT Empresa</th>
         <th data-field="nombreempresa">Nombre empresa</th>
         <th data-field="representantelegal">Representante Legal</th>
-        <th data-field="direccionoficina">Direccion</th>
         <th data-field="telefonorepresentante">Telefono</th>
-        <th data-field="correorepresentante">E-mail</th>
-        <th data-field="accion" width="175px">Acción</th>
+        <th data-field="accion" width="225px">Acción</th>
     </tr>
 
     <!-- Here is where we loop through our $empresas array, printing out post info -->
 
     <?php foreach ($empresas as $emp): ?>
     <tr>
-        <td><?php echo $emp['Empresa']['nitempresa']; ?></td>
         <td><?php echo $emp['Empresa']['nombreempresa']; ?></td>
         <td><?php echo $emp['Empresa']['representantelegal']; ?></td>
-        <td><?php echo $emp['Empresa']['direccionoficina']; ?></td>
-        <td><?php echo $emp['Empresa']['telefonoempresa']; ?></td>
-        <td><?php echo $emp['Empresa']['correorepresentante']; ?></td>
-        
+        <td><?php echo $emp['Empresa']['telefonoempresa']; ?></td>        
         <td align="center">
             <?php echo $this->Html->link(
             	'Editar', 
@@ -43,6 +36,11 @@
                 array('action' => 'delete', $emp['Empresa']['id']),
                 array('confirm' => '¿Está seguro?','class'=>'k-button')
             )?>
+            <?php echo $this->Html->link(
+            	'Detalles', 
+            	array('action' => 'view', $emp['Empresa']['id']),
+            	array('class'=>'k-button')
+			);?>
             
         </td>
     </tr>
@@ -53,12 +51,32 @@
 <script>
 	$(document).ready(function() {
     	$("#grid").kendoGrid({
+            	dataSource: {
+	           		pageSize: 10,
+            	},
+            	pageable: true,
+            	pageable: {
+            		messages: {
+            			display: "{0} - {1} de {2} Empresas",
+            			empty: "No empresas a mostrar",
+            			page: "Página",
+            			of: "de {0}",
+            			itempsPerPage: "Empresas por página",
+            			first: "Ir a la primera página",
+            			previous: "Ir a la página anterior",
+            			next: "Ir a la siguiente página",
+            			last: "Ir a la última página",
+            			refresh: "Actualizar"
+            		}
+            	},
             	sortable: true,
             	sortable: {
  			    	mode: "single", // enables multi-column sorting
         			allowUnsort: true
 				},
 				scrollable: false
+            	
+            	
         	});
         });
 </script>

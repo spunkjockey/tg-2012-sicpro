@@ -15,12 +15,12 @@ class EmpresasController extends AppController {
     	$this->layout = 'cyanspark';
         $this->set('empresas', $this->Empresa->find('all'));
     }
-/*	
+	
 	public function view($id = null) {
-        $this->Post->id = $id;
-        $this->set('post', $this->Post->read());
+		$this->layout = 'cyanspark';
+        $this->Empresa->id = $id;
+        $this->set('empresas', $this->Empresa->read());
     }
-*/
 
 	
 	public function add() {
@@ -28,7 +28,7 @@ class EmpresasController extends AppController {
         if ($this->request->is('post')) {
             if ($this->Empresa->save($this->request->data)) {
                 $this->Session->setFlash('La Empresa ha sido registrada.');
-                $this->redirect(array('action' => 'add'));
+                $this->redirect(array('action' => 'index'));
             } else {
                 $this->Session->setFlash('No se pudo realizar el registro');
             }

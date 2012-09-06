@@ -6,3 +6,4 @@
  app/tmp/cache/persistent/myapp_cake_core_file_map
  app/tmp/logs/error.logapp/tmp
  app/tmp/cache
+app/tmp

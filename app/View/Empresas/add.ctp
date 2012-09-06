@@ -17,7 +17,7 @@
 			<li>
 				<?php echo $this->Form->input('nombreempresa', 
 					array(
-						'label' => 'Nombre:', 
+						'label' => 'Nombre Empresa:', 
 						'class' => 'k-textbox', 
 						'placeholder' => 'Nombre Empresa', 
 						'required', 
@@ -26,7 +26,7 @@
 			<li>
 				<?php echo $this->Form->input('representantelegal', 
 					array(
-						'label' => 'Nombre:', 
+						'label' => 'Nombre Representante:', 
 						'class' => 'k-textbox', 
 						'placeholder' => 'Nombre del Representante', 
 						'required', 
@@ -38,7 +38,8 @@
 						'label' => 'Direccion:', 
 						'class' => 'k-textbox', 
 						'placeholder' => 'Direccion Empresa', 
-						'required', 
+						"cols"=>"5",
+						"rows"=>"5",
 						'validationMessage' => 'Ingrese Direccion Empresa')); ?>
 			</li>
 			<li>
@@ -74,7 +75,7 @@
             <style scoped>
 
                 .k-textbox {
-                    width: 11.8em;
+                    width: 300px;
                     margin-left: 5px;
                     
                 }

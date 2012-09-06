@@ -29,7 +29,7 @@
 				<div class="menu_nav_resize">
 					<ul>
 						<li class="active">
-							<a href="#">Inicio</a>
+							<?php echo $this->Html->link('Inicio', array('controller' => 'mains','action'=>'index')); ?>
 						</li>
 						<li>
 							<a href="#">Como Navegar</a>
@@ -43,9 +43,7 @@
 			</div>
 			<div class="header">
 				<div class="header_resize">
-					<div class="logo">
-						<h1><a href="#">Welcome | CyanSpark</a></h1>
-					</div>
+
 				</div>
 			</div>
 			<div class="content">
@@ -322,7 +320,7 @@
 					</p>
 					<ul class="fmenu">
 						<li class="active">
-							<a href="#">Inicio</a>
+							<?php echo $this->Html->link('Inicio', array('controller' => 'mains','action'=>'index')); ?>
 						</li>
 						<li>
 							<a href="#">Como Navegar</a>

@@ -8,22 +8,23 @@
 		array('class'=>'k-button')
 	); ?>
 </div> 
+<div id="formulario">
 <table id="grid">
     <tr>
-        <th data-field="codigomunicipio">Código</th>
+        <th data-field="codigomunicipio">Código Municipio</th>
         <th data-field="departamento">Departamento</th>
         <th data-field="municipio">Municipio</th>
-        <th data-field="accion" width="175px">Acción</th>
+        <th data-field="accion">Acción</th>
     </tr>
 
     <!-- Here is where we loop through our $departamentos array, printing out post info -->
 
     <?php foreach ($municipios as $muni): ?>
     <tr>
-        <td><?php echo $muni['Municipio']['codigomunicipio']; ?></td>
+        <td class="numerooo"><?php echo $muni['Municipio']['codigomunicipio']; ?></td>
         <td><?php echo $muni['Departamento']['departamento']; ?></td>
         <td><?php echo $muni['Municipio']['municipio']; ?></td>
-        <td align="center">
+        <td>
             <?php echo $this->Html->link(
             	'Editar', 
             	array('action' => 'edit', $muni['Municipio']['id']),
@@ -41,15 +42,45 @@
     <?php unset($municipios); ?>
 </table>
 
+<style scoped>
+
+                #formulario td { 
+                 
+                    margin: 5px;
+                    padding: 5px;                   
+                }
+</style>
+</div>
 <script>
+
 	$(document).ready(function() {
+		
+		
+		
     	$("#grid").kendoGrid({
+            	height: 300,
             	sortable: true,
             	sortable: {
  			    	mode: "single", // enables multi-column sorting
         			allowUnsort: true
 				},
-				scrollable: false
+				groupable: true,
+         		scrollable: true,
+         		/*scrollable: {
+         			virtual: true
+         		}*/
         	});
         });
+      /*$(window).bind("resize", function() {
+			    var gridElement = $("#grid"),
+			        newHeight = gridElement.innerHeight(),
+			        otherElements = gridElement.children().not(".k-grid-content"),
+			        otherElementsHeight = 0;
+			
+			    otherElements.each(function(){
+			        otherElementsHeight += $(this).outerHeight();
+			    });
+			
+			    gridElement.children(".k-grid-content").height(newHeight - otherElementsHeight);
+			});*/
 </script>
