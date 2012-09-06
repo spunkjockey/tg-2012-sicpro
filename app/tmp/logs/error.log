@@ -204,6 +204,22 @@
 2012-09-02 18:01:23 Error: [MissingControllerException] Controller class CssController could not be found.
 #0 C:\wamp\www\sicpro2012\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+<<<<<<< HEAD
+2012-09-02 18:18:19 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 C:\wamp\www\tg-2012-sicpro\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-09-02 18:18:19 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 C:\wamp\www\tg-2012-sicpro\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-09-02 18:18:19 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 C:\wamp\www\tg-2012-sicpro\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-09-02 18:18:19 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 C:\wamp\www\tg-2012-sicpro\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2012-09-02 18:18:19 Error: [MissingControllerException] Controller class CssController could not be found.
+#0 C:\wamp\www\tg-2012-sicpro\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+=======
 2012-09-03 00:20:23 Error: [MissingControllerException] Controller class CssController could not be found.
 #0 C:\wamp\www\sicpro2012\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
@@ -729,6 +745,7 @@
 #1 {main}
 2012-09-05 20:24:50 Error: [MissingControllerException] Controller class ImgController could not be found.
 #0 C:\wamp\www\sicpro2012\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+>>>>>>> e8348ea91bd4148ec8148a5c7edf4f1f69d98125
 #1 {main}
 2012-09-05 20:55:11 Error: [MissingControllerException] Controller class ImgController could not be found.
 #0 C:\wamp\www\sicpro2012\app\webroot\index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
