@@ -2,30 +2,38 @@
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Editar Departamento</h2>
-		<?php echo $this->Form->create('Departamento'); ?>
+		<h2>Editar Municipio</h2>
+		<?php echo $this->Form->create('Municipio'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('codigodepartamento', 
+				<?php echo $this->Form->input('codigodepartamento',
 					array(
 						'label' => 'Codigo Departamento:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'ej. 15', 
-						'required', 
-						'validationMessage' => 'Ingrese Codigo Departamento')); ?>
+						'class' => 'k-textbox',
+						'disabled' )); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('departamento', 
+				<?php echo $this->Form->input('codigomunicipio', 
 					array(
-						'label' => 'Departamento:', 
+						'label' => 'Codigo Municipio:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre Departamento', 
+						'placeholder' => 'ej. 07', 
 						'required', 
-						'validationMessage' => 'Ingrese Nombre Departamento')); ?>
+						'validationMessage' => 'Ingrese Codigo Municipio')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('municipio', 
+					array(
+						'label' => 'Municipio:', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Nombre Municipio', 
+						'required', 
+						'validationMessage' => 'Ingrese Nombre Municipio')); ?>
 			</li>
 			<li  class="accept">
 				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
-				<?php echo $this->Form->end(array('label' => 'Editar Departamento', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->input('departamento_id', array('type' => 'hidden')); ?>
+				<?php echo $this->Form->end(array('label' => 'Editar Municipio', 'class' => 'k-button')); ?>
 			</li>
             
             <li class="status">

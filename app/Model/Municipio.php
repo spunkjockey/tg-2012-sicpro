@@ -17,10 +17,6 @@ class Municipio extends AppModel {
 	            'message' => 'Solo números son permitidos',
 	            'last'    => true
 	         ),
-	        'isUnique' => array(
-	            'rule'    => 'isUnique',
-	            'message' => 'El Codigo Municipio ya ha sido ingresado'
-	        ),
 	        'minLenght' => array(
 	            'rule'    => array('minLength', 2),
         		'message' => 'Codigo Municipio debe de tener al menos 2 caracteres.'
@@ -34,7 +30,7 @@ class Municipio extends AppModel {
 	            'message' => 'El Municipio ya existe'
 	        ),
 	    'soloLetras' => array(
-			'rule'    => '/^[a-zA-Z][a-zA-Z\s]{2,}$/i',
+			'rule'    => '/^[a-zA-Z][a-zA-ZáéíóúAÉÍÓÚÑñ\s]{2,}$/i',
         	'message' => 'Solo Letras'
 			)
 		),

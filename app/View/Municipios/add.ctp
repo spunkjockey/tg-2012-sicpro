@@ -1,30 +1,39 @@
-<!-- File: /app/View/Departamentos/add.ctp -->
+<!-- File: /app/View/Municipios/add.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Agregar Departamento</h2>
-		<?php echo $this->Form->create('Departamento'); ?>
+		<h2>Agregar Municipio</h2>
+		<?php echo $this->Form->create('Municipio'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('codigodepartamento', 
-					array(
-						'label' => 'Codigo Departamento:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'ej. 15', 
-						'required', 
-						'validationMessage' => 'Ingrese Codigo Departamento')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('departamento', 
+				<?php echo $this->Form->input('departamentos',
 					array(
 						'label' => 'Departamento:', 
+						'id' => 'select',
+						//'selected' => '05',
+						'empty' => 'Seleccione...', 
+						'required' )); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('codigomunicipio', 
+					array(
+						'label' => 'Codigo Municipio:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre Departamento', 
+						'placeholder' => 'ej. 01', 
 						'required', 
-						'validationMessage' => 'Ingrese Nombre Departamento')); ?>
+						'validationMessage' => 'Ingrese Codigo Municipio')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('municipio', 
+					array(
+						'label' => 'Municipio:', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Nombre Municipio', 
+						'required', 
+						'validationMessage' => 'Ingrese Nombre Municipio')); ?>
 			</li>
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar Departamento', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->end(array('label' => 'Registrar Municipio', 'class' => 'k-button')); ?>
 				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
 			</li>
             
@@ -109,4 +118,11 @@
                         }
                     });
                 });
+                
+               /* $("#select").kendoComboBox({
+			         //placeholder: "Seleccionar...",
+			         //index: -1,
+			         suggest: true
+			    });*/
+                var select = $("#select").data("kendoComboBox");
             </script>

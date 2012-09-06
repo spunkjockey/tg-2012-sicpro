@@ -29,7 +29,7 @@ class Departamento extends AppModel {
 	            'message' => 'El Departamento ya existe'
 	        ),
 	    'soloLetras' => array(
-			'rule'    => '/^[a-zA-Z][a-zA-Z\s]{2,}$/i',
+			'rule'    => '/^[a-zA-Z][a-zA-ZáéíóúAÉÍÓÚÑñ\s]{2,}$/i',
         	'message' => 'Solo Letras'
 			)
 		),
