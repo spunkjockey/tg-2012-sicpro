@@ -8,7 +8,9 @@
 			<li>
 				<?php echo $this->Form->input('nitempresa', 
 					array(
-						'label' => 'NIT Empresa:', 
+						'label' => 'NIT Empresa:',
+						//'type' => 'text',
+						//'maxlength'=>'14', 
 						'class' => 'k-textbox', 
 						'placeholder' => 'Numero de Identificacion Tributaria', 
 						'required', 

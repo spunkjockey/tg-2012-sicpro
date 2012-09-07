@@ -1,6 +1,7 @@
 <?php
 class Empresa extends AppModel {
 public $useTable = 'empresa';
+//public $primaryKey = 'nitempresa';
 
 	public $validate = array(
 		'nitempresa' => array(

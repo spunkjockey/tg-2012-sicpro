@@ -1,7 +1,7 @@
 <?php
 class EmpresasController extends AppController {
-    public $helpers = array('Html', 'Form');
-	
+    public $helpers = array('Html', 'Form', 'Session');
+    public $components = array('Session');
 	/*public $components = array(
     'Session',
     'Auth' => array(
@@ -26,13 +26,13 @@ class EmpresasController extends AppController {
 	public function add() {
 		$this->layout = 'cyanspark';
         if ($this->request->is('post')) {
-            if ($this->Empresa->save($this->request->data)) {
-                $this->Session->setFlash('La Empresa ha sido registrada.');
-                $this->redirect(array('action' => 'index'));
-            } else {
-                $this->Session->setFlash('No se pudo realizar el registro');
-            }
-        }
+			if ($this->Empresa->save($this->request->data)) {
+            	$this->Session->setFlash('La Empresa ha sido registrada.');
+            	$this->redirect(array('action' => 'index'));
+        	} else {
+            	$this->Session->setFlash('No se pudo realizar el registro');
+        	}
+		}
     }
 
 	function edit($id = null) {
