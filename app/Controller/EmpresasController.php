@@ -42,9 +42,11 @@ class EmpresasController extends AppController {
 	        $this->request->data = $this->Empresa->read();
 	    } else {
 	        if ($this->Empresa->save($this->request->data)) {
-	            $this->Session->setFlash('Empresa ha sido actualizado.');
+	            $this->Session->setFlash('Empresa ha sido actualizada.');
 	            $this->redirect(array('action' => 'index'));
-	        }
+	        } else {
+            	$this->Session->setFlash('Imposible editar Empresa');
+        	}
 	    }
 	}
 	
