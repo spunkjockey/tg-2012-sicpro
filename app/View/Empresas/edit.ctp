@@ -8,7 +8,7 @@
 			<li>
 				<?php echo $this->Form->input('nombreempresa', 
 					array(
-						'label' => 'Nombre:', 
+						'label' => 'Empresa:', 
 						'class' => 'k-textbox', 
 						'placeholder' => 'Nombre Empresa', 
 						'required', 
@@ -17,7 +17,7 @@
 			<li>
 				<?php echo $this->Form->input('representantelegal', 
 					array(
-						'label' => 'Nombre:', 
+						'label' => 'Representante:', 
 						'class' => 'k-textbox', 
 						'placeholder' => 'Nombre del Representante', 
 						'required', 
@@ -54,6 +54,7 @@
 			</li>		
 		<li  class="accept">
 				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
+				<?php echo $this->Form->input('nitempresa', array('type' => 'hidden')); ?>
 				<?php echo $this->Form->end(array('label' => 'Editar Empresa', 'class' => 'k-button')); ?>
 			</li>
             
