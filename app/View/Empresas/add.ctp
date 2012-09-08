@@ -82,7 +82,7 @@
                     
                 }
 				
-				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
+				
 			
                 #formulario {
                     width: 600px;

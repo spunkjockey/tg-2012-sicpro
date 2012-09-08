@@ -20,6 +20,12 @@ class Municipio extends AppModel {
 	        'minLenght' => array(
 	            'rule'    => array('minLength', 2),
         		'message' => 'Codigo Municipio debe de tener al menos 2 caracteres.'
+	        ),
+	      	'isUnique' => array(
+	            'rule'    => 'isUnique',
+	            'required' => true,
+	            'allowEmpty' => false,
+	            'message' => 'El Municipio ya existe'
 	        )
 	    ),
 	    'municipio' => array(
@@ -30,7 +36,7 @@ class Municipio extends AppModel {
 	            'message' => 'El Municipio ya existe'
 	        ),
 	    'soloLetras' => array(
-			'rule'    => '/^[a-zA-Z][a-zA-ZáéíóúAÉÍÓÚÑñ\s]{2,}$/i',
+			'rule'    => '/^[a-zA-ZáéíóúAÉÍÓÚÑñ\s]{2,}$/i',
         	'message' => 'Solo Letras'
 			)
 		),
