@@ -124,6 +124,7 @@
                 }
             </style>
             
+            
             <script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
