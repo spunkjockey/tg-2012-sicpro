@@ -2,14 +2,33 @@
 
 <div id="example" class="k-content">
 	<div id="formulario">
+		
+		<?php echo $this->element('helpbox', array(
+    "helptext" => "Oh, this text is very helpful."
+)); ?>
+		
+		<div id="post">
+		</div>
+		<?php
+			echo $this->ajax->remoteTimer(
+			array(
+				'url' => array( 'controller' => 'departamentos', 'action' => 'pruebaajax'),
+				'update' => 'post', 'position' => 'append', 'frequency' => 1
+				)
+			);
+		?> 
 		<h2>Agregar Departamento</h2>
 		<?php echo $this->Form->create('Departamento'); ?>
+		<?php $this->Form->inputDefaults(array(
+				'label' => false,
+        		'div' => false,
+        		'class' => 'k-textbox'
+    		)); ?>
 		<ul>
 			<li>
 				<?php echo $this->Form->input('codigodepartamento', 
 					array(
 						'label' => 'Codigo Departamento:', 
-						'class' => 'k-textbox', 
 						'placeholder' => 'ej. 15', 
 						'required', 
 						'validationMessage' => 'Ingrese Codigo Departamento')); ?>
@@ -18,7 +37,6 @@
 				<?php echo $this->Form->input('departamento', 
 					array(
 						'label' => 'Departamento:', 
-						'class' => 'k-textbox', 
 						'placeholder' => 'Nombre Departamento', 
 						'required', 
 						'validationMessage' => 'Ingrese Nombre Departamento')); ?>

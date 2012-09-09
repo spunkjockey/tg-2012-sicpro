@@ -68,7 +68,7 @@ class DATABASE_CONFIG {
 		'password' => 'qwerty',
 		'database' => 'sicprodb',
 		'prefix' => '',
-		'schema' => 'sicpro',
+		'schema' => 'sicpro2012',
 		//'encoding' => 'utf8',
 	);
 
