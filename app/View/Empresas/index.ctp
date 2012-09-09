@@ -28,17 +28,17 @@
         <td align="center">
             <?php echo $this->Html->link(
             	'Editar', 
-            	array('action' => 'edit', $emp['Empresa']['id']),
+            	array('action' => 'edit', $emp['Empresa']['idempresa']),
             	array('class'=>'k-button')
 			);?>
             <?php echo $this->Form->postLink(
                 'Eliminar',
-                array('action' => 'delete', $emp['Empresa']['id']),
+                array('action' => 'delete', $emp['Empresa']['idempresa']),
                 array('confirm' => '¿Está seguro?','class'=>'k-button')
             )?>
             <?php echo $this->Html->link(
             	'Detalles', 
-            	array('action' => 'view', $emp['Empresa']['id']),
+            	array('action' => 'view', $emp['Empresa']['idempresa']),
             	array('class'=>'k-button')
 			);?>
             
