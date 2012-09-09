@@ -1367,7 +1367,7 @@ class AjaxHelper extends AppHelper {
  * @access public
  */
  //TODO Moze jednak to kiedys naprawics
-	function afterRender() {
+	function afterRender($viewFile=null) {
 		if (env('HTTP_X_UPDATE') != null && !empty($this->__ajaxBuffer)) {
 			@ob_end_clean();
 
