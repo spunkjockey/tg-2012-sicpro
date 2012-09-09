@@ -2,7 +2,8 @@
 class Departamento extends AppModel {
 	public $name = 'Departamento';
 	public $useTable = 'departamento';
-    
+    public $primaryKey = 'iddepartamento';
+	
     public $validate = array(
 		'codigodepartamento' => array(
 	    	'numeric' => array(

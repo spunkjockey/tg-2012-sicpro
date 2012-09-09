@@ -24,12 +24,12 @@
         <td align="center">
             <?php echo $this->Html->link(
             	'Editar', 
-            	array('action' => 'edit', $depto['Departamento']['id']),
+            	array('action' => 'edit', $depto['Departamento']['iddepartamento']),
             	array('class'=>'k-button')
 			);?>
             <?php echo $this->Form->postLink(
                 'Eliminar',
-                array('action' => 'delete', $depto['Departamento']['id']),
+                array('action' => 'delete', $depto['Departamento']['iddepartamento']),
                 array('confirm' => '¿Está seguro?','class'=>'k-button')
             )?>
             

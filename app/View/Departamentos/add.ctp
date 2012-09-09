@@ -13,7 +13,7 @@
 			echo $this->ajax->remoteTimer(
 			array(
 				'url' => array( 'controller' => 'departamentos', 'action' => 'pruebaajax'),
-				'update' => 'post', 'position' => 'append', 'frequency' => 1
+				'update' => 'post', 'position' => 'append', 'frequency' => 10
 				)
 			);
 		?> 

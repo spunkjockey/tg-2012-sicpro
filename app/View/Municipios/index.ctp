@@ -27,12 +27,12 @@
         <td>
             <?php echo $this->Html->link(
             	'Editar', 
-            	array('action' => 'edit', $muni['Municipio']['id']),
+            	array('action' => 'edit', $muni['Municipio']['idmunicipio']),
             	array('class'=>'k-button')
 			);?>
             <?php echo $this->Form->postLink(
                 'Eliminar',
-                array('action' => 'delete', $muni['Municipio']['id']),
+                array('action' => 'delete', $muni['Municipio']['idmunicipio']),
                 array('confirm' => '¿Está seguro?','class'=>'k-button')
             )?>
             

@@ -6,11 +6,13 @@
 		<?php echo $this->Form->create('Municipio'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('codigodepartamento',
+				<?php echo $this->Form->input('iddepartamento', 
 					array(
 						'label' => 'Codigo Departamento:', 
-						'class' => 'k-textbox',
-						'disabled' )); ?>
+						'class' => 'k-textbox', 
+						'placeholder' => 'ej. 07', 
+						'required', 
+						'validationMessage' => 'Ingrese Codigo Departamento')); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('codigomunicipio', 
@@ -114,5 +116,7 @@
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
+                    
+                    var select = $("#select").data("kendoComboBox");
                 });
             </script>
