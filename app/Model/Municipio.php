@@ -26,7 +26,7 @@ class Municipio extends AppModel {
 	            'rule'    => 'isUnique',
 	            'required' => true,
 	            'allowEmpty' => false,
-	            'message' => 'El Municipio ya existe'
+	            'message' => 'El Codigo de Municipio ya existe'
 	        )
 	    ),
 	    'municipio' => array(
