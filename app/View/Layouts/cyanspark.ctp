@@ -40,6 +40,12 @@
 					</ul>
 				</div>
 				<div class="clr"></div>
+				
+			</div>
+			<div class="usuario">
+				<?php echo 'Bienvenido ' . 
+					$this->Session->read('User.username') . ' ' . 
+					$this->Html->link('Cerrar Sesión', array('controller' => 'users','action'=>'logout')); ?> 
 			</div>
 			<div class="header">
 				<div class="header_resize">

@@ -10,7 +10,7 @@
 					array(
 						'label' => 'Departamento:', 
 						'id' => 'select',
-						//'selected' => '05',
+						'selected' => '05',
 						'empty' => 'Seleccione...', 
 						'required' )); ?>
 			</li>
@@ -31,6 +31,13 @@
 						'placeholder' => 'Nombre Municipio', 
 						'required', 
 						'validationMessage' => 'Ingrese Nombre Municipio')); ?>
+			</li>
+						<li>
+				<?php echo $this->Form->input('fecha', 
+					array(
+						'label' => 'Fecha:', 
+						'id' => 'fechapicker', 
+						 )); ?>
 			</li>
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar Municipio', 'class' => 'k-button')); ?>
@@ -119,10 +126,18 @@
                     });
                 });
                 
-               /* $("#select").kendoComboBox({
+                $("#select").kendoComboBox({
 			         //placeholder: "Seleccionar...",
 			         //index: -1,
 			         suggest: true
-			    });*/
-                var select = $("#select").data("kendoComboBox");
+			    });
+               // var select = $("#select").data("kendoComboBox");
+               
+                $("#fechapicker").kendoDatePicker({
+                	
+                	value: new Date(),
+       				min: new Date(2008, 0, 1),
+       				max: new Date(2049, 11, 31)
+                	
+                });
             </script>
