@@ -647,6 +647,7 @@ class JavascriptHelper extends AppHelper {
  * @param boolean $quoteStrings If false, leaves string values unquoted
  * @return string a JavaScript-safe/JSON representation of $val
  */
+ /*
 	function value($val, $quoteStrings = true) {
 		switch (true) {
 			case (is_array($val) || is_object($val)):
@@ -673,12 +674,13 @@ class JavascriptHelper extends AppHelper {
 		}
 		return $val;
 	}
+ */
 /**
  * AfterRender callback.  Writes any cached events to the view, or to a temp file.
  *
  * @return null
  */
-	function afterRender() {
+	function afterRender($viewFile=null) {
 		if (!$this->enabled) {
 			return;
 		}
