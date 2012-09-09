@@ -16,6 +16,7 @@
 		echo $this -> Html -> script('kendojs/jquery.min');
 		echo $this -> Html -> script('kendojs/kendo.web.min');
 		echo $this -> Html -> script('flot/jquery.flot');
+		echo $this -> Html -> script('jquery.maskedinput-1.3.min');
 
 		echo $this -> fetch('meta');
 		echo $this -> fetch('css');

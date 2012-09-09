@@ -26,12 +26,21 @@ class EmpresasController extends AppController {
 	public function add() {
 		$this->layout = 'cyanspark';
         if ($this->request->is('post')) {
-			if ($this->Empresa->save($this->request->data)) {
-            	$this->Session->setFlash('La Empresa ha sido registrada.');
-            	$this->redirect(array('action' => 'index'));
-        	} else {
-            	$this->Session->setFlash('No se pudo realizar el registro');
-        	}
+        	//$this->Empresa->set($this->request->data);
+        	//if ($this->Empresa->validates()) {
+				    // it validated logic
+				    if ($this->Empresa->save($this->request->data, array('validate' => true, 'callbacks' => true))) {
+		            	$this->Session->setFlash('La Empresa ha sido registrada.');
+		            	$this->redirect(array('action' => 'index'));
+		        	} else {
+		            	$this->Session->setFlash('No se pudo realizar el registro' . $this->data['Empresa']['nitempresa'] );
+		        	}
+				/*} else {
+				    // didn't validate logic
+				    $errors = $this->Empresa->validationErrors;
+				}*/
+				
+			
 		}
     }
 
