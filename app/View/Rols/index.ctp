@@ -20,5 +20,7 @@ array('controller' => 'rols', 'action' => 'view', $rol['rol']['id'])); ?>
         <td><?php echo $rol['Rol']['created']; ?></td>
     </tr>
     <?php endforeach; ?>
+    
+    <?php echo $this->Html->link('Add Rol', array('controller' => 'rols', 'action' => 'add')); ?>
 
 </table>
