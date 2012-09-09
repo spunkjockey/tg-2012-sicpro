@@ -11,9 +11,10 @@
 						'label' => 'NIT Empresa:',
 						//'type' => 'text',
 						//'maxlength'=>'14', 
+						'id'	=>	'nit',
 						'class' => 'k-textbox', 
 						'placeholder' => 'Numero de Identificacion Tributaria', 
-						'required', 
+						/*'required',*/ 
 						'validationMessage' => 'Ingrese NIT Empresa')); ?>
 			</li>
 			<li>
@@ -49,8 +50,8 @@
 					array(
 						'label' => 'Telefono:', 
 						'class' => 'k-textbox', 
+						'id'	=>	'phone',
 						'placeholder' => 'Telefono Empresa', 
-						'required', 
 						'validationMessage' => 'Ingrese Telefono Empresa')); ?>
 			</li>	
 			<li>
@@ -147,5 +148,9 @@
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
+                    
+                    $("#phone").mask("9999-9999");
+                    
+                   $("#nit").mask("9999-999999-999-9");
                 });
             </script>
