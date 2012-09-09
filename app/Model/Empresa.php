@@ -4,6 +4,7 @@ public $useTable = 'empresa';
 //public $primaryKey = 'nitempresa';
 
 
+
 	public $validate = array(
 		'nitempresa' => array(
 	    	'numeric' => array(
