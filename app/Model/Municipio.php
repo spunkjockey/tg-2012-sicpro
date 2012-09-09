@@ -2,10 +2,11 @@
 class Municipio extends AppModel {
 	public $name = 'Municipio';
 	public $useTable = 'municipio';
+	public $primaryKey = 'idmunicipio';
     public $belongsTo = array(
         'Departamento' => array(
             'className'    => 'Departamento',
-            'foreignKey'   => 'departamento_id'
+            'foreignKey'   => 'iddepartamento'
         )
     );
     public $validate = array(
@@ -40,5 +41,14 @@ class Municipio extends AppModel {
         	'message' => 'Solo Letras'
 			)
 		),
+		'iddepartamento' => array(
+	    	'numeric' => array(
+	        	'rule'    => 'numeric',
+	        	'required' => true,
+	        	'allowEmpty' => false,
+	            'message' => 'Solo números son permitidos',
+	            'last'    => true
+	         )
+		)
 	);
 }
