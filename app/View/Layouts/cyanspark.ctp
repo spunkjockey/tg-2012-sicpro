@@ -68,7 +68,7 @@
 									</li>	
 									<li>Ficha t&eacute;cnica
 										<ul>
-											<li>Registrar ficha t&eacute;cnica</li>
+											<li><?php echo $this->Html->link('Registrar Ficha TEcnica', array('controller' => 'Fichatecnicas','action'=>'add')); ?></li>
 											<li>Modificar ficha t&eacute;cnica</li>
 											<li>Eliminar ficha t&eacute;cnica</li>
 											<li>Consultar ficha t&eacute;cnica</li>
