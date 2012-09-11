@@ -14,7 +14,6 @@
 				$this->Proyecto->set('userc', $this->Session->read('User.username'));
 				$this->Proyecto->set('estadoproyecto', 'Planeacion');
 		if ($this->Proyecto->save()) {
-			
 				$this->Session->setFlash('El proyecto ha sido registrado');
                 $this->redirect(array('controller'=>'mains', 'action' => 'index'));
             }

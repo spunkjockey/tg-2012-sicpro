@@ -21,16 +21,16 @@
 						'id' => 'select',
 						'empty' => 'Seleccione...',
 						'required', 
-						'validationMessage' => 'Ingrese el Nombre de la Empresa')); ?>
+						'validationMessage' => 'Seleccione una división')); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('montoplaneado', 
 					array(
-						'label' => 'Monto planeado:', 
+						'label' => 'Monto planeado: ($)', 
 						'class' => 'k-textbox', 
-						'placeholder' => '',
+						'placeholder' => '9999.99',
 						'required',
-						'validationMessage' => 'Ingrese un monto planeado')); ?>
+						'validationMessage' => 'Ingrese un monto planeado ($)')); ?>
 			</li>
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar proyecto', 'class' => 'k-button')); ?>
