@@ -174,7 +174,8 @@
  */
 	Configure::write('Session', array(
 		'defaults' => 'php',
-		'cookie' => 'cakephpsicpro'
+		'cookie' => 'cakephpsicpro',
+		'timeout' => 480
 	));
 
 /**

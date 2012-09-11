@@ -31,7 +31,9 @@ class UsersController extends AppController {
 	}
 	
 	public function logout() {
+    	$this->Session->destroy();
     	$this->redirect($this->Auth->logout());
+		
 	}
 
     public function view($id = null) {

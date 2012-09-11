@@ -45,7 +45,8 @@ class DepartamentosController extends AppController {
 	}
 
 	function pruebaajax() {
-		 $this->set('helptext', 'Oh, this text is very helpful.');
+			
+		$this->set('helptext', 'Oh, this text is very helpful. ' . date("d-m-Y H:i:s"));
 		$this->render('/elements/helpbox', 'ajax');
 	}
 	
