@@ -82,4 +82,21 @@ public $primaryKey = 'idempresa';
 	    	)
 		),
 	);
+	
+	
+		
+	public function beforeValidate($options = array()) {
+		parent::beforeValidate(); 
+	    if (!empty($this->data['Empresa']['nitempresa']) && !empty($this->data['Empresa']['telefonoempresa'])) {
+	        $this->data['Empresa']['nitempresa'] = $this->numberFormatBeforeSave($this->data['Empresa']['nitempresa']);
+	        $this->data['Empresa']['telefonoempresa'] = $this->numberFormatBeforeSave($this->data['Empresa']['telefonoempresa']);
+	    }
+	    return true;
+	}
+	
+	public function numberFormatBeforeSave($numberString) {
+	    return str_replace("-", "", $numberString);
+	}
+	
+	
 }
