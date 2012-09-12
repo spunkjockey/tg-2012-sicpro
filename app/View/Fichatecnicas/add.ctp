@@ -1,21 +1,93 @@
-<!-- File: /app/View/Division/add.ctp -->
+<!-- File: /app/View/Fichatecnicas/add.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar división</h2>
-		<?php echo $this->Form->create('Division'); ?>
+		<h2>Registrar Ficha Tecnica</h2>
+		
+				<?php echo $this->Form->create('Fichastecnicas'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('divison', 
+				<?php echo $this->Form->input('proyectos',
 					array(
-						'label' => 'Nombre de división:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre de división', 
-						'required', 
-						'validationMessage' => 'Ingrese nombre de división')); ?>
+						'label' => 'Proyectos:', 
+						'id' => 'select',
+						'selected' => '05',
+						'empty' => 'Seleccione...', 
+						'required' )); ?>
 			</li>
+			<li>
+				<?php echo $this->Form->input('problemantica', 
+					array(
+						'label' => 'Problematica: ', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Problematica',
+						"rows"=>"5", 
+						'required', 
+						'validationMessage' => 'Ingrese la Problematica')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('objgeneral', 
+					array(
+						'label' => 'Objetivo General: ', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Objetivo General',
+						"rows"=>"2",  
+						'required', 
+						'validationMessage' => 'Ingrese el Objetivo General')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('objespecifico', 
+					array(
+						'label' => 'Objetivo Especifico: ', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Objetivo Especifico',
+						"rows"=>"2", 
+						'required', 
+						'validationMessage' => 'Ingrese el Objetivo Especifico')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('descripcionproyecto', 
+					array(
+						'label' => 'Descripcion : ', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Descipcion',
+						"rows"=>"6", 
+						'required', 
+						'validationMessage' => 'Ingrese la Descripcion del Proyecto')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('empleosgenerados', 
+					array(
+						'label' => 'Empleos Generados: ', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Empleos Generados', 
+						'required', 
+						'validationMessage' => 'Ingrese la cantidad de empleos')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('beneficiarios', 
+					array(
+						'label' => 'Beneficiarios: ', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Beneficiarios',
+						"rows"=>"2", 
+						'required', 
+						'validationMessage' => 'Ingrese Beneficiarios')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('resutladosesperados', 
+					array(
+						'label' => 'Resultados: ', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Resultados Esperados',
+						"rows"=>"3", 
+						'required', 
+						'validationMessage' => 'Ingrese los Resultados Esperados')); ?>
+			</li>							
+			
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar proyecto', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->end(array('label' => 'Registrar Empresa', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
@@ -24,7 +96,7 @@
 	</div>
 </div>
 
-			<style scoped>
+ <style scoped>
 
                 .k-textbox {
                     width: 300px;
@@ -32,7 +104,7 @@
                     
                 }
 				
-				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
+				
 			
                 #formulario {
                     width: 600px;
@@ -83,9 +155,9 @@
                 span.k-tooltip {
                     margin-left: 6px;
                 }
-            </style>
-			
-			<script>
+</style>
+
+<script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
@@ -102,8 +174,7 @@
                 $("#select").kendoComboBox({
 			         //placeholder: "Seleccionar...",
 			         //index: -1,
-					 width: 300,
 			         suggest: true
 			    });
                // var select = $("#select").data("kendoComboBox");
-            </script>
+</script>

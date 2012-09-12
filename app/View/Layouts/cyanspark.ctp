@@ -68,7 +68,7 @@
 									</li>	
 									<li>Ficha t&eacute;cnica
 										<ul>
-											<li>Registrar ficha t&eacute;cnica</li>
+											<li><?php echo $this->Html->link('Registrar Ficha TEcnica', array('controller' => 'Fichatecnicas','action'=>'add')); ?></li>
 											<li>Modificar ficha t&eacute;cnica</li>
 											<li>Eliminar ficha t&eacute;cnica</li>
 											<li>Consultar ficha t&eacute;cnica</li>
@@ -193,7 +193,7 @@
 							<li>Cat&aacute;logos
 								<ul>
 									<li><?php echo $this->Html->link('Empresas', array('controller' => 'empresas','action'=>'index')); ?></li>
-									<li>Divisi&oacute;n</li>
+									<li><?php echo $this->Html->link('División', array('controller' => 'divisions','action'=>'index')); ?></li>
 									<li><?php echo $this->Html->link('Departamentos', array('controller' => 'departamentos','action'=>'index')); ?></li>
 									<li><?php echo $this->Html->link('Municipios', array('controller' => 'municipios','action'=>'index')); ?></li>
 									<li>Plaza</li>

@@ -1,39 +1,70 @@
-<!-- File: /app/View/Division/add.ctp -->
+<!-- File: /app/View/fuentefinanciamiento/edit.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar división</h2>
-		<?php echo $this->Form->create('Division'); ?>
+		<h2>Editar Fuente de Financiamiento</h2>
+		<?php echo $this->Form->create('Fuentefinanciamiento'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('divison', 
+				<?php echo $this->Form->input('nombrefuente', 
 					array(
-						'label' => 'Nombre de división:', 
+						'label' => 'Fuente:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre de división', 
+						'placeholder' => 'Nombre Fuente de Financiamiento', 
 						'required', 
-						'validationMessage' => 'Ingrese nombre de división')); ?>
+						'validationMessage' => 'Ingrese Nombre de Fuente de Financiamiento')); ?>
 			</li>
-			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar proyecto', 'class' => 'k-button')); ?>
+			<li>
+				<?php echo $this->Form->input('montoinicial', 
+					array(
+						'label' => 'Monto:', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Monto Inicial', 
+						'required', 
+						'validationMessage' => 'Ingrese el Monto Inicial')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('fechadisponibilidad', 
+					array(
+						'label' => 'Fecha:', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Fecha  de Disponibilidad', 
+						'required', 
+						"cols"=>"5",
+						"rows"=>"5",
+						'validationMessage' => 'Ingrese Fecha  de Disponibilidad')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('tipofuente', 
+					array(
+						'label' => 'Tipo:', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Tipo de Fuente de financiamiento', 
+						'required', 
+						'validationMessage' => 'Ingrese Tipo de Fuente')); ?>
+			</li>	
+		
+		<li  class="accept">
+				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
+				
+				<?php echo $this->Form->end(array('label' => 'Editar Fuente', 'class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
             </li>
 		</ul>
-	</div>
-</div>
-
-			<style scoped>
+		 
+ 
+ 
+   </div>
+  </div>
+ <style scoped>
 
                 .k-textbox {
                     width: 300px;
                     margin-left: 5px;
-                    
                 }
-				
-				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
-			
+
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -84,8 +115,9 @@
                     margin-left: 6px;
                 }
             </style>
-			
-			<script>
+            
+            
+            <script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
@@ -98,12 +130,4 @@
                         }
                     });
                 });
-                
-                $("#select").kendoComboBox({
-			         //placeholder: "Seleccionar...",
-			         //index: -1,
-					 width: 300,
-			         suggest: true
-			    });
-               // var select = $("#select").data("kendoComboBox");
             </script>

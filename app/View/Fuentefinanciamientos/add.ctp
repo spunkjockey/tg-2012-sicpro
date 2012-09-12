@@ -1,30 +1,69 @@
-<!-- File: /app/View/Division/add.ctp -->
+<!-- File: /app/View/Fuentefinanciamientos/registrar_fuente.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar división</h2>
-		<?php echo $this->Form->create('Division'); ?>
+		<h2>Agregar Fuente Financiamiento</h2>
+		<?php echo $this->Form->create('Fuentefinanciamiento'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('divison', 
+				<?php echo $this->Form->input('nombrefuente', 
 					array(
-						'label' => 'Nombre de división:', 
+						'label' => 'Nombre Fuente Financiamiento:',
+					
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre de división', 
+						'placeholder' => 'Nombre de fuente de financiamiento', 
 						'required', 
-						'validationMessage' => 'Ingrese nombre de división')); ?>
+						'validationMessage' => 'Ingrese Nombre de Fuente de Financiamiento')); ?>
 			</li>
+			<li>
+				<?php echo $this->Form->input('montoinicial', 
+					array(
+						'label' => 'Monto Inicial:',
+						'id'    => 'moneda',
+						'placeholder' => 'Monto Inicial', 
+						'validationMessage' => 'Ingrese el Monto Inicial')); ?>
+		</li>
+		
+			<li>
+				<?php echo $this->Form->input('fechadisponible', 
+					array(
+						'label' => 'Fecha Disponibilidad:', 
+						'id'	=> 'datePicker1',
+						'type' => 'text'
+						/*'class' => 'k-textbox', 
+						'placeholder' => 'Fecha Disponibilidad', 
+						'required', 
+						'validationMessage' => 'Ingrese la Fecha de Disponibilidad')
+						 */) ); ?>
+			</li>
+			
+			
+			
+			<li>
+				<?php echo $this->Form->input('tipofuente', 
+					array(
+						'label' => 'Tipo de Fuente:', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Tipo de Fuente', 
+						'required', 
+						'validationMessage' => 'Ingrese el Tipo de Fuente')); ?>
+			</li>
+			<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
+			<?php echo $this->Form->input('userm', array('type' => 'hidden','value'=>null)); ?>
+			<?php echo $this->Form->input('modificacion', array('type' => 'hidden', 'value'=>null)); ?>
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar proyecto', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->end(array('label' => 'Registrar Fuente', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
             </li>
 		</ul>
+		
 	</div>
 </div>
 
-			<style scoped>
+            <style scoped>
 
                 .k-textbox {
                     width: 300px;
@@ -32,7 +71,7 @@
                     
                 }
 				
-				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
+				
 			
                 #formulario {
                     width: 600px;
@@ -78,14 +117,14 @@
                 }
 
                 .invalid {
-                    color: red;
+                    color: gray;
                 }
                 span.k-tooltip {
                     margin-left: 6px;
                 }
             </style>
-			
-			<script>
+            
+            <script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
@@ -97,13 +136,13 @@
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
-                });
-                
-                $("#select").kendoComboBox({
-			         //placeholder: "Seleccionar...",
-			         //index: -1,
-					 width: 300,
-			         suggest: true
-			    });
-               // var select = $("#select").data("kendoComboBox");
+
+
+		$("#datePicker1").kendoDatePicker();
+		
+         $("#moneda").kendoNumericTextBox({
+		     format: "c2" //Define currency type and 2 digits precision
+		 });
+	         
+	                });
             </script>

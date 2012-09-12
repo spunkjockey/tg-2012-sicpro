@@ -1,4 +1,4 @@
-<!-- File: /app/View/Empresas/registrar_empresa.ctp -->
+<!-- File: /app/View/Empresas/add.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
