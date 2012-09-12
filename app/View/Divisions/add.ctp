@@ -1,81 +1,30 @@
-<!-- File: /app/View/Empresas/add.ctp -->
+<!-- File: /app/View/Division/add.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Agregar Empresa</h2>
-		<?php echo $this->Form->create('Empresa'); ?>
+		<h2>Registrar división</h2>
+		<?php echo $this->Form->create('Division'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('nitempresa', 
+				<?php echo $this->Form->input('divison', 
 					array(
-						'label' => 'NIT Empresa:',
-						//'type' => 'text',
-						//'maxlength'=>'14', 
-						'id'	=>	'nit',
+						'label' => 'Nombre de división:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Numero de Identificacion Tributaria', 
-						/*'required',*/ 
-						'validationMessage' => 'Ingrese NIT Empresa')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('nombreempresa', 
-					array(
-						'label' => 'Nombre Empresa:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre Empresa', 
+						'placeholder' => 'Nombre de división', 
 						'required', 
-						'validationMessage' => 'Ingrese Nombre Empresa')); ?>
+						'validationMessage' => 'Ingrese nombre de división')); ?>
 			</li>
-			<li>
-				<?php echo $this->Form->input('representantelegal', 
-					array(
-						'label' => 'Nombre Representante:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre del Representante', 
-						'required', 
-						'validationMessage' => 'Ingrese Nombre del Representante')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('direccionoficina', 
-					array(
-						'label' => 'Direccion:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Direccion Empresa', 
-						"cols"=>"5",
-						"rows"=>"5",
-						'validationMessage' => 'Ingrese Direccion Empresa')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('telefonoempresa', 
-					array(
-						'label' => 'Telefono:', 
-						'class' => 'k-textbox', 
-						'id'	=>	'phone',
-						'placeholder' => 'Telefono Empresa', 
-						'validationMessage' => 'Ingrese Telefono Empresa')); ?>
-			</li>	
-			<li>
-				<?php echo $this->Form->input('correorepresentante', 
-					array(
-						'label' => 'E-mail:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Correo Electronico', 
-						'required', 
-						'validationMessage' => 'Ingrese Correo Electronico')); ?>
-			</li>	
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar Empresa', 'class' => 'k-button')); ?>
-				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
+				<?php echo $this->Form->end(array('label' => 'Registrar proyecto', 'class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
             </li>
 		</ul>
-		
 	</div>
 </div>
 
-            <style scoped>
+			<style scoped>
 
                 .k-textbox {
                     width: 300px;
@@ -83,7 +32,7 @@
                     
                 }
 				
-				
+				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 			
                 #formulario {
                     width: 600px;
@@ -135,8 +84,8 @@
                     margin-left: 6px;
                 }
             </style>
-            
-            <script>
+			
+			<script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
@@ -148,9 +97,13 @@
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
-                    
-                    $("#phone").mask("9999-9999");
-                    
-                   $("#nit").mask("9999-999999-999-9");
                 });
+                
+                $("#select").kendoComboBox({
+			         //placeholder: "Seleccionar...",
+			         //index: -1,
+					 width: 300,
+			         suggest: true
+			    });
+               // var select = $("#select").data("kendoComboBox");
             </script>

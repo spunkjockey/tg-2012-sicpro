@@ -1,68 +1,90 @@
-<!-- File: /app/View/Empresas/add.ctp -->
+<!-- File: /app/View/Fichatecnicas/add.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Agregar Empresa</h2>
-		<?php echo $this->Form->create('Empresa'); ?>
+		<h2>Registrar Ficha Tecnica</h2>
+		
+				<?php echo $this->Form->create('Fichastecnicas'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('nitempresa', 
+				<?php echo $this->Form->input('proyectos',
 					array(
-						'label' => 'NIT Empresa:',
-						//'type' => 'text',
-						//'maxlength'=>'14', 
-						'id'	=>	'nit',
-						'class' => 'k-textbox', 
-						'placeholder' => 'Numero de Identificacion Tributaria', 
-						/*'required',*/ 
-						'validationMessage' => 'Ingrese NIT Empresa')); ?>
+						'label' => 'Proyectos:', 
+						'id' => 'select',
+						'selected' => '05',
+						'empty' => 'Seleccione...', 
+						'required' )); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('nombreempresa', 
+				<?php echo $this->Form->input('problemantica', 
 					array(
-						'label' => 'Nombre Empresa:', 
+						'label' => 'Problematica: ', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre Empresa', 
+						'placeholder' => 'Problematica',
+						"rows"=>"5", 
 						'required', 
-						'validationMessage' => 'Ingrese Nombre Empresa')); ?>
+						'validationMessage' => 'Ingrese la Problematica')); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('representantelegal', 
+				<?php echo $this->Form->input('objgeneral', 
 					array(
-						'label' => 'Nombre Representante:', 
+						'label' => 'Objetivo General: ', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre del Representante', 
+						'placeholder' => 'Objetivo General',
+						"rows"=>"2",  
 						'required', 
-						'validationMessage' => 'Ingrese Nombre del Representante')); ?>
+						'validationMessage' => 'Ingrese el Objetivo General')); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('direccionoficina', 
+				<?php echo $this->Form->input('objespecifico', 
 					array(
-						'label' => 'Direccion:', 
+						'label' => 'Objetivo Especifico: ', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Direccion Empresa', 
-						"cols"=>"5",
-						"rows"=>"5",
-						'validationMessage' => 'Ingrese Direccion Empresa')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('telefonoempresa', 
-					array(
-						'label' => 'Telefono:', 
-						'class' => 'k-textbox', 
-						'id'	=>	'phone',
-						'placeholder' => 'Telefono Empresa', 
-						'validationMessage' => 'Ingrese Telefono Empresa')); ?>
-			</li>	
-			<li>
-				<?php echo $this->Form->input('correorepresentante', 
-					array(
-						'label' => 'E-mail:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Correo Electronico', 
+						'placeholder' => 'Objetivo Especifico',
+						"rows"=>"2", 
 						'required', 
-						'validationMessage' => 'Ingrese Correo Electronico')); ?>
-			</li>	
+						'validationMessage' => 'Ingrese el Objetivo Especifico')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('descripcionproyecto', 
+					array(
+						'label' => 'Descripcion : ', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Descipcion',
+						"rows"=>"6", 
+						'required', 
+						'validationMessage' => 'Ingrese la Descripcion del Proyecto')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('empleosgenerados', 
+					array(
+						'label' => 'Empleos Generados: ', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Empleos Generados', 
+						'required', 
+						'validationMessage' => 'Ingrese la cantidad de empleos')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('beneficiarios', 
+					array(
+						'label' => 'Beneficiarios: ', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Beneficiarios',
+						"rows"=>"2", 
+						'required', 
+						'validationMessage' => 'Ingrese Beneficiarios')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('resutladosesperados', 
+					array(
+						'label' => 'Resultados: ', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Resultados Esperados',
+						"rows"=>"3", 
+						'required', 
+						'validationMessage' => 'Ingrese los Resultados Esperados')); ?>
+			</li>							
+			
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar Empresa', 'class' => 'k-button')); ?>
 				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
@@ -71,11 +93,10 @@
             <li class="status">
             </li>
 		</ul>
-		
 	</div>
 </div>
 
-            <style scoped>
+ <style scoped>
 
                 .k-textbox {
                     width: 300px;
@@ -134,9 +155,9 @@
                 span.k-tooltip {
                     margin-left: 6px;
                 }
-            </style>
-            
-            <script>
+</style>
+
+<script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
@@ -148,9 +169,12 @@
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
-                    
-                    $("#phone").mask("9999-9999");
-                    
-                   $("#nit").mask("9999-999999-999-9");
                 });
-            </script>
+                
+                $("#select").kendoComboBox({
+			         //placeholder: "Seleccionar...",
+			         //index: -1,
+			         suggest: true
+			    });
+               // var select = $("#select").data("kendoComboBox");
+</script>
