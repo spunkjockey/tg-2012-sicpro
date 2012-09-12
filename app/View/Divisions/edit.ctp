@@ -1,50 +1,32 @@
-<!-- File: /app/View/Proyectos/add.ctp -->
+<!-- File: /app/View/Divisions/edit.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar proyecto</h2>
-		<?php echo $this->Form->create('Proyecto'); ?>
+		<h2>Editar División</h2>
+		<?php echo $this->Form->create('Division',array('action' => 'edit')); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('nombreproyecto', 
+				<?php echo $this->Form->input('divison', 
 					array(
-						'label' => 'Nombre del proyecto:', 
+						'label' => 'Nombre de división:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre del proyecto', 
+						'placeholder' => 'Nombre de división', 
 						'required', 
-						'validationMessage' => 'Ingrese Nombre de Proyecto')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('divisions', 
-					array(
-						'label' => 'División:', 
-						'id' => 'selecto',
-						'empty' => 'Seleccione...',
-						'selected' => '05',
-						'required')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('montoplaneado', 
-					array(
-						'label' => 'Monto planeado: ($)', 
-						'id' => 'textbox',
-						'type' => 'text',
-						'placeholder' => 'Ingrese Monto',
-						'required',
-						'validationMessage' => 'Ingrese un monto planeado ($)')); ?>
+						'validationMessage' => 'Ingrese nombre de división')); ?>
 			</li>
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar proyecto', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
+				<!--<?php echo $this->Form->input('iddivision', array('type' => 'hidden')); ?>-->
+				<?php echo $this->Form->end(array('label' => 'Editar Empresa', 'class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
             </li>
 		</ul>
-		
 	</div>
 </div>
 
-			<style scoped>
+<style scoped>
 
                 .k-textbox {
                     width: 300px;
@@ -117,22 +99,13 @@
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
+                });
                 
-				$("#selecto").kendoComboBox();
-				
-				
-                 $("#textbox").kendoNumericTextBox({
-					min: 0,
-					max: 999999999.99,
-					value: 0,
-					placeholder: "Introduzca monto"
-					decimals: 2,
-					spinners: false,
-					format: "c2" //Define currency type and 2 digits precision
-				 });
-				
-				
-				
-				});
-                
+                $("#select").kendoComboBox({
+			         //placeholder: "Seleccionar...",
+			         //index: -1,
+					 width: 300,
+			         suggest: true
+			    });
+               // var select = $("#select").data("kendoComboBox");
             </script>
