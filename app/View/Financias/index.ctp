@@ -14,12 +14,13 @@
 						)); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('fuentes',
+				<div id="combodiv"><?php echo $this->Form->input('fuentes',
 					array(
 						'label' => 'Fuentes de financiamiento:', 
 						'id' => 'selectfufin'//,
 						//'empty'=>'Seleccione...'
 						)); ?>
+				</div>
 			</li>
 			<li>
 				<?php echo $this->Form->input('montoparcial',
@@ -42,6 +43,11 @@
 				</table>
 			</li>
 		</ul>
+		
+		<div id='divdos'>
+			
+			
+		</div>
 		
 		<div id='tablafinancia'>
 
@@ -109,7 +115,7 @@
 		<?php echo $this->ajax->observeField( 'selectpro', 
     		array(
         		'url' => array( 'action' => 'update_fuentefinanciamiento'),
-        		'update' => 'selectfufin'
+        		'update' => 'combodiv'
     		) 
 		); ?>
 		
