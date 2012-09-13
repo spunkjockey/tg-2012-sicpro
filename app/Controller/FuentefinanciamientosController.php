@@ -16,14 +16,7 @@ class FuentefinanciamientosController extends AppController {
         $this->set('fuentefinanciamientos', $this->Fuentefinanciamiento->find('all'));
     }
 	
-	public function view($id = null) {
-		$this->layout = 'cyanspark';
-        $this->Empresa->id = $id;
-        $this->set('fuentes', $this->Fuente->read());
-    }
-
-	
-	public function add() {
+	 public function add() {
 		$this->layout = 'cyanspark';
         if ($this->request->is('post')) {
 			if ($this->Fuentefinanciamiento->save($this->request->data)) {

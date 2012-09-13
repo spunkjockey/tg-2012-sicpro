@@ -38,11 +38,6 @@
                 array('action' => 'delete', $fuente['Fuentefinanciamiento']['idfuentefinanciamiento']),
                 array('confirm' => '¿Está seguro?','class'=>'k-button')
             )?>
-            <?php echo $this->Html->link(
-            	'Detalles', 
-            	array('action' => 'view', $fuente['Fuentefinanciamiento']['idfuentefinanciamiento']),
-            	array('class'=>'k-button')
-			);?>
             
         </td>
     </tr>
