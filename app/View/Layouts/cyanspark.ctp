@@ -68,7 +68,11 @@
 									</li>	
 									<li>Ficha t&eacute;cnica
 										<ul>
+<<<<<<< HEAD
 											<li><?php echo $this->Html->link('Registrar Ficha Tecnica', array('controller' => 'Fichatecnicas','action'=>'add')); ?></li>
+=======
+											<li><?php echo $this->Html->link('Registrar Ficha Técnica', array('controller' => 'Fichatecnicas','action'=>'add')); ?></li>
+>>>>>>> 0f1a89f23f04c99b83a9d3e343601b0f94e064c7
 											<li>Modificar ficha t&eacute;cnica</li>
 											<li>Eliminar ficha t&eacute;cnica</li>
 											<li>Consultar ficha t&eacute;cnica</li>
@@ -82,7 +86,7 @@
 											<li>Consultar fuente de financiamiento (en un periodo)</li>
 										</ul>
 									</li>	
-									<li>Asignaci&oacute;n de fondos</li>
+									<li><?php echo $this->Html->link('Asignación de Fondos', array('controller' => 'Financias','action'=>'index')); ?></li>
 								</ul>
 							</li>
 							<li>Contratos

@@ -3,17 +3,20 @@
 <div id="example" class="k-content">
 	<div id="formulario">
 		
-		<?php echo $this->element('helpbox', array(
-    "helptext" => "Oh, this text is very helpful."
-)); ?>
+		<?php echo $this->element('helpbox', array("helptext" => "Oh, this text is very helpful.")); ?>
 		
-		<div id="post">
+		<div id="post" style="height: 200px;
+			width: 300px;
+			overflow: auto;
+			border: 1px solid #666;
+			background-color: #ccc;
+			padding: 8px;">
 		</div>
 		<?php
 			echo $this->ajax->remoteTimer(
 			array(
 				'url' => array( 'controller' => 'departamentos', 'action' => 'pruebaajax'),
-				'update' => 'post', 'position' => 'append', 'frequency' => 10
+				'update' => 'post', 'position' => 'html', 'frequency' => 5
 				)
 			);
 		?> 
