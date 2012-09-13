@@ -30,8 +30,7 @@
 						'id'	=> 'datePicker1',
 						'placeholder' => 'Fecha  de Disponibilidad', 
 						'required', 
-						"cols"=>"5",
-						"rows"=>"5",
+						
 						'validationMessage' => 'Ingrese Fecha  de Disponibilidad')); ?>
 			</li>
 			<li>
@@ -134,10 +133,11 @@
 
 
 		$("#datePicker1").kendoDatePicker();
+		 });
 		
          $("#moneda").kendoNumericTextBox({
 		     format: "c2" //Define currency type and 2 digits precision
 		 });
 	         
-	                });
+	               
             </script>

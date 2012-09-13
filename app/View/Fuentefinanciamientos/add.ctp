@@ -139,7 +139,9 @@
 
 
 		$("#datePicker1").kendoDatePicker();
-		
+		$("#datePicker1").kendoDatePicker({
+          format: "yyyy/MM/dd"
+         });
          $("#moneda").kendoNumericTextBox({
 		     format: "c2" //Define currency type and 2 digits precision
 		 });
