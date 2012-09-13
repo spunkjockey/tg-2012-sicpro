@@ -18,17 +18,18 @@
 				<?php echo $this->Form->input('divisions', 
 					array(
 						'label' => 'División:', 
-						'id' => 'select',
+						'id' => 'selecto',
 						'empty' => 'Seleccione...',
-						'required', 
-						'validationMessage' => 'Seleccione una división')); ?>
+						'selected' => '05',
+						'required')); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('montoplaneado', 
 					array(
 						'label' => 'Monto planeado: ($)', 
-						'class' => 'k-textbox', 
-						'placeholder' => '9999.99',
+						'id' => 'textbox',
+						'type' => 'text',
+						'placeholder' => 'Ingrese Monto',
 						'required',
 						'validationMessage' => 'Ingrese un monto planeado ($)')); ?>
 			</li>
@@ -116,13 +117,22 @@
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
-                });
                 
-                $("#select").kendoComboBox({
-			         //placeholder: "Seleccionar...",
-			         //index: -1,
-					 width: 300,
-			         suggest: true
-			    });
-               // var select = $("#select").data("kendoComboBox");
+				$("#selecto").kendoComboBox();
+				
+				
+                 $("#textbox").kendoNumericTextBox({
+					min: 0,
+					max: 999999999.99,
+					value: 0,
+					placeholder: "Introduzca monto"
+					decimals: 2,
+					spinners: false,
+					format: "c2" //Define currency type and 2 digits precision
+				 });
+				
+				
+				
+				});
+                
             </script>

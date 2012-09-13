@@ -27,29 +27,32 @@
 	        	}
     	}
 		
-		function edit($IdDivision = null) 
-		{
-			$this->layout = 'cyanspark';
-		    $this->Division->id = $IdDivision;
-		    if ($this->request->is('get')) 
-		    	{
-		        	$this->request->data = $this->Division->read();
-		    	} 
-		    else 
-		    	{
-		        	if ($this->Division->save($this->request->data)) 
-		        	{
-		            	$this->Session->setFlash('División ha sido actualizado.');
-		            	$this->redirect(array('action' => 'index'));
-		        	}
-		    	}
-		}
+		function edit($id = null) {
+		$this->layout = 'cyanspark';
+	    $this->Division->id = $id;
+	    if ($this->request->is('get')) 
+	    	{
+	        $this->request->data = $this->Division->read();
+	    	} 
+	    else 
+	    	{
+		        if ($this->Division->save($this->request->data)) 
+		        {
+		            $this->Session->setFlash('División ha sido actualizada.');
+		            $this->redirect(array('action' => 'index'));
+		        } 
+		        else 
+		        {
+	            	$this->Session->setFlash('Imposible editar División');
+	        	}
+	    	}
+	}
 	
-	function delete($IdDivision) {
+	function delete($id) {
 		if (!$this->request->is('post')) {
 	        throw new MethodNotAllowedException();
 	    }
-	    if ($this->Division->delete($IdDivision)) {
+	    if ($this->Division->delete($id)) {
 	        $this->Session->setFlash('La división ha sido eliminada.');
 	        $this->redirect(array('action' => 'index'));
 	    }

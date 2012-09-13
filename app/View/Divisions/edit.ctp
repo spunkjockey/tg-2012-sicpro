@@ -1,61 +1,32 @@
-<!-- File: /app/View/fuentefinanciamiento/edit.ctp -->
+<!-- File: /app/View/Divisions/edit.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Editar Fuente de Financiamiento</h2>
-		<?php echo $this->Form->create('Fuentefinanciamiento'); ?>
+		<h2>Editar División</h2>
+		<?php echo $this->Form->create('Division',array('action' => 'edit')); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('nombrefuente', 
+				<?php echo $this->Form->input('divison', 
 					array(
-						'label' => 'Fuente:', 
+						'label' => 'Nombre de división:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre Fuente de Financiamiento', 
+						'placeholder' => 'Nombre de división', 
 						'required', 
-						'validationMessage' => 'Ingrese Nombre de Fuente de Financiamiento')); ?>
+						'validationMessage' => 'Ingrese nombre de división')); ?>
 			</li>
-			<li>
-				<?php echo $this->Form->input('montoinicial', 
-					array(
-						'label' => 'Monto:', 
-						'id'    => 'moneda',
-						'placeholder' => 'Monto Inicial', 
-						'required', 
-						'validationMessage' => 'Ingrese el Monto Inicial')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('fechadisponible',
-					array(
-						'label' => 'Fecha:', 
-						'id'	=> 'datePicker1',
-						'type' => 'text'
-						)); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('tipofuente', 
-					array(
-						'label' => 'Tipo:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Tipo de Fuente de financiamiento', 
-						'required', 
-						'validationMessage' => 'Ingrese Tipo de Fuente')); ?>
-			</li>	
-		
-		<li  class="accept">
+			<li  class="accept">
 				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
-				
-				<?php echo $this->Form->end(array('label' => 'Editar Fuente', 'class' => 'k-button')); ?>
+				<!--<?php echo $this->Form->input('iddivision', array('type' => 'hidden')); ?>-->
+				<?php echo $this->Form->end(array('label' => 'Editar Empresa', 'class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
             </li>
 		</ul>
-		 
- 
- 
-   </div>
-  </div>
-          <style scoped>
+	</div>
+</div>
+
+<style scoped>
 
                 .k-textbox {
                     width: 300px;
@@ -63,7 +34,7 @@
                     
                 }
 				
-				
+				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 			
                 #formulario {
                     width: 600px;
@@ -109,14 +80,14 @@
                 }
 
                 .invalid {
-                    color: gray;
+                    color: red;
                 }
                 span.k-tooltip {
                     margin-left: 6px;
                 }
             </style>
-            
-            <script>
+			
+			<script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
@@ -128,14 +99,13 @@
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
-
-
-		$("#datePicker1").kendoDatePicker({
-		   format: "yyyy/MM/dd" //Define el formato de fecha
-		});
-         $("#moneda").kendoNumericTextBox({
-		     format: "c2" //Define currency type and 2 digits precision
-		 });
-	         
-	                });
+                });
+                
+                $("#select").kendoComboBox({
+			         //placeholder: "Seleccionar...",
+			         //index: -1,
+					 width: 300,
+			         suggest: true
+			    });
+               // var select = $("#select").data("kendoComboBox");
             </script>
