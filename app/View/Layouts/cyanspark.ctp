@@ -61,8 +61,8 @@
 									<li>Proyectos
 										<ul>
 											<li><?php echo $this->Html->link('Registrar proyecto', array('controller' => 'proyectos','action'=>'add')); ?></li>
-											<li>Modificar proyecto</li>
-											<li>Asignar n&uacute;mero proyecto</li>
+											<li><?php echo $this->Html->link('Modificar proyecto', array('controller' => 'proyectos','action'=>'edit')); ?></li>
+											<li><?php echo $this->Html->link('Asignar número proyecto', array('controller' => 'proyectos','action'=>'add_num')); ?></li>
 											<li>Eliminar proyecto</li>
 										</ul>
 									</li>	

@@ -1,18 +1,45 @@
-<!-- File: /app/View/Division/add.ctp -->
+<!-- File: /app/View/Proyectos/edit.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar división</h2>
-		<?php echo $this->Form->create('Division'); ?>
+		<h2>Modificar proyecto</h2>
+		<?php echo $this->Form->create('Proyecto',array('action' => 'edit')); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('divison', 
+				<?php echo $this->Form->input('proys', 
 					array(
-						'label' => 'Nombre de división:', 
+						'label' => 'Seleccione proyecto:', 
+						'id' => 'selecto', 
+						'empty' => 'Seleccione...',
+						'validationMessage' => 'Seleccione un proyecto')); ?>
+			</li>
+			<!-- -->
+			<li>
+				<?php echo $this->Form->input('nombreproyecto', 
+					array(
+						'label' => 'Nombre del proyecto:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre de división', 
+						'placeholder' => 'Nombre del proyecto', 
 						'required', 
-						'validationMessage' => 'Ingrese nombre de división')); ?>
+						'validationMessage' => 'Ingrese Nombre de Proyecto')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('divisions', 
+					array(
+						'label' => 'División responsable:', 
+						'id' => 'selecto',
+						'empty' => ' ',
+						'required')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('montoplaneado', 
+					array(
+						'label' => 'Monto planeado: ($)', 
+						'id' => 'textbox',
+						'type' => 'text',
+						'placeholder' => 'Ingrese Monto',
+						'required',
+						'validationMessage' => 'Ingrese un monto planeado ($)')); ?>
 			</li>
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar proyecto', 'class' => 'k-button')); ?>
@@ -21,6 +48,7 @@
             <li class="status">
             </li>
 		</ul>
+		
 	</div>
 </div>
 
@@ -104,13 +132,22 @@
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
-                });
                 
-                $("#select").kendoComboBox({
-			         //placeholder: "Seleccionar...",
-			         //index: -1,
-					 width: 300,
-			         suggest: true
-			    });
-               // var select = $("#select").data("kendoComboBox");
+				$("#selecto").kendoComboBox();
+				
+				
+                 $("#textbox").kendoNumericTextBox({
+					min: 0,
+					max: 999999999.99,
+					value: 0,
+					placeholder: "Introduzca monto"
+					decimals: 2,
+					spinners: false,
+					format: "c2" //Define currency type and 2 digits precision
+				 });
+				
+				
+				
+				});
+                
             </script>
