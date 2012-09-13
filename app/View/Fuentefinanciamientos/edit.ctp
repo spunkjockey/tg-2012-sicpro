@@ -24,14 +24,12 @@
 						'validationMessage' => 'Ingrese el Monto Inicial')); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('fechadisponibilidad', 
+				<?php echo $this->Form->input('fechadisponible',
 					array(
 						'label' => 'Fecha:', 
 						'id'	=> 'datePicker1',
-						'placeholder' => 'Fecha  de Disponibilidad', 
-						'required', 
-						
-						'validationMessage' => 'Ingrese Fecha  de Disponibilidad')); ?>
+						'type' => 'text'
+						)); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('tipofuente', 

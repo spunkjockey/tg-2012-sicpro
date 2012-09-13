@@ -31,14 +31,12 @@ class FuentefinanciamientosController extends AppController {
 	function edit($id = null) {
 		$this->layout = 'cyanspark';
 	    $this->Fuentefinanciamiento->id = $id;
-		$this->Fuentefinanciamiento->set('nombrefuente', $this->request->data['Fuentefinanciamiento']['nombrefuente']);
-		$this->Fuentefinanciamiento->set('montoinicial', $this->request->data['Fuentefinanciamiento']['montoinicial']);
-		$this->Fuentefinanciamiento->set('fechadisponibilidad', $this->request->data['Fuentefinanciamiento']['fechadisponibilidad']);
-		$this->Fuentefinanciamiento->set('tipofuente', $this->request->data['Fuentefinanciamiento']['tipofuente']);
+				
 	    if ($this->request->is('get')) {
 	        $this->request->data = $this->Fuentefinanciamiento->read();
 	    } else {
-	        if ($this->Fuentefinanciamiento->save()) {
+	    	
+	        if ($this->Fuentefinanciamiento->save($this->request->data)) {
 	            $this->Session->setFlash('La Fuente ha sido actualizada.');
 	            $this->redirect(array('action' => 'index'));
 	        } else {
