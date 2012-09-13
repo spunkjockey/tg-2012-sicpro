@@ -18,7 +18,7 @@
 				<?php echo $this->Form->input('montoinicial', 
 					array(
 						'label' => 'Monto:', 
-						'class' => 'k-textbox', 
+						'id'    => 'moneda',
 						'placeholder' => 'Monto Inicial', 
 						'required', 
 						'validationMessage' => 'Ingrese el Monto Inicial')); ?>
@@ -27,7 +27,7 @@
 				<?php echo $this->Form->input('fechadisponibilidad', 
 					array(
 						'label' => 'Fecha:', 
-						'class' => 'k-textbox', 
+						'id'	=> 'datePicker1',
 						'placeholder' => 'Fecha  de Disponibilidad', 
 						'required', 
 						"cols"=>"5",
@@ -58,13 +58,16 @@
  
    </div>
   </div>
- <style scoped>
+          <style scoped>
 
                 .k-textbox {
                     width: 300px;
                     margin-left: 5px;
+                    
                 }
-
+				
+				
+			
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -109,13 +112,12 @@
                 }
 
                 .invalid {
-                    color: red;
+                    color: gray;
                 }
                 span.k-tooltip {
                     margin-left: 6px;
                 }
             </style>
-            
             
             <script>
                 $(document).ready(function() {
@@ -129,5 +131,13 @@
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
-                });
+
+
+		$("#datePicker1").kendoDatePicker();
+		
+         $("#moneda").kendoNumericTextBox({
+		     format: "c2" //Define currency type and 2 digits precision
+		 });
+	         
+	                });
             </script>
