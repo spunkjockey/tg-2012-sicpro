@@ -1,78 +1,48 @@
-<!-- File: /app/View/Empresas/edit.ctp -->
+<!-- File: /app/View/Divisions/edit.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Editar Empresa</h2>
-		<?php echo $this->Form->create('Empresa'); ?>
+		<h2>Editar División</h2>
+		<?php echo $this->Form->create('Division',array('action' => 'edit')); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('nombreempresa', 
+				<?php echo $this->Form->input('divison', 
 					array(
-						'label' => 'Empresa:', 
+						'label' => 'Nombre de división:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre Empresa', 
+						'placeholder' => 'Nombre de división', 
 						'required', 
-						'validationMessage' => 'Ingrese Nombre Empresa')); ?>
+						'validationMessage' => 'Ingrese nombre de división')); ?>
 			</li>
-			<li>
-				<?php echo $this->Form->input('representantelegal', 
-					array(
-						'label' => 'Representante:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre del Representante', 
-						'required', 
-						'validationMessage' => 'Ingrese Nombre del Representante')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('direccionoficina', 
-					array(
-						'label' => 'Direccion:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Direccion Empresa', 
-						'required', 
-						"cols"=>"5",
-						"rows"=>"5",
-						'validationMessage' => 'Ingrese Direccion Empresa')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('telefonoempresa', 
-					array(
-						'label' => 'Telefono:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Telefono Empresa', 
-						'required', 
-						'validationMessage' => 'Ingrese Telefono Empresa')); ?>
-			</li>	
-			<li>
-				<?php echo $this->Form->input('correorepresentante', 
-					array(
-						'label' => 'E-mail:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Correo Electronico', 
-						'required', 
-						'validationMessage' => 'Ingrese Correo Electronico')); ?>
-			</li>		
-		<li  class="accept">
+			<li  class="accept">
 				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
-				<?php echo $this->Form->input('nitempresa', array('type' => 'hidden')); ?>
+				<!--<?php echo $this->Form->input('iddivision', array('type' => 'hidden')); ?>-->
 				<?php echo $this->Form->end(array('label' => 'Editar Empresa', 'class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
             </li>
 		</ul>
-		 
- 
- 
-   </div>
-  </div>
- <style scoped>
+	</div>
+</div>
+
+<style scoped>
 
                 .k-textbox {
                     width: 300px;
                     margin-left: 5px;
+                    
                 }
-
+				
+				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
+			
+                form .required label:after {
+					font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+					}
+                                
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -106,13 +76,6 @@
                 .required {
                     font-weight: bold;
                 }
-                
-                form .required label:after {
-                	font-size: 1.4em;
-					color: #e32;
-					content: '*';
-					display:inline;
-				}
 
                 .accept, .status {
                 	padding-top: 15px;
@@ -130,9 +93,8 @@
                     margin-left: 6px;
                 }
             </style>
-            
-            
-            <script>
+			
+			<script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
@@ -145,4 +107,12 @@
                         }
                     });
                 });
+                
+                $("#select").kendoComboBox({
+			         //placeholder: "Seleccionar...",
+			         //index: -1,
+					 width: 300,
+			         suggest: true
+			    });
+               // var select = $("#select").data("kendoComboBox");
             </script>

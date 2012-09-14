@@ -1,61 +1,50 @@
-<!-- File: /app/View/Empresas/edit.ctp -->
+<!-- File: /app/View/fuentefinanciamiento/edit.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Editar Empresa</h2>
-		<?php echo $this->Form->create('Empresa'); ?>
+		<h2>Editar Fuente de Financiamiento</h2>
+		<?php echo $this->Form->create('Fuentefinanciamiento'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('nombreempresa', 
+				<?php echo $this->Form->input('nombrefuente', 
 					array(
-						'label' => 'Empresa:', 
+						'label' => 'Fuente:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre Empresa', 
+						'placeholder' => 'Nombre Fuente de Financiamiento', 
 						'required', 
-						'validationMessage' => 'Ingrese Nombre Empresa')); ?>
+						'validationMessage' => 'Ingrese Nombre de Fuente de Financiamiento')); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('representantelegal', 
+				<?php echo $this->Form->input('montoinicial', 
 					array(
-						'label' => 'Representante:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre del Representante', 
+						'label' => 'Monto:', 
+						'id'    => 'moneda',
+						'placeholder' => 'Monto Inicial', 
 						'required', 
-						'validationMessage' => 'Ingrese Nombre del Representante')); ?>
+						'validationMessage' => 'Ingrese el Monto Inicial')); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('direccionoficina', 
+				<?php echo $this->Form->input('fechadisponible',
 					array(
-						'label' => 'Direccion:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Direccion Empresa', 
-						'required', 
-						"cols"=>"5",
-						"rows"=>"5",
-						'validationMessage' => 'Ingrese Direccion Empresa')); ?>
+						'label' => 'Fecha:', 
+						'id'	=> 'datePicker1',
+						'type' => 'text'
+						)); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('telefonoempresa', 
+				<?php echo $this->Form->input('tipofuente', 
 					array(
-						'label' => 'Telefono:', 
+						'label' => 'Tipo:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Telefono Empresa', 
+						'placeholder' => 'Tipo de Fuente de financiamiento', 
 						'required', 
-						'validationMessage' => 'Ingrese Telefono Empresa')); ?>
+						'validationMessage' => 'Ingrese Tipo de Fuente')); ?>
 			</li>	
-			<li>
-				<?php echo $this->Form->input('correorepresentante', 
-					array(
-						'label' => 'E-mail:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Correo Electronico', 
-						'required', 
-						'validationMessage' => 'Ingrese Correo Electronico')); ?>
-			</li>		
+		
 		<li  class="accept">
 				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
-				<?php echo $this->Form->input('nitempresa', array('type' => 'hidden')); ?>
-				<?php echo $this->Form->end(array('label' => 'Editar Empresa', 'class' => 'k-button')); ?>
+				
+				<?php echo $this->Form->end(array('label' => 'Editar Fuente', 'class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
@@ -66,13 +55,16 @@
  
    </div>
   </div>
- <style scoped>
+          <style scoped>
 
                 .k-textbox {
                     width: 300px;
                     margin-left: 5px;
+                    
                 }
-
+				
+				
+			
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -106,13 +98,6 @@
                 .required {
                     font-weight: bold;
                 }
-                
-                form .required label:after {
-                	font-size: 1.4em;
-					color: #e32;
-					content: '*';
-					display:inline;
-				}
 
                 .accept, .status {
                 	padding-top: 15px;
@@ -124,13 +109,12 @@
                 }
 
                 .invalid {
-                    color: red;
+                    color: gray;
                 }
                 span.k-tooltip {
                     margin-left: 6px;
                 }
             </style>
-            
             
             <script>
                 $(document).ready(function() {
@@ -144,5 +128,14 @@
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
-                });
+
+
+		$("#datePicker1").kendoDatePicker({
+		   format: "yyyy/MM/dd" //Define el formato de fecha
+		});
+         $("#moneda").kendoNumericTextBox({
+		     format: "c2" //Define currency type and 2 digits precision
+		 });
+	         
+	                });
             </script>

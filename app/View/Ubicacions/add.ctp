@@ -1,78 +1,70 @@
-<!-- File: /app/View/Empresas/edit.ctp -->
+<!-- File: /app/View/Ubicaciones/add.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Editar Empresa</h2>
-		<?php echo $this->Form->create('Empresa'); ?>
+		<h2>Registrar Ubicacion</h2>
+		
+				<?php echo $this->Form->create('Ubicacion'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('nombreempresa', 
+				<?php echo $this->Form->input('departamento',
 					array(
-						'label' => 'Empresa:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre Empresa', 
-						'required', 
-						'validationMessage' => 'Ingrese Nombre Empresa')); ?>
+						'label' => 'Departamento:', 
+						'id' => 'select1',
+						//'selected' => '05',
+						//'empty' => 'Seleccione...', 
+						'required' )); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('representantelegal', 
+				<?php echo $this->Form->input('municipio',
 					array(
-						'label' => 'Representante:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre del Representante', 
-						'required', 
-						'validationMessage' => 'Ingrese Nombre del Representante')); ?>
+						'label' => 'Municipio:', 
+						'id' => 'select2',
+						//'selected' => '05',
+						//'empty' => 'Seleccione...', 
+						'required' )); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('direccionoficina', 
+				<?php echo $this->Form->input('direccion', 
 					array(
-						'label' => 'Direccion:', 
+						'label' => 'Direccion: ', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Direccion Empresa', 
+						'placeholder' => 'Objetivo General',
+						"rows"=>"2",  
 						'required', 
-						"cols"=>"5",
-						"rows"=>"5",
-						'validationMessage' => 'Ingrese Direccion Empresa')); ?>
+						'validationMessage' => 'Ingrese el Objetivo General')); ?>
 			</li>
-			<li>
-				<?php echo $this->Form->input('telefonoempresa', 
-					array(
-						'label' => 'Telefono:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Telefono Empresa', 
-						'required', 
-						'validationMessage' => 'Ingrese Telefono Empresa')); ?>
-			</li>	
-			<li>
-				<?php echo $this->Form->input('correorepresentante', 
-					array(
-						'label' => 'E-mail:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Correo Electronico', 
-						'required', 
-						'validationMessage' => 'Ingrese Correo Electronico')); ?>
-			</li>		
-		<li  class="accept">
-				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
-				<?php echo $this->Form->input('nitempresa', array('type' => 'hidden')); ?>
-				<?php echo $this->Form->end(array('label' => 'Editar Empresa', 'class' => 'k-button')); ?>
+				
+			<li  class="accept">
+			<!--	<?php echo $this->Html->link(
+            	'Agregar Ubicacion', 
+            	array('controller' => 'Ubicaciones','action' => 'add'/*, $emp['Empresa']['idempresa']*/),
+            	array('class'=>'k-button')
+				);?>-->
+				<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
+				<?php echo $this->Form->end(array('label' => 'Registrar Ubicacion', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
+				
+				<?php $options = array('url' => 'update_select','update' => 'Municipios');
+				echo $this->ajax->observeField('Departamentos',$options);?>
 			</li>
             
             <li class="status">
             </li>
 		</ul>
-		 
- 
- 
-   </div>
-  </div>
+	</div>
+</div>
+
  <style scoped>
 
                 .k-textbox {
                     width: 300px;
                     margin-left: 5px;
+                    
                 }
-
+				
+				
+			
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -106,13 +98,6 @@
                 .required {
                     font-weight: bold;
                 }
-                
-                form .required label:after {
-                	font-size: 1.4em;
-					color: #e32;
-					content: '*';
-					display:inline;
-				}
 
                 .accept, .status {
                 	padding-top: 15px;
@@ -129,10 +114,9 @@
                 span.k-tooltip {
                     margin-left: 6px;
                 }
-            </style>
-            
-            
-            <script>
+</style>
+
+<script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
@@ -145,4 +129,16 @@
                         }
                     });
                 });
-            </script>
+                
+                $("#select1").kendoComboBox({
+			         //placeholder: "Seleccionar...",
+			         //index: -1,
+			         suggest: true
+			    });
+			    $("#select2").kendoComboBox({
+			         //placeholder: "Seleccionar...",
+			         //index: -1,
+			         suggest: true
+			    });
+               // var select = $("#select").data("kendoComboBox");
+</script>

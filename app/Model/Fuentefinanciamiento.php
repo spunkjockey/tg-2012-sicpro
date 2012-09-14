@@ -1,33 +1,11 @@
 <?php
-class Empresa extends AppModel {
-public $useTable = 'empresa';
-public $primaryKey = 'idempresa';
-
-
-
+    class Fuentefinanciamiento extends AppModel {
+        public $name = 'Fuentefinanciamiento';
+		public $useTable = 'fuentefinanciamiento';
+		public $primaryKey = 'idfuentefinanciamiento';
+/*
 	public $validate = array(
-		'nitempresa' => array(
-	    	'numeric' => array(
-	        	'rule'    => 'numeric',
-	        	'required' => true,
-	        	'allowEmpty' => false,
-	            'message' => 'Solo números son permitidos',
-	            'last'    => true
-	         ),
-	        'isUnique' => array(
-	            'rule'    => 'isUnique',
-	            'message' => 'El NIT Empresa ya ha sido ingresado'
-	        ),
-	        'minLenght' => array(
-	            'rule'    => array('minLength', 14),
-        		'message' => 'El NIT empresa debe ser de 14 numeros.'
-	        ),
-			'maxLength' => array(
-	        	'rule'    => array('maxLength', 14),
-	        	'message' => 'El NIT empresa debe ser de 14 numeros.'
-	    	)
-	    ),
-	    'nombreempresa' => array(
+	    'nombrefuente' => array(
 	        'isUnique' => array(
 	            'rule'    => 'isUnique',
 	            'required' => true,
@@ -35,14 +13,14 @@ public $primaryKey = 'idempresa';
 	            'message' => 'El Departamento ya existe'),
 			'maxLength' => array(
 	        	'rule'    => array('maxLength', 150),
-	        	'message' => 'El nombre del presentante debe ser maximo 150 caracteres.'
+	        	'message' => 'El nombre de la fuente debe ser maximo 150 caracteres.'
 	        	)
 	        ),
-	    'representantelegal' => array(
+	    'Montoinicial' => array(
 	    	'regla1' => array(
 		        'rule'    => 'notEmpty',
 		        'required' => true,
-		        'message' => 'Debe ingresa el Nombre del  Representante'
+		        'message' => 'Debe ingresa el Monto Inicial'
 		    	),
 	        'maxLength' => array(
 	        	'rule'    => array('maxLength', 75),
@@ -82,22 +60,5 @@ public $primaryKey = 'idempresa';
 	        	'message' => 'El correo electronico debe ser menor a 50 caracteres.'
 	    	)
 		),
-	);
-	
-	
-		
-	public function beforeValidate($options = array()) {
-		parent::beforeValidate(); 
-	    if (!empty($this->data['Empresa']['nitempresa']) && !empty($this->data['Empresa']['telefonoempresa'])) {
-	        $this->data['Empresa']['nitempresa'] = $this->numberFormatBeforeSave($this->data['Empresa']['nitempresa']);
-	        $this->data['Empresa']['telefonoempresa'] = $this->numberFormatBeforeSave($this->data['Empresa']['telefonoempresa']);
-	    }
-	    return true;
-	}
-	
-	public function numberFormatBeforeSave($numberString) {
-	    return str_replace("-", "", $numberString);
-	}
-	
-	
+	);*/
 }

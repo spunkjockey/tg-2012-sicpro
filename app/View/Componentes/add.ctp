@@ -1,78 +1,48 @@
-<!-- File: /app/View/Empresas/edit.ctp -->
+<!-- File: /app/View/Componentes/add.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Editar Empresa</h2>
-		<?php echo $this->Form->create('Empresa'); ?>
+		<h2>Registrar Componentes</h2>
+		
+				<?php echo $this->Form->create('Componentes'); ?>
 		<ul>
-			<li>
-				<?php echo $this->Form->input('nombreempresa', 
+			<?php echo $this->Form->input('nombrecomponente', 
 					array(
-						'label' => 'Empresa:', 
+						'label' => 'Nombre Componente:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre Empresa', 
+						'placeholder' => 'Nombre del Componente', 
 						'required', 
-						'validationMessage' => 'Ingrese Nombre Empresa')); ?>
+						'validationMessage' => 'Ingrese Nombre del Componente')); ?>
 			</li>
-			<li>
-				<?php echo $this->Form->input('representantelegal', 
+			<?php echo $this->Form->input('descripcioncomponente', 
 					array(
-						'label' => 'Representante:', 
+						'label' => 'Descripcion Componente:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre del Representante', 
+						'placeholder' => 'Descripcion del Componente', 
 						'required', 
-						'validationMessage' => 'Ingrese Nombre del Representante')); ?>
+						'validationMessage' => 'Ingrese la descripcion del Componente')); ?>
 			</li>
-			<li>
-				<?php echo $this->Form->input('direccionoficina', 
-					array(
-						'label' => 'Direccion:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Direccion Empresa', 
-						'required', 
-						"cols"=>"5",
-						"rows"=>"5",
-						'validationMessage' => 'Ingrese Direccion Empresa')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('telefonoempresa', 
-					array(
-						'label' => 'Telefono:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Telefono Empresa', 
-						'required', 
-						'validationMessage' => 'Ingrese Telefono Empresa')); ?>
-			</li>	
-			<li>
-				<?php echo $this->Form->input('correorepresentante', 
-					array(
-						'label' => 'E-mail:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Correo Electronico', 
-						'required', 
-						'validationMessage' => 'Ingrese Correo Electronico')); ?>
-			</li>		
-		<li  class="accept">
-				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
-				<?php echo $this->Form->input('nitempresa', array('type' => 'hidden')); ?>
-				<?php echo $this->Form->end(array('label' => 'Editar Empresa', 'class' => 'k-button')); ?>
+			<li  class="accept">
+				<?php echo $this->Form->end(array('label' => 'Registrar Componente', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
             </li>
 		</ul>
-		 
- 
- 
-   </div>
-  </div>
- <style scoped>
+	</div>
+</div>
+
+<style scoped>
 
                 .k-textbox {
                     width: 300px;
                     margin-left: 5px;
+                    
                 }
-
+				
+				
+			
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -98,7 +68,7 @@
 
                 label {
                     display: inline-block;
-                    width: 150px;
+                    width: 160px;
                     text-align: right;
                     
                 }
@@ -129,10 +99,8 @@
                 span.k-tooltip {
                     margin-left: 6px;
                 }
-            </style>
-            
-            
-            <script>
+</style>
+<script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
@@ -144,5 +112,9 @@
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
+                    
+                    $("#phone").mask("9999-9999");
+                    
+                   $("#nit").mask("9999-999999-999-9");
                 });
-            </script>
+</script>

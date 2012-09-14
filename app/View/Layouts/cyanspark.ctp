@@ -4,7 +4,8 @@
 		<?php echo $this -> Html -> charset(); ?>
 		<title> <?php echo $title_for_layout; ?> </title>
 		<?php
-		echo $this -> Html -> meta('icon');
+		//echo $this -> Html -> meta('icon');
+		echo $this->Html->meta('icono.ico','icono.ico',array('type' => 'icon'));
 
 		echo $this -> Html -> css('style.cyanspark');
 		echo $this -> Html -> css('kendostyles/kendo.common.min');
@@ -60,15 +61,15 @@
 								<ul>
 									<li>Proyectos
 										<ul>
-											<li>Registrar proyecto</li>
-											<li>Modificar proyecto</li>
-											<li>Asignar n&uacute;mero proyecto</li>
+											<li><?php echo $this->Html->link('Registrar proyecto', array('controller' => 'proyectos','action'=>'add')); ?></li>
+											<li><?php echo $this->Html->link('Modificar proyecto', array('controller' => 'proyectos','action'=>'edit')); ?></li>
+											<li><?php echo $this->Html->link('Asignar número proyecto', array('controller' => 'proyectos','action'=>'add_num')); ?></li>
 											<li>Eliminar proyecto</li>
 										</ul>
 									</li>	
 									<li>Ficha t&eacute;cnica
 										<ul>
-											<li>Registrar ficha t&eacute;cnica</li>
+											<li><?php echo $this->Html->link('Registrar Ficha Técnica', array('controller' => 'Fichatecnicas','action'=>'add')); ?></li>
 											<li>Modificar ficha t&eacute;cnica</li>
 											<li>Eliminar ficha t&eacute;cnica</li>
 											<li>Consultar ficha t&eacute;cnica</li>
@@ -82,7 +83,7 @@
 											<li>Consultar fuente de financiamiento (en un periodo)</li>
 										</ul>
 									</li>	
-									<li>Asignaci&oacute;n de fondos</li>
+									<li><?php echo $this->Html->link('Asignación de Fondos', array('controller' => 'Financias','action'=>'index')); ?></li>
 								</ul>
 							</li>
 							<li>Contratos
@@ -193,7 +194,7 @@
 							<li>Cat&aacute;logos
 								<ul>
 									<li><?php echo $this->Html->link('Empresas', array('controller' => 'empresas','action'=>'index')); ?></li>
-									<li>Divisi&oacute;n</li>
+									<li><?php echo $this->Html->link('División', array('controller' => 'divisions','action'=>'index')); ?></li>
 									<li><?php echo $this->Html->link('Departamentos', array('controller' => 'departamentos','action'=>'index')); ?></li>
 									<li><?php echo $this->Html->link('Municipios', array('controller' => 'municipios','action'=>'index')); ?></li>
 									<li>Plaza</li>
