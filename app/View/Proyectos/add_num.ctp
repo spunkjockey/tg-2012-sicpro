@@ -18,7 +18,8 @@
 				<?php echo $this->Form->input('numeroproyecto', 
 					array(
 						'label' => 'Ingrese número de proyecto:', 
-						'class' => 'k-textbox', 
+						'id' => 'textbox',
+						'class' => 'k-textbox',  
 						'placeholder' => 'Número del proyecto', 
 						'required', 
 						'validationMessage' => 'Ingrese Nombre de Proyecto')); ?>
@@ -122,12 +123,12 @@
 				
                  $("#textbox").kendoNumericTextBox({
 					min: 0,
-					max: 999999999.99,
+					max: 999999,
 					value: 0,
-					placeholder: "Introduzca monto"
-					decimals: 2,
-					spinners: false,
-					format: "c2" //Define currency type and 2 digits precision
+					placeholder: "Introduzca número de proyecto"
+					decimals: 0,
+					spinners: false
+					
 				 });
 				
 				

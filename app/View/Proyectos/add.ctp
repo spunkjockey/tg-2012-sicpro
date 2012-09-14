@@ -26,7 +26,8 @@
 			<li>
 				<?php echo $this->Form->input('montoplaneado', 
 					array(
-						'label' => 'Monto planeado: ($)', 
+						'label' => 'Monto planeado: ($)',
+						'class' => 'k-textbox',  
 						'id' => 'textbox',
 						'type' => 'text',
 						'placeholder' => 'Ingrese Monto',

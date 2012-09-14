@@ -64,16 +64,11 @@
 				
 				if ($this->Proyecto->save($id)) 
 					{
-						$this->Session->setFlash('El número de proyecto ha sido asignado'
-							.' '.$this->request->data['Proyecto']['numeroproyecto']
-							.' '.$this->request->data['Proyecto']['proys']);
-		                $this->redirect(array('controller'=>'mains', 'action' => 'index'));
+						$this->Session->setFlash('El número de proyecto ha sido asignado');
 		            }
 					else 
 						{
-							$this->Session->setFlash('Ha ocurrido un error'
-							.' '.$this->request->data['Proyecto']['numeroproyecto']
-							.' '.$this->request->data['Proyecto']['proys']);
+							$this->Session->setFlash('Ha ocurrido un error');
 		                 }
         	}
 	}
