@@ -34,6 +34,7 @@
 						'label' => 'Codigo Departamento:', 
 						'placeholder' => 'ej. 15', 
 						'required', 
+						'autofocus',
 						'validationMessage' => 'Ingrese Codigo Departamento')); ?>
 			</li>
 			<li>

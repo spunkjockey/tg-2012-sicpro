@@ -7,22 +7,27 @@
 				<?php echo $this->Form->create('Ubicacion'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('departamento',
+				<?php echo $this->Form->input('departamentos',
 					array(
 						'label' => 'Departamento:', 
 						'id' => 'select1',
 						//'selected' => '05',
 						//'empty' => 'Seleccione...', 
-						'required' )); ?>
+						'required' 
+						, 
+						'validationMessage' => 'Seleccione Departamento')); ?>
 			</li>
+
 			<li>
-				<?php echo $this->Form->input('municipio',
+				<?php echo $this->Form->input('municipios',
 					array(
 						'label' => 'Municipio:', 
 						'id' => 'select2',
 						//'selected' => '05',
 						//'empty' => 'Seleccione...', 
-						'required' )); ?>
+						'required' 
+						, 
+						'validationMessage' => 'Seleccione Municipios')); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('direccion', 
@@ -36,6 +41,10 @@
 			</li>
 				
 			<li  class="accept">
+				<div id='divdiv'>
+					
+					
+				</div>
 			<!--	<?php echo $this->Html->link(
             	'Agregar Ubicacion', 
             	array('controller' => 'Ubicaciones','action' => 'add'/*, $emp['Empresa']['idempresa']*/),
@@ -45,13 +54,14 @@
 				<?php echo $this->Form->end(array('label' => 'Registrar Ubicacion', 'class' => 'k-button')); ?>
 				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
 				
-				<?php $options = array('url' => 'update_select','update' => 'Municipios');
-				echo $this->ajax->observeField('Departamentos',$options);?>
+				<?php $options = array('url' => 'update_select','update' => 'select2');
+				echo $this->ajax->observeField('select1',$options);?>
 			</li>
             
             <li class="status">
             </li>
 		</ul>
+		<?php echo print_r($departamentos)?>
 	</div>
 </div>
 
@@ -132,13 +142,15 @@
                 
                 $("#select1").kendoComboBox({
 			         //placeholder: "Seleccionar...",
-			         //index: -1,
-			         suggest: true
+			         index: 0,
+			         suggest: true,
+			         filter: 'none'
 			    });
 			    $("#select2").kendoComboBox({
 			         //placeholder: "Seleccionar...",
-			         //index: -1,
-			         suggest: true
+			         index: 0,
+			         suggest: true,
+			         filter: 'none'
 			    });
                // var select = $("#select").data("kendoComboBox");
 </script>
