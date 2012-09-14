@@ -33,11 +33,12 @@
 	}
 	
 	
-	/* Con esta función agregamos el número de proyecto */
-	/* Se realiza una consulta a los proyectos que aun no poseen asignado su numero de proyecto */
+	/* function add_num 
+	 * Con esta función agregamos el número de proyecto 
+	 * Se realiza una consulta a los proyectos que aun no poseen asignado su numero de proyecto */
 	
-	 /* metodo read($fields,$id) */
-	 /* $fields indica los campos que se van a leer (se pueden especificar en un array)
+	 /* metodo read($fields,$id)
+	  * $fields indica los campos que se van a leer (se pueden especificar en un array)
 	  * $id indica el id del elemento que será modificado */
 	  
 	 /* metodo save($id) 
