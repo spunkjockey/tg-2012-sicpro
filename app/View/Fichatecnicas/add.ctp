@@ -13,7 +13,9 @@
 						'id' => 'select',
 						//'selected' => '05',
 						'empty' => 'Seleccione...', 
-						'required' )); ?>
+						'required' 
+						, 
+						'validationMessage' => 'Seleccione Proyecto')); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('problematica', 

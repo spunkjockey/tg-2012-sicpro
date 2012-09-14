@@ -21,12 +21,12 @@ a { color:#2ca8b2; text-decoration:underline;}
 .header_resize { margin:0 auto; padding:0; width:970px;}
 
 /* menu */
-.menu_nav { height:45px; background:url(../img/cyanspark/menu.gif) repeat-x top;}
+.menu_nav { height:45px;/* background:url(../img/cyanspark/menu.gif) repeat-x top;*/}
 .menu_nav_resize { margin:0 auto; width:890px;}
 .menu_nav ul { list-style:none; background:url(../img/cyanspark/menu.gif) repeat-x top;}
 .menu_nav ul li { margin:0 2px; float:left;}
 .menu_nav ul li a { display:block; margin:0; padding:12px 24px; color:#3e3e3e; text-decoration:none; font:bold 14px/1.5em Arial, Helvetica, sans-serif; text-transform:uppercase;}
-.menu_nav ul li a:hover, .menu_nav ul li.active a { color:#fff; background:url(../img/cyanspark/menu_a.gif) repeat-x top;}
+.menu_nav ul li a:hover, .menu_nav ul li.active a { color:#fff; background:url(../img/cyanspark/menu_a.png) repeat-x top;}
 .usuario {text-align: right; width:970px; margin: 5px auto; color:#3e3e3e; text-decoration:none; font:bold 1em Arial, Helvetica, sans-serif; text-transform:uppercase;}
 
 

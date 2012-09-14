@@ -26,13 +26,12 @@ class FichatecnicasController extends AppController {
 					$this->Fichatecnica->set('descripcionproyecto', $this->request->data['Fichatecnica']['descripcionproyecto']);
 					$this->Fichatecnica->set('empleosgenerados', $this->request->data['Fichatecnica']['empleosgenerados']);
 					$this->Fichatecnica->set('beneficiarios', $this->request->data['Fichatecnica']['beneficiarios']);
-					$this->Fichatecnica->set('resultadosesperadors', $this->request->data['Fichatecnica']['resultadosesperadors']);
+					$this->Fichatecnica->set('resultadosesperadors', $this->request->data['Fichatecnica']['resultadosesperados']);
 					$this->Fichatecnica->set('userc', $this->request->data['Fichatecnica']['userc']);					
 				    if ($this->Fichatecnica->save()) {
 		            	$this->Session->setFlash('La Ficha Tecnica ha sido registrada.');
 		            	//$this->redirect(array('controller' => 'fichatecnicas','action' => 'add'));
-		            	$this->redirect(array('controller' => 'fichatecnicas','action' => 'view', 
-		            	$this->Fichatecnica->query("select max(idfichatecnica) from sicpro2012.fichatecnica limit 1;")
+		            	$this->redirect(array('controller' => 'fichatecnicas','action' => 'view',$id = $this->Fichatecnica->id
 						));
 		        	} else {
 		            	$this->Session->setFlash('No se pudo realizar el registro' /*. $this->data['Fichatecnica']['idfichatenica'] */);
@@ -44,9 +43,10 @@ class FichatecnicasController extends AppController {
 	public function view($id = null) {
 		$this->layout = 'cyanspark';
         $this->Fichatecnica->id = $id;
-        //$this->set('empresas', $this->Fichatecnica->read());
-		//$this->Ubicacion->id = $id;
-		//$this->set('ubicacion', $this->Ubicacion->read());
-		$this->set('datos',array('ficha', $this->Fichatecnica->read(),'ubicacion', $this->Ubicacion->read()));
+		if (!$this->Fichatecnica->read()) {
+        	throw new NotFoundException('No se puede encontrar la Empresa', 404);
+    	} else {
+        	$this->set('fichatecnicas', $this->Fichatecnica->read());
+		}
     }
 }

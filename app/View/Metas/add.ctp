@@ -1,29 +1,21 @@
-<!-- File: /app/View/Componentes/add.ctp -->
+<!-- File: /app/View/Metas/add.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar Componentes</h2>
+		<h2>Registrar Metas</h2>
 		
-				<?php echo $this->Form->create('Componentes'); ?>
+				<?php echo $this->Form->create('Metas'); ?>
 		<ul>
-			<?php echo $this->Form->input('nombrecomponente', 
+			<?php echo $this->Form->input('descripcionmeta', 
 					array(
-						'label' => 'Nombre Componente:', 
+						'label' => 'Descripcion de la meta:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre del Componente', 
+						'placeholder' => 'Descripcion de la Meta', 
 						'required', 
-						'validationMessage' => 'Ingrese Nombre del Componente')); ?>
-			</li>
-			<?php echo $this->Form->input('descripcioncomponente', 
-					array(
-						'label' => 'Descripcion Componente:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Descripcion del Componente', 
-						'required', 
-						'validationMessage' => 'Ingrese la descripcion del Componente')); ?>
+						'validationMessage' => 'Ingrese la Descripcion de la meta')); ?>
 			</li>
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar Componente', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->end(array('label' => 'Registrar Meta', 'class' => 'k-button')); ?>
 				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
 			</li>
             
