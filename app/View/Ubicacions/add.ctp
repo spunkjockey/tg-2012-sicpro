@@ -1,61 +1,61 @@
-<!-- File: /app/View/fuentefinanciamiento/edit.ctp -->
+<!-- File: /app/View/Ubicaciones/add.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Editar Fuente de Financiamiento</h2>
-		<?php echo $this->Form->create('Fuentefinanciamiento'); ?>
+		<h2>Registrar Ubicacion</h2>
+		
+				<?php echo $this->Form->create('Ubicacion'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('nombrefuente', 
+				<?php echo $this->Form->input('departamento',
 					array(
-						'label' => 'Fuente:', 
+						'label' => 'Departamento:', 
+						'id' => 'select1',
+						//'selected' => '05',
+						//'empty' => 'Seleccione...', 
+						'required' )); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('municipio',
+					array(
+						'label' => 'Municipio:', 
+						'id' => 'select2',
+						//'selected' => '05',
+						//'empty' => 'Seleccione...', 
+						'required' )); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('direccion', 
+					array(
+						'label' => 'Direccion: ', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre Fuente de Financiamiento', 
+						'placeholder' => 'Objetivo General',
+						"rows"=>"2",  
 						'required', 
-						'validationMessage' => 'Ingrese Nombre de Fuente de Financiamiento')); ?>
+						'validationMessage' => 'Ingrese el Objetivo General')); ?>
 			</li>
-			<li>
-				<?php echo $this->Form->input('montoinicial', 
-					array(
-						'label' => 'Monto:', 
-						'id'    => 'moneda',
-						'placeholder' => 'Monto Inicial', 
-						'required', 
-						'validationMessage' => 'Ingrese el Monto Inicial')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('fechadisponible',
-					array(
-						'label' => 'Fecha:', 
-						'id'	=> 'datePicker1',
-						'type' => 'text'
-						)); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('tipofuente', 
-					array(
-						'label' => 'Tipo:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Tipo de Fuente de financiamiento', 
-						'required', 
-						'validationMessage' => 'Ingrese Tipo de Fuente')); ?>
-			</li>	
-		
-		<li  class="accept">
-				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
 				
-				<?php echo $this->Form->end(array('label' => 'Editar Fuente', 'class' => 'k-button')); ?>
+			<li  class="accept">
+			<!--	<?php echo $this->Html->link(
+            	'Agregar Ubicacion', 
+            	array('controller' => 'Ubicaciones','action' => 'add'/*, $emp['Empresa']['idempresa']*/),
+            	array('class'=>'k-button')
+				);?>-->
+				<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
+				<?php echo $this->Form->end(array('label' => 'Registrar Ubicacion', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
+				
+				<?php $options = array('url' => 'update_select','update' => 'Municipios');
+				echo $this->ajax->observeField('Departamentos',$options);?>
 			</li>
             
             <li class="status">
             </li>
 		</ul>
-		 
- 
- 
-   </div>
-  </div>
-          <style scoped>
+	</div>
+</div>
+
+ <style scoped>
 
                 .k-textbox {
                     width: 300px;
@@ -109,14 +109,14 @@
                 }
 
                 .invalid {
-                    color: gray;
+                    color: red;
                 }
                 span.k-tooltip {
                     margin-left: 6px;
                 }
-            </style>
-            
-            <script>
+</style>
+
+<script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
@@ -128,14 +128,17 @@
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
-
-
-		$("#datePicker1").kendoDatePicker({
-		   format: "yyyy/MM/dd" //Define el formato de fecha
-		});
-         $("#moneda").kendoNumericTextBox({
-		     format: "c2" //Define currency type and 2 digits precision
-		 });
-	         
-	                });
-            </script>
+                });
+                
+                $("#select1").kendoComboBox({
+			         //placeholder: "Seleccionar...",
+			         //index: -1,
+			         suggest: true
+			    });
+			    $("#select2").kendoComboBox({
+			         //placeholder: "Seleccionar...",
+			         //index: -1,
+			         suggest: true
+			    });
+               // var select = $("#select").data("kendoComboBox");
+</script>

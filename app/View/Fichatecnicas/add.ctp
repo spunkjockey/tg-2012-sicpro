@@ -4,19 +4,19 @@
 	<div id="formulario">
 		<h2>Registrar Ficha Tecnica</h2>
 		
-				<?php echo $this->Form->create('Fichastecnicas'); ?>
+				<?php echo $this->Form->create('Fichatecnica'); ?>
 		<ul>
 			<li>
 				<?php echo $this->Form->input('proyectos',
 					array(
 						'label' => 'Proyectos:', 
 						'id' => 'select',
-						'selected' => '05',
+						//'selected' => '05',
 						'empty' => 'Seleccione...', 
 						'required' )); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('problemantica', 
+				<?php echo $this->Form->input('problematica', 
 					array(
 						'label' => 'Problematica: ', 
 						'class' => 'k-textbox', 
@@ -75,7 +75,7 @@
 						'validationMessage' => 'Ingrese Beneficiarios')); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('resutladosesperados', 
+				<?php echo $this->Form->input('resultadosesperados', 
 					array(
 						'label' => 'Resultados: ', 
 						'class' => 'k-textbox', 
@@ -86,7 +86,13 @@
 			</li>							
 			
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar Empresa', 'class' => 'k-button')); ?>
+			<!--	<?php echo $this->Html->link(
+            	'Agregar Ubicacion', 
+            	array('controller' => 'Ubicaciones','action' => 'add'/*, $emp['Empresa']['idempresa']*/),
+            	array('class'=>'k-button')
+				);?>-->
+				<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
+				<?php echo $this->Form->end(array('label' => 'Registrar Ficha', 'class' => 'k-button')); ?>
 				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
 			</li>
             

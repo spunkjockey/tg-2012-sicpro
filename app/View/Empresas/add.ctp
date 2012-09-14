@@ -110,7 +110,7 @@
 
                 label {
                     display: inline-block;
-                    width: 150px;
+                    width: 160px;
                     text-align: right;
                     
                 }
@@ -118,6 +118,13 @@
                 .required {
                     font-weight: bold;
                 }
+                
+                form .required label:after {
+                	font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+				}
 
                 .accept, .status {
                 	padding-top: 15px;
