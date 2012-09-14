@@ -26,7 +26,8 @@
 			<li>
 				<?php echo $this->Form->input('montoplaneado', 
 					array(
-						'label' => 'Monto planeado: ($)', 
+						'label' => 'Monto planeado: ($)',
+						'class' => 'k-textbox',  
 						'id' => 'textbox',
 						'type' => 'text',
 						'placeholder' => 'Ingrese Monto',
@@ -54,6 +55,13 @@
 				
 				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 			
+                form .required label:after {
+					font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+					}
+                
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/

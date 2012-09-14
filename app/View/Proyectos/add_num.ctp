@@ -1,26 +1,39 @@
-<!-- File: /app/View/Division/add.ctp -->
+<!-- File: /app/View/Proyectos/add_num.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar división</h2>
-		<?php echo $this->Form->create('Division'); ?>
+		<h2>Asignar número de proyecto</h2>
+		<?php echo $this->Form->create('Proyecto',array('action' => 'add_num')); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('divison', 
+				<?php echo $this->Form->input('proys', 
 					array(
-						'label' => 'Nombre de división:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre de división', 
-						'required', 
-						'validationMessage' => 'Ingrese nombre de división')); ?>
+						'label' => 'Seleccione proyecto:', 
+						'id' => 'selecto', 
+						'empty' => 'Seleccione...',
+						'validationMessage' => 'Seleccione un proyecto')); ?>
 			</li>
+			<!-- -->
+			<li>
+				<?php echo $this->Form->input('numeroproyecto', 
+					array(
+						'label' => 'Ingrese número de proyecto:', 
+						'id' => 'textbox',
+						'class' => 'k-textbox',  
+						'placeholder' => 'Número del proyecto', 
+						'required', 
+						'validationMessage' => 'Ingrese Nombre de Proyecto')); ?>
+			</li>
+			
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar proyecto', 'class' => 'k-button')); ?>
+				
+				<?php echo $this->Form->end(array('label' => 'Asignar número proyecto', 'class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
             </li>
 		</ul>
+		
 	</div>
 </div>
 
@@ -104,13 +117,22 @@
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
-                });
                 
-                $("#select").kendoComboBox({
-			         //placeholder: "Seleccionar...",
-			         //index: -1,
-					 width: 300,
-			         suggest: true
-			    });
-               // var select = $("#select").data("kendoComboBox");
+				$("#selecto").kendoComboBox();
+				
+				
+                 $("#textbox").kendoNumericTextBox({
+					min: 0,
+					max: 999999,
+					value: 0,
+					placeholder: "Introduzca número de proyecto"
+					decimals: 0,
+					spinners: false
+					
+				 });
+				
+				
+				
+				});
+                
             </script>
