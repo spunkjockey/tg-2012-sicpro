@@ -25,7 +25,7 @@
 			</li>
 			
 			<li  class="accept">
-				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
+				
 				<?php echo $this->Form->end(array('label' => 'Asignar número proyecto', 'class' => 'k-button')); ?>
 			</li>
             
