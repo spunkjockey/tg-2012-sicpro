@@ -33,7 +33,7 @@ class EmpresasController extends AppController {
 		            	$this->Session->setFlash('La Empresa ha sido registrada.');
 		            	$this->redirect(array('action' => 'index'));
 		        	} else {
-		            	$this->Session->setFlash('No se pudo realizar el registro' . $this->data['Empresa']['nitempresa'] );
+		            	$this->Session->setFlash('No se pudo realizar el registro' );
 		        	}
 				/*} else {
 				    // didn't validate logic
