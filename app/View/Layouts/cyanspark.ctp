@@ -197,7 +197,7 @@
 									<li><?php echo $this->Html->link('División', array('controller' => 'divisions','action'=>'index')); ?></li>
 									<li><?php echo $this->Html->link('Departamentos', array('controller' => 'departamentos','action'=>'index')); ?></li>
 									<li><?php echo $this->Html->link('Municipios', array('controller' => 'municipios','action'=>'index')); ?></li>
-									<li>Plaza</li>
+									<li><?php echo $this->Html->link('Plazas', array('controller' => 'plazas','action'=>'index')); ?></li>
 									<li>Cargo funcional</li>
 									<li>Roles</li>
 								</ul>
