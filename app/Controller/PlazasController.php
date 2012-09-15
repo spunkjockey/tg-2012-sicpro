@@ -22,7 +22,7 @@
 			          	} 
 			        else 
 		            	{
-		               		$this->Session->setFlash('Imposible registrar la división.');
+		               		$this->Session->setFlash('Imposible registrar plaza.');
 		            	}
 	        	}
     	}
