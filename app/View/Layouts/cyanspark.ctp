@@ -45,7 +45,7 @@
 				
 			</div>
 			<div class="usuario">
-				<?php echo 'Bienvenida/o ' . 
+				<?php echo 'Bienvenido ' . 
 					$this->Session->read('User.username') . ' ' . 
 					$this->Html->link('Cerrar Sesión', array('controller' => 'users','action'=>'logout')); ?> 
 			</div>
