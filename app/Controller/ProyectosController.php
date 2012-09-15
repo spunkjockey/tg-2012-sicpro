@@ -65,6 +65,7 @@
 				if ($this->Proyecto->save($id)) 
 					{
 						$this->Session->setFlash('El número de proyecto ha sido asignado');
+						$this->redirect(array('controller'=>'mains', 'action' => 'index'));
 		            }
 					else 
 						{

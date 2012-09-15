@@ -9,7 +9,7 @@
 				<?php echo $this->Form->input('proys', 
 					array(
 						'label' => 'Seleccione proyecto:', 
-						'id' => 'selecto', 
+						'id' => 'selectpro', 
 						'empty' => 'Seleccione...',
 						'validationMessage' => 'Seleccione un proyecto')); ?>
 			</li>
@@ -27,15 +27,15 @@
 				<?php echo $this->Form->input('divisions', 
 					array(
 						'label' => 'División responsable:', 
-						'id' => 'selecto',
-						'empty' => ' ',
+						'id' => 'selectpro',
+						'validationMessage' => 'Seleccione una división',
 						'required')); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('montoplaneado', 
 					array(
 						'label' => 'Monto planeado: ($)', 
-						'id' => 'textbox',
+						'id' => 'monto',
 						'type' => 'text',
 						'placeholder' => 'Ingrese Monto',
 						'required',
@@ -122,32 +122,37 @@
 			
 			<script>
                 $(document).ready(function() {
+                    
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
 
-                    $("button").click(function() {
+                    $("#button").click(function() {
                         if (validator.validate()) {
-                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-                            } else {
-                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-                        }
+                        	save();  
+                        } 
                     });
+                    
+                    $("#selectpro").kendoComboBox({
+                    	highLightFirst: true,
+                    	filter: "contains"
+                    });
+                    
+                    var combobox = $("#selectpro").data("kendoComboBox");
+                    combobox.list.width(400);
+                    
+                    $("#monto").kendoNumericTextBox({
+                        format: "c2",
+                        decimals: 2,
+                        value: 0,
+                        min: 0,
+    					max: 999999999.99,
+    					placeholder: "Ej. 10000",
+    					spinners: false
+                    });
+                    
+                    $("#texto")
+               
+                });
                 
-				$("#selecto").kendoComboBox();
-				
-				
-                 $("#textbox").kendoNumericTextBox({
-					min: 0,
-					max: 999999999.99,
-					value: 0,
-					placeholder: "Introduzca monto"
-					decimals: 2,
-					spinners: false,
-					format: "c2" //Define currency type and 2 digits precision
-				 });
-				
-				
-				
-				});
                 
             </script>

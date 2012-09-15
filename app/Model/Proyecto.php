@@ -36,7 +36,6 @@ class Proyecto extends AppModel {
 			'numeroproyecto'=>array(
 				'numeric' => array(
 		        	'rule'    => 'numeric',
-		        	'required' => true,
 		        	'allowEmpty' => false,
 		            'message' => 'Solo números son permitidos',
 		            'last'    => true
@@ -51,7 +50,6 @@ class Proyecto extends AppModel {
 					)
 				),
 			'proys' => array(
-				'required' => true,
 	        	'allowEmpty' => false,
 	        	'message' => 'Seleccione un proyecto'
 	        	
