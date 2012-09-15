@@ -19,7 +19,11 @@ class EmpresasController extends AppController {
 	public function view($id = null) {
 		$this->layout = 'cyanspark';
         $this->Empresa->id = $id;
-        $this->set('empresas', $this->Empresa->read());
+		if (!$this->Empresa->read()) {
+        	throw new NotFoundException('No se puede encontrar la Empresa', 404);
+    	} else {
+        	$this->set('empresas', $this->Empresa->read());
+		}
     }
 
 	
@@ -33,7 +37,7 @@ class EmpresasController extends AppController {
 		            	$this->Session->setFlash('La Empresa ha sido registrada.');
 		            	$this->redirect(array('action' => 'index'));
 		        	} else {
-		            	$this->Session->setFlash('No se pudo realizar el registro' . $this->data['Empresa']['nitempresa'] );
+		            	$this->Session->setFlash('No se pudo realizar el registro' );
 		        	}
 				/*} else {
 				    // didn't validate logic

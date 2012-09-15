@@ -1,71 +1,39 @@
-<!-- File: /app/View/Departamentos/add.ctp -->
+<!-- File: /app/View/Metas/add.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
+		<h2>Registrar Metas</h2>
 		
-		<?php echo $this->element('helpbox', array("helptext" => "Oh, this text is very helpful.")); ?>
-		
-		<div id="post" style="height: 200px;
-			width: 300px;
-			overflow: auto;
-			border: 1px solid #666;
-			background-color: #ccc;
-			padding: 8px;">
-		</div>
-		<?php
-			echo $this->ajax->remoteTimer(
-			array(
-				'url' => array( 'controller' => 'departamentos', 'action' => 'pruebaajax'),
-				'update' => 'post', 'position' => 'html', 'frequency' => 5
-				)
-			);
-		?> 
-		<h2>Agregar Departamento</h2>
-		<?php echo $this->Form->create('Departamento'); ?>
-		<?php $this->Form->inputDefaults(array(
-				'label' => false,
-        		'div' => false,
-        		'class' => 'k-textbox'
-    		)); ?>
+				<?php echo $this->Form->create('Metas'); ?>
 		<ul>
-			<li>
-				<?php echo $this->Form->input('codigodepartamento', 
+			<?php echo $this->Form->input('descripcionmeta', 
 					array(
-						'label' => 'Codigo Departamento:', 
-						'placeholder' => 'ej. 15', 
+						'label' => 'Descripcion de la meta:', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Descripcion de la Meta', 
 						'required', 
-						'autofocus',
-						'validationMessage' => 'Ingrese Codigo Departamento')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('departamento', 
-					array(
-						'label' => 'Departamento:', 
-						'placeholder' => 'Nombre Departamento', 
-						'required', 
-						'validationMessage' => 'Ingrese Nombre Departamento')); ?>
+						'validationMessage' => 'Ingrese la Descripcion de la meta')); ?>
 			</li>
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar Departamento', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->end(array('label' => 'Registrar Meta', 'class' => 'k-button')); ?>
 				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
             </li>
 		</ul>
-		
 	</div>
 </div>
 
-            <style scoped>
+<style scoped>
 
                 .k-textbox {
-                    width: 11.8em;
+                    width: 300px;
                     margin-left: 5px;
                     
                 }
 				
-				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
+				
 			
                 #formulario {
                     width: 600px;
@@ -92,7 +60,7 @@
 
                 label {
                     display: inline-block;
-                    width: 150px;
+                    width: 160px;
                     text-align: right;
                     
                 }
@@ -100,6 +68,13 @@
                 .required {
                     font-weight: bold;
                 }
+                
+                form .required label:after {
+                	font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+				}
 
                 .accept, .status {
                 	padding-top: 15px;
@@ -116,9 +91,8 @@
                 span.k-tooltip {
                     margin-left: 6px;
                 }
-            </style>
-            
-            <script>
+</style>
+<script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
@@ -130,5 +104,9 @@
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
+                    
+                    $("#phone").mask("9999-9999");
+                    
+                   $("#nit").mask("9999-999999-999-9");
                 });
-            </script>
+</script>

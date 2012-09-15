@@ -32,9 +32,32 @@ class Proyecto extends AppModel {
 	        	'allowEmpty' => false,
 	        	'message' => 'Seleccione una división'
 	        	
-			)
+			),
+			'numeroproyecto'=>array(
+				'numeric' => array(
+		        	'rule'    => 'numeric',
+		        	'required' => true,
+		        	'allowEmpty' => false,
+		            'message' => 'Solo números son permitidos',
+		            'last'    => true
+		         	),
+		        'isUnique' => array(
+	            	'rule'    => 'isUnique',
+	            	'message' => 'Este número de proyecto ya ha sido asignado'
+	        		),
+				'maxlength' => array(
+					'rule' => array('maxLength', '6'),
+					'message' => 'Largo máximo de 6 dígitos'
+					)
+				),
+			'proys' => array(
+				'required' => true,
+	        	'allowEmpty' => false,
+	        	'message' => 'Seleccione un proyecto'
+	        	
+			),
 			
-		);
+			);
 }
 
 ?>

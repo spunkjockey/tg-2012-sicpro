@@ -1,106 +1,67 @@
-<!-- File: /app/View/Fichatecnicas/add.ctp -->
+<!-- File: /app/View/Ubicaciones/add.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar Ficha Tecnica</h2>
+		<h2>Registrar Ubicacion</h2>
 		
-				<?php echo $this->Form->create('Fichatecnica'); ?>
+				<?php echo $this->Form->create('Ubicacion'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('proyectos',
+				<?php echo $this->Form->input('departamentos',
 					array(
-						'label' => 'Proyectos:', 
-						'id' => 'select',
+						'label' => 'Departamento:', 
+						'id' => 'select1',
 						//'selected' => '05',
-						'empty' => 'Seleccione...', 
+						//'empty' => 'Seleccione...', 
 						'required' 
 						, 
-						'validationMessage' => 'Seleccione Proyecto')); ?>
+						'validationMessage' => 'Seleccione Departamento')); ?>
+			</li>
+
+			<li>
+				<?php echo $this->Form->input('municipios',
+					array(
+						'label' => 'Municipio:', 
+						'id' => 'select2',
+						//'selected' => '05',
+						//'empty' => 'Seleccione...', 
+						'required' 
+						, 
+						'validationMessage' => 'Seleccione Municipios')); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('problematica', 
+				<?php echo $this->Form->input('direccion', 
 					array(
-						'label' => 'Problematica: ', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Problematica',
-						"rows"=>"5", 
-						'required', 
-						'validationMessage' => 'Ingrese la Problematica')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('objgeneral', 
-					array(
-						'label' => 'Objetivo General: ', 
+						'label' => 'Direccion: ', 
 						'class' => 'k-textbox', 
 						'placeholder' => 'Objetivo General',
 						"rows"=>"2",  
 						'required', 
 						'validationMessage' => 'Ingrese el Objetivo General')); ?>
 			</li>
-			<li>
-				<?php echo $this->Form->input('objespecifico', 
-					array(
-						'label' => 'Objetivo Especifico: ', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Objetivo Especifico',
-						"rows"=>"2", 
-						'required', 
-						'validationMessage' => 'Ingrese el Objetivo Especifico')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('descripcionproyecto', 
-					array(
-						'label' => 'Descripcion : ', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Descipcion',
-						"rows"=>"6", 
-						'required', 
-						'validationMessage' => 'Ingrese la Descripcion del Proyecto')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('empleosgenerados', 
-					array(
-						'label' => 'Empleos Generados: ', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Empleos Generados', 
-						'required', 
-						'validationMessage' => 'Ingrese la cantidad de empleos')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('beneficiarios', 
-					array(
-						'label' => 'Beneficiarios: ', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Beneficiarios',
-						"rows"=>"2", 
-						'required', 
-						'validationMessage' => 'Ingrese Beneficiarios')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('resultadosesperados', 
-					array(
-						'label' => 'Resultados: ', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Resultados Esperados',
-						"rows"=>"3", 
-						'required', 
-						'validationMessage' => 'Ingrese los Resultados Esperados')); ?>
-			</li>							
-			
+				
 			<li  class="accept">
+				<div id='divdiv'>
+					
+					
+				</div>
 			<!--	<?php echo $this->Html->link(
             	'Agregar Ubicacion', 
             	array('controller' => 'Ubicaciones','action' => 'add'/*, $emp['Empresa']['idempresa']*/),
             	array('class'=>'k-button')
 				);?>-->
 				<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
-				<?php echo $this->Form->end(array('label' => 'Registrar Ficha', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->end(array('label' => 'Registrar Ubicacion', 'class' => 'k-button')); ?>
 				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
+				
+				<?php $options = array('url' => 'update_select','update' => 'select2');
+				echo $this->ajax->observeField('select1',$options);?>
 			</li>
             
             <li class="status">
             </li>
 		</ul>
+		<?php echo print_r($departamentos)?>
 	</div>
 </div>
 
@@ -179,10 +140,17 @@
                     });
                 });
                 
-                $("#select").kendoComboBox({
+                $("#select1").kendoComboBox({
 			         //placeholder: "Seleccionar...",
-			         //index: -1,
-			         suggest: true
+			         index: 0,
+			         suggest: true,
+			         filter: 'none'
+			    });
+			    $("#select2").kendoComboBox({
+			         //placeholder: "Seleccionar...",
+			         index: 0,
+			         suggest: true,
+			         filter: 'none'
 			    });
                // var select = $("#select").data("kendoComboBox");
 </script>

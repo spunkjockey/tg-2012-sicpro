@@ -1,53 +1,33 @@
-<!-- File: /app/View/Departamentos/add.ctp -->
+<!-- File: /app/View/Proyectos/add_num.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		
-		<?php echo $this->element('helpbox', array("helptext" => "Oh, this text is very helpful.")); ?>
-		
-		<div id="post" style="height: 200px;
-			width: 300px;
-			overflow: auto;
-			border: 1px solid #666;
-			background-color: #ccc;
-			padding: 8px;">
-		</div>
-		<?php
-			echo $this->ajax->remoteTimer(
-			array(
-				'url' => array( 'controller' => 'departamentos', 'action' => 'pruebaajax'),
-				'update' => 'post', 'position' => 'html', 'frequency' => 5
-				)
-			);
-		?> 
-		<h2>Agregar Departamento</h2>
-		<?php echo $this->Form->create('Departamento'); ?>
-		<?php $this->Form->inputDefaults(array(
-				'label' => false,
-        		'div' => false,
-        		'class' => 'k-textbox'
-    		)); ?>
+		<h2>Asignar número de proyecto</h2>
+		<?php echo $this->Form->create('Proyecto',array('action' => 'add_num')); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('codigodepartamento', 
+				<?php echo $this->Form->input('proys', 
 					array(
-						'label' => 'Codigo Departamento:', 
-						'placeholder' => 'ej. 15', 
-						'required', 
-						'autofocus',
-						'validationMessage' => 'Ingrese Codigo Departamento')); ?>
+						'label' => 'Seleccione proyecto:', 
+						'id' => 'selecto', 
+						'empty' => 'Seleccione...',
+						'validationMessage' => 'Seleccione un proyecto')); ?>
 			</li>
+			<!-- -->
 			<li>
-				<?php echo $this->Form->input('departamento', 
+				<?php echo $this->Form->input('numeroproyecto', 
 					array(
-						'label' => 'Departamento:', 
-						'placeholder' => 'Nombre Departamento', 
+						'label' => 'Ingrese número de proyecto:', 
+						'id' => 'textbox',
+						'class' => 'k-textbox',  
+						'placeholder' => 'Número del proyecto', 
 						'required', 
-						'validationMessage' => 'Ingrese Nombre Departamento')); ?>
+						'validationMessage' => 'Ingrese Nombre de Proyecto')); ?>
 			</li>
+			
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar Departamento', 'class' => 'k-button')); ?>
-				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
+				
+				<?php echo $this->Form->end(array('label' => 'Asignar número proyecto', 'class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
@@ -57,16 +37,23 @@
 	</div>
 </div>
 
-            <style scoped>
+			<style scoped>
 
                 .k-textbox {
-                    width: 11.8em;
+                    width: 300px;
                     margin-left: 5px;
                     
                 }
 				
 				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 			
+                form .required label:after {
+					font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+					}
+                
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -117,8 +104,8 @@
                     margin-left: 6px;
                 }
             </style>
-            
-            <script>
+			
+			<script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
@@ -130,5 +117,22 @@
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
-                });
+                
+				$("#selecto").kendoComboBox();
+				
+				
+                 $("#textbox").kendoNumericTextBox({
+					min: 0,
+					max: 999999,
+					value: 0,
+					placeholder: "Introduzca número de proyecto"
+					decimals: 0,
+					spinners: false
+					
+				 });
+				
+				
+				
+				});
+                
             </script>
