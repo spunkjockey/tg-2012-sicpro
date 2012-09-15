@@ -3,14 +3,14 @@
         public $name = 'Fuentefinanciamiento';
 		public $useTable = 'fuentefinanciamiento';
 		public $primaryKey = 'idfuentefinanciamiento';
-/*
-	public $validate = array(
+
+	/*public $validate = array(
 	    'nombrefuente' => array(
 	        'isUnique' => array(
 	            'rule'    => 'isUnique',
 	            'required' => true,
 	            'allowEmpty' => false,
-	            'message' => 'El Departamento ya existe'),
+	            'message' => 'El nombre de la fuente ya existe'),
 			'maxLength' => array(
 	        	'rule'    => array('maxLength', 150),
 	        	'message' => 'El nombre de la fuente debe ser maximo 150 caracteres.'
