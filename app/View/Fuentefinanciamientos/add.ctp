@@ -29,7 +29,7 @@
 					array(
 						'label' => 'Fecha Disponibilidad:', 
 						'id'	=> 'datePicker1',
-						'type' => 'text'
+						'type'  => 'Text'
 						/*'class' => 'k-textbox', 
 						'placeholder' => 'Fecha Disponibilidad', 
 						'required', 
@@ -40,17 +40,16 @@
 			
 			
 			<li>
-				<?php echo $this->Form->input('tipofuente', 
+                <?php echo $this->Form->input('tipofuentes',
 					array(
-						'label' => 'Tipo de Fuente:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Tipo de Fuente', 
+						'label' => 'Tipo Fuente:', 
+						'id' => 'select',
+						//'selected' => '05',
+						'empty' => 'Seleccione...', 
 						'required', 
-						'validationMessage' => 'Ingrese el Tipo de Fuente')); ?>
+						'validationMessage' => 'Seleccione Tipo de Fuente')); ?>
 			</li>
 			<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
-			<?php echo $this->Form->input('userm', array('type' => 'hidden','value'=>null)); ?>
-			<?php echo $this->Form->input('modificacion', array('type' => 'hidden', 'value'=>null)); ?>
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar Fuente', 'class' => 'k-button')); ?>
 				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
@@ -142,8 +141,15 @@
 		   format: "yyyy/MM/dd" //Define el formato de fecha
 		});
          $("#moneda").kendoNumericTextBox({
-		     format: "c2" //Define currency type and 2 digits precision
+		     format: "c2", //Define currency type and 2 digits precision
+		     spinners: false
 		 });
+		 
+		 $("#select").kendoComboBox({
+			         //placeholder: "Seleccionar...",
+			         //index: -1,
+			         suggest: true
+			    });
 	         
 	                });
             </script>
