@@ -77,9 +77,10 @@
 									</li>
 									<li>Fuente de financiamiento
 										<ul>
-											<li>Registrar fuente de financiamiento</li>
-											<li>Modificar fuente de financiamiento</li>
-											<li>Eliminar fuente de financiamiento</li>
+											
+											<li><?php echo $this->Html->link('Registrar fuente de financiamiento', array('controller' => 'Fuentefinanciamientos','action'=>'index')); ?></li>
+											
+											
 											<li>Consultar fuente de financiamiento (en un periodo)</li>
 										</ul>
 									</li>	
@@ -107,7 +108,7 @@
 									<li>Asignaci&oacute;n de t&eacute;cnicos</li>
 									<li>Orden de inicio
 										<ul>
-											<li>Registrar Orden de Inicio</li>
+											<li><?php echo $this->Html->link('Registrar Orden de Inicio', array('controller' => 'Contratos','action'=>'addordeninicio')); ?></li>
 											<li>Modificar Orden de Inicio</li>
 										</ul>
 									</li>
@@ -350,3 +351,4 @@
 	</script>
 
 </html>
+

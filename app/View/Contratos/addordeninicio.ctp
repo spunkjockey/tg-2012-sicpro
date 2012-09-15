@@ -1,62 +1,47 @@
-<!-- File: /app/View/fuentefinanciamiento/edit.ctp -->
+<!-- File: /app/View/Orden de inicio/registrar_Orden de inicio.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Editar Fuente de Financiamiento</h2>
-		<?php echo $this->Form->create('Fuentefinanciamiento'); ?>
+		<h2>Agregar Orden de Inicio</h2>
+		<?php echo $this->Form->create('Contrato'); ?>
 		<ul>
+			
 			<li>
-				<?php echo $this->Form->input('nombrefuente', 
+                <?php echo $this->Form->input('contratos',
 					array(
-						'label' => 'Fuente:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre Fuente de Financiamiento', 
-						'required', 
-						'validationMessage' => 'Ingrese Nombre de Fuente de Financiamiento')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('montoinicial', 
-					array(
-						'label' => 'Monto:', 
-						'id'    => 'moneda',
-						'placeholder' => 'Monto Inicial', 
-						'required', 
-						'validationMessage' => 'Ingrese el Monto Inicial')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('fechadisponible',
-					array(
-						'label' => 'Fecha:', 
-						'id'	=> 'datePicker1',
-						'type' => 'text'
-						)); ?>
-			</li>
-			<li>
-				 <?php echo $this->Form->input('tipofuentes',
-					array(
-						'label' => 'Tipo Fuente:', 
+						'label' => 'Codigo de Contrato:', 
 						'id' => 'select',
 						//'selected' => '05',
 						'empty' => 'Seleccione...', 
 						'required', 
-						'validationMessage' => 'Seleccione Tipo de Fuente')); ?>
-			</li>	
-		
-		<li  class="accept">
-				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
-				<?php echo $this->Form->input('userm', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
-				<?php echo $this->Form->end(array('label' => 'Editar Fuente', 'class' => 'k-button')); ?>
+						'validationMessage' => 'Seleccione Codigo de contrato')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('ordeninicio', 
+					array(
+						'label' => 'Orden de Inicio:', 
+						'id'	=> 'datePicker1',
+						'type'  => 'Text'
+						/*'class' => 'k-textbox', 
+						'placeholder' => 'Fecha Disponibilidad', 
+						'required', 
+						'validationMessage' => 'Ingrese la Fecha de Disponibilidad')
+						 */) ); ?>
+			</li>
+			<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
+			<li  class="accept">
+				<?php echo $this->Form->end(array('label' => 'Registrar Orden de Inicio', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
             </li>
 		</ul>
-		 
- 
- 
-   </div>
-  </div>
-          <style scoped>
+		
+	</div>
+</div>
+
+            <style scoped>
 
                 .k-textbox {
                     width: 300px;
@@ -139,11 +124,12 @@
 		     spinners: false
 		 });
 		 
-		$("#select").kendoComboBox({
-		//placeholder: "Seleccionar...",
-		//index: -1,
-		suggest: true
+		 $("#select").kendoComboBox({
+			         //placeholder: "Seleccionar...",
+			         //index: -1,
+			         suggest: true
 			    });
 	         
 	                });
             </script>
+            
