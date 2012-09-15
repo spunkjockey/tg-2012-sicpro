@@ -1,6 +1,6 @@
 <!-- File: /app/View/Cargofuncionals/index.ctp -->
 
-<h2>Plazas</h2>
+<h2>Cargo funcional</h2>
 <div style='margin:4px 0' >
 	<?php echo $this->Html->link(
 		'Agregar cargo funcional', 

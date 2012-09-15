@@ -20,23 +20,18 @@
 		    'soloLetras' => array(
 				'rule'    => '/^[a-zA-ZáéíóúAÉÍÓÚÑñ\s]{2,}$/i',
 	        	'message' => 'Solo Letras'
-	        	),
-	        'vacio' => array(
-				'allowEmpty' => false,
-				'message' => 'No puede ser vacío'
-				)
-			),
+	        	)),
 			
 		'apellidos persona'=> array(
 			'soloLetras' => array(
 				'rule'    => '/^[a-zA-ZáéíóúAÉÍÓÚÑñ\s]{2,}$/i',
 	        	'message' => 'Solo Letras'
-	        	),
-	        'vacio' => array(
-				'allowEmpty' => false,
-				'message' => 'No puede ser vacío'
-				)
-			)
+	        	)),
+	    'correocontacto' => array(
+			'email' => array(
+		        'rule'    => array('email', true),
+		        'message' => 'Ingrese una direccion de correo electronica valida.'
+    		)),
 	);
 	
 	public function beforeValidate($options = array()) {

@@ -24,7 +24,7 @@
 	            }
 				else {
 				
-					$this->Session->setFlash('Ha ocurrido un error');
+					$this->Session->setFlash('Ha ocurrido un error'. print_r($this->Persona->data));
 	                         }
         }
     }	
