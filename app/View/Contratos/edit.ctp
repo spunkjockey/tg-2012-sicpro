@@ -2,39 +2,22 @@
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Editar Fuente de Financiamiento</h2>
-		<?php echo $this->Form->create('Fuentefinanciamiento'); ?>
+		<h2>Editar Orden de Inicio</h2>
+		<?php echo $this->Form->create('Contrato'); ?>
 		<ul>
+			
 			<li>
-				<?php echo $this->Form->input('nombrefuente', 
+				<?php echo $this->Form->input('ordeninicio',
 					array(
-						'label' => 'Fuente:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre Fuente de Financiamiento', 
-						'required', 
-						'validationMessage' => 'Ingrese Nombre de Fuente de Financiamiento')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('montoinicial', 
-					array(
-						'label' => 'Monto:', 
-						'id'    => 'moneda',
-						'placeholder' => 'Monto Inicial', 
-						'required', 
-						'validationMessage' => 'Ingrese el Monto Inicial')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('fechadisponible',
-					array(
-						'label' => 'Fecha:', 
+						'label' => 'Orden Inicio:', 
 						'id'	=> 'datePicker1',
 						'type' => 'text'
 						)); ?>
 			</li>
 			<li>
-				 <?php echo $this->Form->input('tipofuentes',
+				 <?php echo $this->Form->input('contratos',
 					array(
-						'label' => 'Tipo Fuente:', 
+						'label' => 'Codigo contrato:', 
 						'id' => 'select',
 						//'selected' => '05',
 						'empty' => 'Seleccione...', 
