@@ -18,8 +18,17 @@ class FuentefinanciamientosController extends AppController {
 	
 	 public function add() {
 		$this->layout = 'cyanspark';
+		$this->set('tipofuentes', $this->Fuentefinanciamiento->Tipofuente->find('list',
+		array ('fields'=> array ('id', 'tipofuente') ) ));
+		
         if ($this->request->is('post')) {
-			if ($this->Fuentefinanciamiento->save($this->request->data)) {
+        	
+			$this->Fuentefinanciamiento->set('nombrefuente', $this->request->data['Fuentefinanciamiento'] ['nombrefuente']);
+			$this->Fuentefinanciamiento->set('montoinicial', $this->request->data['Fuentefinanciamiento'] ['montoinicial']);
+			$this->Fuentefinanciamiento->set('fechadisponible', $this->request->data['Fuentefinanciamiento'] ['fechadisponible']);
+			$this->Fuentefinanciamiento->set('userc', $this->request->data['Fuentefinanciamiento'] ['userc']);
+			$this->Fuentefinanciamiento->set('idtipofuente', $this->request->data['Fuentefinanciamiento'] ['tipofuentes']);
+			if ($this->Fuentefinanciamiento->save()) {
             	$this->Session->setFlash('La Fuente de Financiamiento ha sido registrada.');
             	$this->redirect(array('action' => 'index'));
         	} else {
@@ -33,10 +42,18 @@ class FuentefinanciamientosController extends AppController {
 	    $this->Fuentefinanciamiento->id = $id;
 				
 	    if ($this->request->is('get')) {
+	    	$this->set('tipofuentes', $this->Fuentefinanciamiento->Tipofuente->find('list',
+		array ('fields'=> array ('id', 'tipofuente') ) ));
 	        $this->request->data = $this->Fuentefinanciamiento->read();
 	    } else {
-	    	
-	        if ($this->Fuentefinanciamiento->save($this->request->data)) {
+	    	$this->Fuentefinanciamiento->set('nombrefuente', $this->request->data['Fuentefinanciamiento'] ['nombrefuente']);
+			$this->Fuentefinanciamiento->set('montoinicial', $this->request->data['Fuentefinanciamiento'] ['montoinicial']);
+			$this->Fuentefinanciamiento->set('fechadisponible', $this->request->data['Fuentefinanciamiento'] ['fechadisponible']);
+			$this->Fuentefinanciamiento->set('userm', $this->request->data['Fuentefinanciamiento'] ['userm']);
+			$this->Fuentefinanciamiento->set('idtipofuente', $this->request->data['Fuentefinanciamiento'] ['tipofuentes']);
+			
+			$this->Fuentefinanciamiento->set('modificacion', date("Y-m-d H:i:s"));
+	        if ($this->Fuentefinanciamiento->save()) {
 	            $this->Session->setFlash('La Fuente ha sido actualizada.');
 	            $this->redirect(array('action' => 'index'));
 	        } else {
