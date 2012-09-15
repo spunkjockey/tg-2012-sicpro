@@ -166,7 +166,7 @@
 							</li>	
 							<li>Personal
 								<ul>
-									<li>Registrar personal</li>
+									<li><?php echo $this->Html->link('Registrar persona', array('controller' => 'personas','action'=>'add')); ?></li>
 									<li>Modificar personal</li>
 									<li>Eliminar personal</li>
 									<li>Consultar personal</li>
@@ -199,7 +199,7 @@
 									<li><?php echo $this->Html->link('Departamentos', array('controller' => 'departamentos','action'=>'index')); ?></li>
 									<li><?php echo $this->Html->link('Municipios', array('controller' => 'municipios','action'=>'index')); ?></li>
 									<li><?php echo $this->Html->link('Plazas', array('controller' => 'plazas','action'=>'index')); ?></li>
-									<li>Cargo funcional</li>
+									<li><?php echo $this->Html->link('Cargo funcional', array('controller' => 'cargofuncionals','action'=>'index')); ?></li>
 									<li>Roles</li>
 								</ul>
 							</li>
