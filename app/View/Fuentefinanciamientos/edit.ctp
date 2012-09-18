@@ -32,18 +32,19 @@
 						)); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('tipofuente', 
+				 <?php echo $this->Form->input('tipofuentes',
 					array(
-						'label' => 'Tipo:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Tipo de Fuente de financiamiento', 
+						'label' => 'Tipo Fuente:', 
+						'id' => 'select',
+						//'selected' => '05',
+						'empty' => 'Seleccione...', 
 						'required', 
-						'validationMessage' => 'Ingrese Tipo de Fuente')); ?>
+						'validationMessage' => 'Seleccione Tipo de Fuente')); ?>
 			</li>	
 		
 		<li  class="accept">
 				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
-				
+				<?php echo $this->Form->input('userm', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
 				<?php echo $this->Form->end(array('label' => 'Editar Fuente', 'class' => 'k-button')); ?>
 			</li>
             
@@ -134,8 +135,15 @@
 		   format: "yyyy/MM/dd" //Define el formato de fecha
 		});
          $("#moneda").kendoNumericTextBox({
-		     format: "c2" //Define currency type and 2 digits precision
+		     format: "c2", //Define currency type and 2 digits precision
+		     spinners: false
 		 });
+		 
+		$("#select").kendoComboBox({
+		//placeholder: "Seleccionar...",
+		//index: -1,
+		suggest: true
+			    });
 	         
 	                });
             </script>

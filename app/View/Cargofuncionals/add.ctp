@@ -1,21 +1,21 @@
-<!-- File: /app/View/Division/add.ctp -->
+<!-- File: /app/View/Cargofuncionals/add.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar división</h2>
-		<?php echo $this->Form->create('Division'); ?>
+		<h2>Registrar cargo funcional</h2>
+		<?php echo $this->Form->create('Cargofuncional'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('divison', 
+				<?php echo $this->Form->input('cargofuncional', 
 					array(
-						'label' => 'Nombre de división:', 
+						'label' => 'Nombre del cargo:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre de división', 
+						'placeholder' => 'Cargo funcional', 
 						'required', 
-						'validationMessage' => 'Ingrese nombre de división')); ?>
+						'validationMessage' => 'Ingrese nombre del cargo funcional')); ?>
 			</li>
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar división', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->end(array('label' => 'Registrar cargo', 'class' => 'k-button')); ?>
 			</li>
             
             <li class="status">

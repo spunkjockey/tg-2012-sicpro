@@ -1,26 +1,70 @@
-<!-- File: /app/View/Division/add.ctp -->
+<!-- File: /app/View/Personas/add.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar división</h2>
-		<?php echo $this->Form->create('Division'); ?>
+		<h2>Registrar persona</h2>
+		<?php echo $this->Form->create('Persona'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('divison', 
+				<?php echo $this->Form->input('nombrespersona', 
 					array(
-						'label' => 'Nombre de división:', 
+						'label' => 'Nombres:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre de división', 
+						'placeholder' => 'Nombres de la persona', 
 						'required', 
-						'validationMessage' => 'Ingrese nombre de división')); ?>
+						'validationMessage' => 'Ingrese nombres de la persona')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('apellidospersona', 
+					array(
+						'label' => 'Apellidos:', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Apellidos de la persona', 
+						'required', 
+						'validationMessage' => 'Ingrese apellidos de la persona')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('plazas', 
+					array(
+						'label' => 'Plaza:', 
+						'id' => 'selecto',
+						'empty' => 'Seleccione...',
+						'required')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('cargos', 
+					array(
+						'label' => 'Cargo funcional:', 
+						'id' => 'selecto',
+						'empty' => 'Seleccione...',
+						'required')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('telefonocontacto', 
+					array(
+						'label' => 'Telefono:', 
+						'class' => 'k-textbox', 
+						'id'	=>	'phone',
+						'placeholder' => 'Telefono Empresa', 
+						'validationMessage' => 'Ingrese Telefono Empresa')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('correoelectronico', 
+					array(
+						'label' => 'Correo electronico:', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Correo Electronico', 
+						'required', 
+						'validationMessage' => 'Ingrese Correo Electronico')); ?>
 			</li>
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar división', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->end(array('label' => 'Registrar persona', 'class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
             </li>
 		</ul>
+		
 	</div>
 </div>
 
@@ -104,13 +148,14 @@
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
-                });
                 
-                $("#select").kendoComboBox({
-			         //placeholder: "Seleccionar...",
-			         //index: -1,
-					 width: 300,
-			         suggest: true
-			    });
-               // var select = $("#select").data("kendoComboBox");
+				$("#selecto").kendoComboBox();
+				
+				$("#phone").mask("9999-9999");
+                 
+				
+				
+				
+				});
+                
             </script>

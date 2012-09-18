@@ -1,30 +1,45 @@
-<!-- File: /app/View/Division/add.ctp -->
+<!-- File: /app/View/fuentefinanciamiento/edit.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar división</h2>
-		<?php echo $this->Form->create('Division'); ?>
+		<h2>Editar Orden de Inicio</h2>
+		<?php echo $this->Form->create('Contrato'); ?>
 		<ul>
+			
 			<li>
-				<?php echo $this->Form->input('divison', 
+				<?php echo $this->Form->input('ordeninicio',
 					array(
-						'label' => 'Nombre de división:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre de división', 
-						'required', 
-						'validationMessage' => 'Ingrese nombre de división')); ?>
+						'label' => 'Orden Inicio:', 
+						'id'	=> 'datePicker1',
+						'type' => 'text'
+						)); ?>
 			</li>
-			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar división', 'class' => 'k-button')); ?>
+			<li>
+				 <?php echo $this->Form->input('contratos',
+					array(
+						'label' => 'Codigo contrato:', 
+						'id' => 'select',
+						//'selected' => '05',
+						'empty' => 'Seleccione...', 
+						'required', 
+						'validationMessage' => 'Seleccione Tipo de Fuente')); ?>
+			</li>	
+		
+		<li  class="accept">
+				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
+				<?php echo $this->Form->input('userm', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
+				<?php echo $this->Form->end(array('label' => 'Editar Fuente', 'class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
             </li>
 		</ul>
-	</div>
-</div>
-
-			<style scoped>
+		 
+ 
+ 
+   </div>
+  </div>
+          <style scoped>
 
                 .k-textbox {
                     width: 300px;
@@ -32,15 +47,8 @@
                     
                 }
 				
-				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
+				
 			
-                form .required label:after {
-					font-size: 1.4em;
-					color: #e32;
-					content: '*';
-					display:inline;
-					}
-                
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -85,14 +93,14 @@
                 }
 
                 .invalid {
-                    color: red;
+                    color: gray;
                 }
                 span.k-tooltip {
                     margin-left: 6px;
                 }
             </style>
-			
-			<script>
+            
+            <script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
@@ -104,13 +112,21 @@
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
-                });
-                
-                $("#select").kendoComboBox({
-			         //placeholder: "Seleccionar...",
-			         //index: -1,
-					 width: 300,
-			         suggest: true
+
+
+		$("#datePicker1").kendoDatePicker({
+		   format: "yyyy/MM/dd" //Define el formato de fecha
+		});
+         $("#moneda").kendoNumericTextBox({
+		     format: "c2", //Define currency type and 2 digits precision
+		     spinners: false
+		 });
+		 
+		$("#select").kendoComboBox({
+		//placeholder: "Seleccionar...",
+		//index: -1,
+		suggest: true
 			    });
-               // var select = $("#select").data("kendoComboBox");
+	         
+	                });
             </script>

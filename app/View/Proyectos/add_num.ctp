@@ -9,7 +9,7 @@
 				<?php echo $this->Form->input('proys', 
 					array(
 						'label' => 'Seleccione proyecto:', 
-						'id' => 'selecto', 
+						'id' => 'selectpro', 
 						'empty' => 'Seleccione...',
 						'validationMessage' => 'Seleccione un proyecto')); ?>
 			</li>
@@ -18,7 +18,7 @@
 				<?php echo $this->Form->input('numeroproyecto', 
 					array(
 						'label' => 'Ingrese número de proyecto:', 
-						'id' => 'textbox',
+						'id' => 'numero',
 						'class' => 'k-textbox',  
 						'placeholder' => 'Número del proyecto', 
 						'required', 
@@ -103,36 +103,37 @@
                 span.k-tooltip {
                     margin-left: 6px;
                 }
+              
             </style>
-			
-			<script>
+            <script>
                 $(document).ready(function() {
+                    
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
 
-                    $("button").click(function() {
+                    $("#button").click(function() {
                         if (validator.validate()) {
-                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-                            } else {
-                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-                        }
+                        	save();  
+                        } 
                     });
+                    
+                    $("#selectpro").kendoComboBox({
+                    	highLightFirst: true,
+                    	filter: "contains"
+                    });
+                    
+                    var combobox = $("#selectpro").data("kendoComboBox");
+                    combobox.list.width(400);
+                    
+                    $("#numero").kendoNumericTextBox({
+                        min: 000000,
+    					max: 999999,
+    					placeholder: "Ej. 10000",
+    					spinners: false
+                    });
+                    
+                   
+                });
                 
-				$("#selecto").kendoComboBox();
-				
-				
-                 $("#textbox").kendoNumericTextBox({
-					min: 0,
-					max: 999999,
-					value: 0,
-					placeholder: "Introduzca número de proyecto"
-					decimals: 0,
-					spinners: false
-					
-				 });
-				
-				
-				
-				});
                 
             </script>

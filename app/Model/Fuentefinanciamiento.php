@@ -3,6 +3,14 @@
         public $name = 'Fuentefinanciamiento';
 		public $useTable = 'fuentefinanciamiento';
 		public $primaryKey = 'idfuentefinanciamiento';
+		
+		 public $belongsTo = array(  /*Relacion con las dos tablas Fuente financiamiento y tipo fuente*/
+        'Tipofuente' => array(
+            'className'    => 'Tipofuente',
+            'foreignKey'   => 'idtipofuente'
+        )
+    );
+	
 
 	/*public $validate = array(
 	    'nombrefuente' => array(

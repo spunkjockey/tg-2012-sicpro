@@ -26,7 +26,7 @@
         <td><?php echo $fuente['Fuentefinanciamiento']['nombrefuente']; ?></td>
         <td><?php echo $fuente['Fuentefinanciamiento']['montoinicial']; ?></td>
         <td><?php echo $fuente['Fuentefinanciamiento']['fechadisponible']; ?></td>  
-        <td><?php echo $fuente['Fuentefinanciamiento']['tipofuente']; ?></td>      
+        <td><?php echo $fuente['Tipofuente']['tipofuente']; ?></td>      
         <td align="center">
             <?php echo $this->Html->link(
             	'Editar', 

@@ -1,21 +1,23 @@
-<!-- File: /app/View/Division/add.ctp -->
+<!-- File: /app/View/Plazas/edit.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar división</h2>
-		<?php echo $this->Form->create('Division'); ?>
+		<h2>Editar Plaza</h2>
+		<?php echo $this->Form->create('Plaza',array('action' => 'edit')); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('divison', 
+				<?php echo $this->Form->input('plaza', 
 					array(
-						'label' => 'Nombre de división:', 
+						'label' => 'Nombre de plaza:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre de división', 
+						'placeholder' => 'Plaza', 
 						'required', 
-						'validationMessage' => 'Ingrese nombre de división')); ?>
+						'validationMessage' => 'Ingrese nombre de plaza')); ?>
 			</li>
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar división', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
+				
+				<?php echo $this->Form->end(array('label' => 'Editar Empresa', 'class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
@@ -24,7 +26,7 @@
 	</div>
 </div>
 
-			<style scoped>
+<style scoped>
 
                 .k-textbox {
                     width: 300px;
@@ -40,7 +42,7 @@
 					content: '*';
 					display:inline;
 					}
-                
+                                
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
