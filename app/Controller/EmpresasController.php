@@ -54,7 +54,7 @@ class EmpresasController extends AppController {
 	    if ($this->request->is('get')) {
 	        $this->request->data = $this->Empresa->read();
 	    } else {
-	        if ($this->Empresa->save($this->request->data)) {
+	        if ($this->Empresa->save()) {
 	            $this->Session->setFlash('Empresa ha sido actualizada.');
 	            $this->redirect(array('action' => 'index'));
 	        } else {

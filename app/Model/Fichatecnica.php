@@ -10,4 +10,16 @@ class Fichatecnica extends AppModel {
         )
     );
 	
+	public $hasMany	= array(
+	'Ubicacion'	=> array(
+		'className'	=>	'Ubicacion',
+		'foreignKey'	=>	'idfichatecnica',
+        'dependent'     => true
+	),
+	'Componente' => array(
+		'className'	=>	'Componente',
+		'foreignKey'	=>	'idfichatecnica',
+        'dependent'     => true
+	)
+	);	
 }

@@ -2,7 +2,7 @@
 class FichatecnicasController extends AppController {
     public $helpers = array('Html', 'Form', 'Session');
     public $components = array('Session');
-	public $uses = array('Proyecto','Fichatecnica','Ubicacion');
+	public $uses = array('Proyecto','Fichatecnica','Ubicacion','Departamento','Municipio','Meta');
 	
 	
     public function index() {
@@ -31,7 +31,7 @@ class FichatecnicasController extends AppController {
 				    if ($this->Fichatecnica->save()) {
 		            	$this->Session->setFlash('La Ficha Tecnica ha sido registrada.');
 		            	//$this->redirect(array('controller' => 'fichatecnicas','action' => 'add'));
-		            	$this->redirect(array('controller' => 'fichatecnicas','action' => 'view',$id = $this->Fichatecnica->id
+		            	$this->redirect(array('controller' => 'fichatecnicas','action' => 'view',$this->Fichatecnica->id
 						));
 		        	} else {
 		            	$this->Session->setFlash('No se pudo realizar el registro' /*. $this->data['Fichatecnica']['idfichatenica'] */);
@@ -42,11 +42,19 @@ class FichatecnicasController extends AppController {
 
 	public function view($id = null) {
 		$this->layout = 'cyanspark';
+        
+        		
         $this->Fichatecnica->id = $id;
 		if (!$this->Fichatecnica->read()) {
         	throw new NotFoundException('No se puede encontrar la Empresa', 404);
     	} else {
         	$this->set('fichatecnicas', $this->Fichatecnica->read());
+			$this->set('ubicaciones', $this->Fichatecnica->Ubicacion->find('all',
+				array('fields' => array('Ubicacion.direccion','Departamento.departamento','Municipio.municipio'),
+				'conditions' => array('Ubicacion.idfichatecnica' => $id))
+			));
+			
+			
 		}
     }
 }

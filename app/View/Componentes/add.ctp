@@ -6,7 +6,8 @@
 		
 				<?php echo $this->Form->create('Componentes'); ?>
 		<ul>
-			<?php echo $this->Form->input('nombrecomponente', 
+			<li>
+			<?php echo $this->Form->input('Componente.nombrecomponente', 
 					array(
 						'label' => 'Nombre Componente:', 
 						'class' => 'k-textbox', 
@@ -14,7 +15,8 @@
 						'required', 
 						'validationMessage' => 'Ingrese Nombre del Componente')); ?>
 			</li>
-			<?php echo $this->Form->input('descripcioncomponente', 
+			<li>
+			<?php echo $this->Form->input('Componente.descripcioncomponente', 
 					array(
 						'label' => 'Descripcion Componente:', 
 						'class' => 'k-textbox', 
@@ -22,7 +24,19 @@
 						'required', 
 						'validationMessage' => 'Ingrese la descripcion del Componente')); ?>
 			</li>
+			<li  class="accept" align="right" >
+				<a href="#" onclick="AgregarCampos('<?php echo $this->Session->read('User.username');?>');" class="k-button">Agregar Metas</a>		
+			</li>
+		</ul>
+			
+			<ul id="metas">
+			
+	    	</ul>
 			<li  class="accept">
+				<?php echo $this->Form->input('Componente.idfichatecnica', array('type' => 'hidden','value'=>$idfichatecnica)); ?>
+				<!--<?php echo $this->Form->input('Meta.0.userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
+				<?php echo $this->Form->input('Meta.1.userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
+				<?php echo $this->Form->input('Meta.2.userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>-->
 				<?php echo $this->Form->end(array('label' => 'Registrar Componente', 'class' => 'k-button')); ?>
 				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
 			</li>
@@ -38,6 +52,7 @@
                 .k-textbox {
                     width: 300px;
                     margin-left: 5px;
+                    margin-right: 5px;
                     
                 }
 				
@@ -102,7 +117,8 @@
 </style>
 <script>
                 $(document).ready(function() {
-                    var validator = $("#formulario").kendoValidator().data("kendoValidator"),
+					var validator = $("#formulario").kendoValidator().data("kendoValidator");
+
                     status = $(".status");
 
                     $("button").click(function() {
@@ -113,8 +129,24 @@
                         }
                     });
                     
-                    $("#phone").mask("9999-9999");
+                   	$("#phone").mask("9999-9999");
                     
-                   $("#nit").mask("9999-999999-999-9");
+	               	$("#nit").mask("9999-999999-999-9");
+                   
+					
+                
                 });
+</script>
+<script type="text/javascript">
+	var nextinput = 0;
+	function AgregarCampos(usuario) {
+		nextinput++;
+		campo = '<li class="meta'+ nextinput +'"><label for="Meta'+nextinput+'Descripcionmeta">Descripcion Meta:</label><textarea name="data[Meta]['+nextinput+'][descripcionmeta]" class="k-textbox" placeholder="Meta" required="required" validationMessage="Ingrese la meta" cols="30" rows="6" id="Meta'+ nextinput +'Descripcionmeta"></textarea><a href="#" onclick= "borrar( '+ nextinput +');"" class="k-button"">Borrar</a></li><input type="hidden" name="data[Meta]['+nextinput+'][userc]" value="'+usuario+'" id="Meta'+nextinput+'Userc"/>';
+		$("#metas").append(campo);
+		return false;
+	}
+	function borrar(cual) {
+    	$("li.meta"+cual).remove();
+    	return false;
+	}
 </script>
