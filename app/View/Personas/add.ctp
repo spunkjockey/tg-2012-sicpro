@@ -57,6 +57,36 @@
 						'required', 
 						'validationMessage' => 'Ingrese Correo Electronico')); ?>
 			</li>
+			<li>
+				<?php echo $this->Form->input('username', 
+					array(
+						'label' => 'Nombre de usuario:', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Usuario', 
+						'required', 
+						'validationMessage' => 'Ingrese nombre de usuario')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('roles', 
+					array(
+						'label' => 'Rol:', 
+						'empty' => 'Seleccione...',
+						'required',
+						'validationMessage' => 'Seleccione un rol')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('password', 
+					array(
+						'label' => 'Contraseña:', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Contraseña', 
+						'required', 
+						'validationMessage' => 'Ingrese Contraseña')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('estado', 
+							array('options' => array(0 => 'Deshabilitado', 1 => 'Habilitado'))); ?>
+			</li>
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar persona', 'class' => 'k-button')); ?>
 			</li>

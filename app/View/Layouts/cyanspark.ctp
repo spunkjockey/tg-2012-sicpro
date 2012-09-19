@@ -91,7 +91,7 @@
 								<ul>
 									<li>Constructor
 										<ul>
-											<li>Registrar contrato constructor</li>
+											<li><?php echo $this->Html->link('Registrar contrato constuctor', array('controller' => 'Contratoconstructors','action'=>'add')); ?></li>
 											<li>Modificar contrato constructor</li>
 											<li>Eliminar contrato constructor</li>
 										</ul>
@@ -174,7 +174,7 @@
 							</li>
 							<li>Administraci&oacute;n de usuario
 								<ul>
-									<li>Registrar usuario</li>
+									<li><?php echo $this->Html->link('Registrar usuario', array('controller' => 'users','action'=>'add')); ?></li>
 									<li>Modificar usuario</li>
 									<li>Eliminar usuario</li>
 									<li>Habilitar usuario</li>
@@ -345,9 +345,9 @@
 	</body>
 	<!-- Scripts -->
 	<script>
-		$("document").ready(function(){
-			$("#menu").kendoMenu()
-		})
+		
+			$("#menu").kendoMenu();
+		
 	</script>
 
 </html>

@@ -45,13 +45,26 @@ class UsersController extends AppController {
     }
 
     public function add() {
-        if ($this->request->is('post')) {
+        $this->layout = 'cyanspark';
+		$this->set('roles', $this->User->Rol->find('list',
+												array('fields' => array('Rol.idrol', 'Rol.rol'))));
+        if ($this->request->is('post')) 
+        {
             $this->User->create();
-            if ($this->User->save($this->request->data)) {
-                $this->Session->setFlash(__('The user has been saved'));
-                $this->redirect(array('action' => 'login'));
-            } else {
-                $this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+			$this->User->set('username', $this->request->data['User']['username']);
+			$this->User->set('password', $this->request->data['User']['password']);
+			$this->User->set('nombre', $this->request->data['User']['nombrespersona']);
+			$this->User->set('apellidos', $this->request->data['User']['apellidospersona']);
+			$this->User->set('estado', $this->request->data['User']['estado']);
+			$this->User->set('idrol', $this->request->data['User']['roles']);
+            if ($this->User->save()) 
+            {
+                $this->Session->setFlash(('Usuario registrado'));
+                $this->redirect(array('controller'=>'mains', 'action' => 'index'));
+            } 
+            else 
+            {
+                $this->Session->setFlash('Ha ocurrido un error');
             }
         }
     }

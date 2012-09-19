@@ -1,7 +1,8 @@
 <?php
 class Rol extends AppModel {
 public $name = 'Rol';
-public $useTable= 'Rol';
+public $useTable= 'rol';
+public $primaryKey = 'idrol';
 
 
  public $validate = array(

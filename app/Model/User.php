@@ -2,6 +2,14 @@
 // app/Model/User.php
 class User extends AppModel {
     public $name = 'User';
+
+	public $belongsTo = array(
+			'Rol' => array(
+				'className'    => 'Rol',
+				'foreignKey'   => 'idrol'
+				) 
+			);
+			
     public $validate = array(
         'username' => array(
             'required' => array(
@@ -14,7 +22,39 @@ class User extends AppModel {
                 'rule' => array('notEmpty'),
                 'message' => 'La Contraseña es obligatoria'
             )
-        )
+        ),
+        'nombrespersona'=>array(
+			'required' => array(
+                'rule' => array('notEmpty'),
+                'message' => 'Ingrese nombre del usuario'
+            ),
+            'soloLetras' => array(
+				'rule'    => '/^[a-zA-ZáéíóúAÉÍÓÚÑñ\s]{2,}$/i',
+	        	'message' => 'Solo Letras'
+	        )
+		),
+		'apellidospersona'=>array(
+			'required' => array(
+                'rule' => array('notEmpty'),
+                'message' => 'Ingrese apellido del usuario'
+            ),
+            'soloLetras' => array(
+				'rule'    => '/^[a-zA-ZáéíóúAÉÍÓÚÑñ\s]{2,}$/i',
+	        	'message' => 'Solo Letras'
+	        )
+		),
+		'roles'=>array(
+			'required' => array(
+                'rule' => array('notEmpty'),
+                'message' => 'Seleccione'
+            )
+		),
+		'estado'=>array(
+			'required' => array(
+                'rule' => array('notEmpty'),
+                'message' => 'Seleccione'
+            )
+		)
         
 		
     );

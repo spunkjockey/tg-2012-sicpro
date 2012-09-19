@@ -1,43 +1,70 @@
-<!-- File: /app/View/Proyectos/add_num.ctp -->
+<!-- File: /app/View/Contratoconstructors/add.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Asignar número de proyecto</h2>
-		<?php echo $this->Form->create('Proyecto',array('action' => 'add_num')); ?>
+		<h2>Registrar contrato constructor</h2>
+		<?php echo $this->Form->create('Proyecto'); ?>
 		<ul>
 			<li>
 				<?php echo $this->Form->input('proys', 
 					array(
 						'label' => 'Seleccione proyecto:', 
-						'id' => 'selectpro', 
+						'id' => 'selecto',
 						'empty' => 'Seleccione...',
-						'validationMessage' => 'Seleccione un proyecto')); ?>
+						'required')); ?>
 			</li>
-			<!-- -->
 			<li>
-				<?php echo $this->Form->input('numeroproyecto', 
+				<?php echo $this->Form->input('codigocontrato', 
 					array(
-						'label' => 'Ingrese número de proyecto:', 
-						'id' => 'numero',
-						'class' => 'k-textbox',  
-						'placeholder' => 'Número del proyecto', 
+						'label' => 'Código contrato:', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Ej: 001-2012', 
 						'required', 
-						'validationMessage' => 'Ingrese Nombre de Proyecto')); ?>
+						'validationMessage' => 'Ingrese el código de contrato')); ?>
 			</li>
-			
-			<li  class="accept">
-				
-				<?php echo $this->Form->end(array('label' => 'Asignar número proyecto', 'class' => 'k-button')); ?>
+			<li>
+				<?php echo $this->Form->input('nombrecontrato', 
+					array(
+						'label' => 'Nombre del contrato:', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Nombre del contrato', 
+						'required', 
+						'validationMessage' => 'Ingrese nombre del contrato')); ?>
 			</li>
-            
-            <li class="status">
-            </li>
+			<li>
+				<?php echo $this->Form->input('montocon', 
+					array(
+						'label' => 'Monto: ($)',
+						'class' => 'k-textbox',  
+						'id' => 'textbox',
+						'type' => 'text',
+						'placeholder' => 'Ingrese Monto',
+						'required',
+						'validationMessage' => 'Ingrese el monto original($)')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('anticipo', 
+					array(
+						'label' => 'Anticipo: ($)',
+						'class' => 'k-textbox',  
+						'id' => 'textbox',
+						'type' => 'text',
+						'placeholder' => 'Ingrese anticipo',
+						'required',
+						'validationMessage' => 'Ingrese el monto original($)')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('fechacontrato', 
+					array(
+						'label' => 'Fecha de inicio de contrato:', 
+						'id'	=> 'datePicker1',
+						'type'  => 'Text')); ?>
+			</li>
 		</ul>
-		
 	</div>
 </div>
 
-			<style scoped>
+	<style scoped>
 
                 .k-textbox {
                     width: 300px;
@@ -103,38 +130,30 @@
                 span.k-tooltip {
                     margin-left: 6px;
                 }
-              
             </style>
-            <script>
+			
+			<script>
                 $(document).ready(function() {
-                    
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
 
-                    $("#button").click(function() {
+                    $("button").click(function() {
                         if (validator.validate()) {
-                        	save();  
-                        } 
+                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
+                            } else {
+                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
+                        }
                     });
-                    
-                    $("#selectpro").kendoComboBox({
-                    	highLightFirst: true,
-                    	filter: "contains"
-                    });
-                    
-                    var combobox = $("#selectpro").data("kendoComboBox");
-                    combobox.list.width(400);
-                    
-                    $("#numero").kendoNumericTextBox({
-                        min: 000000,
-    					max: 999999,
-    					decimals: 0,
-    					placeholder: "Ej. 10000",
-    					spinners: false
-                    });
-                    
-                   
-                });
                 
+				$("#selecto").kendoComboBox();
+				
+				$("#phone").mask("9999-9999");
+                $("#datePicker1").kendoDatePicker({
+		   			format: "yyyy/MM/dd" //Define el formato de fecha
+		   		});
+				
+				
+				
+				});
                 
             </script>
