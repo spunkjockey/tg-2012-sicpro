@@ -7,14 +7,6 @@
 		<ul>
 			
 			<li>
-				<?php echo $this->Form->input('ordeninicio',
-					array(
-						'label' => 'Orden Inicio:', 
-						'id'	=> 'datePicker1',
-						'type' => 'text'
-						)); ?>
-			</li>
-			<li>
 				 <?php echo $this->Form->input('contratos',
 					array(
 						'label' => 'Codigo contrato:', 
@@ -24,11 +16,20 @@
 						'required', 
 						'validationMessage' => 'Seleccione Tipo de Fuente')); ?>
 			</li>	
+			<li>
+				<?php echo $this->Form->input('ordeninicio',
+					array(
+						'label' => 'Orden Inicio:', 
+						'id'	=> 'datePicker1',
+						'type' => 'text'
+						)); ?>
+			</li>
+			
 		
 		<li  class="accept">
 				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
 				<?php echo $this->Form->input('userm', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
-				<?php echo $this->Form->end(array('label' => 'Editar Fuente', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->end(array('label' => 'Editar Orden', 'class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
@@ -117,11 +118,7 @@
 		$("#datePicker1").kendoDatePicker({
 		   format: "yyyy/MM/dd" //Define el formato de fecha
 		});
-         $("#moneda").kendoNumericTextBox({
-		     format: "c2", //Define currency type and 2 digits precision
-		     spinners: false
-		 });
-		 
+       
 		$("#select").kendoComboBox({
 		//placeholder: "Seleccionar...",
 		//index: -1,
