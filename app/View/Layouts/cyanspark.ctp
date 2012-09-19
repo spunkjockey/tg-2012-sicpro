@@ -109,7 +109,7 @@
 									<li>Orden de inicio
 										<ul>
 											<li><?php echo $this->Html->link('Registrar Orden de Inicio', array('controller' => 'Contratos','action'=>'addordeninicio')); ?></li>
-											<li>Modificar Orden de Inicio</li>
+											<li><?php echo $this->Html->link('Modificar Orden de Inicio', array('controller' => 'Contratos','action'=>'edit')); ?></li>
 										</ul>
 									</li>
 									<li>Orden de Cambio

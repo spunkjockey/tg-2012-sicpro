@@ -16,28 +16,29 @@
 			
 			<p><b>Resultados Esperados: </b><?php echo ($fichatecnicas['Fichatecnica']['resultadosesperados']); ?></p>
 			
-			<table title="Ubicacion" border="1">
-				<thead>
-					<td>Direccion</td>
-					<td>Municipio</td>
-					<td>Departamento</td>
-				</thead>
-				<tr>
-					<td>
-						1
-					</td>
-					<td>
-						2
-					</td>
-					<td>
-						3
-					</td>
-				</tr>
-			</table>
+			<!--<?php Debugger::dump($fichatecnicas);?>-->
+
+			
+
+<table id="grid">
+    <tr>
+        <th data-field="direccion">Direccion</th>
+        <th data-field="departamento">Departamento</th>
+        <th data-field="municipio">Municipio</th>
+    </tr>			   
+	<?php foreach ($ubicaciones as $ubi): ?>
+    <tr>
+        <td><?php echo $ubi['Ubicacion']['direccion']; ?></td>
+        <td><?php echo $ubi['Departamento']['departamento']; ?></td>
+        <td><?php echo $ubi['Municipio']['municipio']; ?></td>        
+    </tr>
+    <?php endforeach; ?>
+    <?php unset($empresas); ?>
+</table>
 			
 			<?php echo $this->Html->link(
             	'Agregar Ubicacion', 
-            	array('controller' => 'Ubicacions','action' => 'add'),
+            	array('controller' => 'Ubicacions','action' => 'add',$fichatecnicas['Fichatecnica']['idfichatecnica']),
             	array('class'=>'k-button')
 			);?>
 			
@@ -61,11 +62,11 @@
 			</table>
 			<?php echo $this->Html->link(
             	'Agregar Componentes', 
-            	array('controller' => 'Componentes','action' => 'add'),
+            	array('controller' => 'Componentes','action' => 'add',$fichatecnicas['Fichatecnica']['idfichatecnica']),
             	array('class'=>'k-button')
 			);?>
 			
-
+			<?php Debugger::dump($fichatecnicas)?>
 <style scoped>
                 .k-textbox {
                     width: 11.8em;

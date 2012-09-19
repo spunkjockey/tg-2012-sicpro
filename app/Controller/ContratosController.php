@@ -27,28 +27,30 @@ class ContratosController extends AppController {
 		}
     
 	
-	function edit($id = null) {
-		$this->layout = 'cyanspark';
-	    $this->Contrato->id = $id;
+	function edit() {
+	    $this->layout = 'cyanspark';
+
 				
-	    if ($this->request->is('get')) {
+		//llenar el array
 	    	$this->set('contratos', $this->Contrato->find('list',
 		array ('fields'=> array ('idcontrato', 'codigocontrato') ) ));
-	        $this->request->data = $this->Contrato->read();
-	    } else {
-	    	$this->Contrato->set('idcontrato', $this->request->data['Contrato'] ['idcontrato']);
-			$this->Contrato->set('codigocontrato', $this->request->data['Contrato'] ['codigocontrato']);
+	        
+	        //preguntar si es post
+		if ($this->request->is('post')) {
+			$id = $this->request->data['Contrato']['contratos'];
+			$this->Contrato->read(null, $id);	    	
 			$this->Contrato->set('ordeninicio', $this->request->data['Contrato'] ['ordeninicio']);
+			//aqui no se si deberias de poner la modificacion del usuario y la fecha
 			
-			$this->Fuentefinanciamiento->set('ordeninicio', date("Y-m-d H:i:s"));
-	        if ($this->Fuentefinanciamiento->save()) {
-	            $this->Session->setFlash('La Orden de Inicio ha sido actualizada.');
-	            $this->redirect(array('action' => 'index'));
-	        } else {
-            	$this->Session->setFlash('Imposible editar Orden de Inicio');
-        	}
+	        	if ($this->Contrato->save($id)) {
+		            $this->Session->setFlash('La Orden de Inicio ha sido actualizada.');
+		            $this->redirect(array('action' => 'index'));
+	        	} else {
+		            	$this->Session->setFlash('Imposible editar Orden de Inicio');
+        		}
 	    }
 	}
+	
 	
 	function delete($id) {
 		if (!$this->request->is('post')) {

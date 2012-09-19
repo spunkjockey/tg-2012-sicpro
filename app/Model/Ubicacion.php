@@ -1,7 +1,7 @@
 <?php
 class Ubicacion extends AppModel {
 public $name = 'Ubicacion';
-public $useTable= 'Ubicacion';
+public $useTable= 'ubicacion';
 public $primaryKey = 'idubicacion';
 
 

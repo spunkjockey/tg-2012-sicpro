@@ -17,4 +17,9 @@ class MetasController extends AppController {
 			
 		}
     }
+	
+	public function index() {
+    	$this->layout = 'cyanspark';
+        $this->set('metas', $this->Meta->find('all'));
+    }
 }

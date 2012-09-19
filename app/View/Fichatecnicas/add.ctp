@@ -177,12 +177,17 @@
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
-                });
                 
+
                 $("#select").kendoComboBox({
 			         //placeholder: "Seleccionar...",
 			         //index: -1,
 			         suggest: true
 			    });
                // var select = $("#select").data("kendoComboBox");
+               
+               var combobox = $("#select").data("kendoComboBox");
+               combobox.list.width(400);
+               });
+                    
 </script>

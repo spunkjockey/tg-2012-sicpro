@@ -4,7 +4,7 @@ class UbicacionsController extends AppController {
     public $components = array('Session');
 	public $uses = array('Departamento','Municipio','Ubicacion');
 	
-	public function add() {
+	public function add($id=null) {
 		$this->layout = 'cyanspark';
 		
 		$this->set('departamentos',$this->Ubicacion->Departamento->find('list', 
@@ -19,7 +19,34 @@ class UbicacionsController extends AppController {
 		array('fields'=>array('Municipio.idmunicipio','Municipio.municipio'),'order'=>'Municipio.municipio ASC',
 		'conditions'=>'Municipio.iddepartamento='.$primer_depto['Departamento']['iddepartamento'])
 		));
-	
+		
+        if ($this->request->is('post')) {
+				    // it validated logic
+				    Debugger::dump($this->request->data);
+				    $this->Ubicacion->set('iddepartamento', $this->request->data['Ubicacion']['departamentos']);
+					
+					if (is_numeric($this->request->data['Ubicacion']['municipios'])) {
+					$this->Ubicacion->set('idmunicipio', $this->request->data['Ubicacion']['municipios']);
+					} else {
+						$municipioid = $this->Municipio->findByMunicipio($this->request->data['Ubicacion']['municipios']);
+									    Debugger::dump($municipioid);
+						
+						$this->Ubicacion->set('idmunicipio', $municipioid['Municipio']['idmunicipio']);
+					}	
+					
+					$this->Ubicacion->set('direccion', $this->request->data['Ubicacion']['direccion']);
+					$this->Ubicacion->set('idfichatecnica',$id);
+					
+										
+				    if ($this->Ubicacion->save()) {
+		            	$this->Session->setFlash('La Ficha Tecnica ha sido registrada.');
+		            	//$this->redirect(array('controller' => 'fichatecnicas','action' => 'add'));
+		            	$this->redirect(array('controller' => 'Fichatecnicas','action' => 'view',$id
+						));
+		        	} else {
+		            	$this->Session->setFlash('No se pudo realizar el registro' /*. $this->data['Fichatecnica']['idfichatenica'] */);
+		        	}
+    	}
 	}
 	
 
