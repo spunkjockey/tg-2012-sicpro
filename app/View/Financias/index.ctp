@@ -14,13 +14,12 @@
 						)); ?>
 			</li>
 			<li>
-				<div id="combodiv"><?php echo $this->Form->input('fuentes',
+				<?php echo $this->Form->input('fuentes',
 					array(
 						'label' => 'Fuentes de financiamiento:', 
-						'id' => 'selectfufin'//,
+						'id' => 'selectfufin',
 						//'empty'=>'Seleccione...'
 						)); ?>
-				</div>
 			</li>
 			<li>
 				<?php echo $this->Form->input('montoparcial',
@@ -44,12 +43,18 @@
 			</li>
 		</ul>
 		
+		 <div id='tablafinancia'>
+		
 		<div id='divdos'>
 			
-			
-		</div>
+				<?php if(!empty($disponible)) { ?>
+					<h3>Detalle Fuente financiamiento</h3>
+					<p><strong class:'etiqueta'>Monto Disponible: </strong><?php echo '$'.number_format($disponible, 2, '.', ',')?> 
+				<?php } ?>	
+				<?php //Debugger::dump($disponible);?> 
+				
+		</div> 			
 		
-		<div id='tablafinancia'>
 
 		<h3>Detalles del Proyecto</h3>
 		
@@ -65,10 +70,11 @@
 		        <th data-field="montoparcial">Monto</th>
 		        <th data-field="userc">Usuario</th>
 		        <th data-field="creacion">Fecha Asignación</th>
-		    </tr>
+		    </tr> 
 		
 		    <!-- Here is where we loop through our $empresas array, printing out post info -->
 		
+		    
 		    <?php foreach ($dproyectos as $pro): ?>
 		    <tr>
 		        
@@ -80,6 +86,8 @@
 		    <?php endforeach; ?>
 		    <?php unset($dproyectos); ?>
 		</table>
+		
+		</div>
 		
 		<script>
 			$(document).ready(function() {
@@ -110,14 +118,14 @@
 		        });
 		</script>
 
-		</div>
 		
-		<?php echo $this->ajax->observeField( 'selectpro', 
+		
+		<?php  echo $this->ajax->observeField( 'selectpro', 
     		array(
         		'url' => array( 'action' => 'update_fuentefinanciamiento'),
-        		'update' => 'combodiv'
+        		'update' => 'selectfufin'
     		) 
-		); ?>
+		);  ?>
 		
 		<?php echo $this->ajax->observeField( 'selectpro', 
     		array(
@@ -126,6 +134,15 @@
     		) 
 		); ?>
 		
+		<?php echo $this->ajax->observeField( 'selectfufin', 
+    		array(
+        		'url' => array( 'action' => 'update_disponible'),
+        		'update' => 'divdos'
+    		) 
+		);  ?>
+
+
+				
 	</div>
 </div>
 
@@ -135,13 +152,19 @@
                     width: 11.8em;
                 }
 				
-				#formulario {
+				#formulario #divdos{
                     width: 600px;
                     margin: 15px 0;
                     padding: 10px 20px 20px 0px;
                 }
 
                 #formulario h3 {
+                    font-weight: normal;
+                    font-size: 1.4em;
+                    border-bottom: 1px solid #ccc;
+                }
+                
+                #tablafinancia h3 {
                     font-weight: normal;
                     font-size: 1.4em;
                     border-bottom: 1px solid #ccc;
@@ -243,6 +266,8 @@
     					spinners: false
                     });
                
+                	        
+                
                 });
                 
                 

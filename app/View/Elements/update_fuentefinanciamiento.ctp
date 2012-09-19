@@ -1,28 +1,32 @@
-<!-- /app/views/elements/update_fuentefinanciamiento.ctp -->
-<!-- <h3>Div Dos</h3> --> 
-<?php echo $this->Form->input('fuentes',
-					array(
-						'label' => 'Fuentes de financiamiento:', 
-						'id' => 'selectfufin'//,
-						//'empty'=>'Seleccione...'
-						)); ?> 
-<?php
-//echo print_r($fuentes);
-
-/*if(!empty($fuentes)) {
-  foreach($fuentes as $k => $v) {
-    echo "<option value='".$k."'>".$v."</option>";
-  }
- }*/
-
-?>
-
+<!-- /app/views/elements/update_fuentefinanciamiento.ctp --> 
 <script>
-	$("#selectfufin").kendoComboBox({
-    	highLightFirst: true,
-    	filter: "contains"
-    });
-    
-    var combobox = $("#selectfufin").data("kendoComboBox");
-    combobox.list.width(400);
-</script>
+	$(document).ready(function(){
+		var items = [
+			<?php foreach($fuentes as $k => $v) { 
+				echo '{ value: "'.$k.'", text: "'.$v.'" },';
+			} ?> 
+		];
+	
+		$("#selectfufin").kendoComboBox({
+		    dataTextField: "text",
+		    dataValueField: "value",
+		    dataSource: items,
+		    index: 0,
+		    suggest: true,
+		    filter: 'none'
+		});
+		
+		var combobox = $("#selectfufin").data("kendoComboBox");
+        combobox.list.width(400);
+	
+	});
+</script> 
+
+<!-- /app/views/elements/update_select.ctp -->
+<!-- <?php
+	if(!empty($fuentes)) {
+  		foreach($fuentes as $k => $v) {
+    		echo "<option value='$k'>$v</option>";
+  		}
+ 	}
+?> -->
