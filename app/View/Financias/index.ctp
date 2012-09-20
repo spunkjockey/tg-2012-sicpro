@@ -1,4 +1,4 @@
-<!-- File: /app/View/Financias/add.ctp -->
+<!-- File: /app/View/Financias/index.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
