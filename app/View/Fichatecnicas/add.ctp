@@ -44,7 +44,6 @@
 						'class' => 'k-textbox', 
 						'placeholder' => 'Objetivo Especifico',
 						"rows"=>"2", 
-						'required', 
 						'validationMessage' => 'Ingrese el Objetivo Especifico')); ?>
 			</li>
 			<li>
@@ -61,6 +60,7 @@
 				<?php echo $this->Form->input('empleosgenerados', 
 					array(
 						'label' => 'Empleos Generados: ', 
+						'id' => 'numero1',
 						'class' => 'k-textbox', 
 						'placeholder' => 'Empleos Generados', 
 						'required', 
@@ -70,6 +70,7 @@
 				<?php echo $this->Form->input('beneficiarios', 
 					array(
 						'label' => 'Beneficiarios: ', 
+						'id' => 'numero2',
 						'class' => 'k-textbox', 
 						'placeholder' => 'Beneficiarios',
 						"rows"=>"2", 
@@ -83,7 +84,6 @@
 						'class' => 'k-textbox', 
 						'placeholder' => 'Resultados Esperados',
 						"rows"=>"3", 
-						'required', 
 						'validationMessage' => 'Ingrese los Resultados Esperados')); ?>
 			</li>							
 			
@@ -189,5 +189,22 @@
                var combobox = $("#select").data("kendoComboBox");
                combobox.list.width(400);
                });
+               
+               $("#numero1").kendoNumericTextBox({
+                        min: 000000,
+    					max: 999999,
+    					decimals: 0,
+    					placeholder: "Ej. 100",
+    					spinners: false
+                    });
+                    
+               $("#numero2").kendoNumericTextBox({
+                        min: 000000,
+    					max: 999999,
+    					decimals: 0,
+    					placeholder: "Ej. 100",
+    					spinners: false
+                    });
+
                     
 </script>

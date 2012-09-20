@@ -27,7 +27,7 @@
 			<li  class="accept" align="right" >
 				<a href="#" onclick="AgregarCampos('<?php echo $this->Session->read('User.username');?>');" class="k-button">Agregar Metas</a>		
 			</li>
-		</ul>
+		
 			
 			<ul id="metas">
 			
