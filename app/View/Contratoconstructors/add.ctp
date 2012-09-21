@@ -9,7 +9,7 @@
 				<?php echo $this->Form->input('proys', 
 					array(
 						'label' => 'Seleccione proyecto:', 
-						'id' => 'selecto',
+						'id' => 'selectproy',
 						'empty' => 'Seleccione...',
 						'required')); ?>
 			</li>
@@ -54,12 +54,56 @@
 						'validationMessage' => 'Ingrese el monto original($)')); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('fechacontrato', 
+				<?php echo $this->Form->input('fechainicontrato', 
 					array(
 						'label' => 'Fecha de inicio de contrato:', 
 						'id'	=> 'datePicker1',
 						'type'  => 'Text')); ?>
 			</li>
+			<li>
+				<?php echo $this->Form->input('fechafincontrato', 
+					array(
+						'label' => 'Fecha de fin de contrato:', 
+						'id'	=> 'datePicker2',
+						'type'  => 'Text')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('plazoejecucion', 
+					array(
+						'label' => 'Plazo de ejecución:', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Cantidad de días', 
+						'required', 
+						'validationMessage' => 'Ingrese el plazo de ejecución')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('obras', 
+					array(
+						'label' => 'Obras a desarrollar:', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Descripción de obras')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('empresas', 
+					array(
+						'label' => 'Seleccione empresa:', 
+						'id' => 'selectemp',
+						'empty' => 'Seleccione...',
+						'required')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('admincon', 
+					array(
+						'label' => 'Seleccione administrador:', 
+						'id' => 'selectadm',
+						'empty' => 'Seleccione...',
+						'required')); ?>
+			</li>
+			<li  class="accept">
+				<?php echo $this->Form->end(array('label' => 'Registrar contrato', 'class' => 'k-button')); ?>
+			</li>
+            <li class="status">
+            </li>
 		</ul>
 	</div>
 </div>
@@ -145,13 +189,18 @@
                         }
                     });
                 
-				$("#selecto").kendoComboBox();
+				$("#selectproy").kendoComboBox();
+				$("#selectemp").kendoComboBox();
+				$("#selectadm").kendoComboBox();
 				
-				$("#phone").mask("9999-9999");
-                $("#datePicker1").kendoDatePicker({
-		   			format: "yyyy/MM/dd" //Define el formato de fecha
+				$("#datePicker1").kendoDatePicker({
+		   			format: "dd/MM/yyyy",
+		   			culture: "es-ES"
 		   		});
-				
+				$("#datePicker2").kendoDatePicker({
+		   			format: "dd/MM/yyyy",
+		   			culture: "es-ES"
+		   		});
 				
 				
 				});
