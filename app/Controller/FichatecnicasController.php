@@ -26,7 +26,7 @@ class FichatecnicasController extends AppController {
 					$this->Fichatecnica->set('descripcionproyecto', $this->request->data['Fichatecnica']['descripcionproyecto']);
 					$this->Fichatecnica->set('empleosgenerados', $this->request->data['Fichatecnica']['empleosgenerados']);
 					$this->Fichatecnica->set('beneficiarios', $this->request->data['Fichatecnica']['beneficiarios']);
-					$this->Fichatecnica->set('resultadosesperadors', $this->request->data['Fichatecnica']['resultadosesperados']);
+					$this->Fichatecnica->set('resultadosesperados', $this->request->data['Fichatecnica']['resultadosesperados']);
 					$this->Fichatecnica->set('userc', $this->request->data['Fichatecnica']['userc']);					
 				    if ($this->Fichatecnica->save()) {
 		            	$this->Session->setFlash('La Ficha Tecnica ha sido registrada.');
@@ -45,15 +45,16 @@ class FichatecnicasController extends AppController {
         
         		
         $this->Fichatecnica->id = $id;
-		if (!$this->Fichatecnica->read()) {
+		if (!$this->Fichatecnica->find('all')) {
         	throw new NotFoundException('No se puede encontrar la Empresa', 404);
     	} else {
         	$this->set('fichatecnicas', $this->Fichatecnica->read());
 			$this->set('ubicaciones', $this->Fichatecnica->Ubicacion->find('all',
 				array('fields' => array('Ubicacion.direccion','Departamento.departamento','Municipio.municipio'),
 				'conditions' => array('Ubicacion.idfichatecnica' => $id))
-			));
-			
+			));	
+		//$this->set('metas',$this->Meta->query("SELECT meta.idmeta, meta.idcomponente, meta.descripcionmeta FROM meta, fichatecnica, componente where fichatecnica.idfichatecnica =".$id." and componente.idcomponente = meta.idcomponente;"));
+		$this->set('metas',$this->Fichatecnica->Componente->find('all', array('recursive' => 3)));	
 			
 		}
     }

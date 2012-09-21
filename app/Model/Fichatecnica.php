@@ -22,4 +22,38 @@ class Fichatecnica extends AppModel {
         'dependent'     => true
 	)
 	);	
+	
+	
+	public $validate = array(
+		'objgeneral' => array(
+			'maxLength' => array(
+	        	'rule'    => array('maxLength', 300),
+	        	'message' => 'El Objetivo general no debe ser mayor a 300 caracteres.'
+	    	)
+	    ),
+	    'objespecifico' => array(
+			'maxLength' => array(
+	        	'rule'    => array('maxLength', 200),
+	        	'message' => 'El Objetivo especifico no debe ser mayor a 200 caracteres.'
+	    	)
+	    ),
+		'empleosgenerados' => array(
+	    	'numeric' => array(
+	        	'rule'    => 'numeric',
+	        	'required' => true,
+	        	'allowEmpty' => false,
+	            'message' => 'Solo números son permitidos',
+	            'last'    => true
+	         ),
+		),
+		'beneficiarios' => array(
+	    	'numeric' => array(
+	        	'rule'    => 'numeric',
+	        	'required' => true,
+	        	'allowEmpty' => false,
+	            'message' => 'Solo números son permitidos',
+	            'last'    => true
+	         ),
+		),
+	);
 }

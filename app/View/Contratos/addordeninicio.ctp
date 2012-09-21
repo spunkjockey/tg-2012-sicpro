@@ -117,7 +117,8 @@
 
 
 		$("#datePicker1").kendoDatePicker({
-		   format: "yyyy/MM/dd" //Define el formato de fecha
+		   culture: "es-ES",
+		   format: "dd/MM/yyyy" //Define el formato de fecha
 		});
          $("#moneda").kendoNumericTextBox({
 		     format: "c2", //Define currency type and 2 digits precision

@@ -61,7 +61,6 @@
             <li class="status">
             </li>
 		</ul>
-		<?php echo print_r($departamentos)?>
 	</div>
 </div>
 

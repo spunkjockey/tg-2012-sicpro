@@ -20,7 +20,7 @@
 
 			
 
-<table id="grid">
+<table id="tabla">
     <tr>
         <th data-field="direccion">Direccion</th>
         <th data-field="departamento">Departamento</th>
@@ -33,7 +33,7 @@
         <td><?php echo $ubi['Municipio']['municipio']; ?></td>        
     </tr>
     <?php endforeach; ?>
-    <?php unset($empresas); ?>
+    <?php unset($ubicaciones); ?>
 </table>
 			
 			<?php echo $this->Html->link(
@@ -41,32 +41,30 @@
             	array('controller' => 'Ubicacions','action' => 'add',$fichatecnicas['Fichatecnica']['idfichatecnica']),
             	array('class'=>'k-button')
 			);?>
-			
-			<table title="Componentes" border='1'>
-				<thead>
-					<td>Nombre Componente</td>
-					<td>Descripcion</td>
-					<td>Metas</td>
-				</thead>
-				<tr>
-					<td>
-						1
-					</td>
-					<td>
-						2
-					</td>
-					<td>
-					3
-					</td>
-				</tr>
-			</table>
+			<br> 
+			<br>
+			<!--<table id="tabla">
+			    <tr>
+			        <th data-field="Nombre Componente">Nombre Componente</th>
+			        <th data-field="Descripcion componente">Descripcion componente</th>
+			        <th data-field="Meta">Meta</th>
+			    </tr>			   
+				<?php foreach ($metas as $met): ?>
+			    <tr>
+			        <td><?php echo $met['Componente']['nombrecomponente']; ?></td>
+			        <td><?php echo $met['Componente']['descripcioncomponente']; ?></td>
+			        <td><?php echo $met['Meta']['descripcionmeta']; ?></td>        
+			    </tr>
+			    <?php endforeach; ?>
+			</table>-->
 			<?php echo $this->Html->link(
             	'Agregar Componentes', 
             	array('controller' => 'Componentes','action' => 'add',$fichatecnicas['Fichatecnica']['idfichatecnica']),
             	array('class'=>'k-button')
 			);?>
 			
-			<?php Debugger::dump($fichatecnicas)?>
+			<!--<?php Debugger::dump($fichatecnicas)?>-->
+			<!--<?php Debugger::dump($metas)?>-->
 <style scoped>
                 .k-textbox {
                     width: 11.8em;
@@ -143,3 +141,20 @@
                     padding: 10px 20px 20px 0px;
                 }
 </style>
+<script>
+	$(document).ready(function() {
+    	$("#tabla").kendoGrid({
+            	dataSource: {
+	           		pageSize: 10,
+            	},
+            	sortable: true,
+            	sortable: {
+ 			    	mode: "single", // enables multi-column sorting
+        			allowUnsort: true
+				},
+				scrollable: false
+            	
+            	
+        	});
+        });
+</script>

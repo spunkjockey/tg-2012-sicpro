@@ -16,6 +16,7 @@
 		echo $this -> Html -> script('cyanspark/cuf_run');
 		echo $this -> Html -> script('kendojs/jquery.min');
 		echo $this -> Html -> script('kendojs/kendo.web.min');
+		echo $this -> Html -> script('kendojs/cultures/kendo.culture.es-ES.min');
 		echo $this -> Html -> script('flot/jquery.flot');
 		echo $this -> Html -> script('jquery.maskedinput-1.3.min');
 
@@ -45,7 +46,7 @@
 				
 			</div>
 			<div class="usuario">
-				<?php echo 'Bienvenido' . 
+				<?php echo 'Bienvenido ' . 
 					$this->Session->read('User.username') . ' ' . 
 					$this->Html->link('Cerrar Sesión', array('controller' => 'users','action'=>'logout')); ?> 
 			</div>
@@ -64,15 +65,15 @@
 											<li><?php echo $this->Html->link('Registrar proyecto', array('controller' => 'proyectos','action'=>'add')); ?></li>
 											<li><?php echo $this->Html->link('Modificar proyecto', array('controller' => 'proyectos','action'=>'edit')); ?></li>
 											<li><?php echo $this->Html->link('Asignar número proyecto', array('controller' => 'proyectos','action'=>'add_num')); ?></li>
-											<li>Eliminar proyecto</li>
+											<li disabled="disabled">Eliminar proyecto</li>
 										</ul>
 									</li>	
 									<li>Ficha t&eacute;cnica
 										<ul>
 											<li><?php echo $this->Html->link('Registrar Ficha Técnica', array('controller' => 'Fichatecnicas','action'=>'add')); ?></li>
-											<li>Modificar ficha t&eacute;cnica</li>
-											<li>Eliminar ficha t&eacute;cnica</li>
-											<li>Consultar ficha t&eacute;cnica</li>
+											<li disabled="disabled">Modificar ficha t&eacute;cnica</li>
+											<li disabled="disabled">Eliminar ficha t&eacute;cnica</li>
+											<li disabled="disabled">Consultar ficha t&eacute;cnica</li>
 										</ul>
 									</li>
 									<li>Fuente de financiamiento
@@ -81,7 +82,7 @@
 											<li><?php echo $this->Html->link('Registrar fuente de financiamiento', array('controller' => 'Fuentefinanciamientos','action'=>'index')); ?></li>
 											
 											
-											<li>Consultar fuente de financiamiento (en un periodo)</li>
+											<li disabled="disabled">Consultar fuente de financiamiento (en un periodo)</li>
 										</ul>
 									</li>	
 									<li><?php echo $this->Html->link('Asignación de Fondos', array('controller' => 'Financias','action'=>'index')); ?></li>
@@ -92,20 +93,20 @@
 									<li>Constructor
 										<ul>
 											<li><?php echo $this->Html->link('Registrar contrato constuctor', array('controller' => 'Contratoconstructors','action'=>'add')); ?></li>
-											<li>Modificar contrato constructor</li>
-											<li>Eliminar contrato constructor</li>
+											<li disabled="disabled">Modificar contrato constructor</li>
+											<li disabled="disabled">Eliminar contrato constructor</li>
 										</ul>
 									</li>
 									<li>Supervisor
 										<ul>
-											<li>Registrar contrato supervisor</li>
-											<li>Modificar contrato supervisor</li>
-											<li>Eliminar contrato supervisor</li>
+											<li disabled="disabled">Registrar contrato supervisor</li>
+											<li disabled="disabled">Modificar contrato supervisor</li>
+											<li disabled="disabled">Eliminar contrato supervisor</li>
 										</ul>
 									</li>	
-									<li>Consultar contrato</li>
-									<li>Actualizar estado de contrato</li>
-									<li>Asignaci&oacute;n de t&eacute;cnicos</li>
+									<li disabled="disabled">Consultar contrato</li>
+									<li disabled="disabled">Actualizar estado de contrato</li>
+									<li disabled="disabled">Asignaci&oacute;n de t&eacute;cnicos</li>
 									<li>Orden de inicio
 										<ul>
 											<li><?php echo $this->Html->link('Registrar Orden de Inicio', array('controller' => 'Contratos','action'=>'addordeninicio')); ?></li>
@@ -114,8 +115,8 @@
 									</li>
 									<li>Orden de Cambio
 										<ul>
-											<li>Registrar orden de cambio</li>
-											<li>Modificar orden de cambio</li>
+											<li disabled="disabled">Registrar orden de cambio</li>
+											<li disabled="disabled">Modificar orden de cambio</li>
 										</ul>
 									</li>
 								</ul>
@@ -124,63 +125,63 @@
 								<ul>
 									<li>Programaci&oacute;n de avance
 										<ul>
-											<li>Programaci&oacute;n de avance</li>
-											<li>Consultar Programaci&oacute;n</li>
+											<li disabled="disabled">Programaci&oacute;n de avance</li>
+											<li disabled="disabled">Consultar Programaci&oacute;n</li>
 										</ul>
 									</li>
 									<li>Informe de supervisi&oacute;n
 										<ul>
-											<li>Registrar informe supervisi&oacute;n</li>
-											<li>Modificar informe supervisi&oacute;n</li>
-											<li>Eliminar informe supervisi&oacute;n</li>
-											<li>Consultar informe supervisi&oacute;n</li>
+											<li disabled="disabled">Registrar informe supervisi&oacute;n</li>
+											<li disabled="disabled">Modificar informe supervisi&oacute;n</li>
+											<li disabled="disabled">Eliminar informe supervisi&oacute;n</li>
+											<li disabled="disabled">Consultar informe supervisi&oacute;n</li>
 										</ul>
 									</li>
 									<li>Estimaci&oacute;n de avance
 										<ul>
-											<li>Registrar estimaci&oacute;n de avance</li>
-											<li>Modificar estimaci&oacute;n de avance</li>
-											<li>Eliminar estimaci&oacute;n de avance</li>
-											<li>Consultar estimaci&oacute;n de avance</li>
+											<li disabled="disabled">Registrar estimaci&oacute;n de avance</li>
+											<li disabled="disabled">Modificar estimaci&oacute;n de avance</li>
+											<li disabled="disabled">Eliminar estimaci&oacute;n de avance</li>
+											<li disabled="disabled">Consultar estimaci&oacute;n de avance</li>
 										</ul>
 									</li>	
 									<li>Informe t&eacute;cnico
 										<ul>
-											<li>Registrar informe t&eacute;cnico</li>
-											<li>Modificar informe t&eacute;cnico</li>
-											<li>Eliminar informe t&eacute;cnico</li>
-											<li>Consultar Informe T&eacute;cnico</li>
+											<li disabled="disabled">Registrar informe t&eacute;cnico</li>
+											<li disabled="disabled">Modificar informe t&eacute;cnico</li>
+											<li disabled="disabled">Eliminar informe t&eacute;cnico</li>
+											<li disabled="disabled">Consultar Informe T&eacute;cnico</li>
 										</ul>
 									</li>	
-									<li>Actualizar porcentaje de avance en las metas</li>
+									<li disabled="disabled">Actualizar porcentaje de avance en las metas</li>
 								</ul>
 							</li>	
 							<li>Facturas
 								<ul>
-									<li>Registrar factura</li>
-									<li>Modificar factura</li>
-									<li>Eliminar factura</li>
-									<li>Consultar facturas por proyecto</li>
-									<li>Consultar facturas por contrato</li>
+									<li disabled="disabled">Registrar factura</li>
+									<li disabled="disabled">Modificar factura</li>
+									<li disabled="disabled">Eliminar factura</li>
+									<li disabled="disabled">Consultar facturas por proyecto</li>
+									<li disabled="disabled">Consultar facturas por contrato</li>
 								</ul>
 							</li>	
 							<li>Personal
 								<ul>
 									<li><?php echo $this->Html->link('Registrar persona', array('controller' => 'personas','action'=>'add')); ?></li>
-									<li>Modificar personal</li>
-									<li>Eliminar personal</li>
-									<li>Consultar personal</li>
+									<li disabled="disabled">Modificar personal</li>
+									<li disabled="disabled">Eliminar personal</li>
+									<li disabled="disabled">Consultar personal</li>
 								</ul>
 							</li>
 							<li>Administraci&oacute;n de usuario
 								<ul>
 									<li><?php echo $this->Html->link('Registrar usuario', array('controller' => 'users','action'=>'add')); ?></li>
-									<li>Modificar usuario</li>
-									<li>Eliminar usuario</li>
-									<li>Habilitar usuario</li>
+									<li disabled="disabled">Modificar usuario</li>
+									<li disabled="disabled">Eliminar usuario</li>
+									<li disabled="disabled">Habilitar usuario</li>
 								</ul>
 							</li>
-							<li>Reportes
+							<li disabled="disabled">Reportes
 								<ul>
 									<li>General de proyecto</li>
 									<li>Historial de empresas</li>
@@ -195,19 +196,19 @@
 							<li>Cat&aacute;logos
 								<ul>
 									<li><?php echo $this->Html->link('Empresas', array('controller' => 'empresas','action'=>'index')); ?></li>
-									<li><?php echo $this->Html->link('División', array('controller' => 'divisions','action'=>'index')); ?></li>
+									<!--<li><?php echo $this->Html->link('División', array('controller' => 'divisions','action'=>'index')); ?></li>
 									<li><?php echo $this->Html->link('Departamentos', array('controller' => 'departamentos','action'=>'index')); ?></li>
 									<li><?php echo $this->Html->link('Municipios', array('controller' => 'municipios','action'=>'index')); ?></li>
 									<li><?php echo $this->Html->link('Plazas', array('controller' => 'plazas','action'=>'index')); ?></li>
-									<li><?php echo $this->Html->link('Cargo funcional', array('controller' => 'cargofuncionals','action'=>'index')); ?></li>
+									<li><?php echo $this->Html->link('Cargo funcional', array('controller' => 'cargofuncionals','action'=>'index')); ?></li>-->
 									<li>Roles</li>
 								</ul>
 							</li>
 							<li>Perfil
 								<ul>
-									<li>Modificar perfil</li>
-									<li>Cambiar contrase&ntilde;a</li>
-									<li>Consultar perfil</li>
+									<li disabled="disabled">Modificar perfil</li>
+									<li disabled="disabled">Cambiar contrase&ntilde;a</li>
+									<li disabled="disabled">Consultar perfil</li>
 								</ul>
 							</li>
 						</ul>
