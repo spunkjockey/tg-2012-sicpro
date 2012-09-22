@@ -53,8 +53,8 @@ class FichatecnicasController extends AppController {
 				array('fields' => array('Ubicacion.direccion','Departamento.departamento','Municipio.municipio'),
 				'conditions' => array('Ubicacion.idfichatecnica' => $id))
 			));	
-		//$this->set('metas',$this->Meta->query("SELECT meta.idmeta, meta.idcomponente, meta.descripcionmeta FROM meta, fichatecnica, componente where fichatecnica.idfichatecnica =".$id." and componente.idcomponente = meta.idcomponente;"));
-		$this->set('metas',$this->Fichatecnica->Componente->find('all', array('recursive' => 3)));	
+		$this->set('metas',$this->Meta->query("SELECT meta.idmeta, meta.idcomponente, meta.descripcionmeta FROM meta, fichatecnica, componente where fichatecnica.idfichatecnica =".$id." and componente.idcomponente = meta.idcomponente;"));
+		//$this->set('metas',$this->Fichatecnica->Componente->find('all', array('recursive' => 3)));	
 			
 		}
     }

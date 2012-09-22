@@ -14,17 +14,17 @@ class ContratosController extends AppController {
 		array ('fields'=> array ('idcontrato', 'codigocontrato') ) ));
 		
         if ($this->request->is('post')) {
-        	
-			$this->Contrato->set('idcontrato', $this->request->data['Contrato'] ['idcontrato']);
-			$this->Contrato->set('codigocontrato', $this->request->data['Contrato'] ['codigocontrato']);
+        	$id = $this->request->data['Contrato']['contratos'];
+			$this->Contrato->read(null, $id);
             $this->Contrato->set('ordeninicio', $this->request->data['Contrato'] ['ordeninicio']);
-			
+			if($this->Contrato->save($id)){
             	$this->Session->setFlash('La Orden de Inicio ha sido registrada.');
             	$this->redirect(array('action' => 'index'));
         	} else {
             	$this->Session->setFlash('No se pudo realizar el registro');
         	}
-		}
+        }
+	}
     
 	
 	function edit() {
