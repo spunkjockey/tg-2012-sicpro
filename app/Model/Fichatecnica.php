@@ -3,6 +3,7 @@ class Fichatecnica extends AppModel {
 	public $name = 'Fichatecnica';
 	public $useTable = 'fichatecnica';
 	public $primaryKey = 'idfichatecnica';
+	public $recursive =2;
     public $belongsTo = array(
         'Proyecto' => array(
             'className'    => 'Proyecto',

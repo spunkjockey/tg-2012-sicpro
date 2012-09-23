@@ -14,13 +14,14 @@ class AvanceprogramadosController extends AppController {
 			//'conditions'=>'Fuentefinanciamiento.idfuentefinanciamiento NOT IN (SELECT ff.idfuentefinanciamiento FROM financia AS ff WHERE ff.idproyecto='.$id['Proyecto']['idproyecto'].') 
 				//AND Fuentefinanciamiento.montodisponible <> 0'
 		));
-    	$this->set('Proyectos', Set::combine($lProyectos, "{n}.Proyecto.idproyecto","{n}.Proyecto.numeroproyecto"));
+    	$this->set('proyectos', Set::combine($lProyectos, "{n}.Proyecto.idproyecto","{n}.Proyecto.numeroproyecto"));
 		
 		//Primer Id
 		$id = $this->Proyecto->find("first",array(
 			'fields' => array('Proyecto.idproyecto', 'Proyecto.numeroproyecto'),
 			'order' => array('Proyecto.numeroproyecto')
 		));
+		
 		
 		//Recuperar los contratos asociados a dicho proyecto
 		$lContratos = $this->Contratoconstructor->find('all', array(
@@ -29,7 +30,7 @@ class AvanceprogramadosController extends AppController {
 			'conditions'=>array('Contratoconstructor.idproyecto'=>$id['Proyecto']['idproyecto'])
 		));
 		
-		
+		$this->set('contratos', Set::combine($lContratos, "{n}.Contratoconstructor.idcontrato","{n}.Contratoconstructor.codigocontrato"));
         
     }
 	

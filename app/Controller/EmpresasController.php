@@ -25,6 +25,17 @@ class EmpresasController extends AppController {
         	$this->set('empresas', $this->Empresa->read());
 		}
     }
+	
+	public function view_w($id = null) {
+		//$this->layout = 'cyanspark';
+        $this->Empresa->id = $id;
+		if (!$this->Empresa->read()) {
+        	throw new NotFoundException('No se puede encontrar la Empresa', 404);
+    	} else {
+        	$this->set('empresas', $this->Empresa->read());
+		}
+		$this->render('view_w','ajax');
+    }
 
 	
 	public function add() {

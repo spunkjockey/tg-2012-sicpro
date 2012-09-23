@@ -17,7 +17,7 @@ a { color:#2ca8b2; text-decoration:underline;}
 .fbg, .footer { padding:16px 0;}
 
 /* header */
-.header { height:158px; background:url(../img/cyanspark/header_bg.jpg) repeat-x center top;}
+.header { height:158px; background:url(../img/cyanspark/header_bg.jpg) no-repeat center top;}
 .header_resize { margin:0 auto; padding:0; width:970px;}
 
 /* menu */
@@ -190,6 +190,7 @@ p.error,
 	background-image: -o-linear-gradient(top, #76BF6B, #3B8230);
 	background-image: linear-gradient(top, #76BF6B, #3B8230);
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+	background: url('img/check.jpg') no-repeat;
 }
 p.error {
 	font-family: Monaco, Consolas, Courier, monospace;
@@ -210,5 +211,20 @@ p.error em {
 }
 .success {
 	color: #fff;
+}
+
+.mensajeexito{
+	clear: both;
+	color: #fff;
+	border: 1px solid rgba(0, 0, 0, 0.5);
+	background: #3B8230;
+	background-repeat: repeat-x;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#76BF6B), to(#3B8230));
+	background-image: -webkit-linear-gradient(top, #76BF6B, #3B8230);
+	background-image: -moz-linear-gradient(top, #76BF6B, #3B8230);
+	background-image: -ms-linear-gradient(top, #76BF6B, #3B8230);
+	background-image: -o-linear-gradient(top, #76BF6B, #3B8230);
+	background-image: linear-gradient(top, #76BF6B, #3B8230);
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
 }
 

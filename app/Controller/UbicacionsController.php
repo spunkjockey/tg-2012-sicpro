@@ -39,7 +39,7 @@ class UbicacionsController extends AppController {
 					
 										
 				    if ($this->Ubicacion->save()) {
-		            	$this->Session->setFlash('La Ficha Tecnica ha sido registrada.');
+		            	$this->Session->setFlash('La Ubicacion ha sido registrada.','default',array('class'=>'success'));
 		            	//$this->redirect(array('controller' => 'fichatecnicas','action' => 'add'));
 		            	$this->redirect(array('controller' => 'Fichatecnicas','action' => 'view',$id
 						));
