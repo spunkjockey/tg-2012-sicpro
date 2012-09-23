@@ -9,9 +9,12 @@
 			$this->layout = 'cyanspark';
 			$this->set('proys',$this->Proyecto->find('list', array(
 												 'fields'=> array('Proyecto.idproyecto','Proyecto.nombreproyecto'),
-												 'conditions'=>array('Proyecto.estadoproyecto' => 'Licitacion'))));
+												 'conditions'=>array( "OR" => array('Proyecto.estadoproyecto' => array('Licitacion','Adjudicacion'))))));
+			
 			$this->set('empresas',$this->Empresa->find('list',array(
 												 'fields' => array('Empresa.idempresa', 'Empresa.nombreempresa'))));
+			
+			
 			$adm = $this->Persona->query("SELECT personas.idpersona, (nombrespersona||' '||apellidospersona) AS nomcompleto FROM sicpro2012.persona AS personas;");
 			$this->set('administradores', Set::combine($adm, "{n}.0.idpersona","{n}.0.nomcompleto"));
 			if($this->request->is('post'))
