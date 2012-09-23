@@ -19,7 +19,7 @@
 	border-color: black;
 	background-color:#daecf4;
 	-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px}
-.qq-upload-button:hover{border-color:#7ec6e3;background-color:#7bd2f6}
+.qq-upload-button-hover{border-color:#7ec6e3;background-color:#7bd2f6}
 .qq-upload-button:active{color:#fff;background-color:#005c83;border-color:#005c83}
 
 
@@ -27,7 +27,7 @@
 /*
 .qq-upload-button {
 
-	display:block;  or inline-block 
+	display:block;  //or inline-block 
     width: 105px; padding: 7px 0; text-align:center;    
     background:#880000; border-bottom:1px solid #ddd;color:#fff;
 }

@@ -32,7 +32,7 @@ class UploadHelper extends AppHelper {
 				$baseEncFile = base64_encode ($file);
 				$delUrl = "$webroot/uploads/delete/$baseEncFile/";			
 				$str .= "<a href='$delUrl'><img src='" . Router::url("/") . 
-					"ajax_multi_upload/img/delete.png' alt='Delete' /></a> ";
+					"ajax_multi_upload/img/delete.png' alt='Eliminar' /></a> ";
 			}
 			$str .= "<img src='" . Router::url("/") . "ajax_multi_upload/img/fileicons/$type.png' /> ";
 			$str .= "<a href='$url'>" . $f . "</a> ($filesize)";
@@ -67,6 +67,7 @@ class UploadHelper extends AppHelper {
 		$str .= <<<END
 			<br /><br />
 			<link rel="stylesheet" type="text/css" href="$webroot/css/fileuploader.css" />
+			<link rel="stylesheet" type="text/css" href="$webroot/css/kendostyles/kendo.blueopal.min.css" />
 			<script src="$webroot/js/fileuploader.js" type="text/javascript"></script>
 			<div id="AjaxMultiUpload$lastDir" name="AjaxMultiUpload">
 				<noscript>

@@ -87,7 +87,7 @@ class qqFileUploader {
         
         if ($postSize < $this->sizeLimit || $uploadSize < $this->sizeLimit){
             $size = max(1, $this->sizeLimit / 1024 / 1024) . 'M';             
-            die("{'error':'increase post_max_size and upload_max_filesize to $size'}");    
+            die("{'error':'Incremente post_max_size y upload_max_filesize a $size'}");    
         }        
     }
     
@@ -107,21 +107,21 @@ class qqFileUploader {
      */
     function handleUpload($uploadDirectory, $replaceOldFile = FALSE){
         if (!is_writable($uploadDirectory)){
-            return array('error' => "Server error. Upload directory $uploadDirectory isn't writable. Please ask server admin to change permissions.");
+            return array('error' => "Error del Servidor. El directorio $uploadDirectory no tiene permisos de escritura. Por favor notifique al administrador del sistema para cambiar los permisos.");
         }
         
         if (!$this->file){
-            return array('error' => 'No files were uploaded.');
+            return array('error' => 'No se encontraron archivos.');
         }
         
         $size = $this->file->getSize();
         
         if ($size == 0) {
-            return array('error' => 'File is empty!');
+            return array('error' => 'El archivo se encuentra vacío!');
         }
         
         if ($size > $this->sizeLimit) {
-            return array('error' => 'File is too large. Please ask server admin to increase the file upload limit.');
+            return array('error' => 'El archivo es demasiado pesado. Por favor pregunte al administrador del sistema para incrementar el limite de carga de archivos.');
         }
         
         $pathinfo = pathinfo($this->file->getName());
@@ -131,7 +131,7 @@ class qqFileUploader {
 
         if($this->allowedExtensions && !in_array(strtolower($ext), $this->allowedExtensions)){
             $these = implode(', ', $this->allowedExtensions);
-            return array('error' => 'File has an invalid extension, it should be one of '. $these . '.');
+            return array('error' => 'El archivo tiene una extensión invalida, debería de ser una de '. $these . '.');
         }
         
         if(!$replaceOldFile){
@@ -144,8 +144,8 @@ class qqFileUploader {
         if ($this->file->save($uploadDirectory . $filename . '.' . $ext)){
             return array('success'=>true);
         } else {
-            return array('error'=> 'Could not save uploaded file.' .
-                'The upload was cancelled, or server error encountered');
+            return array('error'=> 'No se puede subir el archivo.' .
+                'La subida fue cancelada, o se ha encontrado un error en el server');
         }
         
     }    

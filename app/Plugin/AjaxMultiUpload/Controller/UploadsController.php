@@ -55,18 +55,18 @@ class UploadsController extends AjaxMultiUploadAppController {
 	 */
 	public function delete($file = null) {
 		if(is_null($file)) {
-			$this->Session->setFlash(__('File parameter is missing'));
+			$this->Session->setFlash(__('Faltan parametros del archivo'));
 			$this->redirect($this->referer());
 		}
 		$file = base64_decode($file);
 		if(file_exists($file)) {
 			if(unlink($file)) {
-				$this->Session->setFlash(__('File deleted!'));				
+				$this->Session->setFlash(__('Archivo Eliminado'));				
 			} else {
-				$this->Session->setFlash(__('Unable to delete File'));					
+				$this->Session->setFlash(__('Imposible eliminar el archivo'));					
 			}
 		} else {
-			$this->Session->setFlash(__('File does not exist!'));					
+			$this->Session->setFlash(__('El archivo no existe!'));					
 		}
 		
 		$this->redirect($this->referer());	
