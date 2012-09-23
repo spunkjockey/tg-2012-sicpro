@@ -20,7 +20,13 @@
 					)); ?>
 			</li>
 			<li>
+				<h3>Programación</h3>
+			</li>
+			<li>
 				<table border="0" style="margin-left: 50px">
+					<tr>
+						<td colspan="4" align="left"><a class="k-button"><span class="k-icon k-i-plus"></span>Agregar Avance</a></td>
+					</tr>
 					<tr align="center">
 						<th> Plazo </th>
 						<th> Fecha </th>
@@ -31,17 +37,12 @@
 					<tr align="center">
 						<td> <input type="text" class="k-textbox" name="Avanceprogramado.0.plazoejecuciondias" style="width:60px;margin:0" /> </td>
 						<td> <input type="text" id="fechaav0" name="Avanceprogramado.0.fechaavance"/> </td>
-						<td> <input type="text" id="porcenav0" name="Avanceprogramado.0.porcentajeavfisicoprog" style="width:60px;margin:0"/> </td>
+						<td> <input type="text" class="k-textbox" id="porcenav0" name="Avanceprogramado.0.porcentajeavfisicoprog" style="width:60px;margin:0"/> </td>
 						<td> <input type="text" id="montoav0" name="Avanceprogramado.0.montoavfinancieroprog" style="width:100px;margin:0"/> </td>
+						<td><a class="k-button"><span class="k-icon k-i-pencil"></span></a> <a class="k-button"><span class="k-icon k-i-close"></span></a></td>
 					</tr>
 
-					<tr align="center">
-						<td> <input type="text" class="k-textbox" name="Avanceprogramado.1.plazoejecuciondias" style="width:60px;margin:0" /> </td>
-						<td> <input type="text" id="fechaav1" name="Avanceprogramado.1.fechaavance"/> </td>
-						<td> <input type="text" id="porcenav1" name="Avanceprogramado.1.porcentajeavfisicoprog" style="width:60px;margin:0"/> </td>
-						<td> <input type="text" id="montoav1" name="Avanceprogramado.1.montoavfinancieroprog" style="width:100px;margin:0"/> </td>
-						<td><img src="images/close.gif" alt="Eliminar"></td>
-					</tr>
+					
 				</table>
 			</li>
 			<li  class="accept">
@@ -58,6 +59,15 @@
 			</li>
 		</ul>
 	</div>
+	<div id="window">
+    	Content of the Window
+        <?php echo $this->Html->link(
+        	'Detalles', 
+        	array('controller' => 'empresas', 'action' => 'view', 1),
+        	array('class'=>'k-button')
+		);?>
+	</div>
+	<button id="openButton" class="k-button">Open Window</button>
 </div>
 		
 			<style scoped>
@@ -179,14 +189,6 @@
     					spinners: false
                     });
                     
-                    $("#porcenav0").kendoNumericTextBox({
-                        format: "p",
-                        min: 0,
-    					max: 100,
-    					placeholder: "Ej. 35.20",
-    					spinners: false
-                    });
-
                     $("#fechaav1").kendoDatePicker({
                     	culture: "es-ES",
 		   				format: "dd/MM/yyyy" //Define el formato de fecha
@@ -201,14 +203,22 @@
     					spinners: false
                     });
                     
-                    $("#porcenav1").kendoNumericTextBox({
-                        format: "p",
-                        min: 0,
-    					max: 100,
-    					placeholder: "Ej. 35.20",
-    					spinners: false
-                    });               
-                	        
+
+    var win = $("#window").kendoWindow({
+	    draggable: false,
+	    modal: true,
+        title: "Centered Window",
+        visible: false
+    }).data("kendoWindow");
+
+$("#openButton").click(function(){
+    var win = $("#window").data("kendoWindow");
+    win.center();
+    win.open();
+ });
+
+                    
+                    
                 
                 });
                 
