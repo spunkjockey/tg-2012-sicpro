@@ -39,21 +39,36 @@
             	array('action' => 'view', $emp['Empresa']['idempresa']),
             	array('class'=>'k-button')
 			);?>
+            <div id='popup'>
             <?php echo $this->Html->link(
             	'Detalles_w', 
             	'#',//array('action' => 'view_w', $emp['Empresa']['idempresa']),
-            	array('id' => 'openButton', 'class'=>'k-button',
-            	'onclick'=>'agregarcampo("<?php echo $this->Session->read("User.username");?>");')
+            	array('id' => 'openButton', 'class'=>'k-button')
 			);?>
+			
+			
             
+            </div>
+            
+            <a href="#" onclick="cambiarid('<?php echo $emp['Empresa']['idempresa'];?>');" class="k-button">Agregar Metas</a>
         </td>
+        
     </tr>
     <?php endforeach; ?>
     <?php unset($empresas); ?>
+
 </table>
 <div id="window"></div>
+
+
+
+
+
 <script>
 	$(document).ready(function() {
+		
+		<?php echo 'var idempresa = '.$emp["Empresa"]["idempresa"].';'; ?>
+		
     	$("#grid").kendoGrid({
             	dataSource: {
 	           		pageSize: 10,
@@ -83,21 +98,27 @@
             	
         	});
         	
+    var idemp = 0;
+	 function cambiarid(usuario) {
+		alert("hola mundo");
+		return false;
+	}
+	 
     var win = $("#window").kendoWindow({
 	    draggable: false,
 	    modal: true,
         title: "Centered Window",
-        content: "empresas/view_w/1",
+        content: "empresas/view_w/"+idemp,
         visible: false
     }).data("kendoWindow");
 
-$("#openButton").click(function(){
-    var win = $("#window").data("kendoWindow");
-    win.center();
-    win.open();
- });
+	<?php //echo '$("#openButton"'.$emp['Empresa']['idempresa'].').click(function(){'; ?>
+	$("#popup a.k-button").click(function(){
+		var win = $("#window").data("kendoWindow");
+		win.center();
+		win.open();
+	});
+	
 
-        	
-        	
         });
 </script>

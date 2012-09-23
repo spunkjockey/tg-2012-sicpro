@@ -1,5 +1,9 @@
 <!-- File: /app/View/Departamentos/index.ctp -->
 
+<?php $this->start('menu');
+	echo $this->element('menu/menu_all');
+$this->end(); ?>
+
 <h2>Departamentos</h2>
 <div style='margin:4px 0' >
 	<?php echo $this->Html->link(
@@ -8,6 +12,7 @@
 		array('class'=>'k-button')
 	); ?>
 </div> 
+
 <table id="grid">
     <tr>
         <th data-field="codigodepartamento">Código</th>

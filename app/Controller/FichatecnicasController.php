@@ -2,7 +2,7 @@
 class FichatecnicasController extends AppController {
     public $helpers = array('Html', 'Form', 'Session');
     public $components = array('Session');
-	public $uses = array('Proyecto','Fichatecnica','Ubicacion','Departamento','Municipio','Meta');
+	public $uses = array('Proyecto','Fichatecnica','Ubicacion','Departamento','Municipio','Meta','Componente');
 	
 	
     public function index() {
@@ -29,7 +29,7 @@ class FichatecnicasController extends AppController {
 					$this->Fichatecnica->set('resultadosesperados', $this->request->data['Fichatecnica']['resultadosesperados']);
 					$this->Fichatecnica->set('userc', $this->request->data['Fichatecnica']['userc']);					
 				    if ($this->Fichatecnica->save()) {
-		            	$this->Session->setFlash('La Ficha Tecnica ha sido registrada.');
+		            	$this->Session->setFlash('La Ficha Tecnica ha sido registrada.','default',array('class'=>'mensajeexito'));
 		            	//$this->redirect(array('controller' => 'fichatecnicas','action' => 'add'));
 		            	$this->redirect(array('controller' => 'fichatecnicas','action' => 'view',$this->Fichatecnica->id
 						));
@@ -52,10 +52,7 @@ class FichatecnicasController extends AppController {
 			$this->set('ubicaciones', $this->Fichatecnica->Ubicacion->find('all',
 				array('fields' => array('Ubicacion.direccion','Departamento.departamento','Municipio.municipio'),
 				'conditions' => array('Ubicacion.idfichatecnica' => $id))
-			));	
-		$this->set('metas',$this->Meta->query("SELECT meta.idmeta, meta.idcomponente, meta.descripcionmeta FROM meta, fichatecnica, componente where fichatecnica.idfichatecnica =".$id." and componente.idcomponente = meta.idcomponente;"));
-		//$this->set('metas',$this->Fichatecnica->Componente->find('all', array('recursive' => 3)));	
-			
+			));			
 		}
     }
 }

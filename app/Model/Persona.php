@@ -22,16 +22,45 @@
 	        	'message' => 'Solo Letras'
 	        	)),
 			
-		'apellidos persona'=> array(
+		'apellidospersona'=> array(
 			'soloLetras' => array(
 				'rule'    => '/^[a-zA-ZáéíóúAÉÍÓÚÑñ\s]{2,}$/i',
 	        	'message' => 'Solo Letras'
 	        	)),
-	    'correocontacto' => array(
-			'email' => array(
-		        'rule'    => array('email', true),
-		        'message' => 'Ingrese una direccion de correo electronica valida.'
-    		)),
+	        	
+	    'correoelectronico' => array(    
+	    	'email' => array(        
+	    		'rule' => array('email', true),
+	    		'message' => 'Por favor indique una dirección de correo electrónico válida.'
+				)),
+		'username' => array(
+			'between' => array(
+	        	'rule'    => array('between', 5, 15),
+	            'message' => 'Nombre de usuario entre 5 y 20 caracteres',
+				'required' => true
+			)),
+		'password'=> array(
+			'between' => array(
+	        	'rule'    => array('between', 6, 20),
+	            'message' => 'Contrasena entre 6 y 20 caracteres',
+				'required' => true
+			)),
+		'plazas' => array(
+				'message' => 'Seleccione una plaza',
+				'required' => true
+			),
+		'cargos' => array(
+				'message' => 'Seleccione un cargo',
+				'required' => true
+			),
+		'roles' => array(
+				'message' => 'Seleccione un rol',
+				'required' => true
+			),
+		'estado'=>array(
+				'message' => 'Seleccione estado del usuario',
+				'required' => true
+			)
 	);
 	
 	public function beforeValidate($options = array()) {
