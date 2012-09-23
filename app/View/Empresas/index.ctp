@@ -39,13 +39,19 @@
             	array('action' => 'view', $emp['Empresa']['idempresa']),
             	array('class'=>'k-button')
 			);?>
+            <?php echo $this->Html->link(
+            	'Detalles_w', 
+            	'#',//array('action' => 'view_w', $emp['Empresa']['idempresa']),
+            	array('id' => 'openButton', 'class'=>'k-button',
+            	'onclick'=>'agregarcampo("<?php echo $this->Session->read("User.username");?>");')
+			);?>
             
         </td>
     </tr>
     <?php endforeach; ?>
     <?php unset($empresas); ?>
 </table>
-
+<div id="window"></div>
 <script>
 	$(document).ready(function() {
     	$("#grid").kendoGrid({
@@ -76,5 +82,22 @@
             	
             	
         	});
+        	
+    var win = $("#window").kendoWindow({
+	    draggable: false,
+	    modal: true,
+        title: "Centered Window",
+        content: "empresas/view_w/1",
+        visible: false
+    }).data("kendoWindow");
+
+$("#openButton").click(function(){
+    var win = $("#window").data("kendoWindow");
+    win.center();
+    win.open();
+ });
+
+        	
+        	
         });
 </script>

@@ -63,8 +63,8 @@
             	array('class'=>'k-button')
 			);?>
 			
-			<!--<?php Debugger::dump($fichatecnicas)?>-->
-			<!--<?php Debugger::dump($metas)?>-->
+			<?php Debugger::dump($fichatecnicas)?>
+			<?php Debugger::dump($metas)?>
 <style scoped>
                 .k-textbox {
                     width: 11.8em;
