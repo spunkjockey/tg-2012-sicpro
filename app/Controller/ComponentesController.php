@@ -11,7 +11,7 @@ class ComponentesController extends AppController {
         if ($this->request->is('post')) {
         			Debugger::dump($this->request->data);
 				    if ($this->Componente->saveAssociated($this->request->data, array('validate' => true, 'callbacks' => true))) {
-		            	$this->Session->setFlash('El componente han sido registrado.');
+		            	$this->Session->setFlash('El componente ha sido registrado.');
 		            	$this->redirect(array('controller' => 'fichatecnicas','action' => 'view',$id));
 		        	} else {
 		            	$this->Session->setFlash('No se pudo realizar el registro');

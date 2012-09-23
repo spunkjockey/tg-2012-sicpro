@@ -11,10 +11,10 @@
 					array(
 						'label' => 'Proyectos:', 
 						'id' => 'select',
+						'class' => 'k-combobox',
 						//'selected' => '05',
 						'empty' => 'Seleccione...', 
-						'required' 
-						, 
+						'required' , 
 						'validationMessage' => 'Seleccione Proyecto')); ?>
 			</li>
 			<li>
@@ -110,10 +110,14 @@
                     width: 300px;
                     margin-left: 5px;
                     
-                }
+                }    
 				
-				
-			
+				.k-combobox
+				{
+				    width: 300px;
+				    margin-left: 5px;
+				}
+
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -180,7 +184,7 @@
                 
 
                 $("#select").kendoComboBox({
-			         //placeholder: "Seleccionar...",
+			         placeholder: "Seleccionar...",
 			         //index: -1,
 			         suggest: true
 			    });

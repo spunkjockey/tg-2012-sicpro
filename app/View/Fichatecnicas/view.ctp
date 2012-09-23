@@ -1,6 +1,5 @@
 <!-- File: /app/View/Fichatecnicas/view.ctp -->
-
-<ul>
+<!--
 			<h3>Ficha Tecnica</h3>
 			<p><b>Problematica: </b><?php echo $fichatecnicas['Fichatecnica']['problematica']; ?></p>
 
@@ -17,9 +16,7 @@
 			<p><b>Resultados Esperados: </b><?php echo ($fichatecnicas['Fichatecnica']['resultadosesperados']); ?></p>
 			
 			<!--<?php Debugger::dump($fichatecnicas);?>-->
-
-			
-
+			<h2>Direcciones</h2>
 <table id="tabla">
     <tr>
         <th data-field="direccion">Direccion</th>
@@ -57,15 +54,34 @@
 			    </tr>
 			    <?php endforeach; ?>
 			</table>-->
+			<h2>Componentes</h2>
+			<?php foreach ($fichatecnicas['Componente'] as $compo):?>
+				<h3 id='titulo'><?php echo $compo['nombrecomponente']; ?></h3>
+				<div id='capa1'><?php echo $compo['descripcioncomponente']; ?></div>
+				<?php foreach ($compo['Meta'] as $metas):
+					if($compo['idcomponente']=$metas['idcomponente'])?>
+					<div id='capa2'><li><?php echo $metas['descripcionmeta']; ?></li></div>
+				<?php endforeach; ?>
+			<?php endforeach; ?>
 			<?php echo $this->Html->link(
             	'Agregar Componentes', 
             	array('controller' => 'Componentes','action' => 'add',$fichatecnicas['Fichatecnica']['idfichatecnica']),
             	array('class'=>'k-button')
 			);?>
 			
-			<?php Debugger::dump($fichatecnicas)?>
-			<?php Debugger::dump($metas)?>
+
 <style scoped>
+				#titulo {
+					color:#3A90CA;
+				}
+				#capa1{
+					margin-left: 20px;
+					color:#000000;
+				}
+				#capa2{
+					margin-left: 40px;
+					color:#A8ACB2;
+				}
                 .k-textbox {
                     width: 11.8em;
                 }
@@ -144,6 +160,19 @@
 <script>
 	$(document).ready(function() {
     	$("#tabla").kendoGrid({
+            	dataSource: {
+	           		pageSize: 10,
+            	},
+            	sortable: true,
+            	sortable: {
+ 			    	mode: "single", // enables multi-column sorting
+        			allowUnsort: true
+				},
+				scrollable: false
+            	
+            	
+        	});
+		$("#tabla2").kendoGrid({
             	dataSource: {
 	           		pageSize: 10,
             	},
