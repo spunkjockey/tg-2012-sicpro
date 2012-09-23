@@ -1,61 +1,100 @@
-<!-- File: /app/View/Fuentefinanciamientos/registrar_fuente.ctp -->
+<!-- File: /app/View/Estimacions/RegistrarEstimacion.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Agregar Fuente Financiamiento</h2>
-		<?php echo $this->Form->create('Fuentefinanciamiento'); ?>
+		<h2>Registrar Estimación de Avance}</h2>
+		
+				<?php echo $this->Form->create('Estimacion'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('nombrefuente', 
+				<?php echo $this->Form->input('proyectos',
 					array(
-						'label' => 'Nombre Fuente Financiamiento:',
-					
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre de fuente de financiamiento', 
-						'required', 
-						'validationMessage' => 'Ingrese Nombre de Fuente de Financiamiento')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('montoinicial', 
-					array(
-						'label' => 'Monto Inicial:',
-						'id'    => 'moneda',
-						'placeholder' => 'Monto Inicial', 
-						'validationMessage' => 'Ingrese el Monto Inicial')); ?>
-		</li>
-		
-			<li>
-				<?php echo $this->Form->input('fechadisponible', 
-					array(
-						'label' => 'Fecha Disponibilidad:', 
-						'id'	=> 'datePicker1',
-						'type'  => 'Text'
-						/*'class' => 'k-textbox', 
-						'placeholder' => 'Fecha Disponibilidad', 
-						'required', 
-						'validationMessage' => 'Ingrese la Fecha de Disponibilidad')
-						 */) ); ?>
-			</li>
-			
-			
-			
-			<li>
-                <?php echo $this->Form->input('tipofuentes',
-					array(
-						'label' => 'Tipo Fuente:', 
+						'label' => 'Seleccione Proyecto:', 
 						'id' => 'select',
 						//'selected' => '05',
 						'empty' => 'Seleccione...', 
+						'required' 
+						, 
+						'validationMessage' => 'Seleccione Proyecto')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('contratos',
+					array(
+						'label' => 'Seleccione Contrato:', 
+						'id' => 'select',
+						//'selected' => '05',
+						'empty' => 'Seleccione...', 
+						'required' 
+						, 
+						'validationMessage' => 'Seleccione Contrato')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('tituloestimacion', 
+					array(
+						'label' => 'Título Estimación: ', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Título Estimación',
+						"rows"=>"5", 
 						'required', 
-						'validationMessage' => 'Seleccione Tipo de Fuente')); ?>
+						'validationMessage' => 'Ingrese el Título de la Esimación')); ?>
 			</li>
-			<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
+			<li>
+				<?php echo $this->Form->input('fechainicioestimacion', 
+					array(
+						'label' => 'Inicio Estimación:', 
+						'id'	=> 'datePicker1',
+						'type'  => 'Text'
+						 ) ); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('fechafinestimacion', 
+					array(
+						'label' => 'Fin Estimación:', 
+						'id'	=> 'datePicker1',
+						'type'  => 'Text'
+						 ) ); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('montoestimado', 
+					array(
+						'label' => 'Monto Estimado:',
+						'id'    => 'moneda',
+						'placeholder' => 'Monto Estimado', 
+						'validationMessage' => 'Ingrese el Monto Estimado')); ?>
+		    </li>
+		    <li>
+				<?php echo $this->Form->input('porcentajeestimadoavance', 
+					array(
+						'label' => 'Porcentaje Estimación: ', 
+						'class' => 'k-textbox1', 
+						'placeholder' => 'Porcentaje Estimado',
+						"rows"=>"5", 
+						'required', 
+						'validationMessage' => 'Ingrese el Porcentaje Esimado')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('documentoestimacion', 
+					array(
+						'label' => 'Subir Documentos: ', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Subir Documentos',
+						"rows"=>"5", 
+						'required', 
+						'validationMessage' => 'Cargue los Documentos')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('fechaestimacion', 
+					array(
+						'label' => 'Fecha Estimación:', 
+						'id'	=> 'datePicker1',
+						'type'  => 'Text'
+						 ) ); ?>
+			</li>
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar Fuente', 'class' => 'k-button')); ?>
-				
+				<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
+				<?php echo $this->Form->end(array('label' => 'Registrar Estimación', 'class' => 'k-button')); ?>
 			</li>
-            
-            <li class="status">
+			 <li class="status">
             </li>
 		</ul>
 		
@@ -150,6 +189,13 @@
 			         //index: -1,
 			         suggest: true
 			    });
+			    
+			    $("#k-textbox1").kendoNumericTextBox({
+     format: "p",
+     value: 0.15 // 15 %
+ });
 	         
 	                });
             </script>
+			
+			
