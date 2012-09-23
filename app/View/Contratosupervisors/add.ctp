@@ -109,7 +109,7 @@
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar contrato', 'class' => 'k-button')); ?>
 				
-				<?php $options = array('url' => 'update_select','update' => 'select2');
+				<?php $options = array('url' => 'update_select','update' => 'selectcon');
 				echo $this->ajax->observeField('selectproy',$options);?>
 			</li>
             <li class="status">
@@ -199,10 +199,21 @@
                         }
                     });
                 
-				$("#selectproy").kendoComboBox();
+				$("#selectproy").kendoComboBox({
+					index: 0,
+			        suggest: true,
+			        filter: 'none'
+				});
 				$("#selectemp").kendoComboBox();
 				$("#selectadm").kendoComboBox();
-				$("#selectcon").kendoComboBox();
+				$("#selectcon").kendoComboBox({
+					index: 0,
+			        suggest: true,
+			        filter: 'none'
+				});
+				
+				var combobox = $("#selectproy").data("kendoComboBox");
+                    combobox.list.width(400);
 				
 				$("#datePicker1").kendoDatePicker({
 		   			format: "dd/MM/yyyy",

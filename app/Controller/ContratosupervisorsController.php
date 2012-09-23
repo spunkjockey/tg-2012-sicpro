@@ -1,7 +1,7 @@
 <?php
     class ContratosupervisorsController extends AppController 
     {
-	    public $helpers = array('Html', 'Form', 'Session');
+	    public $helpers = array('Html', 'Form', 'Session','Ajax');
 	    public $components = array('Session');
 		public $uses = array('Contratoconstructor','Contrato','Proyecto','Empresa','Persona','Contratosupervisor');
 		
@@ -27,7 +27,7 @@
 										'fields' => array('Proyecto.idproyecto', 'Proyecto.nombreproyecto'),
 										'conditions'=>array( "OR" => array('Proyecto.estadoproyecto' => array('Licitacion','Adjudicacion'))),
 										'order' => array('Proyecto.nombreproyecto')));
-			
+			Debugger::dump($primerproy['Proyecto']['idproyecto']);
 			$this->set('contratos',$this->Contratoconstructor->find('list',array(
 										'fields'=>array('Contratoconstructor.idcontrato','Contratoconstructor.codigocontrato'),
 										'conditions'=>array(('Contratoconstructor.con_idcontrato is null'),
@@ -35,21 +35,21 @@
 										)));
 			
 			
-			
 		}
 
-		public function sselect_update()
+		public function update_select()
 		{
 			if (!empty($this->data['Contratosupervisor']['proys']))
                 {
                         $proy_id = $this->data['Contratosupervisor']['proys'];
-                        $contratos= $this->Contratoconstructor->find('all', array(
+                        $ccon= $this->Contratoconstructor->find('list', array(
 	                        			'fields'=>array('Contratoconstructor.idcontrato','Contratoconstructor.codigocontrato'),
-										'conditions'=>array(('Contratoconstructor.con_idcontrato is null'),
-														   ('Contratoconstructor.idproyecto='.$proy_id['Proyecto']['idproyecto']))));
+										'conditions'=>array("AND" =>array('Contratoconstructor.idproyecto'=>$proy_id), 
+																	array('Contratoconstructor.con_idcontrato is null'))));
                 }
-                $this->set('options', Set::combine($contratos, "{n}.Contratoconstructor.idcontrato","{n}.Contratoconstructor.codigocontrato"));
+                $this->set('options', Set::combine($ccon, "{n}.Contratoconstructor.idcontrato","{n}.Contratoconstructor.codigocontrato"));
                 $this->render('/elements/update_select', 'ajax');
+				Debugger::dump($ccon);
 		}
 	}
 ?>
