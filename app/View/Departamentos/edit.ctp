@@ -6,6 +6,13 @@
 		<?php echo $this->Form->create('Departamento'); ?>
 		<ul>
 			<li>
+				<?php Debugger::dump($this->request->data); ?>
+				<h3>Archivos que ya existen</h3>
+				<?php echo $this->Upload->view('Departamento', $this->request->data['Departamento']['iddepartamento']); ?>
+				<h3>Archivos a Agregar</h3>
+				<?php echo $this->Upload->edit('Departamento', $this->request->data['Departamento']['iddepartamento']); ?>
+			</li>
+			<li>
 				<?php echo $this->Form->input('codigodepartamento', 
 					array(
 						'label' => 'Codigo Departamento:', 

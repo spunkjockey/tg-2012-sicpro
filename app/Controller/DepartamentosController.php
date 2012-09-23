@@ -1,7 +1,7 @@
 <?php
 class DepartamentosController extends AppController {
-    public $helpers = array('Html', 'Form', 'Session','Ajax');
-    public $components = array('Session');
+    public $helpers = array('Html', 'Form', 'Session','Ajax','AjaxMultiUpload.Upload');
+    public $components = array('Session','AjaxMultiUpload.Upload');
 
     public function index() {
     	$this->layout = 'cyanspark';
