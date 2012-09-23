@@ -3,7 +3,7 @@
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Registrar contrato constructor</h2>
-		<?php echo $this->Form->create('Proyecto'); ?>
+		<?php echo $this->Form->create('Contratoconstructor'); ?>
 		<ul>
 			<li>
 				<?php echo $this->Form->input('proys', 
@@ -92,7 +92,7 @@
 						'required')); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('admincon', 
+				<?php echo $this->Form->input('administradores', 
 					array(
 						'label' => 'Seleccione administrador:', 
 						'id' => 'selectadm',
