@@ -16,23 +16,16 @@
 			<p><b>Resultados Esperados: </b><?php echo ($fichatecnicas['Fichatecnica']['resultadosesperados']); ?></p>
 			
 			<!--<?php Debugger::dump($fichatecnicas);?>-->
-			<h2>Direcciones</h2>
-<table id="tabla">
-    <tr>
-        <th data-field="direccion">Direccion</th>
-        <th data-field="departamento">Departamento</th>
-        <th data-field="municipio">Municipio</th>
-    </tr>			   
+			<h2>Direcciones</h2>			   
 	<?php foreach ($ubicaciones as $ubi): ?>
-    <tr>
-        <td><?php echo $ubi['Ubicacion']['direccion']; ?></td>
-        <td><?php echo $ubi['Departamento']['departamento']; ?></td>
-        <td><?php echo $ubi['Municipio']['municipio']; ?></td>        
-    </tr>
+    	<li class='capa2'>
+        <?php echo $ubi['Ubicacion']['direccion']; ?>,
+        <?php echo $ubi['Municipio']['municipio']; ?>,
+        <?php echo $ubi['Departamento']['departamento']; ?>
+        </li> 
     <?php endforeach; ?>
     <?php unset($ubicaciones); ?>
-</table>
-			
+			<br>
 			<?php echo $this->Html->link(
             	'Agregar Ubicacion', 
             	array('controller' => 'Ubicacions','action' => 'add',$fichatecnicas['Fichatecnica']['idfichatecnica']),
@@ -60,7 +53,7 @@
 				<div id='capa1'><?php echo $compo['descripcioncomponente']; ?></div>
 				<?php foreach ($compo['Meta'] as $metas):
 					if($compo['idcomponente']=$metas['idcomponente'])?>
-					<div id='capa2'><li><?php echo $metas['descripcionmeta']; ?></li></div>
+					<div class='capa2'><li><?php echo $metas['descripcionmeta']; ?></li></div>
 				<?php endforeach; ?>
 			<?php endforeach; ?>
 			<?php echo $this->Html->link(
@@ -78,9 +71,9 @@
 					margin-left: 20px;
 					color:#000000;
 				}
-				#capa2{
+				.capa2{
 					margin-left: 40px;
-					color:#A8ACB2;
+					color:#3E3E3E;
 				}
                 .k-textbox {
                     width: 11.8em;

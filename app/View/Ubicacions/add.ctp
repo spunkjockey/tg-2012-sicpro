@@ -53,7 +53,11 @@
 				<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
 				<?php echo $this->Form->end(array('label' => 'Registrar Ubicacion', 'class' => 'k-button')); ?>
 				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
-				
+				<?php echo $this->Html->link(
+					'Regresar', 
+					array('controller' => 'Fichatecnicas', 'action' => 'view',$idfct),
+					array('class'=>'k-button')
+				); ?>
 				<?php $options = array('url' => 'update_select','update' => 'select2');
 				echo $this->ajax->observeField('select1',$options);?>
 			</li>

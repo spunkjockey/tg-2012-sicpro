@@ -7,6 +7,7 @@ class UbicacionsController extends AppController {
 	public function add($id=null) {
 		$this->layout = 'cyanspark';
 		
+		$this->set('idfct',$id);
 		$this->set('departamentos',$this->Ubicacion->Departamento->find('list', 
 		array('fields'=>array('Departamento.iddepartamento','Departamento.departamento'),
 			  'order'=>'Departamento.departamento ASC')));
