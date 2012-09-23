@@ -179,9 +179,9 @@ p.error,
 }
 .success {
 	clear: both;
-	color: #fff;
+	color: black;
 	border: 1px solid rgba(0, 0, 0, 0.5);
-	background: #3B8230;
+	background: #A9FCB0;
 	background-repeat: repeat-x;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#76BF6B), to(#3B8230));
 	background-image: -webkit-linear-gradient(top, #76BF6B, #3B8230);
@@ -190,6 +190,10 @@ p.error,
 	background-image: -o-linear-gradient(top, #76BF6B, #3B8230);
 	background-image: linear-gradient(top, #76BF6B, #3B8230);
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+	background-image: url('../img/check.ico');
+	background-position: 10px center;
+	padding-left: 30px;
+	background-repeat: no-repeat;
 }
 p.error {
 	font-family: Monaco, Consolas, Courier, monospace;
@@ -210,5 +214,20 @@ p.error em {
 }
 .success {
 	color: #fff;
+}
+
+.mensajeexito{
+	clear: both;
+	color: #fff;
+	border: 1px solid rgba(0, 0, 0, 0.5);
+	background: #3B8230;
+	background-repeat: repeat-x;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#76BF6B), to(#3B8230));
+	background-image: -webkit-linear-gradient(top, #76BF6B, #3B8230);
+	background-image: -moz-linear-gradient(top, #76BF6B, #3B8230);
+	background-image: -ms-linear-gradient(top, #76BF6B, #3B8230);
+	background-image: -o-linear-gradient(top, #76BF6B, #3B8230);
+	background-image: linear-gradient(top, #76BF6B, #3B8230);
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
 }
 

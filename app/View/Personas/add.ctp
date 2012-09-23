@@ -2,91 +2,98 @@
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar persona</h2>
+		
 		<?php echo $this->Form->create('Persona'); ?>
 		<ul>
-			<li>
-				<?php echo $this->Form->input('nombrespersona', 
-					array(
-						'label' => 'Nombres:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombres de la persona', 
-						'required', 
-						'validationMessage' => 'Ingrese nombres de la persona')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('apellidospersona', 
-					array(
-						'label' => 'Apellidos:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Apellidos de la persona', 
-						'required', 
-						'validationMessage' => 'Ingrese apellidos de la persona')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('plazas', 
-					array(
-						'label' => 'Plaza:', 
-						'id' => 'selecto',
-						'empty' => 'Seleccione...',
-						'required')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('cargos', 
-					array(
-						'label' => 'Cargo funcional:', 
-						'id' => 'selecto',
-						'empty' => 'Seleccione...',
-						'required')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('telefonocontacto', 
-					array(
-						'label' => 'Telefono:', 
-						'class' => 'k-textbox', 
-						'id'	=>	'phone',
-						'placeholder' => 'Telefono Empresa', 
-						'validationMessage' => 'Ingrese Telefono Empresa')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('correoelectronico', 
-					array(
-						'label' => 'Correo electronico:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Correo Electronico', 
-						'required', 
-						'validationMessage' => 'Ingrese Correo Electronico')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('username', 
-					array(
-						'label' => 'Nombre de usuario:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Usuario', 
-						'required', 
-						'validationMessage' => 'Ingrese nombre de usuario')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('roles', 
-					array(
-						'label' => 'Rol:', 
-						'empty' => 'Seleccione...',
-						'required',
-						'validationMessage' => 'Seleccione un rol')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('password', 
-					array(
-						'label' => 'Contraseña:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Contraseña', 
-						'required', 
-						'validationMessage' => 'Ingrese Contraseña')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('estado', 
-							array('options' => array(0 => 'Deshabilitado', 1 => 'Habilitado'))); ?>
-			</li>
+			
+				<h2>Registrar persona</h2>
+				<li>
+					<?php echo $this->Form->input('nombrespersona', 
+						array(
+							'label' => 'Nombres:', 
+							'class' => 'k-textbox', 
+							'placeholder' => 'Nombres de la persona', 
+							'required', 
+							'validationMessage' => 'Ingrese nombres de la persona')); ?>
+				</li>
+				<li>
+					<?php echo $this->Form->input('apellidospersona', 
+						array(
+							'label' => 'Apellidos:', 
+							'class' => 'k-textbox', 
+							'placeholder' => 'Apellidos de la persona', 
+							'required', 
+							'validationMessage' => 'Ingrese apellidos de la persona')); ?>
+				</li>
+				<li>
+					<?php echo $this->Form->input('plazas', 
+						array(
+							'label' => 'Plaza:', 
+							'id' => 'selectpla',
+							'empty' => 'Seleccione...',
+							'required')); ?>
+				</li>
+				<li>
+					<?php echo $this->Form->input('cargos', 
+						array(
+							'label' => 'Cargo funcional:', 
+							'id' => 'selectcar',
+							'empty' => 'Seleccione...',
+							'required')); ?>
+				</li>
+				<li>
+					<?php echo $this->Form->input('telefonocontacto', 
+						array(
+							'label' => 'Telefono:', 
+							'class' => 'k-textbox', 
+							'id'	=>	'phone',
+							'placeholder' => 'Telefono Empresa', 
+							'validationMessage' => 'Ingrese Telefono Empresa')); ?>
+				</li>
+				<li>
+					<?php echo $this->Form->input('correoelectronico', 
+						array(
+							'label' => 'Correo electronico:', 
+							'class' => 'k-textbox', 
+							'placeholder' => 'Correo Electronico', 
+							'required', 
+							'validationMessage' => 'Ingrese Correo Electronico')); ?>
+				</li>
+			
+				<h2>Registrar usuario principal</h2>
+				<li>
+					<?php echo $this->Form->input('username', 
+						array(
+							'label' => 'Nombre de usuario:', 
+							'class' => 'k-textbox', 
+							'placeholder' => 'Usuario', 
+							'required', 
+							'validationMessage' => 'Ingrese nombre de usuario')); ?>
+				</li>
+				<li>
+					<?php echo $this->Form->input('roles', 
+						array(
+							'label' => 'Rol:', 
+							'empty' => 'Seleccione...',
+							'id' => 'selectrol',
+							'required',
+							'validationMessage' => 'Seleccione un rol')); ?>
+				</li>
+				<li>
+					<?php echo $this->Form->input('password', 
+						array(
+							'label' => 'Contraseña:', 
+							'class' => 'k-textbox', 
+							'placeholder' => 'Contraseña', 
+							'required', 
+							'validationMessage' => 'Ingrese Contraseña')); ?>
+				</li>
+				<li>
+					<?php echo $this->Form->input('estado',
+						array('options' => array(0 => 'Deshabilitado', 1 => 'Habilitado'),
+							  'id' => 'selectedo')); ?>
+				</li>
+			
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar persona', 'class' => 'k-button')); ?>
 			</li>
@@ -179,8 +186,10 @@
                         }
                     });
                 
-				$("#selecto").kendoComboBox();
-				
+				$("#selectpla").kendoComboBox();
+				$("#selectcar").kendoComboBox();
+				$("#selectrol").kendoComboBox();
+				$("#selectedo").kendoComboBox();
 				$("#phone").mask("9999-9999");
                  
 				

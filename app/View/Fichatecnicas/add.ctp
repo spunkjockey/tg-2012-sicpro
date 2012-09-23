@@ -11,10 +11,10 @@
 					array(
 						'label' => 'Proyectos:', 
 						'id' => 'select',
+						'class' => 'k-combobox',
 						//'selected' => '05',
 						'empty' => 'Seleccione...', 
-						'required' 
-						, 
+						'required' , 
 						'validationMessage' => 'Seleccione Proyecto')); ?>
 			</li>
 			<li>
@@ -88,15 +88,9 @@
 			</li>							
 			
 			<li  class="accept">
-			<!--	<?php echo $this->Html->link(
-            	'Agregar Ubicacion', 
-            	array('controller' => 'Ubicaciones','action' => 'add'/*, $emp['Empresa']['idempresa']*/),
-            	array('class'=>'k-button')
-				);?>-->
 				<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
 				<?php echo $this->Form->end(array('label' => 'Registrar Ficha', 'class' => 'k-button')); ?>
-				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
-			</li>
+				</li>
             
             <li class="status">
             </li>
@@ -110,10 +104,14 @@
                     width: 300px;
                     margin-left: 5px;
                     
-                }
+                }    
 				
-				
-			
+				.k-combobox
+				{
+				    width: 300px;
+				    margin-left: 5px;
+				}
+
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -180,7 +178,7 @@
                 
 
                 $("#select").kendoComboBox({
-			         //placeholder: "Seleccionar...",
+			         placeholder: "Seleccionar...",
 			         //index: -1,
 			         suggest: true
 			    });

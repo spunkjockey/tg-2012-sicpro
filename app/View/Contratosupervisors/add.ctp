@@ -1,16 +1,22 @@
-<!-- File: /app/View/Contratoconstructors/add.ctp -->
+<!-- File: /app/View/Contratosupervisors/add.ctp -->
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar contrato constructor</h2>
-		<?php echo $this->Form->create('Contratoconstructor'); ?>
+		<h2>Registrar contrato supervisor</h2>
+		<?php echo $this->Form->create('Contratosupervisor'); ?>
 		<ul>
 			<li>
 				<?php echo $this->Form->input('proys', 
 					array(
 						'label' => 'Seleccione proyecto:', 
 						'id' => 'selectproy',
-						'empty' => 'Seleccione...',
+						'required')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('contratos', 
+					array(
+						'label' => 'Contrato a supervisar:', 
+						'id' => 'selectcon',
 						'required')); ?>
 			</li>
 			<li>
@@ -43,17 +49,6 @@
 						'validationMessage' => 'Ingrese el monto original($)')); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('anticipo', 
-					array(
-						'label' => 'Anticipo: ($)',
-						'class' => 'k-textbox',  
-						'id' => 'textbox',
-						'type' => 'text',
-						'placeholder' => 'Ingrese anticipo',
-						'required',
-						'validationMessage' => 'Ingrese el monto original($)')); ?>
-			</li>
-			<li>
 				<?php echo $this->Form->input('fechainicontrato', 
 					array(
 						'label' => 'Fecha de inicio de contrato:', 
@@ -75,6 +70,17 @@
 						'placeholder' => 'Cantidad de días', 
 						'required', 
 						'validationMessage' => 'Ingrese el plazo de ejecución')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('cantinf', 
+					array(
+						'label' => 'Cantidad informes:',
+						'class' => 'k-textbox',  
+						'id' => 'textbox',
+						'type' => 'text',
+						'placeholder' => 'Cantidad ej: 3',
+						'required',
+						'validationMessage' => 'Ingrese cantidad de informes a entregar')); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('obras', 
@@ -99,8 +105,12 @@
 						'empty' => 'Seleccione...',
 						'required')); ?>
 			</li>
+			
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar contrato', 'class' => 'k-button')); ?>
+				
+				<?php $options = array('url' => 'update_select','update' => 'select2');
+				echo $this->ajax->observeField('selectproy',$options);?>
 			</li>
             <li class="status">
             </li>
@@ -192,6 +202,7 @@
 				$("#selectproy").kendoComboBox();
 				$("#selectemp").kendoComboBox();
 				$("#selectadm").kendoComboBox();
+				$("#selectcon").kendoComboBox();
 				
 				$("#datePicker1").kendoDatePicker({
 		   			format: "dd/MM/yyyy",

@@ -13,21 +13,28 @@ class ContratosController extends AppController {
 		$this->set('contratos', $this->Contrato->find('list',
 		array ('fields'=> array ('idcontrato', 'codigocontrato') ) ));
 		
-        if ($this->request->is('post')) {
+        if ($this->request->is('post')) 
+        {
         	$id = $this->request->data['Contrato']['contratos'];
 			$this->Contrato->read(null, $id);
             $this->Contrato->set('ordeninicio', $this->request->data['Contrato'] ['ordeninicio']);
-			if($this->Contrato->save($id)){
+			if($this->Contrato->save($id))
+			{
             	$this->Session->setFlash('La Orden de Inicio ha sido registrada.');
             	$this->redirect(array('action' => 'index'));
-        	} else {
+        	} 
+        	else 
+        	{
             	$this->Session->setFlash('No se pudo realizar el registro');
         	}
+
+		}
+
         }
-	}
     
+
 	
-	function edit() {
+	public function edit() {
 	    $this->layout = 'cyanspark';
 
 				
@@ -52,7 +59,7 @@ class ContratosController extends AppController {
 	}
 	
 	
-	function delete($id) {
+	public function delete($id) {
 		if (!$this->request->is('post')) {
 	        throw new MethodNotAllowedException();
 	    }
