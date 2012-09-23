@@ -29,7 +29,6 @@ class UbicacionsController extends AppController {
 					$this->Ubicacion->set('idmunicipio', $this->request->data['Ubicacion']['municipios']);
 					} else {
 						$municipioid = $this->Municipio->findByMunicipio($this->request->data['Ubicacion']['municipios']);
-									    Debugger::dump($municipioid);
 						
 						$this->Ubicacion->set('idmunicipio', $municipioid['Municipio']['idmunicipio']);
 					}	
