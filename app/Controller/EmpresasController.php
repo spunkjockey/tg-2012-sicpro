@@ -1,6 +1,6 @@
 <?php
 class EmpresasController extends AppController {
-    public $helpers = array('Html', 'Form', 'Session');
+    public $helpers = array('Html', 'Form', 'Session','Ajax','Javascript','Js');
     public $components = array('Session');
 	/*public $components = array(
     'Session',

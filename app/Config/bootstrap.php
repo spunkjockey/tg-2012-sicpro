@@ -181,3 +181,5 @@ CakeLog::config('error', array(
 ));
 
 Inflector::rules('plural', array('irregular' => array('rol' => 'roles')));
+
+CakePlugin::load('AjaxMultiUpload');
