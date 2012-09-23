@@ -25,7 +25,6 @@ class ContratosController extends AppController {
             	$this->Session->setFlash('No se pudo realizar el registro');
         	}
 		}
-    
 	
 	function edit() {
 	    $this->layout = 'cyanspark';
