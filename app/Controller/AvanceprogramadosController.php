@@ -33,5 +33,19 @@ class AvanceprogramadosController extends AppController {
 		$this->set('contratos', Set::combine($lContratos, "{n}.Contratoconstructor.idcontrato","{n}.Contratoconstructor.codigocontrato"));
         
     }
+
+	function update_select()
+        {
+                if (!empty($this->data['Ubicacion']['departamentos']))
+                {
+                        $depto_id = $this->data['Ubicacion']['departamentos'];
+                        $municipios= $this->Municipio->find('all', array(
+	                        'fields'=>array('Municipio.idmunicipio','Municipio.municipio'),
+	                        'order'=>'Municipio.municipio ASC',
+	                        'conditions'=>array('Municipio.iddepartamento'=>$depto_id)));
+                }
+                $this->set('options', Set::combine($municipios, "{n}.Municipio.idmunicipio","{n}.Municipio.municipio"));
+                $this->render('/elements/update_select', 'ajax');
+        }
 	
 }
