@@ -71,6 +71,22 @@
 			}
 			
 		}
+	public function ActualizarEstado(){
+		$this->layout = 'cyanspark';
 		
-	}
-?>
+		$this->set('proyectos',$this->Proyecto->find('list', 
+		array('fields'=>array('Proyecto.idproyecto','Proyecto.numeroproyecto'),
+			  'order'=>'Proyecto.numeroproyecto ASC')));
+			  
+		$primer_proyecto = $this->Contrato->find('first',
+		array('fields'=>'Contrato.idcontrato','order'=>'Contrato.idcontrato ASC'));
+		Debugger::dump($primer_proyecto);
+		
+		$this->set('contratos', $this->Contrato->find('list',
+		array('fields'=>array('Contrato.idcontrato','Contrato.codigocontrato'),'order'=>'Contrato.idcontrato ASC',
+		'conditions'=>'Contrato.idproyecto='.$primer_proyecto['Proyecto']['idproyecto'])
+		));
+		
+	}	
+	
+}
