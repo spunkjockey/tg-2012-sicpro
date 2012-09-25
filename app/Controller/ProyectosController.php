@@ -12,7 +12,7 @@
 				$this->Proyecto->set('iddivision', $this->request->data['Proyecto']['divisions']);
 				$this->Proyecto->set('montoplaneado', $this->request->data['Proyecto']['montoplaneado']);
 				$this->Proyecto->set('userc', $this->Session->read('User.username'));
-				$this->Proyecto->set('estadoproyecto', 'Planeacion');
+				$this->Proyecto->set('estadoproyecto', 'Formulacion');
 		if ($this->Proyecto->save()) {
 				$this->Session->setFlash('El proyecto ha sido registrado');
                 $this->redirect(array('controller'=>'mains', 'action' => 'index'));
