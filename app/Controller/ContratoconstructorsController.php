@@ -21,7 +21,6 @@
 			{
 				//Registro en contrato
 				$this->Contrato->create();
-				$this->Contrato->id;
 				$this->Contrato->set('idproyecto', $this->request->data['Contratoconstructor']['proys']);
 				$this->Contrato->set('idpersona', $this->request->data['Contratoconstructor']['administradores']);
 				$this->Contrato->set('idempresa', $this->request->data['Contratoconstructor']['empresas']);

@@ -109,8 +109,10 @@
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar contrato', 'class' => 'k-button')); ?>
 				
-				<?php $options = array('url' => 'update_select','update' => 'selectcon');
-				echo $this->ajax->observeField('selectproy',$options);?>
+				<?php 
+					$options = array('url' => 'update_consuper','update' => 'selectcon');
+					echo $this->ajax->observeField('selectproy', $options);
+				?>
 			</li>
             <li class="status">
             </li>
