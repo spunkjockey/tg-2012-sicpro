@@ -57,6 +57,7 @@
 				</div>
 			</div>
 			<div class="content">
+
 				<!-- menu -->
 				<?php if ($this->fetch('menu')): ?>
 					
@@ -64,8 +65,7 @@
     					<?php echo $this->fetch('menu'); ?>
 					
 				<?php endif; ?>
-				
-								
+
 				<div class="content_resize">
 					
 					<!-- Breadcrumb -->

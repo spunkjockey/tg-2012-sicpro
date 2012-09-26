@@ -2,9 +2,9 @@
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar Estimación de Avance}</h2>
+		<h2>Registrar Estimación de Avance</h2>
 		
-				<?php echo $this->Form->create('Estimacion'); ?>
+				<?php echo $this->Form->create('Estimacion', array('type' => 'file')); ?>
 		<ul>
 			<li>
 				<?php echo $this->Form->input('proyectos',
@@ -21,7 +21,7 @@
 				<?php echo $this->Form->input('contratos',
 					array(
 						'label' => 'Seleccione Contrato:', 
-						'id' => 'select',
+						'id' => 'select2',
 						//'selected' => '05',
 						'empty' => 'Seleccione...', 
 						'required' 
@@ -34,7 +34,6 @@
 						'label' => 'Título Estimación: ', 
 						'class' => 'k-textbox', 
 						'placeholder' => 'Título Estimación',
-						"rows"=>"5", 
 						'required', 
 						'validationMessage' => 'Ingrese el Título de la Esimación')); ?>
 			</li>
@@ -50,7 +49,7 @@
 				<?php echo $this->Form->input('fechafinestimacion', 
 					array(
 						'label' => 'Fin Estimación:', 
-						'id'	=> 'datePicker1',
+						'id'	=> 'datePicker2',
 						'type'  => 'Text'
 						 ) ); ?>
 			</li>
@@ -66,27 +65,17 @@
 				<?php echo $this->Form->input('porcentajeestimadoavance', 
 					array(
 						'label' => 'Porcentaje Estimación: ', 
-						'class' => 'k-textbox1', 
+						'class' => 'k-textbox', 
+						'type' => 'text',
 						'placeholder' => 'Porcentaje Estimado',
-						"rows"=>"5", 
 						'required', 
 						'validationMessage' => 'Ingrese el Porcentaje Esimado')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('documentoestimacion', 
-					array(
-						'label' => 'Subir Documentos: ', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Subir Documentos',
-						"rows"=>"5", 
-						'required', 
-						'validationMessage' => 'Cargue los Documentos')); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('fechaestimacion', 
 					array(
 						'label' => 'Fecha Estimación:', 
-						'id'	=> 'datePicker1',
+						'id'	=> 'datePicker3',
 						'type'  => 'Text'
 						 ) ); ?>
 			</li>
@@ -94,10 +83,19 @@
 				<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
 				<?php echo $this->Form->end(array('label' => 'Registrar Estimación', 'class' => 'k-button')); ?>
 			</li>
+			<li>
+				<?php 
+					echo $this->Form->input('Estimacion.submittedfile', array(
+					    'between' => '<br />',
+					    'type' => 'file'
+					));
+				?>
+				
+			</li>
 			 <li class="status">
             </li>
 		</ul>
-		
+
 	</div>
 </div>
 
@@ -179,6 +177,12 @@
 		$("#datePicker1").kendoDatePicker({
 		   format: "yyyy/MM/dd" //Define el formato de fecha
 		});
+		$("#datePicker2").kendoDatePicker({
+		   format: "yyyy/MM/dd" //Define el formato de fecha
+		});
+		$("#datePicker3").kendoDatePicker({
+		   format: "yyyy/MM/dd" //Define el formato de fecha
+		});
          $("#moneda").kendoNumericTextBox({
 		     format: "c2", //Define currency type and 2 digits precision
 		     spinners: false
@@ -189,8 +193,12 @@
 			         //index: -1,
 			         suggest: true
 			    });
-			    
-			    $("#k-textbox1").kendoNumericTextBox({
+		$("#select2").kendoComboBox({
+			         //placeholder: "Seleccionar...",
+			         //index: -1,
+			         suggest: true
+			    });
+			    $("#k-textbox2").kendoNumericTextBox({
      format: "p",
      value: 0.15 // 15 %
  });
