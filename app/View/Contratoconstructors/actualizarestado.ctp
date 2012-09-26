@@ -14,22 +14,22 @@
 						'validationMessage' => 'Seleccione Proyecto')); ?>
 			</li>
 
-			<li>
+			<!--<li>
 				<?php echo $this->Form->input('contratos',
 					array(
 						'label' => 'Contrato:', 
 						'id' => 'select2', 
 						'required', 
 						'validationMessage' => 'Seleccione Contrato')); ?>
-			</li>
+			</li>-->
 			<li  class="accept">
 				<div id='divdiv'>
 				</div>
 				<?php echo $this->Form->input('userm', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
 				<?php echo $this->Form->end(array('label' => 'Actualizar Estado', 'class' => 'k-button')); ?>
 				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
-				<?php $options = array('url' => 'update_select','update' => 'select2');
-				echo $this->ajax->observeField('select1',$options);?>
+				<!--<?php $options = array('url' => 'update_select','update' => 'select2');
+				echo $this->ajax->observeField('select1',$options);?>-->
 			</li>
             <li class="status">
             </li>

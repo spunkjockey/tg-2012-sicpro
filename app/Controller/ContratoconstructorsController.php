@@ -81,13 +81,13 @@
 			  
 		$primer_proyecto = $this->Contrato->find('first',
 		array('fields'=>'Contrato.idcontrato','order'=>'Contrato.idcontrato ASC'));
-		Debugger::dump($primer_proyecto);
+		//Debugger::dump($primer_proyecto);
 		
-		$this->set('contratos', $this->Contrato->find('list',
+		/*$this->set('contratos', $this->Contrato->find('list',
 		array('fields'=>array('Contrato.idcontrato','Contrato.codigocontrato'),'order'=>'Contrato.idcontrato ASC',
 		'conditions'=>'Contrato.idproyecto='.$primer_proyecto['Proyecto']['idproyecto'])
 		));
-		
+		*/
 	}	
 	
 }
