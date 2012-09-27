@@ -1,4 +1,4 @@
-<!-- File: /app/View/Empresas/edit.ctp -->
+<!-- File: /app/View/Contratoconstructors/actualizarestado.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -51,77 +51,55 @@ $this->end(); ?>
 <?php $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Editar Empresa</h2>
-		<?php echo $this->Form->create('Empresa'); ?>
+		<h2>Actualizar Estado de Contrato Constructor</h2>
+		<?php echo $this->Form->create('Estado'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('nombreempresa', 
+				<?php echo $this->Form->input('proyectos',
 					array(
-						'label' => 'Empresa:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre Empresa', 
+						'label' => 'Proyecto:', 
+						'id' => 'select1', 
 						'required', 
-						'validationMessage' => 'Ingrese Nombre Empresa')); ?>
+						'validationMessage' => 'Seleccione Proyecto')); ?>
 			</li>
+
 			<li>
-				<?php echo $this->Form->input('representantelegal', 
+				<?php echo $this->Form->input('contratos',
 					array(
-						'label' => 'Representante:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre del Representante', 
+						'label' => 'Contrato:', 
+						'id' => 'select2', 
 						'required', 
-						'validationMessage' => 'Ingrese Nombre del Representante')); ?>
+						'validationMessage' => 'Seleccione Contrato')); ?>
 			</li>
-			<li>
-				<?php echo $this->Form->input('direccionoficina', 
-					array(
-						'label' => 'Direccion:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Direccion Empresa', 
-						'required', 
-						"cols"=>"5",
-						"rows"=>"5",
-						'validationMessage' => 'Ingrese Direccion Empresa')); ?>
+			<br><br>
+			<li><?php $options = array('cancelado' => 'Cancelado','pausado' => 'Pausado','finalizado' => 'Finalizado');
+					$attributes = array('legend' => 'Estado de Proyecto','separator'=>'<br />');
+					echo $this->Form->radio('Estados', $options, $attributes); ?>
 			</li>
-			<li>
-				<?php echo $this->Form->input('telefonoempresa', 
-					array(
-						'label' => 'Telefono:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Telefono Empresa', 
-						'required', 
-						'validationMessage' => 'Ingrese Telefono Empresa')); ?>
-			</li>	
-			<li>
-				<?php echo $this->Form->input('correorepresentante', 
-					array(
-						'label' => 'E-mail:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Correo Electronico', 
-						'required', 
-						'validationMessage' => 'Ingrese Correo Electronico')); ?>
-			</li>		
-		<li  class="accept">
-				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
-				<?php echo $this->Form->input('nitempresa', array('type' => 'hidden')); ?>
-				<?php echo $this->Form->end(array('label' => 'Editar Empresa', 'class' => 'k-button')); ?>
+			<li  class="accept">
+				<div id='divdiv'>
+				</div>
+				<?php echo $this->Form->input('userm', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
+				<?php echo $this->Form->end(array('label' => 'Actualizar Estado', 'class' => 'k-button')); ?>
+				<?php $options = array('url' => 'update_selectContrato','update' => 'select2');
+				echo $this->ajax->observeField('select1',$options);?>
 			</li>
-            
             <li class="status">
             </li>
 		</ul>
-		 
- 
- 
-   </div>
-  </div>
- <style scoped>
+	</div>
+</div>
+
+<style scoped>
 
                 .k-textbox {
                     width: 300px;
                     margin-left: 5px;
+                    
                 }
-
+				
+				
+			
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -155,13 +133,6 @@ $this->end(); ?>
                 .required {
                     font-weight: bold;
                 }
-                
-                form .required label:after {
-                	font-size: 1.4em;
-					color: #e32;
-					content: '*';
-					display:inline;
-				}
 
                 .accept, .status {
                 	padding-top: 15px;
@@ -178,10 +149,9 @@ $this->end(); ?>
                 span.k-tooltip {
                     margin-left: 6px;
                 }
-            </style>
-            
-            
-            <script>
+</style>
+
+<script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
@@ -194,4 +164,17 @@ $this->end(); ?>
                         }
                     });
                 });
-            </script>
+                
+                $("#select1").kendoComboBox({
+			         //placeholder: "Seleccionar...",
+			         index: 0,
+			         suggest: true,
+			         filter: 'none'
+			    });
+			    $("#select2").kendoComboBox({
+			         //placeholder: "Seleccionar...",
+			         index: 0,
+			         suggest: true,
+			         filter: 'none'
+			    });
+</script>

@@ -90,40 +90,40 @@
 							</li>	
 							<li disabled="disabled">Reportes
 								<ul>
-									<li>Reporte general de proyecto</li>
+									<li>General de proyecto</li>
 									<li>Historial de empresas</li>
 									<li>Consultar avances de contratos</li>
 									<li>Estado de proyecto y contratos</li>
 									<li>Contratos asociados a proyectos</li>
 									<li>Lugares en los que se han desarrollado proyectos</li>
 									<li>Beneficiarios y empleos generados</li>
-									<li>Personal asignado por contrato</li>
+									<li>Personal asignado &nbsp;por contrato</li>
 								</ul>
 							</li>
 							<li>Mantenimiento
 								<ul>
 									<li><?php echo $this->Html->link('Empresas', array('controller' => 'empresas','action'=>'index')); ?></li>
+									<li>Personal
+										<ul>
+											<li><?php echo $this->Html->link('Registrar persona', array('controller' => 'personas','action'=>'add')); ?></li>
+											<li disabled="disabled">Modificar personal</li>
+											<li disabled="disabled">Eliminar personal</li>
+											<li disabled="disabled">Consultar personal</li>
+										</ul>
+									</li>
 									<li>Fuentes de financiamiento
 										<ul>
 											<li><?php echo $this->Html->link('Fuente de financiamiento', array('controller' => 'Fuentefinanciamientos','action'=>'index')); ?></li>
 											<li disabled="disabled">Consultar fuente de financiamiento (en un periodo)</li>
 										</ul>
 									</li>
-									<li>Administraci&oacute;n de Personal
-										<!--<ul>
-											<li><?php echo $this->Html->link('Registrar persona', array('controller' => 'personas','action'=>'add')); ?></li>
-											<li disabled="disabled">Modificar personal</li>
-											<li disabled="disabled">Eliminar personal</li>
-											<li disabled="disabled">Consultar personal</li>
-										</ul>-->
-									</li>
 									<li>Administraci&oacute;n de usuario
-										<!--<ul>
+										<ul>
 											<li><?php echo $this->Html->link('Registrar usuario', array('controller' => 'users','action'=>'add')); ?></li>
 											<li disabled="disabled">Modificar usuario</li>
 											<li disabled="disabled">Eliminar usuario</li>
 											<li disabled="disabled">Habilitar usuario</li>
-										</ul>-->
+										</ul>
 									</li>
 									<li>Perfil
 										<ul>

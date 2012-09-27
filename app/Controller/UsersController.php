@@ -15,6 +15,7 @@ class UsersController extends AppController {
 	
 	public function login() {
 		$this->layout = '8loginform';
+		$this->set('title_for_layout', 'Login');
 	    if ($this->request->is('post')) {
 	        if ($this->Auth->login()) {
 	        	$someone = $this->User->findByUsername($this->data['User']['username']);
