@@ -84,16 +84,16 @@
 				<?php echo $this->Form->end(array('label' => 'Registrar Estimación', 'class' => 'k-button')); ?>
 			</li>
 			<li>
-				<?php 
-					echo $this->Form->input('Estimacion.submittedfile', array(
-					    'between' => '<br />',
-					    'type' => 'file'
-					));
-				?>
-				
+				<h2>Cargar Archivos:</h2>
+				<h3>Archivos que ya existen</h3>
+				<?php echo $this->Upload->view('Estimacion', $this->request->data['Estimacion']['codigocontrato']); ?>
+				<h3>Archivos a Agregar</h3>
+				<?php echo $this->Upload->edit('Estimacion', $this->request->data['Estimacion']['codigocontrato']); ?>
 			</li>
+			
 			 <li class="status">
             </li>
+            
 		</ul>
 
 	</div>
