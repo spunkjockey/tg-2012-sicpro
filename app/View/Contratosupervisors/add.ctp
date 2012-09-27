@@ -1,5 +1,55 @@
 <!-- File: /app/View/Contratosupervisors/add.ctp -->
 
+<?php $this->start('menu');
+	switch ($this->Session->read('User.idrol')) {
+		case 9:
+	        echo $this->element('menu/menu_all');
+	        break;
+	    case 8:
+	        echo $this->element('menu/menu_observer');
+	        break;
+	    case 7:
+	        echo $this->element('menu/menu_jefeplan');
+	        break;
+		case 6:
+	        echo $this->element('menu/menu_tecproy');
+	        break;
+	    case 5:
+	        echo $this->element('menu/menu_tecplan');
+	        break;
+	    case 4:
+	        echo $this->element('menu/menu_adminsys');
+	        break;
+		case 3:
+	        echo $this->element('menu/menu_admincon');
+	        break;
+	    case 2:
+	        echo $this->element('menu/menu_adminproy');
+	        break;
+	    case 1:
+	        echo $this->element('menu/menu_director');
+	        break;			
+	}
+$this->end(); ?>
+
+<?php $this->start('breadcrumb'); ?>
+	
+	<div id="menuderastros">
+		<div id="rastros">
+			
+			<?php
+			echo $this->Html->image("home.png", array(
+	    		"alt" => "Inicio",
+	    		'url' => array('controller' => 'mains'),
+				'width' => '30px',
+				'class' => 'homeimg'
+			));
+			?> Contrato supervisor » Registrar contrato supervisor
+			
+		</div>
+	</div>
+<?php $this->end(); ?>
+
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Registrar contrato supervisor</h2>
@@ -23,7 +73,8 @@
 				<?php echo $this->Form->input('codigocontrato', 
 					array(
 						'label' => 'Código contrato:', 
-						'class' => 'k-textbox', 
+						'class' => 'k-textbox',
+						'id' => 'codigo', 
 						'placeholder' => 'Ej: 001-2012', 
 						'required', 
 						'validationMessage' => 'Ingrese el código de contrato')); ?>
@@ -33,7 +84,8 @@
 					array(
 						'label' => 'Nombre del contrato:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre del contrato', 
+						'placeholder' => 'Nombre del contrato',
+						'rows' => 2, 
 						'required', 
 						'validationMessage' => 'Ingrese nombre del contrato')); ?>
 			</li>
@@ -42,7 +94,7 @@
 					array(
 						'label' => 'Monto: ($)',
 						'class' => 'k-textbox',  
-						'id' => 'textbox',
+						'id' => 'txmonto',
 						'type' => 'text',
 						'placeholder' => 'Ingrese Monto',
 						'required',
@@ -66,7 +118,8 @@
 				<?php echo $this->Form->input('plazoejecucion', 
 					array(
 						'label' => 'Plazo de ejecución:', 
-						'class' => 'k-textbox', 
+						'class' => 'k-textbox',
+						'id' => 'txplazo', 
 						'placeholder' => 'Cantidad de días', 
 						'required', 
 						'validationMessage' => 'Ingrese el plazo de ejecución')); ?>
@@ -76,7 +129,7 @@
 					array(
 						'label' => 'Cantidad informes:',
 						'class' => 'k-textbox',  
-						'id' => 'textbox',
+						'id' => 'txcanti',
 						'type' => 'text',
 						'placeholder' => 'Cantidad ej: 3',
 						'required',
@@ -87,6 +140,7 @@
 					array(
 						'label' => 'Obras a desarrollar:', 
 						'class' => 'k-textbox', 
+						'rows' => 4, 
 						'placeholder' => 'Descripción de obras')); ?>
 			</li>
 			<li>
@@ -201,6 +255,30 @@
                         }
                     });
                 
+				$("#txmonto").kendoNumericTextBox({
+				     min: 0,
+				     max: 999999999.99,
+				     format: "c2",
+				     decimals: 2,
+				     spinners: false
+				 });
+				
+				$("#txplazo").kendoNumericTextBox({
+                        min: 0,
+    					max: 999,
+    					decimals: 0,
+    					placeholder: "Ej. 90",
+    					spinners: false
+                    });
+                    
+                $("#txcanti").kendoNumericTextBox({
+                        min: 0,
+    					max: 99,
+    					decimals: 0,
+    					placeholder: "Ej. 3",
+    					spinners: false
+                    });
+				
 				$("#selectproy").kendoComboBox({
 					index: 0,
 			        suggest: true,
@@ -213,6 +291,8 @@
 			        suggest: true,
 			        filter: 'none'
 				});
+				
+				$("#codigo").mask("999-9999");
 				
 				var combobox = $("#selectproy").data("kendoComboBox");
                     combobox.list.width(400);
