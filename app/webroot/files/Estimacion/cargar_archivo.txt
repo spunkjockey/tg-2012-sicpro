@@ -1,0 +1,9 @@
+ok
+acordate
+el primer parametro
+es el nombre del modelo
+y el segundo un nombre diferenciador
+el id por ejemplo
+pero como es para agregar
+ponele el codigo del contrato
+como segundo parametro

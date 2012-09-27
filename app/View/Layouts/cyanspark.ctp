@@ -120,8 +120,8 @@
 									</li>
 									<li>Estimaci&oacute;n de avance
 										<ul>
-											<li disabled="disabled">Registrar estimaci&oacute;n de avance</li>
-											<li disabled="disabled">Modificar estimaci&oacute;n de avance</li>
+											<li><?php echo $this->Html->link('Registrar Estimación', array('controller' => 'estimacions','action'=>'registarestimacion')); ?></li>
+											<li><?php echo $this->Html->link('Modificar Estimación', array('controller' => 'estimacions','action'=>'modificarestimacion')); ?></li>
 											<li disabled="disabled">Eliminar estimaci&oacute;n de avance</li>
 											<li disabled="disabled">Consultar estimaci&oacute;n de avance</li>
 										</ul>

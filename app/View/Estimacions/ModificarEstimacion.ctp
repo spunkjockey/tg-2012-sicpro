@@ -5,7 +5,7 @@
 		<h2>Editar Estimación de Avance</h2>
 		<?php echo $this->Form->create('Estimacion'); ?>
 		<ul>
-<li>
+			<li>
 				<?php echo $this->Form->input('tituloestimacion', 
 					array(
 						'label' => 'Título Estimación: ', 
@@ -64,6 +64,15 @@
             
             <li class="status">
             </li>
+            
+            <li>
+				<h2>Cargar Archivos:</h2>
+				<h3>Archivos que ya existen</h3>
+				<?php echo $this->Upload->view('Estimacion', $this->request->data['Estimacion']['codigocontrato']); ?>
+				<h3>Archivos a Agregar</h3>
+				<?php echo $this->Upload->edit('Estimacion', $this->request->data['Estimacion']['codigocontrato']); ?>
+			</li>
+            
 		</ul>
 		 
  
