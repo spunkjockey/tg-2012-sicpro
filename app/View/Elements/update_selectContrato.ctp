@@ -1,11 +1,3 @@
-<?php //print_r($options) 
-/*if(!empty($options)) {
-  foreach($options as $k => $v) {
-    echo "<option value='$k'>$v</option>";
-  }
- }
-*/
-?>
 <script>
 $(document).ready(function(){
 

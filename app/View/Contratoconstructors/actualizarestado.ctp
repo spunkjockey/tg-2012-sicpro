@@ -1,5 +1,54 @@
 <!-- File: /app/View/Contratoconstructors/actualizarestado.ctp -->
+<?php $this->start('menu');
+	switch ($this->Session->read('User.idrol')) {
+		case 9:
+	        echo $this->element('menu/menu_all');
+	        break;
+	    case 8:
+	        echo $this->element('menu/menu_observer');
+	        break;
+	    case 7:
+	        echo $this->element('menu/menu_jefeplan');
+	        break;
+		case 6:
+	        echo $this->element('menu/menu_tecproy');
+	        break;
+	    case 5:
+	        echo $this->element('menu/menu_tecplan');
+	        break;
+	    case 4:
+	        echo $this->element('menu/menu_adminsys');
+	        break;
+		case 3:
+	        echo $this->element('menu/menu_admincon');
+	        break;
+	    case 2:
+	        echo $this->element('menu/menu_adminproy');
+	        break;
+	    case 1:
+	        echo $this->element('menu/menu_director');
+	        break;			
+	}
+$this->end(); ?>
 
+<?php $this->start('breadcrumb'); ?>
+	
+	<div id="menuderastros">
+		<div id="rastros">
+			
+			<?php
+			echo $this->Html->image("home.png", array(
+	    		"alt" => "Inicio",
+	    		'url' => array('controller' => 'mains'),
+				'width' => '30px',
+				'class' => 'homeimg'
+			));
+			?> » Bienvenido a SICPRO
+			
+		</div>
+	</div>
+	
+<?php $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Actualizar Estado de Contrato Constructor</h2>
@@ -14,22 +63,26 @@
 						'validationMessage' => 'Seleccione Proyecto')); ?>
 			</li>
 
-			<!--<li>
+			<li>
 				<?php echo $this->Form->input('contratos',
 					array(
 						'label' => 'Contrato:', 
 						'id' => 'select2', 
 						'required', 
 						'validationMessage' => 'Seleccione Contrato')); ?>
-			</li>-->
+			</li>
+			<br><br>
+			<li><?php $options = array('cancelado' => 'Cancelado','pausado' => 'Pausado','finalizado' => 'Finalizado');
+					$attributes = array('legend' => 'Estado de Proyecto','separator'=>'<br />');
+					echo $this->Form->radio('Estados', $options, $attributes); ?>
+			</li>
 			<li  class="accept">
 				<div id='divdiv'>
 				</div>
 				<?php echo $this->Form->input('userm', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
 				<?php echo $this->Form->end(array('label' => 'Actualizar Estado', 'class' => 'k-button')); ?>
-				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
-				<!--<?php $options = array('url' => 'update_select','update' => 'select2');
-				echo $this->ajax->observeField('select1',$options);?>-->
+				<?php $options = array('url' => 'update_selectContrato','update' => 'select2');
+				echo $this->ajax->observeField('select1',$options);?>
 			</li>
             <li class="status">
             </li>
