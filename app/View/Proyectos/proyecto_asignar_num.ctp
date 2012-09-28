@@ -1,4 +1,4 @@
-<!-- File: /app/View/Proyectos/edit.ctp -->
+<!-- File: /app/View/Proyectos/add_num.ctp -->
 
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
@@ -44,7 +44,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Proyecto » Modificar proyecto
+			?> Proyecto » Asignar número de proyecto
 			
 		</div>
 	</div>
@@ -52,8 +52,8 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Modificar proyecto</h2>
-		<?php echo $this->Form->create('Proyecto',array('action' => 'edit')); ?>
+		<h2>Asignar número de proyecto</h2>
+		<?php echo $this->Form->create('Proyecto',array('action' => 'proyecto_asignar_num')); ?>
 		<ul>
 			<li>
 				<?php echo $this->Form->input('proys', 
@@ -65,34 +65,19 @@ $this->end(); ?>
 			</li>
 			<!-- -->
 			<li>
-				<?php echo $this->Form->input('nombreproyecto', 
+				<?php echo $this->Form->input('numeroproyecto', 
 					array(
-						'label' => 'Nombre del proyecto:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre del proyecto', 
+						'label' => 'Ingrese número de proyecto:', 
+						'id' => 'numero',
+						'class' => 'k-textbox',  
+						'placeholder' => 'Número del proyecto', 
 						'required', 
 						'validationMessage' => 'Ingrese Nombre de Proyecto')); ?>
 			</li>
-			<li>
-				<?php echo $this->Form->input('divisions', 
-					array(
-						'label' => 'División responsable:', 
-						'id' => 'selectpro',
-						'validationMessage' => 'Seleccione una división',
-						'required')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('montoplaneado', 
-					array(
-						'label' => 'Monto planeado: ($)', 
-						'id' => 'monto',
-						'type' => 'text',
-						'placeholder' => 'Ingrese Monto',
-						'required',
-						'validationMessage' => 'Ingrese un monto planeado ($)')); ?>
-			</li>
+			
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar proyecto', 'class' => 'k-button')); ?>
+				
+				<?php echo $this->Form->end(array('label' => 'Asignar número proyecto', 'class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
@@ -168,9 +153,9 @@ $this->end(); ?>
                 span.k-tooltip {
                     margin-left: 6px;
                 }
+              
             </style>
-			
-			<script>
+            <script>
                 $(document).ready(function() {
                     
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
@@ -190,18 +175,15 @@ $this->end(); ?>
                     var combobox = $("#selectpro").data("kendoComboBox");
                     combobox.list.width(400);
                     
-                    $("#monto").kendoNumericTextBox({
-                        format: "c2",
-                        decimals: 2,
-                        value: 0,
-                        min: 0,
-    					max: 999999999.99,
+                    $("#numero").kendoNumericTextBox({
+                        min: 000000,
+    					max: 999999,
+    					decimals: 0,
     					placeholder: "Ej. 10000",
     					spinners: false
                     });
                     
-                    $("#texto")
-               
+                   
                 });
                 
                 
