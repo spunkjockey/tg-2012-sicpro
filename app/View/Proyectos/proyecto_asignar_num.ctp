@@ -1,4 +1,4 @@
-<!-- File: /app/View/Plazas/edit.ctp -->
+<!-- File: /app/View/Proyectos/add_num.ctp -->
 
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
@@ -44,7 +44,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Plazas » Modificar plaza
+			?> Proyecto » Asignar número de proyecto
 			
 		</div>
 	</div>
@@ -52,31 +52,42 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Editar Plaza</h2>
-		<?php echo $this->Form->create('Plaza',array('action' => 'edit')); ?>
+		<h2>Asignar número de proyecto</h2>
+		<?php echo $this->Form->create('Proyecto',array('action' => 'proyecto_asignar_num')); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('plaza', 
+				<?php echo $this->Form->input('proys', 
 					array(
-						'label' => 'Nombre de plaza:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Plaza', 
-						'required', 
-						'validationMessage' => 'Ingrese nombre de plaza')); ?>
+						'label' => 'Seleccione proyecto:', 
+						'id' => 'selectpro', 
+						'empty' => 'Seleccione...',
+						'validationMessage' => 'Seleccione un proyecto')); ?>
 			</li>
+			<!-- -->
+			<li>
+				<?php echo $this->Form->input('numeroproyecto', 
+					array(
+						'label' => 'Ingrese número de proyecto:', 
+						'id' => 'numero',
+						'class' => 'k-textbox',  
+						'placeholder' => 'Número del proyecto', 
+						'required', 
+						'validationMessage' => 'Ingrese Nombre de Proyecto')); ?>
+			</li>
+			
 			<li  class="accept">
-				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
 				
-				<?php echo $this->Form->end(array('label' => 'Editar Empresa', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->end(array('label' => 'Asignar número proyecto', 'class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
             </li>
 		</ul>
+		
 	</div>
 </div>
 
-<style scoped>
+			<style scoped>
 
                 .k-textbox {
                     width: 300px;
@@ -92,7 +103,7 @@ $this->end(); ?>
 					content: '*';
 					display:inline;
 					}
-                                
+                
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -142,27 +153,38 @@ $this->end(); ?>
                 span.k-tooltip {
                     margin-left: 6px;
                 }
+              
             </style>
-			
-			<script>
+            <script>
                 $(document).ready(function() {
+                    
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
 
-                    $("button").click(function() {
+                    $("#button").click(function() {
                         if (validator.validate()) {
-                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-                            } else {
-                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-                        }
+                        	save();  
+                        } 
                     });
+                    
+                    $("#selectpro").kendoComboBox({
+                    	highLightFirst: true,
+                    	filter: "contains"
+                    });
+                    
+                    var combobox = $("#selectpro").data("kendoComboBox");
+                    combobox.list.width(400);
+                    
+                    $("#numero").kendoNumericTextBox({
+                        min: 000000,
+    					max: 999999,
+    					decimals: 0,
+    					placeholder: "Ej. 10000",
+    					spinners: false
+                    });
+                    
+                   
                 });
                 
-                $("#select").kendoComboBox({
-			         //placeholder: "Seleccionar...",
-			         //index: -1,
-					 width: 300,
-			         suggest: true
-			    });
-               // var select = $("#select").data("kendoComboBox");
+                
             </script>

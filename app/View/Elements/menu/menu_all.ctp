@@ -4,9 +4,9 @@
 								<ul>
 									<li>Proyecto
 										<ul>
-											<li><?php echo $this->Html->link('Registrar proyecto', array('controller' => 'proyectos','action'=>'add')); ?></li>
-											<li><?php echo $this->Html->link('Modificar proyecto', array('controller' => 'proyectos','action'=>'edit')); ?></li>
-											<li><?php echo $this->Html->link('Asignar número proyecto', array('controller' => 'proyectos','action'=>'add_num')); ?></li>
+											<li><?php echo $this->Html->link('Registrar proyecto', array('controller' => 'proyectos','action'=>'proyecto_registrar')); ?></li>
+											<li><?php echo $this->Html->link('Modificar proyecto', array('controller' => 'proyectos','action'=>'proyecto_listado')); ?></li>
+											<li><?php echo $this->Html->link('Asignar número proyecto', array('controller' => 'proyectos','action'=>'proyecto_asignar_num')); ?></li>
 											<li disabled="disabled">Eliminar proyecto</li>
 										</ul>
 									</li>	
