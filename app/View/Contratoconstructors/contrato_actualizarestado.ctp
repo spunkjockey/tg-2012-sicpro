@@ -73,16 +73,27 @@ $this->end(); ?>
 			</li>
 			<br><br>
 			<li><?php $options = array('cancelado' => 'Cancelado','pausado' => 'Pausado','finalizado' => 'Finalizado');
-					$attributes = array('legend' => 'Estado de Proyecto','separator'=>'<br />');
+					$attributes = array('legend' => 'Estado de Proyecto','separator'=>'<br />','required'=>true);
 					echo $this->Form->radio('Estados', $options, $attributes); ?>
 			</li>
 			<li  class="accept">
 				<div id='divdiv'>
 				</div>
+				<div id="info_contrato">
+					<!--Con ajax se llena el contenido con la informacion del contrato seleccionado-->
+				</div>
 				<?php echo $this->Form->input('userm', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
 				<?php echo $this->Form->end(array('label' => 'Actualizar Estado', 'class' => 'k-button')); ?>
 				<?php $options = array('url' => 'update_selectContrato','update' => 'select2');
 				echo $this->ajax->observeField('select1',$options);?>
+				
+				<?php echo $this->ajax->observeField( 'select2', 
+		    		array(
+		        		'url' => array( 'action' => 'update_infocontrato'),
+		        		'update' => 'info_contrato'
+		    		) 
+				);  ?>
+
 			</li>
             <li class="status">
             </li>
@@ -90,8 +101,16 @@ $this->end(); ?>
 	</div>
 </div>
 
+
 <style scoped>
 
+                .etiqueta {
+                    display: inline-block;
+                    width: 150px;
+                    
+                    margin-right: 5px; 
+                }
+                
                 .k-textbox {
                     width: 300px;
                     margin-left: 5px;
