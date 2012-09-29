@@ -102,8 +102,13 @@
 		if($this->request->is('post'))
 			{
 				$id = $this->request->data['Estado']['contratos']['idcontrato'];
+				Debugger::dump($id);
 				//Debugger::dump($this->Contratoconstructor->set('idproyecto', $this->request->data['Estado']['proyectos']));
 				$this->Contratoconstructor->read(null, $id);
+				
+				$this->Contratoconstructor->set('idcontrato', $id);
+
+
 				$this->Contratoconstructor->set('estadocontrato', $this->request->data['Estado']['Estados']);	
 				$this->Contratoconstructor->set('userm', $this->Session->read('User.username'));		
 				$this->Contratoconstructor->set('modificacion', date('Y-m-d h:i:s'));
@@ -135,12 +140,14 @@
 	function update_infocontrato(){
 				 if (!empty($this->data['Estado']['contratos']))
 		                {
-		                        $contrato_id = $this->data['Estado']['contratos']['idcontrato'];
+		                        //$contrato_id = $this->data['Estado']['contratos']['idcontrato'];
+								$contrato_id = $this->Contratoconstructor->findByCodigocontrato($this->data['Estado']['contratos']);
 		                        $contrato= $this->Contratoconstructor->find('all', array(
 			                        'fields'=>array(
 			                        'Contratoconstructor.nombrecontrato','Contratoconstructor.estadocontrato'),
-			                        'conditions'=>array('Contratoconstructor.idcontrato'=>$contrato_id)));
+			                        'conditions'=>array('Contratoconstructor.idcontrato'=>$contrato_id['Contratoconstructor']['idcontrato'])));
 		                }
+						//Debugger::dump($contrato);
 				$this->set('informacion',$contrato);
 				/*$this->set('informacion', Set::combine($contrato,
 				"{s}.Contratoconstructor.nombrecontrato",
