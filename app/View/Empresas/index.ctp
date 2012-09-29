@@ -1,5 +1,57 @@
 <!-- File: /app/View/Empresas/index.ctp -->
 
+<?php $this->start('menu');
+	switch ($this->Session->read('User.idrol')) {
+		case 9:
+	        echo $this->element('menu/menu_all');
+	        break;
+	    case 8:
+	        echo $this->element('menu/menu_observer');
+	        break;
+	    case 7:
+	        echo $this->element('menu/menu_jefeplan');
+	        break;
+		case 6:
+	        echo $this->element('menu/menu_tecproy');
+	        break;
+	    case 5:
+	        echo $this->element('menu/menu_tecplan');
+	        break;
+	    case 4:
+	        echo $this->element('menu/menu_adminsys');
+	        break;
+		case 3:
+	        echo $this->element('menu/menu_admincon');
+	        break;
+	    case 2:
+	        echo $this->element('menu/menu_adminproy');
+	        break;
+	    case 1:
+	        echo $this->element('menu/menu_director');
+	        break;			
+	}
+$this->end(); ?>
+
+<?php $this->start('breadcrumb'); ?>
+	
+	<div id="menuderastros">
+		<div id="rastros">
+			
+			<?php
+			echo $this->Html->image("home.png", array(
+	    		"alt" => "Inicio",
+	    		'url' => array('controller' => 'mains'),
+				'width' => '30px',
+				'class' => 'homeimg'
+			));
+			?> » Bienvenido a SICPRO
+			
+		</div>
+	</div>
+	
+<?php $this->end(); ?>
+
+
 <h2>Empresas</h2>
 <div style='margin:4px 0' >
 	<?php echo $this->Html->link(
@@ -39,18 +91,15 @@
             	array('action' => 'view', $emp['Empresa']['idempresa']),
             	array('class'=>'k-button')
 			);?>
-            <div id='popup'>
-            <?php echo $this->Html->link(
+            <!--<div id='popup'>
+             <?php echo $this->Html->link(
             	'Detalles_w', 
-            	'#',//array('action' => 'view_w', $emp['Empresa']['idempresa']),
+            	'#',array('action' => 'view_w', $emp['Empresa']['idempresa']),
             	array('id' => 'openButton', 'class'=>'k-button')
-			);?>
-			
-			
-            
-            </div>
-            
+			);?> 
+			</div>
             <a href="#" onclick="cambiarid('<?php echo $emp['Empresa']['idempresa'];?>');" class="k-button">Agregar Metas</a>
+            -->
         </td>
         
     </tr>
@@ -59,10 +108,6 @@
 
 </table>
 <div id="window"></div>
-
-
-
-
 
 <script>
 	$(document).ready(function() {
