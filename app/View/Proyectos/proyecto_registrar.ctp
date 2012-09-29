@@ -1,19 +1,59 @@
-<!-- File: /app/View/Proyectos/edit.ctp -->
+<!-- File: /app/View/Proyectos/add.ctp -->
+<?php $this->start('menu');
+	switch ($this->Session->read('User.idrol')) {
+		case 9:
+	        echo $this->element('menu/menu_all');
+	        break;
+	    case 8:
+	        echo $this->element('menu/menu_observer');
+	        break;
+	    case 7:
+	        echo $this->element('menu/menu_jefeplan');
+	        break;
+		case 6:
+	        echo $this->element('menu/menu_tecproy');
+	        break;
+	    case 5:
+	        echo $this->element('menu/menu_tecplan');
+	        break;
+	    case 4:
+	        echo $this->element('menu/menu_adminsys');
+	        break;
+		case 3:
+	        echo $this->element('menu/menu_admincon');
+	        break;
+	    case 2:
+	        echo $this->element('menu/menu_adminproy');
+	        break;
+	    case 1:
+	        echo $this->element('menu/menu_director');
+	        break;			
+	}
+$this->end(); ?>
+
+<?php $this->start('breadcrumb'); ?>
+	
+	<div id="menuderastros">
+		<div id="rastros">
+			
+			<?php
+			echo $this->Html->image("home.png", array(
+	    		"alt" => "Inicio",
+	    		'url' => array('controller' => 'mains'),
+				'width' => '30px',
+				'class' => 'homeimg'
+			));
+			?> Proyecto » Registrar proyecto
+			
+		</div>
+	</div>
+<?php $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Modificar proyecto</h2>
-		<?php echo $this->Form->create('Proyecto',array('action' => 'edit')); ?>
+		<h2>Registrar proyecto</h2>
+		<?php echo $this->Form->create('Proyecto'); ?>
 		<ul>
-			<li>
-				<?php echo $this->Form->input('proys', 
-					array(
-						'label' => 'Seleccione proyecto:', 
-						'id' => 'selectpro', 
-						'empty' => 'Seleccione...',
-						'validationMessage' => 'Seleccione un proyecto')); ?>
-			</li>
-			<!-- -->
 			<li>
 				<?php echo $this->Form->input('nombreproyecto', 
 					array(
@@ -26,17 +66,18 @@
 			<li>
 				<?php echo $this->Form->input('divisions', 
 					array(
-						'label' => 'División responsable:', 
-						'id' => 'selectpro',
-						'validationMessage' => 'Seleccione una división',
+						'label' => 'División:', 
+						'id' => 'selecto',
+						'empty' => 'Seleccione...',
+						'selected' => '05',
 						'required')); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('montoplaneado', 
 					array(
-						'label' => 'Monto planeado: ($)', 
-						'id' => 'monto',
-						'type' => 'text',
+						'label' => 'Monto planeado: ($)',
+						'class' => 'k-textbox',  
+						'id' => 'txmonto',
 						'placeholder' => 'Ingrese Monto',
 						'required',
 						'validationMessage' => 'Ingrese un monto planeado ($)')); ?>
@@ -122,37 +163,33 @@
 			
 			<script>
                 $(document).ready(function() {
-                    
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
 
-                    $("#button").click(function() {
+                    $("button").click(function() {
                         if (validator.validate()) {
-                        	save();  
-                        } 
+                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
+                            } else {
+                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
+                        }
                     });
-                    
-                    $("#selectpro").kendoComboBox({
-                    	highLightFirst: true,
-                    	filter: "contains"
-                    });
-                    
-                    var combobox = $("#selectpro").data("kendoComboBox");
-                    combobox.list.width(400);
-                    
-                    $("#monto").kendoNumericTextBox({
-                        format: "c2",
-                        decimals: 2,
-                        value: 0,
-                        min: 0,
-    					max: 999999999.99,
-    					placeholder: "Ej. 10000",
-    					spinners: false
-                    });
-                    
-                    $("#texto")
-               
-                });
                 
+				$("#selecto").kendoComboBox();
+				var combobox = $("#selecto").data("kendoComboBox");
+                    combobox.list.width(200);
+				
+				$("#txmonto").kendoNumericTextBox({
+				     min: 0,
+				     max: 999999999.99,
+				     spinners: false,
+				     format: "c2",
+				     decimals: 2
+				 });
+
+
+				
+				
+				
+				});
                 
             </script>

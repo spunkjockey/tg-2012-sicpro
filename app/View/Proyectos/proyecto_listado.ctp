@@ -1,4 +1,5 @@
-<!-- File: /app/View/Empresas/view.ctp -->
+<!-- File: /app/View/Proyectos/proyecto_listado.ctp -->
+
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -43,22 +44,9 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO
+			?> Proyecto » Editar proyecto
 			
 		</div>
 	</div>
-	
 <?php $this->end(); ?>
-<ul>
-			<p><h3>Nit Empresa:</h3><?php echo $empresas['Empresa']['nitempresa']; ?></p>
 
-			<p><h3>Nombre Empresa: </h3><?php echo $empresas['Empresa']['nombreempresa']; ?></p>
-
-			<p><h3>Direccion Empresa:</h3><?php echo ($empresas['Empresa']['direccionoficina']); ?></p>
-			
-			<p><h3>Representante Legal:</h3><?php echo ($empresas['Empresa']['representantelegal']); ?></p>
-			
-			<p><h3>Telefono Empresa: </h3><?php echo ($empresas['Empresa']['telefonoempresa']); ?></p>
-			
-			<p><h3>E-Mail: </h3><?php echo ($empresas['Empresa']['correorepresentante']); ?></p>
-</ul>

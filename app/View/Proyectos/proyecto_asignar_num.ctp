@@ -1,4 +1,5 @@
-<!-- File: /app/View/Empresas/edit.ctp -->
+<!-- File: /app/View/Proyectos/add_num.ctp -->
+
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -43,85 +44,66 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO
+			?> Proyecto » Asignar número de proyecto
 			
 		</div>
 	</div>
-	
 <?php $this->end(); ?>
+
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Editar Empresa</h2>
-		<?php echo $this->Form->create('Empresa'); ?>
+		<h2>Asignar número de proyecto</h2>
+		<?php echo $this->Form->create('Proyecto',array('action' => 'proyecto_asignar_num')); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('nombreempresa', 
+				<?php echo $this->Form->input('proys', 
 					array(
-						'label' => 'Empresa:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre Empresa', 
-						'required', 
-						'validationMessage' => 'Ingrese Nombre Empresa')); ?>
+						'label' => 'Seleccione proyecto:', 
+						'id' => 'selectpro', 
+						'empty' => 'Seleccione...',
+						'validationMessage' => 'Seleccione un proyecto')); ?>
 			</li>
+			<!-- -->
 			<li>
-				<?php echo $this->Form->input('representantelegal', 
+				<?php echo $this->Form->input('numeroproyecto', 
 					array(
-						'label' => 'Representante:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre del Representante', 
+						'label' => 'Ingrese número de proyecto:', 
+						'id' => 'numero',
+						'class' => 'k-textbox',  
+						'placeholder' => 'Número del proyecto', 
 						'required', 
-						'validationMessage' => 'Ingrese Nombre del Representante')); ?>
+						'validationMessage' => 'Ingrese Nombre de Proyecto')); ?>
 			</li>
-			<li>
-				<?php echo $this->Form->input('direccionoficina', 
-					array(
-						'label' => 'Direccion:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Direccion Empresa', 
-						'required', 
-						"cols"=>"5",
-						"rows"=>"5",
-						'validationMessage' => 'Ingrese Direccion Empresa')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('telefonoempresa', 
-					array(
-						'label' => 'Telefono:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Telefono Empresa', 
-						'required', 
-						'validationMessage' => 'Ingrese Telefono Empresa')); ?>
-			</li>	
-			<li>
-				<?php echo $this->Form->input('correorepresentante', 
-					array(
-						'label' => 'E-mail:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Correo Electronico', 
-						'required', 
-						'validationMessage' => 'Ingrese Correo Electronico')); ?>
-			</li>		
-		<li  class="accept">
-				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
-				<?php echo $this->Form->input('nitempresa', array('type' => 'hidden')); ?>
-				<?php echo $this->Form->end(array('label' => 'Editar Empresa', 'class' => 'k-button')); ?>
+			
+			<li  class="accept">
+				
+				<?php echo $this->Form->end(array('label' => 'Asignar número proyecto', 'class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
             </li>
 		</ul>
-		 
- 
- 
-   </div>
-  </div>
- <style scoped>
+		
+	</div>
+</div>
+
+			<style scoped>
 
                 .k-textbox {
                     width: 300px;
                     margin-left: 5px;
+                    
                 }
-
+				
+				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
+			
+                form .required label:after {
+					font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+					}
+                
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -155,13 +137,6 @@ $this->end(); ?>
                 .required {
                     font-weight: bold;
                 }
-                
-                form .required label:after {
-                	font-size: 1.4em;
-					color: #e32;
-					content: '*';
-					display:inline;
-				}
 
                 .accept, .status {
                 	padding-top: 15px;
@@ -178,20 +153,38 @@ $this->end(); ?>
                 span.k-tooltip {
                     margin-left: 6px;
                 }
+              
             </style>
-            
-            
             <script>
                 $(document).ready(function() {
+                    
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
 
-                    $("button").click(function() {
+                    $("#button").click(function() {
                         if (validator.validate()) {
-                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-                            } else {
-                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-                        }
+                        	save();  
+                        } 
                     });
+                    
+                    $("#selectpro").kendoComboBox({
+                    	highLightFirst: true,
+                    	filter: "contains"
+                    });
+                    
+                    var combobox = $("#selectpro").data("kendoComboBox");
+                    combobox.list.width(400);
+                    
+                    $("#numero").kendoNumericTextBox({
+                        min: 000000,
+    					max: 999999,
+    					decimals: 0,
+    					placeholder: "Ej. 10000",
+    					spinners: false
+                    });
+                    
+                   
                 });
+                
+                
             </script>

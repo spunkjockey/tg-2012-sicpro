@@ -1,4 +1,55 @@
 <!-- File: /app/View/Contratoconstructors/add.ctp -->
+<?php $this->start('menu');
+	switch ($this->Session->read('User.idrol')) {
+		case 9:
+	        echo $this->element('menu/menu_all');
+	        break;
+	    case 8:
+	        echo $this->element('menu/menu_observer');
+	        break;
+	    case 7:
+	        echo $this->element('menu/menu_jefeplan');
+	        break;
+		case 6:
+	        echo $this->element('menu/menu_tecproy');
+	        break;
+	    case 5:
+	        echo $this->element('menu/menu_tecplan');
+	        break;
+	    case 4:
+	        echo $this->element('menu/menu_adminsys');
+	        break;
+		case 3:
+	        echo $this->element('menu/menu_admincon');
+	        break;
+	    case 2:
+	        echo $this->element('menu/menu_adminproy');
+	        break;
+	    case 1:
+	        echo $this->element('menu/menu_director');
+	        break;			
+	}
+$this->end(); ?>
+
+
+<?php $this->start('breadcrumb'); ?>
+	
+	<div id="menuderastros">
+		<div id="rastros">
+			
+			<?php
+			echo $this->Html->image("home.png", array(
+	    		"alt" => "Inicio",
+	    		'url' => array('controller' => 'mains'),
+				'width' => '30px',
+				'class' => 'homeimg'
+			));
+			?> Contrato constructor » Registrar contrato constructor 
+			
+		</div>
+	</div>
+	
+<?php $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
@@ -11,77 +62,96 @@
 						'label' => 'Seleccione proyecto:', 
 						'id' => 'selectproy',
 						'empty' => 'Seleccione...',
-						'required')); ?>
+						'required',
+						'validationMessage' => 'Seleccione un proyecto'
+						)); 
+				?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('codigocontrato', 
 					array(
 						'label' => 'Código contrato:', 
-						'class' => 'k-textbox', 
+						'class' => 'k-textbox',
+						'id'=>'codigo', 
 						'placeholder' => 'Ej: 001-2012', 
 						'required', 
-						'validationMessage' => 'Ingrese el código de contrato')); ?>
+						'validationMessage' => 'Ingrese el código de contrato'
+						)); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('nombrecontrato', 
 					array(
-						'label' => 'Nombre del contrato:', 
+						'label' => 'Título del contrato:', 
 						'class' => 'k-textbox', 
 						'placeholder' => 'Nombre del contrato', 
-						'required', 
-						'validationMessage' => 'Ingrese nombre del contrato')); ?>
+						'required',
+						'rows'=> 2, 
+						'validationMessage' => 'Ingrese el título del contrato'
+						)); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('montocon', 
 					array(
 						'label' => 'Monto: ($)',
 						'class' => 'k-textbox',  
-						'id' => 'textbox',
+						'id' => 'txmonto',
 						'type' => 'text',
-						'placeholder' => 'Ingrese Monto',
+						'placeholder' => 'Monto del contrato',
 						'required',
-						'validationMessage' => 'Ingrese el monto original($)')); ?>
+						'validationMessage' => 'Ingrese el monto original'
+						)); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('anticipo', 
 					array(
 						'label' => 'Anticipo: ($)',
 						'class' => 'k-textbox',  
-						'id' => 'textbox',
+						'id' => 'txanticipo',
 						'type' => 'text',
-						'placeholder' => 'Ingrese anticipo',
+						'placeholder' => 'Anticipo del contrato',
 						'required',
-						'validationMessage' => 'Ingrese el monto original($)')); ?>
+						'validationMessage' => 'Ingrese el monto de anticipo)')); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('fechainicontrato', 
 					array(
-						'label' => 'Fecha de inicio de contrato:', 
+						'label' => 'Fecha inicio de vigencia:', 
 						'id'	=> 'datePicker1',
-						'type'  => 'Text')); ?>
+						'required',
+						'type'  => 'Text'
+						));
+					?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('fechafincontrato', 
 					array(
-						'label' => 'Fecha de fin de contrato:', 
+						'label' => 'Fecha fin de vigencia:', 
 						'id'	=> 'datePicker2',
-						'type'  => 'Text')); ?>
+						'required',
+						'type'  => 'Text'
+						)); 
+					?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('plazoejecucion', 
 					array(
 						'label' => 'Plazo de ejecución:', 
-						'class' => 'k-textbox', 
+						'id' => 'txplazo', 
 						'placeholder' => 'Cantidad de días', 
 						'required', 
-						'validationMessage' => 'Ingrese el plazo de ejecución')); ?>
+						'validationMessage' => 'Ingrese el plazo de ejecución'
+						));
+					?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('obras', 
 					array(
 						'label' => 'Obras a desarrollar:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Descripción de obras')); ?>
+						'class' => 'k-textbox',
+						'rows' => 4, 
+						'placeholder' => 'Descripción de obras'
+						));
+					?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('empresas', 
@@ -89,7 +159,10 @@
 						'label' => 'Seleccione empresa:', 
 						'id' => 'selectemp',
 						'empty' => 'Seleccione...',
-						'required')); ?>
+						'required',
+						'validationMessage' => 'Seleccione una empresa'
+						));
+					?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('administradores', 
@@ -97,7 +170,10 @@
 						'label' => 'Seleccione administrador:', 
 						'id' => 'selectadm',
 						'empty' => 'Seleccione...',
-						'required')); ?>
+						'required',
+						'validationMessage' => 'Seleccione un administrador'
+						)); 
+					?>
 			</li>
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar contrato', 'class' => 'k-button')); ?>
@@ -189,9 +265,43 @@
                         }
                     });
                 
+                
+
+				$("#txmonto").kendoNumericTextBox({
+				     min: 0,
+				     max: 999999999.99,
+				     format: "c2",
+				     decimals: 2,
+				     spinners: false
+				 });
+
+				$("#txanticipo").kendoNumericTextBox({
+				     min: 0,
+				     max: 999999999.99,
+				     format: "c2",
+				     decimals: 2,
+				     spinners: false
+				 });
+				 
+				 $("#txplazo").kendoNumericTextBox({
+                        min: 0,
+    					max: 999,
+    					decimals: 0,
+    					placeholder: "Ej. 90",
+    					spinners: false
+                    });
+                
 				$("#selectproy").kendoComboBox();
+				var combobox = $("#selectproy").data("kendoComboBox");
+                    combobox.list.width(400);
+				
 				$("#selectemp").kendoComboBox();
+				var combobox = $("#selectemp").data("kendoComboBox");
+                    combobox.list.width(400);
+				
 				$("#selectadm").kendoComboBox();
+				var combobox = $("#selectadm").data("kendoComboBox");
+                    combobox.list.width(400);
 				
 				$("#datePicker1").kendoDatePicker({
 		   			format: "dd/MM/yyyy",
@@ -201,6 +311,9 @@
 		   			format: "dd/MM/yyyy",
 		   			culture: "es-ES"
 		   		});
+				
+				$("#codigo").mask("999-9999");
+				
 				
 				
 				});

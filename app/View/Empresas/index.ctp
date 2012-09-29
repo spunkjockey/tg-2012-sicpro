@@ -51,7 +51,6 @@ $this->end(); ?>
 	
 <?php $this->end(); ?>
 
-
 <h2>Empresas</h2>
 <div style='margin:4px 0' >
 	<?php echo $this->Html->link(

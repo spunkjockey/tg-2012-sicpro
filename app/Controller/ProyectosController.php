@@ -1,8 +1,9 @@
 <?php class ProyectosController extends AppController {
     public $name = 'Proyectos';
     public $components = array('Session');
+	public $uses = array('Proyecto','Division');
 	
-	public function add() {
+	public function proyecto_registrar() {
         $this->layout = 'cyanspark';
 		$this->set('divisions', $this->Proyecto->Division->find('list',
 			array('fields' => array('Division.iddivision', 'Division.divison')
@@ -24,11 +25,39 @@
         }
     }
 	
-	public function edit($id=null)
+	public function proyecto_listado(){
+		$this->layout = 'cyanspark';
+		$this->set('proyectos',$this->Proyecto->find('list', array(
+									'fields'=>array('Proyecto.idproyecto','Proyecto.nombreproyecto','Proyecto.montoplaneado'),
+									'conditions'=>array('Proyecto.estadoproyecto' => 'Formulacion' )
+									)));
+	}
+	
+	public function proyecto_modificar($id=null)
 	{
-			$this->layout = 'cyanspark';
-			$this->set('divisions', $this->Proyecto->Division->find('list',	array('fields' => array('Division.iddivision', 'Division.divison'))));
-			$this->set('proys',$this->Proyecto->find('list',array('fields'=>array('Proyecto.idproyecto','Proyecto.nombreproyecto'))));
+			//$this->layout = 'cyanspark';
+			//Recuperamos los proyectos
+			$this->set('proyectos',$this->Proyecto->find('list',array(
+											'fields'=>array('Proyecto.idproyecto','Proyecto.nombreproyecto'),
+											'conditions'=> array('Proyecto.estadoproyecto' => 'Formulacion'),
+											'order' => array('Proyecto.idproyecto')
+											)));
+			//primer proyecto
+			$primerproy = $this->Proyecto->find('list',array(
+											'fields'=>array('Proyecto.idproyecto','Proyecto.nombreproyecto'),
+											'conditions'=> array('Proyecto.estadoproyecto' => 'Formulacion'),
+											'order' => array('Proyecto.idproyecto')
+											));
+			//Recuperando información del primer proyecto
+			$info_proy = $this->Proyecto->find('list', array(
+											'fields'=>array('Proyecto.nombreproyecto','Proyecto.montoplaneado'),
+											'order' => array('Proyecto.idproyecto'),
+											'conditions'=> array('Proyecto.estadoproyecto' => 'Licitacion')
+											));
+			$this->set('nombreproyecto', Hash::combine($info_proy, "{0}.Proyecto.nombreproyecto"));
+			
+			$this->set('divisions', $this->Division->find('list',	array(
+											'fields' => array('Division.iddivision', 'Division.divison'))));
 			
 	}
 	
@@ -45,7 +74,7 @@
 	  * $id indica el id del elemento que será guardado, si es uno que ya existe actualizará
 	  * sino existe lo creará */
 	
-	public function add_num($id=null)
+	public function proyecto_asignar_num($id=null)
 	{
 		$this->layout = 'cyanspark';
 		$this->set('proys',$this->Proyecto->find('list', array(
