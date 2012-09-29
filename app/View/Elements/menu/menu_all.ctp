@@ -32,7 +32,7 @@
 									</li>
 									<li>Supervisor
 										<ul>
-											<li disabled="disabled">Registrar contrato supervisor</li>
+											<li><?php echo $this->Html->link('Registrar contrato supervisor', array('controller' => 'Contratosupervisors','action'=>'add')); ?></li>
 											<li disabled="disabled">Modificar contrato supervisor</li>
 											<li disabled="disabled">Eliminar contrato supervisor</li>
 										</ul>
