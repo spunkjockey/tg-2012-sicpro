@@ -1,5 +1,4 @@
-<!-- File: /app/View/Plazas/edit.ctp -->
-
+<!-- File: /app/View/Contratoconstructors/actualizarestado.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -44,55 +43,83 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Plazas » Modificar plaza
+			?> » Bienvenido a SICPRO
 			
 		</div>
 	</div>
+	
 <?php $this->end(); ?>
-
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Editar Plaza</h2>
-		<?php echo $this->Form->create('Plaza',array('action' => 'edit')); ?>
+		<h2>Actualizar Estado de Contrato Constructor</h2>
+		<?php echo $this->Form->create('Estado'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('plaza', 
+				<?php echo $this->Form->input('proyectos',
 					array(
-						'label' => 'Nombre de plaza:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Plaza', 
+						'label' => 'Proyecto:', 
+						'id' => 'select1', 
 						'required', 
-						'validationMessage' => 'Ingrese nombre de plaza')); ?>
+						'validationMessage' => 'Seleccione Proyecto')); ?>
+			</li>
+
+			<li>
+				<?php echo $this->Form->input('contratos',
+					array(
+						'label' => 'Contrato:', 
+						'id' => 'select2', 
+						'required', 
+						'validationMessage' => 'Seleccione Contrato')); ?>
+			</li>
+			<div id="info_contrato">
+					<!--Con ajax se llena el contenido con la informacion del contrato seleccionado-->
+			</div>
+			<br><br>
+			<li><?php $options = array('cancelado' => 'Cancelado','pausado' => 'Pausado','finalizado' => 'Finalizado');
+					$attributes = array('legend' => 'Estado de Proyecto','separator'=>'<br />','required'=>true);
+					echo $this->Form->radio('Estados', $options, $attributes); ?>
 			</li>
 			<li  class="accept">
-				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
+				<div id='divdiv'>
+				</div>
+
+				<!--<?php echo $this->Form->input('userm', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>-->
+				<?php echo $this->Form->end(array('label' => 'Actualizar Estado', 'class' => 'k-button')); ?>
+				<?php $options = array('url' => 'update_selectContrato','update' => 'select2');
+				echo $this->ajax->observeField('select1',$options);?>
 				
-				<?php echo $this->Form->end(array('label' => 'Editar Empresa', 'class' => 'k-button')); ?>
+				<?php echo $this->ajax->observeField( 'select2', 
+		    		array(
+		        		'url' => array( 'action' => 'update_infocontrato'),
+		        		'update' => 'info_contrato'
+		    		) 
+				);  ?>
+
 			</li>
-            
             <li class="status">
             </li>
 		</ul>
 	</div>
 </div>
 
+
 <style scoped>
 
+                .etiqueta {
+                    display: inline-block;
+                    width: 150px;
+                    
+                    margin-right: 5px; 
+                }
+                
                 .k-textbox {
                     width: 300px;
                     margin-left: 5px;
                     
                 }
 				
-				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
+				
 			
-                form .required label:after {
-					font-size: 1.4em;
-					color: #e32;
-					content: '*';
-					display:inline;
-					}
-                                
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -142,9 +169,9 @@ $this->end(); ?>
                 span.k-tooltip {
                     margin-left: 6px;
                 }
-            </style>
-			
-			<script>
+</style>
+
+<script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
@@ -158,11 +185,16 @@ $this->end(); ?>
                     });
                 });
                 
-                $("#select").kendoComboBox({
+                $("#select1").kendoComboBox({
 			         //placeholder: "Seleccionar...",
-			         //index: -1,
-					 width: 300,
-			         suggest: true
+			         index: 0,
+			         suggest: true,
+			         filter: 'none'
 			    });
-               // var select = $("#select").data("kendoComboBox");
-            </script>
+			    $("#select2").kendoComboBox({
+			         //placeholder: "Seleccionar...",
+			         index: 0,
+			         suggest: true,
+			         filter: 'none'
+			    });
+</script>

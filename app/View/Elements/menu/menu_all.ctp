@@ -4,9 +4,9 @@
 								<ul>
 									<li>Proyecto
 										<ul>
-											<li><?php echo $this->Html->link('Registrar proyecto', array('controller' => 'proyectos','action'=>'add')); ?></li>
-											<li><?php echo $this->Html->link('Modificar proyecto', array('controller' => 'proyectos','action'=>'edit')); ?></li>
-											<li><?php echo $this->Html->link('Asignar número proyecto', array('controller' => 'proyectos','action'=>'add_num')); ?></li>
+											<li><?php echo $this->Html->link('Registrar proyecto', array('controller' => 'proyectos','action'=>'proyecto_registrar')); ?></li>
+											<li><?php echo $this->Html->link('Modificar proyecto', array('controller' => 'proyectos','action'=>'proyecto_listado')); ?></li>
+											<li><?php echo $this->Html->link('Asignar número proyecto', array('controller' => 'proyectos','action'=>'proyecto_asignar_num')); ?></li>
 											<li disabled="disabled">Eliminar proyecto</li>
 										</ul>
 									</li>	
@@ -38,7 +38,7 @@
 										</ul>
 									</li>	
 									<li disabled="disabled">Consultar contrato</li>
-									<li disabled="disabled">Actualizar estado de contrato</li>
+									<li><?php echo $this->Html->link('Actualizar estado de contrato', array('controller' => 'Contratoconstructors','action'=>'contrato_actualizarestado')); ?></li>
 									<li disabled="disabled">Asignaci&oacute;n de t&eacute;cnicos</li>
 									<li><?php echo $this->Html->link('Registrar Orden de Inicio', array('controller' => 'Contratos','action'=>'addordeninicio')); ?></li>
 									<li>Orden de Cambio</li>

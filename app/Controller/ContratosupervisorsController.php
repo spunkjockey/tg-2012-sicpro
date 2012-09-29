@@ -34,6 +34,7 @@
 										'conditions'=>array(('Contratoconstructor.idcontrato NOT IN (SELECT con_idcontrato FROM sicpro2012.contratosupervisor)'),
 														   ('Contratoconstructor.idproyecto='.$primerproy['Proyecto']['idproyecto']))
 										));
+								
 			$this->set('contratos', Set::combine($con_cons, "{n}.Contratoconstructor.idcontrato","{n}.Contratoconstructor.codigocontrato"));
 			
 			if($this->request->is('post'))
@@ -87,7 +88,7 @@
 					
 					if($this->Contratosupervisor->save($this->Contrato->id))
 					{
-						$this->Session->setFlash('El contrato ha sido registrado');	
+						$this->Session->setFlash('Contrato supervisor ha sido registrado.','default',array('class'=>'success'));	
 						$this->redirect(array('controller'=>'mains', 'action' => 'index'));
 					}
 					else 
@@ -109,6 +110,7 @@
                 {
                  		      	
                         $proy_id = $this->data['Contratosupervisor']['proys'];
+						Debugger::dump($proy_id);
                         $ccon= $this->Contratoconstructor->find('all', array(
 	                        			'fields'=>array('Contratoconstructor.idcontrato','Contratoconstructor.codigocontrato'),
 										'conditions'=>array(('Contratoconstructor.idcontrato NOT IN (SELECT con_idcontrato FROM sicpro2012.contratosupervisor)'),
