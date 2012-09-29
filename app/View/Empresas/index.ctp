@@ -1,4 +1,5 @@
 <!-- File: /app/View/Empresas/index.ctp -->
+
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -49,6 +50,7 @@ $this->end(); ?>
 	</div>
 	
 <?php $this->end(); ?>
+
 <h2>Empresas</h2>
 <div style='margin:4px 0' >
 	<?php echo $this->Html->link(
@@ -88,18 +90,15 @@ $this->end(); ?>
             	array('action' => 'view', $emp['Empresa']['idempresa']),
             	array('class'=>'k-button')
 			);?>
-            <div id='popup'>
-            <?php echo $this->Html->link(
+            <!--<div id='popup'>
+             <?php echo $this->Html->link(
             	'Detalles_w', 
-            	'#',//array('action' => 'view_w', $emp['Empresa']['idempresa']),
+            	'#',array('action' => 'view_w', $emp['Empresa']['idempresa']),
             	array('id' => 'openButton', 'class'=>'k-button')
-			);?>
-			
-			
-            
-            </div>
-            
+			);?> 
+			</div>
             <a href="#" onclick="cambiarid('<?php echo $emp['Empresa']['idempresa'];?>');" class="k-button">Agregar Metas</a>
+            -->
         </td>
         
     </tr>
@@ -108,10 +107,6 @@ $this->end(); ?>
 
 </table>
 <div id="window"></div>
-
-
-
-
 
 <script>
 	$(document).ready(function() {
