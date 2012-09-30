@@ -85,33 +85,37 @@
 		array('fields'=>'Proyecto.idproyecto','order'=>'Proyecto.numeroproyecto ASC'));
 		
 		//Cargar el Segundo Combobox con los Contratos del primer proyecto
-		$this->set('contratos', $this->Contrato->find('list',
-		array('fields'=>array('Contrato.idcontrato','Contrato.codigocontrato'),'order'=>'Contrato.codigocontrato ASC',
-		'conditions'=>'Contrato.idproyecto='.$primer_proyecto['Proyecto']['idproyecto'])
+		$this->set('contratos', $this->Contratoconstructor->find('list',
+		array('fields'=>array('Contratoconstructor.idcontrato','Contratoconstructor.codigocontrato'),'order'=>'Contratoconstructor.codigocontrato ASC',
+		'conditions'=>'Contratoconstructor.idproyecto='.$primer_proyecto['Proyecto']['idproyecto'])
 		));
 		
-		/*Debugger::dump($this->Contratoconstructor->find('all',
-		array('fields'=>array('Contratoconstructor.idcontrato','Contratoconstructor.codigocontrato',
-		'Contratoconstructor.nombrecontrato','Contratoconstructor.estadocontrato'),'order'=>'Contratoconstructor.codigocontrato ASC',
+		$this->set('infocontrato', $this->Contratoconstructor->find('first',
+		array('fields'=>array(
+		'Contratoconstructor.idcontrato',
+		'Contratoconstructor.codigocontrato',
+		'Contratoconstructor.nombrecontrato',
+		'Contratoconstructor.estadocontrato'),'order'=>'Contratoconstructor.codigocontrato ASC',
 		'conditions'=>'Contratoconstructor.idproyecto='.$primer_proyecto['Proyecto']['idproyecto'])
-		));*/
+		));
 		
-		
+				
 		$this->set('info',$this->Contratoconstructor->findByIdcontrato($primer_proyecto['Proyecto']['idproyecto']));
 		
 		if($this->request->is('post'))
 			{
-				$id = $this->request->data['Estado']['contratos']['idcontrato'];
-				Debugger::dump($id);
-				//Debugger::dump($this->Contratoconstructor->set('idproyecto', $this->request->data['Estado']['proyectos']));
+				if (is_numeric($this->request->data['Estado']['contratos'])) {
+				$id=$this->request->data['Estado']['contratos'];	
+				} else {
+					$contrato = $this->Contratoconstructor->findByCodigocontrato($this->request->data['Estado']['contratos']);
+					$id=$contrato['Contratoconstructor']['idcontrato'];
+				}
+
 				$this->Contratoconstructor->read(null, $id);
-				
-				$this->Contratoconstructor->set('idcontrato', $id);
-
-
 				$this->Contratoconstructor->set('estadocontrato', $this->request->data['Estado']['Estados']);	
 				$this->Contratoconstructor->set('userm', $this->Session->read('User.username'));		
 				$this->Contratoconstructor->set('modificacion', date('Y-m-d h:i:s'));
+				Debugger::dump($this->request->data);
 				if ($this->Contratoconstructor->save($id)) {
 		            $this->Session->setFlash('El Estado del Contrato constructor ha sido actualizado.','default',array('class'=>'success'));
 		            $this->redirect(array('action' => 'contrato_actualizarestado'));
@@ -142,13 +146,25 @@
 		                {
 		                        //$contrato_id = $this->data['Estado']['contratos']['idcontrato'];
 								$contrato_id = $this->Contratoconstructor->findByCodigocontrato($this->data['Estado']['contratos']);
-		                        $contrato= $this->Contratoconstructor->find('all', array(
+		                        $contrato= $this->Contratoconstructor->find('first', array(
 			                        'fields'=>array(
 			                        'Contratoconstructor.nombrecontrato','Contratoconstructor.estadocontrato'),
 			                        'conditions'=>array('Contratoconstructor.idcontrato'=>$contrato_id['Contratoconstructor']['idcontrato'])));
+						$this->set('informacion',$contrato);
 		                }
+				 else{
+				 	
+					$primer_proyecto = $this->data['Estado']['proyectos'];			
+					$this->set('informacion', $this->Contratoconstructor->find('first',
+					array('fields'=>array(
+					'Contratoconstructor.nombrecontrato',
+					'Contratoconstructor.estadocontrato'),'order'=>'Contratoconstructor.codigocontrato ASC',
+					'conditions'=>'Contratoconstructor.idproyecto='.$primer_proyecto)
+					));
+				 	
+				 }
 						//Debugger::dump($contrato);
-				$this->set('informacion',$contrato);
+				
 				/*$this->set('informacion', Set::combine($contrato,
 				"{s}.Contratoconstructor.nombrecontrato",
 				"{s}.Contratoconstructor.estadocontrato"

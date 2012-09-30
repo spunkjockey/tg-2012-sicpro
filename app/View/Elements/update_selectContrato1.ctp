@@ -8,7 +8,7 @@ $(document).ready(function(){
 			echo '{ text: "'.$v.'", value: "'.$k.'" },';
 		} ?> 
 	];
-	$("#select2").kendoDropDownList({
+	$("#select2").kendoComboBox({
 	    dataTextField: "text",
 	    dataValueField: "value",
 	    dataSource: items,

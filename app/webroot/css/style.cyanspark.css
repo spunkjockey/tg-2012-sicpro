@@ -189,8 +189,9 @@ p.error,
 	background-image: -ms-linear-gradient(top, #76BF6B, #3B8230);
 	background-image: -o-linear-gradient(top, #76BF6B, #3B8230);
 	background-image: linear-gradient(top, #76BF6B, #3B8230);
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+	/*text-shadow: 0 -1px 0 rgba(16, 16, 16, 0.3);*/
 	background-image: url('../img/check.ico');
+	background-size: 16px 16px;
 	background-position: 10px center;
 	padding-left: 30px;
 	background-repeat: no-repeat;
@@ -212,9 +213,9 @@ p.error em {
 	padding: 0.8em;
 	margin: 1em 0;
 }
-.success {
+/*.success {
 	color: #fff;
-}
+}*/
 
 .mensajeexito{
 	clear: both;

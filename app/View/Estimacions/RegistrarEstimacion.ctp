@@ -135,15 +135,11 @@ $this->end(); ?>
 			<li  class="accept">
 				<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
 				<?php echo $this->Form->end(array('label' => 'Registrar Estimación', 'class' => 'k-button')); ?>
-			    
-				<?php echo $this->ajax->observeField( 'select1', 
-					array(
-		        		'url' => array( 'action' => 'update_contratos'),
-		        		'update' => 'select2'
-		    		));
-				?>
-			
+				<?php $options = array('url' => 'update_selectContrato1','update' => 'select2');
+				echo $this->ajax->observeField('select1',$options);?>
+				
 			</li>
+			
 			<li>
 				<h2>Cargar Archivos:</h2>
 				<h3>Archivos a Agregar</h3>

@@ -73,6 +73,14 @@ $this->end(); ?>
 			</li>
 			<div id="info_contrato">
 					<!--Con ajax se llena el contenido con la informacion del contrato seleccionado-->
+				<?php 
+					if(isset($infocontrato)){
+					foreach ($infocontrato as $infx): ?>
+					<p><strong class:'etiqueta'>Nombre Contrato: </strong> <?php echo $infx['nombrecontrato']; ?></p>
+					<p><strong class:'etiqueta'>Estado Actual: </strong><?php echo $infx['estadocontrato']; ?></p>
+					<?php endforeach; 
+				}?>
+
 			</div>
 			<br><br>
 			<li><?php $options = array('cancelado' => 'Cancelado','pausado' => 'Pausado','finalizado' => 'Finalizado');
@@ -89,6 +97,13 @@ $this->end(); ?>
 				echo $this->ajax->observeField('select1',$options);?>
 				
 				<?php echo $this->ajax->observeField( 'select2', 
+		    		array(
+		        		'url' => array( 'action' => 'update_infocontrato'),
+		        		'update' => 'info_contrato'
+		    		) 
+				);  ?>
+				
+				<?php echo $this->ajax->observeField( 'select1', 
 		    		array(
 		        		'url' => array( 'action' => 'update_infocontrato'),
 		        		'update' => 'info_contrato'
@@ -185,15 +200,14 @@ $this->end(); ?>
                     });
                 });
                 
-                $("#select1").kendoComboBox({
+                $("#select1").kendoDropDownList({
 			         //placeholder: "Seleccionar...",
-			         index: 0,
 			         suggest: true,
+			         editable: false,
 			         filter: 'none'
 			    });
-			    $("#select2").kendoComboBox({
+			    $("#select2").kendoDropDownList({
 			         //placeholder: "Seleccionar...",
-			         index: 0,
 			         suggest: true,
 			         filter: 'none'
 			    });

@@ -12,33 +12,22 @@ class EstimacionsController extends AppController {
 	
 	 public function registrarestimacion() {
 		$this->layout = 'cyanspark';
-	//Recuperar el numero de proyecto
-		$this->set('proyectos', $this->Proyecto->find('list', array(
-			'fields'=>array('Proyecto.idproyecto','Proyecto.numeroproyecto'),
-			'conditions'=>array('Proyecto.estadoproyecto' =>'Ejecucion'),
-			'order'=>'Proyecto.idproyecto ASC')
-			
-		));
-		//Debugger::dump($lProyectos);
-    	//$this->set('proyectos', Set::combine($lProyectos, "{n}.Proyecto.idproyecto","{n}.Proyecto.numeroproyecto"));
 		
-		//Primer Id
-		$id = $this->Proyecto->find('first',array(
-			'fields' => array('Proyecto.idproyecto'),
-			'conditions'=>array('Proyecto.estadoproyecto' =>'Ejecucion'),
-			'order'=>'Proyecto.idproyecto ASC'
+		//Cargar el primero Combobox con los Proyectos
+		$this->set('proyectos',$this->Proyecto->find('list', 
+		array('fields'=>array('Proyecto.idproyecto','Proyecto.numeroproyecto'),
+			  'order'=>'Proyecto.numeroproyecto ASC',
+			  'conditions' => array('Proyecto.estadoproyecto' => 'Ejecucion'))));
+			  
+		$primer_proyecto = $this->Proyecto->find('first',
+		array('fields'=>'Proyecto.idproyecto','order'=>'Proyecto.numeroproyecto ASC'));
+		
+		//Cargar el Segundo Combobox con los Contratos del primer proyecto
+		$this->set('contratos', $this->Contratoconstructor->find('list',
+		array('fields'=>array('Contratoconstructor.idcontrato','Contratoconstructor.codigocontrato'),'order'=>'Contratoconstructor.codigocontrato ASC',
+		'conditions'=>'Contratoconstructor.idproyecto='.$primer_proyecto['Proyecto']['idproyecto'])
 		));
-	
-		//Recuperar los contratos asociados a dicho proyecto
-		$this->set('contratos',$this->Contratoconstructor->find('list', array(
-			'fields'=>array('Contratoconstructor.idcontrato','Contratoconstructor.codigocontrato'),
-			'order'=>'Contratoconstructor.codigocontrato ASC',
-			'conditions'=>array('Contratoconstructor.idproyecto'=>$id['Proyecto']['idproyecto'])
-			)
-		));
-		 
-		//$this->set('contratos', Set::combine($lContratos, "{n}.Contratoconstructor.idcontrato","{n}.Contratoconstructor.codigocontrato"));
-        
+		
 		
         if ($this->request->is('post')) {
         	
@@ -63,24 +52,27 @@ class EstimacionsController extends AppController {
             	$this->Session->setFlash('No se pudo realizar el registro');
         	}
 		}
+		
+		
 	}
+	 
+	
+		function update_selectContrato1()
+        {
+                if (!empty($this->data['Estimacion']['proyectos']))
+                {
+                        $proyecto_id = $this->data['Estimacion']['proyectos'];
+                        $contratos= $this->Contrato->find('all', array(
+	                        'fields'=>array('Contrato.idcontrato','Contrato.codigocontrato'),
+	                        'order'=>'Contrato.codigocontrato ASC',
+	                        'conditions'=>array('Contrato.idproyecto'=>$proyecto_id)));
+                }
+                $this->set('options', Set::combine($contratos, "{n}.Contrato.idcontrato","{n}.Contrato.codigocontrato"));
+                $this->render('/elements/update_selectContrato1', 'ajax');
+        }
+		
 
-    function update_contratos(){
-    	if (!empty($this->request->data['Estimacion']['proyectos'])) 
-		{
-		$proy_id=$this->request->data['Estimacion']['proyectos'];
-		
-		$con1 = $this->Contratoconstructor->find('all', array(
-			'fields'=>array('Contratoconstructor.idcontrato','Contratoconstructor.codigocontrato'),
-			'order'=>'Contratoconstructor.codigocontrato ASC',
-			'conditions'=>array('Contratoconstructor.idproyecto' => $proy_id)
-		
-		));
-		}
-		
-		$this->set('options', Set::combine($con1, "{n}.Contratoconstructor.idcontrato","{n}.{Contratoconstructor.codigocontrato}")); 
-		$this->render('/elements/update_contratos','ajax');
-    } 
+
 
 	function ModificarEstimacion($id = null)  {
 	    $this->layout = 'cyanspark';
