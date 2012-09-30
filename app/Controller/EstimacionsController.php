@@ -50,6 +50,7 @@ class EstimacionsController extends AppController {
 public function proyectojson() {
 		$proyectos = $this->Contratoconstructor->find('all',array(
 			'fields' => array('DISTINCT Proyecto.idproyecto', 'Proyecto.numeroproyecto'),
+			'conditions' => array('Proyecto.estadoproyecto' => 'Ejecucion'),
 			'order' => array('Proyecto.numeroproyecto')
 		));
 		
@@ -57,6 +58,17 @@ public function proyectojson() {
 		$this->set('_serialize', 'proyectos');
 		$this->render('/json/jsondata');
 		
+	}
+
+	public function contratojson() {
+		$contratos = $this->Contratoconstructor->find('all',array(
+			'fields' => array('Contratoconstructor.idproyecto','Contratoconstructor.idcontrato', 'Contratoconstructor.codigocontrato'),
+			'order' => array('Contratoconstructor.codigocontrato')
+		));
+		
+		$this->set('contratos', Hash::extract($contratos, "{n}.Contratoconstructor"));
+		$this->set('_serialize', 'contratos');
+		$this->render('/json/jsondatad');
 	}
 		function update_selectContrato1()
         {
