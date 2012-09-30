@@ -89,7 +89,12 @@ $this->end(); ?>
                 array('action' => 'delete', $esti['Estimacion']['idestimacion']),
                 array('confirm' => '¿Está seguro?','class'=>'k-button')
             )?>
-            
+           <?php echo $this->Html->link(
+            	'Cargar Archivo', 
+            	array('controller' => 'Estimacions','action' => 'agregar_archivo',$esti['Estimacion']['idestimacion']),
+            	array('class'=>'k-button')
+			);?>
+
         </td>
     </tr>
     <?php endforeach; ?>

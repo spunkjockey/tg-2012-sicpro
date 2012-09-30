@@ -134,18 +134,19 @@ $this->end(); ?>
 			</div>
 			<li  class="accept">
 				<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
-				<?php echo $this->Form->end(array('label' => 'Registrar Estimación', 'class' => 'k-button')); ?>
+				
+				
+<table border="0">
+<tr>
+<td><?php echo $this->Form->end(array('label' => 'Registrar Estimación', 'class' => 'k-button')); ?></td>
+
+</tr>
+</table>
 				<?php $options = array('url' => 'update_selectContrato1','update' => 'select2');
 				echo $this->ajax->observeField('select1',$options);?>
 				
 			</li>
-			
-			<li>
-				<h2>Cargar Archivos:</h2>
-				<h3>Archivos a Agregar</h3>
-				<?php echo $this->Upload->edit('Estimacion', $this->request->data['Estimacion']['codigocontrato']); ?>
-			</li>
-			
+				
 			 <li class="status">
             </li>
             
@@ -230,13 +231,16 @@ $this->end(); ?>
 
 
 		$("#datePicker1").kendoDatePicker({
-		   format: "yyyy/MM/dd" //Define el formato de fecha
+		   culture: "es-ES",
+		   format: "dd/MM/yyyy"  //Define el formato de fecha
 		});
 		$("#datePicker2").kendoDatePicker({
-		   format: "yyyy/MM/dd" //Define el formato de fecha
+		   culture: "es-ES",
+		   format: "dd/MM/yyyy" //Define el formato de fecha
 		});
 		$("#datePicker3").kendoDatePicker({
-		   format: "yyyy/MM/dd" //Define el formato de fecha
+		   culture: "es-ES",
+		   format: "dd/MM/yyyy" //Define el formato de fecha
 		});
          $("#moneda").kendoNumericTextBox({
 		     format: "c2", //Define currency type and 2 digits precision
