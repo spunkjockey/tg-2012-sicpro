@@ -1,7 +1,7 @@
 <?php
 class EstimacionsController extends AppController {
-    public $helpers = array('Html', 'Form', 'Session','Ajax');
-    public $components = array('Session');
+    public $helpers = array('Html', 'Form', 'Session','Ajax','AjaxMultiUpload.Upload');
+    public $components = array('Session','AjaxMultiUpload.Upload');
 	public $uses = array('Proyecto','Contrato','Contratoconstructor','Estimacion');
 
     public function index() {
@@ -12,33 +12,32 @@ class EstimacionsController extends AppController {
 	
 	 public function registrarestimacion() {
 		$this->layout = 'cyanspark';
-	//Recuperar el numero de proyecto
-		$lProyectos = $this->Proyecto->find('all', array(
-			'fields'=>array('Proyecto.idproyecto','Proyecto.numeroproyecto'),
-			'order'=>'Proyecto.numeroproyecto ASC'
-		));
-    	$this->set('proyectos', Set::combine($lProyectos, "{n}.Proyecto.idproyecto","{n}.Proyecto.numeroproyecto"));
 		
-		//Primer Id
-		$id = $this->Proyecto->find("first",array(
-			'fields' => array('Proyecto.idproyecto', 'Proyecto.numeroproyecto'),
-			'order' => array('Proyecto.numeroproyecto')
+		//Cargar el primero Combobox con los Proyectos
+		$this->set('proyectos',$this->Proyecto->find('list', 
+		array('fields'=>array('Proyecto.idproyecto','Proyecto.numeroproyecto'),
+			  'order'=>'Proyecto.numeroproyecto ASC',
+			  'conditions' => array('Proyecto.estadoproyecto' => 'Ejecucion'))));
+			  
+		$primer_proyecto = $this->Proyecto->find('first',
+		array('fields'=>'Proyecto.idproyecto','order'=>'Proyecto.numeroproyecto ASC',
+				'conditions' => array('Proyecto.estadoproyecto' => 'Ejecucion')));
+		
+		//Cargar el Segundo Combobox con los Contratos del primer proyecto
+		$this->set('contratos', $this->Contratoconstructor->find('list',
+		array('fields'=>array('Contratoconstructor.idcontrato','Contratoconstructor.codigocontrato'),'order'=>'Contratoconstructor.codigocontrato ASC',
+		'conditions'=>'Contratoconstructor.idproyecto='.$primer_proyecto['Proyecto']['idproyecto'])
 		));
 		
-	
-		//Recuperar los contratos asociados a dicho proyecto
-		$lContratos = $this->Contratoconstructor->find('all', array(
-			'fields'=>array('Contratoconstructor.idcontrato','Contratoconstructor.codigocontrato'),
-			'order'=>'Contratoconstructor.codigocontrato ASC',
-			'conditions'=>array('Contratoconstructor.idproyecto'=>$id['Proyecto']['idproyecto'])
-		));
-		 
-		$this->set('contratos', Set::combine($lContratos, "{n}.Contratoconstructor.idcontrato","{n}.Contratoconstructor.codigocontrato"));
-        
 		
         if ($this->request->is('post')) {
-        	
-			$this->Estimacion->set('idcontrato', $this->request->data['Estimacion'] ['contratos']);
+        	if (is_numeric($this->request->data['Estimacion']['contratos'])) {
+				$id=$this->request->data['Estimacion']['contratos'];	
+				} else {
+					$contrato = $this->Contratoconstructor->findByCodigocontrato($this->request->data['Estimacion']['contratos']);
+					$id=$contrato['Contratoconstructor']['idcontrato']; 
+				}
+			$this->Estimacion->set('idcontrato', $id);
 			
             $this->Estimacion->set('idproyecto', $this->request->data['Estimacion'] ['proyectos']);
 			
@@ -59,7 +58,28 @@ class EstimacionsController extends AppController {
             	$this->Session->setFlash('No se pudo realizar el registro');
         	}
 		}
+		
+		
 	}
+	 
+
+		function update_selectContrato1()
+        {
+                if (!empty($this->data['Estimacion']['proyectos']))
+                {
+                        $proyecto_id = $this->data['Estimacion']['proyectos'];
+                        $contratos= $this->Contrato->find('all', array(
+	                        'fields'=>array('Contrato.idcontrato','Contrato.codigocontrato'),
+	                        'order'=>'Contrato.codigocontrato ASC',
+	                        'conditions'=>array('Contrato.idproyecto'=>$proyecto_id)));
+                }
+                $this->set('options', Set::combine($contratos, "{n}.Contrato.idcontrato","{n}.Contrato.codigocontrato"));
+                $this->render('/elements/update_selectContrato1', 'ajax');
+        }
+		
+
+
+
 	function ModificarEstimacion($id = null)  {
 	    $this->layout = 'cyanspark';
         //preguntar si es post
@@ -84,6 +104,12 @@ class EstimacionsController extends AppController {
         		}
 	    }
 	}
+
+public function agregar_archivo($id = null) {
+		$this->layout = 'cyanspark';
+        $this->set ('idestimacion', $id);
+        
+    }
 
 	function delete($id) {
 		if (!$this->request->is('post')) {

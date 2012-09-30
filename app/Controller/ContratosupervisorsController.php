@@ -81,11 +81,6 @@
 						$contratoid = $this->Contratoconstructor->findByCodigocontrato($this->request->data['Contratosupervisor']['contratos']);
 						$this->Contratosupervisor->set('con_idcontrato', $contratoid['Contratoconstructor']['idcontrato']);
 					}	
-					
-					
-					
-					
-					
 					if($this->Contratosupervisor->save($this->Contrato->id))
 					{
 						$this->Session->setFlash('Contrato supervisor ha sido registrado.','default',array('class'=>'success'));	

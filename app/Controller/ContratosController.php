@@ -2,6 +2,7 @@
 class ContratosController extends AppController {
     public $helpers = array('Html', 'Form', 'Session');
     public $components = array('Session');
+	public $uses = array('Contrato','Contratoconstructor','Contratosupervisor');
 
     public function index() {
     	$this->layout = 'cyanspark';
@@ -10,16 +11,22 @@ class ContratosController extends AppController {
 	
 	 public function addordeninicio() {
 		$this->layout = 'cyanspark';
-		$this->set('contratos', $this->Contrato->find('list',
-		array ('fields'=> array ('idcontrato', 'codigocontrato') ) ));
+		$this->set('contratos', $this->Contrato->find('list',array(
+								'fields'=> array('Contrato.idcontrato', 'Contrato.codigocontrato'),
+								'conditions'=>array('Contrato.ordeninicio is null'),
+								'order'=>array('Contrato.codigocontrato')
+								)));
 		
         if ($this->request->is('post')) 
         {
         	$id = $this->request->data['Contrato']['contratos'];
 			$this->Contrato->read(null, $id);
             $this->Contrato->set('ordeninicio', $this->request->data['Contrato'] ['ordeninicio']);
+			$this->Contrato->set('userm', $this->Session->read('User.username'));
+			$this->Contrato->set('modificacion', date('Y-m-d h:i:s'));
 			if($this->Contrato->save($id))
 			{
+            	Debugger::dump($this->request->data);
             	$this->Session->setFlash('La Orden de Inicio ha sido registrada.');
             	$this->redirect(array('action' => 'index'));
         	} 
@@ -65,7 +72,7 @@ class ContratosController extends AppController {
 	    }
 	    if ($this->Contrato->delete($id)) {
 	        $this->Session->setFlash('La Orden de Inicio ha sido eliminada.');
-	        $this->redirect(array('action' => 'index'));
+	        $this->redirect(array('controller'=>'mains', 'action' => 'index'));
 	    }
 	}
 }
