@@ -1,3 +1,4 @@
+
 <div class="navmenu" style="margin:0px auto; width: 970px">
 						<ul id="menu">
 							<li>Proyectos
@@ -68,7 +69,7 @@
 									</li>	
 									<li>Informe t&eacute;cnico
 										<ul>
-											<li disabled="disabled">Registrar informe t&eacute;cnico</li>
+											<li><?php echo $this->Html->link('Registrar informe técnico', array('controller' => 'Informetecnicos','action'=>'informetecnico_registrar')); ?></li>
 											<li disabled="disabled">Modificar informe t&eacute;cnico</li>
 											<li disabled="disabled">Eliminar informe t&eacute;cnico</li>
 											<li disabled="disabled">Consultar Informe T&eacute;cnico</li>
