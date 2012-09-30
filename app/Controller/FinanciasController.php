@@ -1,8 +1,8 @@
 <?php
 class FinanciasController extends AppController {
     public $helpers = array('Html', 'Form', 'Session','Ajax');
-    public $components = array('Session');
-	public $uses = array('Proyecto','Fuentefinanciamiento','Financia','Division');
+    public $components = array('Session','RequestHandler');
+	public $uses = array('Proyecto','Fuentefinanciamiento','Financia','Division','Contratoconstructor');
 	
 	public function index() {
 		$this->layout = 'cyanspark';
@@ -55,7 +55,7 @@ class FinanciasController extends AppController {
 			
 			$this->Financia->set('userc', $this->Session->read('User.username'));
 		    if ($this->Financia->save()) {
-            	$this->Session->setFlash('La Fuente ha sido asignada.');
+            	$this->Session->setFlash('La Fuente ha sido asignada.','default',array('class'=>'success'));
             	$this->redirect(array('action' => 'index'));
         	} else {
             	$this->Session->setFlash('No se pudo realizar el registro');
@@ -65,6 +65,8 @@ class FinanciasController extends AppController {
 	}
 
 	function update_fuentefinanciamiento() {
+		
+		
 		if(!empty($this->data['Financia']['proyectos'])) {
         		
         	$id = $this->data['Financia']['proyectos'];
@@ -75,6 +77,7 @@ class FinanciasController extends AppController {
 			));
         	
 		}
+		
 		$this->set('fuentes', Set::combine($listadoFuentes, "{n}.Fuentefinanciamiento.idfuentefinanciamiento","{n}.Fuentefinanciamiento.nombrefuente"));
 		$this->render('/elements/update_fuentefinanciamiento', 'ajax');
 	}
@@ -104,6 +107,7 @@ class FinanciasController extends AppController {
 
 
 	function update_disponible() {
+		
 		if (is_numeric($this->request->data['Financia']['fuentes'])) {
 			$idff = $this->Fuentefinanciamiento->findByIdfuentefinanciamiento($this->data['Financia']['fuentes']);	
 		} else {
@@ -113,6 +117,32 @@ class FinanciasController extends AppController {
 		$this->set('disponible',$idff['Fuentefinanciamiento']['montodisponible']);
 		$this->render('/elements/update_disponible', 'ajax');
 	}
+	
+	
+	function pruebacombo() {
+		$this->layout = 'cyanspark';
+	}
+	
+	function jsondata() {
+		$proyectos = $this->Contratoconstructor->find('all',array(
+			'fields' => array('DISTINCT Proyecto.idproyecto', 'Proyecto.nombreproyecto'),
+			'order' => array('Proyecto.nombreproyecto')
+		));
+		
+		$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
+		$this->set('_serialize', 'proyectos');
+	}
+	
+	function jsondatad() {
+		$contratos = $this->Contratoconstructor->find('all',array(
+			'fields' => array('Contratoconstructor.idproyecto','Contratoconstructor.idcontrato', 'Contratoconstructor.nombrecontrato'),
+			'order' => array('Contratoconstructor.nombrecontrato')
+		));
+		
+		$this->set('contratos', Hash::extract($contratos, "{n}.Contratoconstructor"));
+		$this->set('_serialize', 'contratos');
+	}
+	
 	
 	
 }
