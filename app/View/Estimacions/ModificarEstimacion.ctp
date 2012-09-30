@@ -115,11 +115,7 @@ $this->end(); ?>
             <li class="status">
             </li>
             
-            <li>
-				<h2>Cargar Archivos:</h2>
-				<h3>Archivos a Agregar</h3>
-				<?php echo $this->Upload->edit('Estimacion', $this->request->data['Estimacion']['codigocontrato']); ?>
-			</li>
+            
             
 		</ul>
 		 

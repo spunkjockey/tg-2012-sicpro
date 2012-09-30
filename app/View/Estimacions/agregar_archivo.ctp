@@ -1,4 +1,5 @@
 <!-- File: /app/View/Estimacions/agregar_archivo.ctp -->
+<!-- File: /app/View/Fichatecnicas/view.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -31,7 +32,6 @@
 	}
 $this->end(); ?>
 
-
 <?php $this->start('breadcrumb'); ?>
 	
 	<div id="menuderastros">
@@ -48,40 +48,42 @@ $this->end(); ?>
 			
 		</div>
 	</div>
-			<li>
+	
+<?php $this->end(); ?>
+		   
+	
 				<h2>Cargar Archivos:</h2>
-				
 				<h3>Archivos a Agregar</h3>
-				<?php echo $this->Upload->edit('Estimacion', $this->request->data['Estimacion']['codigocontrato']); ?>
-			</li>
-			
-			 <li class="status">
-            </li>
-            
-		</ul>
-
-	</div>
-</div>
-
-            <style scoped>
-
+				<?php echo $this->Upload->edit('Estimacion',$idestimacion); ?>
+				
+<?php echo $this->Html->link(
+            	'Regresar', 
+            	array('controller' => 'Estimacions','action' => 'index'),
+            	array('class'=>'k-button')
+			);?>	
+<style scoped>
+				#titulo {
+					color:#3A90CA;
+				}
+				#capa1{
+					margin-left: 20px;
+					color:#000000;
+				}
+				.capa2{
+					margin-left: 40px;
+					color:#3E3E3E;
+				}
                 .k-textbox {
-                    width: 300px;
-                    margin-left: 5px;
-                    
+                    width: 11.8em;
                 }
 				
-				
-			
-                #formulario {
+				#formulario {
                     width: 600px;
-                    /*height: 323px;*/
                     margin: 15px 0;
                     padding: 10px 20px 20px 0px;
-                    /*background: url('../../content/web/validator/ticketsOnline.png') transparent no-repeat 0 0;*/
                 }
 
-                #formulario h3 {
+                h3 {
                     font-weight: normal;
                     font-size: 1.4em;
                     border-bottom: 1px solid #ccc;
@@ -92,6 +94,7 @@ $this->end(); ?>
                     margin: 0;
                     padding: 0;
                 }
+                
                 #formulario li {
                     margin: 10px 0 0 0;
                 }
@@ -100,9 +103,24 @@ $this->end(); ?>
                     display: inline-block;
                     width: 150px;
                     text-align: right;
-                    
+                    margin-right: 5px; 
                 }
-
+                
+                .etiqueta {
+                    display: inline-block;
+                    width: 150px;
+                    
+                    margin-right: 5px; 
+                }
+                
+                
+                form .required label:after {
+                	font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+				}
+                
                 .required {
                     font-weight: bold;
                 }
@@ -117,57 +135,46 @@ $this->end(); ?>
                 }
 
                 .invalid {
-                    color: gray;
+                    color: red;
                 }
+                
                 span.k-tooltip {
                     margin-left: 6px;
                 }
-            </style>
-            
-            <script>
-                $(document).ready(function() {
-                    var validator = $("#formulario").kendoValidator().data("kendoValidator"),
-                    status = $(".status");
-
-                    $("button").click(function() {
-                        if (validator.validate()) {
-                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-                            } else {
-                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-                        }
-                    });
-
-
-		$("#datePicker1").kendoDatePicker({
-		   format: "yyyy/MM/dd" //Define el formato de fecha
-		});
-		$("#datePicker2").kendoDatePicker({
-		   format: "yyyy/MM/dd" //Define el formato de fecha
-		});
-		$("#datePicker3").kendoDatePicker({
-		   format: "yyyy/MM/dd" //Define el formato de fecha
-		});
-         $("#moneda").kendoNumericTextBox({
-		     format: "c2", //Define currency type and 2 digits precision
-		     spinners: false
-		 });
-		 
-		 $("#select").kendoComboBox({
-			         //placeholder: "Seleccionar...",
-			         //index: -1,
-			         suggest: true
-			    });
-		$("#select2").kendoComboBox({
-			         //placeholder: "Seleccionar...",
-			         //index: -1,
-			         suggest: true
-			    });
-			    $("#k-textbox2").kendoNumericTextBox({
-     format: "p",
-     value: 0.15 // 15 %
- });
-	         
-	                });
-            </script>
-			
-			
+                
+                #tablafinancia {
+                    width: 600px;
+                    margin: 15px 0;
+                    padding: 10px 20px 20px 0px;
+                }
+</style>
+<script>
+	$(document).ready(function() {
+    	$("#tabla").kendoGrid({
+            	dataSource: {
+	           		pageSize: 10,
+            	},
+            	sortable: true,
+            	sortable: {
+ 			    	mode: "single", // enables multi-column sorting
+        			allowUnsort: true
+				},
+				scrollable: false
+            	
+            	
+        	});
+		$("#tabla2").kendoGrid({
+            	dataSource: {
+	           		pageSize: 10,
+            	},
+            	sortable: true,
+            	sortable: {
+ 			    	mode: "single", // enables multi-column sorting
+        			allowUnsort: true
+				},
+				scrollable: false
+            	
+            	
+        	});
+        });
+</script>

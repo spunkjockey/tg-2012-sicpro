@@ -31,8 +31,13 @@ class EstimacionsController extends AppController {
 		
 		
         if ($this->request->is('post')) {
-        	
-			$this->Estimacion->set('idcontrato', $this->request->data['Estimacion'] ['contratos']);
+        	if (is_numeric($this->request->data['Estimacion']['contratos'])) {
+				$id=$this->request->data['Estimacion']['contratos'];	
+				} else {
+					$contrato = $this->Contratoconstructor->findByCodigocontrato($this->request->data['Estimacion']['contratos']);
+					$id=$contrato['Contratoconstructor']['idcontrato']; 
+				}
+			$this->Estimacion->set('idcontrato', $id);
 			
             $this->Estimacion->set('idproyecto', $this->request->data['Estimacion'] ['proyectos']);
 			
@@ -57,7 +62,7 @@ class EstimacionsController extends AppController {
 		
 	}
 	 
-	
+
 		function update_selectContrato1()
         {
                 if (!empty($this->data['Estimacion']['proyectos']))
@@ -100,8 +105,11 @@ class EstimacionsController extends AppController {
 	    }
 	}
 
-
-
+public function agregar_archivo($id = null) {
+		$this->layout = 'cyanspark';
+        $this->set ('idestimacion', $id);
+        
+    }
 
 	function delete($id) {
 		if (!$this->request->is('post')) {
