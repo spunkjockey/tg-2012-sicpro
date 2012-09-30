@@ -10,6 +10,8 @@
 		echo $this -> Html -> css('style.cyanspark');
 		echo $this -> Html -> css('kendostyles/kendo.common.min');
 		echo $this -> Html -> css('kendostyles/kendo.blueopal.min');
+		echo $this -> Html -> css('jquery-ui');
+		
 		//echo $this -> Html -> css('global');
 		
 		echo $this -> Html -> script('cyanspark/cufon-yui');
@@ -21,6 +23,8 @@
 		echo $this -> Html -> script('flot/jquery.flot');
 		echo $this -> Html -> script('jquery.maskedinput-1.3.min');
 		echo $this -> Html -> script('jquery.listpicker');
+		echo $this -> Html -> script('jquery-ui');
+
 		
 
 		echo $this -> fetch('meta');
