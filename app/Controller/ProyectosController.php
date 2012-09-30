@@ -8,71 +8,74 @@
 		$this->set('divisions', $this->Proyecto->Division->find('list',
 			array('fields' => array('Division.iddivision', 'Division.divison')
 		)));
-		if ($this->request->is('post')) {
+		if ($this->request->is('post')) 
+			{
                 $this->Proyecto->set('nombreproyecto', $this->request->data['Proyecto']['nombreproyecto']);
 				$this->Proyecto->set('iddivision', $this->request->data['Proyecto']['divisions']);
 				$this->Proyecto->set('montoplaneado', $this->request->data['Proyecto']['montoplaneado']);
 				$this->Proyecto->set('userc', $this->Session->read('User.username'));
 				$this->Proyecto->set('estadoproyecto', 'Formulacion');
-		if ($this->Proyecto->save()) {
-				$this->Session->setFlash('El proyecto ha sido registrado');
-                $this->redirect(array('controller'=>'mains', 'action' => 'index'));
-            }
-			else {
-			
-				$this->Session->setFlash('Ha ocurrido un error');
-                         }
+			if ($this->Proyecto->save()) {
+					$this->Session->setFlash('El proyecto ha sido registrado','default',array('class'=>'success'));
+	                $this->redirect(array('controller'=>'mains', 'action' => 'index'));
+	            }
+				else {
+				
+					$this->Session->setFlash('Ha ocurrido un error');
+	                         }
         }
     }
 	
 	public function proyecto_listado(){
 		$this->layout = 'cyanspark';
-		$this->set('proyectos',$this->Proyecto->find('list', array(
-									'fields'=>array('Proyecto.idproyecto','Proyecto.nombreproyecto','Proyecto.montoplaneado'),
+		$this->set('proyectos', $this->Proyecto->find('all', array(
+									'fields'=>array('Proyecto.idproyecto','Proyecto.nombreproyecto',
+													'Proyecto.montoplaneado','Proyecto.iddivision'),
 									'conditions'=>array('Proyecto.estadoproyecto' => 'Formulacion' )
 									)));
 	}
 	
 	public function proyecto_modificar($id=null)
 	{
-			//$this->layout = 'cyanspark';
-			//Recuperamos los proyectos
-			$this->set('proyectos',$this->Proyecto->find('list',array(
-											'fields'=>array('Proyecto.idproyecto','Proyecto.nombreproyecto'),
-											'conditions'=> array('Proyecto.estadoproyecto' => 'Formulacion'),
-											'order' => array('Proyecto.idproyecto')
-											)));
-			//primer proyecto
-			$primerproy = $this->Proyecto->find('list',array(
-											'fields'=>array('Proyecto.idproyecto','Proyecto.nombreproyecto'),
-											'conditions'=> array('Proyecto.estadoproyecto' => 'Formulacion'),
-											'order' => array('Proyecto.idproyecto')
-											));
-			//Recuperando información del primer proyecto
-			$info_proy = $this->Proyecto->find('list', array(
-											'fields'=>array('Proyecto.nombreproyecto','Proyecto.montoplaneado'),
-											'order' => array('Proyecto.idproyecto'),
-											'conditions'=> array('Proyecto.estadoproyecto' => 'Licitacion')
-											));
-			$this->set('nombreproyecto', Hash::combine($info_proy, "{0}.Proyecto.nombreproyecto"));
-			
-			$this->set('divisions', $this->Division->find('list',	array(
-											'fields' => array('Division.iddivision', 'Division.divison'))));
+		$this->layout = 'cyanspark';
+		$this->Proyecto->id = $id;
+		if ($this->request->is('post')) 
+		{
+			$this->Proyecto->set('nombreproyecto', $this->request->data['Proyecto']['nombreproyecto']);
+			$this->Proyecto->set('iddivision', $this->request->data['Proyecto']['divisiones']);
+			$this->Proyecto->set('idproyecto',$this->request->data['Proyecto']['idproyecto']);
+			$this->Proyecto->set('montoplaneado', $this->request->data['Proyecto']['montoplaneado']);
+			$this->Proyecto->set('userm', $this->Session->read('User.username'));
+			$this->Proyecto->set('modificacion', date('Y-m-d h:i:s'));
+			if ($this->Proyecto->save())
+			{
+				$this->Session->setFlash('Proyecto ha sido actualizado.','default',array('class'=>'success'));
+				$this->redirect(array('action' => 'proyecto_listado'));
+			}
+			else 
+			{
+				$this->Session->setFlash('Imposible editar proyecto');
+			}
+		}
+		else
+		{
+			$this->set('divisiones', $this->Division->find('list',	array(
+										'fields' => array('Division.iddivision', 'Division.divison'))));	
+			$this->data = $this->Proyecto->read();
+		}
 			
 	}
 	
 	
-	/* function add_num 
+	/* function proyecto_asignar_num 
 	 * Con esta función agregamos el número de proyecto 
-	 * Se realiza una consulta a los proyectos que aun no poseen asignado su numero de proyecto */
-	
-	 /* metodo read($fields,$id)
-	  * $fields indica los campos que se van a leer (se pueden especificar en un array)
-	  * $id indica el id del elemento que será modificado */
-	  
-	 /* metodo save($id) 
-	  * $id indica el id del elemento que será guardado, si es uno que ya existe actualizará
-	  * sino existe lo creará */
+	 * Se realiza una consulta a los proyectos que aun no poseen asignado su numero de proyecto *
+	 * metodo read($fields,$id)
+	 * $fields indica los campos que se van a leer (se pueden especificar en un array)
+	 * $id indica el id del elemento que será modificado *
+	 * metodo save($id) 
+	 * $id indica el id del elemento que será guardado, si es uno que ya existe actualizará
+	 * sino existe lo creará */
 	
 	public function proyecto_asignar_num($id=null)
 	{
@@ -93,7 +96,7 @@
 				
 				if ($this->Proyecto->save($id)) 
 					{
-						$this->Session->setFlash('El número de proyecto ha sido asignado');
+						$this->Session->setFlash('El número de proyecto ha sido asignado','default',array('class'=>'success'));
 						$this->redirect(array('controller'=>'mains', 'action' => 'index'));
 		            }
 					else 

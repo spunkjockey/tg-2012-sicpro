@@ -17,6 +17,7 @@ class Proyecto extends AppModel {
 		            'rule'    => 'isUnique',
 		            'required' => true,
 	            	'allowEmpty' => false,
+	            	'on' => 'create',
 	            	'message' => 'Nombre de proyecto ya existe'
 	        		)
 				

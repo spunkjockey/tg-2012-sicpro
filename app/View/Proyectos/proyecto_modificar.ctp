@@ -53,27 +53,18 @@ $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Modificar proyecto</h2>
-		<?php echo $this->Form->create('Proyecto',array('action' => 'edit')); ?>
+		<?php echo $this->Form->create('Proyecto',array('action' => 'proyecto_modificar')); ?>
 		<ul>
-			<li>
-				<?php echo $this->Form->input('proyectos', 
-					array(
-						'label' => 'Seleccione proyecto:', 
-						'id' => 'selectproy',
-						'validationMessage' => 'Seleccione un proyecto')); ?>
-			</li>
-			<!-- -->
 			<li>
 				<?php echo $this->Form->input('nombreproyecto', 
 					array(
 						'label' => 'Nombre del proyecto:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre del proyecto', 
+						'class' => 'k-textbox',
 						'required', 
 						'validationMessage' => 'Ingrese Nombre de Proyecto')); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('divisions', 
+				<?php echo $this->Form->input('divisiones', 
 					array(
 						'label' => 'División responsable:', 
 						'id' => 'selectdiv',
@@ -84,12 +75,12 @@ $this->end(); ?>
 				<?php echo $this->Form->input('montoplaneado', 
 					array(
 						'label' => 'Monto planeado: ($)', 
-						'id' => 'monto',
+						'id' => 'montoplaneado',
 						'type' => 'text',
-						'placeholder' => 'Ingrese Monto',
 						'required',
 						'validationMessage' => 'Ingrese un monto planeado ($)')); ?>
 			</li>
+				<?php echo $this->Form->input('idproyecto')?>
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar proyecto', 'class' => 'k-button')); ?>
 			</li>
@@ -181,18 +172,14 @@ $this->end(); ?>
                         } 
                     });
                     
-                    $("#selectproy").kendoComboBox();
-					var combobox = $("#selectproy").data("kendoComboBox");
-                    combobox.list.width(400);
                     
                     $("#selectdiv").kendoComboBox();
                     var combobox = $("#selectdiv").data("kendoComboBox");
                     combobox.list.width(400);
                     
-                    $("#monto").kendoNumericTextBox({
+                    $("#montoplaneado").kendoNumericTextBox({
                         format: "c2",
                         decimals: 2,
-                        value: 0,
                         min: 0,
     					max: 999999999.99,
     					placeholder: "Ej. 10000",

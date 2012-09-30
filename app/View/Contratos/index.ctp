@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -49,3 +50,8 @@ $this->end(); ?>
 	</div>
 	
 <?php $this->end(); ?>
+=======
+<?php
+    
+?>
+>>>>>>> b61a2d267d2ed77e0c235c427a2a1fbbbb0b2e5c
