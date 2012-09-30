@@ -31,10 +31,7 @@
 	}
 $this->end(); ?>
 
-<<<<<<< HEAD
 
-=======
->>>>>>> b61a2d267d2ed77e0c235c427a2a1fbbbb0b2e5c
 <?php $this->start('breadcrumb'); ?>
 	
 	<div id="menuderastros">
@@ -47,19 +44,11 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-<<<<<<< HEAD
-			?> » Bienvenido a SICPRO
-			
-		</div>
-	</div>
-	
-=======
-			?> Contrato» Registrar orden de inicio
-			
-		</div>
-	</div>
->>>>>>> b61a2d267d2ed77e0c235c427a2a1fbbbb0b2e5c
+
+			?> » Contrato » Registrar orden de inicio
+		
 <?php $this->end(); ?>
+
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Agregar Orden de Inicio</h2>
