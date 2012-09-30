@@ -41,7 +41,7 @@ class AvanceprogramadosController extends AppController {
 		
 		$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
 		$this->set('_serialize', 'proyectos');
-		$this->render('/Financias/jsondata');
+		$this->render('/json/jsondata');
 		
 	}
 	
@@ -53,7 +53,7 @@ class AvanceprogramadosController extends AppController {
 		
 		$this->set('contratos', Hash::extract($contratos, "{n}.Contratoconstructor"));
 		$this->set('_serialize', 'contratos');
-		$this->render('/Financias/jsondatad');
+		$this->render('/json/jsondatad');
 	}
 
 	

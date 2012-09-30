@@ -59,13 +59,9 @@ $this->end(); ?>
 			<li>
 				<?php echo $this->Form->input('proyectos',
 					array(
-						'label' => 'Seleccione Proyecto:', 
-						'id' => 'select1',
-						//'selected' => '05',
-						
-						'required' 
-						, 
-						'validationMessage' => 'Seleccione Proyecto')); ?>
+						'label' => 'Proyectos:', 
+						'id' => 'proyectos'
+					)); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('contratos',
@@ -247,11 +243,18 @@ $this->end(); ?>
 		     spinners: false
 		 });
 		 
-		 $("#select1").kendoComboBox({
-			         filter: 'none',
-			         index: 0,
-			         suggest: true
-			    });
+		$("#proyectos").kendoDropDownList({
+		            			optionLabel: "Seleccione proyecto...",
+					            dataTextField: "numeroproyecto",
+					            dataValueField: "idproyecto",
+					            dataSource: {
+					                            type: "json",
+					                            transport: {
+					                                read: "/Estimacions/proyectojson.json"
+					                            }
+					                        }
+					        });
+
 		$("#select2").kendoComboBox({
 			         filter: 'none',
 			         index: 0,
