@@ -20,7 +20,8 @@ class EstimacionsController extends AppController {
 			  'conditions' => array('Proyecto.estadoproyecto' => 'Ejecucion'))));
 			  
 		$primer_proyecto = $this->Proyecto->find('first',
-		array('fields'=>'Proyecto.idproyecto','order'=>'Proyecto.numeroproyecto ASC'));
+		array('fields'=>'Proyecto.idproyecto','order'=>'Proyecto.numeroproyecto ASC',
+				'conditions' => array('Proyecto.estadoproyecto' => 'Ejecucion')));
 		
 		//Cargar el Segundo Combobox con los Contratos del primer proyecto
 		$this->set('contratos', $this->Contratoconstructor->find('list',
