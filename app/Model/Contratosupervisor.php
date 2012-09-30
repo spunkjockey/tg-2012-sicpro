@@ -1,6 +1,6 @@
 <?php
     class Contratosupervisor extends AppModel {
-        public $name = 'Contrato';
+        public $name = 'Contratosupervisor';
 		public $useTable = 'contratosupervisor';
 		public $primaryKey = 'idcontrato';
 		

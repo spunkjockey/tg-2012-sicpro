@@ -1,3 +1,4 @@
+
 <div class="navmenu" style="margin:0px auto; width: 970px">
 						<ul id="menu">
 							<li>Proyectos
@@ -62,9 +63,7 @@
 									</li>
 									<li>Estimaci&oacute;n de avance
 										<ul>
-											<li disabled="disabled">Registrar estimaci&oacute;n de avance</li>
-											<li disabled="disabled">Modificar estimaci&oacute;n de avance</li>
-											<li disabled="disabled">Eliminar estimaci&oacute;n de avance</li>
+											<li><?php echo $this->Html->link('Registrar estimación de avance', array('controller' => 'Estimacions','action'=>'index')); ?></li>
 											<li disabled="disabled">Consultar estimaci&oacute;n de avance</li>
 										</ul>
 									</li>	

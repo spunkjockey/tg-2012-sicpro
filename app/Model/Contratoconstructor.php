@@ -1,6 +1,6 @@
 <?php
     class Contratoconstructor extends AppModel {
-        public $name = 'Contrato';
+        public $name = 'Contratoconstructor';
 		public $useTable = 'contratoconstructor';
 		public $primaryKey = 'idcontrato';
 		
@@ -24,6 +24,7 @@
 				'isUnique' => array(
 		        'rule'    => 'isUnique',
 		            'allowEmpty' => false,
+		            'on'         => 'create',
 	            	'message' => 'Este código ya existe'
 	        		)
 				),
@@ -31,26 +32,31 @@
 				'montocon'=>array(
 					'rule' => array('decimal', 2),
 					'allowEmpty' => false,
+					'on'         => 'create',
 					'message' => 'Solo son permitidos números'
 				),
 				'anticipo'=>array(
 					'rule' => array('decimal', 2),
 					'allowEmpty' => false,
+					'on'         => 'create',
 					'message' => 'Solo son permitidos números'
 				),
 				'fechainicontrato' => array(
 					'rule'       => array('date', 'dmy'),
 				        'message'    => 'Enter a valid date in YY-MM-DD format.',
-				        'allowEmpty' => false
+				        'allowEmpty' => false,
+				       'on'         => 'create'
 				),
 				'fechafincontrato' => array(
 				        'rule'       => array('date', 'dmy'),
 				        'message'    => 'Enter a valid date in YY-MM-DD format.',
-				        'allowEmpty' => false
+				        'allowEmpty' => false,
+				        'on'         => 'create'
 				),
 				'plazoejecucion' => array(
 					'rule' => 'numeric',
 					'allowEmpty' => false,
+					'on'         => 'create',
 					'message' => 'Ingrese plazo de ejecución'
 				)
 			);

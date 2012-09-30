@@ -1,18 +1,68 @@
 <!-- File: /app/View/Estimacions/RegistrarEstimacion.ctp -->
+<?php $this->start('menu');
+	switch ($this->Session->read('User.idrol')) {
+		case 9:
+	        echo $this->element('menu/menu_all');
+	        break;
+	    case 8:
+	        echo $this->element('menu/menu_observer');
+	        break;
+	    case 7:
+	        echo $this->element('menu/menu_jefeplan');
+	        break;
+		case 6:
+	        echo $this->element('menu/menu_tecproy');
+	        break;
+	    case 5:
+	        echo $this->element('menu/menu_tecplan');
+	        break;
+	    case 4:
+	        echo $this->element('menu/menu_adminsys');
+	        break;
+		case 3:
+	        echo $this->element('menu/menu_admincon');
+	        break;
+	    case 2:
+	        echo $this->element('menu/menu_adminproy');
+	        break;
+	    case 1:
+	        echo $this->element('menu/menu_director');
+	        break;			
+	}
+$this->end(); ?>
 
+
+<?php $this->start('breadcrumb'); ?>
+	
+	<div id="menuderastros">
+		<div id="rastros">
+			
+			<?php
+			echo $this->Html->image("home.png", array(
+	    		"alt" => "Inicio",
+	    		'url' => array('controller' => 'mains'),
+				'width' => '30px',
+				'class' => 'homeimg'
+			));
+			?> » Bienvenido a SICPRO
+			
+		</div>
+	</div>
+	
+<?php $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Registrar Estimación de Avance</h2>
 		
-				<?php echo $this->Form->create('Estimacion', array('type' => 'file')); ?>
+		<?php echo $this->Form->create('Estimacion'); ?>
 		<ul>
 			<li>
 				<?php echo $this->Form->input('proyectos',
 					array(
 						'label' => 'Seleccione Proyecto:', 
-						'id' => 'select',
+						'id' => 'select1',
 						//'selected' => '05',
-						'empty' => 'Seleccione...', 
+						
 						'required' 
 						, 
 						'validationMessage' => 'Seleccione Proyecto')); ?>
@@ -23,7 +73,7 @@
 						'label' => 'Seleccione Contrato:', 
 						'id' => 'select2',
 						//'selected' => '05',
-						'empty' => 'Seleccione...', 
+						
 						'required' 
 						, 
 						'validationMessage' => 'Seleccione Contrato')); ?>
@@ -79,21 +129,27 @@
 						'type'  => 'Text'
 						 ) ); ?>
 			</li>
+			<div id='prueba'>
+				
+			</div>
 			<li  class="accept">
 				<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
-				<?php echo $this->Form->end(array('label' => 'Registrar Estimación', 'class' => 'k-button')); ?>
-			</li>
-			<li>
-				<?php 
-					echo $this->Form->input('Estimacion.submittedfile', array(
-					    'between' => '<br />',
-					    'type' => 'file'
-					));
-				?>
+				
+				
+<table border="0">
+<tr>
+<td><?php echo $this->Form->end(array('label' => 'Registrar Estimación', 'class' => 'k-button')); ?></td>
+
+</tr>
+</table>
+				<?php $options = array('url' => 'update_selectContrato1','update' => 'select2');
+				echo $this->ajax->observeField('select1',$options);?>
 				
 			</li>
+				
 			 <li class="status">
             </li>
+            
 		</ul>
 
 	</div>
@@ -175,27 +231,30 @@
 
 
 		$("#datePicker1").kendoDatePicker({
-		   format: "yyyy/MM/dd" //Define el formato de fecha
+		   culture: "es-ES",
+		   format: "dd/MM/yyyy"  //Define el formato de fecha
 		});
 		$("#datePicker2").kendoDatePicker({
-		   format: "yyyy/MM/dd" //Define el formato de fecha
+		   culture: "es-ES",
+		   format: "dd/MM/yyyy" //Define el formato de fecha
 		});
 		$("#datePicker3").kendoDatePicker({
-		   format: "yyyy/MM/dd" //Define el formato de fecha
+		   culture: "es-ES",
+		   format: "dd/MM/yyyy" //Define el formato de fecha
 		});
          $("#moneda").kendoNumericTextBox({
 		     format: "c2", //Define currency type and 2 digits precision
 		     spinners: false
 		 });
 		 
-		 $("#select").kendoComboBox({
-			         //placeholder: "Seleccionar...",
-			         //index: -1,
+		 $("#select1").kendoComboBox({
+			         filter: 'none',
+			         index: 0,
 			         suggest: true
 			    });
 		$("#select2").kendoComboBox({
-			         //placeholder: "Seleccionar...",
-			         //index: -1,
+			         filter: 'none',
+			         index: 0,
 			         suggest: true
 			    });
 			    $("#k-textbox2").kendoNumericTextBox({

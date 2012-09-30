@@ -1,51 +1,60 @@
 <?php
 class AvanceprogramadosController extends AppController {
     public $helpers = array('Html', 'Form', 'Session','Ajax');
-    public $components = array('Session');
+    public $components = array('Session','RequestHandler');
 	public $uses = array('Contratoconstructor','Proyecto','Avanceprogramado');
 	
 	public function index() {
 	    $this->layout = 'cyanspark';
 		
-		//Recuperar el numero de proyecto
-		$lProyectos = $this->Proyecto->find('all', array(
-			'fields'=>array('Proyecto.idproyecto','Proyecto.numeroproyecto'),
-			'order'=>'Proyecto.numeroproyecto ASC'//,
-			//'conditions'=>'Fuentefinanciamiento.idfuentefinanciamiento NOT IN (SELECT ff.idfuentefinanciamiento FROM financia AS ff WHERE ff.idproyecto='.$id['Proyecto']['idproyecto'].') 
-				//AND Fuentefinanciamiento.montodisponible <> 0'
-		));
-    	$this->set('proyectos', Set::combine($lProyectos, "{n}.Proyecto.idproyecto","{n}.Proyecto.numeroproyecto"));
 		
-		//Primer Id
-		$id = $this->Proyecto->find("first",array(
-			'fields' => array('Proyecto.idproyecto', 'Proyecto.numeroproyecto'),
+		
+		if ($this->request->is('post')) {
+				
+		
+			//Debugger::dump($this->request->data);
+			$this->Avanceprogramado->set('plazoejecuciondias', $this->request->data['Avanceprogramado']['plazoejecuciondias']);
+			$this->Avanceprogramado->set('porcentajeavfisicoprog', $this->request->data['Avanceprogramado']['porcentajeavfisicoprog']);
+			$this->Avanceprogramado->set('montoavfinancieroprog', $this->request->data['Avanceprogramado']['montoavfinancieroprog']);
+			$this->Avanceprogramado->set('fechaavance', $this->request->data['Avanceprogramado']['fechaavance']);
+			$this->Avanceprogramado->set('idcontrato', $this->request->data['Avanceprogramado']['idcontrato']);
+			$this->Avanceprogramado->set('userc', $this->Session->read('User.username'));
+		    if ($this->Avanceprogramado->save()) {
+            	$this->Session->setFlash('El Avance Programado ha sido agregado.','default',array('class'=>'success'));
+            	$this->redirect(array('action' => 'index'));
+        	} else {
+            	$this->Session->setFlash('No se pudo realizar el registro');
+        	}
+			
+			
+		}
+		
+		
+		
+    }
+	
+	public function proyectojson() {
+		$proyectos = $this->Contratoconstructor->find('all',array(
+			'fields' => array('DISTINCT Proyecto.idproyecto', 'Proyecto.numeroproyecto'),
 			'order' => array('Proyecto.numeroproyecto')
 		));
 		
+		$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
+		$this->set('_serialize', 'proyectos');
+		$this->render('/Financias/jsondata');
 		
-		//Recuperar los contratos asociados a dicho proyecto
-		$lContratos = $this->Contratoconstructor->find('all', array(
-			'fields'=>array('Contratoconstructor.idcontrato','Contratoconstructor.codigocontrato'),
-			'order'=>'Contratoconstructor.codigocontrato ASC',
-			'conditions'=>array('Contratoconstructor.idproyecto'=>$id['Proyecto']['idproyecto'])
+	}
+	
+	public function contratojson() {
+		$contratos = $this->Contratoconstructor->find('all',array(
+			'fields' => array('Contratoconstructor.idproyecto','Contratoconstructor.idcontrato', 'Contratoconstructor.codigocontrato'),
+			'order' => array('Contratoconstructor.codigocontrato')
 		));
 		
-		$this->set('contratos', Set::combine($lContratos, "{n}.Contratoconstructor.idcontrato","{n}.Contratoconstructor.codigocontrato"));
-        
-    }
+		$this->set('contratos', Hash::extract($contratos, "{n}.Contratoconstructor"));
+		$this->set('_serialize', 'contratos');
+		$this->render('/Financias/jsondatad');
+	}
 
-	function update_select()
-        {
-                if (!empty($this->data['Ubicacion']['departamentos']))
-                {
-                        $depto_id = $this->data['Ubicacion']['departamentos'];
-                        $municipios= $this->Municipio->find('all', array(
-	                        'fields'=>array('Municipio.idmunicipio','Municipio.municipio'),
-	                        'order'=>'Municipio.municipio ASC',
-	                        'conditions'=>array('Municipio.iddepartamento'=>$depto_id)));
-                }
-                $this->set('options', Set::combine($municipios, "{n}.Municipio.idmunicipio","{n}.Municipio.municipio"));
-                $this->render('/elements/update_select', 'ajax');
-        }
 	
 }

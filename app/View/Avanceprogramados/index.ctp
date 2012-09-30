@@ -62,21 +62,21 @@ $this->end(); ?>
 				<?php echo $this->Form->input('proyectos',
 					array(
 						'label' => 'Proyectos:', 
-						'id' => 'selectpro'
+						'id' => 'proyectos'
 					)); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('contratos',
+				<?php echo $this->Form->input('idcontrato',
 					array(
 						'label' => 'Contratos:', 
-						'id' => 'selectcon'
+						'id' => 'contratos'
 					)); ?>
 			</li>
 			<li>
 				<h3>Programación</h3>
 			</li>
 			<li>
-				<table border="0" style="margin-left: 50px">
+				<table id="tablat" border="0" style="margin-left: 50px">
 					<tr>
 						<td colspan="4" align="left"><a class="k-button"><span class="k-icon k-i-plus"></span>Agregar Avance</a></td>
 					</tr>
@@ -88,10 +88,34 @@ $this->end(); ?>
 					</tr>
 					
 					<tr align="center">
-						<td> <input type="text" class="k-textbox" name="Avanceprogramado.0.plazoejecuciondias" style="width:60px;margin:0" /> </td>
-						<td> <input type="text" id="fechaav0" name="Avanceprogramado.0.fechaavance"/> </td>
-						<td> <input type="text" class="k-textbox" id="porcenav0" name="Avanceprogramado.0.porcentajeavfisicoprog" style="width:60px;margin:0"/> </td>
-						<td> <input type="text" id="montoav0" name="Avanceprogramado.0.montoavfinancieroprog" style="width:100px;margin:0"/> </td>
+						<td> <?php echo $this->Form->input('plazoejecuciondias', array(
+								'label' => false,
+								'div' => false, 
+								'id' => 'plazoejecuciondias',
+								'class' => 'k-textbox',
+							)); ?> 
+						</td>
+						<td> <?php echo $this->Form->input('fechaavance', array(
+								'label' => false,
+								'div' => false,
+								'type' => 'text', 
+								'id' => 'fechaavance'
+							)); ?>  
+						</td>
+						<td> <?php echo $this->Form->input('porcentajeavfisicoprog', array(
+								'label' => false,
+								'div' => false, 
+								'id' => 'porcentajeavfisicoprog',
+								'class' => 'k-textbox'
+							)); ?> 
+						</td>
+						<td> <?php echo $this->Form->input('montoavfinancieroprog', array(
+								'label' => false,
+								'div' => false, 
+								'id' => 'montoavfinancieroprog',
+								'style' => 'width:70px;'
+							)); ?>
+						</td>
 						<td><a class="k-button"><span class="k-icon k-i-pencil"></span></a> <a class="k-button"><span class="k-icon k-i-close"></span></a></td>
 					</tr>
 
@@ -112,22 +136,17 @@ $this->end(); ?>
 			</li>
 		</ul>
 	</div>
-	<div id="window">
-    	Content of the Window
-        <?php echo $this->Html->link(
-        	'Detalles', 
-        	array('controller' => 'empresas', 'action' => 'view', 1),
-        	array('class'=>'k-button')
-		);?>
-	</div>
-	<button id="openButton" class="k-button">Open Window</button>
 </div>
 		
 			<style scoped>
 
                 .k-textbox {
-                    width: 11.8em;
+                    width: 70px;
                 }
+				
+				#tablat {
+					vertical-align: top;
+				}
 				
 				#formulario {
                     width: 600px;
@@ -213,27 +232,41 @@ $this->end(); ?>
                         } 
                     });
                     
-                    $("#selectpro").kendoComboBox({
-                    	highLightFirst: true,
-                    	filter: "contains"
-                    });
-                    
-                    $("#selectcon").kendoComboBox({
-                    	highLightFirst: true,
-                    	filter: "contains"
-                    });
-                    
-                    //var combobox = $("#selectpro").data("kendoComboBox");
-                    //combobox.list.width(400);
-                    
-                    //var combobox = $("#selectfufin").data("kendoComboBox");
-                    //combobox.list.width(400);
-                    $("#fechaav0").kendoDatePicker({
+					$("#proyectos").kendoDropDownList({
+            			optionLabel: "Seleccione proyecto...",
+			            dataTextField: "numeroproyecto",
+			            dataValueField: "idproyecto",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Avanceprogramados/proyectojson.json"
+			                            }
+			                        }
+			        });
+			        
+			        var proyectos = $("#proyectos").data("kendoDropDownList");
+			        
+			        var contratos = $("#contratos").kendoDropDownList({
+			                        autoBind: false,
+			                        cascadeFrom: "proyectos",
+			                        optionLabel: "Seleccione contrato...",
+			                        dataTextField: "codigocontrato",
+			                        dataValueField: "idcontrato",
+			                        dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Avanceprogramados/contratojson.json"
+			                            }
+			                        }
+			                    }).data("kendoDropDownList");
+			                   
+
+                    $("#fechaavance").kendoDatePicker({
 		   				culture: "es-ES",
 		   				format: "dd/MM/yyyy" //Define el formato de fecha
 					});
                     
-                    $("#montoav0").kendoNumericTextBox({
+                    $("#montoavfinancieroprog").kendoNumericTextBox({
                         format: "c",
                         decimals: 2,
                         min: 0,
@@ -242,37 +275,7 @@ $this->end(); ?>
     					spinners: false
                     });
                     
-                    $("#fechaav1").kendoDatePicker({
-                    	culture: "es-ES",
-		   				format: "dd/MM/yyyy" //Define el formato de fecha
-					});
-                    
-                    $("#montoav1").kendoNumericTextBox({
-                        format: "c",
-                        decimals: 2,
-                        min: 0,
-    					max: 999999999,
-    					placeholder: "Ej. 10000",
-    					spinners: false
-                    });
-                    
-
-    var win = $("#window").kendoWindow({
-	    draggable: false,
-	    modal: true,
-        title: "Centered Window",
-        visible: false
-    }).data("kendoWindow");
-
-$("#openButton").click(function(){
-    var win = $("#window").data("kendoWindow");
-    win.center();
-    win.open();
- });
-
-                    
-                    
-                
+  
                 });
                 
                 
