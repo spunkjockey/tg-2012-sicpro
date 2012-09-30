@@ -1,4 +1,3 @@
-<!-- File: /app/View/Orden de inicio/registrar_Orden de inicio.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -31,7 +30,6 @@
 	}
 $this->end(); ?>
 
-
 <?php $this->start('breadcrumb'); ?>
 	
 	<div id="menuderastros">
@@ -44,62 +42,79 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-
-			?> » Contrato » Registrar orden de inicio
-		
+			?> Control y seguimiento » Informe técnico » Registrar informe técnico 
+			
+		</div>
+	</div>
+	
 <?php $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Agregar Orden de Inicio</h2>
-		<?php echo $this->Form->create('Contrato'); ?>
+		<h2>Registrar informe técnico</h2>
+		<?php echo $this->Form->create('Contratosupervisor'); ?>
 		<ul>
-			
 			<li>
-                <?php echo $this->Form->input('contratos',
-					array(
-						'label' => 'Codigo de Contrato:', 
-						'id' => 'select',
-						//'selected' => '05',
-						'empty' => 'Seleccione...', 
-						'required', 
-						'validationMessage' => 'Seleccione Codigo de contrato')); ?>
+				<?php echo $this->Form->input('contratos',array(
+							'label' => 'Seleccione código de Contrato:', 
+							'id' => 'selectcon',
+							'required')); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('ordeninicio', 
+				Nombre proyecto: 
+			</li>
+			<li>
+				Descripción:
+			</li>
+			<li>
+				<?php echo $this->Form->input('fechainicontrato', 
 					array(
-						'label' => 'Orden de Inicio:', 
+						'label' => 'Fecha de visita:', 
 						'id'	=> 'datePicker1',
-						'type'  => 'Text'
-						/*'class' => 'k-textbox', 
-						'placeholder' => 'Fecha Disponibilidad', 
-						'required', 
-						'validationMessage' => 'Ingrese la Fecha de Disponibilidad')
-						 */) ); ?>
+						'type'  => 'Text')); ?>
 			</li>
-			<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
+			<li>
+				<?php echo $this->Form->input('antecedentes', 
+					array(
+						'label' => 'Antecedentes:', 
+						'class' => 'k-textbox', 
+						'rows' => 4, 
+						'placeholder' => 'Descripción de antecedentes')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('anotaciones', 
+					array(
+						'label' => 'Anotaciones:', 
+						'class' => 'k-textbox', 
+						'rows' => 4, 
+						'placeholder' => 'Observaciones de la visita')); ?>
+			</li>
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar Orden de Inicio', 'class' => 'k-button')); ?>
-				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
+				<?php echo $this->Form->end(array('label' => 'Registrar informe', 'class' => 'k-button')); ?>
 			</li>
-            
             <li class="status">
             </li>
+			
 		</ul>
-		
 	</div>
 </div>
 
-            <style scoped>
-
+<style scoped>
                 .k-textbox {
                     width: 300px;
                     margin-left: 5px;
                     
                 }
 				
-				
+				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 			
+                form .required label:after {
+					font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+					}
+                
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -144,14 +159,14 @@ $this->end(); ?>
                 }
 
                 .invalid {
-                    color: gray;
+                    color: red;
                 }
                 span.k-tooltip {
                     margin-left: 6px;
                 }
-            </style>
-            
-            <script>
+</style>
+			
+<script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
@@ -163,23 +178,19 @@ $this->end(); ?>
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
-
-
-		$("#datePicker1").kendoDatePicker({
-		   culture: "es-ES",
-		   format: "dd/MM/yyyy" //Define el formato de fecha
-		});
-         $("#moneda").kendoNumericTextBox({
-		     format: "c2", //Define currency type and 2 digits precision
-		     spinners: false
-		 });
-		 
-		 $("#select").kendoComboBox({
-			         //placeholder: "Seleccionar...",
-			         //index: -1,
-			         suggest: true
-			    });
-	         
-	                });
-            </script>
-            
+                
+				$("#selectcon").kendoComboBox({
+					index: 0,
+			        suggest: true,
+			        filter: 'none'
+				});
+				$("#datePicker1").kendoDatePicker({
+		   			format: "dd/MM/yyyy",
+		   			culture: "es-ES"
+		   		});
+				
+				
+				
+				});
+                
+</script>		
