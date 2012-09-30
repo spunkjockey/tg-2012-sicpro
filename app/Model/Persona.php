@@ -34,17 +34,13 @@
 	    		'message' => 'Por favor indique una dirección de correo electrónico válida.'
 				)),
 		'username' => array(
-			'between' => array(
-	        	'rule'    => array('between', 5, 15),
+				'rule'    => array('between', 5, 15),
 	            'message' => 'Nombre de usuario entre 5 y 20 caracteres',
-				'required' => true
-			)),
-		'password'=> array(
-			'between' => array(
-	        	'rule'    => array('between', 6, 20),
-	            'message' => 'Contrasena entre 6 y 20 caracteres',
-				'required' => true
-			)),
+			),
+		'password' => array(
+		        'rule'    => array('between', 6, 15),
+		        'message' => 'Passwords must be between 5 and 15 characters long.'
+		    ),
 		'plazas' => array(
 				'message' => 'Seleccione una plaza',
 				'required' => true
