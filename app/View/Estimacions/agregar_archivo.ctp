@@ -1,4 +1,4 @@
-<!-- File: /app/View/Fuentefinanciamientos/registrar_fuente.ctp -->
+<!-- File: /app/View/Estimacions/agregar_archivo.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -48,67 +48,18 @@ $this->end(); ?>
 			
 		</div>
 	</div>
-	
-<?php $this->end(); ?>
-<div id="example" class="k-content">
-	<div id="formulario">
-		<h2>Agregar Fuente Financiamiento</h2>
-		<?php echo $this->Form->create('Fuentefinanciamiento'); ?>
-		<ul>
 			<li>
-				<?php echo $this->Form->input('nombrefuente', 
-					array(
-						'label' => 'Nombre Fuente Financiamiento:',
-					
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre de fuente de financiamiento', 
-						'required', 
-						'validationMessage' => 'Ingrese Nombre de Fuente de Financiamiento')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('montoinicial', 
-					array(
-						'label' => 'Monto Inicial:',
-						'id'    => 'moneda',
-						'placeholder' => 'Monto Inicial', 
-						'validationMessage' => 'Ingrese el Monto Inicial')); ?>
-		</li>
-		
-			<li>
-				<?php echo $this->Form->input('fechadisponible', 
-					array(
-						'label' => 'Fecha Disponibilidad:', 
-						'id'	=> 'datePicker1',
-						'type'  => 'Text'
-						/*'class' => 'k-textbox', 
-						'placeholder' => 'Fecha Disponibilidad', 
-						'required', 
-						'validationMessage' => 'Ingrese la Fecha de Disponibilidad')
-						 */) ); ?>
-			</li>
-			
-			
-			
-			<li>
-                <?php echo $this->Form->input('tipofuentes',
-					array(
-						'label' => 'Tipo Fuente:', 
-						'id' => 'select',
-						//'selected' => '05',
-						'empty' => 'Seleccione...', 
-						'required', 
-						'validationMessage' => 'Seleccione Tipo de Fuente')); ?>
-			</li>
-			<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
-			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar Fuente', 'class' => 'k-button')); ?>
+				<h2>Cargar Archivos:</h2>
 				
+				<h3>Archivos a Agregar</h3>
+				<?php echo $this->Upload->edit('Estimacion', $this->request->data['Estimacion']['codigocontrato']); ?>
 			</li>
-            
-            <li class="status">
+			
+			 <li class="status">
             </li>
+            
 		</ul>
-		
+
 	</div>
 </div>
 
@@ -190,6 +141,12 @@ $this->end(); ?>
 		$("#datePicker1").kendoDatePicker({
 		   format: "yyyy/MM/dd" //Define el formato de fecha
 		});
+		$("#datePicker2").kendoDatePicker({
+		   format: "yyyy/MM/dd" //Define el formato de fecha
+		});
+		$("#datePicker3").kendoDatePicker({
+		   format: "yyyy/MM/dd" //Define el formato de fecha
+		});
          $("#moneda").kendoNumericTextBox({
 		     format: "c2", //Define currency type and 2 digits precision
 		     spinners: false
@@ -200,6 +157,17 @@ $this->end(); ?>
 			         //index: -1,
 			         suggest: true
 			    });
+		$("#select2").kendoComboBox({
+			         //placeholder: "Seleccionar...",
+			         //index: -1,
+			         suggest: true
+			    });
+			    $("#k-textbox2").kendoNumericTextBox({
+     format: "p",
+     value: 0.15 // 15 %
+ });
 	         
 	                });
             </script>
+			
+			
