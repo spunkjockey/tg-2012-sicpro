@@ -22,7 +22,6 @@ class ContratosController extends AppController {
 			$this->Contrato->set('modificacion', date('Y-m-d h:i:s'));
 			if($this->Contrato->save($id))
 			{
-            	Debugger::dump($this->request->data);
             	$this->Session->setFlash('La Orden de Inicio ha sido registrada.','default',array('class'=>'success'));
             	$this->redirect(array('action' => 'index'));
         	} 

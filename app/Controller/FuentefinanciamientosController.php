@@ -1,7 +1,8 @@
 <?php
 class FuentefinanciamientosController extends AppController {
-    public $helpers = array('Html', 'Form', 'Session');
-    public $components = array('Session');
+    public $helpers = array('Html', 'Form', 'Session','Ajax');
+    public $components = array('Session','RequestHandler');
+	public $uses = array('Fuentefinanciamiento','Tipofuente');
 	/*public $components = array(
     'Session',
     'Auth' => array(
@@ -16,11 +17,9 @@ class FuentefinanciamientosController extends AppController {
         $this->set('fuentefinanciamientos', $this->Fuentefinanciamiento->find('all'));
     }
 	
-	 public function add() {
+	 public function fuentefinanciamiento_registrarfuente() {
 		$this->layout = 'cyanspark';
-		$this->set('tipofuentes', $this->Fuentefinanciamiento->Tipofuente->find('list',
-		array ('fields'=> array ('id', 'tipofuente') ) ));
-		
+	
         if ($this->request->is('post')) {
         	
 			$this->Fuentefinanciamiento->set('nombrefuente', $this->request->data['Fuentefinanciamiento'] ['nombrefuente']);
@@ -37,7 +36,7 @@ class FuentefinanciamientosController extends AppController {
 		}
     }
 
-	function edit($id = null) {
+	function fuentefinanciamiento_modificarfuente($id = null) {
 		$this->layout = 'cyanspark';
 	    $this->Fuentefinanciamiento->id = $id;
 				
@@ -60,6 +59,18 @@ class FuentefinanciamientosController extends AppController {
             	$this->Session->setFlash('Imposible editar Fuente de Financiamiento');
         	}
 	    }
+	}
+	
+	public function fuentejson() {
+		$fuentes = $this->Tipofuente->find('all',array(
+			'fields' => array('Tipofuente.id', 'Tipofuente.tipofuente'),
+			'order' => array('Tipofuente.tipofuente')
+		));
+		
+		$this->set('tipofuentes', Hash::extract($fuentes, "{n}.Tipofuente"));
+		$this->set('_serialize', 'tipofuentes');
+		$this->render('/json/jsondatafuente');
+		
 	}
 	
 	function delete($id) {
