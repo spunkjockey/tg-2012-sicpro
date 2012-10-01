@@ -94,7 +94,7 @@ ol li .send { margin:16px 0 0 0;}
 
 /* Form errors */
 form .error {
-	background: #FFDACC;
+	/*background: #FFDACC;*/
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 	border-radius: 4px;

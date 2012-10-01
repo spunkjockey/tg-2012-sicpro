@@ -89,29 +89,26 @@ $this->end(); ?>
 					
 					<tr align="center">
 						<td> <?php echo $this->Form->input('plazoejecuciondias', array(
-								'label' => false,
-								'div' => false, 
+								'label' => false, 
 								'id' => 'plazoejecuciondias',
 								'class' => 'k-textbox',
 							)); ?> 
 						</td>
 						<td> <?php echo $this->Form->input('fechaavance', array(
 								'label' => false,
-								'div' => false,
 								'type' => 'text', 
 								'id' => 'fechaavance'
 							)); ?>  
 						</td>
 						<td> <?php echo $this->Form->input('porcentajeavfisicoprog', array(
 								'label' => false,
-								'div' => false, 
 								'id' => 'porcentajeavfisicoprog',
-								'class' => 'k-textbox'
+								'class' => 'k-textbox',
+								'type' => 'text'
 							)); ?> 
 						</td>
 						<td> <?php echo $this->Form->input('montoavfinancieroprog', array(
 								'label' => false,
-								'div' => false, 
 								'id' => 'montoavfinancieroprog',
 								'style' => 'width:70px;'
 							)); ?>
@@ -223,14 +220,6 @@ $this->end(); ?>
             
             <script>
                 $(document).ready(function() {
-                    var validator = $("#formulario").kendoValidator().data("kendoValidator"),
-                    status = $(".status");
-
-                    $("#button").click(function() {
-                        if (validator.validate()) {
-                        	save();  
-                        } 
-                    });
                     
 					$("#proyectos").kendoDropDownList({
             			optionLabel: "Seleccione proyecto...",
@@ -247,7 +236,7 @@ $this->end(); ?>
 			        var proyectos = $("#proyectos").data("kendoDropDownList");
 			        
 			        var contratos = $("#contratos").kendoDropDownList({
-			                        autoBind: false,
+			                        autoBind: true,
 			                        cascadeFrom: "proyectos",
 			                        optionLabel: "Seleccione contrato...",
 			                        dataTextField: "codigocontrato",

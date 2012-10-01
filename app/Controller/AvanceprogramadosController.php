@@ -7,12 +7,10 @@ class AvanceprogramadosController extends AppController {
 	public function index() {
 	    $this->layout = 'cyanspark';
 		
-		
-		
 		if ($this->request->is('post')) {
 				
-		
-			//Debugger::dump($this->request->data);
+			Debugger::dump($this->request->data);
+
 			$this->Avanceprogramado->set('plazoejecuciondias', $this->request->data['Avanceprogramado']['plazoejecuciondias']);
 			$this->Avanceprogramado->set('porcentajeavfisicoprog', $this->request->data['Avanceprogramado']['porcentajeavfisicoprog']);
 			$this->Avanceprogramado->set('montoavfinancieroprog', $this->request->data['Avanceprogramado']['montoavfinancieroprog']);
@@ -26,11 +24,7 @@ class AvanceprogramadosController extends AppController {
             	$this->Session->setFlash('No se pudo realizar el registro');
         	}
 			
-			
-		}
-		
-		
-		
+		}	
     }
 	
 	public function proyectojson() {

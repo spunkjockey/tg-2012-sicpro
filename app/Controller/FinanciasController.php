@@ -123,9 +123,40 @@ class FinanciasController extends AppController {
 		$this->layout = 'cyanspark';
 	}
 	
-	function jsondata() {
-		$proyectos = $this->Contratoconstructor->find('all',array(
+	function proyectojson() {
+		$proyectos = $this->Proyecto->find('all',array(
 			'fields' => array('DISTINCT Proyecto.idproyecto', 'Proyecto.nombreproyecto'),
+			'order' => array('Proyecto.nombreproyecto')
+		));
+		
+		$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
+		$this->set('_serialize', 'proyectos');
+		$this->render('/json/jsonproyecto');
+	}
+	
+	function fuentejson() {
+		$fuentes = $this->Financia->query('SELECT 
+  DISTINCT proyecto.idproyecto, 
+  fuentefinanciamiento.idfuentefinanciamiento, 
+  fuentefinanciamiento.nombrefuente
+FROM 
+  sicpro2012.proyecto, 
+  sicpro2012.fuentefinanciamiento, 
+  sicpro2012.financia
+WHERE
+  fuentefinanciamiento.montodisponible != 0 AND
+  proyecto.idproyecto != financia.idproyecto AND
+  fuentefinanciamiento.idfuentefinanciamiento != financia.idfuentefinanciamiento; ');
+				
+		$this->set('fuentes', Hash::extract($fuentes, "{n}.0"));
+		$this->set('_serialize', 'fuentes');
+		
+		$this->render('/json/jsonfinancia');
+	}
+	
+	function jsondata() {
+		$proyectos = $this->Proyecto->find('all',array(
+			'fields' => array('Proyecto.idproyecto', 'Proyecto.nombreproyecto'),
 			'order' => array('Proyecto.nombreproyecto')
 		));
 		
