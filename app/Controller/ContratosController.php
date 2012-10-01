@@ -1,7 +1,7 @@
 <?php
 class ContratosController extends AppController {
     public $helpers = array('Html', 'Form', 'Session');
-    public $components = array('Session');
+    public $components = array('Session','RequestHandler');
 	public $uses = array('Contrato','Contratoconstructor','Contratosupervisor');
 
     public function index() {
@@ -11,11 +11,7 @@ class ContratosController extends AppController {
 	
 	 public function addordeninicio() {
 		$this->layout = 'cyanspark';
-		$this->set('contratos', $this->Contrato->find('list',array(
-								'fields'=> array('Contrato.idcontrato', 'Contrato.codigocontrato'),
-								'conditions'=>array('Contrato.ordeninicio is null'),
-								'order'=>array('Contrato.codigocontrato')
-								)));
+		
 		
         if ($this->request->is('post')) 
         {
@@ -27,7 +23,7 @@ class ContratosController extends AppController {
 			if($this->Contrato->save($id))
 			{
             	Debugger::dump($this->request->data);
-            	$this->Session->setFlash('La Orden de Inicio ha sido registrada.');
+            	$this->Session->setFlash('La Orden de Inicio ha sido registrada.','default',array('class'=>'success'));
             	$this->redirect(array('action' => 'index'));
         	} 
         	else 
@@ -39,7 +35,17 @@ class ContratosController extends AppController {
 
         }
     
-
+	public function contratojson() {
+		$contratos = $this->Contrato->find('all',array(
+			'fields' => array('Contrato.idproyecto','Contrato.idcontrato', 'Contrato.codigocontrato'),
+			'conditions'=>array('Contrato.ordeninicio is null'),
+			'order' => array('Contrato.codigocontrato')
+		));
+		
+		$this->set('contratos', Hash::extract($contratos, "{n}.Contrato"));
+		$this->set('_serialize', 'contratos');
+		$this->render('/json/jsondatad');
+	}
 	
 	public function edit() {
 	    $this->layout = 'cyanspark';
@@ -75,6 +81,29 @@ class ContratosController extends AppController {
 	        $this->redirect(array('controller'=>'mains', 'action' => 'index'));
 	    }
 	}
+	
+		function update_infoinicio(){
+				 if (!empty($this->data['Contrato']['contratos']))
+		                {
+		                        //$contrato_id = $this->data['Estado']['contratos']['idcontrato'];
+								$contrato_id = $this->data['Contrato']['contratos'];
+		                        $contrato= $this->Contrato->find('first', array(
+			                        'fields'=>array(
+			                        'Contrato.nombrecontrato','Contrato.fechainiciocontrato','Contrato.fechafincontrato'),
+			                        'conditions'=>array('Contrato.idcontrato'=>$contrato_id)));
+						$this->set('informacion',$contrato);
+		                }
+				
+				 	
+				//Debugger::dump($contrato);
+				
+				/*$this->set('informacion', Set::combine($contrato,
+				"{s}.Contratoconstructor.nombrecontrato",
+				"{s}.Contratoconstructor.estadocontrato"
+				));*/		
+				$this->render('/elements/update_infoinicio', 'ajax');
+	}	
 }
+
 
 	

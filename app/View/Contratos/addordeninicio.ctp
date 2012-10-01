@@ -56,15 +56,15 @@ $this->end(); ?>
 		<ul>
 			
 			<li>
-                <?php echo $this->Form->input('contratos',
+				<?php echo $this->Form->input('contratos',
 					array(
-						'label' => 'Codigo de Contrato:', 
-						'id' => 'select',
-						//'selected' => '05',
-						'empty' => 'Seleccione...', 
-						'required', 
-						'validationMessage' => 'Seleccione Codigo de contrato')); ?>
+						'label' => 'Contratos:', 
+						'id' => 'contratos'
+					)); ?>
 			</li>
+			<div id='info_contrato'>
+				
+			</div>
 			<li>
 				<?php echo $this->Form->input('ordeninicio', 
 					array(
@@ -81,6 +81,12 @@ $this->end(); ?>
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar Orden de Inicio', 'class' => 'k-button')); ?>
 				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
+								<?php echo $this->ajax->observeField( 'contratos', 
+		    		array(
+		        		'url' => array( 'action' => 'update_infoinicio'),
+		        		'update' => 'info_contrato'
+		    		) 
+				);  ?>
 			</li>
             
             <li class="status">
@@ -174,11 +180,19 @@ $this->end(); ?>
 		     spinners: false
 		 });
 		 
-		 $("#select").kendoComboBox({
-			         //placeholder: "Seleccionar...",
-			         //index: -1,
-			         suggest: true
-			    });
+		 $("#contratos").kendoDropDownList({
+			                        		                        
+			                        optionLabel: "Seleccione contrato...",
+			                        dataTextField: "codigocontrato",
+			                        dataValueField: "idcontrato",
+			                        dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Contratos/contratojson.json"
+			                            }
+			                        }
+			                    })
+
 	         
 	                });
             </script>
