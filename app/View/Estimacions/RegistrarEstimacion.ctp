@@ -63,16 +63,12 @@ $this->end(); ?>
 						'id' => 'proyectos'
 					)); ?>
 			</li>
-			<li>
-				<?php echo $this->Form->input('contratos',
+				<li>
+				<?php echo $this->Form->input('idcontrato',
 					array(
-						'label' => 'Seleccione Contrato:', 
-						'id' => 'select2',
-						//'selected' => '05',
-						
-						'required' 
-						, 
-						'validationMessage' => 'Seleccione Contrato')); ?>
+						'label' => 'Contratos:', 
+						'id' => 'contratos'
+					)); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('tituloestimacion', 
@@ -255,16 +251,21 @@ $this->end(); ?>
 					                        }
 					        });
 
-		$("#select2").kendoComboBox({
-			         filter: 'none',
-			         index: 0,
-			         suggest: true
-			    });
-			    $("#k-textbox2").kendoNumericTextBox({
-     format: "p",
-     value: 0.15 // 15 %
- });
-	         
+		var proyectos = $("#proyectos").data("kendoDropDownList");
+			        
+			        var contratos = $("#contratos").kendoDropDownList({
+			                        autoBind: false,
+			                        cascadeFrom: "proyectos",
+			                        optionLabel: "Seleccione contrato...",
+			                        dataTextField: "codigocontrato",
+			                        dataValueField: "idcontrato",
+			                        dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Avanceprogramados/contratojson.json"
+			                            }
+			                        }
+			                    }).data("kendoDropDownList");
 	                });
             </script>
 			

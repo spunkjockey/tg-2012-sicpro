@@ -33,6 +33,22 @@ class Avanceprogramado extends AppModel {
 	        	'allowEmpty' => false,
 	            'message' => 'Ingrese un monto de avance'
 	        )
+		),
+		'fechaavance' => array(
+        	'date' => array(
+        		'rule'       => array('date', 'dmy'),
+	        	'required' => true,
+	        	'allowEmpty' => false,
+        		'message'    => 'Ingrese una fecha valida en formato DD-MM-YYYY.'
+			)
+        ),
+		'proyectos' => array(
+			'rule'    => 'notEmpty',
+        	'message' => 'Seleccione un proyecto'
+		),
+		'idcontrato' => array(
+			'rule'    => 'notEmpty',
+        	'message' => 'Seleccione un contrato'
 		)
-	);
+    );
 }

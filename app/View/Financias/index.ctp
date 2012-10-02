@@ -60,7 +60,7 @@ $this->end(); ?>
 				<?php echo $this->Form->input('proyectos',
 					array(
 						'label' => 'Proyectos:', 
-						'id' => 'selectpro'//,
+						'id' => 'proyectos'//,
 						//'empty'=>'Seleccione...'
 						)); ?>
 			</li>
@@ -69,7 +69,7 @@ $this->end(); ?>
 				<?php echo $this->Form->input('fuentes',
 					array(
 						'label' => 'Fuentes de financiamiento:', 
-						'id' => 'selectfufin',
+						'id' => 'fuentes',
 						//'empty'=>'Seleccione...'
 						)); ?>
 				</div>		
@@ -304,6 +304,39 @@ $this->end(); ?>
                     $("#selectfufin").kendoComboBox({
                     	index: 0
                     });
+                    
+                    
+                    
+                    $("#proyectos").kendoDropDownList({
+            			optionLabel: "Seleccione proyecto...",
+			            dataTextField: "nombreproyecto",
+			            dataValueField: "idproyecto",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Financias/proyectojson.json"
+			                            }
+			                        }
+			        });
+			        
+			        var proyectos = $("#proyectos").data("kendoDropDownList");
+			        proyectos.list.width(400);
+			        
+			        var fuentes = $("#fuentes").kendoDropDownList({
+			                        autoBind: true,
+			                        cascadeFrom: "proyectos",
+			                        optionLabel: "Seleccione fuente...",
+			                        dataTextField: "nombrefuente",
+			                        dataValueField: "idfuentefinanciamiento",
+			                        dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Financias/fuentejson.json"
+			                            }
+			                        }
+			                    }).data("kendoDropDownList");
+                    fuentes.list.width(400);
+                    
                     
                     var ddl1 = $("#selectpro").data("kendoDropDownList");
                     ddl1.list.width(400);

@@ -55,7 +55,7 @@ $this->end(); ?>
 <div style='margin:4px 0' >
 	<?php echo $this->Html->link(
 		'Registrar Fuente de Financiamiento', 
-		array('controller' => 'Fuentefinanciamientos', 'action' => 'add'),
+		array('controller' => 'Fuentefinanciamientos', 'action' => 'fuentefinanciamiento_registrarfuente'),
 		array('class'=>'k-button')
 	); ?>
 </div> 
@@ -79,7 +79,7 @@ $this->end(); ?>
         <td align="center">
             <?php echo $this->Html->link(
             	'Editar', 
-            	array('action' => 'edit', $fuente['Fuentefinanciamiento']['idfuentefinanciamiento']),
+            	array('action' => 'fuentefinanciamiento_modificarfuente', $fuente['Fuentefinanciamiento']['idfuentefinanciamiento']),
             	array('class'=>'k-button')
 			);?>
             <?php echo $this->Form->postLink(

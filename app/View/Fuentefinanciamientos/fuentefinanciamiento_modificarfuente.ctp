@@ -1,4 +1,4 @@
-<!-- File: /app/View/fuentefinanciamiento/edit.ctp -->
+<!-- File: /app/View/fuentefinanciamiento/modificarfuente.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -82,15 +82,12 @@ $this->end(); ?>
 						)); ?>
 			</li>
 			<li>
-				 <?php echo $this->Form->input('tipofuentes',
+                <?php echo $this->Form->input('tipofuentes',
 					array(
 						'label' => 'Tipo Fuente:', 
-						'id' => 'select',
-						//'selected' => '05',
-						'empty' => 'Seleccione...', 
-						'required', 
-						'validationMessage' => 'Seleccione Tipo de Fuente')); ?>
-			</li>	
+						'id' => 'fuentes',
+					)); ?>
+			</li>
 		
 		<li  class="accept">
 				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
@@ -189,11 +186,18 @@ $this->end(); ?>
 		     spinners: false
 		 });
 		 
-		$("#select").kendoComboBox({
-		//placeholder: "Seleccionar...",
-		//index: -1,
-		suggest: true
-			    });
+		$("#fuentes").kendoDropDownList({
+            			optionLabel: "Seleccione Tipo fuente...",
+			            dataTextField: "tipofuente",
+			            dataValueField: "id",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Fuentefinanciamientos/fuentejson.json"
+			                            }
+			                        }
+			        });
+	         
 	         
 	                });
             </script>

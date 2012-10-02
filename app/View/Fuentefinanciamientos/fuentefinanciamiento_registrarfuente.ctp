@@ -52,7 +52,7 @@ $this->end(); ?>
 <?php $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Agregar Fuente Financiamiento</h2>
+		<h2>Registrar Fuente Financiamiento</h2>
 		<?php echo $this->Form->create('Fuentefinanciamiento'); ?>
 		<ul>
 			<li>
@@ -86,18 +86,14 @@ $this->end(); ?>
 						'validationMessage' => 'Ingrese la Fecha de Disponibilidad')
 						 */) ); ?>
 			</li>
-			
-			
+		
 			
 			<li>
                 <?php echo $this->Form->input('tipofuentes',
 					array(
 						'label' => 'Tipo Fuente:', 
-						'id' => 'select',
-						//'selected' => '05',
-						'empty' => 'Seleccione...', 
-						'required', 
-						'validationMessage' => 'Seleccione Tipo de Fuente')); ?>
+						'id' => 'fuentes',
+					)); ?>
 			</li>
 			<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
 			<li  class="accept">
@@ -195,11 +191,17 @@ $this->end(); ?>
 		     spinners: false
 		 });
 		 
-		 $("#select").kendoComboBox({
-			         //placeholder: "Seleccionar...",
-			         //index: -1,
-			         suggest: true
-			    });
+		$("#fuentes").kendoDropDownList({
+            			optionLabel: "Seleccione Tipo fuente...",
+			            dataTextField: "tipofuente",
+			            dataValueField: "id",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Fuentefinanciamientos/fuentejson.json"
+			                            }
+			                        }
+			        });
 	         
 	                });
             </script>
