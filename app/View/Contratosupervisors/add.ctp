@@ -56,17 +56,17 @@ $this->end(); ?>
 		<?php echo $this->Form->create('Contratosupervisor'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('proys', 
+				<?php echo $this->Form->input('proyectos', 
 					array(
 						'label' => 'Seleccione proyecto:', 
-						'id' => 'selectproy',
+						'id' => 'proyectos',
 						'required')); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('contratos', 
 					array(
 						'label' => 'Contrato a supervisar:', 
-						'id' => 'selectcon',
+						'id' => 'contratos',
 						'required')); ?>
 			</li>
 			<li>
@@ -147,16 +147,14 @@ $this->end(); ?>
 				<?php echo $this->Form->input('empresas', 
 					array(
 						'label' => 'Seleccione empresa:', 
-						'id' => 'selectemp',
-						'empty' => 'Seleccione...',
+						'id' => 'empresas',
 						'required')); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('administradores', 
+				<?php echo $this->Form->input('admin', 
 					array(
 						'label' => 'Seleccione administrador:', 
-						'id' => 'selectadm',
-						'empty' => 'Seleccione...',
+						'id' => 'admin',
 						'required')); ?>
 			</li>
 			
@@ -284,19 +282,63 @@ $this->end(); ?>
 			        suggest: true,
 			        filter: 'none'
 				});
-				$("#selectemp").kendoComboBox();
-				$("#selectadm").kendoComboBox();
-				$("#selectcon").kendoComboBox({
-					index: 0,
-			        suggest: true,
-			        filter: 'none'
-				});
+				
+				$("#proyectos").kendoDropDownList({
+            			optionLabel: "Seleccione proyecto...",
+			            dataTextField: "numeroproyecto",
+			            dataValueField: "idproyecto",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Contratosupervisors/proyectojson.json"
+			                            }
+			                        }
+			        });
+			        var proyectos = $("#proyectos").data("kendoDropDownList");
+			        
+			    var contratos = $("#contratos").kendoDropDownList({
+			                        autoBind: false,
+			                        cascadeFrom: "proyectos",
+			                        optionLabel: "Seleccione contrato...",
+			                        dataTextField: "codigocontrato",
+			                        dataValueField: "idcontrato",
+			                        dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Contratosupervisors/contratojson.json"
+			                            }
+			                        }
+			                    }).data("kendoDropDownList");
+			        
+			    $("#empresas").kendoDropDownList({
+            			optionLabel: "Seleccione empresa...",
+			            dataTextField: "nombreempresa",
+			            dataValueField: "idempresa",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Contratoconstructors/empresajson.json"
+			                            }
+			                        }
+			        });
+			        var empresas = $("#empresas").data("kendoDropDownList");
+			    
+			    $("#admin").kendoDropDownList({
+            			optionLabel: "Seleccione administrador...",
+			            dataTextField: "nomcompleto",
+			            dataValueField: "idpersona",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Contratosupervisors/adminjson.json"
+			                            }
+			                        }
+			        });
+			        var admin = $("#admin").data("kendoDropDownList");
 				
 				$("#codigo").mask("999-9999");
 				
-				var combobox = $("#selectproy").data("kendoComboBox");
-                    combobox.list.width(400);
-				
+						
 				$("#datePicker1").kendoDatePicker({
 		   			format: "dd/MM/yyyy",
 		   			culture: "es-ES"

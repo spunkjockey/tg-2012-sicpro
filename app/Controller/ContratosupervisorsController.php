@@ -2,41 +2,19 @@
     class ContratosupervisorsController extends AppController 
     {
 	    public $helpers = array('Html', 'Form', 'Session','Ajax');
-	    public $components = array('Session');
+	    public $components = array('Session','RequestHandler');
 		public $uses = array('Contratoconstructor','Contrato','Proyecto','Empresa','Persona','Contratosupervisor');
 		
 		public function add()
 		{
 			$this->layout = 'cyanspark';
 			
-			//Recuperamos catalogos
-			//Empresa
-			$this->set('empresas',$this->Empresa->find('list',array(
-										'fields' => array('Empresa.idempresa', 'Empresa.nombreempresa'))));
-			//Personas									 
-			$adm = $this->Persona->query("SELECT personas.idpersona, (nombrespersona||' '||apellidospersona) AS nomcompleto FROM sicpro2012.persona AS personas;");
-			$this->set('administradores', Set::combine($adm, "{n}.0.idpersona","{n}.0.nomcompleto"));
-			
-			//Recuperamos proyectos
-			$this->set('proys',$this->Proyecto->find('list', array(
-										'fields'=> array('Proyecto.idproyecto','Proyecto.nombreproyecto'),
-										'conditions'=>array( "OR" => array('Proyecto.estadoproyecto' => array('Licitacion','Adjudicacion'))),
-										 'order' => array('Proyecto.nombreproyecto'))));
-			//id del primer proyecto									 
-			$primerproy = $this->Proyecto->find("first",array(
-										'fields' => array('Proyecto.idproyecto', 'Proyecto.nombreproyecto'),
-										'conditions'=>array( "OR" => array('Proyecto.estadoproyecto' => array('Licitacion','Adjudicacion'))),
-										'order' => array('Proyecto.nombreproyecto')));
-			
+			/*
 			//Contratos del primer proyecto listado
-			$con_cons=$this->Contratoconstructor->find('list',array(
-										'fields'=>array('Contratoconstructor.idcontrato','Contratoconstructor.codigocontrato'),
-										'conditions'=>array(('Contratoconstructor.idcontrato NOT IN (SELECT con_idcontrato FROM sicpro2012.contratosupervisor)'),
-														   ('Contratoconstructor.idproyecto='.$primerproy['Proyecto']['idproyecto']))
-										));
+			
 								
 			$this->set('contratos', Set::combine($con_cons, "{n}.Contratoconstructor.idcontrato","{n}.Contratoconstructor.codigocontrato"));
-			
+			*/
 			if($this->request->is('post'))
 			{
 				//Registro de contrato
@@ -99,21 +77,48 @@
 			
 		}
 
-		public function update_consuper()
+		public function proyectojson() 
 		{
-			if (!empty($this->data['Contratosupervisor']['proys']))
-                {
-                 		      	
-                        $proy_id = $this->data['Contratosupervisor']['proys'];
-						Debugger::dump($proy_id);
-                        $ccon= $this->Contratoconstructor->find('all', array(
-	                        			'fields'=>array('Contratoconstructor.idcontrato','Contratoconstructor.codigocontrato'),
-										'conditions'=>array(('Contratoconstructor.idcontrato NOT IN (SELECT con_idcontrato FROM sicpro2012.contratosupervisor)'),
-										 					('Contratoconstructor.idproyecto ='.$proy_id))));
-                }
-                $this->set('options', Set::combine($ccon, "{n}.Contratoconstructor.idcontrato","{n}.Contratoconstructor.codigocontrato"));
-                $this->render('/elements/update_consuper', 'ajax');
-				
+			$proyectos = $this->Proyecto->find('all', array(
+											'fields'=> array('Proyecto.idproyecto','Proyecto.numeroproyecto'),
+											'conditions'=>array( "OR" => array(
+															'Proyecto.estadoproyecto' => array('Licitacion','Adjudicacion','Ejecucion')))));
+			$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
+			$this->set('_serialize', 'proyectos');
+			$this->render('/json/jsondata');
 		}
+		
+		public function contratojson() 
+		{
+			$contratos = $this->Contratoconstructor->find('all',array(
+				'fields' => array('Contratoconstructor.idproyecto','Contratoconstructor.idcontrato', 'Contratoconstructor.codigocontrato'),
+				'conditions'=>array('Contratoconstructor.idcontrato NOT IN (SELECT con_idcontrato FROM sicpro2012.contratosupervisor)'),
+				'order' => array('Contratoconstructor.codigocontrato')
+			));
+			
+			$this->set('contratos', Hash::extract($contratos, "{n}.Contratoconstructor"));
+			$this->set('_serialize', 'contratos');
+			$this->render('/json/jsondatad');
+		}
+		
+		public function empresajson()
+	{
+		$empresas = $this->Empresa->find('all',array(
+										'fields' => array('Empresa.idempresa', 'Empresa.nombreempresa')));
+		$this->set('empresas', Hash::extract($empresas, "{n}.Empresa"));
+		$this->set('_serialize', 'empresas');
+		$this->render('/json/jsonempresa');								
+	}
+	
+	public function adminjson()
+	{
+		$admin = $this->Persona->query("SELECT personas.idpersona, (nombrespersona||' '||apellidospersona) AS nomcompleto FROM sicpro2012.persona AS personas;");
+		$this->set('admin', Hash::extract($admin,'{n}.0'));
+		$this->set('_serialize', 'admin');
+		$this->render('/json/jsonadmin');	
+		
+	}
+
+		
 	}
 ?>

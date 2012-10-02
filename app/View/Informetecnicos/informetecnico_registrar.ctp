@@ -52,13 +52,14 @@ $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Registrar informe técnico</h2>
-		<?php echo $this->Form->create('Contratosupervisor'); ?>
+		<?php echo $this->Form->create('Informetecnico'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('contratos',array(
+				<?php 
+					echo $this->Form->input('contratos', array(
 							'label' => 'Seleccione código de Contrato:', 
-							'id' => 'selectcon',
-							'required')); ?>
+							'id' => 'contratos'));
+				?>
 			</li>
 			<li>
 				Nombre proyecto: 
@@ -67,10 +68,17 @@ $this->end(); ?>
 				Descripción:
 			</li>
 			<li>
-				<?php echo $this->Form->input('fechainicontrato', 
+				<?php echo $this->Form->input('fechavisita', 
 					array(
 						'label' => 'Fecha de visita:', 
 						'id'	=> 'datePicker1',
+						'type'  => 'Text')); ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('fechaelab', 
+					array(
+						'label' => 'Fecha de elaboración:', 
+						'id'	=> 'datePicker2',
 						'type'  => 'Text')); ?>
 			</li>
 			<li>
@@ -179,12 +187,26 @@ $this->end(); ?>
                         }
                     });
                 
-				$("#selectcon").kendoComboBox({
-					index: 0,
-			        suggest: true,
-			        filter: 'none'
-				});
+				$("#contratos").kendoDropDownList({
+            			optionLabel: "Seleccione contrato...",
+			            dataTextField: "codigocontrato",
+			            dataValueField: "idcontrato",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Informetecnicos/contratojson.json"
+			                            }
+			                        }
+			        });
+			        
+			        var contratos = $("#contratos").data("kendoDropDownList");
+				
 				$("#datePicker1").kendoDatePicker({
+		   			format: "dd/MM/yyyy",
+		   			culture: "es-ES"
+		   		});
+		   		
+		   		$("#datePicker2").kendoDatePicker({
 		   			format: "dd/MM/yyyy",
 		   			culture: "es-ES"
 		   		});

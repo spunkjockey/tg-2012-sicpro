@@ -59,8 +59,7 @@ $this->end(); ?>
 				<?php echo $this->Form->input('proys', 
 					array(
 						'label' => 'Seleccione proyecto:', 
-						'id' => 'selectpro', 
-						'empty' => 'Seleccione...',
+						'id' => 'proys', 
 						'validationMessage' => 'Seleccione un proyecto')); ?>
 			</li>
 			<!-- -->
@@ -167,13 +166,19 @@ $this->end(); ?>
                         } 
                     });
                     
-                    $("#selectpro").kendoComboBox({
-                    	highLightFirst: true,
-                    	filter: "contains"
-                    });
-                    
-                    var combobox = $("#selectpro").data("kendoComboBox");
-                    combobox.list.width(400);
+                    $("#proys").kendoDropDownList({
+            			optionLabel: "Seleccione proyecto...",
+			            dataTextField: "nombreproyecto",
+			            dataValueField: "idproyecto",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Proyectos/proyectosjson.json"
+			                            }
+			                        }
+			        });
+			        
+			        var proys = $("#proys").data("kendoDropDownList");
                     
                     $("#numero").kendoNumericTextBox({
                         min: 000000,

@@ -64,12 +64,11 @@ $this->end(); ?>
 						'validationMessage' => 'Ingrese Nombre de Proyecto')); ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('divisions', 
+				<?php echo $this->Form->input('divisiones', 
 					array(
 						'label' => 'División:', 
-						'id' => 'selecto',
-						'empty' => 'Seleccione...',
-						'selected' => '05',
+						'id' => 'divisiones',
+						
 						'required')); ?>
 			</li>
 			<li>
@@ -174,9 +173,19 @@ $this->end(); ?>
                         }
                     });
                 
-				$("#selecto").kendoComboBox();
-				var combobox = $("#selecto").data("kendoComboBox");
-                    combobox.list.width(200);
+				$("#divisiones").kendoDropDownList({
+            			optionLabel: "Seleccione división...",
+			            dataTextField: "divison",
+			            dataValueField: "iddivision",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Proyectos/divisionjson.json"
+			                            }
+			                        }
+			        });
+			        
+			        var divisiones = $("#divisiones").data("kendoDropDownList");
 				
 				$("#txmonto").kendoNumericTextBox({
 				     min: 0,
