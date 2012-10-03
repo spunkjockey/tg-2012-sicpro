@@ -1,7 +1,10 @@
 <?php
 // app/Controller/UsersController.php
 class UsersController extends AppController {
-
+		public $helpers = array('Html', 'Form', 'Session');
+    	public $components = array('Session','RequestHandler');
+		public $uses = array('User','Rol');
+	
     public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('add', 'logout');
@@ -44,6 +47,14 @@ class UsersController extends AppController {
         }
         $this->set('user', $this->User->read(null, $id));
     }
+	
+	function user_index()
+	{
+		$this->layout = 'cyanspark';
+		$this->set('usuarios',$this->User->find('all',array(
+										'fields' => array('User.id','User.nombre','User.apellidos','User.username',
+														  'User.estado','Rol.rol'))));
+	}
 
     public function add() {
         $this->layout = 'cyanspark';

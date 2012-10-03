@@ -19,8 +19,8 @@
 			{
 				//Registro de contrato
 				$this->Contrato->create();
-				$this->Contrato->set('idproyecto', $this->request->data['Contratosupervisor']['proys']);
-				$this->Contrato->set('idpersona', $this->request->data['Contratosupervisor']['administradores']);
+				$this->Contrato->set('idproyecto', $this->request->data['Contratosupervisor']['proyectos']);
+				$this->Contrato->set('idpersona', $this->request->data['Contratosupervisor']['admin']);
 				$this->Contrato->set('idempresa', $this->request->data['Contratosupervisor']['empresas']);
 				$this->Contrato->set('codigocontrato', $this->request->data['Contratosupervisor']['codigocontrato']);
 				$this->Contrato->set('nombrecontrato', $this->request->data['Contratosupervisor']['nombrecontrato']);
@@ -31,13 +31,22 @@
 				$this->Contrato->set('detalleobras', $this->request->data['Contratosupervisor']['obras']);
 				$this->Contrato->set('tipocontrato', 'Supervisión de obras');
 				$this->Contrato->set('userc', $this->Session->read('User.username'));
-				
+				if (is_numeric($this->request->data['Contratosupervisor']['contratos'])) 
+					{
+						$this->Contrato->set('con_idcontrato', $this->request->data['Contratosupervisor']['contratos']);
+					} 
+					else 
+					{
+						$contratoid = $this->Contratoconstructor->findByCodigocontrato($this->request->data['Contratosupervisor']['contratos']);
+						$this->Contrato->set('con_idcontrato', $contratoid['Contratoconstructor']['idcontrato']);
+					}
+				//Guardar contrato
 				if ($this->Contrato->save()) 
 				{
 					//Registro en contratosupervisor
 					$this->Contratosupervisor->set('idcontrato',$this->Contrato->id);
-					$this->Contratosupervisor->set('idproyecto',$this->request->data['Contratosupervisor']['proys']);
-					$this->Contratosupervisor->set('idpersona', $this->request->data['Contratosupervisor']['administradores']);
+					$this->Contratosupervisor->set('idproyecto',$this->request->data['Contratosupervisor']['proyectos']);
+					$this->Contratosupervisor->set('idpersona', $this->request->data['Contratosupervisor']['admin']);
 					$this->Contratosupervisor->set('idempresa', $this->request->data['Contratosupervisor']['empresas']);
 					$this->Contratosupervisor->set('codigocontrato', $this->request->data['Contratosupervisor']['codigocontrato']);
 					$this->Contratosupervisor->set('nombrecontrato', $this->request->data['Contratosupervisor']['nombrecontrato']);
@@ -49,8 +58,7 @@
 					$this->Contratosupervisor->set('detalleobras', $this->request->data['Contratosupervisor']['obras']);
 					$this->Contratosupervisor->set('cantidadinformes', $this->request->data['Contratosupervisor']['cantinf']);
 					$this->Contratosupervisor->set('userc', $this->Session->read('User.username'));
-	                
-					if (is_numeric($this->request->data['Contratosupervisor']['contratos'])) 
+	                if (is_numeric($this->request->data['Contratosupervisor']['contratos'])) 
 					{
 						$this->Contratosupervisor->set('con_idcontrato', $this->request->data['Contratosupervisor']['contratos']);
 					} 
@@ -58,7 +66,8 @@
 					{
 						$contratoid = $this->Contratoconstructor->findByCodigocontrato($this->request->data['Contratosupervisor']['contratos']);
 						$this->Contratosupervisor->set('con_idcontrato', $contratoid['Contratoconstructor']['idcontrato']);
-					}	
+					}
+					//Guardar contratosupervisor	
 					if($this->Contratosupervisor->save($this->Contrato->id))
 					{
 						$this->Session->setFlash('Contrato supervisor ha sido registrado.','default',array('class'=>'success'));	

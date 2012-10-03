@@ -11,8 +11,8 @@
 			{
 				//Registro en contrato
 				$this->Contrato->create();
-				$this->Contrato->set('idproyecto', $this->request->data['Contratoconstructor']['proys']);
-				$this->Contrato->set('idpersona', $this->request->data['Contratoconstructor']['administradores']);
+				$this->Contrato->set('idproyecto', $this->request->data['Contratoconstructor']['proyectos']);
+				$this->Contrato->set('idpersona', $this->request->data['Contratoconstructor']['admin']);
 				$this->Contrato->set('idempresa', $this->request->data['Contratoconstructor']['empresas']);
 				$this->Contrato->set('codigocontrato', $this->request->data['Contratoconstructor']['codigocontrato']);
 				$this->Contrato->set('nombrecontrato', $this->request->data['Contratoconstructor']['nombrecontrato']);
@@ -29,8 +29,8 @@
 				{
 					//Registro en contrato constructor
 					$this->Contratoconstructor->set('idcontrato',$this->Contrato->id);
-					$this->Contratoconstructor->set('idproyecto',$this->request->data['Contratoconstructor']['proys']);
-					$this->Contratoconstructor->set('idpersona', $this->request->data['Contratoconstructor']['administradores']);
+					$this->Contratoconstructor->set('idproyecto',$this->request->data['Contratoconstructor']['proyectos']);
+					$this->Contratoconstructor->set('idpersona', $this->request->data['Contratoconstructor']['admin']);
 					$this->Contratoconstructor->set('idempresa', $this->request->data['Contratoconstructor']['empresas']);
 					$this->Contratoconstructor->set('codigocontrato', $this->request->data['Contratoconstructor']['codigocontrato']);
 					$this->Contratoconstructor->set('nombrecontrato', $this->request->data['Contratoconstructor']['nombrecontrato']);
