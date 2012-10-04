@@ -1,4 +1,3 @@
-<!-- File: /app/View/Proyectos/add.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -43,7 +42,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Proyecto » Registrar proyecto
+			?> Personas » Agregar usuario
 			
 		</div>
 	</div>
@@ -51,38 +50,64 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar proyecto</h2>
-		<?php echo $this->Form->create('Proyecto'); ?>
+		
+		<?php echo $this->Form->create('Persona',array('action' => 'persona_agregar_usuario')); ?>
 		<ul>
-			<li>
-				<?php echo $this->Form->input('nombreproyecto', 
-					array(
-						'label' => 'Nombre del proyecto:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre del proyecto', 
-						'required', 
-						'validationMessage' => 'Ingrese Nombre de Proyecto')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('divisiones', 
-					array(
-						'label' => 'División:', 
-						'id' => 'divisiones',
-						
-						'required')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('montoplaneado', 
-					array(
-						'label' => 'Monto planeado: ($)',
-						'class' => 'k-textbox',  
-						'id' => 'txmonto',
-						'placeholder' => 'Ingrese Monto',
-						'required',
-						'validationMessage' => 'Ingrese un monto planeado ($)')); ?>
-			</li>
+			
+				<h2>Agregar usuario a persona</h2>
+				<li>
+					<?php echo $this->Form->input('nombrespersona', 
+						array(
+							'label' => 'Nombres:', 
+							'class' => 'k-textbox', 
+							'placeholder' => 'Nombres de la persona', 
+							'required', 
+							'validationMessage' => 'Ingrese nombres de la persona')); ?>
+				</li>
+				<li>
+					<?php echo $this->Form->input('apellidospersona', 
+						array(
+							'label' => 'Apellidos:', 
+							'class' => 'k-textbox', 
+							'placeholder' => 'Apellidos de la persona', 
+							'required', 
+							'validationMessage' => 'Ingrese apellidos de la persona')); ?>
+				</li>
+				
+				<li>
+					<?php echo $this->Form->input('username', 
+						array(
+							'label' => 'Nombre de usuario:', 
+							'class' => 'k-textbox', 
+							'placeholder' => 'username', 
+							'required', 
+							'validationMessage' => 'Ingrese nombre de usuario')); ?>
+				</li>
+				<li>
+					<?php echo $this->Form->input('rol', 
+						array(
+							'label' => 'Rol:',
+							'id' => 'rol',
+							'required',
+							'validationMessage' => 'Seleccione un rol')); ?>
+				</li>
+				<li>
+					<?php echo $this->Form->input('password', 
+						array(
+							'label' => 'Contraseña:', 
+							'class' => 'k-textbox', 
+							'placeholder' => 'password', 
+							'required', 
+							'validationMessage' => 'Ingrese Contraseña')); ?>
+				</li>
+				<li>
+					<?php echo $this->Form->input('estado',
+						array('options' => array(0 => 'Deshabilitado', 1 => 'Habilitado'),
+							  'id' => 'selectedo')); ?>
+				</li>
+				<?php echo $this->Form->input('idpersona')?>
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar proyecto', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->end(array('label' => 'Registrar persona', 'class' => 'k-button')); ?>
 			</li>
             
             <li class="status">
@@ -172,32 +197,21 @@ $this->end(); ?>
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
-                
-				$("#divisiones").kendoDropDownList({
-            			optionLabel: "Seleccione división...",
-			            dataTextField: "divison",
-			            dataValueField: "iddivision",
+               
+				$("#rol").kendoDropDownList({
+            			optionLabel: "Seleccione rol...",
+			            dataTextField: "rol",
+			            dataValueField: "idrol",
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
-			                                read: "/Proyectos/divisionjson.json"
+			                                read: "/Personas/rolesjson.json"
 			                            }
 			                        }
 			        });
-			        
-			        var divisiones = $("#divisiones").data("kendoDropDownList");
+			        var rol = $("#rol").data("kendoDropDownList");
 				
-				$("#txmonto").kendoNumericTextBox({
-				     min: 0,
-				     max: 999999999.99,
-				     spinners: false,
-				     format: "c2",
-				     decimals: 2
-				 });
-
-
-				
-				
+				$("#selectedo").kendoDropDownList();
 				
 				});
                 

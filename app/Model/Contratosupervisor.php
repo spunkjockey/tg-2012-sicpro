@@ -54,5 +54,9 @@
 					'message' => 'Ingrese plazo de ejecución'
 				)
 			);
+			
+		
+    public $virtualFields = array('nomcompleto' => 'Persona.nombrespersona ||\' \'||Persona.apellidospersona');
+		
 	};
 ?>

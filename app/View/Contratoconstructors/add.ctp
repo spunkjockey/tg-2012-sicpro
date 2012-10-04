@@ -57,11 +57,10 @@ $this->end(); ?>
 		<?php echo $this->Form->create('Contratoconstructor'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('proys', 
+				<?php echo $this->Form->input('proyectos', 
 					array(
 						'label' => 'Seleccione proyecto:', 
-						'id' => 'selectproy',
-						'empty' => 'Seleccione...',
+						'id' => 'proyectos',
 						'required',
 						'validationMessage' => 'Seleccione un proyecto'
 						)); 
@@ -157,19 +156,17 @@ $this->end(); ?>
 				<?php echo $this->Form->input('empresas', 
 					array(
 						'label' => 'Seleccione empresa:', 
-						'id' => 'selectemp',
-						'empty' => 'Seleccione...',
+						'id' => 'empresas',
 						'required',
 						'validationMessage' => 'Seleccione una empresa'
 						));
 					?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('administradores', 
+				<?php echo $this->Form->input('admin', 
 					array(
 						'label' => 'Seleccione administrador:', 
-						'id' => 'selectadm',
-						'empty' => 'Seleccione...',
+						'id' => 'admin',
 						'required',
 						'validationMessage' => 'Seleccione un administrador'
 						)); 
@@ -291,17 +288,45 @@ $this->end(); ?>
     					spinners: false
                     });
                 
-				$("#selectproy").kendoComboBox();
-				var combobox = $("#selectproy").data("kendoComboBox");
-                    combobox.list.width(400);
+				$("#proyectos").kendoDropDownList({
+            			optionLabel: "Seleccione proyecto...",
+			            dataTextField: "numeroproyecto",
+			            dataValueField: "idproyecto",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Contratoconstructors/proyectojson.json"
+			                            }
+			                        }
+			        });
+			        var proyectos = $("#proyectos").data("kendoDropDownList");
+			        
+			    $("#empresas").kendoDropDownList({
+            			optionLabel: "Seleccione empresa...",
+			            dataTextField: "nombreempresa",
+			            dataValueField: "idempresa",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Contratoconstructors/empresajson.json"
+			                            }
+			                        }
+			        });
+			        var empresas = $("#empresas").data("kendoDropDownList");
+			    
+			    $("#admin").kendoDropDownList({
+            			optionLabel: "Seleccione administrador...",
+			            dataTextField: "nomcompleto",
+			            dataValueField: "idpersona",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Contratoconstructors/adminjson.json"
+			                            }
+			                        }
+			        });
+			        var admin = $("#admin").data("kendoDropDownList");
 				
-				$("#selectemp").kendoComboBox();
-				var combobox = $("#selectemp").data("kendoComboBox");
-                    combobox.list.width(400);
-				
-				$("#selectadm").kendoComboBox();
-				var combobox = $("#selectadm").data("kendoComboBox");
-                    combobox.list.width(400);
 				
 				$("#datePicker1").kendoDatePicker({
 		   			format: "dd/MM/yyyy",
