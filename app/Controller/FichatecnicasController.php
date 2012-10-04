@@ -1,7 +1,7 @@
 <?php
 class FichatecnicasController extends AppController {
-    public $helpers = array('Html', 'Form', 'Session');
-    public $components = array('Session');
+    public $helpers = array('Html', 'Form', 'Session','Ajax');
+    public $components = array('Session','RequestHandler');
 	public $uses = array('Proyecto','Fichatecnica','Ubicacion','Departamento','Municipio','Meta','Componente');
 	
 	
@@ -10,12 +10,11 @@ class FichatecnicasController extends AppController {
 
     }	
 	
-	public function add() {
+	public function fichatecnica_registrarficha() {
 		$this->layout = 'cyanspark';
-		$this->set('proyectos', $this->Fichatecnica->Proyecto->find('list',
-			array('fields' => array('Proyecto.idproyecto', 'Proyecto.nombreproyecto'),
-			'conditions' => 'Proyecto.idproyecto NOT IN (SELECT idproyecto FROM sicpro2012.fichatecnica);'
-		)));
+		
+
+		
         if ($this->request->is('post')) {
 				    // it validated logic
 				    
@@ -29,7 +28,7 @@ class FichatecnicasController extends AppController {
 					$this->Fichatecnica->set('resultadosesperados', $this->request->data['Fichatecnica']['resultadosesperados']);
 					$this->Fichatecnica->set('userc', $this->request->data['Fichatecnica']['userc']);					
 				    if ($this->Fichatecnica->save()) {
-		            	$this->Session->setFlash('La Ficha Tecnica ha sido registrada.','default',array('class'=>'mensajeexito'));
+		            	$this->Session->setFlash('La Ficha Tecnica ha sido registrada.','default',array('class'=>'success'));
 		            	//$this->redirect(array('controller' => 'fichatecnicas','action' => 'add'));
 		            	$this->redirect(array('controller' => 'fichatecnicas','action' => 'view',$this->Fichatecnica->id
 						));
@@ -55,4 +54,25 @@ class FichatecnicasController extends AppController {
 			));			
 		}
     }
+	
+	
+	public function proyectojson() {
+		
+		
+		/*$proyectos = $this->Fichatecnica->Proyecto->find('list',
+			array('fields' => array('Proyecto.idproyecto', 'Proyecto.nombreproyecto'),
+			'conditions' => 'Proyecto.idproyecto NOT IN (SELECT idproyecto FROM sicpro2012.fichatecnica);'
+		));*/
+		
+		$proyectos = $this->Proyecto->find('all',array(
+			'fields' => array('DISTINCT Proyecto.idproyecto', 'Proyecto.nombreproyecto'),
+			'conditions' => 'Proyecto.idproyecto NOT IN (SELECT idproyecto FROM sicpro2012.fichatecnica)',
+			'order' => array('Proyecto.nombreproyecto')
+		));
+		
+		$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
+		$this->set('_serialize', 'proyectos');
+		$this->render('/json/jsondata');
+		
+	}
 }

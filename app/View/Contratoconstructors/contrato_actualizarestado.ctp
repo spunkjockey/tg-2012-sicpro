@@ -43,7 +43,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO
+			?> » Bienvenido a SICPRO » Actualizar Estado Contrato
 			
 		</div>
 	</div>
@@ -57,35 +57,25 @@ $this->end(); ?>
 			<li>
 				<?php echo $this->Form->input('proyectos',
 					array(
-						'label' => 'Proyecto:', 
-						'id' => 'select1', 
-						'required', 
-						'validationMessage' => 'Seleccione Proyecto')); ?>
+						'label' => 'Proyectos:', 
+						'id' => 'proyectos'
+					)); ?>
 			</li>
-
 			<li>
 				<?php echo $this->Form->input('contratos',
 					array(
-						'label' => 'Contrato:', 
-						'id' => 'select2', 
-						'required', 
-						'validationMessage' => 'Seleccione Contrato')); ?>
+						'label' => 'Contratos:', 
+						'id' => 'contratos'
+					)); ?>
 			</li>
 			<div id="info_contrato">
 					<!--Con ajax se llena el contenido con la informacion del contrato seleccionado-->
-				<?php 
-					if(isset($infocontrato)){
-					foreach ($infocontrato as $infx): ?>
-					<p><strong class:'etiqueta'>Nombre Contrato: </strong> <?php echo $infx['nombrecontrato']; ?></p>
-					<p><strong class:'etiqueta'>Estado Actual: </strong><?php echo $infx['estadocontrato']; ?></p>
-					<?php endforeach; 
-				}?>
+
 
 			</div>
 			<br><br>
-			<li><?php $options = array('cancelado' => 'Cancelado','pausado' => 'Pausado','finalizado' => 'Finalizado');
-					$attributes = array('legend' => 'Estado de Proyecto','separator'=>'<br />','required'=>true);
-					echo $this->Form->radio('Estados', $options, $attributes); ?>
+			<li id='opcionesact'>
+				
 			</li>
 			<li  class="accept">
 				<div id='divdiv'>
@@ -93,20 +83,18 @@ $this->end(); ?>
 
 				<!--<?php echo $this->Form->input('userm', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>-->
 				<?php echo $this->Form->end(array('label' => 'Actualizar Estado', 'class' => 'k-button')); ?>
-				<?php $options = array('url' => 'update_selectContrato','update' => 'select2');
-				echo $this->ajax->observeField('select1',$options);?>
 				
-				<?php echo $this->ajax->observeField( 'select2', 
+			
+				<?php echo $this->ajax->observeField( 'contratos', 
 		    		array(
 		        		'url' => array( 'action' => 'update_infocontrato'),
 		        		'update' => 'info_contrato'
 		    		) 
 				);  ?>
-				
-				<?php echo $this->ajax->observeField( 'select1', 
+				<?php echo $this->ajax->observeField( 'contratos', 
 		    		array(
-		        		'url' => array( 'action' => 'update_infocontrato'),
-		        		'update' => 'info_contrato'
+		        		'url' => array( 'action' => 'update_opcionesactualizar'),
+		        		'update' => 'opcionesact'
 		    		) 
 				);  ?>
 
@@ -198,17 +186,33 @@ $this->end(); ?>
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
-                });
+                $("#proyectos").kendoDropDownList({
+            			optionLabel: "Seleccione proyecto...",
+			            dataTextField: "numeroproyecto",
+			            dataValueField: "idproyecto",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Contratoconstructors/proyectoejecjson.json"
+			                            }
+			                        }
+			        });
+  
                 
-                $("#select1").kendoDropDownList({
-			         //placeholder: "Seleccionar...",
-			         suggest: true,
-			         editable: false,
-			         filter: 'none'
-			    });
-			    $("#select2").kendoDropDownList({
-			         //placeholder: "Seleccionar...",
-			         suggest: true,
-			         filter: 'none'
-			    });
+			    var proyectos = $("#proyectos").data("kendoDropDownList");
+			        
+			    var contratos = $("#contratos").kendoDropDownList({
+			                        autoBind: true,
+			                        cascadeFrom: "proyectos",
+			                        optionLabel: "Seleccione contrato...",
+			                        dataTextField: "codigocontrato",
+			                        dataValueField: "idcontrato",
+			                        dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Contratoconstructors/contratojson.json"
+			                            }
+			                        }
+			    }).data("kendoDropDownList");
+			});
 </script>

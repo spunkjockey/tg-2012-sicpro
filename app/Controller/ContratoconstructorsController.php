@@ -74,6 +74,17 @@
 			$this->set('_serialize', 'proyectos');
 			$this->render('/json/jsondata');
 		}
+
+	public function proyectoejecjson() 
+		{
+			$proyectos = $this->Proyecto->find('all', array(
+											'fields'=> array('Proyecto.idproyecto','Proyecto.numeroproyecto'),
+											'conditions'=>array( 
+															'Proyecto.estadoproyecto' => 'Ejecucion')));
+			$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
+			$this->set('_serialize', 'proyectos');
+			$this->render('/json/jsondata');
+		}
 		
 	public function empresajson()
 	{
@@ -93,24 +104,33 @@
 		
 	}
 
-	
+	public function contratojson() {
+		$contratos = $this->Contratoconstructor->find('all',array(
+			'fields' => array('Contratoconstructor.idproyecto','Contratoconstructor.idcontrato', 'Contratoconstructor.codigocontrato'),
+			'order' => array('Contratoconstructor.codigocontrato')
+		));
+		
+		$this->set('contratos', Hash::extract($contratos, "{n}.Contratoconstructor"));
+		$this->set('_serialize', 'contratos');
+		$this->render('/json/jsondatad');
+	}
 
 	public function contrato_actualizarestado(){
 		$this->layout = 'cyanspark';
 		//Cargar el primero Combobox con los Proyectos
-		$this->set('proyectos',$this->Proyecto->find('list', 
+		/*$this->set('proyectos',$this->Proyecto->find('list', 
 		array('fields'=>array('Proyecto.idproyecto','Proyecto.numeroproyecto'),
 			  'order'=>'Proyecto.numeroproyecto ASC')));
-			  
+		*/	  
 		$primer_proyecto = $this->Proyecto->find('first',
 		array('fields'=>'Proyecto.idproyecto','order'=>'Proyecto.numeroproyecto ASC'));
 		
 		//Cargar el Segundo Combobox con los Contratos del primer proyecto
-		$this->set('contratos', $this->Contratoconstructor->find('list',
+		/*$this->set('contratos', $this->Contratoconstructor->find('list',
 		array('fields'=>array('Contratoconstructor.idcontrato','Contratoconstructor.codigocontrato'),'order'=>'Contratoconstructor.codigocontrato ASC',
 		'conditions'=>'Contratoconstructor.idproyecto='.$primer_proyecto['Proyecto']['idproyecto'])
 		));
-		
+		*/
 		$this->set('infocontrato', $this->Contratoconstructor->find('first',
 		array('fields'=>array(
 		'Contratoconstructor.idcontrato',
@@ -146,34 +166,23 @@
 			}
 		
 	}
-
-	function update_selectContrato()
-        {
-                if (!empty($this->data['Estado']['proyectos']))
-                {
-                        $proyecto_id = $this->data['Estado']['proyectos'];
-                        $contratos= $this->Contrato->find('all', array(
-	                        'fields'=>array('Contrato.idcontrato','Contrato.codigocontrato'),
-	                        'order'=>'Contrato.codigocontrato ASC',
-	                        'conditions'=>array('Contrato.idproyecto'=>$proyecto_id)));
-                }
-                $this->set('options', Set::combine($contratos, "{n}.Contrato.idcontrato","{n}.Contrato.codigocontrato"));
-                $this->render('/elements/update_selectContrato', 'ajax');
-        }
-		
 		
 	function update_infocontrato(){
 				 if (!empty($this->data['Estado']['contratos']))
 		                {
 		                        //$contrato_id = $this->data['Estado']['contratos']['idcontrato'];
-								$contrato_id = $this->Contratoconstructor->findByCodigocontrato($this->data['Estado']['contratos']);
+								$contrato_id = $this->request->data['Estado']['contratos'];
 		                        $contrato= $this->Contratoconstructor->find('first', array(
 			                        'fields'=>array(
 			                        'Contratoconstructor.nombrecontrato','Contratoconstructor.estadocontrato'),
-			                        'conditions'=>array('Contratoconstructor.idcontrato'=>$contrato_id['Contratoconstructor']['idcontrato'])));
+			                        'conditions'=>array('Contratoconstructor.idcontrato'=>$contrato_id)));
 						$this->set('informacion',$contrato);
+								/*$this->set('informacion', Set::combine($contrato,
+									"{s}.Contratoconstructor.nombrecontrato",
+									"{s}.Contratoconstructor.estadocontrato"
+									));*/		
 		                }
-				 else{
+		/*		 else{
 				 	
 					$primer_proyecto = $this->data['Estado']['proyectos'];			
 					$this->set('informacion', $this->Contratoconstructor->find('first',
@@ -183,14 +192,24 @@
 					'conditions'=>'Contratoconstructor.idproyecto='.$primer_proyecto)
 					));
 				 	
-				 }
+				 }*/
 						//Debugger::dump($contrato);
 				
-				/*$this->set('informacion', Set::combine($contrato,
-				"{s}.Contratoconstructor.nombrecontrato",
-				"{s}.Contratoconstructor.estadocontrato"
-				));*/		
+
 				$this->render('/elements/update_infocontrato', 'ajax');
 	}	
+
+	function update_opcionesactualizar(){
+				 if (!empty($this->data['Estado']['contratos']))
+		                {
+		                        //$contrato_id = $this->data['Estado']['contratos']['idcontrato'];
+								$contrato_id = $this->request->data['Estado']['contratos'];
+		                        $contrato= $this->Contratoconstructor->find('first', array(
+			                        'fields'=>array('Contratoconstructor.estadocontrato'),
+			                        'conditions'=>array('Contratoconstructor.idcontrato'=>$contrato_id)));
+						$this->set('informacion',$contrato);
+					$this->render('/elements/update_opcionesactualizar', 'ajax');
+					}
+	}
 	
 }

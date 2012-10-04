@@ -87,7 +87,6 @@ $this->end(); ?>
 				<?php echo $this->Form->input('Meta.1.userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
 				<?php echo $this->Form->input('Meta.2.userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>-->
 				<?php echo $this->Form->end(array('label' => 'Registrar Componente', 'class' => 'k-button')); ?>
-				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
 				<?php echo $this->Html->link(
 					'Regresar', 
 					array('controller' => 'Fichatecnicas', 'action' => 'view',$idfichatecnica),
