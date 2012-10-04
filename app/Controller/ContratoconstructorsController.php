@@ -196,7 +196,7 @@
 						//Debugger::dump($contrato);
 				
 
-				$this->render('/elements/update_infocontrato', 'ajax');
+				$this->render('/Elements/update_infocontrato', 'ajax');
 	}	
 
 	function update_opcionesactualizar(){
@@ -208,7 +208,7 @@
 			                        'fields'=>array('Contratoconstructor.estadocontrato'),
 			                        'conditions'=>array('Contratoconstructor.idcontrato'=>$contrato_id)));
 						$this->set('informacion',$contrato);
-					$this->render('/elements/update_opcionesactualizar', 'ajax');
+					$this->render('/Elements/update_opcionesactualizar', 'ajax');
 					}
 	}
 	

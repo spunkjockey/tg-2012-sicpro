@@ -112,7 +112,7 @@ class AvanceprogramadosController extends AppController {
 		
 		
 		
-		$this->render('/elements/update_avanceprog', 'ajax');
+		$this->render('/Elements/update_avanceprog', 'ajax');
 	}
 	
 }
