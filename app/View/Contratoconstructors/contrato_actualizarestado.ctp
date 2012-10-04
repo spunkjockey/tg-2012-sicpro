@@ -60,6 +60,7 @@ $this->end(); ?>
 						'label' => 'Proyectos:', 
 						'id' => 'proyectos'
 					)); ?>
+					<div id="error1" class="error-message"></div>
 			</li>
 			<li>
 				<?php echo $this->Form->input('contratos',
@@ -67,6 +68,7 @@ $this->end(); ?>
 						'label' => 'Contratos:', 
 						'id' => 'contratos'
 					)); ?>
+					<div id="error2" class="error-message"></div>
 			</li>
 			<div id="info_contrato">
 					<!--Con ajax se llena el contenido con la informacion del contrato seleccionado-->
@@ -214,5 +216,31 @@ $this->end(); ?>
 			                            }
 			                        }
 			    }).data("kendoDropDownList");
+			    
+			     $('#error1').hide();
+				 $('#error2').hide();
+                    $("#EstadoContratoActualizarestadoForm").submit( function(){
+				        var selectpro = $("#proyectos").val();
+				        var selectcon = $("#contratos").val();
+				 			$('#error1').hide();
+				 			$('#error2').hide();
+				            if(selectpro == ""){
+				            	$('#error1').show();
+				                $('#error1').text("Seleccione un Proyecto");
+				                
+				                return false;
+				            } else if(selectcon == ""){
+				            	$('#error2').show();
+				                $('#error2').text("Seleccione un Contrato");
+				                
+				                return false;
+				            } else {
+				                $('.error-message').hide();
+				                /*alert('Ok!');*/
+				                return true;
+				            }
+				    });
+				    
+				   
 			});
 </script>

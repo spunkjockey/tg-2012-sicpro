@@ -183,11 +183,23 @@ p.error,
 }
 .success {
 	clear: both;
-	color: black;
+	color: white;
+	font-weight: bold;
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, .45);
+	/*color: black;
 	border: 1px solid rgba(0, 0, 0, 0.5);
-	background: #A9FCB0;
+	background: #A9FCB0;*/
+	background-color: #4D7730;
+	
 	background-repeat: repeat-x;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#76BF6B), to(#3B8230));
+	
+	background-image: -webkit-linear-gradient(top,#74A446 0,#4D7730 45px);
+	background-image: -webkit-linear-gradient(to bottom,#74A446 0,#4D7730 45px);
+	background-image: -moz-linear-gradient(top,#74A446 0,#4D7730 45px);
+	background-image: -ms-linear-gradient(top,#74A446 0,#4D7730 45px);
+	background-image: -o-linear-gradient(top,#74A446 0,#4D7730 45px);
+	
+	/*background-image: -webkit-gradient(linear, left top, left bottom, from(#76BF6B), to(#3B8230));
 	background-image: -webkit-linear-gradient(top, #76BF6B, #3B8230);
 	background-image: -moz-linear-gradient(top, #76BF6B, #3B8230);
 	background-image: -ms-linear-gradient(top, #76BF6B, #3B8230);

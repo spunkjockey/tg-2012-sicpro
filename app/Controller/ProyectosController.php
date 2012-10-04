@@ -9,7 +9,7 @@
 		if ($this->request->is('post')) 
 			{
                 $this->Proyecto->set('nombreproyecto', $this->request->data['Proyecto']['nombreproyecto']);
-				$this->Proyecto->set('iddivision', $this->request->data['Proyecto']['divisions']);
+				$this->Proyecto->set('iddivision', $this->request->data['Proyecto']['divisiones']);
 				$this->Proyecto->set('montoplaneado', $this->request->data['Proyecto']['montoplaneado']);
 				$this->Proyecto->set('userc', $this->Session->read('User.username'));
 				$this->Proyecto->set('estadoproyecto', 'Formulacion');

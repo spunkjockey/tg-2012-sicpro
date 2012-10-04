@@ -1,6 +1,6 @@
 <?php
     class ContratoconstructorsController extends AppController {
-	    public $helpers = array('Html', 'Form', 'Session','ajax');
+	    public $helpers = array('Html', 'Form', 'Session','Ajax');
 	    public $components = array('Session','RequestHandler');
 		public $uses = array('Contratoconstructor','Contrato','Proyecto','Empresa','Persona');
 		
@@ -145,7 +145,9 @@
 		
 		if($this->request->is('post'))
 			{
-				if (is_numeric($this->request->data['Estado']['contratos'])) {
+				
+				
+			if (is_numeric($this->request->data['Estado']['contratos'])) {
 				$id=$this->request->data['Estado']['contratos'];	
 				} else {
 					$contrato = $this->Contratoconstructor->findByCodigocontrato($this->request->data['Estado']['contratos']);
@@ -153,7 +155,7 @@
 				}
 
 				$this->Contratoconstructor->read(null, $id);
-				$this->Contratoconstructor->set('estadocontrato', $this->request->data['Estado']['Estados']);	
+				$this->Contratoconstructor->set('estadocontrato', $this->request->data['Estados']);	
 				$this->Contratoconstructor->set('userm', $this->Session->read('User.username'));		
 				$this->Contratoconstructor->set('modificacion', date('Y-m-d h:i:s'));
 				Debugger::dump($this->request->data);
