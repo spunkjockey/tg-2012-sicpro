@@ -1,4 +1,4 @@
-<!-- File: /app/View/Financias/index.ctp -->
+<!-- File: /app/View/Avanceprogramados/avanceprogramado_editaravance.ctp -->
 
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
@@ -44,7 +44,9 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Proyectos » Asignación de Fondos
+			?> » Control y Seguimiento 
+			» Programación de Avances 
+			» Editar Avance Programado
 			
 		</div>
 	</div>
@@ -53,42 +55,45 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Asignación de Fondos</h2>
-		<?php echo $this->Form->create('Financia'); ?>
+		<h2>Editar programación de Avance</h2>
+		<?php echo $this->Form->create('Avanceprogramado'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('proyectos',
-					array(
-						'label' => 'Proyectos:', 
-						'id' => 'proyectos'//,
-						//'empty'=>'Seleccione...'
-						)); ?>
-				<div id="error1" class="error-message"></div>
+				<?php echo $this->Form->input('plazoejecuciondias', array(
+								'label' => 'Plazo de Ejecución', 
+								'id' => 'plazoejecuciondias',
+								'class' => 'k-textbox',
+							)); ?> 
 			</li>
 			<li>
-				
-				<?php echo $this->Form->input('fuentes',
-					array(
-						'label' => 'Fuentes de financiamiento:', 
-						'id' => 'fuentes',
-						//'empty'=>'Seleccione...'
-						)); ?>
-				<div id="error2" class="error-message"></div>		
+				<?php echo $this->Form->input('fechaavance', array(
+								'label' => 'Fecha de Avance',
+								'type' => 'text', 
+								'id' => 'fechaavance'
+							)); ?>  
 			</li>
-			<li> 
-				<?php echo $this->Form->input('montoparcial',
-					array(
-						'label' => 'Monto:', 
-						'id' => 'monto', 
-						'type' => 'text',
-						'maxlength' => 12)); ?>
-				
+			<li>
+				<?php echo $this->Form->input('porcentajeavfisicoprog', array(
+								'label' => 'Avance Físico',
+								'id' => 'porcentajeavfisicoprog',
+								'class' => 'k-textbox',
+								'type' => 'text'
+							)); ?> 
 			</li>
+			<li>
+				<?php echo $this->Form->input('montoavfinancieroprog', array(
+								'label' => 'Monto Avance',
+								'id' => 'montoavfinancieroprog',
+								'style' => 'width:70px;'
+							)); ?>
+						
+						<!--<td><a class="k-button"><span class="k-icon k-i-pencil"></span></a> <a class="k-button"><span class="k-icon k-i-close"></span></a></td>-->
+			</li>	
 			<li  class="accept">
 				<table>
 					<tr>
 						<td>
-							<?php echo $this->Form->end(array('label' => 'Asignar Fuente', 'class' => 'k-button', 'id' => 'button')); ?>
+							<?php echo $this->Form->end(array('label' => 'Editar Avance', 'class' => 'k-button', 'id' => 'button')); ?>
 						</td>
 						<td>
 							<?php echo $this->Html->link('Cancelar',array('controller' => 'Mains', 'action' => 'index'),array('class'=>'k-button')); ?>
@@ -97,40 +102,20 @@ $this->end(); ?>
 				</table>
 			</li>
 		</ul>
-		
-		<div id='tablafinancia'>
-			<div id='divdos'>	
-			</div> 			
-		</div>
-		
-
-
-		<?php echo $this->ajax->observeField( 'proyectos', 
-    		array(
-        		'url' => array( 'action' => 'update_tablafinancia'),
-        		'update' => 'tablafinancia'
-    		) 
-		); ?>
-		
-		<?php echo $this->ajax->observeField( 'fuentes', 
-    		array(
-        		'url' => array( 'action' => 'update_disponible'),
-        		'update' => 'divdos'
-    		) 
-		);  ?>
-
-
-				
 	</div>
 </div>
-
-            <style scoped>
+		
+			<style scoped>
 
                 .k-textbox {
-                    width: 11.8em;
+                    width: 70px;
                 }
 				
-				#formulario #divdos{
+				#tablat {
+					vertical-align: top;
+				}
+				
+				#formulario {
                     width: 600px;
                     margin: 15px 0;
                     padding: 10px 20px 20px 0px;
@@ -200,100 +185,47 @@ $this->end(); ?>
                 span.k-tooltip {
                     margin-left: 6px;
                 }
-                
-                #tablafinancia {
-                    width: 600px;
-                    margin: 15px 0;
-                    padding: 10px 20px 20px 0px;
-                }
+
             </style>
             
             <script>
                 $(document).ready(function() {
-                    var validator = $("#formulario").kendoValidator().data("kendoValidator"),
-                    status = $(".status");
-
-                    $("#button").click(function() {
-                        if (validator.validate()) {
-                        	save();  
-                        } 
-                    });
                     
-                    $('#error1').hide();
-				 	$('#error2').hide();
-                    $("#FinanciaIndexForm").submit( function(){
-				        var selectpro = $("#proyectos").val();
-				        var selectfue = $("#fuentes").val();
-				 			$('#error1').hide();
-				 			$('#error2').hide();
-				            if(selectpro == ""){
-				            	$('#error1').show();
-				                $('#error1').text("Seleccione un Proyecto");
-				                
-				                return false;
-				            } else if(selectfue == ""){
-				            	$('#error2').show();
-				                $('#error2').text("Seleccione una Fuente de Financiamiento");
-				                
-				                return false;
-				            } else {
-				                $('.error-message').hide();
-				                /*alert('Ok!');*/
-				                return true;
-				            }
-				    });
-                    
-                    
-                    $("#selectpro").kendoDropDownList({
-                    	index: 0
-                    });
-                    
-                    $("#selectfufin").kendoComboBox({
-                    	index: 0
-                    });
-                    
-                    
-                    
-                    $("#proyectos").kendoDropDownList({
+					$("#proyectos").kendoDropDownList({
             			optionLabel: "Seleccione proyecto...",
-			            dataTextField: "nombreproyecto",
+			            dataTextField: "numeroproyecto",
 			            dataValueField: "idproyecto",
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
-			                                read: "/Financias/proyectojson.json"
+			                                read: "/Avanceprogramados/proyectojson.json"
 			                            }
 			                        }
 			        });
 			        
 			        var proyectos = $("#proyectos").data("kendoDropDownList");
-			        proyectos.list.width(400);
 			        
-			        var fuentes = $("#fuentes").kendoDropDownList({
+			        var contratos = $("#contratos").kendoDropDownList({
 			                        autoBind: true,
 			                        cascadeFrom: "proyectos",
-			                        optionLabel: "Seleccione fuente...",
-			                        dataTextField: "nombrefuente",
-			                        dataValueField: "idfuentefinanciamiento",
+			                        optionLabel: "Seleccione contrato...",
+			                        dataTextField: "codigocontrato",
+			                        dataValueField: "idcontrato",
 			                        dataSource: {
 			                            type: "json",
 			                            transport: {
-			                                read: "/Financias/fuentejson.json"
+			                                read: "/Avanceprogramados/contratojson.json"
 			                            }
 			                        }
 			                    }).data("kendoDropDownList");
-                    fuentes.list.width(400);
+			                   
+
+                    $("#fechaavance").kendoDatePicker({
+		   				culture: "es-ES",
+		   				format: "dd/MM/yyyy" //Define el formato de fecha
+					});
                     
-                    
-                    var ddl1 = $("#selectpro").data("kendoDropDownList");
-                    ddl1.list.width(400);
-                    ddl1.refresh();
-                    
-                    var ddl2 = $("#selectfufin").data("kendoComboBox");
-                    ddl2.list.width(400);
-                    ddl2.refresh();
-                    
-                    $("#monto").kendoNumericTextBox({
+                    $("#montoavfinancieroprog").kendoNumericTextBox({
                         format: "c",
                         decimals: 2,
                         min: 0,
@@ -301,7 +233,23 @@ $this->end(); ?>
     					placeholder: "Ej. 10000",
     					spinners: false
                     });
-                
+                    
+  					$("#AvanceprogramadoIndexForm").submit( function(){
+				        var selectpro = $("#proyectos").val();
+				        var selectfue = $("#contratos").val();
+				 			
+				            if(selectpro == ""){
+				                $('#error1').text("Seleccione un Proyecto");
+				                return false;
+				            } else if(selectfue == ""){
+				                $('#error2').text("Seleccione un Contrato");
+				                return false;
+				            } else {
+				                $('.error-message').hide();
+				                alert('Ok!');
+				                return true;
+				            }
+				    });
                 });
                 
                 

@@ -123,7 +123,7 @@ class ContratosController extends AppController {
 				"{s}.Contratoconstructor.nombrecontrato",
 				"{s}.Contratoconstructor.estadocontrato"
 				));*/		
-				$this->render('/elements/update_infoinicio', 'ajax');
+				$this->render('/Elements/update_infoinicio', 'ajax');
 	}	
 }
 

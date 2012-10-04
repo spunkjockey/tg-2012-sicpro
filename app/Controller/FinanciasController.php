@@ -6,40 +6,6 @@ class FinanciasController extends AppController {
 	
 	public function index() {
 		$this->layout = 'cyanspark';
-		//Llenando el combobox de proyectos
-		$this->set('proyectos', $this->Financia->Proyecto->find('list',array(
-			'fields' => array('Proyecto.idproyecto', 'Proyecto.nombreproyecto'),
-			'order' => array('Proyecto.nombreproyecto')
-		)));
-		
-		//Obteniendo el ID del primer proyecto
-		$id = $this->Proyecto->find("first",array(
-			'fields' => array('Proyecto.idproyecto', 'Proyecto.nombreproyecto'),
-			'order' => array('Proyecto.nombreproyecto')
-		));
-		
-		//Llenando el segundo combobox en base al primero
-		$listadoFuentes = $this->Fuentefinanciamiento->find('all', array(
-			'fields'=>array('Fuentefinanciamiento.idfuentefinanciamiento','Fuentefinanciamiento.nombrefuente'),
-			'order'=>'nombrefuente ASC',
-			'conditions'=>'Fuentefinanciamiento.idfuentefinanciamiento NOT IN (SELECT ff.idfuentefinanciamiento FROM financia AS ff WHERE ff.idproyecto='.$id['Proyecto']['idproyecto'].') 
-				AND Fuentefinanciamiento.montodisponible <> 0'
-		));
-        $this->set('fuentes', Set::combine($listadoFuentes, "{n}.Fuentefinanciamiento.idfuentefinanciamiento","{n}.Fuentefinanciamiento.nombrefuente"));	
-			
-		//recuperando primer id de las fuentes
-		$idff = $this->Fuentefinanciamiento->find("first",array(
-			//'fields' => array('Proyecto.idproyecto', 'Proyecto.nombreproyecto'),
-			'order' => array('Fuentefinanciamiento.nombrefuente ASC'),
-			'conditions'=>'Fuentefinanciamiento.idfuentefinanciamiento NOT IN (SELECT ff.idfuentefinanciamiento FROM financia AS ff WHERE ff.idproyecto='.$id['Proyecto']['idproyecto'].')'
-		));
-		
-		//Llenado de tablas de la parte detalle de proyecto
-		$this->set('proyecto', $this->Proyecto->findByIdproyecto($id['Proyecto']['idproyecto']));
-	    $this->set('dproyectos', $this->Financia->findAllByIdproyecto($id['Proyecto']['idproyecto']));
-	    
-		//Seteando Monto Disponible
-		$this->set('disponible',$idff['Fuentefinanciamiento']['montodisponible']);
 		
 		//Logica de inserción
 		if ($this->request->is('post')) {
@@ -64,45 +30,18 @@ class FinanciasController extends AppController {
 		
 	}
 
-	function update_fuentefinanciamiento() {
-		
-		
-		if(!empty($this->data['Financia']['proyectos'])) {
-        		
-        	$id = $this->data['Financia']['proyectos'];
-			$listadoFuentes = $this->Fuentefinanciamiento->find('all', array(
-				'fields'=>array('Fuentefinanciamiento.idfuentefinanciamiento','Fuentefinanciamiento.nombrefuente'),
-				'order'=>'nombrefuente ASC',
-				'conditions'=>'Fuentefinanciamiento.idfuentefinanciamiento NOT IN (SELECT ff.idfuentefinanciamiento FROM financia AS ff WHERE ff.idproyecto='.$id.') AND Fuentefinanciamiento.montodisponible <> 0'
-			));
-        	
-		}
-		
-		$this->set('fuentes', Set::combine($listadoFuentes, "{n}.Fuentefinanciamiento.idfuentefinanciamiento","{n}.Fuentefinanciamiento.nombrefuente"));
-		$this->render('/elements/update_fuentefinanciamiento', 'ajax');
-	}
-
 
 	function update_tablafinancia() {
 		if (!empty($this->data['Financia']['proyectos'])) {
 			
 			$proyectos_id = $this->data['Financia']['proyectos'];
-				
-			$idff = $this->Fuentefinanciamiento->find('first', array(
-				'order'=>'nombrefuente ASC',
-				'conditions'=>'Fuentefinanciamiento.idfuentefinanciamiento NOT IN (SELECT ff.idfuentefinanciamiento FROM financia AS ff WHERE ff.idproyecto='.$proyectos_id.') AND Fuentefinanciamiento.montodisponible <> 0'
-			));
-			$this->set('disponible',$idff['Fuentefinanciamiento']['montodisponible']);
-		
         	
 			$this->set('proyecto', $this->Proyecto->query("SELECT * FROM sicpro2012.proyecto AS Proyecto WHERE Proyecto.idproyecto=$proyectos_id;"));
 			$this->set('proyectos', $this->Financia->findAllByIdproyecto($proyectos_id));
 		}
 		
-		$this->render('/elements/update_tablafinancia', 'ajax');
-		
-		
-		
+		$this->render('/Elements/update_tablafinancia', 'ajax');
+
 	}
 
 
@@ -115,7 +54,7 @@ class FinanciasController extends AppController {
 		}
 			
 		$this->set('disponible',$idff['Fuentefinanciamiento']['montodisponible']);
-		$this->render('/elements/update_disponible', 'ajax');
+		$this->render('/Elements/update_disponible', 'ajax');
 	}
 	
 	
@@ -124,29 +63,51 @@ class FinanciasController extends AppController {
 	}
 	
 	function proyectojson() {
-		$proyectos = $this->Proyecto->find('all',array(
-			'fields' => array('DISTINCT Proyecto.idproyecto', 'Proyecto.nombreproyecto'),
-			'order' => array('Proyecto.nombreproyecto')
-		));
-		
-		$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
+		$proyectos = $this->Financia->query('SELECT 
+  DISTINCT proyecto.idproyecto, 
+  proyecto.nombreproyecto
+FROM
+  sicpro2012.proyecto, 
+  sicpro2012.fuentefinanciamiento
+WHERE 
+  (proyecto.idproyecto, fuentefinanciamiento.idfuentefinanciamiento) NOT IN (
+    SELECT 
+      financia.idproyecto, 
+      financia.idfuentefinanciamiento
+    FROM 
+      sicpro2012.financia, 
+      sicpro2012.proyecto, 
+      sicpro2012.fuentefinanciamiento
+    WHERE 
+      proyecto.idproyecto = financia.idproyecto AND
+      fuentefinanciamiento.idfuentefinanciamiento = financia.idfuentefinanciamiento);');
+				
+		$this->set('proyectos', Hash::extract($proyectos, "{n}.0"));
 		$this->set('_serialize', 'proyectos');
+			
 		$this->render('/json/jsonproyecto');
 	}
 	
 	function fuentejson() {
 		$fuentes = $this->Financia->query('SELECT 
-  DISTINCT proyecto.idproyecto, 
+  proyecto.idproyecto, 
   fuentefinanciamiento.idfuentefinanciamiento, 
   fuentefinanciamiento.nombrefuente
-FROM 
+FROM
   sicpro2012.proyecto, 
-  sicpro2012.fuentefinanciamiento, 
-  sicpro2012.financia
-WHERE
-  fuentefinanciamiento.montodisponible != 0 AND
-  proyecto.idproyecto != financia.idproyecto AND
-  fuentefinanciamiento.idfuentefinanciamiento != financia.idfuentefinanciamiento; ');
+  sicpro2012.fuentefinanciamiento
+WHERE 
+  (proyecto.idproyecto, fuentefinanciamiento.idfuentefinanciamiento) NOT IN (
+    SELECT 
+      financia.idproyecto, 
+      financia.idfuentefinanciamiento
+    FROM 
+      sicpro2012.financia, 
+      sicpro2012.proyecto, 
+      sicpro2012.fuentefinanciamiento
+    WHERE 
+      proyecto.idproyecto = financia.idproyecto AND
+      fuentefinanciamiento.idfuentefinanciamiento = financia.idfuentefinanciamiento);');
 				
 		$this->set('fuentes', Hash::extract($fuentes, "{n}.0"));
 		$this->set('_serialize', 'fuentes');

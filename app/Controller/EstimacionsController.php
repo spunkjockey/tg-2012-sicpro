@@ -81,7 +81,7 @@ public function proyectojson() {
 	                        'conditions'=>array('Contrato.idproyecto'=>$proyecto_id)));
                 }
                 $this->set('options', Set::combine($contratos, "{n}.Contrato.idcontrato","{n}.Contrato.codigocontrato"));
-                $this->render('/elements/update_selectContrato1', 'ajax');
+                $this->render('/Elements/update_selectContrato1', 'ajax');
         }
 		
 

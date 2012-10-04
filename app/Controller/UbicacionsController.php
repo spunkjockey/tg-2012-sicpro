@@ -61,6 +61,6 @@ class UbicacionsController extends AppController {
 	                        'conditions'=>array('Municipio.iddepartamento'=>$depto_id)));
                 }
                 $this->set('options', Set::combine($municipios, "{n}.Municipio.idmunicipio","{n}.Municipio.municipio"));
-                $this->render('/elements/update_select', 'ajax');
+                $this->render('/Elements/update_select', 'ajax');
         }
 }

@@ -55,23 +55,19 @@
 									</li>
 									<li>Informe de supervisi&oacute;n
 										<ul>
-											<li disabled="disabled">Registrar informe supervisi&oacute;n</li>
-											<li disabled="disabled">Modificar informe supervisi&oacute;n</li>
-											<li disabled="disabled">Eliminar informe supervisi&oacute;n</li>
+											<li disabled="disabled">Informe supervisi&oacute;n</li>
 											<li disabled="disabled">Consultar informe supervisi&oacute;n</li>
 										</ul>
 									</li>
 									<li>Estimaci&oacute;n de avance
 										<ul>
-											<li><?php echo $this->Html->link('Registrar estimación de avance', array('controller' => 'Estimacions','action'=>'index')); ?></li>
+											<li><?php echo $this->Html->link('Estimación de Avance', array('controller' => 'Estimacions','action'=>'index')); ?></li>
 											<li disabled="disabled">Consultar estimaci&oacute;n de avance</li>
 										</ul>
 									</li>	
 									<li>Informe t&eacute;cnico
 										<ul>
-											<li><?php echo $this->Html->link('Registrar informe técnico', array('controller' => 'Informetecnicos','action'=>'informetecnico_registrar')); ?></li>
-											<li disabled="disabled">Modificar informe t&eacute;cnico</li>
-											<li disabled="disabled">Eliminar informe t&eacute;cnico</li>
+											<li><?php echo $this->Html->link('Informe técnico', array('controller' => 'Informetecnicos','action'=>'informetecnico_registrar')); ?></li>
 											<li disabled="disabled">Consultar Informe T&eacute;cnico</li>
 										</ul>
 									</li>	

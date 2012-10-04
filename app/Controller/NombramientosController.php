@@ -84,6 +84,6 @@ class NombramientosController extends AppController {
 				"{s}.Contratoconstructor.nombrecontrato",
 				"{s}.Contratoconstructor.estadocontrato"
 				));*/		
-				$this->render('/elements/update_multic', 'ajax');
+				$this->render('/Elements/update_multic', 'ajax');
 	}
 }

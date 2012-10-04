@@ -41,14 +41,14 @@ class Avanceprogramado extends AppModel {
 	        	'allowEmpty' => false,
         		'message'    => 'Ingrese una fecha valida en formato DD-MM-YYYY.'
 			)
-        ),
+        )/*,
 		'proyectos' => array(
 			'rule'    => 'notEmpty',
         	'message' => 'Seleccione un proyecto'
 		),
-		'idcontrato' => array(
+		'contratos' => array(
 			'rule'    => 'notEmpty',
         	'message' => 'Seleccione un contrato'
-		)
+		) */
     );
 }

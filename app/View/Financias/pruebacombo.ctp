@@ -24,6 +24,62 @@
 			</form>
 			
 			
+			        <div id="example" class="k-content">
+            <div id="grid"></div>
+            <script>
+                $(document).ready(function() {
+                    $("#grid").kendoGrid({
+                        dataSource: {
+                            type: "odata",
+                            transport: {
+                                /*read: "http://demos.kendoui.com/service/Northwind.svc/Orders"*/
+                               read: "http://www.cinepolis.com.sv/rss/feed.ashx?idcomplejo=212"
+                            },
+                            schema: {
+                                model: {
+                                    fields: {
+                                        title: { type: "stringr" },
+                                        link: { type: "string" }/*,
+                                        ShipName: { type: "string" },
+                                        OrderDate: { type: "date" },
+                                        ShipCity: { type: "string" }*/
+                                    }
+                                }
+                            },
+                            pageSize: 10,
+                            serverPaging: true,
+                            serverFiltering: true,
+                            serverSorting: true
+                        },
+                        height: 250,
+                        filterable: true,
+                        sortable: true,
+                        pageable: true,
+                        columns: [{
+                                field:"item.title",
+                                filterable: false
+                            },
+                            "link"/*,
+                            {
+                                field: "OrderDate",
+                                title: "Order Date",
+                                width: 100,
+                                format: "{0:MM/dd/yyyy}"
+                            }, {
+                                field: "ShipName",
+                                title: "Ship Name",
+                                width: 200
+                            }, {
+                                field: "ShipCity",
+                                title: "Ship City"
+                            }*/
+                        ]
+                    });
+                });
+            </script>
+        </div>
+			
+			
 			
 	<style type="text/css">
 		/* Recommended styles */

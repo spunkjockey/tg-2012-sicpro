@@ -22,7 +22,7 @@ class ComponentesController extends AppController {
 	
 	public function agregarmetas(){
 		$this->set('helptext', 'Oh, this text is very helpful. ' . date("d-m-Y H:i:s"));
-		$this->render('/elements/helpbox', 'ajax');
+		$this->render('/Elements/helpbox', 'ajax');
 		
 	}
 }

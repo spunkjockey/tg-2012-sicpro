@@ -8,31 +8,31 @@ class MainsController extends AppController {
 		$this->set('title_for_layout', 'Index');
         switch ($this->Session->read('User.idrol')) {
 			case 9:
-		        $this->render('/mains/master', 'cyanspark');
+		        $this->render('/Mains/master', 'cyanspark');
 		        break;
 		    case 8:
-		        $this->render('/mains/observer', 'cyanspark');
+		        $this->render('/Mains/observer', 'cyanspark');
 		        break;
 		    case 7:
-		        $this->render('/mains/jefeplan', 'cyanspark');
+		        $this->render('/Mains/jefeplan', 'cyanspark');
 		        break;
 			case 6:
-		        $this->render('/mains/tecproy', 'cyanspark');
+		        $this->render('/Mains/tecproy', 'cyanspark');
 		        break;
 		    case 5:
-		        $this->render('/mains/tecplan', 'cyanspark');
+		        $this->render('/Mains/tecplan', 'cyanspark');
 		        break;
 		    case 4:
-		        $this->render('/mains/adminsys', 'cyanspark');
+		        $this->render('/Mains/adminsys', 'cyanspark');
 		        break;
 			case 3:
-		        $this->render('/mains/admincon', 'cyanspark');
+		        $this->render('/Mains/admincon', 'cyanspark');
 		        break;
 		    case 2:
-		        $this->render('/mains/adminproy', 'cyanspark');
+		        $this->render('/Mains/adminproy', 'cyanspark');
 		        break;
 		    case 1:
-		        $this->render('/mains/director', 'cyanspark');
+		        $this->render('/Mains/director', 'cyanspark');
 		        break;			
 		}
 		
