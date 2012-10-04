@@ -54,7 +54,13 @@ $this->end(); ?>
 		<h2>Agregar Orden de Inicio</h2>
 		<?php echo $this->Form->create('Contrato'); ?>
 		<ul>
-			
+			<li>
+				<?php echo $this->Form->input('proyectos',
+					array(
+						'label' => 'Proyectos:', 
+						'id' => 'proyectos'
+					)); ?>
+			</li>
 			<li>
 				<?php echo $this->Form->input('contratos',
 					array(
@@ -79,8 +85,17 @@ $this->end(); ?>
 			</li>
 			<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
 			<li  class="accept">
+				<table><tr><td>
 				<?php echo $this->Form->end(array('label' => 'Registrar Orden de Inicio', 'class' => 'k-button')); ?>
-				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
+				</td><td>
+				<?php echo $this->Html->link(
+					'Regresar', 
+					array('controller' => 'mains', 'action' => 'index'),
+					array('class'=>'k-button')
+				); ?>
+				</td>
+				</tr>
+				</table>
 								<?php echo $this->ajax->observeField( 'contratos', 
 		    		array(
 		        		'url' => array( 'action' => 'update_infoinicio'),
@@ -180,8 +195,25 @@ $this->end(); ?>
 		     spinners: false
 		 });
 		 
-		 $("#contratos").kendoDropDownList({
-			                        		                        
+		 
+
+	              $("#proyectos").kendoDropDownList({
+		            			optionLabel: "Seleccione proyecto...",
+					            dataTextField: "numeroproyecto",
+					            dataValueField: "idproyecto",
+					            dataSource: {
+					                            type: "json",
+					                            transport: {
+					                                read: "/Contratos/proyectojson.json"
+					                            }
+					                        }
+					        });
+
+		var proyectos = $("#proyectos").data("kendoDropDownList");
+			        
+			        var contratos = $("#contratos").kendoDropDownList({
+			                        autoBind: false,
+			                        cascadeFrom: "proyectos",
 			                        optionLabel: "Seleccione contrato...",
 			                        dataTextField: "codigocontrato",
 			                        dataValueField: "idcontrato",
@@ -191,9 +223,7 @@ $this->end(); ?>
 			                                read: "/Contratos/contratojson.json"
 			                            }
 			                        }
-			                    })
-
-	         
+			                    }).data("kendoDropDownList");
 	                });
             </script>
             
