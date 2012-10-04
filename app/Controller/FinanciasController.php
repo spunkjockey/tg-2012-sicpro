@@ -40,7 +40,7 @@ class FinanciasController extends AppController {
 			$this->set('proyectos', $this->Financia->findAllByIdproyecto($proyectos_id));
 		}
 		
-		$this->render('/elements/update_tablafinancia', 'ajax');
+		$this->render('/Elements/update_tablafinancia', 'ajax');
 
 	}
 
@@ -54,7 +54,7 @@ class FinanciasController extends AppController {
 		}
 			
 		$this->set('disponible',$idff['Fuentefinanciamiento']['montodisponible']);
-		$this->render('/elements/update_disponible', 'ajax');
+		$this->render('/Elements/update_disponible', 'ajax');
 	}
 	
 	
