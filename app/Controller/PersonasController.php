@@ -5,6 +5,15 @@
     	public $components = array('Session','RequestHandler');
 		public $uses = array('Persona','User','Plaza','Cargofuncional');
 		
+		public function persona_index()
+		{
+			$this->layout = 'cyanspark';
+			$this->set('personas',$this->Persona->find('all',array(
+										'fields' => array('Persona.idpersona','Persona.nombrespersona','Persona.apellidospersona',
+														  'Plaza.plaza','Cargofuncional.cargofuncional'),
+										'order' => array('Persona.nombrespersona'))));
+		}
+		
 		public function persona_registrar() 
 		{
 	        $this->layout = 'cyanspark';
@@ -69,27 +78,21 @@
 			$this->set('_serialize', 'rol');
 			$this->render('/json/jsonrol');	
 		}
-    
-		public function persona_index()
+    	
+		function persona_modificar($id=null)
 		{
 			$this->layout = 'cyanspark';
-			$this->set('personas',$this->Persona->find('all',array(
-										'fields' => array('Persona.idpersona','Persona.nombrespersona','Persona.apellidospersona',
-														  'Plaza.plaza','Cargofuncional.cargofuncional'))));
+			
+			if ($this->request->is('get'))
+			{
+				$this->data = $this->Persona->read(null,$id);
+			}
+			if ($this->request->is('post')) 
+			{
+				
+			}
 		}
 		
-		
-		function persona_eliminar($id) 
-		{
-		    if (!$this->request->is('post')) 
-		    {
-		        throw new MethodNotAllowedException();
-		    }
-		    if ($this->Persona->delete($id)) {
-		        $this->Session->setFlash('Persona eliminada','default',array('class'=>'success'));
-		        $this->redirect(array('action' => 'persona_index'));
-		    }
-		}
 		
 		function persona_agregar_usuario($id=null)
 		{
@@ -118,6 +121,18 @@
 				$this->Session->setFlash('Imposible agregar usuario');
 			}
 		}
+		}
+		
+		function persona_eliminar($id) 
+		{
+		    if (!$this->request->is('post')) 
+		    {
+		        throw new MethodNotAllowedException();
+		    }
+		    if ($this->Persona->delete($id)) {
+		        $this->Session->setFlash('Persona eliminada','default',array('class'=>'success'));
+		        $this->redirect(array('action' => 'persona_index'));
+		    }
 		}
 	}	
 		
