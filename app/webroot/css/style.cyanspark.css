@@ -112,13 +112,17 @@ form .error-message {
 }
 form .error,
 form .error-message {
-	color: #9E2424;
+	
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	-ms-box-shadow: none;
 	-o-box-shadow: none;
 	box-shadow: none;
 	text-shadow: none;
+}
+
+form .error-message {
+	color: #9E2424;
 }
 
 /** Notices and Errors **/

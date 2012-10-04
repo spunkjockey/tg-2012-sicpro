@@ -1,4 +1,4 @@
-<!-- File: /app/View/Avanceprogramados/index.ctp -->
+<!-- File: /app/View/Avanceprogramados/avanceprogramado_registraravance.ctp -->
 
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
@@ -46,7 +46,7 @@ $this->end(); ?>
 			));
 			?> » Control y Seguimiento 
 			» Programación de Avances 
-			
+			» Registrar Avance Programado
 			
 		</div>
 	</div>
@@ -55,43 +55,89 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Seleccionar Contrato:</h2>
+		<h2>Programación de Avance</h2>
 		<?php echo $this->Form->create('Avanceprogramado'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('proyectos',
-					array(
-						'label' => 'Proyectos:', 
-						'id' => 'proyectos'
-					)); ?>
-				<div id="error1" class="error-message"></div>
+				<?php echo '<label><strong>Código de Contrato:</strong></label> '.$contrato['Contratoconstructor']['codigocontrato']; ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('contratos',
-					array(
-						'label' => 'Contratos:', 
-						'id' => 'contratos'
-					)); ?>
-				<div id="error2" class="error-message"></div>
+				<!-- Tabla de fedd back de los avances registrados -->
+				<div id="#tabla">
+				<?php if(!empty($avances)) {?>
+					<table id="grid">
+					    <tr>
+					        <th data-field="plazoejecuciondias">Plazo de Ejecucion</th>
+					        <th data-field="fechaavance">Fecha de Avance</th>
+					        <th data-field="porcentajeavfisicoprog" width="175px">Avance Físico</th>
+					        <th data-field="montoavfinancieroprog">Avance Financiero</th>
+					        
+					    </tr>
+					    
+					    <?php foreach ($avances as $av): ?>
+					    <tr>
+					        <td><?php echo $av['Avanceprogramado']['plazoejecuciondias']; ?></td>
+					        <td><?php echo $av['Avanceprogramado']['fechaavance']; ?></td>
+					        <td><?php echo $av['Avanceprogramado']['porcentajeavfisicoprog']/100; ?></td>
+					        <td><?php echo $av['Avanceprogramado']['montoavfinancieroprog']; ?></td>
+					    </tr>
+					    <?php endforeach; ?>
+					    <?php unset($avances); ?>
+					</table>
+				<?php } ?>
+				</div>
+				
+
+
 			</li>
+
+			<li>
+				<?php echo $this->Form->input('plazoejecuciondias', array(
+								'label' => 'Plazo de Ejecución', 
+								'id' => 'plazoejecuciondias',
+								'class' => 'k-textbox',
+							)); ?> 
+			</li>
+			<li>
+				<?php echo $this->Form->input('fechaavance', array(
+								'label' => 'Fecha de Avance',
+								'type' => 'text', 
+								'id' => 'fechaavance'
+							)); ?>  
+			</li>
+			<li>
+				<?php echo $this->Form->input('porcentajeavfisicoprog', array(
+								'label' => 'Avance Físico',
+								'id' => 'porcentajeavfisicoprog',
+								'class' => 'k-textbox',
+								'type' => 'text'
+							)); ?> 
+			</li>
+			<li>
+				<?php echo $this->Form->input('montoavfinancieroprog', array(
+								'label' => 'Monto Avance',
+								'id' => 'montoavfinancieroprog',
+								'style' => 'width:70px;'
+							)); ?>
+						
 						<!--<td><a class="k-button"><span class="k-icon k-i-pencil"></span></a> <a class="k-button"><span class="k-icon k-i-close"></span></a></td>-->
+			</li>	
+			<li  class="accept">
+				<table>
+					<tr>
+						<td>
+							<?php echo $this->Form->end(array('label' => 'Agregar Nuevo Avance', 'class' => 'k-button', 'id' => 'button')); ?>
+						</td>
+						<td>
+							<?php echo $this->Html->link('Terminar',array('controller' => 'Mains', 'action' => 'index'),array('class'=>'k-button')); ?>
+						</td>
+					</tr>
+				</table>
+			</li>
 		</ul>
 	</div>
 </div>
 		
-<h2>Programación de Avance</h2>
-<div id='avanceprog'>
-	
-</div>
-
-		<?php echo $this->ajax->observeField( 'contratos', 
-    		array(
-        		'url' => array( 'action' => 'update_avanceprog'),
-        		'update' => 'avanceprog'
-    		) 
-		); ?>
-
-
 			<style scoped>
 
                 .k-textbox {
@@ -137,6 +183,7 @@ $this->end(); ?>
                     margin-right: 5px; 
                 }
                 
+                                
                 .etiqueta {
                     display: inline-block;
                     width: 150px;
@@ -180,7 +227,6 @@ $this->end(); ?>
                     
 					$("#proyectos").kendoDropDownList({
             			optionLabel: "Seleccione proyecto...",
-			            
 			            dataTextField: "numeroproyecto",
 			            dataValueField: "idproyecto",
 			            dataSource: {
@@ -195,7 +241,6 @@ $this->end(); ?>
 			        
 			        var contratos = $("#contratos").kendoDropDownList({
 			                        autoBind: true,
-			                        
 			                        cascadeFrom: "proyectos",
 			                        optionLabel: "Seleccione contrato...",
 			                        dataTextField: "codigocontrato",
@@ -222,23 +267,53 @@ $this->end(); ?>
     					placeholder: "Ej. 10000",
     					spinners: false
                     });
-                    
-  					$("#AvanceprogramadoIndexForm").submit( function(){
-				        var selectpro = $("#proyectos").val();
-				        var selectfue = $("#contratos").val();
-				 			
-				            if(selectpro == ""){
-				                $('#error1').text("Seleccione un Proyecto");
-				                return false;
-				            } else if(selectfue == ""){
-				                $('#error2').text("Seleccione un Contrato");
-				                return false;
-				            } else {
-				                $('.error-message').hide();
-				                alert('Ok!');
-				                return true;
-				            }
-				    });
+					        
+					$("#grid").kendoGrid({
+                        dataSource: {
+                           schema: {
+                                model: {
+                                    fields: {
+                                        plazoejecuciondias: { type: "integer" },
+                                        fechaavance: { type: "date" },
+                                        porcentajeavfisicoprog: { type: "number" },
+                                        montoavfinancieroprog: { type: "number" }      
+                                    }
+                                }
+                            },
+                            
+                            serverPaging: true,
+                            serverFiltering: true,
+                            serverSorting: true
+                        },
+                        
+                        filterable: false,
+                        sortable: false,
+                        pageable: false,
+                        scrollable: false,
+                        columns: [{
+                                field:"plazoejecuciondias",
+                                width: 125 
+                            }, {
+                            	field: "fechaavance",
+                            	format: "{0:dd/MM/yyyy}"
+                            }, {
+                                field: "porcentajeavfisicoprog",
+                                title: "Avance Fisico",
+                          		format: "{0:p}",
+                                width: 125   
+                            }, {
+                                field: "montoavfinancieroprog",
+                                title: "Avance Financiero",
+                                format: "{0:c}",
+                                width: 125
+                                
+                            }
+                        ]
+                    });
+					
+					
+					
+					
                 });
                 
                 
