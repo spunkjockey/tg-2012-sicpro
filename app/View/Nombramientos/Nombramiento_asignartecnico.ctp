@@ -50,40 +50,214 @@ $this->end(); ?>
 	
 <?php $this->end(); ?>
 
-<div class="multiselect">
-	
-	
-</div>
+     <div id="example" class="k-content">
+		<div id="formulario">
+			<h2>Asignar Tecnicos</h2>
+            <?php echo $this->Form->create('Nombramiento'); ?>
+            <ul>
+				<li>
+					<?php echo $this->Form->input('proyectos',
+						array(
+							'label' => 'Proyectos:', 
+							'id' => 'proyectos'
+						)); ?>
+				</li>
+				<li>
+					<?php echo $this->Form->input('contratos',
+						array(
+							'label' => 'Contratos:', 
+							'id' => 'contratos'
+						)); ?>
+				</li>
+				<li>
+				<?php echo $this->Form->input('fechanombramiento', 
+					array(
+						'label' => 'Fecha Nombramiento:', 
+						'id'	=> 'datePicker1',
+						'type'  => 'Text'
+						) ); ?>
+				</li>
+				<br/>
+				<br/>
+				<select name="myselect[]" id="myselect" class="multiselect" size="6" multiple="true">
+					<?php foreach($tecnicos as $k => $v) {
+						
+	    				echo "<option value='$k'>$v</option>";
+	  				}?>
+				</select>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				<li  class="accept">
+					<table>
+						<tr>
+							<td>
+								<?php echo $this->Form->end(array('label' => 'Registrar Tecnicos', 'class' => 'k-button', 'id' => 'button')); ?>
+							</td>
+							<td>
+								<?php echo $this->Html->link('Cancelar',array('controller' => 'Mains', 'action' => 'index'),array('class'=>'k-button')); ?>
+							</td>
+						</tr>
+					</table>
+				</li>
+				<?php echo $this->ajax->observeField( 'contratos', 
+		    		array(
+		        		'url' => array( 'action' => 'update_multic'),
+		        		'update' => 'myselect'
+		    		) 
+				);  ?>
+			</ul>
+		</div>
+	</div>
 
-<script>
-	$(document).ready(function() {
-		$(".multiselect").twosidedmultiselect();
-	}
-</script>
-<style>
-	.tsmsselect {
-                        width: 40%;
-                        float: left;
+<style type="text/css">
+		/* Recommended styles */
+		.tsmsselect {
+			width: 40%;
+			float: left;
+		}
+		
+		.tsmsselect select {
+			width: 100%;
+		}
+		
+		.tsmsoptions {
+			width: 20%;
+			float: left;
+		}
+		
+		.tsmsoptions p {
+			margin: 2px;
+			text-align: center;
+			font-size: larger;
+			cursor: pointer;
+		}
+		
+		.tsmsoptions p:hover {
+			color: White;
+			background-color: Silver;
+		}
+	</style>
+<style scoped>
+
+                .k-textbox {
+                    width: 70px;
+                }
+				
+				#tablat {
+					vertical-align: top;
+				}
+				
+				#formulario {
+                    width: 600px;
+                    margin: 15px 0;
+                    padding: 10px 20px 20px 0px;
+                }
+
+                #formulario h3 {
+                    font-weight: normal;
+                    font-size: 1.4em;
+                    border-bottom: 1px solid #ccc;
                 }
                 
-                .tsmsselect select {
-                        width: 100%;
+                #tablafinancia h3 {
+                    font-weight: normal;
+                    font-size: 1.4em;
+                    border-bottom: 1px solid #ccc;
+                }
+
+                #formulario ul {
+                    list-style-type: none;
+                    margin: 0;
+                    padding: 0;
                 }
                 
-                .tsmsoptions {
-                        width: 20%;
-                        float: left;
+                #formulario li {
+                    margin: 10px 0 0 0;
+                }
+
+                label {
+                    display: inline-block;
+                    width: 150px;
+                    text-align: right;
+                    margin-right: 5px; 
                 }
                 
-                .tsmsoptions p {
-                        margin: 2px;
-                        text-align: center;
-                        font-size: larger;
-                        cursor: pointer;
+                .etiqueta {
+                    display: inline-block;
+                    width: 150px;
+                    
+                    margin-right: 5px; 
                 }
                 
-                .tsmsoptions p:hover {
-                        color: White;
-                        background-color: Silver;
+                
+                form .required label:after {
+                	font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+				}
+                
+                .required {
+                    font-weight: bold;
+                }
+
+                .accept, .status {
+                	padding-top: 15px;
+                    padding-left: 150px;
+                }
+
+                .valid {
+                    color: green;
+                }
+
+                .invalid {
+                    color: red;
+                }
+                
+                span.k-tooltip {
+                    margin-left: 6px;
                 }
 </style>
+
+<script type="text/javascript">
+    $(document).ready(function () {    	
+       	$(".multiselect").twosidedmultiselect();
+       	
+       	$("#proyectos").kendoDropDownList({
+            			optionLabel: "Seleccione proyecto...",
+			            dataTextField: "numeroproyecto",
+			            dataValueField: "idproyecto",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Nombramientos/proyectojson.json"
+			                            }
+			                        }
+			        });
+			        
+		var proyectos = $("#proyectos").data("kendoDropDownList");
+			        
+		var contratos = $("#contratos").kendoDropDownList({
+			            autoBind: false,
+			            cascadeFrom: "proyectos",
+			            optionLabel: "Seleccione contrato...",
+			            dataTextField: "codigocontrato",
+			            dataValueField: "idcontrato",
+			            dataSource: {
+			                         type: "json",
+			                         transport: {
+			                            read: "/Nombramientos/contratojson.json"
+			                         }
+			                        }
+			            }).data("kendoDropDownList");  
+			            
+		$("#datePicker1").kendoDatePicker({
+		   culture: "es-ES",
+		   format: "dd/MM/yyyy" //Define el formato de fecha
+		});
+    });
+</script>

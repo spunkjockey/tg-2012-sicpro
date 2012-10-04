@@ -79,16 +79,14 @@ $this->end(); ?>
 					<?php echo $this->Form->input('plazas', 
 						array(
 							'label' => 'Plaza:', 
-							'id' => 'selectpla',
-							'empty' => 'Seleccione...',
+							'id' => 'plazas',
 							'required')); ?>
 				</li>
 				<li>
 					<?php echo $this->Form->input('cargos', 
 						array(
 							'label' => 'Cargo funcional:', 
-							'id' => 'selectcar',
-							'empty' => 'Seleccione...',
+							'id' => 'cargos',
 							'required')); ?>
 				</li>
 				<li>
@@ -121,11 +119,10 @@ $this->end(); ?>
 							'validationMessage' => 'Ingrese nombre de usuario')); ?>
 				</li>
 				<li>
-					<?php echo $this->Form->input('roles', 
+					<?php echo $this->Form->input('rol', 
 						array(
-							'label' => 'Rol:', 
-							'empty' => 'Seleccione...',
-							'id' => 'selectrol',
+							'label' => 'Rol:',
+							'id' => 'rol',
 							'required',
 							'validationMessage' => 'Seleccione un rol')); ?>
 				</li>
@@ -236,10 +233,46 @@ $this->end(); ?>
                         }
                     });
                 
-				$("#selectpla").kendoComboBox();
-				$("#selectcar").kendoComboBox();
-				$("#selectrol").kendoComboBox();
-				$("#selectedo").kendoComboBox();
+				$("#plazas").kendoDropDownList({
+            			optionLabel: "Seleccione plaza...",
+			            dataTextField: "plaza",
+			            dataValueField: "idplaza",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Personas/plazajson.json"
+			                            }
+			                        }
+			        });
+			        var plazas = $("#plazas").data("kendoDropDownList");
+				
+				$("#cargos").kendoDropDownList({
+            			optionLabel: "Seleccione cargo funcional...",
+			            dataTextField: "cargofuncional",
+			            dataValueField: "idcargofuncional",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Personas/cargojson.json"
+			                            }
+			                        }
+			        });
+			        var cargos = $("#cargos").data("kendoDropDownList");
+				
+				$("#rol").kendoDropDownList({
+            			optionLabel: "Seleccione rol...",
+			            dataTextField: "rol",
+			            dataValueField: "idrol",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Personas/rolesjson.json"
+			                            }
+			                        }
+			        });
+			        var rol = $("#rol").data("kendoDropDownList");
+				
+				$("#selectedo").kendoDropDownList();
 				$("#phone").mask("9999-9999");
                  
 				

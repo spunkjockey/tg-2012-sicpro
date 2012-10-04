@@ -13,7 +13,7 @@
 									</li>	
 									<li>Ficha t&eacute;cnica
 										<ul>
-											<li><?php echo $this->Html->link('Registrar Ficha Técnica', array('controller' => 'Fichatecnicas','action'=>'add')); ?></li>
+											<li><?php echo $this->Html->link('Registrar Ficha Técnica', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_registrarficha')); ?></li>
 											<li disabled="disabled">Modificar ficha t&eacute;cnica</li>
 											<li disabled="disabled">Eliminar ficha t&eacute;cnica</li>
 											<li disabled="disabled">Consultar ficha t&eacute;cnica</li>
@@ -104,22 +104,10 @@
 											<li disabled="disabled">Consultar fuente de financiamiento (en un periodo)</li>
 										</ul>
 									</li>
-									<li>Administraci&oacute;n de Personal
-										<!--<ul>
-											<li><?php echo $this->Html->link('Registrar persona', array('controller' => 'personas','action'=>'add')); ?></li>
-											<li disabled="disabled">Modificar personal</li>
-											<li disabled="disabled">Eliminar personal</li>
-											<li disabled="disabled">Consultar personal</li>
-										</ul>-->
-									</li>
-									<li>Administraci&oacute;n de usuario
-										<!--<ul>
-											<li><?php echo $this->Html->link('Registrar usuario', array('controller' => 'users','action'=>'add')); ?></li>
-											<li disabled="disabled">Modificar usuario</li>
-											<li disabled="disabled">Eliminar usuario</li>
-											<li disabled="disabled">Habilitar usuario</li>
-										</ul>-->
-									</li>
+									<li><?php echo $this->Html->link('Administración de personal', array('controller' => 'personas','action'=>'persona_index')); ?></li>
+									<li><?php echo $this->Html->link('Administración de usuarios', array('controller' => 'users','action'=>'user_index')); ?></li>
+									
+									
 									<li>Perfil
 										<ul>
 											<li disabled="disabled">Modificar perfil</li>

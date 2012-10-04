@@ -1,13 +1,11 @@
 <?php class ProyectosController extends AppController {
     public $name = 'Proyectos';
-    public $components = array('Session');
+    public $components = array('Session','RequestHandler');
 	public $uses = array('Proyecto','Division');
 	
 	public function proyecto_registrar() {
         $this->layout = 'cyanspark';
-		$this->set('divisions', $this->Proyecto->Division->find('list',
-			array('fields' => array('Division.iddivision', 'Division.divison')
-		)));
+		
 		if ($this->request->is('post')) 
 			{
                 $this->Proyecto->set('nombreproyecto', $this->request->data['Proyecto']['nombreproyecto']);
@@ -59,13 +57,22 @@
 		}
 		else
 		{
-			$this->set('divisiones', $this->Division->find('list',	array(
-										'fields' => array('Division.iddivision', 'Division.divison'))));	
 			$this->data = $this->Proyecto->read();
 		}
 			
 	}
 	
+	public function divisionjson() 
+		{
+			$divisiones = $this->Division->find('all',array(
+											'fields' => array('iddivision', 'divison')));
+			
+										
+			$this->set('divisiones', Hash::extract($divisiones, "{n}.Division"));
+			$this->set('_serialize', 'divisiones');
+			$this->render('/json/jsondivision');
+			
+		}
 	
 	/* function proyecto_asignar_num 
 	 * Con esta función agregamos el número de proyecto 
@@ -80,9 +87,6 @@
 	public function proyecto_asignar_num($id=null)
 	{
 		$this->layout = 'cyanspark';
-		$this->set('proys',$this->Proyecto->find('list', array(
-												 'fields'=> array('Proyecto.idproyecto','Proyecto.nombreproyecto'),
-												 'conditions'=>array('Proyecto.numeroproyecto is null'))));
 		
 		if ($this->request->is('post')) 
 			{
@@ -105,4 +109,15 @@
 		                 }
         	}
 	}
+
+	public function proyectosjson() 
+		{
+			$proys = $this->Proyecto->find('all', array(
+										'fields'=> array('Proyecto.idproyecto','Proyecto.nombreproyecto'),
+										'conditions'=>array('Proyecto.numeroproyecto is null')));
+			$this->set('proys', Hash::extract($proys, "{n}.Proyecto"));
+			$this->set('_serialize', 'proys');
+			$this->render('/json/jsonproys');
+			
+		}
 }

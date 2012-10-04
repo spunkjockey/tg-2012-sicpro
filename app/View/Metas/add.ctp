@@ -16,7 +16,7 @@
 			</li>
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar Meta', 'class' => 'k-button')); ?>
-				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
+
 			</li>
             
             <li class="status">

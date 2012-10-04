@@ -1,6 +1,6 @@
 <!-- /app/views/elements/update_infocontrato.ctp -->
 	<?php
-	if($informacion!=false){
+	if($informacion != false){
 	foreach ($informacion as $inf): 
 		?>
 		<p><strong class:'etiqueta'>Nombre Contrato: </strong> <?php echo $inf['nombrecontrato']; ?></p>

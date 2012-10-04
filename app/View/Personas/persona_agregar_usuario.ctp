@@ -1,4 +1,3 @@
-<!-- File: /app/View/Contratoconstructors/actualizarestado.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -43,86 +42,98 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO » Actualizar Estado Contrato
+			?> Personas » Agregar usuario
 			
 		</div>
 	</div>
-	
 <?php $this->end(); ?>
+
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Actualizar Estado de Contrato Constructor</h2>
-		<?php echo $this->Form->create('Estado'); ?>
+		
+		<?php echo $this->Form->create('Persona',array('action' => 'persona_agregar_usuario')); ?>
 		<ul>
-			<li>
-				<?php echo $this->Form->input('proyectos',
-					array(
-						'label' => 'Proyectos:', 
-						'id' => 'proyectos'
-					)); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('contratos',
-					array(
-						'label' => 'Contratos:', 
-						'id' => 'contratos'
-					)); ?>
-			</li>
-			<div id="info_contrato">
-					<!--Con ajax se llena el contenido con la informacion del contrato seleccionado-->
-
-
-			</div>
-			<br><br>
-			<li id='opcionesact'>
-				
-			</li>
-			<li  class="accept">
-				<div id='divdiv'>
-				</div>
-
-				<!--<?php echo $this->Form->input('userm', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>-->
-				<?php echo $this->Form->end(array('label' => 'Actualizar Estado', 'class' => 'k-button')); ?>
-				
 			
-				<?php echo $this->ajax->observeField( 'contratos', 
-		    		array(
-		        		'url' => array( 'action' => 'update_infocontrato'),
-		        		'update' => 'info_contrato'
-		    		) 
-				);  ?>
-				<?php echo $this->ajax->observeField( 'contratos', 
-		    		array(
-		        		'url' => array( 'action' => 'update_opcionesactualizar'),
-		        		'update' => 'opcionesact'
-		    		) 
-				);  ?>
-
+				<h2>Agregar usuario a persona</h2>
+				<li>
+					<?php echo $this->Form->input('nombrespersona', 
+						array(
+							'label' => 'Nombres:', 
+							'class' => 'k-textbox', 
+							'placeholder' => 'Nombres de la persona', 
+							'required', 
+							'validationMessage' => 'Ingrese nombres de la persona')); ?>
+				</li>
+				<li>
+					<?php echo $this->Form->input('apellidospersona', 
+						array(
+							'label' => 'Apellidos:', 
+							'class' => 'k-textbox', 
+							'placeholder' => 'Apellidos de la persona', 
+							'required', 
+							'validationMessage' => 'Ingrese apellidos de la persona')); ?>
+				</li>
+				
+				<li>
+					<?php echo $this->Form->input('username', 
+						array(
+							'label' => 'Nombre de usuario:', 
+							'class' => 'k-textbox', 
+							'placeholder' => 'username', 
+							'required', 
+							'validationMessage' => 'Ingrese nombre de usuario')); ?>
+				</li>
+				<li>
+					<?php echo $this->Form->input('rol', 
+						array(
+							'label' => 'Rol:',
+							'id' => 'rol',
+							'required',
+							'validationMessage' => 'Seleccione un rol')); ?>
+				</li>
+				<li>
+					<?php echo $this->Form->input('password', 
+						array(
+							'label' => 'Contraseña:', 
+							'class' => 'k-textbox', 
+							'placeholder' => 'password', 
+							'required', 
+							'validationMessage' => 'Ingrese Contraseña')); ?>
+				</li>
+				<li>
+					<?php echo $this->Form->input('estado',
+						array('options' => array(0 => 'Deshabilitado', 1 => 'Habilitado'),
+							  'id' => 'selectedo')); ?>
+				</li>
+				<?php echo $this->Form->input('idpersona')?>
+			<li  class="accept">
+				<?php echo $this->Form->end(array('label' => 'Registrar persona', 'class' => 'k-button')); ?>
 			</li>
+            
             <li class="status">
             </li>
 		</ul>
+		
 	</div>
 </div>
 
+			<style scoped>
 
-<style scoped>
-
-                .etiqueta {
-                    display: inline-block;
-                    width: 150px;
-                    
-                    margin-right: 5px; 
-                }
-                
                 .k-textbox {
                     width: 300px;
                     margin-left: 5px;
                     
                 }
 				
-				
+				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 			
+                form .required label:after {
+					font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+					}
+                
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -172,9 +183,9 @@ $this->end(); ?>
                 span.k-tooltip {
                     margin-left: 6px;
                 }
-</style>
-
-<script>
+            </style>
+			
+			<script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
@@ -186,33 +197,22 @@ $this->end(); ?>
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
-                $("#proyectos").kendoDropDownList({
-            			optionLabel: "Seleccione proyecto...",
-			            dataTextField: "numeroproyecto",
-			            dataValueField: "idproyecto",
+               
+				$("#rol").kendoDropDownList({
+            			optionLabel: "Seleccione rol...",
+			            dataTextField: "rol",
+			            dataValueField: "idrol",
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
-			                                read: "/Contratoconstructors/proyectoejecjson.json"
+			                                read: "/Personas/rolesjson.json"
 			                            }
 			                        }
 			        });
-  
+			        var rol = $("#rol").data("kendoDropDownList");
+				
+				$("#selectedo").kendoDropDownList();
+				
+				});
                 
-			    var proyectos = $("#proyectos").data("kendoDropDownList");
-			        
-			    var contratos = $("#contratos").kendoDropDownList({
-			                        autoBind: true,
-			                        cascadeFrom: "proyectos",
-			                        optionLabel: "Seleccione contrato...",
-			                        dataTextField: "codigocontrato",
-			                        dataValueField: "idcontrato",
-			                        dataSource: {
-			                            type: "json",
-			                            transport: {
-			                                read: "/Contratoconstructors/contratojson.json"
-			                            }
-			                        }
-			    }).data("kendoDropDownList");
-			});
-</script>
+            </script>

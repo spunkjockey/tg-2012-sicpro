@@ -67,7 +67,7 @@ $this->end(); ?>
 				<?php echo $this->Form->input('divisiones', 
 					array(
 						'label' => 'División responsable:', 
-						'id' => 'selectdiv',
+						'id' => 'divisiones',
 						'validationMessage' => 'Seleccione una división',
 						'required')); ?>
 			</li>
@@ -173,9 +173,19 @@ $this->end(); ?>
                     });
                     
                     
-                    $("#selectdiv").kendoComboBox();
-                    var combobox = $("#selectdiv").data("kendoComboBox");
-                    combobox.list.width(400);
+                    $("#divisiones").kendoDropDownList({
+            			optionLabel: "Seleccione división...",
+			            dataTextField: "divison",
+			            dataValueField: "iddivision",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Proyectos/divisionjson.json"
+			                            }
+			                        }
+			        });
+			        
+			        var divisiones = $("#divisiones").data("kendoDropDownList");
                     
                     $("#montoplaneado").kendoNumericTextBox({
                         format: "c2",

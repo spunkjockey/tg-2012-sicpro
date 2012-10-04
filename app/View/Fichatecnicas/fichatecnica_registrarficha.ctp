@@ -43,7 +43,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO
+			?> » Bienvenido a SICPRO » Registrar Ficha Tecnica
 			
 		</div>
 	</div>
@@ -60,12 +60,8 @@ $this->end(); ?>
 				<?php echo $this->Form->input('proyectos',
 					array(
 						'label' => 'Proyectos:', 
-						'id' => 'select',
-						'class' => 'k-combobox',
-						//'selected' => '05',
-						'empty' => 'Seleccione...', 
-						'required' , 
-						'validationMessage' => 'Seleccione Proyecto')); ?>
+						'id' => 'proyectos'
+					)); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('problematica', 
@@ -227,12 +223,17 @@ $this->end(); ?>
                     });
                 
 
-                $("#select").kendoComboBox({
-			         placeholder: "Seleccionar...",
-			         //index: -1,
-			         suggest: true
-			    });
-               // var select = $("#select").data("kendoComboBox");
+					$("#proyectos").kendoDropDownList({
+            			optionLabel: "Seleccione proyecto...",
+			            dataTextField: "nombreproyecto",
+			            dataValueField: "idproyecto",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Fichatecnicas/proyectojson.json"
+			                            }
+			                        }
+			        });
                
                var combobox = $("#select").data("kendoComboBox");
                combobox.list.width(400);

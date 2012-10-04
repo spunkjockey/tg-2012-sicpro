@@ -1,7 +1,7 @@
 <?php
 class ContratosController extends AppController {
     public $helpers = array('Html', 'Form', 'Session');
-    public $components = array('Session','RequestHandler');
+   public $components = array('Session','AjaxMultiUpload.Upload','RequestHandler');
 	public $uses = array('Contrato','Contratoconstructor','Contratosupervisor');
 
     public function index() {
@@ -38,6 +38,7 @@ class ContratosController extends AppController {
 		$contratos = $this->Contrato->find('all',array(
 			'fields' => array('Contrato.idproyecto','Contrato.idcontrato', 'Contrato.codigocontrato'),
 			'conditions'=>array('Contrato.ordeninicio is null'),
+			
 			'order' => array('Contrato.codigocontrato')
 		));
 		
@@ -45,6 +46,28 @@ class ContratosController extends AppController {
 		$this->set('_serialize', 'contratos');
 		$this->render('/json/jsondatad');
 	}
+
+	public function proyectojson() {
+		$proyectos = $this->Contratoconstructor->find('all',array(
+			'fields' => array('DISTINCT Proyecto.idproyecto', 'Proyecto.numeroproyecto'),
+		$conditions =array( 'OR' => array( array('Proyecto.estadoproyecto' => 'Ejecucion'),
+		 array('Proyecto.estadoproyecto' => 'Adjudicacion'))
+		 )));
+		 
+		/*$proyectos = $this->Proyecto->find('all',array(
+			'fields' => array('Proyecto.idproyecto', 'Proyecto.numeroproyecto'), 
+			'conditions' => $conditions,
+			'order' => array('Proyecto.numeroproyecto')
+		));*/
+		
+		$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
+		$this->set('_serialize', 'proyectos');
+		$this->render('/json/jsondata');
+		
+	}
+
+	
+	
 	
 	public function edit() {
 	    $this->layout = 'cyanspark';
