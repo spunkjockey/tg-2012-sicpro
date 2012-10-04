@@ -27,7 +27,7 @@
 									<li>Constructor
 										<ul>
 											<li><?php echo $this->Html->link('Registrar contrato constuctor', array('controller' => 'Contratoconstructors','action'=>'add')); ?></li>
-											<li disabled="disabled">Modificar contrato constructor</li>
+											<li><?php echo $this->Html->link('Modificar contrato constuctor', array('controller' => 'Contratoconstructors','action'=>'contratoconstructor_modificar')); ?></li>
 											<li disabled="disabled">Eliminar contrato constructor</li>
 										</ul>
 									</li>

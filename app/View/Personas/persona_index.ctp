@@ -72,7 +72,7 @@ $this->end(); ?>
       <td align="center">
             <?php echo $this->Html->link(
             	'Editar', 
-            	array('action' => 'edit', $person['Persona']['idpersona']),
+            	array('action' => 'persona_modificar', $person['Persona']['idpersona']),
             	array('class'=>'k-button')
 			);?>
 			<?php echo $this->Html->link(

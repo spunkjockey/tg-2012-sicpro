@@ -4,12 +4,13 @@
 	    public $components = array('Session','RequestHandler');
 		public $uses = array('Contratoconstructor','Contrato','Proyecto','Empresa','Persona');
 		
+		/* Funcion para agregar contratos de construcción al sistema*/
 		public function add()
 		{
 			$this->layout = 'cyanspark';
 			if($this->request->is('post'))
 			{
-				//Registro en contrato
+				//Registro en tabla contrato
 				$this->Contrato->create();
 				$this->Contrato->set('idproyecto', $this->request->data['Contratoconstructor']['proyectos']);
 				$this->Contrato->set('idpersona', $this->request->data['Contratoconstructor']['admin']);
@@ -23,11 +24,9 @@
 				$this->Contrato->set('detalleobras', $this->request->data['Contratoconstructor']['obras']);
 				$this->Contrato->set('tipocontrato', 'Construcción de obras');
 				$this->Contrato->set('userc', $this->Session->read('User.username'));
-				//$montoori = (float)$monto*0.05;
-				
 				if ($this->Contrato->save()) 
 				{
-					//Registro en contrato constructor
+					//Registro en tabla contrato constructor
 					$this->Contratoconstructor->set('idcontrato',$this->Contrato->id);
 					$this->Contratoconstructor->set('idproyecto',$this->request->data['Contratoconstructor']['proyectos']);
 					$this->Contratoconstructor->set('idpersona', $this->request->data['Contratoconstructor']['admin']);
@@ -43,8 +42,7 @@
 					$this->Contratoconstructor->set('retencion', $this->request->data['Contratoconstructor']['montocon']*0.05);
 					$this->Contratoconstructor->set('anticipo', $this->request->data['Contratoconstructor']['anticipo']);
 					$this->Contratoconstructor->set('userc', $this->Session->read('User.username'));
-	                
-					if($this->Contratoconstructor->save($this->Contrato->id))
+	                if($this->Contratoconstructor->save($this->Contrato->id))
 					{
 						$this->Session->setFlash('Contrato constructor ha sido registrado.','default',array('class'=>'success'));	
 						$this->redirect(array('controller'=>'mains', 'action' => 'index'));
@@ -59,11 +57,10 @@
 				{
 					$this->Session->setFlash('Ha ocurrido un error');
                 }
-				
 			}
-			
 		}
 
+	/*funcion para recuperar listado de proyectos*/
 	public function proyectojson() 
 		{
 			$proyectos = $this->Proyecto->find('all', array(
@@ -114,7 +111,12 @@
 		$this->set('_serialize', 'contratos');
 		$this->render('/json/jsondatad');
 	}
-
+	
+	function contratoconstructor_modificar()
+	{
+		$this->layout = 'cyanspark';
+	}
+	
 	public function contrato_actualizarestado(){
 		$this->layout = 'cyanspark';
 		//Cargar el primero Combobox con los Proyectos
