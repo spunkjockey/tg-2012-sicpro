@@ -47,6 +47,7 @@ $this->end(); ?>
 		</div>
 	</div>
 <?php $this->end(); ?>
+<h2>Personas</h2>
 <div style='margin:4px 0' >
 	<?php echo $this->Html->link(
 		'Registrar persona', 
@@ -54,8 +55,6 @@ $this->end(); ?>
 		array('class'=>'k-button')
 	); ?>
 </div> 
-<h2>Personas</h2>
-
 <table id="grid">
     <tr>
         <th data-field="nombrespersona">Nombres</th>
