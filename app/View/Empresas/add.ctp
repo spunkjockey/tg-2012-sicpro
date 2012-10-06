@@ -49,6 +49,7 @@ $this->end(); ?>
 	</div>
 	
 <?php $this->end(); ?>
+
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Agregar Empresa</h2>
@@ -57,32 +58,43 @@ $this->end(); ?>
 			<li>
 				<?php echo $this->Form->input('nitempresa', 
 					array(
-						'label' => 'NIT Empresa:',
-						//'type' => 'text',
-						//'maxlength'=>'14', 
+						'label' => 'NIT Empresa',
+						'div' => array('class' => 'requerido'),
 						'id'	=>	'nit',
 						'class' => 'k-textbox', 
-						'placeholder' => 'Numero de Identificacion Tributaria', 
-						/*'required',*/ 
-						'validationMessage' => 'Ingrese NIT Empresa')); ?>
+						'autofocus',
+						'placeholder' => 'Numero de Identificacion Tributaria'
+				)); ?>
+				<script type="text/javascript">
+		            var nit = new LiveValidation( "nit", { validMessage: " " } );
+		            nit.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            nit.add(Validate.Format, { pattern: /____-______-___-_/i, failureMessage: "No puedes dejar este campo en blanco", negate: true } );
+		            nit.add(Validate.Format, { pattern: /\d\d\d\d-\d\d\d\d\d\d-\d\d\d-\d/i, failureMessage: "El NIT debe de tener 14 números"} );
+		        </script> 
 			</li>
 			<li>
 				<?php echo $this->Form->input('nombreempresa', 
 					array(
 						'label' => 'Nombre Empresa:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre Empresa', 
-						'required', 
-						'validationMessage' => 'Ingrese Nombre Empresa')); ?>
+						'div' => array('class' => 'requerido'),
+						'class' => 'k-textbox',
+						'id'	=>	'nombreempresa', 
+						'placeholder' => 'Nombre Empresa' 
+				)); ?> 
+				<script type="text/javascript">
+		            var nombreempresa = new LiveValidation( "nombreempresa", { validMessage: " " } );
+		            nombreempresa.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            nombreempresa.add(Validate.Format, { pattern: /[a-zA-Z0-9_ ]+/, failureMessage: "El nombre de la empresa debe ser alfanumerico" } );
+		        </script> 
 			</li>
 			<li>
 				<?php echo $this->Form->input('representantelegal', 
 					array(
-						'label' => 'Nombre Representante:', 
+						'label' => 'Nombre Representante:',
+						'div' => array('class' => 'requerido'), 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre del Representante', 
-						'required', 
-						'validationMessage' => 'Ingrese Nombre del Representante')); ?>
+						'placeholder' => 'Nombre del Representante'
+					)); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('direccionoficina', 
@@ -91,26 +103,27 @@ $this->end(); ?>
 						'class' => 'k-textbox', 
 						'placeholder' => 'Direccion Empresa', 
 						"cols"=>"5",
-						"rows"=>"5",
-						'validationMessage' => 'Ingrese Direccion Empresa')); ?>
+						"rows"=>"5"
+					)); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('telefonoempresa', 
 					array(
 						'label' => 'Telefono:', 
+						'div' => array('class' => 'requerido'),
 						'class' => 'k-textbox', 
 						'id'	=>	'phone',
-						'placeholder' => 'Telefono Empresa', 
-						'validationMessage' => 'Ingrese Telefono Empresa')); ?>
+						'placeholder' => 'Telefono Empresa' 
+						)); ?>
 			</li>	
 			<li>
 				<?php echo $this->Form->input('correorepresentante', 
 					array(
 						'label' => 'E-mail:', 
+						'div' => array('class' => 'requerido'),
 						'class' => 'k-textbox', 
 						'placeholder' => 'Correo Electronico', 
-						'required', 
-						'validationMessage' => 'Ingrese Correo Electronico')); ?>
+						)); ?>
 			</li>	
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar Empresa', 'class' => 'k-button')); ?>
@@ -164,11 +177,11 @@ $this->end(); ?>
                     
                 }
 
-                .required {
+                /*.required {
                     font-weight: bold;
-                }
+                }*/
                 
-                form .required label:after {
+                form .requerido label:after {
                 	font-size: 1.4em;
 					color: #e32;
 					content: '*';
@@ -187,23 +200,48 @@ $this->end(); ?>
                 .invalid {
                     color: red;
                 }
-                span.k-tooltip {
-                    margin-left: 6px;
-                }
+                
+               
+               
+                
+				
+				.LV_validation_message{
+				    font-weight:bold;
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+					clear:both;
+               		display:inline-block;
+               		margin-left: 170px; 
+               
+				}
+				    
+				.LV_valid_field,
+				input.LV_valid_field:hover, 
+				input.LV_valid_field:active,
+				textarea.LV_valid_field:hover, 
+				textarea.LV_valid_field:active {
+				    border: 1px solid #00CC00;
+				}
+				    
+				.LV_invalid_field, 
+				input.LV_invalid_field:hover, 
+				input.LV_invalid_field:active,
+				textarea.LV_invalid_field:hover, 
+				textarea.LV_invalid_field:active {
+				    border: 1px solid #CC0000;
+				}
+                
             </style>
             
             <script>
                 $(document).ready(function() {
-                    var validator = $("#formulario").kendoValidator().data("kendoValidator"),
-                    status = $(".status");
-
-                    $("button").click(function() {
-                        if (validator.validate()) {
-                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-                            } else {
-                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-                        }
-                    });
                     
                     $("#phone").mask("9999-9999");
                     
