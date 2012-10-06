@@ -86,9 +86,9 @@ $this->end(); ?>
 			            	echo $this->Html->link('Editar', 
 						            	array('action' => 'proyecto_modificar', $proy['Proyecto']['idproyecto']),
 						            	array('class'=>'k-button'));
-							echo $this->Html->link('Eliminar', 
-			            				array('action' => 'proyecto_modificar', $proy['Proyecto']['idproyecto']),
-			            				array('class'=>'k-button'));
+							echo $this->Form->postLink('Eliminar', 
+			            				array('action' => 'proyecto_eliminar', $proy['Proyecto']['idproyecto']),
+			            				array('confirm' => '¿Está seguro?','class'=>'k-button'));
 			            }
 		            ?>
 		           </td>

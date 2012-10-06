@@ -14,8 +14,9 @@
 				$this->Proyecto->set('userc', $this->Session->read('User.username'));
 				$this->Proyecto->set('estadoproyecto', 'Formulacion');
 			if ($this->Proyecto->save()) {
-					$this->Session->setFlash('El proyecto ha sido registrado','default',array('class'=>'success'));
-	                $this->redirect(array('controller'=>'mains', 'action' => 'index'));
+					$this->Session->setFlash('El proyecto '. $this->request->data['Proyecto']['nombreproyecto'].' ha sido registrado',
+											 'default',array('class'=>'success'));
+	                $this->redirect(array('action' => 'proyecto_listado'));
 	            }
 				else {
 				
@@ -75,6 +76,19 @@
 		}
 			
 	}
+	
+	function proyecto_eliminar($id) 
+		{
+		    if (!$this->request->is('post')) 
+		    {
+		        throw new MethodNotAllowedException();
+		    }
+		    if ($this->Proyecto->delete($id)) 
+		    {
+		        $this->Session->setFlash('El proyecto ha sido eliminado','default',array('class'=>'success'));
+		        $this->redirect(array('action' => 'proyecto_listado'));
+		    }
+		}
 	
 	public function divisionjson() 
 		{
