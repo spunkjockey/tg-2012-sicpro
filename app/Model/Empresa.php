@@ -31,11 +31,11 @@ public $primaryKey = 'idempresa';
 	    'nombreempresa' => array(
 	        'isUnique' => array(
 	            'rule'    => 'isUnique',
-	            'message' => 'El Departamento ya existe'
+	            'message' => 'La Empresa ya existe'
 			),
 			'maxLength' => array(
 	        	'rule'    => array('maxLength', 150),
-	        	'message' => 'El nombre del presentante debe ser maximo 150 caracteres.'
+	        	'message' => 'El nombre de la Empresa debe ser maximo 150 caracteres.'
 	        ),
 			'notEmpty' => array(
 				'rule' => 'notEmpty',
@@ -90,18 +90,15 @@ public $primaryKey = 'idempresa';
 		
 		'correorepresentante' => array(
 			'email' => array(
-		        'rule'    => array('email', true),
+		        'rule'    => array('email'),
+		        'required' => false,
+		        'allowEmpty' => true,
 		        'message' => 'Ingrese una direccion de correo electronica valida.'
     		),
 			'maxLength' => array(
 	        	'rule'    => array('maxLength', 50),
-	        	'message' => 'El correo electronico debe ser menor a 50 caracteres.'
-	    	),
-	    	'notEmpty' => array(
-				'rule' => 'notEmpty',
-    			'required' => 'create',
-    			'message' => 'El campo no debe estar vacío'
-			)
+	        	'message' => 'El correo electronico debe ser maximo 50 caracteres.'
+	    	)
 		),
 	);
 	
