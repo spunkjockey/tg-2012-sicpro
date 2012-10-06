@@ -102,6 +102,7 @@ $this->end(); ?>
             </li>
 		</ul>
 		
+	
 	</div>
 </div>
 
@@ -223,6 +224,7 @@ $this->end(); ?>
             			optionLabel: "Seleccione división...",
 			            dataTextField: "divison",
 			            dataValueField: "iddivision",
+			            index: <?php echo $this->request->data['Division']['iddivision']; ?>,
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
