@@ -45,7 +45,7 @@ class EmpresasController extends AppController {
         	//if ($this->Empresa->validates()) {
 				    // it validated logic
 				    if ($this->Empresa->save($this->request->data, array('validate' => true, 'callbacks' => true))) {
-		            	$this->Session->setFlash('La Empresa ha sido registrada.');
+		            	$this->Session->setFlash('La Empresa ha sido registrada.','default',array('class' => 'success'));
 		            	$this->redirect(array('action' => 'index'));
 		        	} else {
 		            	$this->Session->setFlash('No se pudo realizar el registro' );
