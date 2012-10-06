@@ -24,13 +24,27 @@
         }
     }
 	
-	public function proyecto_listado(){
+	public function proyecto_listado()
+	{
 		$this->layout = 'cyanspark';
 		$this->set('proyectos', $this->Proyecto->find('all', array(
 									'fields'=>array('Proyecto.idproyecto','Proyecto.nombreproyecto',
-													'Proyecto.montoplaneado','Proyecto.iddivision'),
-									'conditions'=>array('Proyecto.estadoproyecto' => 'Formulacion' )
-									)));
+													'Proyecto.estadoproyecto'),
+									'order'=> array('Proyecto.nombreproyecto'))));
+	}
+	
+	function proyecto_detalles($id = null)
+	{
+		$this->layout = 'cyanspark';
+		$this->Proyecto->id = $id;
+		if (!$this->Proyecto->read()) 
+		{
+        	throw new NotFoundException('No se puedo encontrar el proyecto', 404);
+    	} 
+    	else 
+    	{
+			$this->set('proyectos', $this->Proyecto->read());
+		}
 	}
 	
 	public function proyecto_modificar($id=null)

@@ -44,7 +44,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Proyecto » Editar proyecto
+			?> Administración de proyectos
 			
 		</div>
 	</div>
@@ -53,26 +53,45 @@ $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Proyectos</h2>
+		<div style='margin:4px 0' >
+			<?php echo $this->Html->link(
+				'Registrar proyecto', 
+				array('controller' => 'proyectos', 'action' => 'proyecto_registrar'),
+				array('class'=>'k-button')); 
+			?>
+			<?php echo $this->Html->link(
+				'Asignar número de proyecto', 
+				array('controller' => 'proyectos', 'action' => 'proyecto_asignar_num'),
+				array('class'=>'k-button')); 
+			?>
+		</div>
 		
 		<table id="grid">
 		    <tr>
-		        <th data-field="nombreproyecto">Nombre proyecto</th>
-		        <th data-field="montoplaneado">Monto planeado</th>
-		        <th data-field="iddivision">División</th>
-		        <th data-field="accion" width="225px">Acción</th>
+		        <th data-field="nombreproyecto" width="280px">Nombre proyecto</th>
+		        <th data-field="estadoproyecto">Estado</th>
+		        <th data-field="accion">Acción</th>
 		    </tr>
 			<?php foreach ($proyectos as $proy): ?>
 		    <tr>
 		        <td><?php echo $proy['Proyecto']['nombreproyecto']; ?></td>
-		        <td>$<?php echo $proy['Proyecto']['montoplaneado']; ?></td>
-		        <td><?php echo $proy['Proyecto']['iddivision']; ?></td>
+		        <td><?php echo $proy['Proyecto']['estadoproyecto']; ?></td>
 		      	<td align="center">
-		            <?php echo $this->Html->link(
-		            	'Editar', 
-		            	array('action' => 'proyecto_modificar', $proy['Proyecto']['idproyecto']),
-		            	array('class'=>'k-button'));
-		            	?>
-			    </td> 
+		            <?php 
+		            	echo $this->Html->link('Detalles', 
+		            				array('action' => 'proyecto_detalles', $proy['Proyecto']['idproyecto']),
+		            				array('class'=>'k-button')); 
+			            if ($proy['Proyecto']['estadoproyecto'] == 'Formulacion')
+			            {
+			            	echo $this->Html->link('Editar', 
+						            	array('action' => 'proyecto_modificar', $proy['Proyecto']['idproyecto']),
+						            	array('class'=>'k-button'));
+							echo $this->Html->link('Eliminar', 
+			            				array('action' => 'proyecto_modificar', $proy['Proyecto']['idproyecto']),
+			            				array('class'=>'k-button'));
+			            }
+		            ?>
+		           </td>
 		    </tr>
 		    <?php endforeach; ?>
 		    <?php unset($proyectos); ?>

@@ -55,22 +55,32 @@ $this->end(); ?>
 		<?php echo $this->Form->create('Empresa'); ?>
 		<ul>
 			<li>
+				<?php echo $this->Form->input('nitempresa', 
+					array(
+						'label' => 'NIT Empresa',
+						'div' => array('class' => 'requerido'),
+						'id'	=>	'nit',
+						'class' => 'k-textbox', 
+						'placeholder' => 'Numero de Identificacion Tributaria'
+					)); ?>
+			</li>
+			<li>
 				<?php echo $this->Form->input('nombreempresa', 
 					array(
-						'label' => 'Empresa:', 
+						'label' => 'Nombre Empresa:', 
+						'div' => array('class' => 'requerido'),
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre Empresa', 
-						'required', 
-						'validationMessage' => 'Ingrese Nombre Empresa')); ?>
+						'placeholder' => 'Nombre Empresa' 
+					)); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('representantelegal', 
 					array(
-						'label' => 'Representante:', 
+						'label' => 'Nombre Representante:',
+						'div' => array('class' => 'requerido'), 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre del Representante', 
-						'required', 
-						'validationMessage' => 'Ingrese Nombre del Representante')); ?>
+						'placeholder' => 'Nombre del Representante'
+					)); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('direccionoficina', 
@@ -78,28 +88,28 @@ $this->end(); ?>
 						'label' => 'Direccion:', 
 						'class' => 'k-textbox', 
 						'placeholder' => 'Direccion Empresa', 
-						'required', 
 						"cols"=>"5",
-						"rows"=>"5",
-						'validationMessage' => 'Ingrese Direccion Empresa')); ?>
+						"rows"=>"5"
+					)); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('telefonoempresa', 
 					array(
 						'label' => 'Telefono:', 
+						'div' => array('class' => 'requerido'),
 						'class' => 'k-textbox', 
-						'placeholder' => 'Telefono Empresa', 
-						'required', 
-						'validationMessage' => 'Ingrese Telefono Empresa')); ?>
+						'id'	=>	'phone',
+						'placeholder' => 'Telefono Empresa' 
+						)); ?>
 			</li>	
 			<li>
 				<?php echo $this->Form->input('correorepresentante', 
 					array(
 						'label' => 'E-mail:', 
+						'div' => array('class' => 'requerido'),
 						'class' => 'k-textbox', 
 						'placeholder' => 'Correo Electronico', 
-						'required', 
-						'validationMessage' => 'Ingrese Correo Electronico')); ?>
+						)); ?>
 			</li>		
 		<li  class="accept">
 				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
@@ -151,12 +161,8 @@ $this->end(); ?>
                     text-align: right;
                     
                 }
-
-                .required {
-                    font-weight: bold;
-                }
                 
-                form .required label:after {
+                form .requerido label:after {
                 	font-size: 1.4em;
 					color: #e32;
 					content: '*';

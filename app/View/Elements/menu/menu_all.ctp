@@ -3,14 +3,7 @@
 						<ul id="menu">
 							<li>Proyectos
 								<ul>
-									<li>Proyecto
-										<ul>
-											<li><?php echo $this->Html->link('Registrar proyecto', array('controller' => 'proyectos','action'=>'proyecto_registrar')); ?></li>
-											<li><?php echo $this->Html->link('Modificar proyecto', array('controller' => 'proyectos','action'=>'proyecto_listado')); ?></li>
-											<li><?php echo $this->Html->link('Asignar número proyecto', array('controller' => 'proyectos','action'=>'proyecto_asignar_num')); ?></li>
-											<li disabled="disabled">Eliminar proyecto</li>
-										</ul>
-									</li>	
+									<li><?php echo $this->Html->link('Administración de proyectos', array('controller' => 'proyectos','action'=>'proyecto_listado')); ?></li>
 									<li>Ficha t&eacute;cnica
 										<ul>
 											<li><?php echo $this->Html->link('Registrar Ficha Técnica', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_registrarficha')); ?></li>

@@ -60,10 +60,15 @@ $this->end(); ?>
 				<?php echo $this->Form->input('proyectos',
 					array(
 						'label' => 'Proyectos:', 
-						'id' => 'proyectos'//,
-						//'empty'=>'Seleccione...'
+						'id' => 'proyectos',
+						'div' => array('class' => 'requerido'),
+						'class' => 'k-combobox'
 						)); ?>
-				<div id="error1" class="error-message"></div>
+				<script type="text/javascript">
+		            var proyectos = new LiveValidation( "proyectos", { validMessage: " " } );
+		            proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script>
+				
 			</li>
 			<li>
 				
@@ -71,18 +76,28 @@ $this->end(); ?>
 					array(
 						'label' => 'Fuentes de financiamiento:', 
 						'id' => 'fuentes',
-						//'empty'=>'Seleccione...'
+						'div' => array('class' => 'requerido'),
+						'class' => 'k-combobox'
 						)); ?>
-				<div id="error2" class="error-message"></div>		
+				<script type="text/javascript">
+		            var fuentes = new LiveValidation( "fuentes", { validMessage: " " } );
+		            fuentes.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script>		
 			</li>
 			<li> 
 				<?php echo $this->Form->input('montoparcial',
 					array(
-						'label' => 'Monto:', 
+						'label' => 'Monto:',
+						'div' => array('class' => 'requerido'), 
 						'id' => 'monto', 
 						'type' => 'text',
-						'maxlength' => 12)); ?>
-				
+						'class' => 'k-textbox',
+						'maxlength' => 13)); ?>
+				<script type="text/javascript">
+					var monto = new LiveValidation( "monto", { validMessage: " " } );
+		            monto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            monto.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99 } );
+		        </script>	
 			</li>
 			<li  class="accept">
 				<table>
@@ -126,8 +141,13 @@ $this->end(); ?>
 
             <style scoped>
 
+                
                 .k-textbox {
-                    width: 11.8em;
+                    width: 200px;
+                }
+                
+                .k-combobox {
+                    width: 400px;
                 }
 				
 				#formulario #divdos{
@@ -160,7 +180,7 @@ $this->end(); ?>
 
                 label {
                     display: inline-block;
-                    width: 150px;
+                    width: 160px;
                     text-align: right;
                     margin-right: 5px; 
                 }
@@ -173,16 +193,13 @@ $this->end(); ?>
                 }
                 
                 
-                form .required label:after {
+                form .requerido label:after {
                 	font-size: 1.4em;
 					color: #e32;
 					content: '*';
 					display:inline;
 				}
                 
-                .required {
-                    font-weight: bold;
-                }
 
                 .accept, .status {
                 	padding-top: 15px;
@@ -206,56 +223,49 @@ $this->end(); ?>
                     margin: 15px 0;
                     padding: 10px 20px 20px 0px;
                 }
+                
+                
+                .LV_validation_message{
+				    font-weight:bold;
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+					clear:both;
+               		display:inline-block;
+               		margin-left: 170px; 
+               
+				}
+				    
+				.LV_valid_field,
+				input.LV_valid_field:hover, 
+				input.LV_valid_field:active,
+				textarea.LV_valid_field:hover, 
+				textarea.LV_valid_field:active {
+				    border: 1px solid #00CC00;
+				}
+				    
+				.LV_invalid_field, 
+				input.LV_invalid_field:hover, 
+				input.LV_invalid_field:active,
+				textarea.LV_invalid_field:hover, 
+				textarea.LV_invalid_field:active {
+				    border: 1px solid #CC0000;
+				}
+                
+                
+                
             </style>
             
             <script>
                 $(document).ready(function() {
-                    var validator = $("#formulario").kendoValidator().data("kendoValidator"),
-                    status = $(".status");
-
-                    $("#button").click(function() {
-                        if (validator.validate()) {
-                        	save();  
-                        } 
-                    });
-                    
-                    $('#error1').hide();
-				 	$('#error2').hide();
-                    $("#FinanciaIndexForm").submit( function(){
-				        var selectpro = $("#proyectos").val();
-				        var selectfue = $("#fuentes").val();
-				 			$('#error1').hide();
-				 			$('#error2').hide();
-				            if(selectpro == ""){
-				            	$('#error1').show();
-				                $('#error1').text("Seleccione un Proyecto");
-				                
-				                return false;
-				            } else if(selectfue == ""){
-				            	$('#error2').show();
-				                $('#error2').text("Seleccione una Fuente de Financiamiento");
-				                
-				                return false;
-				            } else {
-				                $('.error-message').hide();
-				                /*alert('Ok!');*/
-				                return true;
-				            }
-				    });
-                    
-                    
-                    $("#selectpro").kendoDropDownList({
-                    	index: 0
-                    });
-                    
-                    $("#selectfufin").kendoComboBox({
-                    	index: 0
-                    });
-                    
-                    
-                    
                     $("#proyectos").kendoDropDownList({
-            			optionLabel: "Seleccione proyecto...",
+            			optionLabel: "Seleccione proyecto",
 			            dataTextField: "nombreproyecto",
 			            dataValueField: "idproyecto",
 			            dataSource: {
@@ -272,7 +282,7 @@ $this->end(); ?>
 			        var fuentes = $("#fuentes").kendoDropDownList({
 			                        autoBind: true,
 			                        cascadeFrom: "proyectos",
-			                        optionLabel: "Seleccione fuente...",
+			                        optionLabel: "Seleccione fuente",
 			                        dataTextField: "nombrefuente",
 			                        dataValueField: "idfuentefinanciamiento",
 			                        dataSource: {
@@ -283,24 +293,7 @@ $this->end(); ?>
 			                        }
 			                    }).data("kendoDropDownList");
                     fuentes.list.width(400);
-                    
-                    
-                    var ddl1 = $("#selectpro").data("kendoDropDownList");
-                    ddl1.list.width(400);
-                    ddl1.refresh();
-                    
-                    var ddl2 = $("#selectfufin").data("kendoComboBox");
-                    ddl2.list.width(400);
-                    ddl2.refresh();
-                    
-                    $("#monto").kendoNumericTextBox({
-                        format: "c",
-                        decimals: 2,
-                        min: 0,
-    					max: 999999999,
-    					placeholder: "Ej. 10000",
-    					spinners: false
-                    });
+                   
                 
                 });
                 
