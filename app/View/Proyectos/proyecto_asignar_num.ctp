@@ -55,28 +55,66 @@ $this->end(); ?>
 		<h2>Asignar número de proyecto</h2>
 		<?php echo $this->Form->create('Proyecto',array('action' => 'proyecto_asignar_num')); ?>
 		<ul>
-			<li>
-				<?php echo $this->Form->input('proys', 
-					array(
-						'label' => 'Seleccione proyecto:', 
-						'id' => 'proys', 
-						'validationMessage' => 'Seleccione un proyecto')); ?>
-			</li>
-			<!-- -->
-			<li>
-				<?php echo $this->Form->input('numeroproyecto', 
-					array(
-						'label' => 'Ingrese número de proyecto:', 
-						'id' => 'numero',
-						'class' => 'k-textbox',  
-						'placeholder' => 'Número del proyecto', 
-						'required', 
-						'validationMessage' => 'Ingrese Nombre de Proyecto')); ?>
-			</li>
+			
+				<li>
+					
+					<?php echo $this->Form->input('proys', 
+						array(
+							'label' => 'Seleccione proyecto:', 
+							'id' => 'proys',
+							'class'=>'k-combobox',
+							'div' => array('class' => 'requerido'))); ?>
+					<script type="text/javascript">
+						var proys = new LiveValidation( "proys", { validMessage: " " } );
+			            proys.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			        </script>
+				</li>
+				<li>
+					<div id=actnumero>
+					<?php 
+							if(isset($num['Proyecto']['numeroproyecto']))
+								$numero = $num['Proyecto']['numeroproyecto']; 
+							else
+							   $numero = '';
+						?>
+						
+						<!--- aqui se actualizara el campo de numero de proyecto con el cambio de proyecto --->
+							<?php echo $this->Form->input('numeroproyecto', 
+								array(
+									'label' => 'Ingrese número de proyecto:', 
+									'id' => 'numero',
+									'value'=>$numero,
+									'class' => 'k-textbox',  
+									'placeholder' => 'Número del proyecto', 
+									'div' => array('class' => 'requerido'))); ?>
+							<script type="text/javascript">
+								var numero = new LiveValidation( "numero", { validMessage: " " } );
+					            numero.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+					            numero.add( Validate.Numericality, { onlyInteger: true,
+					            								   notAnIntegerMessage: "Debe ser un número entero",
+					            								   notANumberMessage:"Debe ser un número"} );
+					            numero.add(Validate.Length, {minimum: 4, maximum: 6, 
+					            							 tooShortMessage:"Longitud mínima de 4 dígitos",
+					            							 tooLongMessage:"Longitud máxima de 6 dígitos"});
+					            
+					        </script>
+			        	
+					</div>
+				</li>
 			
 			<li  class="accept">
 				
 				<?php echo $this->Form->end(array('label' => 'Asignar número proyecto', 'class' => 'k-button')); ?>
+				<?php echo $this->Html->link('Regresar', 
+									array('controller' => 'Proyectos','action' => 'proyecto_listado'),
+									array('class'=>'k-button')); ?>
+				
+				<?php echo $this->ajax->observeField( 'proys', 
+		    		array(
+		        		'url' => array( 'action' => 'update_numeroproy'),
+		        		'update' => 'actnumero'
+		    		) 
+				);  ?>
 			</li>
             
             <li class="status">
@@ -90,13 +128,17 @@ $this->end(); ?>
 
                 .k-textbox {
                     width: 300px;
-                    margin-left: 5px;
+                    
                     
                 }
 				
 				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
-			
-                form .required label:after {
+				
+				.k-combobox {
+                    width: 300px;
+                }
+                
+                form .requerido label:after {
 					font-size: 1.4em;
 					color: #e32;
 					content: '*';
@@ -128,13 +170,9 @@ $this->end(); ?>
 
                 label {
                     display: inline-block;
-                    width: 150px;
+                    width: 200px;
                     text-align: right;
-                    
-                }
-
-                .required {
-                    font-weight: bold;
+                    margin-right: 5px;
                 }
 
                 .accept, .status {
@@ -152,8 +190,41 @@ $this->end(); ?>
                 span.k-tooltip {
                     margin-left: 6px;
                 }
-              
+                
+                .LV_validation_message{
+				    font-weight:bold;
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+					clear:both;
+               		display:inline-block;
+               		margin-left: 170px; 
+               
+				}
+				    
+				.LV_valid_field,
+				input.LV_valid_field:hover, 
+				input.LV_valid_field:active,
+				textarea.LV_valid_field:hover, 
+				textarea.LV_valid_field:active {
+				    border: 1px solid #00CC00;
+				}
+				    
+				.LV_invalid_field, 
+				input.LV_invalid_field:hover, 
+				input.LV_invalid_field:active,
+				textarea.LV_invalid_field:hover, 
+				textarea.LV_invalid_field:active {
+				    border: 1px solid #CC0000;
+				}
             </style>
+			
             <script>
                 $(document).ready(function() {
                     
@@ -167,7 +238,6 @@ $this->end(); ?>
                     });
                     
                     $("#proys").kendoDropDownList({
-            			optionLabel: "Seleccione proyecto...",
 			            dataTextField: "nombreproyecto",
 			            dataValueField: "idproyecto",
 			            dataSource: {
@@ -179,14 +249,8 @@ $this->end(); ?>
 			        });
 			        
 			        var proys = $("#proys").data("kendoDropDownList");
+                    proys.list.width(300);
                     
-                    $("#numero").kendoNumericTextBox({
-                        min: 000000,
-    					max: 999999,
-    					decimals: 0,
-    					placeholder: "Ej. 10000",
-    					spinners: false
-                    });
                     
                    
                 });

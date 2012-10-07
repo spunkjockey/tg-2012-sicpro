@@ -43,7 +43,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO
+			?> » Bienvenido a SICPRO » Mantenimiento » Empresa » Registrar Empresa
 			
 		</div>
 	</div>
@@ -52,17 +52,16 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Agregar Empresa</h2>
+		<h2>Registrar Empresa</h2>
 		<?php echo $this->Form->create('Empresa'); ?>
 		<ul>
 			<li>
 				<?php echo $this->Form->input('nitempresa', 
 					array(
-						'label' => 'NIT Empresa',
+						'label' => 'NIT Empresa:',
 						'div' => array('class' => 'requerido'),
 						'id'	=>	'nit',
-						'class' => 'k-textbox', 
-						'autofocus',
+						'class' => 'k-textbox',
 						'placeholder' => 'Numero de Identificacion Tributaria'
 				)); ?>
 				<script type="text/javascript">
@@ -79,7 +78,8 @@ $this->end(); ?>
 						'div' => array('class' => 'requerido'),
 						'class' => 'k-textbox',
 						'id'	=>	'nombreempresa', 
-						'placeholder' => 'Nombre Empresa' 
+						'placeholder' => 'Nombre Empresa', 
+						"rows"=>"2" 
 				)); ?> 
 				<script type="text/javascript">
 		            var nombreempresa = new LiveValidation( "nombreempresa", { validMessage: " " } );
@@ -93,8 +93,13 @@ $this->end(); ?>
 						'label' => 'Nombre Representante:',
 						'div' => array('class' => 'requerido'), 
 						'class' => 'k-textbox', 
+						'id'=> 'representantelegal',
 						'placeholder' => 'Nombre del Representante'
 					)); ?>
+				<script type="text/javascript">
+		            var representantelegal = new LiveValidation( "representantelegal", { validMessage: " " } );
+		            representantelegal.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script> 
 			</li>
 			<li>
 				<?php echo $this->Form->input('direccionoficina', 
@@ -102,8 +107,7 @@ $this->end(); ?>
 						'label' => 'Direccion:', 
 						'class' => 'k-textbox', 
 						'placeholder' => 'Direccion Empresa', 
-						"cols"=>"5",
-						"rows"=>"5"
+						"rows"=>"2"
 					)); ?>
 			</li>
 			<li>
@@ -115,18 +119,34 @@ $this->end(); ?>
 						'id'	=>	'phone',
 						'placeholder' => 'Telefono Empresa' 
 						)); ?>
+				<script type="text/javascript">
+		            var phone = new LiveValidation( "phone", { validMessage: " " } );
+		            phone.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            phone.add(Validate.Format, { pattern: /____-____/i, failureMessage: "No puedes dejar este campo en blanco", negate: true } );
+		            phone.add(Validate.Format, { pattern: /\d\d\d\d-\d\d\d\d/i, failureMessage: "El Numero de Telefono debe de tener 8 números"} );
+		        </script> 
 			</li>	
 			<li>
 				<?php echo $this->Form->input('correorepresentante', 
 					array(
-						'label' => 'E-mail:', 
-						'div' => array('class' => 'requerido'),
+						'label' => 'E-mail:',
 						'class' => 'k-textbox', 
-						'placeholder' => 'Correo Electronico', 
+						'placeholder' => 'Correo Electronico',
+						'id' => 'mail'
 						)); ?>
+						
+				<script type="text/javascript">
+					var mail = new LiveValidation('mail' , { validMessage: " " });
+					mail.add( Validate.Email , { failureMessage: "El correo electronico debe ser valido" });
+		        </script> 
 			</li>	
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar Empresa', 'class' => 'k-button')); ?>
+				<?php echo $this->Html->link(
+					'Regresar', 
+					array('controller' => 'Empresas', 'action' => 'index'),
+					array('class'=>'k-button')
+				); ?>
 				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
 			</li>
             

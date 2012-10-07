@@ -2,15 +2,7 @@
 class EmpresasController extends AppController {
     public $helpers = array('Html', 'Form', 'Session','Ajax','Javascript','Js');
     public $components = array('Session');
-	/*public $components = array(
-    'Session',
-    'Auth' => array(
-        'loginRedirect' => array('controller' => 'posts', 'action' => 'index'),
-        'logoutRedirect' => array('controller' => 'pages', 'action' => 'display', 'home'),
-        'authorize' => array('Controller') // Added this line
-		)
-	);
-*/
+
     public function index() {
     	$this->layout = 'cyanspark';
         $this->set('empresas', $this->Empresa->find('all'));
@@ -38,35 +30,29 @@ class EmpresasController extends AppController {
     }
 
 	
-	public function add() {
+	public function empresa_registrar() {
 		$this->layout = 'cyanspark';
         if ($this->request->is('post')) {
-        	//$this->Empresa->set($this->request->data);
-        	//if ($this->Empresa->validates()) {
-				    // it validated logic
 				    if ($this->Empresa->save($this->request->data, array('validate' => true, 'callbacks' => true))) {
-		            	$this->Session->setFlash('La Empresa ha sido registrada.');
+
+
+		            	$this->Session->setFlash('La Empresa '. $this->request->data['Empresa']['nombreempresa'] .' ha sido registrada.','default',array('class' => 'success'));
+
 		            	$this->redirect(array('action' => 'index'));
 		        	} else {
 		            	$this->Session->setFlash('No se pudo realizar el registro' );
-		        	}
-				/*} else {
-				    // didn't validate logic
-				    $errors = $this->Empresa->validationErrors;
-				}*/
-				
-			
+		        	}			
 		}
     }
 
-	function edit($id = null) {
+	function empresa_modificar($id = null) {
 		$this->layout = 'cyanspark';
 	    $this->Empresa->id = $id;
 	    if ($this->request->is('get')) {
 	        $this->request->data = $this->Empresa->read();
 	    } else {
-	        if ($this->Empresa->save($id)) {
-	            $this->Session->setFlash('Empresa ha sido actualizada.');
+	        if ($this->Empresa->save($this->request->data)) {
+	            $this->Session->setFlash('La Empresa '. $this->request->data['Empresa']['nombreempresa'] .' ha sido registrada.','default',array('class' => 'success'));
 	            $this->redirect(array('action' => 'index'));
 	        } else {
             	$this->Session->setFlash('Imposible editar Empresa');
@@ -75,11 +61,12 @@ class EmpresasController extends AppController {
 	}
 	
 	function delete($id) {
+		$empresa = $this->Empresa->findByIdempresa($id);
 		if (!$this->request->is('post')) {
 	        throw new MethodNotAllowedException();
 	    }
 	    if ($this->Empresa->delete($id)) {
-	        $this->Session->setFlash('La Empresa ha sido eliminada.');
+	        $this->Session->setFlash('La Empresa '. $empresa['Empresa']['nombreempresa'] .' ha sido eliminada.','default',array('class' => 'success'));
 	        $this->redirect(array('action' => 'index'));
 	    }
 	}

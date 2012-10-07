@@ -43,7 +43,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO » Actualizar Estado Contrato
+			?> » Bienvenido a SICPRO » Contratos » Actualizar Estado Contrato
 			
 		</div>
 	</div>
@@ -58,7 +58,8 @@ $this->end(); ?>
 				<?php echo $this->Form->input('proyectos',
 					array(
 						'label' => 'Proyectos:', 
-						'id' => 'proyectos'
+						'id' => 'proyectos',
+						'class' => 'k-dropdownlist'
 					)); ?>
 					<div id="error1" class="error-message"></div>
 			</li>
@@ -66,7 +67,8 @@ $this->end(); ?>
 				<?php echo $this->Form->input('contratos',
 					array(
 						'label' => 'Contratos:', 
-						'id' => 'contratos'
+						'id' => 'contratos',
+						'class' => 'k-dropdownlist'
 					)); ?>
 					<div id="error2" class="error-message"></div>
 			</li>
@@ -75,7 +77,6 @@ $this->end(); ?>
 
 
 			</div>
-			<br><br>
 			<li id='opcionesact'>
 				
 			</li>
@@ -108,22 +109,17 @@ $this->end(); ?>
 </div>
 
 
-<style scoped>
+            <style scoped>
 
-                .etiqueta {
-                    display: inline-block;
-                    width: 150px;
-                    
-                    margin-right: 5px; 
-                }
-                
                 .k-textbox {
                     width: 300px;
                     margin-left: 5px;
                     
                 }
 				
-				
+				.k-dropdownlist{
+                    width: 150px;
+                }
 			
                 #formulario {
                     width: 600px;
@@ -150,14 +146,21 @@ $this->end(); ?>
 
                 label {
                     display: inline-block;
-                    width: 150px;
+                    width: 160px;
                     text-align: right;
                     
                 }
 
-                .required {
+                /*.required {
                     font-weight: bold;
-                }
+                }*/
+                
+                form .requerido label:after {
+                	font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+				}
 
                 .accept, .status {
                 	padding-top: 15px;
@@ -171,10 +174,45 @@ $this->end(); ?>
                 .invalid {
                     color: red;
                 }
-                span.k-tooltip {
-                    margin-left: 6px;
-                }
-</style>
+                
+               
+               
+                
+				
+				.LV_validation_message{
+				    font-weight:bold;
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+					clear:both;
+               		display:inline-block;
+               		margin-left: 170px; 
+               
+				}
+				    
+				.LV_valid_field,
+				input.LV_valid_field:hover, 
+				input.LV_valid_field:active,
+				textarea.LV_valid_field:hover, 
+				textarea.LV_valid_field:active {
+				    border: 1px solid #00CC00;
+				}
+				    
+				.LV_invalid_field, 
+				input.LV_invalid_field:hover, 
+				input.LV_invalid_field:active,
+				textarea.LV_invalid_field:hover, 
+				textarea.LV_invalid_field:active {
+				    border: 1px solid #CC0000;
+				}
+                
+            </style>
 
 <script>
                 $(document).ready(function() {
@@ -189,7 +227,7 @@ $this->end(); ?>
                         }
                     });
                 $("#proyectos").kendoDropDownList({
-            			optionLabel: "Seleccione proyecto...",
+            			optionLabel: "Seleccione proyecto",
 			            dataTextField: "numeroproyecto",
 			            dataValueField: "idproyecto",
 			            dataSource: {
@@ -206,7 +244,7 @@ $this->end(); ?>
 			    var contratos = $("#contratos").kendoDropDownList({
 			                        autoBind: true,
 			                        cascadeFrom: "proyectos",
-			                        optionLabel: "Seleccione contrato...",
+			                        optionLabel: "Seleccione contrato",
 			                        dataTextField: "codigocontrato",
 			                        dataValueField: "idcontrato",
 			                        dataSource: {

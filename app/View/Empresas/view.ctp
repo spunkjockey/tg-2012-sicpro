@@ -43,22 +43,110 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO
+			?> » Bienvenido a SICPRO » Mantenimiento » Empresa » Detalles Empresa
 			
 		</div>
 	</div>
 	
 <?php $this->end(); ?>
-<ul>
-			<p><h3>Nit Empresa:</h3><?php echo $empresas['Empresa']['nitempresa']; ?></p>
+<h2>Detalles Empresa</h2>
+<table id="grid2">
+    <tr>
+        <th data-field="nitempresa">NIT empresa: </th>
+        <td>
+	        <?php 
+						$nit1 = substr($empresas['Empresa']['nitempresa'],0 , -10);
+						$nit2 = substr($empresas['Empresa']['nitempresa'],4 , -4);
+						$nit3 = substr($empresas['Empresa']['nitempresa'],10 , -1);
+						$nit4 = substr($empresas['Empresa']['nitempresa'],-1);
+						echo $nit1 .'-'. $nit2 . '-'.$nit3 .'-'.$nit4; 
+			?>
+		</td>
+    </tr>
+    <tr>
+    	<th data-field="nombreempresa">Nombre empresa: </th>
+    	<td><?php echo $empresas['Empresa']['nombreempresa']; ?></td>
+    </tr>
+    <tr>
+    	<th data-field="direccionoficina">Direccion: </th>
+    	<td><?php echo ($empresas['Empresa']['direccionoficina']); ?></td>
+    </tr>
+    <tr>
+    	<th data-field="representantelegal">Representante Representante: </th>
+    	<td><?php echo ($empresas['Empresa']['representantelegal']); ?></td>
+    </tr>
+    <tr>
+    	<th data-field="telefonoempresa">Telefono: </th>
+    	<td><?php echo ($empresas['Empresa']['telefonoempresa']); ?></td>
+    </tr>
+    <tr>
+    	<th data-field="correorepresentante">E-mail: </th>
+    	<td><?php echo ($empresas['Empresa']['correorepresentante']); ?></td>
+    </tr>
+</table>
+			
+			<?php echo $this->Html->link(
+					'Regresar', 
+					array('controller' => 'Empresas', 'action' => 'index'),
+					array('class'=>'k-button')
+			); ?>
+			
 
-			<p><h3>Nombre Empresa: </h3><?php echo $empresas['Empresa']['nombreempresa']; ?></p>
+<script>
+	$(document).ready(function() {
+		
+		<?php echo 'var idempresa = '.$emp["Empresa"]["idempresa"].';'; ?>
+		
+    	$("#grid2").kendoGrid({
+            	dataSource: {
+	           		pageSize: 10,
+            	},
+            	pageable: true,
+            	pageable: {
+            		messages: {
+            			display: "{0} - {1} de {2} Empresas",
+            			empty: "No empresas a mostrar",
+            			page: "Página",
+            			of: "de {0}",
+            			itempsPerPage: "Empresas por página",
+            			first: "Ir a la primera página",
+            			previous: "Ir a la página anterior",
+            			next: "Ir a la siguiente página",
+            			last: "Ir a la última página",
+            			refresh: "Actualizar"
+            		}
+            	},
+            	sortable: true,
+            	sortable: {
+ 			    	mode: "single", // enables multi-column sorting
+        			allowUnsort: true
+				},
+				scrollable: false
+            	
+            	
+        	});
+        	
+    var idemp = 0;
+	 function cambiarid(usuario) {
+		alert("hola mundo");
+		return false;
+	}
+	 
+    var win = $("#window").kendoWindow({
+	    draggable: false,
+	    modal: true,
+        title: "Centered Window",
+        content: "empresas/view_w/"+idemp,
+        visible: false
+    }).data("kendoWindow");
 
-			<p><h3>Direccion Empresa:</h3><?php echo ($empresas['Empresa']['direccionoficina']); ?></p>
-			
-			<p><h3>Representante Legal:</h3><?php echo ($empresas['Empresa']['representantelegal']); ?></p>
-			
-			<p><h3>Telefono Empresa: </h3><?php echo ($empresas['Empresa']['telefonoempresa']); ?></p>
-			
-			<p><h3>E-Mail: </h3><?php echo ($empresas['Empresa']['correorepresentante']); ?></p>
-</ul>
+	<?php //echo '$("#openButton"'.$emp['Empresa']['idempresa'].').click(function(){'; ?>
+	$("#popup a.k-button").click(function(){
+		var win = $("#window").data("kendoWindow");
+		win.center();
+		win.open();
+	});
+	
+
+        });
+</script>

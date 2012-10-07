@@ -154,7 +154,7 @@ $this->end(); ?>
 				
 				.k-combobox
 				{
-				    width: 300px;
+				    width: 400px;
 				    margin-left: 5px;
 				}
 

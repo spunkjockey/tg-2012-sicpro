@@ -44,7 +44,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO
+			?> » Bienvenido a SICPRO » Mantenimiento » Empresa
 			
 		</div>
 	</div>
@@ -55,7 +55,7 @@ $this->end(); ?>
 <div style='margin:4px 0' >
 	<?php echo $this->Html->link(
 		'Registrar Empresa', 
-		array('controller' => 'Empresas', 'action' => 'add'),
+		array('controller' => 'Empresas', 'action' => 'empresa_registrar'),
 		array('class'=>'k-button')
 	); ?>
 </div> 
@@ -63,7 +63,7 @@ $this->end(); ?>
     <tr>
         <th data-field="nombreempresa">Nombre empresa</th>
         <th data-field="representantelegal">Representante Legal</th>
-        <th data-field="telefonorepresentante">Telefono</th>
+        <th data-field="telefonorepresentante" width="55px">Telefono</th>
         <th data-field="accion" width="225px">Acción</th>
     </tr>
 
@@ -77,13 +77,14 @@ $this->end(); ?>
         <td align="center">
             <?php echo $this->Html->link(
             	'Editar', 
-            	array('action' => 'edit', $emp['Empresa']['idempresa']),
+            	array('action' => 'empresa_modificar', $emp['Empresa']['idempresa']),
             	array('class'=>'k-button')
 			);?>
             <?php echo $this->Form->postLink(
                 'Eliminar',
                 array('action' => 'delete', $emp['Empresa']['idempresa']),
-                array('confirm' => '¿Está seguro?','class'=>'k-button')
+                array('confirm' => '¿Está seguro que desea eliminar la empresa ?',
+                		'class'=>'k-button')
             )?>
             <?php echo $this->Html->link(
             	'Detalles', 
