@@ -62,7 +62,8 @@
 			$this->Proyecto->set('modificacion', date('Y-m-d h:i:s'));
 			if ($this->Proyecto->save())
 			{
-				$this->Session->setFlash('Proyecto ha sido actualizado.','default',array('class'=>'success'));
+				$this->Session->setFlash('Proyecto '. $this->request->data['Proyecto']['nombreproyecto'].' ha sido actualizado.',
+										 'default',array('class'=>'success'));
 				$this->redirect(array('action' => 'proyecto_listado'));
 			}
 			else 
@@ -115,6 +116,11 @@
 	public function proyecto_asignar_num($id=null)
 	{
 		$this->layout = 'cyanspark';
+		//primer proyecto
+		$proys = $this->Proyecto->find('first', array(
+										'fields'=> array('Proyecto.idproyecto'),
+										'order'=> array('Proyecto.nombreproyecto ASC')));
+		$this->set('num',$this->Proyecto->find());
 		
 		if ($this->request->is('post')) 
 			{
@@ -128,7 +134,8 @@
 				
 				if ($this->Proyecto->save($id)) 
 					{
-						$this->Session->setFlash('El número de proyecto ha sido asignado','default',array('class'=>'success'));
+						$this->Session->setFlash('El número del proyecto '. $this->request->data['Proyecto']['nombreproyecto'].' ha sido asignado',
+												 'default',array('class'=>'success'));
 						$this->redirect(array('controller'=>'mains', 'action' => 'index'));
 		            }
 					else 
@@ -142,7 +149,7 @@
 		{
 			$proys = $this->Proyecto->find('all', array(
 										'fields'=> array('Proyecto.idproyecto','Proyecto.nombreproyecto'),
-										'conditions'=>array('Proyecto.numeroproyecto is null')));
+										'order'=> array('Proyecto.nombreproyecto ASC')));
 			$this->set('proys', Hash::extract($proys, "{n}.Proyecto"));
 			$this->set('_serialize', 'proys');
 			$this->render('/json/jsonproys');

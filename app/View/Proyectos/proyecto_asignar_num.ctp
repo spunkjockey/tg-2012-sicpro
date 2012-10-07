@@ -79,18 +79,22 @@ $this->end(); ?>
 				<script type="text/javascript">
 					var numero = new LiveValidation( "numero", { validMessage: " " } );
 		            numero.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            numero.add(Validate.Length, {minimum: 4, maximum: 6, 
-		            							 tooShortMessage:"Longitud mínima de 4 dígitos",
-		            							 tooLongMessage:"Longitud máxima de 6 dígitos"});
 		            numero.add( Validate.Numericality, { onlyInteger: true,
 		            								   notAnIntegerMessage: "Debe ser un número entero",
 		            								   notANumberMessage:"Debe ser un número"} );
+		            numero.add(Validate.Length, {minimum: 4, maximum: 6, 
+		            							 tooShortMessage:"Longitud mínima de 4 dígitos",
+		            							 tooLongMessage:"Longitud máxima de 6 dígitos"});
+		            
 		        </script>
 			</li>
 			
 			<li  class="accept">
 				
 				<?php echo $this->Form->end(array('label' => 'Asignar número proyecto', 'class' => 'k-button')); ?>
+				<?php echo $this->Html->link('Regresar', 
+									array('controller' => 'Proyectos','action' => 'proyecto_listado'),
+									array('class'=>'k-button')); ?>
 			</li>
             
             <li class="status">
@@ -111,7 +115,7 @@ $this->end(); ?>
 				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 				
 				.k-combobox {
-                    width: 200px;
+                    width: 300px;
                 }
                 
                 form .requerido label:after {
@@ -146,7 +150,7 @@ $this->end(); ?>
 
                 label {
                     display: inline-block;
-                    width: 150px;
+                    width: 200px;
                     text-align: right;
                     margin-right: 5px;
                 }
@@ -225,7 +229,7 @@ $this->end(); ?>
 			        });
 			        
 			        var proys = $("#proys").data("kendoDropDownList");
-                    
+                    proys.list.width(300);
                     
                     
                    

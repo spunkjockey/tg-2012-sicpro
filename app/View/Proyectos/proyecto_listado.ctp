@@ -70,7 +70,7 @@ $this->end(); ?>
 		    <tr>
 		        <th data-field="nombreproyecto" width="280px">Nombre proyecto</th>
 		        <th data-field="estadoproyecto">Estado</th>
-		        <th data-field="accion">Acción</th>
+		        <th data-field="accion" width="210px">Acción</th>
 		    </tr>
 			<?php foreach ($proyectos as $proy): ?>
 		    <tr>

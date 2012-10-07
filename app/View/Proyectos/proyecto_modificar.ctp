@@ -96,6 +96,9 @@ $this->end(); ?>
 				<?php echo $this->Form->input('idproyecto')?>
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar proyecto', 'class' => 'k-button')); ?>
+				<?php echo $this->Html->link('Regresar', 
+									array('controller' => 'Proyectos','action' => 'proyecto_listado'),
+									array('class'=>'k-button')); ?>
 			</li>
             
             <li class="status">
@@ -221,10 +224,9 @@ $this->end(); ?>
                     
                     
                     $("#divisiones").kendoDropDownList({
-            			optionLabel: "Seleccione división...",
-			            dataTextField: "divison",
+            			dataTextField: "divison",
 			            dataValueField: "iddivision",
-			            index: <?php echo $this->request->data['Division']['iddivision']; ?>,
+			            index: <?php echo $this->request->data['Division']['iddivision']-1; ?>,
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
