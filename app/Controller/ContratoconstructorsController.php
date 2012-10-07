@@ -5,17 +5,18 @@
 		public $uses = array('Contratoconstructor','Contrato','Proyecto','Empresa','Persona');
 		
 		/* Funcion para agregar contratos de construcción al sistema*/
-		public function add()
+		public function contratoconstructor_registrar()
 		{
 			$this->layout = 'cyanspark';
 			if($this->request->is('post'))
 			{
 				//Registro en tabla contrato
 				$this->Contrato->create();
+				Debugger::dump($this->request->data);
 				$this->Contrato->set('idproyecto', $this->request->data['Contratoconstructor']['proyectos']);
 				$this->Contrato->set('idpersona', $this->request->data['Contratoconstructor']['admin']);
 				$this->Contrato->set('idempresa', $this->request->data['Contratoconstructor']['empresas']);
-				$this->Contrato->set('codigocontrato', $this->request->data['Contratoconstructor']['codigocontrato']);
+				$this->Contrato->set('codigocontrato', $this->request->data['Contrato']['codigocontrato']);
 				$this->Contrato->set('nombrecontrato', $this->request->data['Contratoconstructor']['nombrecontrato']);
 				$this->Contrato->set('montooriginal', $this->request->data['Contratoconstructor']['montocon']);
 				$this->Contrato->set('plazoejecucion', $this->request->data['Contratoconstructor']['plazoejecucion']);
@@ -31,7 +32,7 @@
 					$this->Contratoconstructor->set('idproyecto',$this->request->data['Contratoconstructor']['proyectos']);
 					$this->Contratoconstructor->set('idpersona', $this->request->data['Contratoconstructor']['admin']);
 					$this->Contratoconstructor->set('idempresa', $this->request->data['Contratoconstructor']['empresas']);
-					$this->Contratoconstructor->set('codigocontrato', $this->request->data['Contratoconstructor']['codigocontrato']);
+					$this->Contratoconstructor->set('codigocontrato', $this->request->data['Contrato']['codigocontrato']);
 					$this->Contratoconstructor->set('nombrecontrato', $this->request->data['Contratoconstructor']['nombrecontrato']);
 					$this->Contratoconstructor->set('montooriginal', $this->request->data['Contratoconstructor']['montocon']);
 					$this->Contratoconstructor->set('plazoejecucion', $this->request->data['Contratoconstructor']['plazoejecucion']);
@@ -50,12 +51,12 @@
 					}
 					else 
 					{
-						$this->Session->setFlash('Ha ocurrido un error');
+						$this->Session->setFlash('Ha ocurrido un error cc');
 	                }
 				}
 				else 
 				{
-					$this->Session->setFlash('Ha ocurrido un error');
+					$this->Session->setFlash('Ha ocurrido un error c');
                 }
 			}
 		}
@@ -111,7 +112,69 @@
 		$this->set('_serialize', 'contratos');
 		$this->render('/json/jsondatad');
 	}
+
+	/*proycontratosjson()
+	 * Esta función extrae los proyectos que tienen registrados contratos, 
+	 * siempre que el proyecto se encuentre en los siguientes estados:
+	 * Adjudicación o Ejecución
+	 * */
+	function proycontratosjson()
+	{
+		$proyectos = $this->Proyecto->find('all',array(
+			'fields'=> array('Proyecto.idproyecto','Proyecto.numeroproyecto'),
+			'conditions'=>array( "AND" => array('Proyecto.estadoproyecto' => array('Adjudicacion','Ejecucion'),
+										  array('Proyecto.idproyecto IN (SELECT idproyecto FROM sicpro2012.contratoconstructor)'))),
+			'order'=>array('Proyecto.numeroproyecto')
+			));
+			$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
+			$this->set('_serialize', 'proyectos');
+			$this->render('/json/jsonproyecto');
+	}
 	
+	/*conconstructorjson()
+	 * Esta función extrae los contratos de construcción que se encuentren
+	 * en los siguientes estados: en marcha, a tiempo y atrasado,
+	 * en base a los proyectos de la función proycontratosjson() 
+	 * */
+	function conconstructorjson()
+	{
+		$contratos = $this->Contratoconstructor->find('all',array(
+			'fields' => array('Contratoconstructor.idproyecto','Contratoconstructor.idcontrato', 'Contratoconstructor.codigocontrato'),
+			'conditions'=>array('OR'=>array('Contratoconstructor.estadocontrato'=>array('a tiempo','atrasado','en marcha'),
+									  array('Contratoconstructor.estadocontrato is null'))),
+			'order' => array('Contratoconstructor.codigocontrato')
+			));
+		$this->set('contratos', Hash::extract($contratos, "{n}.Contratoconstructor"));
+		$this->set('_serialize', 'contratos');
+		$this->render('/json/jsondatad');
+	}
+	
+	/*update_infoconstructor()
+	 * Esta funcion se encarga de actualizar los datos en los campos del formulario
+	 * en cuanto se seleccione un proyecto y luego un contrato
+	 * */
+	 function update_infoconconstructor()
+	 {
+	 	if (!empty($this->data['Contratoconstructor']['contratos']))
+		{
+			$cont_id = $this->request->data['Contratoconstructor']['contratos'];
+			$info = $this->Contratoconstructor->find('first',array(
+						'fields'=>array('Contratoconstructor.codigocontrato','Contratoconstructor.nombrecontrato',
+										'Contratoconstructor.montooriginal','Contratoconstructor.anticipo',
+										'Contratoconstructor.plazoejecucion','Contratoconstructor.fechainiciocontrato',
+										'Contratoconstructor.fechafincontrato','Contratoconstructor.detalleobras',
+										'Contratoconstructor.idpersona','Contratoconstructor.idempresa'),
+						'conditions'=>array('Contratoconstructor.idcontrato'=>$cont_id)));
+			$this->set('info',$info);
+		}
+		$this->render('/Elements/update_infoconconstructor', 'ajax');
+	 }
+	 
+	/*contratoconstructor_modificar()
+	 * Esta función permite modificar la información de un contrato de construcción
+	 * se auxilia de las funciones conconstructorjson(), conconstructorjson() y
+	 * update_infoconstructor() esta ultima implementa ajax a los campos
+	 * */
 	function contratoconstructor_modificar()
 	{
 		$this->layout = 'cyanspark';
