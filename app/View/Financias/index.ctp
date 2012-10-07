@@ -51,6 +51,7 @@ $this->end(); ?>
 	
 <?php $this->end(); ?>
 
+
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Asignación de Fondos</h2>
@@ -85,6 +86,7 @@ $this->end(); ?>
 		        </script>		
 			</li>
 			<li> 
+				
 				<?php echo $this->Form->input('montoparcial',
 					array(
 						'label' => 'Monto:',
@@ -92,11 +94,15 @@ $this->end(); ?>
 						'id' => 'monto', 
 						'type' => 'text',
 						'class' => 'k-textbox',
-						'maxlength' => 13)); ?>
+						'maxlength' => 12,
+						'error' => array('attributes' => array('wrap' => 'span', 'class' => 'LV_validation_message LV_invalid', "id" => 'errormonto'))
+					)); ?>
+					
+				
 				<script type="text/javascript">
-					var monto = new LiveValidation( "monto", { validMessage: " " } );
+					var monto = new LiveValidation( "monto", { validMessage: "Correcto" } );
 		            monto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            monto.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99 } );
+		            monto.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99, tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
 		        </script>	
 			</li>
 			<li  class="accept">
@@ -114,27 +120,31 @@ $this->end(); ?>
 		</ul>
 		
 		<div id='tablafinancia'>
-			<div id='divdos'>	
+			<div id='divdos'>
+				
+				<?php if(!empty($disponible)) { ?>
+					<h3>Detalle Fuente financiamiento</h3>
+					<p><strong class:'etiqueta'>Monto Disponible: </strong><?php echo '$'.number_format($disponible, 2, '.', ',')?> 
+				<?php } ?>
+					
 			</div> 			
 		</div>
 		
 
 
-		<?php echo $this->ajax->observeField( 'proyectos', 
+		<?php echo $this->ajax->observeForm( 'FinanciaIndexForm', 
     		array(
         		'url' => array( 'action' => 'update_tablafinancia'),
         		'update' => 'tablafinancia'
     		) 
 		); ?>
-		
+		<!--
 		<?php echo $this->ajax->observeField( 'fuentes', 
     		array(
         		'url' => array( 'action' => 'update_disponible'),
         		'update' => 'divdos'
     		) 
-		);  ?>
-
-
+		);  ?> -->
 				
 	</div>
 </div>
@@ -147,7 +157,7 @@ $this->end(); ?>
                 }
                 
                 .k-combobox {
-                    width: 400px;
+                    width: 300px;
                 }
 				
 				#formulario #divdos{
@@ -232,13 +242,14 @@ $this->end(); ?>
 				
 				.LV_valid {
 				    color:#00CC00;
+				    margin-left: 10px;
 				}
 					
 				.LV_invalid {
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 170px; 
+               		margin-left: 10px; 
                
 				}
 				    
@@ -264,11 +275,11 @@ $this->end(); ?>
             
             <script>
                 $(document).ready(function() {
-                    $("#proyectos").kendoDropDownList({
-            			optionLabel: "Seleccione proyecto",
-			            dataTextField: "nombreproyecto",
+                    $("#proyectos").kendoComboBox({
+            			placeholder: "Seleccione un Proyecto",
+            			dataTextField: "nombreproyecto",
 			            dataValueField: "idproyecto",
-			            dataSource: {
+						dataSource: {
 			                            type: "json",
 			                            transport: {
 			                                read: "/Financias/proyectojson.json"
@@ -276,13 +287,13 @@ $this->end(); ?>
 			                        }
 			        });
 			        
-			        var proyectos = $("#proyectos").data("kendoDropDownList");
+			        var proyectos = $("#proyectos").data("kendoComboBox");
 			        proyectos.list.width(400);
 			        
-			        var fuentes = $("#fuentes").kendoDropDownList({
-			                        autoBind: true,
+			        var fuentes = $("#fuentes").kendoComboBox({
+			                        placeholder: "Seleccione una Fuente",
+			                        autoBind: false,
 			                        cascadeFrom: "proyectos",
-			                        optionLabel: "Seleccione fuente",
 			                        dataTextField: "nombrefuente",
 			                        dataValueField: "idfuentefinanciamiento",
 			                        dataSource: {
@@ -291,9 +302,24 @@ $this->end(); ?>
 			                                read: "/Financias/fuentejson.json"
 			                            }
 			                        }
-			                    }).data("kendoDropDownList");
+			                    }).data("kendoComboBox");
                     fuentes.list.width(400);
                    
+                	$("#monto").kendoNumericTextBox({
+					    min: 0,
+    					format: "c2",
+    					placeholder: "Ingrese un monto",
+    					spinners: false
+					});
+                
+                  $("form").focusin(function () {
+  						$("#flashMessage").fadeOut("slow");
+  				});
+                
+                
+                $("#monto").focusin(function () {
+  						$("#errormonto").fadeOut("slow");
+  				});
                 
                 });
                 

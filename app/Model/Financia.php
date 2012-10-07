@@ -15,14 +15,9 @@ class Financia extends AppModel {
     );
 	public $validate = array(
 		'montoparcial' => array(
-			'decimal' => array(
-				'rule' => array('decimal', 2),
-				'required'=> true,
-				'allowEmpty' => false,
-				'message' => 'Solo son permitidos números'
-			),
 			'mayorquepermitido' => array(
             	'rule'    => array('limitarMonto'),
+            	'allowEmpty' => true,
             	'message' => 'El valor sobrepasa el monto disponible'
         	)
 		)
