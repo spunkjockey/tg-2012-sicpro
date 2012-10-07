@@ -43,7 +43,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO
+			?> » Bienvenido a SICPRO » Control y Seguimiento » Estimación de Avance
 			
 		</div>
 	</div>

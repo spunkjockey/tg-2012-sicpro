@@ -28,7 +28,7 @@ class FuentefinanciamientosController extends AppController {
 			$this->Fuentefinanciamiento->set('userc', $this->request->data['Fuentefinanciamiento'] ['userc']);
 			$this->Fuentefinanciamiento->set('idtipofuente', $this->request->data['Fuentefinanciamiento'] ['tipofuentes']);
 			if ($this->Fuentefinanciamiento->save()) {
-            	$this->Session->setFlash('La Fuente de Financiamiento ha sido registrada.');
+            	$this->Session->setFlash('La Fuente de Financiamiento ha sido registrada.', 'default', array('class'=>'success'));
             	$this->redirect(array('action' => 'index'));
         	} else {
             	$this->Session->setFlash('No se pudo realizar el registro');
@@ -53,7 +53,7 @@ class FuentefinanciamientosController extends AppController {
 			
 			$this->Fuentefinanciamiento->set('modificacion', date("Y-m-d H:i:s"));
 	        if ($this->Fuentefinanciamiento->save()) {
-	            $this->Session->setFlash('La Fuente ha sido actualizada.');
+	            $this->Session->setFlash('La Fuente ha sido actualizada.', 'default', array('class'=>'success'));
 	            $this->redirect(array('action' => 'index'));
 	        } else {
             	$this->Session->setFlash('Imposible editar Fuente de Financiamiento');
@@ -78,7 +78,7 @@ class FuentefinanciamientosController extends AppController {
 	        throw new MethodNotAllowedException();
 	    }
 	    if ($this->Fuentefinanciamiento->delete($id)) {
-	        $this->Session->setFlash('La Fuente de Financiamiento ha sido eliminada.');
+	        $this->Session->setFlash('La Fuente de Financiamiento ha sido eliminada.', 'default', array('class'=>'success'));
 	        $this->redirect(array('action' => 'index'));
 	    }
 	}

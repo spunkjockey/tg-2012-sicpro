@@ -45,7 +45,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO
+			?> » Bienvenido a SICPRO » Control y Seguimiento » Estimación de Avance
 			
 		</div>
 	</div>
@@ -63,10 +63,9 @@ $this->end(); ?>
     <tr>
         <th data-field="tituloestimacion">Titulo Estimación</th>
         <th data-field="fechainicioestimacion">Inicio Estimación</th>
-        <th data-field="fechafinestimacion">Fin Estimación</th>
-        <th data-field="fechaestimacion" width="225px">Fecha Estimación</th>
-        <th data-field="montoestimado" width="225px">Monto Estimado</th>
-        <th data-field="accion" width="225px">Acción</th>
+        
+        <th data-field="montoestimado">Monto Estimado</th>
+        <th data-field="accion" width="250 px">Acción</th>
     </tr>
 
     <!-- Here is where we loop through our $fuente array, printing out post info -->
@@ -74,10 +73,10 @@ $this->end(); ?>
     <?php foreach ($estimacions as $esti): ?>
     <tr>
         <td><?php echo $esti['Estimacion'] ['tituloestimacion']; ?></td>
-        <td><?php echo $esti['Estimacion']['fechainicioestimacion']; ?></td>
-        <td><?php echo $esti['Estimacion']['fechafinestimacion']; ?></td>  
-        <td><?php echo $esti['Estimacion']['fechaestimacion']; ?></td>      
-        <td><?php echo $esti['Estimacion']['montoestimado']; ?></td>    
+        <td><?php echo date('d/m/Y',strtotime ($esti['Estimacion']['fechainicioestimacion'])); ?></td>
+        
+        
+        <td><?php echo '$ ' . number_format ($esti['Estimacion']['montoestimado'],2); ?></td>    
         <td align="center">
             <?php echo $this->Html->link(
             	'Editar', 
@@ -87,7 +86,7 @@ $this->end(); ?>
             <?php echo $this->Form->postLink(
                 'Eliminar',
                 array('action' => 'delete', $esti['Estimacion']['idestimacion']),
-                array('confirm' => '¿Está seguro?','class'=>'k-button')
+                array('confirm' => '¿Está seguro que desea eliminar los datos de la estimación?','class'=>'k-button')
             )?>
            <?php echo $this->Html->link(
             	'Cargar Archivo', 

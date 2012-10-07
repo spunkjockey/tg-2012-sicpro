@@ -44,7 +44,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO
+			?> » Bienvenido a SICPRO » Mantenimiento » Fuente Financiamiento
 			
 		</div>
 	</div>
@@ -58,41 +58,70 @@ $this->end(); ?>
 			<li>
 				<?php echo $this->Form->input('nombrefuente', 
 					array(
-						'label' => 'Fuente:', 
+						'label' => 'Nombre Fuente Financiamiento:',
+					     'id'=> 'nombrefuente',
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre Fuente de Financiamiento', 
-						'required', 
-						'validationMessage' => 'Ingrese Nombre de Fuente de Financiamiento')); ?>
+						'placeholder' => 'Nombre de fuente de financiamiento', 
+						'div' => array('class' => 'requerido')
+						)); ?>
+				<script type="text/javascript">
+		            var nombrefuente = new LiveValidation( "nombrefuente", { validMessage: " " } );
+		            nombrefuente.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            nombrefuente.add(Validate.Format, { pattern: /[a-zA-Z0-9_ ]+/, failureMessage: "El nombre de la fuente debe ser alfanumerico" } );
+		        </script> 
 			</li>
 			<li>
 				<?php echo $this->Form->input('montoinicial', 
 					array(
 						'label' => 'Monto:', 
 						'id'    => 'moneda',
+						'maxlength'=> 11,
+						'type'=>'text',
 						'placeholder' => 'Monto Inicial', 
-						'required', 
-						'validationMessage' => 'Ingrese el Monto Inicial')); ?>
+						'div' => array('class' => 'requerido'))); ?>
+				<script type="text/javascript">
+		            var moneda = new LiveValidation( "moneda", { validMessage: " " } );
+		            moneda.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            moneda.add(Validate.Format, { pattern: /[a-zA-Z0-9_ ]+/, failureMessage: "El monto de la fuente debe ser numérico" } );
+		        </script> 
 			</li>
 			<li>
 				<?php echo $this->Form->input('fechadisponible',
 					array(
 						'label' => 'Fecha:', 
 						'id'	=> 'datePicker1',
-						'type' => 'text'
+						'type' => 'text',
+						'div' => array('class' => 'requerido')
 						)); ?>
+			   <script type="text/javascript">
+		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " } );
+		            datePicker1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato DD/MM/AAAA" } );
+		        </script> 
 			</li>
 			<li>
                 <?php echo $this->Form->input('tipofuentes',
 					array(
 						'label' => 'Tipo Fuente:', 
 						'id' => 'fuentes',
+						'div' => array('class' => 'requerido')
 					)); ?>
 			</li>
 		
 		<li  class="accept">
 				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
 				<?php echo $this->Form->input('userm', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
-				<?php echo $this->Form->end(array('label' => 'Editar Fuente', 'class' => 'k-button')); ?>
+				
+			
+<table border="0">
+<tr>
+<td><?php echo $this->Form->end(array('label' => 'Editar Fuente', 'class' => 'k-button')); ?>
+</td><td>
+    <?php echo $this->Html->link('Regresar', array('controller' => 'Fuentefinanciamientos','action' => 'index'),
+    array('class'=>'k-button'));?>
+</td></tr>
+</table>
+			
 			</li>
             
             <li class="status">
@@ -103,15 +132,21 @@ $this->end(); ?>
  
    </div>
   </div>
-          <style scoped>
+           <style scoped>
 
                 .k-textbox {
                     width: 300px;
-                    margin-left: 5px;
+               
                     
                 }
 				
-				
+				    form .requerido label:after {
+                	font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+				}
+                
 			
                 #formulario {
                     width: 600px;
@@ -138,14 +173,12 @@ $this->end(); ?>
 
                 label {
                     display: inline-block;
-                    width: 150px;
+                    width: 210px;
                     text-align: right;
+                    margin-right: 5px;
                     
                 }
 
-                .required {
-                    font-weight: bold;
-                }
 
                 .accept, .status {
                 	padding-top: 15px;
@@ -162,6 +195,39 @@ $this->end(); ?>
                 span.k-tooltip {
                     margin-left: 6px;
                 }
+                
+                 .LV_validation_message{
+				    font-weight:bold;
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+					clear:both;
+               		display:inline-block;
+               		margin-left: 170px; 
+               
+				}
+				    
+				.LV_valid_field,
+				input.LV_valid_field:hover, 
+				input.LV_valid_field:active,
+				textarea.LV_valid_field:hover, 
+				textarea.LV_valid_field:active {
+				    border: 1px solid #00CC00;
+				}
+				    
+				.LV_invalid_field, 
+				input.LV_invalid_field:hover, 
+				input.LV_invalid_field:active,
+				textarea.LV_invalid_field:hover, 
+				textarea.LV_invalid_field:active {
+				    border: 1px solid #CC0000;
+				}
             </style>
             
             <script>
@@ -179,15 +245,17 @@ $this->end(); ?>
 
 
 		$("#datePicker1").kendoDatePicker({
-		   format: "yyyy/MM/dd" //Define el formato de fecha
+		   format: "dd/MM/yyyy", //Define el formato de fecha
+		   culture:"es-ES"
 		});
          $("#moneda").kendoNumericTextBox({
 		     format: "c2", //Define currency type and 2 digits precision
-		     spinners: false
+		     spinners: false,
+		     min:0, max:999999999.99
 		 });
 		 
 		$("#fuentes").kendoDropDownList({
-            			optionLabel: "Seleccione Tipo fuente...",
+            		
 			            dataTextField: "tipofuente",
 			            dataValueField: "id",
 			            dataSource: {
@@ -196,8 +264,8 @@ $this->end(); ?>
 			                                read: "/Fuentefinanciamientos/fuentejson.json"
 			                            }
 			                        }
+			                        
 			        });
-	         
 	         
 	                });
             </script>
