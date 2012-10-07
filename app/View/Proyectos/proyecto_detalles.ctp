@@ -47,17 +47,62 @@ $this->end(); ?>
 		</div>
 	</div>
 <?php $this->end(); ?>
-
+<div id="formulario">
 <ul>
-		<h3>Nombre proyecto:</h3>
+		<li>
+			<h3>Nombre proyecto:</h3>
 			<?php echo $proyectos['Proyecto']['nombreproyecto']; ?>
-		<h3>Número proyecto: </h3>
+		</li>
+		<li>
+			<h3>Número proyecto: </h3>
 			<?php echo $proyectos['Proyecto']['numeroproyecto']; ?>
-		<h3>Monto planeado:</h3>
-			<?php echo ($proyectos['Proyecto']['montoplaneado']); ?>
-		<h3>Estado proyecto: </h3>
+		</li>
+		<li>
+			<h3>Monto planeado:</h3>
+			$<?php echo ($proyectos['Proyecto']['montoplaneado']); ?>
+		</li>
+		<li>
+			<h3>Estado proyecto: </h3>
 			<?php echo ($proyectos['Proyecto']['estadoproyecto']); ?>
-		<h3>División responsable:</h3>
+		</li>
+		<li>
+			<h3>División responsable:</h3>
 			<?php echo ($proyectos['Division']['divison']); ?>
-	
+		</li>
+		<li>
+			<?php echo $this->Html->link('Regresar', 
+									array('controller' => 'Proyectos','action' => 'proyecto_listado'),
+									array('class'=>'k-button')); ?>
+		</li>
 </ul>
+</div>
+<style scoped>
+
+                                
+                #formulario {
+                    width: 600px;
+                    /*height: 323px;*/
+                    margin: 15px 0;
+                    padding: 10px 20px 20px 0px;
+                    /*background: url('../../content/web/validator/ticketsOnline.png') transparent no-repeat 0 0;*/
+                }
+
+                #formulario h3 {
+                    font-weight: normal;
+                    font-size: 1.4em;
+                    color:#3A90CA;
+                   
+                }
+
+                #formulario ul {
+                    list-style-type: none;
+                    margin: 0;
+                    padding: 0;
+                }
+                #formulario li {
+                    margin: 10px 0 0 0;
+                }
+
+               
+              </style>
+

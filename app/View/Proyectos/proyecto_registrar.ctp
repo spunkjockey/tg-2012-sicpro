@@ -58,31 +58,48 @@ $this->end(); ?>
 				<?php echo $this->Form->input('nombreproyecto', 
 					array(
 						'label' => 'Nombre del proyecto:', 
+						'div' => array('class' => 'requerido'),
+						'id' => 'nombreproyecto',
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre del proyecto', 
-						'required', 
-						'validationMessage' => 'Ingrese Nombre de Proyecto')); ?>
+						'placeholder' => 'Nombre del proyecto')); ?>
+				<script type="text/javascript">
+		            var nombreproyecto = new LiveValidation( "nombreproyecto", { validMessage: " " } );
+		            nombreproyecto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script>
 			</li>
 			<li>
 				<?php echo $this->Form->input('divisiones', 
 					array(
 						'label' => 'División:', 
 						'id' => 'divisiones',
-						
-						'required')); ?>
+						'class'=>'k-combobox',
+						'div' => array('class' => 'requerido'))); ?>
+				<script type="text/javascript">
+					var divisiones = new LiveValidation( "divisiones", { validMessage: " " } );
+		            divisiones.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script>
 			</li>
 			<li>
-				<?php echo $this->Form->input('montoplaneado', 
+				<?php 
+					echo $this->Form->input('montoplaneado', 
 					array(
 						'label' => 'Monto planeado: ($)',
-						'class' => 'k-textbox',  
+						'type'=>'text',  
 						'id' => 'txmonto',
-						'placeholder' => 'Ingrese Monto',
-						'required',
-						'validationMessage' => 'Ingrese un monto planeado ($)')); ?>
+						'div' => array('class' => 'requerido'),
+						'maxlength'=>'12'
+						)); 
+				?>
+				<script type="text/javascript">
+					var txmonto = new LiveValidation( "txmonto", { validMessage: " " } );
+		            txmonto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script>
 			</li>
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar proyecto', 'class' => 'k-button')); ?>
+				<?php echo $this->Html->link('Regresar', 
+									array('controller' => 'Proyectos','action' => 'proyecto_listado'),
+									array('class'=>'k-button')); ?>
 			</li>
             
             <li class="status">
@@ -96,13 +113,17 @@ $this->end(); ?>
 
                 .k-textbox {
                     width: 300px;
-                    margin-left: 5px;
+                    
                     
                 }
 				
 				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
-			
-                form .required label:after {
+				
+				.k-combobox {
+                    width: 200px;
+                }
+                
+                form .requerido label:after {
 					font-size: 1.4em;
 					color: #e32;
 					content: '*';
@@ -136,11 +157,7 @@ $this->end(); ?>
                     display: inline-block;
                     width: 150px;
                     text-align: right;
-                    
-                }
-
-                .required {
-                    font-weight: bold;
+                    margin-right: 5px;
                 }
 
                 .accept, .status {
@@ -158,6 +175,39 @@ $this->end(); ?>
                 span.k-tooltip {
                     margin-left: 6px;
                 }
+                
+                .LV_validation_message{
+				    font-weight:bold;
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+					clear:both;
+               		display:inline-block;
+               		margin-left: 170px; 
+               
+				}
+				    
+				.LV_valid_field,
+				input.LV_valid_field:hover, 
+				input.LV_valid_field:active,
+				textarea.LV_valid_field:hover, 
+				textarea.LV_valid_field:active {
+				    border: 1px solid #00CC00;
+				}
+				    
+				.LV_invalid_field, 
+				input.LV_invalid_field:hover, 
+				input.LV_invalid_field:active,
+				textarea.LV_invalid_field:hover, 
+				textarea.LV_invalid_field:active {
+				    border: 1px solid #CC0000;
+				}
             </style>
 			
 			<script>
@@ -174,8 +224,7 @@ $this->end(); ?>
                     });
                 
 				$("#divisiones").kendoDropDownList({
-            			optionLabel: "Seleccione división...",
-			            dataTextField: "divison",
+            			dataTextField: "divison",
 			            dataValueField: "iddivision",
 			            dataSource: {
 			                            type: "json",
@@ -186,6 +235,7 @@ $this->end(); ?>
 			        });
 			        
 			        var divisiones = $("#divisiones").data("kendoDropDownList");
+			        divisiones.list.width(400);
 				
 				$("#txmonto").kendoNumericTextBox({
 				     min: 0,

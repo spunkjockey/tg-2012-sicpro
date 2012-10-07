@@ -70,7 +70,7 @@ $this->end(); ?>
 		    <tr>
 		        <th data-field="nombreproyecto" width="280px">Nombre proyecto</th>
 		        <th data-field="estadoproyecto">Estado</th>
-		        <th data-field="accion">Acción</th>
+		        <th data-field="accion" width="210px">Acción</th>
 		    </tr>
 			<?php foreach ($proyectos as $proy): ?>
 		    <tr>
@@ -86,9 +86,9 @@ $this->end(); ?>
 			            	echo $this->Html->link('Editar', 
 						            	array('action' => 'proyecto_modificar', $proy['Proyecto']['idproyecto']),
 						            	array('class'=>'k-button'));
-							echo $this->Html->link('Eliminar', 
-			            				array('action' => 'proyecto_modificar', $proy['Proyecto']['idproyecto']),
-			            				array('class'=>'k-button'));
+							echo $this->Form->postLink('Eliminar', 
+			            				array('action' => 'proyecto_eliminar', $proy['Proyecto']['idproyecto']),
+			            				array('confirm' => '¿Está seguro?','class'=>'k-button'));
 			            }
 		            ?>
 		           </td>
