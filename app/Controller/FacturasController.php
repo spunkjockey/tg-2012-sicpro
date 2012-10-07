@@ -1,27 +1,32 @@
 <?php
-class EstimacionsController extends AppController {
+class FacturasController extends AppController {
     public $helpers = array('Html', 'Form', 'Session','Ajax','AjaxMultiUpload.Upload');
     public $components = array('Session','AjaxMultiUpload.Upload','RequestHandler');
-	public $uses = array('Proyecto','Contrato','Contratoconstructor','Estimacion');
+	public $uses = array('Proyecto','Contrato','Contratosupervisor','Facturasupervision');
 
     public function index() {
     	$this->layout = 'cyanspark';
-        $this->set('estimacions', $this->Estimacion->find('all'));
+        $this->set('facturas', $this->Facturasupervision->find('all'));
     }
 	
 	
-	 public function registrarestimacion() {
+	 public function registrarfactura() {
 		$this->layout = 'cyanspark';
 	
 		
 		
         if ($this->request->is('post')) {
-        	
-			$this->Estimacion->set('idcontrato', $this->request->data['Estimacion']['idcontrato']);
+        	if (is_numeric($this->request->data['factura']['contratos'])) {
+				$id=$this->request->data['factura']['contratos'];	
+				} else {
+					$contrato = $this->Contratosupervisor->findByCodigocontrato($this->request->data['registrarfactura']['contratos']);
+					$id=$contrato['Contratosupervisor']['idcontrato']; 
+				}
+			$this->factura->set('idcontrato', $id);
 			
-            $this->Estimacion->set('idproyecto', $this->request->data['Estimacion'] ['proyectos']);
+            $this->factura->set('idproyecto', $this->request->data['factura'] ['proyectos']);
 			
-            $this->Estimacion->set('tituloestimacion', $this->request->data['Estimacion'] ['tituloestimacion']);
+            $this->factura->set('tituloestimacion', $this->request->data['factura'] ['tituloestimacion']);
 			$this->Estimacion->set('fechainicioestimacion', $this->request->data['Estimacion'] ['fechainicioestimacion']);
 			$this->Estimacion->set('fechafinestimacion', $this->request->data['Estimacion'] ['fechafinestimacion']);
 			$this->Estimacion->set('montoestimado', $this->request->data['Estimacion'] ['montoestimado']);
@@ -32,7 +37,7 @@ class EstimacionsController extends AppController {
 			if($this->Estimacion->save()) 	{
             	
        	
-            	$this->Session->setFlash('La Estimación de Avance ha sido registrada.','default', array('class'=>'success'));
+            	$this->Session->setFlash('La Estimación de Avance ha sido registrada.');
             	$this->redirect(array('action' => 'index'));
         	} else {
             	$this->Session->setFlash('No se pudo realizar el registro');
@@ -76,7 +81,7 @@ public function proyectojson() {
 	                        'conditions'=>array('Contrato.idproyecto'=>$proyecto_id)));
                 }
                 $this->set('options', Set::combine($contratos, "{n}.Contrato.idcontrato","{n}.Contrato.codigocontrato"));
-                $this->render('/Elements/update_selectContrato1', 'ajax');
+                $this->render('/elements/update_selectContrato1', 'ajax');
         }
 		
 
@@ -107,18 +112,13 @@ public function proyectojson() {
 	    }
 	}
 
-public function agregar_archivo($id = null) {
-		$this->layout = 'cyanspark';
-        $this->set ('idestimacion', $id);
-        
-    }
 
 	function delete($id) {
 		if (!$this->request->is('post')) {
 	        throw new MethodNotAllowedException();
 	    }
 	    if ($this->Estimacion->delete($id)) {
-	        $this->Session->setFlash('La Estimación de Avance ha sido eliminada.','default', array('class'=>'success'));
+	        $this->Session->setFlash('La Estimación de Avance ha sido eliminada.');
 	        $this->redirect(array('action' => 'index'));
 	    }
 	}
