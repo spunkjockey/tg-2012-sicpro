@@ -61,45 +61,14 @@ $this->end(); ?>
 							'id' => 'contratos'));
 				?>
 			</li>
-			<li>
-				Nombre proyecto: 
-			</li>
-			<li>
-				Descripción:
-			</li>
-			<li>
-				<?php echo $this->Form->input('fechavisita', 
-					array(
-						'label' => 'Fecha de visita:', 
-						'id'	=> 'datePicker1',
-						'type'  => 'Text')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('fechaelab', 
-					array(
-						'label' => 'Fecha de elaboración:', 
-						'id'	=> 'datePicker2',
-						'type'  => 'Text')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('antecedentes', 
-					array(
-						'label' => 'Antecedentes:', 
-						'class' => 'k-textbox', 
-						'rows' => 4, 
-						'placeholder' => 'Descripción de antecedentes')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('anotaciones', 
-					array(
-						'label' => 'Anotaciones:', 
-						'class' => 'k-textbox', 
-						'rows' => 4, 
-						'placeholder' => 'Observaciones de la visita')); ?>
-			</li>
-			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar informe', 'class' => 'k-button')); ?>
-			</li>
+			<div id=infoproy>
+				
+			</div>
+			<?php echo $this->ajax->observeField( 'contratos',array(
+			        		'url' => array( 'action' => 'update_infoproy_inftec'),
+			        		'update' => 'infoproy'));  
+					?>
+			
             <li class="status">
             </li>
 			
@@ -200,17 +169,6 @@ $this->end(); ?>
 			        });
 			        
 			        var contratos = $("#contratos").data("kendoDropDownList");
-				
-				$("#datePicker1").kendoDatePicker({
-		   			format: "dd/MM/yyyy",
-		   			culture: "es-ES"
-		   		});
-		   		
-		   		$("#datePicker2").kendoDatePicker({
-		   			format: "dd/MM/yyyy",
-		   			culture: "es-ES"
-		   		});
-				
 				
 				
 				});

@@ -126,7 +126,7 @@
 										'fields'=>array('Proyecto.numeroproyecto'),
 										'conditions'=>array('Proyecto.idproyecto='.$proys['Proyecto']['idproyecto']))));
 		
-		if ($this->request->is('post')) 
+		if   ($this->request->is('post')) 
 			{
                 $this->Proyecto->create();
 				Debugger::dump($this->request->data);
@@ -139,7 +139,8 @@
 				
 				if ($this->Proyecto->save($id)) 
 					{
-						$this->Session->setFlash('El número del proyecto '. $this->request->data['Proyecto']['nombreproyecto'].' ha sido asignado',
+						$this->Session->setFlash('Se ha asignado el número '.$this->request->data['Proyecto']['numeroproyecto'].
+												 ' al proyecto '.$this->request->data['Proyecto']['nombreproyecto'],
 												 'default',array('class'=>'success'));
 						$this->redirect(array('controller'=>'mains', 'action' => 'index'));
 		            }

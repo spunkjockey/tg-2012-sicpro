@@ -29,8 +29,6 @@
 	        break;			
 	}
 $this->end(); ?>
-
-
 <?php $this->start('breadcrumb'); ?>
 	
 	<div id="menuderastros">
@@ -57,7 +55,7 @@ $this->end(); ?>
 			<li>
 				<?php echo $this->Form->input('proyectos', 
 					array(
-						'label' => 'Seleccione proyecto:', 
+						'label' => 'Proyecto:', 
 						'id' => 'proyectos',
 						'div' => array('class' => 'requerido')
 						)); 
@@ -70,7 +68,7 @@ $this->end(); ?>
 			<li>
 				<?php echo $this->Form->input('contratos', 
 					array(
-						'label' => 'Contrato a supervisar:', 
+						'label' => 'Contrato de construcción:', 
 						'id' => 'contratos',
 						'div' => array('class' => 'requerido'))); 
 				?>
@@ -81,157 +79,14 @@ $this->end(); ?>
 			</li>
 			
 			<div id=infoconconstructor>
-				<li>
-					<?php echo $this->Form->input('codigocontrato', 
-						array(
-							'label' => 'Código contrato:', 
-							'class' => 'k-textbox',
-							'id'=>'codigo', 
-							'placeholder' => 'Ej: 001-2012', 
-							'div' => array('class' => 'requerido')
-							)); 
-					?>
-					<script type="text/javascript">
-			            var codigo = new LiveValidation( "codigo", { validMessage: " " } );
-			            codigo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-			            codigo.add(Validate.Format, { pattern: /___-____/i, failureMessage: "No puedes dejar este campo en blanco", negate: true } );
-			            codigo.add(Validate.Format, { pattern: /\d\d\d-\d\d\d\d/i, failureMessage: "El código de contrato debe tener 7 números"} );
-			        </script> 
-				</li>
-				<li>
-					<?php echo $this->Form->input('nombrecontrato', 
-						array(
-							'label' => 'Título del contrato:', 
-							'class' => 'k-textbox',
-							'id'=>'nombrecontrato', 
-							'placeholder' => 'Nombre del contrato', 
-							'rows'=> 2, 
-							'div' => array('class' => 'requerido')
-							)); 
-					?>
-					<script type="text/javascript">
-						var nombrecontrato= new LiveValidation( "nombrecontrato", { validMessage: " " } );
-						nombrecontrato.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-					</script>
-				</li>
-				<li>
-					<?php echo $this->Form->input('montocon', 
-						array(
-							'label' => 'Monto: ($)',
-							'class' => 'k-textbox',  
-							'id' => 'txmonto',
-							'type' => 'text',
-							'placeholder' => 'Monto del contrato',
-							'div' => array('class' => 'requerido')
-							)); 
-					?>
-					<script type="text/javascript">
-						var txmonto = new LiveValidation( "txmonto", { validMessage: " " } );
-			            txmonto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-			        </script>
-				</li>
-				<li>
-					<?php echo $this->Form->input('anticipo', 
-						array(
-							'label' => 'Anticipo: ($)',
-							'class' => 'k-textbox',  
-							'id' => 'txanticipo',
-							'type' => 'text',
-							'placeholder' => 'Anticipo del contrato',
-							'div' => array('class' => 'requerido'))); 
-					?>
-					<script type="text/javascript">
-						var txanticipo = new LiveValidation( "txanticipo", { validMessage: " " } );
-			            txanticipo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-			        </script>
-				</li>
-				<li>
-					<?php echo $this->Form->input('fechainicontrato', 
-						array(
-							'label' => 'Fecha inicio de vigencia:', 
-							'id'	=> 'datePicker1',
-							'div' => array('class' => 'requerido'),
-							'type'  => 'Text'
-							));
-						?>
-				</li>
-				<li>
-					<?php echo $this->Form->input('fechafincontrato', 
-						array(
-							'label' => 'Fecha fin de vigencia:', 
-							'id'	=> 'datePicker2',
-							'div' => array('class' => 'requerido'),
-							'type'  => 'Text'
-							)); 
-						?>
-				</li>
-				<li>
-					<?php echo $this->Form->input('plazoejecucion', 
-						array(
-							'label' => 'Plazo de ejecución:',
-							'class' => 'k-textbox',  
-							'id' => 'txplazo',
-							'type'  => 'Text', 
-							'placeholder' => 'Cantidad de días', 
-							'div' => array('class' => 'requerido')
-						));
-						?>
-					<script type="text/javascript">
-						var txplazo= new LiveValidation( "txplazo", { validMessage: " " } );
-						txplazo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-						txplazo.add( Validate.Numericality,{ onlyInteger: true,
-						   								   	notAnIntegerMessage: "Debe ser un número entero",
-							            				 	notANumberMessage:"Debe ser un número"} );
-						txplazo.add(Validate.Length, {minimum: 2, maximum: 3, 
-					           							 tooShortMessage:"Longitud mínima de 2 dígitos",
-					           							 tooLongMessage:"Longitud máxima de 3 dígitos"});
-					</script>
-				</li>
-				<li>
-					<?php echo $this->Form->input('obras', 
-						array(
-							'label' => 'Obras a desarrollar:', 
-							'class' => 'k-textbox',
-							'rows' => 4, 
-							'placeholder' => 'Descripción de obras'
-							));
-						?>
-				</li>
-				<li>
-					<?php echo $this->Form->input('empresas', 
-						array(
-							'label' => 'Seleccione empresa:', 
-							'id' => 'empresas',
-							'div' => array('class' => 'requerido')
-							));
-						?>
-					<script type="text/javascript">
-						var empresas = new LiveValidation( "empresas", { validMessage: " " } );
-			            empresas.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-			        </script>
-				</li>
-				<li>
-					<?php echo $this->Form->input('admin', 
-						array(
-							'label' => 'Seleccione administrador:', 
-							'id' => 'admin',
-							'div' => array('class' => 'requerido')
-							)); 
-						?>
-					<script type="text/javascript">
-						var admin = new LiveValidation( "admin", { validMessage: " " } );
-			            admin.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-			        </script>
-				</li>
+				<!--- el formulario se generará con la función update_infoconconstructor() -->
 			</div>
-			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar contrato', 'class' => 'k-button')); ?>
-				
-				<?php echo $this->ajax->observeField( 'contratos',array(
-		        		'url' => array( 'action' => 'update_infoconconstructor'),
-		        		'update' => 'infoconconstructor'));  
-				?>
-			</li>
+			
+			<?php echo $this->ajax->observeField( 'contratos',array(
+			        		'url' => array( 'action' => 'update_infoconconstructor'),
+			        		'update' => 'infoconconstructor'));  
+					?>
+			
             <li class="status">
             </li>
 		</ul>
@@ -249,7 +104,7 @@ $this->end(); ?>
 				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 				
 				.k-combobox {
-                    width: 200px;
+                    width: 300px;
                 }
                 
                 form .requerido label:after {
@@ -400,6 +255,7 @@ $this->end(); ?>
 			    
 			    
 			    $("#empresas").kendoDropDownList({
+            			optionLabel: "Seleccione empresa",
             			dataTextField: "nombreempresa",
 			            dataValueField: "idempresa",
 			            dataSource: {
@@ -412,6 +268,7 @@ $this->end(); ?>
 			        var empresas = $("#empresas").data("kendoDropDownList");
 			    
 			    $("#admin").kendoDropDownList({
+            			optionLabel: "Seleccione administrador",
             			dataTextField: "nomcompleto",
 			            dataValueField: "idpersona",
 			            dataSource: {

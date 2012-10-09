@@ -1,19 +1,40 @@
-<!---
 <?php
-							if(isset($num['Proyecto']['numeroproyecto']))
-								$numero = $num['Proyecto']['numeroproyecto']; 
-							else
-							   $numero = '';
-						?>
---->
-	<?php Debugger::dump($info); ?>
+	if(isset($info['Contratoconstructor']['codigocontrato']))
+	{
+		$codcon = $info['Contratoconstructor']['codigocontrato'];
+		$nomcon = $info['Contratoconstructor']['nombrecontrato'];
+		$moncon = $info['Contratoconstructor']['montooriginal'];
+		$antcon = $info['Contratoconstructor']['anticipo'];
+		$inicon = $info['Contratoconstructor']['fechainiciocontrato'];
+		$fincon = $info['Contratoconstructor']['fechafincontrato'];
+		$placon = $info['Contratoconstructor']['plazoejecucion'];
+		$idecon = $info['Contratoconstructor']['idempresa'];
+		$idpcon = $info['Contratoconstructor']['idpersona'];
+	}
+	else
+	{
+		$codcon = '';
+		$nomcon = '';
+		$moncon = '';
+		$antcon = '';
+		$inicon = '';
+		$fincon = '';
+		$placon = '';
+		$idecon = '';
+		$idpcon = '';
+	}
+	if(isset($info['Contratoconstructor']['detalleobras']))
+		$obrcon=$info['Contratoconstructor']['detalleobras'];
+	else 
+		$obrcon='';
+	?>
 <li>
-	<?php echo $this->Form->input('codigocontrato', 
+	<?php echo $this->Form->input('Contratoconstructor.codigocontrato', 
 		array(
-			'label' => 'Código contrato:', 
+			'label' => 'Código del contrato:', 
 			'class' => 'k-textbox',
 			'id'=>'codigo',
-			'value' => $info['Contratoconstructor']['codigocontrato'], 
+			'value' => $codcon, 
 			'placeholder' => 'Ej: 001-2012', 
 			'div' => array('class' => 'requerido')
 			)); 
@@ -26,12 +47,12 @@
     </script> 
 </li>
 <li>
-	<?php echo $this->Form->input('nombrecontrato', 
+	<?php echo $this->Form->input('Contratoconstructor.nombrecontrato', 
 		array(
 			'label' => 'Título del contrato:', 
 			'class' => 'k-textbox',
 			'id'=>'nombrecontrato',
-			'value' => $info['Contratoconstructor']['nombrecontrato'], 
+			'value' => $nomcon, 
 			'placeholder' => 'Nombre del contrato', 
 			'rows'=> 2, 
 			'div' => array('class' => 'requerido')
@@ -43,12 +64,12 @@
 	</script>
 </li>
 <li>
-	<?php echo $this->Form->input('montocon', 
+	<?php echo $this->Form->input('Contratoconstructor.montocon', 
 		array(
 			'label' => 'Monto: ($)',
 			'class' => 'k-textbox',  
 			'id' => 'txmonto',
-			'value' => $info['Contratoconstructor']['montooriginal'],
+			'value' => $moncon,
 			'type' => 'text',
 			'placeholder' => 'Monto del contrato',
 			'div' => array('class' => 'requerido')
@@ -60,12 +81,12 @@
     </script>
 </li>
 <li>
-	<?php echo $this->Form->input('anticipo', 
+	<?php echo $this->Form->input('Contratoconstructor.anticipo', 
 		array(
 			'label' => 'Anticipo: ($)',
 			'class' => 'k-textbox',  
 			'id' => 'txanticipo',
-			'value' => $info['Contratoconstructor']['anticipo'],
+			'value' => $antcon,
 			'type' => 'text',
 			'placeholder' => 'Anticipo del contrato',
 			'div' => array('class' => 'requerido'))); 
@@ -76,34 +97,34 @@
     </script>
 </li>
 <li>
-	<?php echo $this->Form->input('fechainicontrato', 
+	<?php echo $this->Form->input('Contratoconstructor.fechainicontrato', 
 		array(
 			'label' => 'Fecha inicio de vigencia:', 
 			'id'	=> 'datePicker1',
-			'value' => date('d/m/Y',strtotime($info['Contratoconstructor']['fechainiciocontrato'])),
+			'value' => date('d/m/Y',strtotime($inicon)),
 			'div' => array('class' => 'requerido'),
 			'type'  => 'Text'
 			));
 		?>
 </li>
 <li>
-	<?php echo $this->Form->input('fechafincontrato', 
+	<?php echo $this->Form->input('Contratoconstructor.fechafincontrato', 
 		array(
 			'label' => 'Fecha fin de vigencia:', 
 			'id'	=> 'datePicker2',
-			'value' => date('d/m/Y',strtotime($info['Contratoconstructor']['fechafincontrato'])),
+			'value' => date('d/m/Y',strtotime($fincon)),
 			'div' => array('class' => 'requerido'),
 			'type'  => 'Text'
 			)); 
 		?>
 </li>
 <li>
-	<?php echo $this->Form->input('plazoejecucion', 
+	<?php echo $this->Form->input('Contratoconstructor.plazoejecucion', 
 		array(
 			'label' => 'Plazo de ejecución:',
 			'class' => 'k-textbox',  
 			'id' => 'txplazo',
-			'value' => $info['Contratoconstructor']['plazoejecucion'],
+			'value' => $placon,
 			'type'  => 'Text', 
 			'placeholder' => 'Cantidad de días', 
 			'div' => array('class' => 'requerido')
@@ -121,22 +142,23 @@
 	</script>
 </li>
 <li>
-	<?php echo $this->Form->input('obras', 
+	<?php echo $this->Form->input('Contratoconstructor.obras', 
 		array(
 			'label' => 'Obras a desarrollar:', 
 			'class' => 'k-textbox',
-			'value' => $info['Contratoconstructor']['detalleobras'],
+			'value' => $obrcon,
 			'rows' => 4, 
 			'placeholder' => 'Descripción de obras'
 			));
 		?>
 </li>
 <li>
-	<?php echo $this->Form->input('empresas', 
+	<?php echo $this->Form->input('Contratoconstructor.empresas', 
 		array(
-			'label' => 'Seleccione empresa:', 
+			'label' => 'Empresa ejecutora:', 
 			'id' => 'empresas',
-			'value' => $info['Contratoconstructor']['idempresa'],
+			'class' => 'k-combobox',
+			'value' => $idecon,
 			'div' => array('class' => 'requerido')
 			));
 		?>
@@ -146,11 +168,12 @@
     </script>
 </li>
 <li>
-	<?php echo $this->Form->input('admin', 
+	<?php echo $this->Form->input('Contratoconstructor.admin', 
 		array(
-			'label' => 'Seleccione administrador:', 
+			'label' => 'Administrador del contrato:', 
 			'id' => 'admin',
-			'value' => $info['Contratoconstructor']['idpersona'],
+			'class' => 'k-combobox',
+			'value' => $idpcon,
 			'div' => array('class' => 'requerido')
 			)); 
 		?>
@@ -159,6 +182,18 @@
         admin.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
     </script>
 </li>
+<li  class="accept">
+					<?php echo $this->Form->end(array('label' => 'Modificar contrato', 'class' => 'k-button')); ?>
+				</li>
+					<?php echo $this->Html->link('Regresar', 
+										array('controller' => 'Mains','action' => 'index'),
+										array('class'=>'k-button')); ?>
+					
+					<?php echo $this->ajax->observeField( 'contratos',array(
+			        		'url' => array( 'action' => 'update_infoconconstructor'),
+			        		'update' => 'infoconconstructor'));  
+					?>
+
 
 <script>
     $(document).ready(function() {
@@ -192,6 +227,7 @@
 	 });
 	 
     $("#empresas").kendoDropDownList({
+			optionLabel: "Seleccione empresa",
 			dataTextField: "nombreempresa",
             dataValueField: "idempresa",
             dataSource: {
@@ -204,6 +240,7 @@
         var empresas = $("#empresas").data("kendoDropDownList");
     
     $("#admin").kendoDropDownList({
+			optionLabel: "Seleccione administrador",
 			dataTextField: "nomcompleto",
             dataValueField: "idpersona",
             dataSource: {
