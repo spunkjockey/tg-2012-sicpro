@@ -174,4 +174,16 @@
 			$this->render('/json/jsonproys');
 			
 		}
+		
+	function estadojson() {
+		$proys = $this->Proyecto->find('all', array(
+			'fields'=>array('DISTINCT Proyecto.estadoproyecto')));
+		
+		$this->set('proys', Hash::extract($proys, "{n}.Proyecto"));
+		$this->set('_serialize', 'proys');
+		$this->render('/json/jsonproys');
+	}
+		
+		
+		
 }

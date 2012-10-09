@@ -37,6 +37,37 @@ class FinanciasController extends AppController {
 		
 	}
 
+	function financia_modificar($id = null) {
+		$this->layout = 'cyanspark';
+	    $this->Financia->id = $id;
+	    if ($this->request->is('get')) {
+	        $this->request->data = $this->Financia->read();
+	    } else {
+	        if ($this->Financia->save($this->request->data)) {
+	            $this->Session->setFlash('El financiamiento '. $this->request->data['Financia']['fuente_proyecto'] .' ha sido modificado correctamente.','default',array('class' => 'success'));
+	            $this->redirect(array('action' => 'index'));
+	        } else {
+	        	//$this->request->data = $this->Financia->read();
+	        	$financia = $this->Financia->findByFuente_proyecto($id);
+	        	$this->request->data['Proyecto']['nombreproyecto'] = $financia['Proyecto']['nombreproyecto'];
+				$this->request->data['Proyecto']['montoplaneado'] = $financia['Proyecto']['montoplaneado'];
+				$this->request->data['Fuentefinanciamiento']['nombrefuente'] = $financia['Fuentefinanciamiento']['nombrefuente'];
+				$this->request->data['Fuentefinanciamiento']['montodisponible'] = $financia['Fuentefinanciamiento']['montodisponible'];
+            	$this->Session->setFlash('Ha ocurrido un error. Imposible modificar el financiamiento');
+        	}
+	    }
+	}
+
+	function financia_eliminar($id) {
+		$financia = $this->Financia->findByFuente_proyecto($id);
+		if (!$this->request->is('post')) {
+	        throw new MethodNotAllowedException();
+	    }
+	    if ($this->Financia->delete($id)) {
+	        $this->Session->setFlash('El financiamiento '. $financia['Financia']['fuente_proyecto'] .' ha sido eliminado satisfactoriamente.','default',array('class' => 'success'));
+	        $this->redirect(array('action' => 'index'));
+	    }
+	}
 
 	function update_tablafinancia() {
 			//Debugger::dump($this->data);
