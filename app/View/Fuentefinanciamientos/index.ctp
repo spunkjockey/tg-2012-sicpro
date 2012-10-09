@@ -45,11 +45,11 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO
+			?> » Bienvenido a SICPRO » Mantenimiento » Fuente Financiamiento
 			
 		</div>
 	</div>
-	
+
 <?php $this->end(); ?>
 <h2>Fuente de Financiamiento</h2>
 <div style='margin:4px 0' >
@@ -64,8 +64,8 @@ $this->end(); ?>
         <th data-field="nombrefuente">Nombre Fuente</th>
         <th data-field="montoinicial">Monto Inicial</th>
         <th data-field="fechadisponible">Fecha de Disponibilidad</th>
-        <th data-field="tipofuente" width="225px">Tipo de Fuente</th>
-        <th data-field="accion" width="225px">Acción</th>
+        <th data-field="tipofuente">Tipo de Fuente</th>
+        <th data-field="accion" width="250px">Acción</th>
     </tr>
 
     <!-- Here is where we loop through our $fuente array, printing out post info -->
@@ -73,8 +73,8 @@ $this->end(); ?>
     <?php foreach ($fuentefinanciamientos as $fuente): ?>
     <tr>
         <td><?php echo $fuente['Fuentefinanciamiento']['nombrefuente']; ?></td>
-        <td><?php echo $fuente['Fuentefinanciamiento']['montoinicial']; ?></td>
-        <td><?php echo $fuente['Fuentefinanciamiento']['fechadisponible']; ?></td>  
+        <td><?php echo '$ ' . number_format($fuente['Fuentefinanciamiento']['montoinicial'],2); ?></td>
+        <td><?php echo date('d/m/Y',strtotime($fuente['Fuentefinanciamiento']['fechadisponible'])); ?></td>  
         <td><?php echo $fuente['Tipofuente']['tipofuente']; ?></td>      
         <td align="center">
             <?php echo $this->Html->link(
@@ -85,7 +85,7 @@ $this->end(); ?>
             <?php echo $this->Form->postLink(
                 'Eliminar',
                 array('action' => 'delete', $fuente['Fuentefinanciamiento']['idfuentefinanciamiento']),
-                array('confirm' => '¿Está seguro?','class'=>'k-button')
+                array('confirm' => '¿Está seguro que desea eliminar los datos de la Fuente de Financiamiento?','class'=>'k-button')
             )?>
             
         </td>

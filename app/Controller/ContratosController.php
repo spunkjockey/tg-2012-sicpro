@@ -23,7 +23,7 @@ class ContratosController extends AppController {
 			if($this->Contrato->save($id))
 			{
             	$this->Session->setFlash('La Orden de Inicio ha sido registrada.','default',array('class'=>'success'));
-            	$this->redirect(array('action' => 'index'));
+            	$this->redirect(array('controller'=>'mains', 'action' => 'index'));
         	} 
         	else 
         	{

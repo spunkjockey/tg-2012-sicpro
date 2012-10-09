@@ -2,7 +2,7 @@
     class InformetecnicosController extends AppController{
     	public $helpers = array('Html', 'Form', 'Session','Ajax');
 	    public $components = array('Session','RequestHandler');
-		public $uses = array('Informetecnico','Contratotecproy');
+		public $uses = array('Informetecnico','Contratotecproy','Proyecto','Fichatecnica','Contratoconstructor');
 		
 	    public function informetecnico_registrar()
 	    {
@@ -31,7 +31,11 @@
 			
 				
 	    }
-		
+		/*contratojson()
+		 * Esta función permite extraer los contratos en los cuales destaca un técnico como apoyo 
+		 * para actividades de control. Se muestran los contratos que se encuentren atrasados, a tiempo
+		 * o en marcha. Así mismo solo se muestran contratos de proyectos cuyo estado es Ejecucion
+		 * */
 		public function contratojson() 
 		{
 			$contratos = $this->Contratotecproy->find('all', array(
@@ -45,7 +49,23 @@
 			$this->set('contratos', Hash::extract($contratos, "{n}.Contratotecproy"));
 			$this->set('_serialize', 'contratos');
 			$this->render('/json/jsoncontratotecproy');
-			
+		}
+		
+		function update_infoproy_inftec()
+		{
+			if (!empty($this->data['Informetecnico']['contratos']))
+			{
+				$cont_id = $this->request->data['Informetecnico']['contratos'];
+				$proy_id = $this->Contratoconstructor->find('first',array(
+							'fields'=>array('Contratoconstructor.idproyecto'),
+							'conditions'=>array('Contratoconstructor.idcontrato'=>$cont_id)));
+							
+				$info = $this->Fichatecnica->find('first',array(
+							'fields'=>array('Proyecto.nombreproyecto','Fichatecnica.descripcionproyecto'),
+							'conditions'=>array('Proyecto.idproyecto'=>$proy_id['Contratoconstructor']['idproyecto'])));
+				$this->set('info',$info);
+			}
+			$this->render('/Elements/update_infoproy_inftec', 'ajax');
 		}
 	}
 ?>

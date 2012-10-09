@@ -45,7 +45,7 @@ $this->end(); ?>
 				'class' => 'homeimg'
 			));
 
-			?> » Contrato » Registrar orden de inicio
+			?> » Bienvenido a SICPRO » Contratos » Registrar Orden de Inicio
 		
 <?php $this->end(); ?>
 
@@ -76,12 +76,15 @@ $this->end(); ?>
 					array(
 						'label' => 'Orden de Inicio:', 
 						'id'	=> 'datePicker1',
-						'type'  => 'Text'
-						/*'class' => 'k-textbox', 
-						'placeholder' => 'Fecha Disponibilidad', 
-						'required', 
-						'validationMessage' => 'Ingrese la Fecha de Disponibilidad')
-						 */) ); ?>
+						'type'  => 'Text',
+						'div' => array('class' => 'requerido')
+						)); ?>
+				
+				<script type="text/javascript">
+		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " } );
+		            datePicker1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
+		        </script> 
 			</li>
 			<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
 			<li  class="accept">
@@ -119,7 +122,13 @@ $this->end(); ?>
                     
                 }
 				
-				
+				form .requerido label:after {
+                	font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+				}
+                
 			
                 #formulario {
                     width: 600px;
@@ -144,16 +153,14 @@ $this->end(); ?>
                     margin: 10px 0 0 0;
                 }
 
-                label {
+               label {
                     display: inline-block;
-                    width: 150px;
+                    width: 210px;
                     text-align: right;
+                    margin-right: 5px;
                     
                 }
 
-                .required {
-                    font-weight: bold;
-                }
 
                 .accept, .status {
                 	padding-top: 15px;
@@ -170,6 +177,39 @@ $this->end(); ?>
                 span.k-tooltip {
                     margin-left: 6px;
                 }
+                
+                 .LV_validation_message{
+				    font-weight:bold;
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+					clear:both;
+               		display:inline-block;
+               		margin-left: 170px; 
+               
+				}
+				    
+				.LV_valid_field,
+				input.LV_valid_field:hover, 
+				input.LV_valid_field:active,
+				textarea.LV_valid_field:hover, 
+				textarea.LV_valid_field:active {
+				    border: 1px solid #00CC00;
+				}
+				    
+				.LV_invalid_field, 
+				input.LV_invalid_field:hover, 
+				input.LV_invalid_field:active,
+				textarea.LV_invalid_field:hover, 
+				textarea.LV_invalid_field:active {
+				    border: 1px solid #CC0000;
+				}
             </style>
             
             <script>
@@ -187,18 +227,13 @@ $this->end(); ?>
 
 
 		$("#datePicker1").kendoDatePicker({
-		   culture: "es-ES",
-		   format: "dd/MM/yyyy" //Define el formato de fecha
+		 format: "dd/MM/yyyy", //Define el formato de fecha
+		   culture:"es-ES"
 		});
-         $("#moneda").kendoNumericTextBox({
-		     format: "c2", //Define currency type and 2 digits precision
-		     spinners: false
-		 });
-		 
 		 
 
 	              $("#proyectos").kendoDropDownList({
-		            			optionLabel: "Seleccione proyecto...",
+		            			optionLabel: "Seleccione proyecto",
 					            dataTextField: "numeroproyecto",
 					            dataValueField: "idproyecto",
 					            dataSource: {
@@ -214,7 +249,7 @@ $this->end(); ?>
 			        var contratos = $("#contratos").kendoDropDownList({
 			                        autoBind: false,
 			                        cascadeFrom: "proyectos",
-			                        optionLabel: "Seleccione contrato...",
+			                     	optionLabel: "Seleccione contrato",
 			                        dataTextField: "codigocontrato",
 			                        dataValueField: "idcontrato",
 			                        dataSource: {

@@ -44,23 +44,26 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO
+			?> » Bienvenido a SICPRO » Control y Seguimiento » Estimación de Avances
 			
 		</div>
 	</div>
 	
 <?php $this->end(); ?>
 		   
-	
+
 				<h2>Cargar Archivos:</h2>
+	  <table><tr>
 				<h3>Archivos a Agregar</h3>
 				<?php echo $this->Upload->edit('Estimacion',$idestimacion); ?>
-				
-<?php echo $this->Html->link(
+	
+                <?php echo $this->Html->link(
             	'Regresar', 
             	array('controller' => 'Estimacions','action' => 'index'),
             	array('class'=>'k-button')
-			);?>	
+			);?>
+</tr>	
+</table>	
 <style scoped>
 				#titulo {
 					color:#3A90CA;
