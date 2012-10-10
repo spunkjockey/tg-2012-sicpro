@@ -12,7 +12,7 @@
 			{
 				//Registro en tabla contrato
 				$this->Contrato->create();
-				Debugger::dump($this->request->data);
+				//Debugger::dump($this->request->data);
 				$this->Contrato->set('idproyecto', $this->request->data['Contratoconstructor']['proyectos']);
 				$this->Contrato->set('idpersona', $this->request->data['Contratoconstructor']['admin']);
 				$this->Contrato->set('idempresa', $this->request->data['Contratoconstructor']['empresas']);
@@ -52,11 +52,13 @@
 					else 
 					{
 						$this->Session->setFlash('Ha ocurrido un error cc');
+						
 	                }
 				}
 				else 
 				{
 					$this->Session->setFlash('Ha ocurrido un error c');
+					Debugger::dump($this->request->data);
                 }
 			}
 		}
@@ -217,6 +219,7 @@
 					$this->Contratoconstructor->set('modificacion', date('Y-m-d h:i:s'));
 	                if($this->Contratoconstructor->save($id))
 					{
+						Debugger::dump($this->request->data);
 						$this->Session->setFlash('El contrato '.$this->request->data['Contratoconstructor']['codigocontrato'].' ha sido actualizado.',
 												 'default',array('class'=>'success'));	
 						$this->redirect(array('controller'=>'mains', 'action' => 'index'));
@@ -225,11 +228,13 @@
 					else 
 					{
 						$this->Session->setFlash('Ha ocurrido un error cc');
+						Debugger::dump($this->request->data);
 	                }
 				}
 				else 
 				{
 					$this->Session->setFlash('Ha ocurrido un error c');
+					Debugger::dump($this->request->data);
                 }
 		}
 		else

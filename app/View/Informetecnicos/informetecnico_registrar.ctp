@@ -60,6 +60,10 @@ $this->end(); ?>
 							'label' => 'Seleccione código de Contrato:', 
 							'id' => 'contratos'));
 				?>
+				<script type="text/javascript">
+					var contratos= new LiveValidation( "contratos", { validMessage: " " } );
+					contratos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+				</script>
 			</li>
 			<div id=infoproy>
 				
@@ -69,6 +73,7 @@ $this->end(); ?>
 			        		'update' => 'infoproy'));  
 					?>
 			
+			
             <li class="status">
             </li>
 			
@@ -77,15 +82,20 @@ $this->end(); ?>
 </div>
 
 <style scoped>
+
                 .k-textbox {
                     width: 300px;
-                    margin-left: 5px;
+                    
                     
                 }
 				
 				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
-			
-                form .required label:after {
+				
+				.k-combobox {
+                    width: 300px;
+                }
+                
+                form .requerido label:after {
 					font-size: 1.4em;
 					color: #e32;
 					content: '*';
@@ -119,11 +129,7 @@ $this->end(); ?>
                     display: inline-block;
                     width: 150px;
                     text-align: right;
-                    
-                }
-
-                .required {
-                    font-weight: bold;
+                    margin-right: 5px;
                 }
 
                 .accept, .status {
@@ -141,7 +147,40 @@ $this->end(); ?>
                 span.k-tooltip {
                     margin-left: 6px;
                 }
-</style>
+                
+                .LV_validation_message{
+				    font-weight:bold;
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+					clear:both;
+               		display:inline-block;
+               		margin-left: 170px; 
+               
+				}
+				    
+				.LV_valid_field,
+				input.LV_valid_field:hover, 
+				input.LV_valid_field:active,
+				textarea.LV_valid_field:hover, 
+				textarea.LV_valid_field:active {
+				    border: 1px solid #00CC00;
+				}
+				    
+				.LV_invalid_field, 
+				input.LV_invalid_field:hover, 
+				input.LV_invalid_field:active,
+				textarea.LV_invalid_field:hover, 
+				textarea.LV_invalid_field:active {
+				    border: 1px solid #CC0000;
+				}
+            </style>
 			
 <script>
                 $(document).ready(function() {
