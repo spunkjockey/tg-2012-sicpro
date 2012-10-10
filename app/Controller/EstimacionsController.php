@@ -96,8 +96,8 @@ public function proyectojson() {
 			$this->Estimacion->set('montoestimado', $this->request->data['Estimacion'] ['montoestimado']);
 			$this->Estimacion->set('porcentajeestimadoavance', $this->request->data['Estimacion'] ['porcentajeestimadoavance']);	
             $this->Estimacion->set('fechaestimacion', $this->request->data['Estimacion'] ['fechaestimacion']);	
-			$this->Estimacion->set('userc', $this->Session->read('User.username'));
-			  
+			$this->Estimacion->set('userm', $this->Session->read('User.username'));
+			$this->Estimacion->set('modificacion', date('Y-m-d h:i:s'));  
 		if ($this->Estimacion->save()) {
 		            $this->Session->setFlash('La Estimación de Avance ha sido actualizada.', 'default', array('class'=>'success'));
 		            $this->redirect(array('action' => 'index'));

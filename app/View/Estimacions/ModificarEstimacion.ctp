@@ -51,10 +51,14 @@ $this->end(); ?>
 	
 <?php $this->end(); ?>
 <div id="example" class="k-content">
+	
 	<div id="formulario">
 		<h2>Editar Estimación de Avance</h2>
 		<?php echo $this->Form->create('Estimacion'); ?>
 		<ul>
+			<li>
+				<label>Código de Contrato: </label> <?php echo $this->request->data['Contratoconstructor']['codigocontrato']; ?>
+			</li>
 			<li>
 				<?php echo $this->Form->input('tituloestimacion', 
 					array(
@@ -74,6 +78,7 @@ $this->end(); ?>
 						'label' => 'Inicio Estimación:', 
 						'id'	=> 'datePicker1',
 						'type'  => 'Text',
+						'value' => date('d/m/Y',strtotime($this->request->data['Estimacion']['fechainicioestimacion'])),
 						'div' => array('class' => 'requerido')
 						 ) ); ?>
 				<script type="text/javascript">
@@ -87,6 +92,7 @@ $this->end(); ?>
 					array(
 						'label' => 'Fin Estimación:', 
 						'id'	=> 'datePicker2',
+						'value' => date('d/m/Y',strtotime($this->request->data['Estimacion']['fechafinestimacion'])),
 						'type'  => 'Text',
 						'div' => array('class' => 'requerido')
 						 ) ); ?>
@@ -166,7 +172,7 @@ $this->end(); ?>
 
                 .k-textbox {
                     width: 300px;
-                    margin-left: 5px;
+                    
                     
                 }
 				

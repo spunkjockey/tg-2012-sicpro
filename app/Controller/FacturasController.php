@@ -1,16 +1,16 @@
 <?php
 class FacturasController extends AppController {
-    public $helpers = array('Html', 'Form', 'Session','Ajax','AjaxMultiUpload.Upload');
-    public $components = array('Session','AjaxMultiUpload.Upload','RequestHandler');
-	public $uses = array('Proyecto','Contrato','Contratosupervisor','Facturasupervision');
+    public $helpers = array('Html', 'Form', 'Session','Ajax');
+    public $components = array('Session','RequestHandler');
+	public $uses = array('Factura'/*,'Facturaconstructor','Facturasupervision'*/);
 
     public function index() {
     	$this->layout = 'cyanspark';
-        $this->set('facturas', $this->Facturasupervision->find('all'));
+        $this->set('facturas', $this->Factura->find('all'));
     }
 	
 	
-	 public function registrarfactura() {
+	 public function factura_registrar() {
 		$this->layout = 'cyanspark';
 	
 		
