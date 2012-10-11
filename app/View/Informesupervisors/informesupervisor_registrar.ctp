@@ -75,7 +75,123 @@ $this->end(); ?>
 					var contratos= new LiveValidation( "contratos", { validMessage: " " } );
 					contratos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				</script>
-			</li>	
+			</li>
+			<li>
+				<div id=infoproy>
+					<!--- Aqui se carga el nombre del proyecto seleccionado-->
+				</div>
+				<div id=infocontrato>
+				<!--- Aqui se muestran datos sobre el contrato seleccionado -->
+				</div>
+			</li>
+			<li>
+				<?php echo $this->Form->input('tituloinforme', 
+					array(
+						'label' => 'Título del informe:', 
+						'class' => 'k-textbox',
+						'id'=>'titulo', 
+						'placeholder' => 'Título del informe de supervisión', 
+						'rows'=> 2, 
+						'div' => array('class' => 'requerido')
+						)); ?>
+				<script type="text/javascript">
+					var titulo= new LiveValidation( "titulo", { validMessage: " " } );
+					titulo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+				</script>
+			</li>
+			<li>
+				<?php echo $this->Form->input('fechainicio', 
+					array(
+						'label' => 'Fecha inicio:', 
+						'id'	=> 'datePicker1',
+						'div' => array('class' => 'requerido'),
+						'type'  => 'Text'
+						));
+					?>
+				<script type="text/javascript">
+		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " } );
+		            datePicker1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
+		            datePicker1.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
+		        </script>
+			</li>
+			<li>
+				<?php echo $this->Form->input('fechafin', 
+					array(
+						'label' => 'Fecha fin:', 
+						'id'	=> 'datePicker2',
+						'div' => array('class' => 'requerido'),
+						'type'  => 'Text'
+						)); 
+					?>
+				<script type="text/javascript">
+		            var datePicker2 = new LiveValidation( "datePicker2", { validMessage: " " } );
+		            datePicker2.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            datePicker2.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
+		        	datePicker2.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
+		        </script>
+			</li>
+			<li>
+				<?php echo $this->Form->input('plazoejecucion', 
+					array(
+						'label' => 'Plazo:',
+						'class' => 'k-textbox',  
+						'id' => 'txplazo',
+						'type'  => 'Text', 
+						'placeholder' => 'Cantidad de días de supervisión'
+						));
+					?>
+				<script type="text/javascript">
+					var txplazo= new LiveValidation( "txplazo", { validMessage: " " } );
+					txplazo.add( Validate.Numericality,{ onlyInteger: true,
+														notAnIntegerMessage: "Debe ser un número entero",
+						            				 	notANumberMessage:"Debe ser un número"} );
+				</script>
+			</li>
+			<li>
+				<?php echo $this->Form->input('avfinanciero', 
+					array(
+						'label' => 'Avance financiero: ($)',
+						'class' => 'k-textbox',  
+						'id' => 'txavfinanciero',
+						'type' => 'text',
+						'placeholder' => 'Valor monetario de avance',
+						'div' => array('class' => 'requerido')
+						)); ?>
+				<script type="text/javascript">
+					var txavfinanciero = new LiveValidation( "txavfinanciero", { validMessage: " " } );
+		            txavfinanciero.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script>
+			</li>
+			<li>
+				<?php echo $this->Form->input('avfisico', 
+					array(
+						'label' => 'Avance físico (%):',
+						'class' => 'k-textbox',  
+						'id' => 'txavfisico',
+						'type'  => 'Text', 
+						'placeholder' => 'Porcentaje de avance', 
+						'div' => array('class' => 'requerido')
+						));
+					?>
+				<script type="text/javascript">
+					var txavfisico= new LiveValidation( "txavfisico", { validMessage: " " } );
+					txavfisico.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+					
+				</script>
+			</li>
+			<li  class="accept">
+				<?php echo $this->Form->end(array('label' => 'Registrar contrato', 'class' => 'k-button')); ?>
+			</li>
+				<?php echo $this->ajax->observeField( 'proyectos',array(
+			        		'url' => array( 'action' => 'update_nomproyecto'),
+			        		'update' => 'infoproy'));  
+					?>
+				
+				<?php echo $this->ajax->observeField( 'contratos',array(
+			        		'url' => array( 'action' => 'update_infocontrato'),
+			        		'update' => 'infocontrato'));  
+					?>	
 		</ul>
 	</div>
 </div>
@@ -194,33 +310,14 @@ $this->end(); ?>
                         }
                     });
                 
-                
-
-				$("#txmonto").kendoNumericTextBox({
-				     min: 0,
-				     max: 999999999.99,
-				     format: "c2",
-				     decimals: 2,
-				     spinners: false
-				 });
-
-				$("#txanticipo").kendoNumericTextBox({
-				     min: 0,
-				     max: 999999999.99,
-				     format: "c2",
-				     decimals: 2,
-				     spinners: false
-				 });
-				 
-				 
-                
-				$("#proyectos").kendoDropDownList({
+                $("#proyectos").kendoDropDownList({
+            			optionLabel: "Seleccione proyecto",
             			dataTextField: "numeroproyecto",
 			            dataValueField: "idproyecto",
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
-			                                read: "/Informesupervisors/proyectojson.json"
+			                                read: "/Informesupervisors/proyectosjson.json"
 			                            }
 			                        }
 			        });
@@ -240,7 +337,21 @@ $this->end(); ?>
 			                        }
 			                    }).data("kendoDropDownList");
 			        
-			    
+			    $("#txavfinanciero").kendoNumericTextBox({
+				     min: 0,
+				     max: 999999999.99,
+				     format: "c2",
+				     decimals: 2,
+				     spinners: false
+				 });
+
+				$("#txavfisico").kendoNumericTextBox({
+				     min: 0,
+				     max: 100.00,
+				     format: "n",
+				     decimals: 2,
+				     spinners: false
+				 });
 				
 				
 				$("#datePicker1").kendoDatePicker({

@@ -64,7 +64,8 @@
 					//Guardar contratosupervisor	
 					if($this->Contratosupervisor->save($this->Contrato->id))
 					{
-						$this->Session->setFlash('Contrato supervisor ha sido registrado.','default',array('class'=>'success'));	
+						$this->Session->setFlash('Contrato supervisor '.$this->request->data['Contratosupervisor']['codigocontrato'] .'ha sido registrado.',
+												 'default',array('class'=>'success'));	
 						$this->redirect(array('controller'=>'mains', 'action' => 'index'));
 					}
 					else 
@@ -80,6 +81,34 @@
 			
 		}
 
+		function update_nomproyecto()
+		{
+			if (!empty($this->data['Contratosupervisor']['proyectos']))
+				{	
+					$proy_id = $this->request->data['Contratosupervisor']['proyectos'];
+					$info = $this->Proyecto->find('first',array(
+								'fields'=>array('Proyecto.nombreproyecto'),
+								'conditions'=>array('Proyecto.idproyecto'=>$proy_id)));
+					$this->set('info',$info);
+				}
+				$this->render('/Elements/update_nomproyecto', 'ajax');
+		}
+		
+		
+		function update_infoconstructor()
+		{
+			if (!empty($this->data['Contratosupervisor']['contratos']))
+			{	
+				$cont_id = $this->request->data['Contratosupervisor']['contratos'];
+				$info = $this->Contratoconstructor->find('first',array(
+							'fields'=>array('Contratoconstructor.nombrecontrato','Contratoconstructor.plazoejecucion',
+											'Contratoconstructor.fechainiciocontrato','Contratoconstructor.fechafincontrato'),
+							'conditions'=>array('Contratoconstructor.idcontrato'=>$cont_id)));
+				$this->set('info',$info);
+			}
+			$this->render('/Elements/update_infoconstructor', 'ajax');	
+		}
+		
 		public function proyectojson() 
 		{
 			$proyectos = $this->Proyecto->find('all', array(

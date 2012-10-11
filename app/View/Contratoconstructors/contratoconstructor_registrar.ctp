@@ -70,6 +70,11 @@ $this->end(); ?>
 				</script>
 			</li>
 			<li>
+				<div id=infoproy>
+					<!--- Aqui se carga el nombre del proyecto seleccionado-->
+				</div>
+			</li>
+			<li>
 				<?php echo $this->Form->input('Contrato.codigocontrato', 
 					array(
 						'label' => 'Código del contrato:', 
@@ -221,6 +226,11 @@ $this->end(); ?>
 			</li>
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar contrato', 'class' => 'k-button')); ?>
+				
+				<?php echo $this->ajax->observeField( 'proyectos',array(
+			        		'url' => array( 'action' => 'update_nomproyecto'),
+			        		'update' => 'infoproy'));  
+					?>
 			</li>
             <li class="status">
             </li>
@@ -363,6 +373,7 @@ $this->end(); ?>
 				 
                 
 				$("#proyectos").kendoDropDownList({
+            			optionLabel: "Seleccione proyecto",
             			dataTextField: "numeroproyecto",
 			            dataValueField: "idproyecto",
 			            dataSource: {

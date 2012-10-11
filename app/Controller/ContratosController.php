@@ -16,11 +16,12 @@ class ContratosController extends AppController {
         if ($this->request->is('post')) 
         {
         	$id = $this->request->data['Contrato']['contratos'];
+			$this->Contrato->create();
 			$this->Contrato->read(null, $id);
             $this->Contrato->set('ordeninicio', $this->request->data['Contrato'] ['ordeninicio']);
 			$this->Contrato->set('userm', $this->Session->read('User.username'));
 			$this->Contrato->set('modificacion', date('Y-m-d h:i:s'));
-			if($this->Contrato->save($id))
+			if($this->Contrato->save(array('fieldList'=>array('ordeninicio','userm','modificacion'))))
 			{
             	$this->Session->setFlash('La Orden de Inicio ha sido registrada.','default',array('class'=>'success'));
             	$this->redirect(array('controller'=>'mains', 'action' => 'index'));
