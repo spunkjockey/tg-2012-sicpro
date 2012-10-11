@@ -61,25 +61,11 @@ $this->end(); ?>
 			<br>
 			<?php echo $this->Html->link(
             	'Agregar Ubicacion', 
-            	array('controller' => 'Ubicacions','action' => 'add',$fichatecnicas['Fichatecnica']['idfichatecnica']),
+            	array('controller' => 'Ubicacions','action' => 'ubicacion_registrar',$fichatecnicas['Fichatecnica']['idfichatecnica']),
             	array('class'=>'k-button')
 			);?>
 			<br> 
 			<br>
-			<!--<table id="tabla">
-			    <tr>
-			        <th data-field="Nombre Componente">Nombre Componente</th>
-			        <th data-field="Descripcion componente">Descripcion componente</th>
-			        <th data-field="Meta">Meta</th>
-			    </tr>			   
-				<?php foreach ($metas as $met): ?>
-			    <tr>
-			        <td><?php echo $met['Componente']['nombrecomponente']; ?></td>
-			        <td><?php echo $met['Componente']['descripcioncomponente']; ?></td>
-			        <td><?php echo $met['Meta']['descripcionmeta']; ?></td>        
-			    </tr>
-			    <?php endforeach; ?>
-			</table>-->
 			<h2>Componentes</h2>
 			<?php foreach ($fichatecnicas['Componente'] as $compo):?>
 				<h3 id='titulo'><?php echo $compo['nombrecomponente']; ?></h3>
@@ -91,7 +77,7 @@ $this->end(); ?>
 			<?php endforeach; ?>
 			<?php echo $this->Html->link(
             	'Agregar Componentes', 
-            	array('controller' => 'Componentes','action' => 'add',$fichatecnicas['Fichatecnica']['idfichatecnica']),
+            	array('controller' => 'Componentes','action' => 'componente_registrar',$fichatecnicas['Fichatecnica']['idfichatecnica']),
             	array('class'=>'k-button')
 			);?>
 			

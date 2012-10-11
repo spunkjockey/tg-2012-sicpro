@@ -1,4 +1,4 @@
-<!-- File: /app/View/Componentes/add.ctp -->
+<!-- File: /app/View/Componentes/componente_registrar.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -60,18 +60,20 @@ $this->end(); ?>
 					array(
 						'label' => 'Nombre Componente:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre del Componente', 
-						'required', 
-						'validationMessage' => 'Ingrese Nombre del Componente')); ?>
+						'div' => array('class' => 'requerido'),
+						'id' => 'nombrecomponente',
+						'placeholder' => 'Nombre del Componente')); ?>
+				<script type="text/javascript">
+		            var nombrecomponente = new LiveValidation( "nombrecomponente", { validMessage: " " } );
+		            nombrecomponente.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script> 
 			</li>
 			<li>
 			<?php echo $this->Form->input('Componente.descripcioncomponente', 
 					array(
 						'label' => 'Descripcion Componente:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Descripcion del Componente', 
-						'required', 
-						'validationMessage' => 'Ingrese la descripcion del Componente')); ?>
+						'placeholder' => 'Descripcion del Componente')); ?>
 			</li>
 			<li  class="accept" align="right" >
 				<a href="#" onclick="AgregarCampos('<?php echo $this->Session->read('User.username');?>');" class="k-button">Agregar Metas</a>		
@@ -81,11 +83,12 @@ $this->end(); ?>
 			<ul id="metas">
 			
 	    	</ul>
+	    	<script type="text/javascript"> 
+		    	var Meta = new LiveValidation( "Meta", { validMessage: " " } ); 
+		    	Meta.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } ); 
+	    	</script> 
 			<li  class="accept">
 				<?php echo $this->Form->input('Componente.idfichatecnica', array('type' => 'hidden','value'=>$idfichatecnica)); ?>
-				<!--<?php echo $this->Form->input('Meta.0.userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
-				<?php echo $this->Form->input('Meta.1.userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
-				<?php echo $this->Form->input('Meta.2.userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>-->
 				<?php echo $this->Form->end(array('label' => 'Registrar Componente', 'class' => 'k-button')); ?>
 				<?php echo $this->Html->link(
 					'Regresar', 
@@ -99,17 +102,17 @@ $this->end(); ?>
 		</ul>
 	</div>
 </div>
-
 <style scoped>
 
                 .k-textbox {
                     width: 300px;
                     margin-left: 5px;
-                    margin-right: 5px;
                     
                 }
 				
-				
+				.k-dropdownlist{
+                    width: 200px;
+                }
 			
                 #formulario {
                     width: 600px;
@@ -141,11 +144,11 @@ $this->end(); ?>
                     
                 }
 
-                .required {
+                /*.required {
                     font-weight: bold;
-                }
+                }*/
                 
-                form .required label:after {
+                form .requerido label:after {
                 	font-size: 1.4em;
 					color: #e32;
 					content: '*';
@@ -164,9 +167,44 @@ $this->end(); ?>
                 .invalid {
                     color: red;
                 }
-                span.k-tooltip {
-                    margin-left: 6px;
-                }
+                
+               
+               
+                
+				
+				.LV_validation_message{
+				    font-weight:bold;
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+					clear:both;
+               		display:inline-block;
+               		margin-left: 170px; 
+               
+				}
+				    
+				.LV_valid_field,
+				input.LV_valid_field:hover, 
+				input.LV_valid_field:active,
+				textarea.LV_valid_field:hover, 
+				textarea.LV_valid_field:active {
+				    border: 1px solid #00CC00;
+				}
+				    
+				.LV_invalid_field, 
+				input.LV_invalid_field:hover, 
+				input.LV_invalid_field:active,
+				textarea.LV_invalid_field:hover, 
+				textarea.LV_invalid_field:active {
+				    border: 1px solid #CC0000;
+				}
+                
 </style>
 <script>
                 $(document).ready(function() {
@@ -194,7 +232,8 @@ $this->end(); ?>
 	var nextinput = 0;
 	function AgregarCampos(usuario) {
 		nextinput++;
-		campo = '<li class="meta'+ nextinput +'"><label for="Meta'+nextinput+'Descripcionmeta">Descripcion Meta:</label><textarea name="data[Meta]['+nextinput+'][descripcionmeta]" class="k-textbox" placeholder="Meta" required="required" validationMessage="Ingrese la meta" cols="30" rows="6" id="Meta'+ nextinput +'Descripcionmeta"></textarea><a href="#" onclick= "borrar( '+ nextinput +');"" class="k-button"">Borrar</a></li><input type="hidden" name="data[Meta]['+nextinput+'][userc]" value="'+usuario+'" id="Meta'+nextinput+'Userc"/>';
+		campo = '<li class="meta'+ nextinput +'"><label for="Meta'+nextinput+'Descripcionmeta">Descripcion Meta:</label><textarea name="data[Meta]['+nextinput+'][descripcionmeta]" class="k-textbox" placeholder="Meta" cols="30" rows="6" id="Meta'+ nextinput +'Descripcionmeta"></textarea><a href="#" onclick= "borrar( '+ nextinput +');"" class="k-button"">Borrar</a></li><input type="hidden" name="data[Meta]['+nextinput+'][userc]" value="'+usuario+'" id="Meta'+nextinput+'Userc"/>';
+		var cadenas ='<script type="text/javascript"> var Meta = new LiveValidation( "Meta", { validMessage: " " } ); Meta.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" }; )< /script>';
 		$("#metas").append(campo);
 		return false;
 	}

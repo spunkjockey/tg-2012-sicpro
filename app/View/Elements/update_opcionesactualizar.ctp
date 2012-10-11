@@ -1,5 +1,7 @@
 <!-- /app/views/elements/update_opcionesactualizar.ctp -->
 	<?php
+	if(!empty($informacion))
+	{
 	if($informacion != false){	
 	foreach ($informacion as $inf): 
 		switch ($inf['estadocontrato']) {
@@ -40,4 +42,4 @@
 			break;
 		}
 	endforeach; 
-	}?>
+	}}?>

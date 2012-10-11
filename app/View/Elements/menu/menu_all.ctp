@@ -7,8 +7,7 @@
 									<li>Ficha t&eacute;cnica
 										<ul>
 											<li><?php echo $this->Html->link('Registrar Ficha Técnica', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_registrarficha')); ?></li>
-											<li disabled="disabled">Modificar ficha t&eacute;cnica</li>
-											<li disabled="disabled">Eliminar ficha t&eacute;cnica</li>
+											<li><?php echo $this->Html->link('Modificar Ficha Técnica', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_listarficha')); ?></li>
 											<li disabled="disabled">Consultar ficha t&eacute;cnica</li>
 										</ul>
 									</li>	

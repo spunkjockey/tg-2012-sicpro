@@ -7,17 +7,12 @@ class FichatecnicasController extends AppController {
 	
     public function index() {
     	$this->layout = 'cyanspark';
-
     }	
 	
 	public function fichatecnica_registrarficha() {
 		$this->layout = 'cyanspark';
-		
-
-		
         if ($this->request->is('post')) {
-				    // it validated logic
-				    
+				    // it validated logic	    
 				    $this->Fichatecnica->set('idproyecto', $this->request->data['Fichatecnica']['proyectos']);
 					$this->Fichatecnica->set('problematica', $this->request->data['Fichatecnica']['problematica']);
 					$this->Fichatecnica->set('objgeneral', $this->request->data['Fichatecnica']['objgeneral']);
@@ -35,14 +30,49 @@ class FichatecnicasController extends AppController {
 		        	} else {
 		            	$this->Session->setFlash('No se pudo realizar el registro' /*. $this->data['Fichatecnica']['idfichatenica'] */);
 		        	}
-    	}	
-	
+    		}	
 	}
 
+	public function fichatecnica_modificarficha($id = null){
+		$this->layout = 'cyanspark';	
+		$this->Fichatecnica->id = $id;
+	    if ($this->request->is('get')) {
+	        $this->request->data = $this->Fichatecnica->read();
+	    } else {
+	    	$this->Fichatecnica->set('userm', $this->Session->read('User.username'));
+			$this->Fichatecnica->set('modificacion', date('Y-m-d h:i:s'));
+	        if ($this->Fichatecnica->save($this->request->data)) {
+	        	
+	            $this->Session->setFlash('Los Datos Generales de la Ficha tecnica del proyecto "'.$this->request->data['Fichatecnica']['nombreproyecto'] .'" ha sido modificada.','default',array('class' => 'success'));
+	            $this->redirect(array('action' => 'fichatecnica_listarficha'));
+				
+	        } else {
+            	$this->Session->setFlash('Imposible editar Ficha Tecnica');
+        	}
+	    }
+	}
+	
+	public function fichatecnica_modificarubicacion($id = null){
+		$this->layout = 'cyanspark';	
+		$this->set('idfichatecnica',$id);
+	    $this->set('ubicaciones', $this->Fichatecnica->Ubicacion->find('all',
+				array('fields' => array('Ubicacion.idubicacion','Ubicacion.direccion','Departamento.departamento','Municipio.municipio'),
+				'conditions' => array('Ubicacion.idfichatecnica' => $id))
+				));
+		$this->set('idfichatecnica',$id);
+	}
+	
+	public function fichatecnica_listarficha(){
+		$this->layout = 'cyanspark';	
+		$this->set('fichas', $this->Fichatecnica->find('all',
+		array(
+		'conditions'=>array( "OR" => 
+							array('Proyecto.estadoproyecto' => 
+							array('Licitacion','Adjudicacion')
+		)))));
+	}
 	public function view($id = null) {
-		$this->layout = 'cyanspark';
-        
-        		
+		$this->layout = 'cyanspark';   		
         $this->Fichatecnica->id = $id;
 		if (!$this->Fichatecnica->find('all')) {
         	throw new NotFoundException('No se puede encontrar la Empresa', 404);
@@ -55,24 +85,14 @@ class FichatecnicasController extends AppController {
 		}
     }
 	
-	
-	public function proyectojson() {
-		
-		
-		/*$proyectos = $this->Fichatecnica->Proyecto->find('list',
-			array('fields' => array('Proyecto.idproyecto', 'Proyecto.nombreproyecto'),
-			'conditions' => 'Proyecto.idproyecto NOT IN (SELECT idproyecto FROM sicpro2012.fichatecnica);'
-		));*/
-		
+	public function proyectojson() {		
 		$proyectos = $this->Proyecto->find('all',array(
 			'fields' => array('DISTINCT Proyecto.idproyecto', 'Proyecto.nombreproyecto'),
 			'conditions' => 'Proyecto.idproyecto NOT IN (SELECT idproyecto FROM sicpro2012.fichatecnica)',
 			'order' => array('Proyecto.nombreproyecto')
 		));
-		
 		$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
 		$this->set('_serialize', 'proyectos');
 		$this->render('/json/jsondata');
-		
 	}
 }

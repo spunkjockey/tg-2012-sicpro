@@ -43,7 +43,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO » Ficha Tecnica » Registrar Ficha Tecnica
+			?> » Proyecto » Ficha Tecnica » Modificar Ficha Tecnica
 			
 		</div>
 	</div>
@@ -52,22 +52,20 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar Ficha Tecnica</h2>
+		<h2>Modificar Ficha Tecnica</h2>
 		
 				<?php echo $this->Form->create('Fichatecnica'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('proyectos',
-					array(
-						'label' => 'Proyectos:', 
-						'div' => array('class' => 'requerido'),
-						'class' => 'k-dropdownlist',
-						'id' => 'proyectos'
-					)); ?>
-				<script type="text/javascript">
-		            var proyectos = new LiveValidation( "proyectos", { validMessage: " " } );
-		            proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script> 
+				
+				<?php echo $this->Form->input('nombreproyecto',array(
+				'value'=>$this->request->data['Proyecto']['nombreproyecto'],
+				'type' => 'hidden'
+				)); ?>
+				
+				<?php			
+					echo '<label>Nombre Proyecto:  </label><br /> '.$this->request->data['Proyecto']['nombreproyecto']; 
+				?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('problematica', 
@@ -163,8 +161,9 @@ $this->end(); ?>
 			</li>							
 			
 			<li  class="accept">
-				<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
-				<?php echo $this->Form->end(array('label' => 'Registrar Ficha', 'class' => 'k-button')); ?>
+				<!--<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>-->
+				
+				<?php echo $this->Form->end(array('label' => 'Modificar Ficha', 'class' => 'k-button')); ?>
 				</li>
             
             <li class="status">
@@ -172,6 +171,11 @@ $this->end(); ?>
 		</ul>
 	</div>
 </div>
+            <?php echo $this->Html->link(
+            	'Regresar', 
+            	array('controller'=>'Fichatecnicas','action' => 'fichatecnica_listarficha'),
+            	array('class'=>'k-button')
+			);?>
 
 <style scoped>
 

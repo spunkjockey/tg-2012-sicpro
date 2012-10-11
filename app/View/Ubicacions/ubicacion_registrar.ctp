@@ -59,24 +59,29 @@ $this->end(); ?>
 				<?php echo $this->Form->input('departamentos',
 					array(
 						'label' => 'Departamento:', 
-						'id' => 'select1',
-						//'selected' => '05',
-						//'empty' => 'Seleccione...', 
-						'required' 
-						, 
-						'validationMessage' => 'Seleccione Departamento')); ?>
+						'id' => 'departamentos',
+						'class' => 'k-dropdownlist'
+					)); ?>
+				<script type="text/javascript">
+		            var departamentos = new LiveValidation( "departamentos", { validMessage: " " } );
+		            departamentos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script> 
 			</li>
 
 			<li>
 				<?php echo $this->Form->input('municipios',
 					array(
 						'label' => 'Municipio:', 
-						'id' => 'select2',
-						//'selected' => '05',
-						//'empty' => 'Seleccione...', 
-						'required' 
-						, 
-						'validationMessage' => 'Seleccione Municipios')); ?>
+						'id' => 'municipios',
+						'class' => 'k-dropdownlist'
+					)); ?>
+				<script type="text/javascript">
+		            var municipios = new LiveValidation( "municipios", { validMessage: " " } );
+		            municipios.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script> 
+		        <?php if ($this->Form->isFieldError('idmunicipio')) {
+				    echo $this->Form->error('idmunicipio');
+				} ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('direccion', 
@@ -84,9 +89,7 @@ $this->end(); ?>
 						'label' => 'Direccion: ', 
 						'class' => 'k-textbox', 
 						'placeholder' => 'Objetivo General',
-						"rows"=>"2",  
-						'required', 
-						'validationMessage' => 'Ingrese el Objetivo General')); ?>
+						"rows"=>"2")); ?>
 			</li>
 				
 			<li  class="accept">
@@ -94,11 +97,6 @@ $this->end(); ?>
 					
 					
 				</div>
-			<!--	<?php echo $this->Html->link(
-            	'Agregar Ubicacion', 
-            	array('controller' => 'Ubicaciones','action' => 'add'/*, $emp['Empresa']['idempresa']*/),
-            	array('class'=>'k-button')
-				);?>-->
 				<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
 				<div style="display:inline;">
 				<?php echo $this->Form->end(array('label' => 'Registrar Ubicacion', 'class' => 'k-button')); ?>
@@ -118,7 +116,7 @@ $this->end(); ?>
 	</div>
 </div>
 
- <style scoped>
+<style scoped>
 
                 .k-textbox {
                     width: 300px;
@@ -126,7 +124,9 @@ $this->end(); ?>
                     
                 }
 				
-				
+				.k-dropdownlist{
+                    width: 200px;
+                }
 			
                 #formulario {
                     width: 600px;
@@ -153,14 +153,21 @@ $this->end(); ?>
 
                 label {
                     display: inline-block;
-                    width: 150px;
+                    width: 160px;
                     text-align: right;
                     
                 }
 
-                .required {
+                /*.required {
                     font-weight: bold;
-                }
+                }*/
+                
+                form .requerido label:after {
+                	font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+				}
 
                 .accept, .status {
                 	padding-top: 15px;
@@ -174,10 +181,45 @@ $this->end(); ?>
                 .invalid {
                     color: red;
                 }
-                span.k-tooltip {
-                    margin-left: 6px;
-                }
-</style>
+                
+               
+               
+                
+				
+				.LV_validation_message{
+				    font-weight:bold;
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+					clear:both;
+               		display:inline-block;
+               		margin-left: 170px; 
+               
+				}
+				    
+				.LV_valid_field,
+				input.LV_valid_field:hover, 
+				input.LV_valid_field:active,
+				textarea.LV_valid_field:hover, 
+				textarea.LV_valid_field:active {
+				    border: 1px solid #00CC00;
+				}
+				    
+				.LV_invalid_field, 
+				input.LV_invalid_field:hover, 
+				input.LV_invalid_field:active,
+				textarea.LV_invalid_field:hover, 
+				textarea.LV_invalid_field:active {
+				    border: 1px solid #CC0000;
+				}
+                
+            </style>
 
 <script>
                 $(document).ready(function() {
@@ -191,19 +233,31 @@ $this->end(); ?>
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
+                    $("#departamentos").kendoDropDownList({
+            			optionLabel: "Seleccione departamento",
+			            dataTextField: "departamento",
+			            dataValueField: "iddepartamento",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Ubicacions/departamentojson.json"
+			                            }
+			                        }
+			        });
+			    	var departamentos = $("#departamentos").data("kendoDropDownList");
+			        
+			    	var municipios = $("#municipios").kendoDropDownList({
+			                        autoBind: false,
+			                        cascadeFrom: "departamentos",
+			                        optionLabel: "Seleccione Municpio",
+			                        dataTextField: "municipio",
+			                        dataValueField: "idmunicipio",
+			                        dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Ubicacions/municipiojson.json"
+			                            }
+			                        }
+			    }).data("kendoDropDownList");
                 });
-                
-                $("#select1").kendoComboBox({
-			         //placeholder: "Seleccionar...",
-			         index: 0,
-			         suggest: true,
-			         filter: 'none'
-			    });
-			    $("#select2").kendoComboBox({
-			         //placeholder: "Seleccionar...",
-			         index: 0,
-			         suggest: true,
-			         filter: 'none'
-			    });
-               // var select = $("#select").data("kendoComboBox");
 </script>
