@@ -10,6 +10,7 @@
 		$placon = $info['Contratoconstructor']['plazoejecucion'];
 		$idecon = $info['Contratoconstructor']['idempresa'];
 		$idpcon = $info['Contratoconstructor']['idpersona'];
+		
 	}
 	else
 	{
@@ -22,7 +23,10 @@
 		$placon = '';
 		$idecon = '';
 		$idpcon = '';
+		
 	}
+	
+	
 	if(isset($info['Contratoconstructor']['detalleobras']))
 		$obrcon=$info['Contratoconstructor']['detalleobras'];
 	else 
@@ -181,6 +185,7 @@
 		var admin = new LiveValidation( "admin", { validMessage: " " } );
         admin.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
     </script>
+    
 </li>
 <li  class="accept">
 					<?php echo $this->Form->end(array('label' => 'Modificar contrato', 'class' => 'k-button')); ?>

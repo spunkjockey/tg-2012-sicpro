@@ -58,34 +58,37 @@ $this->end(); ?>
 <table id="grid">
     <tr>
         <th data-field="tituloinforme">Título informe</th>
-        <th data-field="fechaini" width="100px">Fecha inicio</th>
-        <th data-field="plazo" width="80px">Plazo</th>
-        <th data-field="accion" width="255px">Acción</th>
+        <th data-field="periodo" width="100px">Período</th>
+        <th data-field="accion" width="250px">Acción</th>
     </tr>
 
     <?php foreach ($informes as $info): ?>
     <tr>
-        <td><?php echo $info['Informesupervisor']['tituloinformesup']; ?></td>
-        <td><?php echo $info['Informesupervisor']['fechainiciosupervision']; ?></td>
-        <td><?php echo $info['Informesupervisor']['plazoejecuciondias']; ?></td>
-      <td align="center">
+        <td>
+        	<?php echo $info['Informesupervisor']['tituloinformesup']; ?>
+        </td>
+        <td>
+        	<?php echo date('d/m/Y',strtotime($info['Informesupervisor']['fechainiciosupervision'])); ?>
+        	al <?php echo date('d/m/Y',strtotime($info['Informesupervisor']['fechafinsupervision'])); ?>
+        </td>
+       	<td align="center">
             <?php echo $this->Html->link(
             	'Editar', 
-            	array('action' => 'persona_modificar', $info['Informesupervisor']['idinformesupervision']),
+            	array('action' => 'informesupervisor_modificar', $info['Informesupervisor']['idinformesupervision']),
             	array('class'=>'k-button')
 			);?>
-			<?php echo $this->Html->link(
-            	'Agregar usuario', 
-            	array('action' => 'persona_agregar_usuario', $info['Informesupervisor']['idinformesupervision']),
-            	array('class'=>'k-button')
-			);?>
-            <?php echo $this->Form->postLink(
+			<?php echo $this->Form->postLink(
                 'Eliminar',
-                array('action' => 'persona_eliminar', $info['Informesupervisor']['idinformesupervision']),
+                array('action' => 'informesupervisor_eliminar', $info['Informesupervisor']['idinformesupervision']),
                 array('confirm' => '¿Está seguro?','class'=>'k-button')
             )?>
+            <?php echo $this->Html->link(
+            	'Cargar archivo', 
+            	array('action' => 'informesupervisor_agregararchivo', $info['Informesupervisor']['idinformesupervision']),
+            	array('class'=>'k-button')
+			);?>
             
-       </td> 
+       	</td> 
     </tr>
     <?php endforeach; ?>
     <?php unset($informes); ?>

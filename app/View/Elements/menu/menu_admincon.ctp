@@ -28,20 +28,16 @@
 									</li>
 									<li>Informe de supervisi&oacute;n
 										<ul>
-											<li disabled="disabled">Registrar informe supervisi&oacute;n</li>
-											<li disabled="disabled">Modificar informe supervisi&oacute;n</li>
-											<li disabled="disabled">Eliminar informe supervisi&oacute;n</li>
+											<li><?php echo $this->Html->link('Informe supervisión', array('controller' => 'Informesupervisors','action'=>'informesupervisor_index')); ?></li>
 											<li disabled="disabled">Consultar informe supervisi&oacute;n</li>
 										</ul>
 									</li>
 									<li>Estimaci&oacute;n de avance
 										<ul>
-											<li disabled="disabled">Registrar estimaci&oacute;n de avance</li>
-											<li disabled="disabled">Modificar estimaci&oacute;n de avance</li>
-											<li disabled="disabled">Eliminar estimaci&oacute;n de avance</li>
+											<li><?php echo $this->Html->link('Estimación de Avance', array('controller' => 'Estimacions','action'=>'index')); ?></li>
 											<li disabled="disabled">Consultar estimaci&oacute;n de avance</li>
 										</ul>
-									</li>	
+									</li>		
 									<li>Informe t&eacute;cnico
 										<ul>
 											<li disabled="disabled">Consultar Informe T&eacute;cnico</li>

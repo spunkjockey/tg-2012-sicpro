@@ -52,6 +52,12 @@ $this->end(); ?>
 		<h2>Modificar contrato constructor</h2>
 		<?php echo $this->Form->create('Contratoconstructor',array('action' => 'contratoconstructor_modificar')); ?>
 		<ul>
+			<?php 
+				if ($this->Form->isFieldError('ordeninicio')) {
+				    echo $this->Form->error('ordeninicio');
+				}
+			?>
+			
 			<li>
 				<?php echo $this->Form->input('proyectos', 
 					array(
@@ -78,9 +84,15 @@ $this->end(); ?>
 				</script>
 			</li>
 			
-			<div id=infoconconstructor>
-				<!--- el formulario se generará con la función update_infoconconstructor() -->
-			</div>
+			<div id=infoproy> <!--- Aqui se carga el nombre del proyecto seleccionado--> </div>
+			<div id=infoconconstructor> <!--- el formulario se generará con la función update_infoconconstructor() --> </div>
+			
+			
+			<?php echo $this->ajax->observeField( 'proyectos',array(
+			        		'url' => array( 'action' => 'update_nomproyecto'),
+			        		'update' => 'infoproy'));  
+					?>
+			
 			
 			<?php echo $this->ajax->observeField( 'contratos',array(
 			        		'url' => array( 'action' => 'update_infoconconstructor'),

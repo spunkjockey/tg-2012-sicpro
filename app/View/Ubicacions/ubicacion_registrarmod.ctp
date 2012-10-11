@@ -1,4 +1,4 @@
-<!-- File: /app/View/Orden de inicio/registrar_Orden de inicio.ctp -->
+<!-- File: /app/View/Ubicaciones/add.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -31,7 +31,6 @@
 	}
 $this->end(); ?>
 
-
 <?php $this->start('breadcrumb'); ?>
 	
 	<div id="menuderastros">
@@ -44,77 +43,79 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-
-			?> » Bienvenido a SICPRO » Contratos » Registrar Orden de Inicio
-		
+			?> » Proyecto » Ficha Tecnica » Modificar Ficha Tecnica
+			
+		</div>
+	</div>
+	
 <?php $this->end(); ?>
-
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Agregar Orden de Inicio</h2>
-		<?php echo $this->Form->create('Contrato'); ?>
+		<h2>Registrar Ubicacion</h2>
+		
+				<?php echo $this->Form->create('Ubicacion'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('proyectos',
+				<?php echo $this->Form->input('departamentos',
 					array(
-						'label' => 'Proyectos:', 
-						'id' => 'proyectos'
+						'label' => 'Departamento:', 
+						'id' => 'departamentos',
+						'class' => 'k-dropdownlist'
 					)); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('contratos',
-					array(
-						'label' => 'Contratos:', 
-						'id' => 'contratos'
-					)); ?>
-			</li>
-			<div id='info_contrato'>
-				
-			</div>
-			<li>
-				<?php echo $this->Form->input('ordeninicio', 
-					array(
-						'label' => 'Orden de Inicio:', 
-						'id'	=> 'datePicker1',
-						'type'  => 'Text',
-						'div' => array('class' => 'requerido')
-						)); ?>
-				
 				<script type="text/javascript">
-		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " } );
-		            datePicker1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d$/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
+		            var departamentos = new LiveValidation( "departamentos", { validMessage: " " } );
+		            departamentos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script> 
+			</li>
+
+			<li>
+				<?php echo $this->Form->input('municipios',
+					array(
+						'label' => 'Municipio:', 
+						'id' => 'municipios',
+						'class' => 'k-dropdownlist'
+					)); ?>
+				<script type="text/javascript">
+		            var municipios = new LiveValidation( "municipios", { validMessage: " " } );
+		            municipios.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script> 
+		        <?php if ($this->Form->isFieldError('idmunicipio')) {
+				    echo $this->Form->error('idmunicipio');
+				} ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('direccion', 
+					array(
+						'label' => 'Direccion: ', 
+						'class' => 'k-textbox', 
+						'placeholder' => 'Objetivo General',
+						"rows"=>"2")); ?>
 			</li>
 			<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
 			<li  class="accept">
-				<table><tr><td>
-				<?php echo $this->Form->end(array('label' => 'Registrar Orden de Inicio', 'class' => 'k-button')); ?>
-				</td><td>
+			<table>
+			<tr>
+				<td>			
 				<?php echo $this->Html->link(
 					'Regresar', 
-					array('controller' => 'mains', 'action' => 'index'),
+					array('controller' => 'Fichatecnicas', 'action' => 'fichatecnica_modificarubicacion',$idfct),
 					array('class'=>'k-button')
 				); ?>
 				</td>
-				</tr>
-				</table>
-								<?php echo $this->ajax->observeField( 'contratos', 
-		    		array(
-		        		'url' => array( 'action' => 'update_infoinicio'),
-		        		'update' => 'info_contrato'
-		    		) 
-				);  ?>
+				<td>
+				<?php echo $this->Form->end(array('label' => 'Registrar Ubicacion', 'class' => 'k-button')); ?>
+				</td>
+			</tr>
+			</table>
 			</li>
             
             <li class="status">
             </li>
 		</ul>
-		
 	</div>
 </div>
 
-            <style scoped>
+<style scoped>
 
                 .k-textbox {
                     width: 300px;
@@ -122,13 +123,9 @@ $this->end(); ?>
                     
                 }
 				
-				form .requerido label:after {
-                	font-size: 1.4em;
-					color: #e32;
-					content: '*';
-					display:inline;
-				}
-                
+				.k-dropdownlist{
+                    width: 200px;
+                }
 			
                 #formulario {
                     width: 600px;
@@ -153,14 +150,23 @@ $this->end(); ?>
                     margin: 10px 0 0 0;
                 }
 
-               label {
+                label {
                     display: inline-block;
-                    width: 210px;
+                    width: 160px;
                     text-align: right;
-                    margin-right: 5px;
                     
                 }
 
+                /*.required {
+                    font-weight: bold;
+                }*/
+                
+                form .requerido label:after {
+                	font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+				}
 
                 .accept, .status {
                 	padding-top: 15px;
@@ -172,13 +178,14 @@ $this->end(); ?>
                 }
 
                 .invalid {
-                    color: gray;
-                }
-                span.k-tooltip {
-                    margin-left: 6px;
+                    color: red;
                 }
                 
-                 .LV_validation_message{
+               
+               
+                
+				
+				.LV_validation_message{
 				    font-weight:bold;
 				    margin:0 0 0 5px;
 				}
@@ -210,9 +217,10 @@ $this->end(); ?>
 				textarea.LV_invalid_field:active {
 				    border: 1px solid #CC0000;
 				}
+                
             </style>
-            
-            <script>
+
+<script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
@@ -224,41 +232,31 @@ $this->end(); ?>
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
-
-
-		$("#datePicker1").kendoDatePicker({
-		 format: "dd/MM/yyyy", //Define el formato de fecha
-		   culture:"es-ES"
-		});
-		 
-
-	              $("#proyectos").kendoDropDownList({
-		            			optionLabel: "Seleccione proyecto",
-					            dataTextField: "numeroproyecto",
-					            dataValueField: "idproyecto",
-					            dataSource: {
-					                            type: "json",
-					                            transport: {
-					                                read: "/Contratos/proyectojson.json"
-					                            }
-					                        }
-					        });
-
-		var proyectos = $("#proyectos").data("kendoDropDownList");
+                    $("#departamentos").kendoDropDownList({
+            			optionLabel: "Seleccione departamento",
+			            dataTextField: "departamento",
+			            dataValueField: "iddepartamento",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Ubicacions/departamentojson.json"
+			                            }
+			                        }
+			        });
+			    	var departamentos = $("#departamentos").data("kendoDropDownList");
 			        
-			        var contratos = $("#contratos").kendoDropDownList({
+			    	var municipios = $("#municipios").kendoDropDownList({
 			                        autoBind: false,
-			                        cascadeFrom: "proyectos",
-			                     	optionLabel: "Seleccione contrato",
-			                        dataTextField: "codigocontrato",
-			                        dataValueField: "idcontrato",
+			                        cascadeFrom: "departamentos",
+			                        optionLabel: "Seleccione Municpio",
+			                        dataTextField: "municipio",
+			                        dataValueField: "idmunicipio",
 			                        dataSource: {
 			                            type: "json",
 			                            transport: {
-			                                read: "/Contratos/contratojson.json"
+			                                read: "/Ubicacions/municipiojson.json"
 			                            }
 			                        }
-			                    }).data("kendoDropDownList");
-	                });
-            </script>
-            
+			    }).data("kendoDropDownList");
+                });
+</script>

@@ -77,6 +77,9 @@ $this->end(); ?>
 					contratos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				</script>
 			</li>
+			<div id=infoproy><!--- Aqui se carga el nombre del proyecto seleccionado-->	</div>
+			<div id=infoconstructor><!--- Aqui se muestran datos sobre el contratoconstructor seleccionado --></div>
+			
 			<li>
 				<?php echo $this->Form->input('codigocontrato', 
 					array(
@@ -100,6 +103,7 @@ $this->end(); ?>
 						'placeholder' => 'Nombre del contrato',
 						'id'=>'nombrecontrato',
 						'rows' => 2,
+						'cols' => 45,
 						'div' => array('class' => 'requerido'))); ?>
 				<script type="text/javascript">
 					var nombrecontrato= new LiveValidation( "nombrecontrato", { validMessage: " " } );
@@ -224,10 +228,15 @@ $this->end(); ?>
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar contrato', 'class' => 'k-button')); ?>
 				
-				<?php 
-					$options = array('url' => 'update_consuper','update' => 'selectcon');
-					echo $this->ajax->observeField('selectproy', $options);
-				?>
+				<?php echo $this->ajax->observeField( 'proyectos',array(
+			        		'url' => array( 'action' => 'update_nomproyecto'),
+			        		'update' => 'infoproy'));  
+					?>
+				
+				<?php echo $this->ajax->observeField( 'contratos',array(
+			        		'url' => array( 'action' => 'update_infoconstructor'),
+			        		'update' => 'infoconstructor'));  
+					?>
 			</li>
             <li class="status">
             </li>
