@@ -14,6 +14,13 @@
 					'foreignKey' => 'idcargofuncional'
 					) 
 				);
+		public $hasMany = array(
+		        'User' => array(
+		            'className'     => 'User',
+		            'foreignKey'    => 'idpersona',
+		            'conditions'    => array('User.estado' => TRUE)
+		        )
+		    );
 		
 	public $validate = array(
 		'nombrespersona' => array(
@@ -30,7 +37,7 @@
 	        	
 	    'correoelectronico' => array(    
 	    	'email' => array(        
-	    		'rule' => array('email', true),
+	    		'rule' => array('email'),
 	    		'message' => 'Por favor indique una dirección de correo electrónico válida.'
 				)),
 		'username' => array(
@@ -40,23 +47,8 @@
 		'password' => array(
 		        'rule'    => array('between', 6, 15),
 		        'message' => 'Passwords must be between 5 and 15 characters long.'
-		    ),
-		'plazas' => array(
-				'message' => 'Seleccione una plaza',
-				'required' => true
-			),
-		'cargos' => array(
-				'message' => 'Seleccione un cargo',
-				'required' => true
-			),
-		'roles' => array(
-				'message' => 'Seleccione un rol',
-				'required' => true
-			),
-		'estado'=>array(
-				'message' => 'Seleccione estado del usuario',
-				'required' => true
-			)
+		    )
+		
 	);
 	
 	public function beforeValidate($options = array()) {

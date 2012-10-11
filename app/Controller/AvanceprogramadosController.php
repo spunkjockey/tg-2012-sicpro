@@ -69,7 +69,9 @@ class AvanceprogramadosController extends AppController {
 	public function proyectojson() {
 		$proyectos = $this->Contratoconstructor->find('all',array(
 			'fields' => array('DISTINCT Proyecto.idproyecto', 'Proyecto.numeroproyecto'),
-			'order' => array('Proyecto.numeroproyecto')
+			'order' => array('Proyecto.numeroproyecto'),
+			'conditions' => array('Contratoconstructor.idpersona' => $this->Session->read('User.idpersona'))
+			
 		));
 		
 		$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
@@ -81,7 +83,8 @@ class AvanceprogramadosController extends AppController {
 	public function contratojson() {
 		$contratos = $this->Contratoconstructor->find('all',array(
 			'fields' => array('Contratoconstructor.idproyecto','Contratoconstructor.idcontrato', 'Contratoconstructor.codigocontrato'),
-			'order' => array('Contratoconstructor.codigocontrato')
+			'order' => array('Contratoconstructor.codigocontrato'),
+			'conditions' => array('Contratoconstructor.idpersona' => $this->Session->read('User.idpersona'))
 		));
 		
 		$this->set('contratos', Hash::extract($contratos, "{n}.Contratoconstructor"));

@@ -54,10 +54,11 @@ $this->end(); ?>
 <?php $this->end(); ?>
 
 
+
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Seleccionar Contrato:</h2>
-		<?php echo $this->Form->create('Avanceprogramado'); ?>
+		<?php echo $this->Form->create('Facturas'); ?>
 		<ul>
 			<li>
 				<?php echo $this->Form->input('proyectos',
@@ -81,6 +82,17 @@ $this->end(); ?>
 		</ul>
 	</div>
 
+	<div id='facturas'>
+	
+	</div>
+	
+		<?php echo $this->ajax->observeForm( 'FacturasIndexForm', 
+    		array(
+        		'url' => array( 'action' => 'update_facturas'),
+        		'update' => 'facturas'
+    		) 
+		); ?>
+	
 	<style scoped>
 	
 		.k-textbox {
@@ -179,7 +191,7 @@ $this->end(); ?>
 		        dataSource: {
 		                        type: "json",
 		                        transport: {
-		                            read: "/Avanceprogramados/proyectojson.json"
+		                            read: "/Facturas/proyectojson.json"
 		                        }
 		                    }
 		    });
@@ -196,7 +208,7 @@ $this->end(); ?>
 		                    dataSource: {
 		                        type: "json",
 		                        transport: {
-		                            read: "/Avanceprogramados/contratojson.json"
+		                            read: "/Facturas/contratojson.json"
 		                        }
 		                    }
 		                }).data("kendoDropDownList");

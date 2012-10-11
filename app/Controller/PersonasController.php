@@ -82,15 +82,24 @@
 		function persona_modificar($id=null)
 		{
 			$this->layout = 'cyanspark';
-			
+			$this->Persona->id = $id;
 			if ($this->request->is('get'))
 			{
-				$this->data = $this->Persona->read(null,$id);
-			}
-			if ($this->request->is('post')) 
-			{
-				
-			}
+				$this->request->data = $this->Persona->read();
+			} else {
+				$this->Persona->set('nombrespersona', $this->request->data['Persona']['nombrespersona']);
+				$this->Persona->set('apellidospersona', $this->request->data['Persona']['apellidospersona']);
+				$this->Persona->set('idplaza', $this->request->data['Persona']['plazas']);
+				$this->Persona->set('idcargofuncional', $this->request->data['Persona']['cargos']);
+				$this->Persona->set('telefonocontacto', $this->request->data['Persona']['telefonocontacto']);
+				$this->Persona->set('correoelectronico', $this->request->data['Persona']['correoelectronico']);
+		        if ($this->Persona->save()) {
+		            $this->Session->setFlash('La persona ha sido modificada.','default',array('class'=>'success'));
+		            $this->redirect(array('action' => 'persona_index'));
+		        } else {
+		            $this->Session->setFlash('Ha ocurrido un error. Imposible editar persona');
+		        }
+		    }
 		}
 		
 		

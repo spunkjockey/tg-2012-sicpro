@@ -58,9 +58,9 @@ $this->end(); ?>
 <table id="grid">
     <tr>
         <th data-field="nombrespersona">Nombres</th>
-        <th data-field="plaza" width="80px">Plaza</th>
-        <th data-field="cargo" width="100px">Cargo funcional</th>
-        <th data-field="accion" width="255px">Acción</th>
+        <th data-field="plaza">Plaza</th>
+        <th data-field="cargo">Cargo funcional</th>
+        <th data-field="accion">Acción</th>
     </tr>
 
     <?php foreach ($personas as $person): ?>
@@ -69,20 +69,22 @@ $this->end(); ?>
         <td><?php echo $person['Plaza']['plaza']; ?></td>
         <td><?php echo $person['Cargofuncional']['cargofuncional']; ?></td>
       <td align="center">
-            <?php echo $this->Html->link(
-            	'Editar', 
-            	array('action' => 'persona_modificar', $person['Persona']['idpersona']),
-            	array('class'=>'k-button')
-			);?>
-			<?php echo $this->Html->link(
-            	'Agregar usuario', 
+      		<?php echo $this->Html->link(
+            	'<span class="k-icon k-i-plus"></span>',
             	array('action' => 'persona_agregar_usuario', $person['Persona']['idpersona']),
-            	array('class'=>'k-button')
+            	array('class'=>'k-button', 'escape' => false)
 			);?>
+      		
+      		<?php echo $this->Html->link(
+            	'<span class="k-icon k-i-pencil"></span>', 
+            	array('action' => 'persona_modificar', $person['Persona']['idpersona']),
+            	array('class'=>'k-button', 'escape' => false)
+			);?>
+			
             <?php echo $this->Form->postLink(
-                'Eliminar',
+                '<span class="k-icon k-i-close"></span>',
                 array('action' => 'persona_eliminar', $person['Persona']['idpersona']),
-                array('confirm' => '¿Está seguro?','class'=>'k-button')
+                array('confirm' => '¿Está seguro?','class'=>'k-button', 'escape' => false)
             )?>
             
        </td> 
@@ -90,6 +92,18 @@ $this->end(); ?>
     <?php endforeach; ?>
     <?php unset($personas); ?>
 </table>
+
+<style scoped>
+        #grid .k-button
+        {
+            vertical-align: middle;
+            width: 28px;
+            margin: 0 3px;
+            padding: .1em .4em .3em;
+            display: inline;
+            
+        }
+    </style>
 
 <script>
 	$(document).ready(function() {

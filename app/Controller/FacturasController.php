@@ -2,7 +2,7 @@
 class FacturasController extends AppController {
     public $helpers = array('Html', 'Form', 'Session','Ajax');
     public $components = array('Session','RequestHandler');
-	public $uses = array('Factura'/*,'Facturaconstructor','Facturasupervision'*/);
+	public $uses = array('Factura','Contrato','Informesupervisor','Estimacion'/*,'Facturaconstructor','Facturasupervision'*/);
 
     public function index() {
     	$this->layout = 'cyanspark';
@@ -13,7 +13,6 @@ class FacturasController extends AppController {
 	 public function factura_registrar() {
 		$this->layout = 'cyanspark';
 	
-		
 		
         if ($this->request->is('post')) {
         	if (is_numeric($this->request->data['factura']['contratos'])) {
@@ -48,10 +47,10 @@ class FacturasController extends AppController {
 	}
 	 
 public function proyectojson() {
-		$proyectos = $this->Contratoconstructor->find('all',array(
+		$proyectos = $this->Contrato->find('all',array(
 			'fields' => array('DISTINCT Proyecto.idproyecto', 'Proyecto.numeroproyecto'),
-			'conditions' => array('Proyecto.estadoproyecto' => 'Ejecucion'),
-			'order' => array('Proyecto.numeroproyecto')
+			'order' => array('Proyecto.numeroproyecto'),
+			'conditions' => array('Contrato.idpersona' => $this->Session->read('User.idpersona'))
 		));
 		
 		$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
@@ -61,30 +60,39 @@ public function proyectojson() {
 	}
 
 	public function contratojson() {
-		$contratos = $this->Contratoconstructor->find('all',array(
-			'fields' => array('Contratoconstructor.idproyecto','Contratoconstructor.idcontrato', 'Contratoconstructor.codigocontrato'),
-			'order' => array('Contratoconstructor.codigocontrato')
+		$contratos = $this->Contrato->find('all',array(
+			'fields' => array('Contrato.idproyecto','Contrato.idcontrato', 'Contrato.codigocontrato'),
+			'order' => array('Contrato.codigocontrato'),
+			'conditions' => array('Contrato.idpersona' => $this->Session->read('User.idpersona'))
 		));
 		
-		$this->set('contratos', Hash::extract($contratos, "{n}.Contratoconstructor"));
+		//$this->set('contratos', $contratos);
+		$this->set('contratos', Hash::extract($contratos, "{n}.Contrato"));
 		$this->set('_serialize', 'contratos');
 		$this->render('/json/jsondatad');
 	}
-		function update_selectContrato1()
-        {
-                if (!empty($this->data['Estimacion']['proyectos']))
-                {
-                        $proyecto_id = $this->data['Estimacion']['proyectos'];
-                        $contratos= $this->Contrato->find('all', array(
-	                        'fields'=>array('Contrato.idcontrato','Contrato.codigocontrato'),
-	                        'order'=>'Contrato.codigocontrato ASC',
-	                        'conditions'=>array('Contrato.idproyecto'=>$proyecto_id)));
-                }
-                $this->set('options', Set::combine($contratos, "{n}.Contrato.idcontrato","{n}.Contrato.codigocontrato"));
-                $this->render('/elements/update_selectContrato1', 'ajax');
-        }
 		
+	public function update_facturas() {
+		if(isset($this->request->data['Facturas']['contratos'])) {
+			$idcontrato = $this->request->data['Facturas']['contratos'];
+			$contrato = $this->Contrato->findByIdcontrato($idcontrato);
+			Debugger::dump($contrato['Contrato']['tipocontrato']);
+			switch ($contrato['Contrato']['tipocontrato']) {
+				case 'Construcción de obras':
+			        $estimacion = $this->Estimacion->findAllByIdcontrato($idcontrato);
+					Debugger::dump($estimacion['Estimacion']['idestimacion']);
+			        break;
+			    case 'Supervisión de obras':
+			        $supervisor = $this->Informesupervisor->findAllByIdcontrato($idcontrato);
+					Debugger::dump($supervisor['Informesupervisor']['idinformesupervision']);
+			        break;		
+			}
 
+		}
+		
+		$this->render('/Elements/update_facturas', 'ajax');
+	}	
+	
 
 
 	function ModificarEstimacion($id = null)  {
