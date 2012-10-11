@@ -1,5 +1,3 @@
-
-   <!-- File: /app/View/Fuentefinanciamiento/index.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -31,8 +29,6 @@
 	        break;			
 	}
 $this->end(); ?>
-
-
 <?php $this->start('breadcrumb'); ?>
 	
 	<div id="menuderastros">
@@ -45,53 +41,54 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO » Mantenimiento » Fuente Financiamiento
+			?> Control y seguimiento » Informe supervisión 
 			
 		</div>
 	</div>
-
 <?php $this->end(); ?>
-<h2>Fuente de Financiamiento</h2>
+
+<h2>Informe supervisión</h2>
 <div style='margin:4px 0' >
 	<?php echo $this->Html->link(
-		'Registrar Fuente de Financiamiento', 
-		array('controller' => 'Fuentefinanciamientos', 'action' => 'fuentefinanciamiento_registrarfuente'),
+		'Registrar informe de supervisión', 
+		array('controller' => 'informesupervisors', 'action' => 'informesupervisor_registrar'),
 		array('class'=>'k-button')
 	); ?>
 </div> 
 <table id="grid">
     <tr>
-        <th data-field="nombrefuente">Nombre Fuente</th>
-        <th data-field="montoinicial">Monto Inicial</th>
-        <th data-field="fechadisponible">Fecha de Disponibilidad</th>
-        <th data-field="tipofuente">Tipo de Fuente</th>
-        <th data-field="accion" width="250px">Acción</th>
+        <th data-field="tituloinforme">Título informe</th>
+        <th data-field="fechaini" width="100px">Fecha inicio</th>
+        <th data-field="plazo" width="80px">Plazo</th>
+        <th data-field="accion" width="255px">Acción</th>
     </tr>
 
-    <!-- Here is where we loop through our $fuente array, printing out post info -->
-
-    <?php foreach ($fuentefinanciamientos as $fuente): ?>
+    <?php foreach ($informes as $info): ?>
     <tr>
-        <td><?php echo $fuente['Fuentefinanciamiento']['nombrefuente']; ?></td>
-        <td><?php echo '$ ' . number_format($fuente['Fuentefinanciamiento']['montoinicial'],2); ?></td>
-        <td><?php echo date('d/m/Y',strtotime($fuente['Fuentefinanciamiento']['fechadisponible'])); ?></td>  
-        <td><?php echo $fuente['Tipofuente']['tipofuente']; ?></td>      
-        <td align="center">
+        <td><?php echo $info['Informesupervisor']['tituloinformesup']; ?></td>
+        <td><?php echo $info['Informesupervisor']['fechainiciosupervision']; ?></td>
+        <td><?php echo $info['Informesupervisor']['plazoejecuciondias']; ?></td>
+      <td align="center">
             <?php echo $this->Html->link(
             	'Editar', 
-            	array('action' => 'fuentefinanciamiento_modificarfuente', $fuente['Fuentefinanciamiento']['idfuentefinanciamiento']),
+            	array('action' => 'persona_modificar', $info['Informesupervisor']['idinformesupervision']),
+            	array('class'=>'k-button')
+			);?>
+			<?php echo $this->Html->link(
+            	'Agregar usuario', 
+            	array('action' => 'persona_agregar_usuario', $info['Informesupervisor']['idinformesupervision']),
             	array('class'=>'k-button')
 			);?>
             <?php echo $this->Form->postLink(
                 'Eliminar',
-                array('action' => 'delete', $fuente['Fuentefinanciamiento']['idfuentefinanciamiento']),
-                array('confirm' => '¿Está seguro que desea eliminar los datos de la Fuente de Financiamiento?','class'=>'k-button')
+                array('action' => 'persona_eliminar', $info['Informesupervisor']['idinformesupervision']),
+                array('confirm' => '¿Está seguro?','class'=>'k-button')
             )?>
             
-        </td>
+       </td> 
     </tr>
     <?php endforeach; ?>
-    <?php unset($fuentefinanciamientos); ?>
+    <?php unset($informes); ?>
 </table>
 
 <script>
@@ -103,11 +100,11 @@ $this->end(); ?>
             	pageable: true,
             	pageable: {
             		messages: {
-            			display: "{0} - {1} de {2} Fuentes",
-            			empty: "No hay fuentes de financiamiento a mostrar",
+            			display: "{0} - {1} de {2} Personas",
+            			empty: "No hay personas a mostrar",
             			page: "Página",
             			of: "de {0}",
-            			itempsPerPage: "fuentes de financiamiento por página",
+            			itempsPerPage: "Personas por página",
             			first: "Ir a la primera página",
             			previous: "Ir a la página anterior",
             			next: "Ir a la siguiente página",

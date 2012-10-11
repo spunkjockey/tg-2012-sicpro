@@ -113,18 +113,23 @@
 	 * $id indica el id del elemento que será guardado, si es uno que ya existe actualizará
 	 * sino existe lo creará */
 	
-	public function proyecto_asignar_num($id=null)
+	public function proyecto_asignar_num()
 	{
 		$this->layout = 'cyanspark';
 		//primer proyecto
 		$proys = $this->Proyecto->find('first', array(
 										'fields'=> array('Proyecto.idproyecto'),
+										'conditions'=>array('Proyecto.estadoproyecto' => array('Licitacion','Formulacion')),
 										'order'=> array('Proyecto.nombreproyecto ASC')));
-		$this->set('num',$this->Proyecto->find());
+		//numero proyecto del primer elemento
+		$this->set('num',$this->Proyecto->find('first',array(
+										'fields'=>array('Proyecto.numeroproyecto'),
+										'conditions'=>array('Proyecto.idproyecto='.$proys['Proyecto']['idproyecto']))));
 		
-		if ($this->request->is('post')) 
+		if   ($this->request->is('post')) 
 			{
                 $this->Proyecto->create();
+				Debugger::dump($this->request->data);
 				$id = $this->request->data['Proyecto']['proys'];
 				$this->Proyecto->read(null, $id);
 				$this->Proyecto->set('numeroproyecto', $this->request->data['Proyecto']['numeroproyecto']);
@@ -134,7 +139,8 @@
 				
 				if ($this->Proyecto->save($id)) 
 					{
-						$this->Session->setFlash('El número del proyecto '. $this->request->data['Proyecto']['nombreproyecto'].' ha sido asignado',
+						$this->Session->setFlash('Se ha asignado el número '.$this->request->data['Proyecto']['numeroproyecto'].
+												 ' al proyecto '.$this->request->data['Proyecto']['nombreproyecto'],
 												 'default',array('class'=>'success'));
 						$this->redirect(array('controller'=>'mains', 'action' => 'index'));
 		            }
@@ -145,14 +151,40 @@
         	}
 	}
 
+	function update_numeroproy()
+	{
+		if (!empty($this->data['Proyecto']['proys']))
+		{
+			$proy_id = $this->request->data['Proyecto']['proys'];
+			$num = $this->Proyecto->find('first',array(
+										'fields'=>array('Proyecto.numeroproyecto'),
+										'conditions'=>array('Proyecto.idproyecto'=>$proy_id)));
+			$this->set('num',$num);
+		}
+		$this->render('/Elements/update_numeroproy', 'ajax');
+	}
+
 	public function proyectosjson() 
 		{
 			$proys = $this->Proyecto->find('all', array(
 										'fields'=> array('Proyecto.idproyecto','Proyecto.nombreproyecto'),
+										'conditions'=>array('Proyecto.estadoproyecto' => array('Licitacion','Formulacion')),
 										'order'=> array('Proyecto.nombreproyecto ASC')));
 			$this->set('proys', Hash::extract($proys, "{n}.Proyecto"));
 			$this->set('_serialize', 'proys');
 			$this->render('/json/jsonproys');
 			
 		}
+		
+	function estadojson() {
+		$proys = $this->Proyecto->find('all', array(
+			'fields'=>array('DISTINCT Proyecto.estadoproyecto')));
+		
+		$this->set('proys', Hash::extract($proys, "{n}.Proyecto"));
+		$this->set('_serialize', 'proys');
+		$this->render('/json/jsonproys');
+	}
+		
+		
+		
 }

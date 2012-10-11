@@ -32,7 +32,7 @@
 	    <?php foreach ($avances as $av): ?>
 	    <tr>
 	        <td><?php echo $av['Avanceprogramado']['plazoejecuciondias']; ?></td>
-	        <td><?php echo date('d/m/yy',strtotime($av['Avanceprogramado']['fechaavance'])); ?></td>
+	        <td><?php echo date('d/m/Y',strtotime($av['Avanceprogramado']['fechaavance'])); ?></td>
 	        <td><?php echo number_format($av['Avanceprogramado']['porcentajeavfisicoprog'],2) . ' %'; ?></td>
 	        <td><?php echo '$ ' . number_format($av['Avanceprogramado']['montoavfinancieroprog'],2); ?></td>
 	        <td align="center">

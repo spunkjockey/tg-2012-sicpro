@@ -44,41 +44,63 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO
+			?> » Bienvenido a SICPRO » Control y Seguimiento » Estimación de Avance
 			
 		</div>
 	</div>
 	
 <?php $this->end(); ?>
 <div id="example" class="k-content">
+	
 	<div id="formulario">
 		<h2>Editar Estimación de Avance</h2>
 		<?php echo $this->Form->create('Estimacion'); ?>
 		<ul>
+			<li>
+				<label>Código de Contrato: </label> <?php echo $this->request->data['Contratoconstructor']['codigocontrato']; ?>
+			</li>
 			<li>
 				<?php echo $this->Form->input('tituloestimacion', 
 					array(
 						'label' => 'Título Estimación: ', 
 						'class' => 'k-textbox', 
 						'placeholder' => 'Título Estimación',
-						'required', 
-						'validationMessage' => 'Ingrese el Título de la Esimación')); ?>
+						'div' => array('class' => 'requerido'))); ?>
+				<script type="text/javascript">
+		            var tituloestimacion = new LiveValidation( "tituloestimacion", { validMessage: " " } );
+		            tituloestimacion.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            tituloestimacion.add(Validate.Format, { pattern: /[a-zA-Z0-9_ ]+/, failureMessage: "El Titulo de Estimación debe ser alfanumerico" } );
+		        </script>
 			</li>
 			<li>
 				<?php echo $this->Form->input('fechainicioestimacion', 
 					array(
 						'label' => 'Inicio Estimación:', 
 						'id'	=> 'datePicker1',
-						'type'  => 'Text'
+						'type'  => 'Text',
+						'value' => date('d/m/Y',strtotime($this->request->data['Estimacion']['fechainicioestimacion'])),
+						'div' => array('class' => 'requerido')
 						 ) ); ?>
+				<script type="text/javascript">
+		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " } );
+		            datePicker1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
+		        </script>  
 			</li>
 			<li>
 				<?php echo $this->Form->input('fechafinestimacion', 
 					array(
 						'label' => 'Fin Estimación:', 
 						'id'	=> 'datePicker2',
-						'type'  => 'Text'
+						'value' => date('d/m/Y',strtotime($this->request->data['Estimacion']['fechafinestimacion'])),
+						'type'  => 'Text',
+						'div' => array('class' => 'requerido')
 						 ) ); ?>
+				 <script type="text/javascript">
+		            var datePicker2 = new LiveValidation( "datePicker2", { validMessage: " " } );
+		            datePicker2.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            datePicker2.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
+		        </script>  
 			</li>
 			<li>
 				<?php echo $this->Form->input('montoestimado', 
@@ -86,30 +108,53 @@ $this->end(); ?>
 						'label' => 'Monto Estimado:',
 						'id'    => 'moneda',
 						'placeholder' => 'Monto Estimado', 
-						'validationMessage' => 'Ingrese el Monto Estimado')); ?>
+						'div' => array('class' => 'requerido'))); ?>
+				<script type="text/javascript">
+		            var moneda = new LiveValidation( "moneda", { validMessage: " " } );
+		            moneda.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            moneda.add(Validate.Format, { pattern: /[a-zA-Z0-9_ ]+/, failureMessage: "El monto de la Estimación debe ser numérico" } );
+		        </script> 
 		    </li>
 		    <li>
 				<?php echo $this->Form->input('porcentajeestimadoavance', 
 					array(
 						'label' => 'Porcentaje Estimación: ', 
-						'class' => 'k-textbox', 
+						'class' => 'k-textbox',
+						'id'=>'porcentaje', 
 						'type' => 'text',
 						'placeholder' => 'Porcentaje Estimado',
-						'required', 
-						'validationMessage' => 'Ingrese el Porcentaje Esimado')); ?>
+						'div' => array('class' => 'requerido'))); ?>
+				<script type="text/javascript">
+		            var porcentaje = new LiveValidation( "porcentaje", { validMessage: " " } );
+		            porcentaje.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            porcentaje.add(Validate.Format, { pattern: /[a-zA-Z0-9_ ]+/, failureMessage: "El Titulo de Estimación debe ser numérico" } );
+		        </script>
 			</li>
 			<li>
 				<?php echo $this->Form->input('fechaestimacion', 
 					array(
 						'label' => 'Fecha Estimación:', 
 						'id'	=> 'datePicker3',
-						'type'  => 'Text'
+						'type'  => 'Text',
+						'div' => array('class' => 'requerido')
 						 ) ); ?>
+				<script type="text/javascript">
+		            var datePicker3 = new LiveValidation( "datePicker3", { validMessage: " " } );
+		            datePicker3.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            datePicker3.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
+		        </script>  
+						 
 			</li>	
 		<li  class="accept">
+			<table>
+			<tr><td>			    
 				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
-				<?php echo $this->Form->input('userm', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
+				<?php echo $this->Form->input('userm', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
 				<?php echo $this->Form->end(array('label' => 'Editar Estimación', 'class' => 'k-button')); ?>
+				</td><td>
+				<?php echo $this->Html->link('Regresar', array('controller' => 'Estimacions','action' => 'index'),
+            	array('class'=>'k-button'));?> </td></tr>
+			</table>
 			</li>
             
             <li class="status">
@@ -127,11 +172,16 @@ $this->end(); ?>
 
                 .k-textbox {
                     width: 300px;
-                    margin-left: 5px;
+                    
                     
                 }
 				
-				
+				form .requerido label:after {
+                	font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+				}
 			
                 #formulario {
                     width: 600px;
@@ -158,14 +208,12 @@ $this->end(); ?>
 
                 label {
                     display: inline-block;
-                    width: 150px;
+                    width: 210px;
                     text-align: right;
+                    margin-right: 5px;
                     
                 }
 
-                .required {
-                    font-weight: bold;
-                }
 
                 .accept, .status {
                 	padding-top: 15px;
@@ -182,6 +230,39 @@ $this->end(); ?>
                 span.k-tooltip {
                     margin-left: 6px;
                 }
+                
+                 .LV_validation_message{
+				    font-weight:bold;
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+					clear:both;
+               		display:inline-block;
+               		margin-left: 170px; 
+               
+				}
+				    
+				.LV_valid_field,
+				input.LV_valid_field:hover, 
+				input.LV_valid_field:active,
+				textarea.LV_valid_field:hover, 
+				textarea.LV_valid_field:active {
+				    border: 1px solid #00CC00;
+				}
+				    
+				.LV_invalid_field, 
+				input.LV_invalid_field:hover, 
+				input.LV_invalid_field:active,
+				textarea.LV_invalid_field:hover, 
+				textarea.LV_invalid_field:active {
+				    border: 1px solid #CC0000;
+				}
             </style>
             
             <script>
@@ -199,19 +280,27 @@ $this->end(); ?>
 
 
 		$("#datePicker1").kendoDatePicker({
-		   format: "yyyy/MM/dd" //Define el formato de fecha
+		   culture: "es-ES",
+		   format: "dd/MM/yyyy" //Define el formato de fecha
 		});
 		$("#datePicker2").kendoDatePicker({
-		   format: "yyyy/MM/dd" //Define el formato de fecha
+	 culture: "es-ES",
+		   format: "dd/MM/yyyy" //Define el formato de fecha
 		});
 		$("#datePicker3").kendoDatePicker({
-		   format: "yyyy/MM/dd" //Define el formato de fecha
+		   culture: "es-ES",
+		   format: "dd/MM/yyyy" //Define el formato de fecha
 		});
          $("#moneda").kendoNumericTextBox({
 		     format: "c2", //Define currency type and 2 digits precision
 		     spinners: false
 		 });
-		 
+		 $("#porcentaje").kendoNumericTextBox({
+   			format: "p0", // format as percentage with % sign
+   			min: 0,
+   			max: 1,
+  		    step: 0.01
+		 });
 		$("#select").kendoComboBox({
 		//placeholder: "Seleccionar...",
 		//index: -1,

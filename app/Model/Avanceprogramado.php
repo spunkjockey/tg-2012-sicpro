@@ -39,7 +39,7 @@ class Avanceprogramado extends AppModel {
         		'rule'       => array('date', 'dmy'),
 	        	'required' => true,
 	        	'allowEmpty' => false,
-        		'message'    => 'Ingrese una fecha valida en formato DD-MM-YYYY.'
+        		'message'    => 'Ingrese una fecha valida en formato DD/MM/AAAA'
 			)
         )/*,
 		'proyectos' => array(

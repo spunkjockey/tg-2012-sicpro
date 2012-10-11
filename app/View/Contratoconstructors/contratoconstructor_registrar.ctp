@@ -61,32 +61,44 @@ $this->end(); ?>
 					array(
 						'label' => 'Seleccione proyecto:', 
 						'id' => 'proyectos',
-						'required',
-						'validationMessage' => 'Seleccione un proyecto'
+						'div' => array('class' => 'requerido')
 						)); 
 				?>
+				<script type="text/javascript">
+					var proyectos= new LiveValidation( "proyectos", { validMessage: " " } );
+					proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+				</script>
 			</li>
 			<li>
-				<?php echo $this->Form->input('codigocontrato', 
+				<?php echo $this->Form->input('Contrato.codigocontrato', 
 					array(
-						'label' => 'Código contrato:', 
+						'label' => 'Código del contrato:', 
 						'class' => 'k-textbox',
-						'id'=>'codigo', 
-						'placeholder' => 'Ej: 001-2012', 
-						'required', 
-						'validationMessage' => 'Ingrese el código de contrato'
+						'id'=>'codigo',
+						'div' => array('class' => 'requerido'), 
+						'placeholder' => 'Ej: 001-2012'
 						)); ?>
+				<script type="text/javascript">
+		            var codigo = new LiveValidation( "codigo", { validMessage: " " } );
+		            codigo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            codigo.add(Validate.Format, { pattern: /___-____/i, failureMessage: "No puedes dejar este campo en blanco", negate: true } );
+		            codigo.add(Validate.Format, { pattern: /\d\d\d-\d\d\d\d/i, failureMessage: "El código de contrato debe tener 7 números"} );
+		        </script> 
 			</li>
 			<li>
 				<?php echo $this->Form->input('nombrecontrato', 
 					array(
 						'label' => 'Título del contrato:', 
-						'class' => 'k-textbox', 
+						'class' => 'k-textbox',
+						'id'=>'nombrecontrato', 
 						'placeholder' => 'Nombre del contrato', 
-						'required',
 						'rows'=> 2, 
-						'validationMessage' => 'Ingrese el título del contrato'
+						'div' => array('class' => 'requerido')
 						)); ?>
+				<script type="text/javascript">
+					var nombrecontrato= new LiveValidation( "nombrecontrato", { validMessage: " " } );
+					nombrecontrato.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+				</script>
 			</li>
 			<li>
 				<?php echo $this->Form->input('montocon', 
@@ -96,9 +108,12 @@ $this->end(); ?>
 						'id' => 'txmonto',
 						'type' => 'text',
 						'placeholder' => 'Monto del contrato',
-						'required',
-						'validationMessage' => 'Ingrese el monto original'
+						'div' => array('class' => 'requerido')
 						)); ?>
+				<script type="text/javascript">
+					var txmonto = new LiveValidation( "txmonto", { validMessage: " " } );
+		            txmonto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script>
 			</li>
 			<li>
 				<?php echo $this->Form->input('anticipo', 
@@ -108,39 +123,65 @@ $this->end(); ?>
 						'id' => 'txanticipo',
 						'type' => 'text',
 						'placeholder' => 'Anticipo del contrato',
-						'required',
-						'validationMessage' => 'Ingrese el monto de anticipo)')); ?>
+						'div' => array('class' => 'requerido'))); ?>
+				<script type="text/javascript">
+					var txanticipo = new LiveValidation( "txanticipo", { validMessage: " " } );
+		            txanticipo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script>
 			</li>
 			<li>
 				<?php echo $this->Form->input('fechainicontrato', 
 					array(
 						'label' => 'Fecha inicio de vigencia:', 
 						'id'	=> 'datePicker1',
-						'required',
+						'div' => array('class' => 'requerido'),
 						'type'  => 'Text'
 						));
 					?>
+				<script type="text/javascript">
+		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " } );
+		            datePicker1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
+		            datePicker1.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
+		        </script>
 			</li>
 			<li>
 				<?php echo $this->Form->input('fechafincontrato', 
 					array(
 						'label' => 'Fecha fin de vigencia:', 
 						'id'	=> 'datePicker2',
-						'required',
+						'div' => array('class' => 'requerido'),
 						'type'  => 'Text'
 						)); 
 					?>
+				<script type="text/javascript">
+		            var datePicker2 = new LiveValidation( "datePicker2", { validMessage: " " } );
+		            datePicker2.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            datePicker2.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
+		        	datePicker2.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
+		        </script>
 			</li>
 			<li>
 				<?php echo $this->Form->input('plazoejecucion', 
 					array(
-						'label' => 'Plazo de ejecución:', 
-						'id' => 'txplazo', 
+						'label' => 'Plazo de ejecución:',
+						'class' => 'k-textbox',  
+						'id' => 'txplazo',
+						'type'  => 'Text', 
 						'placeholder' => 'Cantidad de días', 
-						'required', 
-						'validationMessage' => 'Ingrese el plazo de ejecución'
+						'div' => array('class' => 'requerido')
 						));
 					?>
+				<script type="text/javascript">
+					var txplazo= new LiveValidation( "txplazo", { validMessage: " " } );
+					txplazo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+					txplazo.add( Validate.Numericality,{ onlyInteger: true,
+					   								   	notAnIntegerMessage: "Debe ser un número entero",
+						            				 	notANumberMessage:"Debe ser un número"} );
+					txplazo.add(Validate.Length, {minimum: 2, maximum: 3, 
+				           							 tooShortMessage:"Longitud mínima de 2 dígitos",
+				           							 tooLongMessage:"Longitud máxima de 3 dígitos"});
+				</script>
 			</li>
 			<li>
 				<?php echo $this->Form->input('obras', 
@@ -155,22 +196,28 @@ $this->end(); ?>
 			<li>
 				<?php echo $this->Form->input('empresas', 
 					array(
-						'label' => 'Seleccione empresa:', 
+						'label' => 'Empresa ejecutora:', 
 						'id' => 'empresas',
-						'required',
-						'validationMessage' => 'Seleccione una empresa'
+						'div' => array('class' => 'requerido')
 						));
 					?>
+				<script type="text/javascript">
+					var empresas = new LiveValidation( "empresas", { validMessage: " " } );
+		            empresas.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script>
 			</li>
 			<li>
 				<?php echo $this->Form->input('admin', 
 					array(
-						'label' => 'Seleccione administrador:', 
+						'label' => 'Administrador del contrato:', 
 						'id' => 'admin',
-						'required',
-						'validationMessage' => 'Seleccione un administrador'
+						'div' => array('class' => 'requerido')
 						)); 
 					?>
+				<script type="text/javascript">
+					var admin = new LiveValidation( "admin", { validMessage: " " } );
+		            admin.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script>
 			</li>
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar contrato', 'class' => 'k-button')); ?>
@@ -185,13 +232,17 @@ $this->end(); ?>
 
                 .k-textbox {
                     width: 300px;
-                    margin-left: 5px;
+                    
                     
                 }
 				
 				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
-			
-                form .required label:after {
+				
+				.k-combobox {
+                    width: 200px;
+                }
+                
+                form .requerido label:after {
 					font-size: 1.4em;
 					color: #e32;
 					content: '*';
@@ -225,11 +276,7 @@ $this->end(); ?>
                     display: inline-block;
                     width: 150px;
                     text-align: right;
-                    
-                }
-
-                .required {
-                    font-weight: bold;
+                    margin-right: 5px;
                 }
 
                 .accept, .status {
@@ -247,6 +294,39 @@ $this->end(); ?>
                 span.k-tooltip {
                     margin-left: 6px;
                 }
+                
+                .LV_validation_message{
+				    font-weight:bold;
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+					clear:both;
+               		display:inline-block;
+               		margin-left: 170px; 
+               
+				}
+				    
+				.LV_valid_field,
+				input.LV_valid_field:hover, 
+				input.LV_valid_field:active,
+				textarea.LV_valid_field:hover, 
+				textarea.LV_valid_field:active {
+				    border: 1px solid #00CC00;
+				}
+				    
+				.LV_invalid_field, 
+				input.LV_invalid_field:hover, 
+				input.LV_invalid_field:active,
+				textarea.LV_invalid_field:hover, 
+				textarea.LV_invalid_field:active {
+				    border: 1px solid #CC0000;
+				}
             </style>
 			
 			<script>
@@ -280,17 +360,10 @@ $this->end(); ?>
 				     spinners: false
 				 });
 				 
-				 $("#txplazo").kendoNumericTextBox({
-                        min: 0,
-    					max: 999,
-    					decimals: 0,
-    					placeholder: "Ej. 90",
-    					spinners: false
-                    });
+				 
                 
 				$("#proyectos").kendoDropDownList({
-            			optionLabel: "Seleccione proyecto...",
-			            dataTextField: "numeroproyecto",
+            			dataTextField: "numeroproyecto",
 			            dataValueField: "idproyecto",
 			            dataSource: {
 			                            type: "json",
@@ -302,8 +375,8 @@ $this->end(); ?>
 			        var proyectos = $("#proyectos").data("kendoDropDownList");
 			        
 			    $("#empresas").kendoDropDownList({
-            			optionLabel: "Seleccione empresa...",
-			            dataTextField: "nombreempresa",
+            			optionLabel: "Seleccione empresa",
+            			dataTextField: "nombreempresa",
 			            dataValueField: "idempresa",
 			            dataSource: {
 			                            type: "json",
@@ -313,10 +386,11 @@ $this->end(); ?>
 			                        }
 			        });
 			        var empresas = $("#empresas").data("kendoDropDownList");
+			        empresas.list.width(300);
 			    
 			    $("#admin").kendoDropDownList({
-            			optionLabel: "Seleccione administrador...",
-			            dataTextField: "nomcompleto",
+            			optionLabel: "Seleccione administrador",
+            			dataTextField: "nomcompleto",
 			            dataValueField: "idpersona",
 			            dataSource: {
 			                            type: "json",
@@ -326,6 +400,7 @@ $this->end(); ?>
 			                        }
 			        });
 			        var admin = $("#admin").data("kendoDropDownList");
+			        admin.list.width(300);
 				
 				
 				$("#datePicker1").kendoDatePicker({

@@ -18,14 +18,14 @@
 								<ul>
 									<li>Constructor
 										<ul>
-											<li><?php echo $this->Html->link('Registrar contrato constuctor', array('controller' => 'Contratoconstructors','action'=>'add')); ?></li>
+											<li><?php echo $this->Html->link('Registrar contrato constuctor', array('controller' => 'Contratoconstructors','action'=>'contratoconstructor_registrar')); ?></li>
 											<li><?php echo $this->Html->link('Modificar contrato constuctor', array('controller' => 'Contratoconstructors','action'=>'contratoconstructor_modificar')); ?></li>
 											<li disabled="disabled">Eliminar contrato constructor</li>
 										</ul>
 									</li>
 									<li>Supervisor
 										<ul>
-											<li><?php echo $this->Html->link('Registrar contrato supervisor', array('controller' => 'Contratosupervisors','action'=>'add')); ?></li>
+											<li><?php echo $this->Html->link('Registrar contrato supervisor', array('controller' => 'Contratosupervisors','action'=>'contratosupervisor_registrar')); ?></li>
 											<li disabled="disabled">Modificar contrato supervisor</li>
 											<li disabled="disabled">Eliminar contrato supervisor</li>
 										</ul>
@@ -33,7 +33,7 @@
 									<li disabled="disabled">Consultar contrato</li>
 									<li><?php echo $this->Html->link('Actualizar estado de contrato', array('controller' => 'Contratoconstructors','action'=>'contrato_actualizarestado')); ?></li>
 									<li disabled="disabled">Asignaci&oacute;n de t&eacute;cnicos</li>
-									<li><?php echo $this->Html->link('Registrar Orden de Inicio', array('controller' => 'Contratos','action'=>'addordeninicio')); ?></li>
+									<li><?php echo $this->Html->link('Orden de Inicio', array('controller' => 'Contratos','action'=>'addordeninicio')); ?></li>
 									<li>Orden de Cambio</li>
 								</ul>
 							</li>
@@ -41,13 +41,13 @@
 								<ul>
 									<li>Programaci&oacute;n de avance
 										<ul>
-											<li disabled="disabled">Programaci&oacute;n de avance</li>
+											<li><?php echo $this->Html->link('Programación de Avance', array('controller' => 'Avanceprogramados','action'=>'index')); ?></li>
 											<li disabled="disabled">Consultar Programaci&oacute;n</li>
 										</ul>
 									</li>
 									<li>Informe de supervisi&oacute;n
 										<ul>
-											<li disabled="disabled">Informe supervisi&oacute;n</li>
+											<li><?php echo $this->Html->link('Informe supervisión', array('controller' => 'Informesupervisors','action'=>'informesupervisor_index')); ?></li>
 											<li disabled="disabled">Consultar informe supervisi&oacute;n</li>
 										</ul>
 									</li>
@@ -68,9 +68,7 @@
 							</li>	
 							<li>Facturas
 								<ul>
-									<li disabled="disabled">Registrar factura</li>
-									<li disabled="disabled">Modificar factura</li>
-									<li disabled="disabled">Eliminar factura</li>
+									<li><?php echo $this->Html->link('Administración de Facturas', array('controller' => 'Facturas','action'=>'index')); ?></li>
 									<li disabled="disabled">Consultar facturas por proyecto</li>
 									<li disabled="disabled">Consultar facturas por contrato</li>
 								</ul>

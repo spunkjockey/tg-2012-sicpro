@@ -5,16 +5,10 @@
 	    public $components = array('Session','RequestHandler');
 		public $uses = array('Contratoconstructor','Contrato','Proyecto','Empresa','Persona','Contratosupervisor');
 		
-		public function add()
+		public function contratosupervisor_registrar()
 		{
 			$this->layout = 'cyanspark';
 			
-			/*
-			//Contratos del primer proyecto listado
-			
-								
-			$this->set('contratos', Set::combine($con_cons, "{n}.Contratoconstructor.idcontrato","{n}.Contratoconstructor.codigocontrato"));
-			*/
 			if($this->request->is('post'))
 			{
 				//Registro de contrato

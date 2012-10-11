@@ -55,47 +55,32 @@ $this->end(); ?>
 		<h2>Asignar número de proyecto</h2>
 		<?php echo $this->Form->create('Proyecto',array('action' => 'proyecto_asignar_num')); ?>
 		<ul>
-			<li>
-				<?php echo $this->Form->input('proys', 
-					array(
-						'label' => 'Seleccione proyecto:', 
-						'id' => 'proys',
-						'class'=>'k-combobox',
-						'div' => array('class' => 'requerido'))); ?>
-				<script type="text/javascript">
-					var proys = new LiveValidation( "proys", { validMessage: " " } );
-		            proys.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script>
-			</li>
-			<!-- -->
-			<li>
-				<?php echo $this->Form->input('numeroproyecto', 
-					array(
-						'label' => 'Ingrese número de proyecto:', 
-						'id' => 'numero',
-						'class' => 'k-textbox',  
-						'placeholder' => 'Número del proyecto', 
-						'div' => array('class' => 'requerido'))); ?>
-				<script type="text/javascript">
-					var numero = new LiveValidation( "numero", { validMessage: " " } );
-		            numero.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            numero.add( Validate.Numericality, { onlyInteger: true,
-		            								   notAnIntegerMessage: "Debe ser un número entero",
-		            								   notANumberMessage:"Debe ser un número"} );
-		            numero.add(Validate.Length, {minimum: 4, maximum: 6, 
-		            							 tooShortMessage:"Longitud mínima de 4 dígitos",
-		            							 tooLongMessage:"Longitud máxima de 6 dígitos"});
-		            
-		        </script>
-			</li>
 			
-			<li  class="accept">
+				<li>
+					
+					<?php echo $this->Form->input('proys', 
+						array(
+							'label' => 'Seleccione proyecto:', 
+							'id' => 'proys',
+							'class'=>'k-combobox',
+							'div' => array('class' => 'requerido'))); ?>
+					<script type="text/javascript">
+						var proys = new LiveValidation( "proys", { validMessage: " " } );
+			            proys.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			        </script>
+				</li>
+				<div id=actnumero>
 				
-				<?php echo $this->Form->end(array('label' => 'Asignar número proyecto', 'class' => 'k-button')); ?>
-				<?php echo $this->Html->link('Regresar', 
-									array('controller' => 'Proyectos','action' => 'proyecto_listado'),
-									array('class'=>'k-button')); ?>
-			</li>
+			</div>
+			
+				
+				<?php echo $this->ajax->observeField( 'proys', 
+		    		array(
+		        		'url' => array( 'action' => 'update_numeroproy'),
+		        		'update' => 'actnumero'
+		    		) 
+				);  ?>
+			
             
             <li class="status">
             </li>

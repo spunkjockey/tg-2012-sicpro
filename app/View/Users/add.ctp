@@ -60,50 +60,60 @@ $this->end(); ?>
 					array(
 						'label' => 'Nombres:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre del usuario', 
-						'required', 
-						'validationMessage' => 'Ingrese nombre')); ?>
+						'placeholder' => 'Nombre del usuario',
+						'div' => array('class' => 'requerido') 
+					)); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('apellidospersona', 
 					array(
 						'label' => 'Apellidos:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Apellido del usuario', 
-						'required', 
-						'validationMessage' => 'Ingrese apellidos')); ?>
+						'placeholder' => 'Apellido del usuario',
+						'div' => array('class' => 'requerido') 
+					)); ?>
 			</li>
 	    	<li>
 				<?php echo $this->Form->input('username', 
 						array(
 							'label' => 'Nombre de usuario:', 
 							'class' => 'k-textbox', 
-							'placeholder' => 'Usuario', 
-							'required', 
-							'validationMessage' => 'Ingrese nombre de usuario')); ?>
+							'placeholder' => 'Usuario',
+							'div' => array('class' => 'requerido') 
+					)); ?>
 				</li>
 				<li>
 					<?php echo $this->Form->input('password', 
 						array(
 							'label' => 'Contraseña:', 
+							'id' => 'password',
 							'class' => 'k-textbox', 
-							'placeholder' => 'Contraseña', 
-							'required', 
-							'validationMessage' => 'Ingrese Contraseña')); ?>
+							'placeholder' => 'Contraseña',
+							'div' => array('class' => 'requerido') 
+					)); ?>
+				<script type="text/javascript">
+		            var password = new LiveValidation( "password", { validMessage: " " } );
+		            password.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            password.add(Validate.Format, { pattern: /‎?^.{8,}$/, failureMessage: "Debe contener al menos 8 caracteres"  } );
+		            password.add(Validate.Format, { pattern: /‎?^.*\d.*$/, failureMessage: "Debe contener al menos un número"  } );
+		            password.add(Validate.Format, { pattern: /‎?^.*\W+.*$/, failureMessage: "Debe contener al menos un caracter especial"  } );
+		            password.add(Validate.Format, { pattern: /‎?^.*[A-Z].*$/, failureMessage: "Debe contener al menos una letra mayúscula"  } );
+		            password.add(Validate.Format, { pattern: /‎?^.*[a-z].*$/, failureMessage: "Debe contener al menos una letra minúscula"  } );
+		        </script>
 				</li>
 				<li>
 					<?php echo $this->Form->input('roles', 
 						array(
 							'label' => 'Rol:', 
-							'empty' => 'Seleccione...',
-							'required',
 							'id' => 'roles',
-							'validationMessage' => 'Seleccione un rol')); ?>
+							'div' => array('class' => 'requerido')
+					)); ?>
 				</li>
 				<li>
 					<?php echo $this->Form->input('estado', 
 								array(
-								'id' => 'estados',
+								'id' => 'Estado: ',
+								'div' => array('class' => 'requerido'),
 								'options' => array(0 => 'Deshabilitado', 
 												   1 => 'Habilitado'))); ?>
 				</li>
@@ -119,13 +129,13 @@ $this->end(); ?>
 
                 .k-textbox {
                     width: 300px;
-                    margin-left: 5px;
+                    
                     
                 }
 				
 				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 			
-                form .required label:after {
+                form .requerido label:after {
 					font-size: 1.4em;
 					color: #e32;
 					content: '*';
@@ -159,11 +169,8 @@ $this->end(); ?>
                     display: inline-block;
                     width: 150px;
                     text-align: right;
+                    margin-right: 5px;
                     
-                }
-
-                .required {
-                    font-weight: bold;
                 }
 
                 .accept, .status {
@@ -181,30 +188,49 @@ $this->end(); ?>
                 span.k-tooltip {
                     margin-left: 6px;
                 }
+                
+                .LV_validation_message{
+				    font-weight:bold;
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				    margin-left: 10px;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+				    
+					clear:both;
+               		display:inline-block;
+               		margin-left: 25px; 
+               
+				}
+				    
+				.LV_valid_field,
+				input.LV_valid_field:hover, 
+				input.LV_valid_field:active,
+				textarea.LV_valid_field:hover, 
+				textarea.LV_valid_field:active {
+				    border: 1px solid #00CC00;
+				}
+				    
+				.LV_invalid_field, 
+				input.LV_invalid_field:hover, 
+				input.LV_invalid_field:active,
+				textarea.LV_invalid_field:hover, 
+				textarea.LV_invalid_field:active {
+				    border: 1px solid #CC0000;
+				}
+                
             </style>
 			
 			<script>
                 $(document).ready(function() {
-                    var validator = $("#formulario").kendoValidator().data("kendoValidator"),
-                    status = $(".status");
-
-                    $("button").click(function() {
-                        if (validator.validate()) {
-                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-                            } else {
-                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-                        }
-                    });
-                
-				$("#selecto").kendoComboBox();
-				$("#roles").kendoComboBox();
-				$("#estados").kendoComboBox();
-				
-				$("#phone").mask("9999-9999");
-                 
-				
-				
-				
+					$("#roles").kendoDropDownList();
+					$("#estados").kendoDropDownList();
+					$("#phone").mask("9999-9999");
 				});
                 
             </script>

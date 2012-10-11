@@ -93,32 +93,69 @@ $this->end(); ?>
 
 			<li>
 				<?php echo $this->Form->input('plazoejecuciondias', array(
-								'label' => 'Plazo de Ejecución', 
+								'label' => 'Plazo de Ejecución',
+								'type' => 'text',
+								'maxlength' => 3, 
 								'id' => 'plazoejecuciondias',
 								'class' => 'k-textbox',
+								'div' => array('class' => 'requerido')
 							)); ?> 
+				<script type="text/javascript">
+					var plazoejecuciondias = new LiveValidation( "plazoejecuciondias", { validMessage: " " } );
+					plazoejecuciondias.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+					plazoejecuciondias.add( Validate.Numericality,{ onlyInteger: true,
+					   								   	notAnIntegerMessage: "Debe ser un número entero",
+						            				 	notANumberMessage:"Debe ser un número"} );
+					plazoejecuciondias.add(Validate.Length, {minimum: 1, maximum: 3, 
+				           							 tooShortMessage:"Longitud mínima de 1 dígito",
+				           							 tooLongMessage:"Longitud máxima de 3 dígitos"});
+				</script>
 			</li>
 			<li>
 				<?php echo $this->Form->input('fechaavance', array(
 								'label' => 'Fecha de Avance',
 								'type' => 'text', 
-								'id' => 'fechaavance'
+								'id' => 'fechaavance',
+								'div' => array('class' => 'requerido'),
+								'style' => 'width:120px;',
+								'error' => array('attributes' => array('wrap' => 'span', 'class' => 'LV_validation_message LV_invalid', "id" => 'errorfechaavance'))
+								
 							)); ?>  
+				<script type="text/javascript">
+		            var fechaavance = new LiveValidation( "fechaavance", { validMessage: " " } );
+		            fechaavance.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            fechaavance.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d$/, failureMessage: "La Fecha debe contener el siguiente formato DD/MM/AAAA"  } );
+		        </script> 
 			</li>
 			<li>
 				<?php echo $this->Form->input('porcentajeavfisicoprog', array(
 								'label' => 'Avance Físico',
 								'id' => 'porcentajeavfisicoprog',
 								'class' => 'k-textbox',
-								'type' => 'text'
-							)); ?> 
+								'maxlength' => 3,
+								'type' => 'text',
+								'div' => array('class' => 'requerido')
+							)); ?>
+				<script type="text/javascript">
+					var porcentajeavfisicoprog = new LiveValidation( "porcentajeavfisicoprog", { validMessage: " " } );
+		            porcentajeavfisicoprog.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            porcentajeavfisicoprog.add( Validate.Numericality,{ minimum: 0, maximum: 100, onlyInteger: true, tooLowMessage: "El porcentaje no puede ser menor a 0 %", tooHighMessage: "El porcentaje no debe ser mayor al 100 %", notAnIntegerMessage: "Debe ser un número entero", notANumberMessage:"Debe ser un número"} );
+		            
+		        </script>				 
 			</li>
 			<li>
 				<?php echo $this->Form->input('montoavfinancieroprog', array(
 								'label' => 'Monto Avance',
 								'id' => 'montoavfinancieroprog',
-								'style' => 'width:70px;'
+								'style' => 'width:120px;',
+								'maxlength' => 12,
+								'div' => array('class' => 'requerido')
 							)); ?>
+				<script type="text/javascript">
+					var montoavfinancieroprog = new LiveValidation( "montoavfinancieroprog", { validMessage: " " } );
+		            montoavfinancieroprog.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            montoavfinancieroprog.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
+		        </script>
 						
 						<!--<td><a class="k-button"><span class="k-icon k-i-pencil"></span></a> <a class="k-button"><span class="k-icon k-i-close"></span></a></td>-->
 			</li>	
@@ -141,7 +178,7 @@ $this->end(); ?>
 			<style scoped>
 
                 .k-textbox {
-                    width: 70px;
+                    width: 120px;
                 }
 				
 				#tablat {
@@ -178,7 +215,7 @@ $this->end(); ?>
 
                 label {
                     display: inline-block;
-                    width: 150px;
+                    width: 125px;
                     text-align: right;
                     margin-right: 5px; 
                 }
@@ -192,16 +229,12 @@ $this->end(); ?>
                 }
                 
                 
-                form .required label:after {
+                form .requerido label:after {
                 	font-size: 1.4em;
 					color: #e32;
 					content: '*';
 					display:inline;
 				}
-                
-                .required {
-                    font-weight: bold;
-                }
 
                 .accept, .status {
                 	padding-top: 15px;
@@ -220,41 +253,48 @@ $this->end(); ?>
                     margin-left: 6px;
                 }
 
+ 				.LV_validation_message{
+				    font-weight:bold;
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				    margin-left: 10px;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+				    
+					clear:both;
+               		display:inline-block;
+               		margin-left: 25px; 
+               
+				}
+				    
+				.LV_valid_field,
+				input.LV_valid_field:hover, 
+				input.LV_valid_field:active,
+				textarea.LV_valid_field:hover, 
+				textarea.LV_valid_field:active {
+				    border: 1px solid #00CC00;
+				}
+				    
+				.LV_invalid_field, 
+				input.LV_invalid_field:hover, 
+				input.LV_invalid_field:active,
+				textarea.LV_invalid_field:hover, 
+				textarea.LV_invalid_field:active {
+				    border: 1px solid #CC0000;
+				}
+                
+
             </style>
             
             <script>
                 $(document).ready(function() {
                     
-					$("#proyectos").kendoDropDownList({
-            			optionLabel: "Seleccione proyecto...",
-			            dataTextField: "numeroproyecto",
-			            dataValueField: "idproyecto",
-			            dataSource: {
-			                            type: "json",
-			                            transport: {
-			                                read: "/Avanceprogramados/proyectojson.json"
-			                            }
-			                        }
-			        });
-			        
-			        var proyectos = $("#proyectos").data("kendoDropDownList");
-			        
-			        var contratos = $("#contratos").kendoDropDownList({
-			                        autoBind: true,
-			                        cascadeFrom: "proyectos",
-			                        optionLabel: "Seleccione contrato...",
-			                        dataTextField: "codigocontrato",
-			                        dataValueField: "idcontrato",
-			                        dataSource: {
-			                            type: "json",
-			                            transport: {
-			                                read: "/Avanceprogramados/contratojson.json"
-			                            }
-			                        }
-			                    }).data("kendoDropDownList");
-			                   
-
-                    $("#fechaavance").kendoDatePicker({
+					$("#fechaavance").kendoDatePicker({
 		   				culture: "es-ES",
 		   				format: "dd/MM/yyyy" //Define el formato de fecha
 					});
@@ -263,7 +303,7 @@ $this->end(); ?>
                         format: "c",
                         decimals: 2,
                         min: 0,
-    					max: 999999999,
+    					
     					placeholder: "Ej. 10000",
     					spinners: false
                     });
@@ -311,7 +351,15 @@ $this->end(); ?>
                         ]
                     });
 					
-					
+				$("form").focusin(function () {
+  						$("#flashMessage").fadeOut("slow");
+  				});
+                
+                
+                $("#fechaavance").focusin(function () {
+  						$("#errorfechaavance").fadeOut("slow");
+  				});
+                
 					
 					
                 });

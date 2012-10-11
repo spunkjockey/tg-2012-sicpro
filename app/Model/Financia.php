@@ -15,21 +15,15 @@ class Financia extends AppModel {
     );
 	public $validate = array(
 		'montoparcial' => array(
-			'decimal' => array(
-				'rule' => array('decimal', 2),
-				'required'=> true,
-				'allowEmpty' => false,
-				'message' => 'Solo son permitidos números'
-			),
 			'mayorquepermitido' => array(
             	'rule'    => array('limitarMonto'),
+            	'allowEmpty' => true,
             	'message' => 'El valor sobrepasa el monto disponible'
         	)
 		)
 	);
 	
 	public function limitarMonto($check) {
-		
         $monto_disponible = $this->find('first', array(
             'fields' => 'Fuentefinanciamiento.montodisponible',
             'conditions' => array('Fuentefinanciamiento.idfuentefinanciamiento ' => $this->data['Financia']['idfuentefinanciamiento'])   

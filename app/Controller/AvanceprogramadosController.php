@@ -11,11 +11,7 @@ class AvanceprogramadosController extends AppController {
 	
 	public function Avanceprogramado_agregaravance($id=null) {
 		$this->layout = 'cyanspark';
-		
 		if ($this->request->is('post')) {
-				
-			//Debugger::dump($this->request->data);
-
 			$this->Avanceprogramado->set('plazoejecuciondias', $this->request->data['Avanceprogramado']['plazoejecuciondias']);
 			$this->Avanceprogramado->set('porcentajeavfisicoprog', $this->request->data['Avanceprogramado']['porcentajeavfisicoprog']);
 			$this->Avanceprogramado->set('montoavfinancieroprog', $this->request->data['Avanceprogramado']['montoavfinancieroprog']);
