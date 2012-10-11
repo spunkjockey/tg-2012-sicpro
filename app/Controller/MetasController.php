@@ -40,6 +40,7 @@ class MetasController extends AppController {
 	public function meta_registrarmod($idcomponente=null,$idfichatecnica = null) {
 		$this->layout = 'cyanspark';
 		$this->set('idfichatecnica',$idfichatecnica);
+		$this->set('idcomponente',$idcomponente);
         if ($this->request->is('post')) {
         			$this->Meta->set('idcomponente',$idcomponente);
         			$this->Meta->set('userc', $this->Session->read('User.username'));
@@ -55,13 +56,13 @@ class MetasController extends AppController {
 		}
     }
 	
-	function meta_eliminar( $idmeta = null,$idcomponente = null) {
+	function meta_eliminar( $idmeta = null,$idcomponente = null,$idfichatecnica = null) {
 		if (!$this->request->is('post')) {
 	        throw new MethodNotAllowedException();
 	    }
 	    if ($this->Meta->delete($idmeta)) {
 	        $this->Session->setFlash('La Meta ha sido eliminada.','default',array('class' => 'success'));
-	        $this->redirect(array('controller' => 'Metas','action' => 'meta_modificar',$idcomponente));
+	        $this->redirect(array('controller' => 'Metas','action' => 'meta_modificar',$idcomponente,$idfichatecnica));
 	    }
 	}
 	

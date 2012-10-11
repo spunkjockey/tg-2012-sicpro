@@ -91,23 +91,22 @@ $this->end(); ?>
 						'placeholder' => 'Objetivo General',
 						"rows"=>"2")); ?>
 			</li>
-				
+			<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
 			<li  class="accept">
-				<div id='divdiv'>
-					
-					
-				</div>
-				<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
-				<div style="display:inline;">
-				<?php echo $this->Form->end(array('label' => 'Registrar Ubicacion', 'class' => 'k-button')); ?>
+			<table>
+			<tr>
+				<td>			
 				<?php echo $this->Html->link(
 					'Regresar', 
 					array('controller' => 'Fichatecnicas', 'action' => 'fichatecnica_modificarubicacion',$idfct),
 					array('class'=>'k-button')
 				); ?>
-				</div>
-				<?php $options = array('url' => 'update_select','update' => 'select2');
-				echo $this->ajax->observeField('select1',$options);?>
+				</td>
+				<td>
+				<?php echo $this->Form->end(array('label' => 'Registrar Ubicacion', 'class' => 'k-button')); ?>
+				</td>
+			</tr>
+			</table>
 			</li>
             
             <li class="status">

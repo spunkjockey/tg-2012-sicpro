@@ -23,10 +23,10 @@ class ComponentesController extends AppController {
 	public function componente_registrarmod($id=null) {
 		$this->layout = 'cyanspark';
 		$this->set('idfichatecnica',$id);
-        if ($this->request->is('post')) {
-        			Debugger::dump($this->request->data);
+        if ($this->request->is('post')) {			
 				    if ($this->Componente->saveAssociated($this->request->data, array('validate' => true, 'callbacks' => true))) {
-		            	$this->Session->setFlash('El componente ha sido registrado.','default',array('class' => 'success'));
+		            	$this->Session->setFlash('El componente "'.$this->request->data['Componente']['nombrecomponente'].'" ha sido registrado.','default',array('class' => 'success'));
+						Debugger::dump($this->request->data);
 		            	$this->redirect(array('controller' => 'Componentes','action' => 'componente_listar',$id));
 		        	} else {
 		            	$this->Session->setFlash('No se pudo realizar el registro');
@@ -71,11 +71,12 @@ class ComponentesController extends AppController {
 	}
 
 	function componente_eliminar($idcomponente = null,$idfichatecnica = null) {
+		$compo = $this->Componente->findByIdcomponente($idcomponente);
 		if (!$this->request->is('post')) {
 	        throw new MethodNotAllowedException();
 	    }
 	    if ($this->Componente->delete($idcomponente)) {
-	        $this->Session->setFlash('El Componente ha sido eliminado.','default',array('class' => 'success'));
+	        $this->Session->setFlash('El Componente "'. $compo['Componente']['nombrecomponente'] .'" ha sido eliminado.','default',array('class' => 'success'));
 	        $this->redirect(array('controller' => 'Componentes','action' => 'componente_listar',$idfichatecnica));
 	    }
 	}

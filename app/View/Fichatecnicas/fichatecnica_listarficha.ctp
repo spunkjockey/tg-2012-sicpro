@@ -90,6 +90,11 @@ else {
 	echo "No hay Fichas Tecnicas<br />";
 }
 ?>
+	<?php echo $this->Html->link(
+	   	'Regresar', 
+	   	array('controller'=>'Mains'),
+	   	array('class'=>'k-button')
+	);?>
 <style scoped>
 
                 .k-textbox {
@@ -224,5 +229,11 @@ else {
 				},
 				scrollable: false
         	});
+        	
+        $(window).load(function () {
+        		sleep(5);
+  				$("#flashMessage").fadeOut("slow");
+  			});
+                
         });
 </script>

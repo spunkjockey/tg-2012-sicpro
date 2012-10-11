@@ -77,7 +77,7 @@ $this->end(); ?>
         <td align="center">
 			<?php echo $this->Form->postLink(
                 'Eliminar Meta',
-                array('controller'=>'Metas','action' => 'meta_eliminar',  $mt['Meta']['idmeta'],$idcomponente),
+                array('controller'=>'Metas','action' => 'meta_eliminar',  $mt['Meta']['idmeta'],$idcomponente,$idfichatecnica),
                 array('confirm' => '¿Está seguro que desea eliminar la Meta?',
                 		'class'=>'k-button')
             )?>

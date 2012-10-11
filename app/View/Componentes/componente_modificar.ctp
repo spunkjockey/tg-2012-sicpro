@@ -78,14 +78,22 @@ $this->end(); ?>
 						'value' => $componentesficha['0']['descripcioncomponente'],
 						'placeholder' => 'Descripcion del Componente')); ?>
 			</li>
+			<?php echo $this->Form->input('idcomponente', array('type' => 'hidden','value'=>$idcomponente)); ?>
 			<li  class="accept">
-				<?php echo $this->Form->input('idcomponente', array('type' => 'hidden','value'=>$idcomponente)); ?>
-				<?php echo $this->Form->end(array('label' => 'Modificar Componente', 'class' => 'k-button')); ?>
+			<table>
+			<tr>
+				<td>				
 				<?php echo $this->Html->link(
 					'Regresar', 
 					array('controller' => 'Componentes', 'action' => 'componente_listar',$idfichatecnica),
 					array('class'=>'k-button')
 				); ?>
+				</td>
+				<td>
+				<?php echo $this->Form->end(array('label' => 'Modificar Componente', 'class' => 'k-button')); ?>
+				</td>
+			</tr>
+			</table>
 			</li>
             <li class="status">
             </li>

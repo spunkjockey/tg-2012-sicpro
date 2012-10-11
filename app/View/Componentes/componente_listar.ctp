@@ -231,7 +231,7 @@ else {
 	$(document).ready(function() {
     	$("#grid").kendoGrid({
             	dataSource: {
-	           		pageSize: 5,
+	           		pageSize: 2,
             	},
             	pageable: true,
             	pageable: {

@@ -161,9 +161,21 @@ $this->end(); ?>
 			</li>							
 			
 			<li  class="accept">
+			<table>
+			<tr>
+				<td>
 				<!--<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>-->
-				
+				<?php echo $this->Html->link(
+	            	'Regresar', 
+	            	array('controller'=>'Fichatecnicas','action' => 'fichatecnica_listarficha'),
+	            	array('class'=>'k-button')
+				);?>
+				</td>
+				<td>
 				<?php echo $this->Form->end(array('label' => 'Modificar Ficha', 'class' => 'k-button')); ?>
+				</td>
+			</tr>
+			</table>
 				</li>
             
             <li class="status">
@@ -171,11 +183,6 @@ $this->end(); ?>
 		</ul>
 	</div>
 </div>
-            <?php echo $this->Html->link(
-            	'Regresar', 
-            	array('controller'=>'Fichatecnicas','action' => 'fichatecnica_listarficha'),
-            	array('class'=>'k-button')
-			);?>
 
 <style scoped>
 
@@ -311,7 +318,7 @@ $this->end(); ?>
                
                var combobox = $("#select").data("kendoComboBox");
                combobox.list.width(400);
-               });
+               
                
                $("#numero1").kendoNumericTextBox({
                         min: 000000,
@@ -328,6 +335,11 @@ $this->end(); ?>
     					placeholder: "Ej. 100",
     					spinners: false
                     });
-
                     
+				$("form").focusin(function () {
+  						$("#flashMessage").fadeOut("slow");
+  				});
+                
+
+   });                 
 </script>
