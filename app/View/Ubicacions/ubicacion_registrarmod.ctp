@@ -1,4 +1,4 @@
-<!-- File: /app/View/Fichatecnicas/fichatecnica_registrarficha.ctp -->
+<!-- File: /app/View/Ubicaciones/add.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -43,129 +43,71 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO » Ficha Tecnica » Registrar Ficha Tecnica
+			?> » Proyecto » Ficha Tecnica » Modificar Ficha Tecnica
 			
 		</div>
 	</div>
 	
 <?php $this->end(); ?>
-
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar Ficha Tecnica</h2>
+		<h2>Registrar Ubicacion</h2>
 		
-				<?php echo $this->Form->create('Fichatecnica'); ?>
+				<?php echo $this->Form->create('Ubicacion'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('proyectos',
+				<?php echo $this->Form->input('departamentos',
 					array(
-						'label' => 'Proyectos:', 
-						'div' => array('class' => 'requerido'),
-						'class' => 'k-dropdownlist',
-						'id' => 'proyectos'
+						'label' => 'Departamento:', 
+						'id' => 'departamentos',
+						'class' => 'k-dropdownlist'
 					)); ?>
 				<script type="text/javascript">
-		            var proyectos = new LiveValidation( "proyectos", { validMessage: " " } );
-		            proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            var departamentos = new LiveValidation( "departamentos", { validMessage: " " } );
+		            departamentos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script> 
 			</li>
+
 			<li>
-				<?php echo $this->Form->input('problematica', 
+				<?php echo $this->Form->input('municipios',
 					array(
-						'label' => 'Problematica: ', 
-						'div' => array('class' => 'requerido'),
-						'class' => 'k-textbox', 
-						'placeholder' => 'Problematica',
-						'id' => 'problematica',
-						"rows"=>"5"
-						)); ?>
+						'label' => 'Municipio:', 
+						'id' => 'municipios',
+						'class' => 'k-dropdownlist'
+					)); ?>
 				<script type="text/javascript">
-		            var problematica = new LiveValidation( "problematica", { validMessage: " " } );
-		            problematica.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            var municipios = new LiveValidation( "municipios", { validMessage: " " } );
+		            municipios.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script> 
+		        <?php if ($this->Form->isFieldError('idmunicipio')) {
+				    echo $this->Form->error('idmunicipio');
+				} ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('objgeneral', 
+				<?php echo $this->Form->input('direccion', 
 					array(
-						'label' => 'Objetivo General: ', 
-						'div' => array('class' => 'requerido'),
+						'label' => 'Direccion: ', 
 						'class' => 'k-textbox', 
 						'placeholder' => 'Objetivo General',
-						'id' => 'objgeneral',
-						"rows"=>"5"
-						)); ?>
-				<script type="text/javascript">
-		            var objgeneral = new LiveValidation( "objgeneral", { validMessage: " " } );
-		            objgeneral.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script> 
+						"rows"=>"2")); ?>
 			</li>
-			<li>
-				<?php echo $this->Form->input('objespecifico', 
-					array(
-						'label' => 'Objetivo Especifico: ', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Objetivo Especifico',
-						"rows"=>"2"
-						)); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('descripcionproyecto', 
-					array(
-						'label' => 'Descripcion : ',
-						'div' => array('class' => 'requerido'), 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Descipcion',
-						"rows"=>"6",
-						'id' => 'descripcion'
-						)); ?>
-				<script type="text/javascript">
-		            var descripcion = new LiveValidation( "descripcion", { validMessage: " " } );
-		            descripcion.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script> 
-			</li>
-			<li>
-				<?php echo $this->Form->input('empleosgenerados', 
-					array(
-						'label' => 'Empleos Generados: ', 
-						'div' => array('class' => 'requerido'),
-						'id' => 'numero1',
-						'class' => 'k-textbox', 
-						'placeholder' => 'Empleos Generados'
-						)); ?>
-				<script type="text/javascript">
-		            var numero1 = new LiveValidation( "numero1", { validMessage: " " } );
-		            numero1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script> 
-			</li>
-			<li>
-				<?php echo $this->Form->input('beneficiarios', 
-					array(
-						'label' => 'Beneficiarios: ', 
-						'div' => array('class' => 'requerido'),
-						'id' => 'numero2',
-						'class' => 'k-textbox', 
-						'placeholder' => 'Beneficiarios',
-						"rows"=>"2"
-						)); ?>
-				<script type="text/javascript">
-		            var numero2 = new LiveValidation( "numero2", { validMessage: " " } );
-		            numero2.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script> 
-			</li>
-			<li>
-				<?php echo $this->Form->input('resultadosesperados', 
-					array(
-						'label' => 'Resultados: ', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Resultados Esperados',
-						"rows"=>"3"
-						)); ?>
-			</li>							
-			
+			<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
 			<li  class="accept">
-				<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
-				<?php echo $this->Form->end(array('label' => 'Registrar Ficha', 'class' => 'k-button')); ?>
-				</li>
+			<table>
+			<tr>
+				<td>			
+				<?php echo $this->Html->link(
+					'Regresar', 
+					array('controller' => 'Fichatecnicas', 'action' => 'fichatecnica_modificarubicacion',$idfct),
+					array('class'=>'k-button')
+				); ?>
+				</td>
+				<td>
+				<?php echo $this->Form->end(array('label' => 'Registrar Ubicacion', 'class' => 'k-button')); ?>
+				</td>
+			</tr>
+			</table>
+			</li>
             
             <li class="status">
             </li>
@@ -182,9 +124,8 @@ $this->end(); ?>
                 }
 				
 				.k-dropdownlist{
-                    width: 300px;
+                    width: 200px;
                 }
-			
 			
                 #formulario {
                     width: 600px;
@@ -277,7 +218,7 @@ $this->end(); ?>
 				    border: 1px solid #CC0000;
 				}
                 
-</style>
+            </style>
 
 <script>
                 $(document).ready(function() {
@@ -291,39 +232,31 @@ $this->end(); ?>
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
-                
-
-					$("#proyectos").kendoDropDownList({
-						optionLabel: "Seleccione Proyecto",
-			            dataTextField: "nombreproyecto",
-			            dataValueField: "idproyecto",
+                    $("#departamentos").kendoDropDownList({
+            			optionLabel: "Seleccione departamento",
+			            dataTextField: "departamento",
+			            dataValueField: "iddepartamento",
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
-			                                read: "/Fichatecnicas/proyectojson.json"
+			                                read: "/Ubicacions/departamentojson.json"
 			                            }
 			                        }
 			        });
-               
-               var combobox = $("#select").data("kendoComboBox");
-               combobox.list.width(400);
-               });
-               
-               $("#numero1").kendoNumericTextBox({
-                        min: 000000,
-    					max: 999999,
-    					decimals: 0,
-    					placeholder: "Ej. 100",
-    					spinners: false
-                    });
-                    
-               $("#numero2").kendoNumericTextBox({
-                        min: 000000,
-    					max: 999999,
-    					decimals: 0,
-    					placeholder: "Ej. 100",
-    					spinners: false
-                    });
-
-                    
+			    	var departamentos = $("#departamentos").data("kendoDropDownList");
+			        
+			    	var municipios = $("#municipios").kendoDropDownList({
+			                        autoBind: false,
+			                        cascadeFrom: "departamentos",
+			                        optionLabel: "Seleccione Municpio",
+			                        dataTextField: "municipio",
+			                        dataValueField: "idmunicipio",
+			                        dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Ubicacions/municipiojson.json"
+			                            }
+			                        }
+			    }).data("kendoDropDownList");
+                });
 </script>

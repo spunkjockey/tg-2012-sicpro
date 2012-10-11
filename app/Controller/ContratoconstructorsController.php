@@ -295,9 +295,9 @@
 		                        $contrato= $this->Contratoconstructor->find('first', array(
 			                        'fields'=>array('Contratoconstructor.estadocontrato'),
 			                        'conditions'=>array('Contratoconstructor.idcontrato'=>$contrato_id)));
-						$this->set('informacion',$contrato);
-					$this->render('/Elements/update_opcionesactualizar', 'ajax');
+						$this->set('informacion',$contrato);	
 					}
+				$this->render('/Elements/update_opcionesactualizar', 'ajax');
 	}
 
 }

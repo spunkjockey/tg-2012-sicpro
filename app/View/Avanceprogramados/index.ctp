@@ -62,7 +62,8 @@ $this->end(); ?>
 				<?php echo $this->Form->input('proyectos',
 					array(
 						'label' => 'Proyectos:', 
-						'id' => 'proyectos'
+						'id' => 'proyectos',
+						'class' => 'k-combobox'
 					)); ?>
 				<div id="error1" class="error-message"></div>
 			</li>
@@ -70,7 +71,8 @@ $this->end(); ?>
 				<?php echo $this->Form->input('contratos',
 					array(
 						'label' => 'Contratos:', 
-						'id' => 'contratos'
+						'id' => 'contratos',
+						'class' => 'k-combobox'
 					)); ?>
 				<div id="error2" class="error-message"></div>
 			</li>
@@ -96,6 +98,10 @@ $this->end(); ?>
 
                 .k-textbox {
                     width: 70px;
+                }
+                
+                .k-combobox {
+                    width: 200px;
                 }
 				
 				#tablat {
@@ -179,7 +185,7 @@ $this->end(); ?>
                 $(document).ready(function() {
                     
 					$("#proyectos").kendoDropDownList({
-            			optionLabel: "Seleccione proyecto...",
+            			optionLabel: "Seleccione proyecto",
 			            
 			            dataTextField: "numeroproyecto",
 			            dataValueField: "idproyecto",
@@ -197,7 +203,7 @@ $this->end(); ?>
 			                        autoBind: true,
 			                        
 			                        cascadeFrom: "proyectos",
-			                        optionLabel: "Seleccione contrato...",
+			                        optionLabel: "Seleccione contrato",
 			                        dataTextField: "codigocontrato",
 			                        dataValueField: "idcontrato",
 			                        dataSource: {

@@ -26,8 +26,6 @@ public $primaryKey = 'idempresa';
 	        	'message' => 'El NIT empresa debe ser de 14 numeros.'
 	    	)
 	    ),
-	    
-	    
 	    'nombreempresa' => array(
 	        'isUnique' => array(
 	            'rule'    => 'isUnique',

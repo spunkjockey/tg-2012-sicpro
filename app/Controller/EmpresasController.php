@@ -52,7 +52,7 @@ class EmpresasController extends AppController {
 	        $this->request->data = $this->Empresa->read();
 	    } else {
 	        if ($this->Empresa->save($this->request->data)) {
-	            $this->Session->setFlash('La Empresa '. $this->request->data['Empresa']['nombreempresa'] .' ha sido registrada.','default',array('class' => 'success'));
+	            $this->Session->setFlash('La Empresa '. $this->request->data['Empresa']['nombreempresa'] .' ha sido modificada.','default',array('class' => 'success'));
 	            $this->redirect(array('action' => 'index'));
 	        } else {
             	$this->Session->setFlash('Imposible editar Empresa');

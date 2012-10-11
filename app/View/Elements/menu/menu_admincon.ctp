@@ -14,7 +14,7 @@
 									<li disabled="disabled">Consultar contrato</li>
 									<li disabled="disabled">Actualizar estado de contrato</li>
 									<li disabled="disabled">Asignaci&oacute;n de t&eacute;cnicos</li>
-									<li><?php echo $this->Html->link('Registrar Orden de Inicio', array('controller' => 'Contratos','action'=>'addordeninicio')); ?></li>
+									<li><?php echo $this->Html->link('Orden de Inicio', array('controller' => 'Contratos','action'=>'addordeninicio')); ?></li>
 									<li>Orden de Cambio</li>
 								</ul>
 							</li>
@@ -22,7 +22,7 @@
 								<ul>
 									<li>Programaci&oacute;n de avance
 										<ul>
-											<li><?php echo $this->Html->link('Registrar Programación', array('controller' => 'Avanceprogramados','action'=>'index')); ?></li>
+											<li><?php echo $this->Html->link('Programación de Avance', array('controller' => 'Avanceprogramados','action'=>'index')); ?></li>
 											<li disabled="disabled">Consultar Programaci&oacute;n</li>
 										</ul>
 									</li>
@@ -48,9 +48,7 @@
 							</li>	
 							<li>Facturas
 								<ul>
-									<li disabled="disabled">Registrar factura</li>
-									<li disabled="disabled">Modificar factura</li>
-									<li disabled="disabled">Eliminar factura</li>
+									<li><?php echo $this->Html->link('Administración de Facturas', array('controller' => 'Facturas','action'=>'index')); ?></li>
 									<li disabled="disabled">Consultar facturas por proyecto</li>
 									<li disabled="disabled">Consultar facturas por contrato</li>
 								</ul>

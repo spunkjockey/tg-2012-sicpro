@@ -27,7 +27,8 @@ class UsersController extends AppController {
 				$this->Session->write('User.useragent',$this->request->header('User-Agent'));
 				$this->Session->write('User.userip',$this->request->clientIp());
 				$this->Session->write('User.nombre',$someone['User']['nombre']);
-	            $this->redirect(array('controller'=>'mains'));
+	             $this->redirect($this->Auth->redirect());
+	            //$this->redirect(array('controller'=>'mains'));
 	        } else {
 	            $this->Session->setFlash(__('Usuario o Contraseña Incorrecta, intente otra vez'));
 	        }

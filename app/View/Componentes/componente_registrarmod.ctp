@@ -1,5 +1,4 @@
-<!-- app/View/Users/add.ctp -->
-
+<!-- File: /app/View/Componentes/componente_modificar.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -44,104 +43,64 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Usuario » Registrar usuario
+			?> » Proyecto » Ficha Tecnica » Modificar Ficha Tecnica
 			
 		</div>
 	</div>
+	
 <?php $this->end(); ?>
-
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar usuario</h2>
-		<?php echo $this->Form->create('User'); ?>
-    	<ul>
-	    	<li>
-				<?php echo $this->Form->input('nombrespersona', 
+		<h2>Modificar Componentes</h2>
+		
+				<?php echo $this->Form->create('Componente'); ?>
+		<ul>
+			<li>
+			<?php echo $this->Form->input('nombrecomponente', 
 					array(
-						'label' => 'Nombres:', 
+						'label' => 'Nombre Componente:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre del usuario',
-						'div' => array('class' => 'requerido') 
-					)); ?>
+						'div' => array('class' => 'requerido'),
+						'id' => 'nombrecomponente',
+						'placeholder' => 'Nombre del Componente')); ?>
+				<script type="text/javascript">
+		            var nombrecomponente = new LiveValidation( "nombrecomponente", { validMessage: " " } );
+		            nombrecomponente.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script> 
 			</li>
 			<li>
-				<?php echo $this->Form->input('apellidospersona', 
+			<?php echo $this->Form->input('descripcioncomponente', 
 					array(
-						'label' => 'Apellidos:', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Apellido del usuario',
-						'div' => array('class' => 'requerido') 
-					)); ?>
+						'label' => 'Descripcion Componente:', 
+						'class' => 'k-textbox',
+						'placeholder' => 'Descripcion del Componente')); ?>
 			</li>
-	    	<li>
-				<?php echo $this->Form->input('username', 
-						array(
-							'label' => 'Nombre de usuario:', 
-							'class' => 'k-textbox', 
-							'placeholder' => 'Usuario',
-							'div' => array('class' => 'requerido') 
-					)); ?>
-				</li>
-				<li>
-					<?php echo $this->Form->input('password', 
-						array(
-							'label' => 'Contraseña:', 
-							'id' => 'password',
-							'class' => 'k-textbox', 
-							'placeholder' => 'Contraseña',
-							'div' => array('class' => 'requerido') 
-					)); ?>
-				<script type="text/javascript">
-		            var password = new LiveValidation( "password", { validMessage: " " } );
-		            password.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            password.add(Validate.Format, { pattern: /‎?^.{8,}$/, failureMessage: "Debe contener al menos 8 caracteres"  } );
-		            password.add(Validate.Format, { pattern: /‎?^.*\d.*$/, failureMessage: "Debe contener al menos un número"  } );
-		            password.add(Validate.Format, { pattern: /‎?^.*\W+.*$/, failureMessage: "Debe contener al menos un caracter especial"  } );
-		            password.add(Validate.Format, { pattern: /‎?^.*[A-Z].*$/, failureMessage: "Debe contener al menos una letra mayúscula"  } );
-		            password.add(Validate.Format, { pattern: /‎?^.*[a-z].*$/, failureMessage: "Debe contener al menos una letra minúscula"  } );
-		        </script>
-				</li>
-				<li>
-					<?php echo $this->Form->input('roles', 
-						array(
-							'label' => 'Rol:', 
-							'id' => 'roles',
-							'div' => array('class' => 'requerido')
-					)); ?>
-				</li>
-				<li>
-					<?php echo $this->Form->input('estado', 
-								array(
-								'id' => 'Estado: ',
-								'div' => array('class' => 'requerido'),
-								'options' => array(0 => 'Deshabilitado', 
-												   1 => 'Habilitado'))); ?>
-				</li>
-				<li  class="accept">
-					<?php echo $this->Form->end(array('label' => 'Registrar persona', 'class' => 'k-button')); ?>
-				</li>
-	            <li class="status">
-			</ul>
-    	</div>
-   </div>
-
+			<li  class="accept">
+				<?php echo $this->Form->input('idfichatecnica', array('type' => 'hidden','value'=>$idfichatecnica)); ?>
+				<?php echo $this->Form->end(array('label' => 'Registrar Componente', 'class' => 'k-button')); ?>
+				<?php echo $this->Html->link(
+					'Regresar', 
+					array('controller' => 'Componentes', 'action' => 'componente_listar',$idfichatecnica),
+					array('class'=>'k-button')
+				); ?>
+			</li>
+            <li class="status">
+            </li>
+		</ul>
+	</div>
+</div>
 <style scoped>
 
                 .k-textbox {
                     width: 300px;
-                    
+                    margin-left: 5px;
                     
                 }
 				
-				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
+				.k-dropdownlist{
+                    width: 200px;
+                }
 			
-                form .requerido label:after {
-					font-size: 1.4em;
-					color: #e32;
-					content: '*';
-					display:inline;
-					}
-                
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -167,11 +126,21 @@ $this->end(); ?>
 
                 label {
                     display: inline-block;
-                    width: 150px;
+                    width: 160px;
                     text-align: right;
-                    margin-right: 5px;
                     
                 }
+
+                /*.required {
+                    font-weight: bold;
+                }*/
+                
+                form .requerido label:after {
+                	font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+				}
 
                 .accept, .status {
                 	padding-top: 15px;
@@ -185,26 +154,25 @@ $this->end(); ?>
                 .invalid {
                     color: red;
                 }
-                span.k-tooltip {
-                    margin-left: 6px;
-                }
                 
-                .LV_validation_message{
+               
+               
+                
+				
+				.LV_validation_message{
 				    font-weight:bold;
 				    margin:0 0 0 5px;
 				}
 				
 				.LV_valid {
 				    color:#00CC00;
-				    margin-left: 10px;
 				}
 					
 				.LV_invalid {
 				    color:#CC0000;
-				    
 					clear:both;
                		display:inline-block;
-               		margin-left: 25px; 
+               		margin-left: 170px; 
                
 				}
 				    
@@ -224,13 +192,26 @@ $this->end(); ?>
 				    border: 1px solid #CC0000;
 				}
                 
-            </style>
-			
-			<script>
+</style>
+<script>
                 $(document).ready(function() {
-					$("#roles").kendoDropDownList();
-					$("#estados").kendoDropDownList();
-					$("#phone").mask("9999-9999");
-				});
+					var validator = $("#formulario").kendoValidator().data("kendoValidator");
+
+                    status = $(".status");
+
+                    $("button").click(function() {
+                        if (validator.validate()) {
+                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
+                            } else {
+                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
+                        }
+                    });
+                    
+                   	$("#phone").mask("9999-9999");
+                    
+	               	$("#nit").mask("9999-999999-999-9");
+                   
+					
                 
-            </script>
+                });
+</script>

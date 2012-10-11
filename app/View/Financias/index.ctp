@@ -69,7 +69,6 @@ $this->end(); ?>
 		            var proyectos = new LiveValidation( "proyectos", { validMessage: " " } );
 		            proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script>
-				
 			</li>
 			<li>
 				
@@ -102,7 +101,7 @@ $this->end(); ?>
 				<script type="text/javascript">
 					var monto = new LiveValidation( "monto", { validMessage: "Correcto" } );
 		            monto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            monto.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99, tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
+		            monto.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
 		        </script>	
 			</li>
 			<li  class="accept">
