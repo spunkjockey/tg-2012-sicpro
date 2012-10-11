@@ -1,7 +1,11 @@
 <?php
-	if($info!=false){
-	foreach ($info as $inf): 
-		?>
-		<p><strong class:'etiqueta'>Nombre del proyecto: </strong> <?php echo $inf['nombreproyecto']; ?></p>
-	<?php endforeach; 
-}?>
+	if(isset($info['Proyecto']['nombreproyecto']))
+	{
+		$nomproy = $info['Proyecto']['nombreproyecto'];
+	}
+	else
+	{
+		$nomproy='';
+	}
+?>
+<p><strong class:'etiqueta'>Nombre del proyecto: </strong> <?php echo $nomproy; ?></p>

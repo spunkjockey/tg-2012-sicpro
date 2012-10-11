@@ -26,7 +26,7 @@
 									<li>Supervisor
 										<ul>
 											<li><?php echo $this->Html->link('Registrar contrato supervisor', array('controller' => 'Contratosupervisors','action'=>'contratosupervisor_registrar')); ?></li>
-											<li disabled="disabled">Modificar contrato supervisor</li>
+											<li><?php echo $this->Html->link('Modificar contrato supervisor', array('controller' => 'Contratosupervisors','action'=>'contratosupervisor_modificar')); ?></li>
 											<li disabled="disabled">Eliminar contrato supervisor</li>
 										</ul>
 									</li>	

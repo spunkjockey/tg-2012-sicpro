@@ -41,7 +41,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Control y seguimiento » Informe supervisión » Registrar
+			?> Control y seguimiento » Informe supervisión » Modificar
 			
 		</div>
 	</div>
@@ -49,49 +49,20 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<?php echo $this->Form->create('Informesupervisor'); ?>
+		<?php echo $this->Form->create('Informesupervisor',array('action' => 'informesupervisor_modificar')); ?>
 		<ul>
-			<h2>Registrar informe de supervisión</h2>
+			<h2>Modificar informe de supervisión</h2>
 			<li>
-				<?php echo $this->Form->input('proyectos', 
-					array(
-						'label' => 'Proyecto:', 
-						'id' => 'proyectos',
-						'div' => array('class' => 'requerido')
-						)); 
-				?>
-				<script type="text/javascript">
-					var proyectos= new LiveValidation( "proyectos", { validMessage: " " } );
-					proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-				</script>
+				<label>Código de Contrato: </label> <?php echo $this->request->data['Contratosupervisor']['codigocontrato']; ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('contratos', 
-					array(
-						'label' => 'Contrato de supervisión:', 
-						'id' => 'contratos',
-						'div' => array('class' => 'requerido'))); ?>
-				<script type="text/javascript">
-					var contratos= new LiveValidation( "contratos", { validMessage: " " } );
-					contratos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-				</script>
-			</li>
-			<li>
-				<div id=infoproy>
-					<!--- Aqui se carga el nombre del proyecto seleccionado-->
-				</div>
-				<div id=infocontrato>
-				<!--- Aqui se muestran datos sobre el contrato seleccionado -->
-				</div>
-			</li>
-			<li>
-				<?php echo $this->Form->input('tituloinforme', 
+				<?php echo $this->Form->input('tituloinformesup', 
 					array(
 						'label' => 'Título del informe:', 
 						'class' => 'k-textbox',
 						'id'=>'titulo', 
 						'placeholder' => 'Título del informe de supervisión', 
-						'rows'=> 2, 
+						'rows'=> '5',
 						'div' => array('class' => 'requerido')
 						)); ?>
 				<script type="text/javascript">
@@ -111,10 +82,10 @@ $this->end(); ?>
 				<script type="text/javascript">
 		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " } );
 		            datePicker1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
+		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d$/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 		            datePicker1.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
 		        </script>
-		         <?php if ($this->Form->isFieldError('fechainiciosupervision')) {
+		        <?php if ($this->Form->isFieldError('fechainiciosupervision')) {
 				    echo $this->Form->error('fechainiciosupervision');
 				} ?>
 			</li>
@@ -130,15 +101,15 @@ $this->end(); ?>
 				<script type="text/javascript">
 		            var datePicker2 = new LiveValidation( "datePicker2", { validMessage: " " } );
 		            datePicker2.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            datePicker2.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
+		            datePicker2.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d$/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 		        	datePicker2.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
 		        </script>
-		        <?php if ($this->Form->isFieldError('fechafinsupervision')) {
+		         <?php if ($this->Form->isFieldError('fechafinsupervision')) {
 				    echo $this->Form->error('fechafinsupervision');
 				} ?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('plazoejecucion', 
+				<?php echo $this->Form->input('plazoejecuciondias', 
 					array(
 						'label' => 'Plazo:',
 						'class' => 'k-textbox',  
@@ -155,7 +126,7 @@ $this->end(); ?>
 				</script>
 			</li>
 			<li>
-				<?php echo $this->Form->input('avfinanciero', 
+				<?php echo $this->Form->input('valoravancefinanciero', 
 					array(
 						'label' => 'Avance financiero: ($)',
 						'class' => 'k-textbox',  
@@ -170,7 +141,7 @@ $this->end(); ?>
 		        </script>
 			</li>
 			<li>
-				<?php echo $this->Form->input('avfisico', 
+				<?php echo $this->Form->input('porcentajeavancefisico', 
 					array(
 						'label' => 'Avance físico (%):',
 						'class' => 'k-textbox',  
@@ -187,25 +158,15 @@ $this->end(); ?>
 				</script>
 			</li>
 				<?php echo $this->Form->input('idinformesupervision',array('type'=>'hidden'))?>
-				
+				<?php echo $this->Form->input('Contratosupervisor.codigocontrato',array('type'=>'hidden'))?>
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar informe', 'class' => 'k-button')); ?>
+				<?php echo $this->Form->end(array('label' => 'Modificar informe', 'class' => 'k-button')); ?>
 			</li>
-				 <?php echo $this->Html->link(
+			 <?php echo $this->Html->link(
             	'Regresar', 
             	array('controller' => 'Informesupervisors','action' => 'informesupervisor_index'),
             	array('class'=>'k-button')
 			);?>
-			
-				<?php echo $this->ajax->observeField( 'proyectos',array(
-			        		'url' => array( 'action' => 'update_nomproyecto'),
-			        		'update' => 'infoproy'));  
-					?>
-				
-				<?php echo $this->ajax->observeField( 'contratos',array(
-			        		'url' => array( 'action' => 'update_infocontrato'),
-			        		'update' => 'infocontrato'));  
-					?>	
 		</ul>
 	</div>
 </div>
@@ -324,34 +285,7 @@ $this->end(); ?>
                         }
                     });
                 
-                $("#proyectos").kendoDropDownList({
-            			optionLabel: "Seleccione proyecto",
-            			dataTextField: "numeroproyecto",
-			            dataValueField: "idproyecto",
-			            dataSource: {
-			                            type: "json",
-			                            transport: {
-			                                read: "/Informesupervisors/proyectosjson.json"
-			                            }
-			                        }
-			        });
-			        var proyectos = $("#proyectos").data("kendoDropDownList");
-			        
-			    var contratos = $("#contratos").kendoDropDownList({
-			                        autoBind: false,
-			                        cascadeFrom: "proyectos",
-			                        optionLabel: "Seleccione contrato",
-			                        dataTextField: "codigocontrato",
-			                        dataValueField: "idcontrato",
-			                        dataSource: {
-			                            type: "json",
-			                            transport: {
-			                                read: "/Informesupervisors/contratosjson.json"
-			                            }
-			                        }
-			                    }).data("kendoDropDownList");
-			        
-			    $("#txavfinanciero").kendoNumericTextBox({
+                $("#txavfinanciero").kendoNumericTextBox({
 				     min: 0,
 				     max: 999999999.99,
 				     format: "c2",
@@ -368,14 +302,17 @@ $this->end(); ?>
 				 });
 				
 				
-				$("#datePicker1").kendoDatePicker({
+				var fechainicio = $("#datePicker1").kendoDatePicker({
+		   			format: "dd/MM/yyyy",
+		   			culture: "es-ES"
+		   			
+		   		});
+		   		
+		   		var fechafin = $("#datePicker2").kendoDatePicker({
 		   			format: "dd/MM/yyyy",
 		   			culture: "es-ES"
 		   		});
-				$("#datePicker2").kendoDatePicker({
-		   			format: "dd/MM/yyyy",
-		   			culture: "es-ES"
-		   		});
+		   		
 				
 				
 				});

@@ -29,6 +29,7 @@
 	        break;			
 	}
 $this->end(); ?>
+
 <?php $this->start('breadcrumb'); ?>
 	
 	<div id="menuderastros">
@@ -41,7 +42,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Contrato constructor » Modificar contrato constructor 
+			?> Contrato supervisor » Registrar contrato supervisor
 			
 		</div>
 	</div>
@@ -49,23 +50,15 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Modificar contrato constructor</h2>
-		<?php echo $this->Form->create('Contratoconstructor',array('action' => 'contratoconstructor_modificar')); ?>
+		<h2>Modificar contrato supervisor</h2>
+		<?php echo $this->Form->create('Contratosupervisor',array('action' => 'contratosupervisor_modificar')); ?>
 		<ul>
-			<?php 
-				if ($this->Form->isFieldError('ordeninicio')) {
-				    echo $this->Form->error('ordeninicio');
-				}
-			?>
-			
 			<li>
 				<?php echo $this->Form->input('proyectos', 
 					array(
-						'label' => 'Proyecto:', 
+						'label' => 'Seleccione proyecto:', 
 						'id' => 'proyectos',
-						'div' => array('class' => 'requerido')
-						)); 
-				?>
+						'div' => array('class' => 'requerido'))); ?>
 				<script type="text/javascript">
 					var proyectos= new LiveValidation( "proyectos", { validMessage: " " } );
 					proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
@@ -74,37 +67,33 @@ $this->end(); ?>
 			<li>
 				<?php echo $this->Form->input('contratos', 
 					array(
-						'label' => 'Contrato de construcción:', 
+						'label' => 'Contrato de supervisión:', 
 						'id' => 'contratos',
-						'div' => array('class' => 'requerido'))); 
-				?>
+						'div' => array('class' => 'requerido'))); ?>
 				<script type="text/javascript">
 					var contratos= new LiveValidation( "contratos", { validMessage: " " } );
 					contratos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				</script>
 			</li>
-			
-			<div id=infoproy> 
-				<!--- Aqui se carga el nombre del proyecto seleccionado-->
-				<!--- Utiliza la vista en Elements/--> 
+			<div id=infoproy>
+				<!--- Aqui se muestra el nombre del proyecto seleccionado	-->	
+				<!--- se utiliza la funcion update_nomproyecto				-->
 			</div>
-			<div id=infoconconstructor> <!--- el formulario se generará con la función update_infoconconstructor() --> </div>
+			<div id=infoconsupervisor>
+				<!--- Aqui se carga el formulario para modificar contrato sueprvisor 	-->
+				<!--- se utiliza la funcion update_infoconsupervisor							-->	
+			</div>
 			
-			
-			<?php echo $this->ajax->observeField( 'proyectos',array(
+		</ul>
+		
+		<?php echo $this->ajax->observeField( 'proyectos',array(
 			        		'url' => array( 'action' => 'update_nomproyecto'),
 			        		'update' => 'infoproy'));  
 					?>
-			
-			
-			<?php echo $this->ajax->observeField( 'contratos',array(
-			        		'url' => array( 'action' => 'update_infoconconstructor'),
-			        		'update' => 'infoconconstructor'));  
+		<?php echo $this->ajax->observeField( 'contratos',array(
+			        		'url' => array( 'action' => 'update_infoconsupervisor'),
+			        		'update' => 'infoconsupervisor'));  
 					?>
-			
-            <li class="status">
-            </li>
-		</ul>
 	</div>
 </div>
 
@@ -208,8 +197,8 @@ $this->end(); ?>
 				    border: 1px solid #CC0000;
 				}
             </style>
-			
-			<script>
+
+<script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
@@ -222,8 +211,6 @@ $this->end(); ?>
                         }
                     });
                 
-                
-
 				$("#txmonto").kendoNumericTextBox({
 				     min: 0,
 				     max: 999999999.99,
@@ -231,47 +218,43 @@ $this->end(); ?>
 				     decimals: 2,
 				     spinners: false
 				 });
-
-				$("#txanticipo").kendoNumericTextBox({
-				     min: 0,
-				     max: 999999999.99,
-				     format: "c2",
-				     decimals: 2,
-				     spinners: false
-				 });
-				 
-                
+				
+				$("#selectproy").kendoComboBox({
+					index: 0,
+			        suggest: true,
+			        filter: 'none'
+				});
+				
 				$("#proyectos").kendoDropDownList({
-			            optionLabel: "Seleccione proyecto",
+            			optionLabel: "Seleccione proyecto",
 			            dataTextField: "numeroproyecto",
 			            dataValueField: "idproyecto",
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
-			                                read: "/Contratoconstructors/proycontratosjson.json"
+			                                read: "/Contratosupervisors/proyectoconjson.json"
 			                            }
 			                        }
 			        });
 			        var proyectos = $("#proyectos").data("kendoDropDownList");
-			    
+			        
 			    var contratos = $("#contratos").kendoDropDownList({
-			                        optionLabel: "Seleccione contrato",
-			                        autoBind: true,
+			                        autoBind: false,
 			                        cascadeFrom: "proyectos",
+			                        optionLabel: "Seleccione contrato",
 			                        dataTextField: "codigocontrato",
 			                        dataValueField: "idcontrato",
 			                        dataSource: {
 			                            type: "json",
 			                            transport: {
-			                                read: "/Contratoconstructors/conconstructorjson.json"
+			                                read: "/Contratosupervisors/contratossuperjson.json"
 			                            }
 			                        }
-			    }).data("kendoDropDownList");
-			    
-			    
+			                    }).data("kendoDropDownList");
+			        
 			    $("#empresas").kendoDropDownList({
             			optionLabel: "Seleccione empresa",
-            			dataTextField: "nombreempresa",
+			            dataTextField: "nombreempresa",
 			            dataValueField: "idempresa",
 			            dataSource: {
 			                            type: "json",
@@ -284,18 +267,20 @@ $this->end(); ?>
 			    
 			    $("#admin").kendoDropDownList({
             			optionLabel: "Seleccione administrador",
-            			dataTextField: "nomcompleto",
+			            dataTextField: "nomcompleto",
 			            dataValueField: "idpersona",
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
-			                                read: "/Contratoconstructors/adminjson.json"
+			                                read: "/Contratosupervisors/adminjson.json"
 			                            }
 			                        }
 			        });
 			        var admin = $("#admin").data("kendoDropDownList");
 				
+				$("#codigo").mask("999-9999");
 				
+						
 				$("#datePicker1").kendoDatePicker({
 		   			format: "dd/MM/yyyy",
 		   			culture: "es-ES"
@@ -304,9 +289,6 @@ $this->end(); ?>
 		   			format: "dd/MM/yyyy",
 		   			culture: "es-ES"
 		   		});
-				
-				$("#codigo").mask("999-9999");
-				
 				
 				
 				});
