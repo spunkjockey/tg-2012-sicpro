@@ -5,5 +5,15 @@
 		public $useTable = 'informesupervision';
 		public $primaryKey = 'idinformesupervision';
     	
+		public $hasOne = array(
+	        'Facturasupervision' => array(
+	            'className' => 'Facturasupervision',
+	            'foreignKey' => 'idinformesupervision',
+	            //'conditions'   => array('Profile.published' => '1'),
+	            'dependent'    => true
+			)
+	    );
+	
+
+
     }
-?>
