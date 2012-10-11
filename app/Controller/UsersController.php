@@ -23,6 +23,7 @@ class UsersController extends AppController {
 	        if ($this->Auth->login()) {
 	        	$someone = $this->User->findByUsername($this->data['User']['username']);
 				$this->Session->write('User.username',$someone['User']['username']);
+				$this->Session->write('User.idpersona',$someone['User']['idpersona']);
 				$this->Session->write('User.idrol',$someone['User']['idrol']);
 				$this->Session->write('User.useragent',$this->request->header('User-Agent'));
 				$this->Session->write('User.userip',$this->request->clientIp());

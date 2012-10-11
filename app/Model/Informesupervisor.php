@@ -5,6 +5,7 @@
 		public $useTable = 'informesupervision';
 		public $primaryKey = 'idinformesupervision';
     	
+
 		public $belongsTo = array( 
         'Contratosupervisor' => array(
             'className'    => 'Contratosupervisor',
@@ -43,5 +44,17 @@
 			return date_create_from_format('d/m/Y', $this->data['Informesupervisor']['fechafinsupervision']) > date_create_from_format('d/m/Y', $this->data['Informesupervisor']['fechainiciosupervision']);
     	
 		}
+
+		public $hasOne = array(
+	        'Facturasupervision' => array(
+	            'className' => 'Facturasupervision',
+	            'foreignKey' => 'idinformesupervision',
+	            //'conditions'   => array('Profile.published' => '1'),
+	            'dependent'    => true
+			)
+	    );
+	
+
+
+
     }
-?>

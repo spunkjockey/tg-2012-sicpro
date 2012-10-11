@@ -86,7 +86,7 @@ $this->end(); ?>
 	
 </div>
 
-		<?php echo $this->ajax->observeField( 'contratos', 
+		<?php echo $this->ajax->observeForm( 'AvanceprogramadoIndexForm', 
     		array(
         		'url' => array( 'action' => 'update_avanceprog'),
         		'update' => 'avanceprog'

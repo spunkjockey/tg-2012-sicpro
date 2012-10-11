@@ -4,11 +4,16 @@
 		public $useTable = 'contrato';
 		public $primaryKey = 'idcontrato';
 		
-		public $hasOne=array('User'=>
-				array(
-					'className'    => 'User',
-					'foreignKey'   => 'idpersona'
-					));
+		public $belongsTo = array(
+			'Persona'=> array(
+				'className'    => 'Persona',
+				'foreignKey'   => 'idpersona'
+				),
+			'Proyecto' => array(
+				'className'    => 'Proyecto',
+				'foreignKey'   => 'idproyecto'
+				)
+			);
 		
 		public $validate = array(
 

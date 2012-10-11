@@ -59,50 +59,48 @@ $this->end(); ?>
 						array(
 							'label' => 'Nombres:', 
 							'class' => 'k-textbox', 
-							'placeholder' => 'Nombres de la persona', 
-							'required', 
-							'validationMessage' => 'Ingrese nombres de la persona')); ?>
+							'div' => array('class' => 'requerido'),
+							'placeholder' => 'Nombres')); ?>
 				</li>
 				<li>
 					<?php echo $this->Form->input('apellidospersona', 
 						array(
 							'label' => 'Apellidos:', 
 							'class' => 'k-textbox', 
-							'placeholder' => 'Apellidos de la persona', 
-							'required', 
-							'validationMessage' => 'Ingrese apellidos de la persona')); ?>
+							'div' => array('class' => 'requerido'),
+							'placeholder' => 'Apellidos')); ?>
 				</li>
 				<li>
 					<?php echo $this->Form->input('plazas', 
 						array(
 							'label' => 'Plaza:', 
-							'id' => 'plazas',
-							'required')); ?>
+							'class' => 'k-combobox',
+							'div' => array('class' => 'requerido'),
+							'id' => 'plazas')); ?>
 				</li>
 				<li>
 					<?php echo $this->Form->input('cargos', 
 						array(
-							'label' => 'Cargo funcional:', 
-							'id' => 'cargos',
-							'required')); ?>
+							'label' => 'Cargo funcional:',
+							'class' => 'k-combobox', 
+							'div' => array('class' => 'requerido'),
+							'id' => 'cargos')); ?>
 				</li>
 				<li>
 					<?php echo $this->Form->input('telefonocontacto', 
 						array(
 							'label' => 'Telefono:', 
 							'class' => 'k-textbox', 
-							'id'	=>	'phone',
-							'placeholder' => 'Telefono Empresa', 
-							'validationMessage' => 'Ingrese Telefono Empresa')); ?>
+							'id'	=>	'phone'
+						)); ?>
 				</li>
 				<li>
 					<?php echo $this->Form->input('correoelectronico', 
 						array(
 							'label' => 'Correo electronico:', 
 							'class' => 'k-textbox', 
-							'placeholder' => 'Correo Electronico', 
-							'required', 
-							'validationMessage' => 'Ingrese Correo Electronico')); ?>
+							'div' => array('class' => 'requerido'),
+							'placeholder' => 'Ej. usuario@ejemplo.com')); ?>
 				</li>
 				<li  class="accept">
 					<?php echo $this->Form->end(array('label' => 'Registrar persona', 'class' => 'k-button')); ?>
@@ -118,13 +116,14 @@ $this->end(); ?>
 
                 .k-textbox {
                     width: 300px;
-                    margin-left: 5px;
-                    
                 }
 				
+				.k-combobox {
+					width: 300px;
+				}
 				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 			
-                form .required label:after {
+                form .requerido label:after {
 					font-size: 1.4em;
 					color: #e32;
 					content: '*';
@@ -158,11 +157,7 @@ $this->end(); ?>
                     display: inline-block;
                     width: 150px;
                     text-align: right;
-                    
-                }
-
-                .required {
-                    font-weight: bold;
+                    margin-right: 5px;
                 }
 
                 .accept, .status {
@@ -184,24 +179,13 @@ $this->end(); ?>
 			
 <script>
 	$(document).ready(function() {
-    var validator = $("#formulario").kendoValidator().data("kendoValidator"),
-    status = $(".status");
-
-    $("button").click(function() {
-		if (validator.validate()) 
-		{
-                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-		} 
-		else 
-		{
-                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-        }
-	});
+    
                 
 	$("#plazas").kendoDropDownList({
-		optionLabel: "Seleccione plaza...",
+		optionLabel: "Seleccione plaza",
 		dataTextField: "plaza",
 		dataValueField: "idplaza",
+		index: <?php echo $this->request->data['Persona']['idplaza']; ?>,
 		dataSource: {
 			type: "json",
 			transport: 
@@ -213,8 +197,9 @@ $this->end(); ?>
 	var plazas = $("#plazas").data("kendoDropDownList");
 				
 	$("#cargos").kendoDropDownList({
-            			optionLabel: "Seleccione cargo funcional...",
+            			optionLabel: "Seleccione cargo funcional",
 			            dataTextField: "cargofuncional",
+			            index: <?php echo $this->request->data['Persona']['idcargofuncional']; ?>,
 			            dataValueField: "idcargofuncional",
 			            dataSource: {
 			                            type: "json",
