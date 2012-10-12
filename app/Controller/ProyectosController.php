@@ -142,7 +142,7 @@
 						$this->Session->setFlash('Se ha asignado el número '.$this->request->data['Proyecto']['numeroproyecto'].
 												 ' al proyecto '.$this->request->data['Proyecto']['nombreproyecto'],
 												 'default',array('class'=>'success'));
-						$this->redirect(array('controller'=>'mains', 'action' => 'index'));
+						$this->redirect(array('action' => 'proyecto_listado'));
 		            }
 					else 
 						{
