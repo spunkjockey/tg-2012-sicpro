@@ -1,8 +1,8 @@
 <?php
     class InformesupervisorsController extends AppController
     {
-    	public $helpers = array('Html', 'Form', 'Session','Ajax');
-	    public $components = array('Session','RequestHandler');
+    	public $helpers = array('Html', 'Form', 'Session','Ajax','AjaxMultiUpload.Upload');
+	    public $components = array('Session','RequestHandler','AjaxMultiUpload.Upload');
 		public $uses = array('Informesupervisor','Proyecto','Contrato','User','Contratosupervisor');
 		
 		public function informesupervisor_index()
@@ -38,7 +38,7 @@
 				$this->Informesupervisor->set('userc',$this->Session->read('User.username'));
 				if ($this->Informesupervisor->save()) 
 				{
-					$this->Session->setFlash('El informe '. $this->request->data['Informesupervisor']['tituloinforme'].' ha sido registrado',
+					$this->Session->setFlash('El informe "'. $this->request->data['Informesupervisor']['tituloinforme'].'" ha sido registrado',
 											 'default',array('class'=>'success'));
 	                $this->redirect(array('action' => 'informesupervisor_index'));
 	            }
@@ -69,6 +69,9 @@
 			$this->set('_serialize', 'proyectos');
 			$this->render('/json/jsonproyecto');
 		}
+
+		/*update_nomproyecto()
+		 * Recupera el nombre del proyecto seleccionado*/
 		function update_nomproyecto()
 		{
 			if (!empty($this->data['Informesupervisor']['proyectos']))
@@ -99,7 +102,9 @@
 			$this->set('_serialize', 'contratos');
 			$this->render('/json/jsondatad');
 		}
-		
+		/*update_infocontrato()
+		 * Recupera información del contrato de supervision
+		 * */
 		function update_infocontrato()
 		{
 			if (!empty($this->data['Informesupervisor']['contratos']))
@@ -114,6 +119,71 @@
 			$this->render('/Elements/update_nomcontrato', 'ajax');	
 		}
 		
+		/*informesupervisor_cargar_archivo($id=null)
+		 * Permite agregar archivos sobre el informe de supervision*/
+		function informesupervisor_cargar_archivo($id=null)
+		{
+			$this->layout = 'cyanspark';
+        	$this->set('idinformesupervision', $id);
+		}
+		
+		/*informesupervisor_modificar($id=null)
+		 * Permite modificar un informe de supervision existente
+		 * */
+		function informesupervisor_modificar($id=null)
+		{
+			$this->layout = 'cyanspark';
+			$this->Informesupervisor->id = $id;
+			
+										
+			if ($this->request->is('get')) 
+			{
+				
+				$this->request->data=$this->Informesupervisor->read();
+			}
+			else 
+			{
+				$this->Informesupervisor->set('tituloinformesup',$this->request->data['Informesupervisor']['tituloinformesup']);
+				$this->Informesupervisor->set('fechainiciosupervision',$this->request->data['Informesupervisor']['fechainicio']);
+				$this->Informesupervisor->set('fechafinsupervision',$this->request->data['Informesupervisor']['fechafin']);
+				$this->Informesupervisor->set('plazoejecuciondias',$this->request->data['Informesupervisor']['plazoejecuciondias']);
+				$this->Informesupervisor->set('valoravancefinanciero',$this->request->data['Informesupervisor']['valoravancefinanciero']);
+				$this->Informesupervisor->set('porcentajeavancefisico',$this->request->data['Informesupervisor']['porcentajeavancefisico']);
+				$this->Informesupervisor->set('userm',$this->Session->read('User.username'));
+				$this->Informesupervisor->set('modificacion', date('Y-m-d h:i:s'));
+				if ($this->Informesupervisor->save()) 
+				{
+		            $this->Session->setFlash('El informe "'.$this->request->data['Informesupervisor']['tituloinformesup'].'" ha sido actualizado.', 
+		            						 'default', array('class'=>'success'));
+		            $this->redirect(array('action' => 'informesupervisor_index'));
+	        	} 
+	        	else 
+	        	{
+		           	$this->Session->setFlash('Ha ocurrido un error');
+				
+					
+        		} 
+			}
+		}
+		
+		/*informesupervisor_eliminar($id=null)
+		 * Esta funcion permite eliminar un informe de supervision*/
+		function informesupervisor_eliminar($id=null)
+		{
+			$informesupervisor = $this->Informesupervisor->find('first',array(
+									'fields'=>array('Informesupervisor.tituloinformesup'),
+									'conditions'=>array('Informesupervisor.idinformesupervision'=>$id)));
+			if (!$this->request->is('post')) 
+			{
+	        	throw new MethodNotAllowedException();
+	    	}
+		    if ($this->Informesupervisor->delete($id)) 
+		    {
+		        $this->Session->setFlash('El informe "'.$informesupervisor['Informesupervisor']['tituloinformesup'] .'" ha sido eliminado.',
+		        						 'default', array('class'=>'success'));
+		        $this->redirect(array('action' => 'informesupervisor_index'));
+		    }
+		}
 		
     }
 ?>

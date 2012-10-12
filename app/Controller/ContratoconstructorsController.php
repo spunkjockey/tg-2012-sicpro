@@ -200,7 +200,7 @@
 			$this->Contrato->create();
 			$id = $this->request->data['Contratoconstructor']['contratos'];
 			$this->Contrato->read(null, $id);
-			$this->Contrato->set('ipersona', null);
+			$this->Contrato->set('ipersona', $this->request->data['Contratoconstructor']['admin']);
 			$this->Contrato->set('idempresa', $this->request->data['Contratoconstructor']['empresas']);
 			$this->Contrato->set('codigocontrato', $this->request->data['Contratoconstructor']['codigocontrato']);
 			$this->Contrato->set('nombrecontrato', $this->request->data['Contratoconstructor']['nombrecontrato']);
