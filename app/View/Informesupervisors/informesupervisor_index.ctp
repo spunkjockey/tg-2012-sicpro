@@ -84,7 +84,7 @@ $this->end(); ?>
             )?>
             <?php echo $this->Html->link(
             	'Cargar archivo', 
-            	array('action' => 'informesupervisor_agregararchivo', $info['Informesupervisor']['idinformesupervision']),
+            	array('action' => 'informesupervisor_cargar_archivo', $info['Informesupervisor']['idinformesupervision']),
             	array('class'=>'k-button')
 			);?>
             
@@ -103,11 +103,11 @@ $this->end(); ?>
             	pageable: true,
             	pageable: {
             		messages: {
-            			display: "{0} - {1} de {2} Personas",
-            			empty: "No hay personas a mostrar",
+            			display: "{0} - {1} de {2} Informes",
+            			empty: "No hay informes a mostrar",
             			page: "Página",
             			of: "de {0}",
-            			itempsPerPage: "Personas por página",
+            			itempsPerPage: "Informes por página",
             			first: "Ir a la primera página",
             			previous: "Ir a la página anterior",
             			next: "Ir a la siguiente página",
