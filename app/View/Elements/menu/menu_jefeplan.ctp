@@ -2,22 +2,14 @@
 						<ul id="menu">
 							<li>Proyectos
 								<ul>
-									<li>Proyecto
-										<ul>
-											<li><?php echo $this->Html->link('Registrar proyecto', array('controller' => 'proyectos','action'=>'proyecto_registrar')); ?></li>
-											<li><?php echo $this->Html->link('Modificar proyecto', array('controller' => 'proyectos','action'=>'proyecto_listado')); ?></li>
-											<li><?php echo $this->Html->link('Asignar número proyecto', array('controller' => 'proyectos','action'=>'proyecto_asignar_num')); ?></li>
-											<li disabled="disabled">Eliminar proyecto</li>
-										</ul>
-									</li>	
+									<li><?php echo $this->Html->link('Administración de proyectos', array('controller' => 'proyectos','action'=>'proyecto_listado')); ?></li>
 									<li>Ficha t&eacute;cnica
 										<ul>
 											<li><?php echo $this->Html->link('Registrar Ficha Técnica', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_registrarficha')); ?></li>
-											<li disabled="disabled">Modificar ficha t&eacute;cnica</li>
-											<li disabled="disabled">Eliminar ficha t&eacute;cnica</li>
+											<li><?php echo $this->Html->link('Modificar Ficha Técnica', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_listarficha')); ?></li>
 											<li disabled="disabled">Consultar ficha t&eacute;cnica</li>
 										</ul>
-									</li>	
+									</li>		
 									<li><?php echo $this->Html->link('Asignación de Fondos', array('controller' => 'Financias','action'=>'index')); ?></li>
 								</ul>
 							</li>
@@ -31,14 +23,14 @@
 									<li disabled="disabled">Actualizar porcentaje de avance en las metas</li>
 								</ul>
 							</li>	
-							<li disabled="disabled">Reportes
+							<li>Reportes
 								<ul>
-									<li>Reporte general de proyecto</li>
-									<li>Consultar avances de contratos</li>
-									<li>Estado de proyecto y contratos</li>
-									<li>Contratos asociados a proyectos</li>
-									<li>Lugares en los que se han desarrollado proyectos</li>
-									<li>Beneficiarios y empleos generados</li>
+									<li disabled="disabled">Reporte general de proyecto</li>
+									<li disabled="disabled">Consultar avances de contratos</li>
+									<li disabled="disabled">Estado de proyecto y contratos</li>
+									<li disabled="disabled">Contratos asociados a proyectos</li>
+									<li disabled="disabled">Lugares en los que se han desarrollado proyectos</li>
+									<li disabled="disabled">Beneficiarios y empleos generados</li>
 								</ul>
 							</li>
 							<li>Mantenimiento
