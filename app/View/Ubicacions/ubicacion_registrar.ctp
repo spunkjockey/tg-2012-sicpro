@@ -43,7 +43,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO
+			?> » Proyecto » Ficha Tecnica » Registrar Ficha Tecnica
 			
 		</div>
 	</div>

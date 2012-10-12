@@ -43,7 +43,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO » Mantenimiento » Empresa » Detalles Empresa
+			?> » Mantenimiento » Empresa » Detalles Empresa
 			
 		</div>
 	</div>

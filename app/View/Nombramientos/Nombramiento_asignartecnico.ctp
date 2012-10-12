@@ -43,7 +43,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO
+			?> » Contrato » Asignacion de Tecnico
 			
 		</div>
 	</div>
@@ -59,88 +59,53 @@ $this->end(); ?>
 					<?php echo $this->Form->input('proyectos',
 						array(
 							'label' => 'Proyectos:', 
-							'id' => 'proyectos'
+							'id' => 'proyectos',
+							'class' => 'k-dropdownlist'
 						)); ?>
+						<div id="error1" class="error-message"></div>
 				</li>
 				<li>
 					<?php echo $this->Form->input('contratos',
 						array(
 							'label' => 'Contratos:', 
-							'id' => 'contratos'
+							'id' => 'contratos',
+							'class' => 'k-dropdownlist'
 						)); ?>
+						<div id="error2" class="error-message"></div>
 				</li>
-				<li>
-				<?php echo $this->Form->input('fechanombramiento', 
-					array(
-						'label' => 'Fecha Nombramiento:', 
-						'id'	=> 'datePicker1',
-						'type'  => 'Text'
-						) ); ?>
-				</li>
-				<br/>
-				<br/>
-				<select name="myselect[]" id="myselect" class="multiselect" size="6" multiple="true">
+				<div id="listpicker">
+					
+				</div>
+				<!--<select name="myselect[]" id="myselect" class="multiselect" size="6" multiple="true">
 					<?php foreach($tecnicos as $k => $v) {
 						
 	    				echo "<option value='$k'>$v</option>";
 	  				}?>
-				</select>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
+				</select>-->
+
 				<li  class="accept">
 					<table>
 						<tr>
 							<td>
-								<?php echo $this->Form->end(array('label' => 'Registrar Tecnicos', 'class' => 'k-button', 'id' => 'button')); ?>
+								<?php echo $this->Html->link('Regresar',
+									array('controller' => 'Mains', 'action' => 'index'),array('class'=>'k-button')); 
+								?>				
 							</td>
 							<td>
-								<?php echo $this->Html->link('Cancelar',array('controller' => 'Mains', 'action' => 'index'),array('class'=>'k-button')); ?>
+								<!--<?php echo $this->Form->end(array('label' => 'Registrar Tecnicos', 'class' => 'k-button', 'id' => 'button')); ?>-->
 							</td>
 						</tr>
 					</table>
 				</li>
 				<?php echo $this->ajax->observeField( 'contratos', 
 		    		array(
-		        		'url' => array( 'action' => 'update_multic'),
-		        		'update' => 'myselect'
+		        		'url' => array( 'action' => 'update_tecdispo'),
+		        		'update' => 'listpicker'
 		    		) 
 				);  ?>
 			</ul>
 		</div>
 	</div>
-
-<style type="text/css">
-		/* Recommended styles */
-		.tsmsselect {
-			width: 40%;
-			float: left;
-		}
-		
-		.tsmsselect select {
-			width: 100%;
-		}
-		
-		.tsmsoptions {
-			width: 20%;
-			float: left;
-		}
-		
-		.tsmsoptions p {
-			margin: 2px;
-			text-align: center;
-			font-size: larger;
-			cursor: pointer;
-		}
-		
-		.tsmsoptions p:hover {
-			color: White;
-			background-color: Silver;
-		}
-	</style>
 <style scoped>
 
                 .k-textbox {
@@ -225,7 +190,7 @@ $this->end(); ?>
 
 <script type="text/javascript">
     $(document).ready(function () {    	
-       	$(".multiselect").twosidedmultiselect();
+       	/*$(".multiselect").twosidedmultiselect();*/
        	
        	$("#proyectos").kendoDropDownList({
             			optionLabel: "Seleccione proyecto...",
@@ -259,5 +224,30 @@ $this->end(); ?>
 		   culture: "es-ES",
 		   format: "dd/MM/yyyy" //Define el formato de fecha
 		});
+		
+		
+				 $('#error1').hide();
+				 $('#error2').hide();
+                    $("#NombramientoNombramientoAsignartecnicoForm").submit( function(){
+				        var selectpro = $("#proyectos").val();
+				        var selectcon = $("#contratos").val();
+				 			$('#error1').hide();
+				 			$('#error2').hide();
+				            if(selectpro == ""){
+				            	$('#error1').show();
+				                $('#error1').text("Seleccione un Proyecto");
+				                
+				                return false;
+				            } else if(selectcon == ""){
+				            	$('#error2').show();
+				                $('#error2').text("Seleccione un Contrato");
+				                
+				                return false;
+				            } else {
+				                $('.error-message').hide();
+				                /*alert('Ok!');*/
+				                return true;
+				            }
+				    });		
     });
 </script>

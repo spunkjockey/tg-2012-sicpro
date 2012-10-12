@@ -43,7 +43,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO » Mantenimiento » Empresa » Modificar Empresa
+			?> » Mantenimiento » Empresa » Modificar Empresa
 			
 		</div>
 	</div>
@@ -132,15 +132,23 @@ $this->end(); ?>
 					mail.add( Validate.Email , { failureMessage: "El correo electronico debe ser valido" });
 		        </script> 
 			</li>	
-		<li  class="accept">
 				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
 				<?php echo $this->Form->input('nitempresa', array('type' => 'hidden')); ?>
-				<?php echo $this->Form->end(array('label' => 'Editar Empresa', 'class' => 'k-button')); ?>
-				<?php echo $this->Html->link(
-					'Regresar', 
-					array('controller' => 'Empresas', 'action' => 'index'),
-					array('class'=>'k-button')
-				); ?>
+		<li  class="accept">
+				<table>
+					<tr>
+						<td>
+							<?php echo $this->Html->link(
+								'Regresar', 
+								array('controller' => 'Empresas', 'action' => 'index'),
+								array('class'=>'k-button')
+							); ?>	
+						</td>
+						<td>
+							<?php echo $this->Form->end(array('label' => 'Editar Empresa', 'class' => 'k-button')); ?>
+						</td>
+				</tr>
+				</table>
 			</li>
             
             <li class="status">
