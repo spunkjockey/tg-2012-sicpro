@@ -5,6 +5,13 @@
 		public $useTable = 'informesupervision';
 		public $primaryKey = 'idinformesupervision';
     	
+		public $belongsTo = array(  /*Relacion con las dos tablas Fuente financiamiento y tipo fuente*/
+	        'Contratosupervisor' => array(
+	            'className'    => 'Contratosupervisor',
+	            'foreignKey'   => 'idcontrato'
+	        )
+	    );
+		
 		public $hasOne = array(
 	        'Facturasupervision' => array(
 	            'className' => 'Facturasupervision',

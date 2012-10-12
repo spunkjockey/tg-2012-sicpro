@@ -166,7 +166,7 @@ $this->end(); ?>
 							<?php echo $this->Form->end(array('label' => 'Agregar Nuevo Avance', 'class' => 'k-button', 'id' => 'button')); ?>
 						</td>
 						<td>
-							<?php echo $this->Html->link('Terminar',array('controller' => 'Mains', 'action' => 'index'),array('class'=>'k-button')); ?>
+							<?php echo $this->Html->link('Cancelar',array('controller' => 'Mains', 'action' => 'index'),array('class'=>'k-button')); ?>
 						</td>
 					</tr>
 				</table>

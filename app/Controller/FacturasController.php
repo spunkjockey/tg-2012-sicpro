@@ -4,8 +4,33 @@ class FacturasController extends AppController {
     public $components = array('Session','RequestHandler');
 	public $uses = array('Factura','Contrato','Informesupervisor','Estimacion');
 
-    public function index() {
+    public function index($idproyecto=null,$idcontrato=null) {
     	$this->layout = 'cyanspark';
+		if ($this->request->is('get')) {
+			
+		
+			if(isset($idcontrato) && !empty($idcontrato)) {
+				$this->set('idproyecto', $idproyecto);
+				$this->set('idcontrato', $idcontrato);
+				$contrato = $this->Contrato->findByIdcontrato($idcontrato);
+				$this->set('contrato',$contrato);
+				//Debugger::dump($contrato['Contrato']['tipocontrato']);
+				switch ($contrato['Contrato']['tipocontrato']) {
+					case 'Construcción de obras':
+				        $estimacion = $this->Estimacion->findAllByIdcontrato($idcontrato,array(),array('Estimacion.idestimacion' => 'asc'));
+						//Debugger::dump($estimacion);
+						$this->set('estimacion',$estimacion);
+				        break;
+				    case 'Supervisión de obras':
+				        $supervisor = $this->Informesupervisor->findAllByIdcontrato($idcontrato,array(),array('Informesupervisor.idinformesupervision' => 'asc'));
+						//Debugger::dump($supervisor);
+						$this->set('supervisor',$supervisor);
+				        break;		
+				}
+	
+			}
+	
+		}
         //$this->set('facturas', $this->Factura->find('all'));
     }
 

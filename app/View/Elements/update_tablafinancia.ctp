@@ -1,6 +1,7 @@
 <div id='divdos'>
 <?php if(isset($disponible)) { ?>
-	<h3>Detalle Fuente financiamiento</h3>
+	<h3>Detalles Fuente financiamiento</h3>
+	<p><strong class:'etiqueta'>Título Estimación: </strong><?php echo $titulo;?>
 	<p><strong class:'etiqueta'>Monto Disponible: </strong><?php echo '$'.number_format($disponible, 2, '.', ',')?> 
 <?php } ?>
 </div> 
@@ -76,7 +77,7 @@
             { field: "montoparcial", title: "Monto", format: "{0:c}", footerTemplate: <?php echo "<strong>#= kendo.toString(sum,'c2') #</strong>"; ?>},
             { field: "userc", title: "Usuario"},
             { field: "creacion", title: "Fecha Asignación", format: "{0:dd/MM/yyyy}"},
-            { field: "accion", width: 150} 
+            { field: "accion", width: 200} 
 		]
           
 	});

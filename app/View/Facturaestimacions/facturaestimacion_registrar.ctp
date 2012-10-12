@@ -57,12 +57,18 @@ $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Registrar Factura</h2>
-		<?php echo $this->Form->create('Facturaestimacion'); ?>
+		
+		<?php /*Debugger::dump($this->request->data);*/ echo $this->Form->create('Facturaestimacion'); ?>
 		<ul>
 			<li>
-				<?php echo '<label><strong>Código de Contrato:</strong></label> '.$contrato['Contratoconstructor']['codigocontrato']; ?>
+				<?php echo $this->Form->input('idestimacion', array(
+								'label' => 'IDEstimacion',
+								'id' => 'idestimacion',
+								'class' => 'k-textbox',
+								'value' => $this->request->data['Facturaestimacion']['idestimacion'],
+								'div' => array('class' => 'requerido')
+							)); ?> 
 			</li>
-			
 			<li>
 				<?php echo $this->Form->input('numerofactura', array(
 								'label' => 'Numero Factura',
@@ -82,6 +88,35 @@ $this->end(); ?>
 				</script>
 			</li>
 			<li>
+				<?php echo $this->Form->input('descripcionfactura', array(
+								'label' => 'Descripción Factura',
+								'id' => 'descripcionfactura',
+								'class' => 'k-textbox',
+								'div' => array('class' => 'requerido')
+							)); ?> 
+				<script type="text/javascript">
+					var descripcionfactura = new LiveValidation( "descripcionfactura", { validMessage: " " } );
+					descripcionfactura.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+				</script>
+			</li>
+			<li>
+				<?php echo $this->Form->input('montofactura', array(
+								'label' => 'Monto Factura',
+								'id' => 'montofactura',
+								'style' => 'width:120px;',
+								'maxlength' => 12,
+								'div' => array('class' => 'requerido'),
+								'error' => array('attributes' => array('wrap' => 'span', 'class' => 'LV_validation_message LV_invalid', "id" => 'errormontofactura'))
+							)); ?>
+				<script type="text/javascript">
+					var montofactura = new LiveValidation( "montofactura", { validMessage: " " } );
+		            montofactura.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            montofactura.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
+		        </script>
+						
+						<!--<td><a class="k-button"><span class="k-icon k-i-pencil"></span></a> <a class="k-button"><span class="k-icon k-i-close"></span></a></td>-->
+			</li>	
+			<li>
 				<?php echo $this->Form->input('fechafactura', array(
 								'label' => 'Fecha de Avance',
 								'type' => 'text', 
@@ -94,33 +129,17 @@ $this->end(); ?>
 				<script type="text/javascript">
 		            var fechafactura = new LiveValidation( "fechafactura", { validMessage: " " } );
 		            fechafactura.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            fechafactura.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d$/, failureMessage: "La Fecha debe contener el siguiente formato DD/MM/AAAA"  } );
+		            fechafactura.add(Validate.Format, { pattern: /[0-3]\d\/[0-1]\d\/\d\d\d\d$/, failureMessage: "La Fecha debe contener el siguiente formato DD/MM/AAAA"  } );
 		        </script> 
 			</li>
-			<li>
-				<?php echo $this->Form->input('montofactura', array(
-								'label' => 'Monto Factura',
-								'id' => 'montofactura',
-								'style' => 'width:120px;',
-								'maxlength' => 12,
-								'div' => array('class' => 'requerido')
-							)); ?>
-				<script type="text/javascript">
-					var montofactura = new LiveValidation( "montofactura", { validMessage: " " } );
-		            montofactura.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            montofactura.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
-		        </script>
-						
-						<!--<td><a class="k-button"><span class="k-icon k-i-pencil"></span></a> <a class="k-button"><span class="k-icon k-i-close"></span></a></td>-->
-			</li>	
 			<li  class="accept">
 				<table>
 					<tr>
 						<td>
-							<?php echo $this->Form->end(array('label' => 'Agregar Nuevo Avance', 'class' => 'k-button', 'id' => 'button')); ?>
+							<?php echo $this->Form->end(array('label' => 'Agregar Factura', 'class' => 'k-button', 'id' => 'button')); ?>
 						</td>
 						<td>
-							<?php echo $this->Html->link('Terminar',array('controller' => 'Mains', 'action' => 'index'),array('class'=>'k-button')); ?>
+							<?php echo $this->Html->link('Cancelar',array('controller' => 'Mains', 'action' => 'index'),array('class'=>'k-button')); ?>
 						</td>
 					</tr>
 				</table>
@@ -273,7 +292,11 @@ $this->end(); ?>
   						$("#errorfechafactura").fadeOut("slow");
   				});
                 
+                errormontofactura
 					
+				$("#montofactura").focusin(function () {
+  						$("#errormontofactura").fadeOut("slow");
+  				});
 					
                 });
                 

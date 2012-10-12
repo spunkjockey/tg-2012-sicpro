@@ -71,7 +71,7 @@ class FinanciasController extends AppController {
 
 	function update_tablafinancia() {
 			//Debugger::dump($this->data);
-		if (!empty($this->data['Financia']['proyectos'])) {
+		if (isset($this->data['Financia']['proyectos']) && !empty($this->data['Financia']['proyectos'])) {
 			
 			$proyectos_id = $this->data['Financia']['proyectos'];
         	
@@ -79,9 +79,10 @@ class FinanciasController extends AppController {
 			$this->set('proyectos', $this->Financia->findAllByIdproyecto($proyectos_id));
 		}
 		
-		if (!empty($this->data['Financia']['fuentes'])) {
+		if (isset($this->data['Financia']['fuentes']) && !empty($this->data['Financia']['fuentes'])) {
 			$idff = $this->Fuentefinanciamiento->findByIdfuentefinanciamiento($this->data['Financia']['fuentes']);	
 			$this->set('disponible',$idff['Fuentefinanciamiento']['montodisponible']);
+			$this->set('titulo',$idff['Fuentefinanciamiento']['nombrefuente']);
 		}
 		
 		$this->render('/Elements/update_tablafinancia', 'ajax');
@@ -92,6 +93,7 @@ class FinanciasController extends AppController {
 	function update_disponible() {
 		$idff = $this->Fuentefinanciamiento->findByIdfuentefinanciamiento($this->data['Financia']['fuentes']);	
 		$this->set('disponible',$idff['Fuentefinanciamiento']['montodisponible']);
+		$this->set('titulo',$idff['Fuentefinanciamiento']['nombrefuente']);
 		$this->render('/Elements/update_disponible', 'ajax');
 	}
 	

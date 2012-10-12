@@ -36,15 +36,26 @@
 	            
 	            	if(!empty($es['Facturaestimacion']['idfacturaestimacion'])) {
 	            		echo "Facturada el " . $es['Facturaestimacion']['facturacion'];
+
+		            	/*echo $this->Html->link(
+			            	'<span class="k-icon k-i-pencil"></span>', 
+			            	array('controller' => 'Facturaestimacions', 'action' => 'facturaestimacion_modificar', $es['Facturaestimacion']['idfacturaestimacion']),
+			            	array('class'=>'k-button', 'escape' => false)
+						);*/
+						
+			            echo $this->Form->postLink(
+			                '<span class="k-icon k-i-close"></span>Eliminar',
+			                array('controller' => 'Facturaestimacions', 'action' => 'facturaestimacion_eliminar', $es['Facturaestimacion']['idfacturaestimacion']),
+			                array('confirm' => '¿Está seguro?','class'=>'k-button', 'escape' => false)
+			            );
+
 	            	} else {
 	            		echo $this->Html->link(
-	            			'Facturar', 
+	            			'<span class="k-icon k-i-plus"></span>Facturar', 
 	            			array('controller' => 'Facturaestimacions', 'action' => 'facturaestimacion_registrar', $es['Estimacion']['idestimacion']),
-	            			array('class'=>'k-button')
+	            			array('class'=>'k-button', 'escape' => false)
 						);
 	            	}
-	            
-	            
 	            /*echo $this->Html->link(
 	            	'Facturar', 
 	            	array('action' => 'Avanceprogramado_editaravance', $av['Avanceprogramado']['idavanceprogramado']),
@@ -83,11 +94,25 @@
 	            
 	            	if(!empty($su['Facturasupervision']['idinformesupervision'])) {
 	            		echo "Facturada el " . $su['Facturasupervision']['facturacion'];
+						
+		            	/*echo $this->Html->link(
+			            	'<span class="k-icon k-i-pencil"></span>', 
+			            	array('controller' => 'Facturasupervisions', 'action' => 'facturasupervision_modificar', $su['Facturasupervision']['idinformesupervision']),
+			            	array('class'=>'k-button', 'escape' => false)
+						);*/
+						
+			            echo $this->Form->postLink(
+			                '<span class="k-icon k-i-close"></span>Eliminar',
+			                array('controller' => 'Facturasupervisions', 'action' => 'facturasupervision_eliminar', $su['Facturasupervision']['idfacturasupervision']),
+			                array('confirm' => '¿Está seguro?','class'=>'k-button', 'escape' => false)
+			            );
+
+
 	            	} else {
 	            		echo $this->Html->link(
-	            			'Facturar', 
+	            			'<span class="k-icon k-i-plus"></span>Facturar', 
 	            			array('controller' => 'Facturasupervisions', 'action' => 'facturasupervision_registrar', $su['Informesupervisor']['idinformesupervision']),
-	            			array('class'=>'k-button')
+	            			array('class'=>'k-button', 'escape' => false)
 						);
 	            	}
 	            
