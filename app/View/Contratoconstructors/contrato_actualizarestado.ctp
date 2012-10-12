@@ -43,7 +43,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO » Contratos » Actualizar Estado Contrato
+			?> » Contratos » Actualizar Estado Contrato
 			
 		</div>
 	</div>

@@ -1,21 +1,12 @@
 <div class="navmenu" style="margin:0px auto; width: 970px">
 						<ul id="menu">
-							<li>Proyectos
-								<ul>
-									<li>Ficha t&eacute;cnica
-										<ul>
-											<li disabled="disabled">Consultar ficha t&eacute;cnica</li>
-										</ul>
-									</li>	
-								</ul>
-							</li>
 							<li>Contratos
 								<ul>
 									<li disabled="disabled">Consultar contrato</li>
-									<li disabled="disabled">Actualizar estado de contrato</li>
-									<li disabled="disabled">Asignaci&oacute;n de t&eacute;cnicos</li>
+									<li><?php echo $this->Html->link('Actualizar estado de contrato', array('controller' => 'Contratoconstructors','action'=>'contrato_actualizarestado')); ?></li>
+									<li><?php echo $this->Html->link('Asignación de técnicos', array('controller' => 'Nombramientos','action'=>'Nombramiento_asignartecnico')); ?></li>
 									<li><?php echo $this->Html->link('Orden de Inicio', array('controller' => 'Contratos','action'=>'addordeninicio')); ?></li>
-									<li>Orden de Cambio</li>
+									<li disabled="disabled">Orden de Cambio</li>
 								</ul>
 							</li>
 							<li>Control y seguimiento
@@ -53,16 +44,16 @@
 									<li disabled="disabled">Consultar facturas por contrato</li>
 								</ul>
 							</li>	
-							<li disabled="disabled">Reportes
+							<li>Reportes
 								<ul>
-									<li>General de proyecto</li>
-									<li>Historial de empresas</li>
-									<li>Consultar avances de contratos</li>
-									<li>Estado de proyecto y contratos</li>
-									<li>Contratos asociados a proyectos</li>
-									<li>Lugares en los que se han desarrollado proyectos</li>
-									<li>Beneficiarios y empleos generados</li>
-									<li>Personal asignado &nbsp;por contrato</li>
+									<li disabled="disabled">General de proyecto</li>
+									<li disabled="disabled">Historial de empresas</li>
+									<li disabled="disabled">Consultar avances de contratos</li>
+									<li disabled="disabled">Estado de proyecto y contratos</li>
+									<li disabled="disabled">Contratos asociados a proyectos</li>
+									<li disabled="disabled">Lugares en los que se han desarrollado proyectos</li>
+									<li disabled="disabled">Beneficiarios y empleos generados</li>
+									<li disabled="disabled">Personal asignado &nbsp;por contrato</li>
 								</ul>
 							</li>
 							<li>Mantenimiento

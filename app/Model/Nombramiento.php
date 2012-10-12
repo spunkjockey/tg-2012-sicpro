@@ -16,4 +16,25 @@ class Nombramiento extends AppModel {
         )
     );
 	
+	
+	
+	public $validate = array(
+		'idpersona' => array(
+			'llave' => array(
+            	'rule'    => array('verydispo'),
+            	'message' => 'El Tecnico ya fue seleccionado para ese contrato'
+        	)
+		)
+	);
+	
+	public function verydispo($check) {
+		//Debugger::dump($this->data);
+        $cantidad = $this->find('count', array(
+            'conditions' => array('Nombramiento.idcontrato ' => $this->data['Nombramiento']['idcontrato'],
+            'Nombramiento.idpersona' => $this->data['Nombramiento']['idpersona'])   
+			
+        ));
+        return $cantidad == 0;
+    }
+	
 }
