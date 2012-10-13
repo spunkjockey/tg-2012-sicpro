@@ -3,7 +3,7 @@
 						<ul id="menu">
 							<li>Proyectos
 								<ul>
-									<li><?php echo $this->Html->link('Administración de proyectos', array('controller' => 'proyectos','action'=>'proyecto_listado')); ?></li>
+									<li><?php echo $this->Html->link('Administración de proyectos', array('controller' => 'Proyectos','action'=>'proyecto_listado')); ?></li>
 									<li>Ficha t&eacute;cnica
 										<ul>
 											<li><?php echo $this->Html->link('Registrar Ficha Técnica', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_registrarficha')); ?></li>
@@ -32,7 +32,7 @@
 									</li>	
 									<li disabled="disabled">Consultar contrato</li>
 									<li><?php echo $this->Html->link('Actualizar estado de contrato', array('controller' => 'Contratoconstructors','action'=>'contrato_actualizarestado')); ?></li>
-									<li><?php echo $this->Html->link('Asignación de técnicos', array('controller' => 'nombramientos','action'=>'nombramiento_asignartecnico')); ?></li>
+									<li><?php echo $this->Html->link('Asignación de técnicos', array('controller' => 'Nombramientos','action'=>'nombramiento_asignartecnico')); ?></li>
 									<li><?php echo $this->Html->link('Orden de Inicio', array('controller' => 'Contratos','action'=>'addordeninicio')); ?></li>
 									<li>Orden de Cambio</li>
 								</ul>
@@ -87,15 +87,15 @@
 							</li>
 							<li>Mantenimiento
 								<ul>
-									<li><?php echo $this->Html->link('Empresas', array('controller' => 'empresas','action'=>'index')); ?></li>
+									<li><?php echo $this->Html->link('Empresas', array('controller' => 'Empresas','action'=>'index')); ?></li>
 									<li>Fuentes de financiamiento
 										<ul>
 											<li><?php echo $this->Html->link('Fuente de financiamiento', array('controller' => 'Fuentefinanciamientos','action'=>'index')); ?></li>
 											<li disabled="disabled">Consultar fuente de financiamiento (en un periodo)</li>
 										</ul>
 									</li>
-									<li><?php echo $this->Html->link('Administración de personal', array('controller' => 'personas','action'=>'persona_index')); ?></li>
-									<li><?php echo $this->Html->link('Administración de usuarios', array('controller' => 'users','action'=>'user_index')); ?></li>
+									<li><?php echo $this->Html->link('Administración de personal', array('controller' => 'Personas','action'=>'persona_index')); ?></li>
+									<li><?php echo $this->Html->link('Administración de usuarios', array('controller' => 'Users','action'=>'user_index')); ?></li>
 									
 									
 									<li>Perfil
