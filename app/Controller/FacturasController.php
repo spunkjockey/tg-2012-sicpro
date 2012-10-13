@@ -27,17 +27,17 @@ class FacturasController extends AppController {
             $this->factura->set('idproyecto', $this->request->data['factura'] ['proyectos']);
 			
             $this->factura->set('tituloestimacion', $this->request->data['factura'] ['tituloestimacion']);
-			$this->Estimacion->set('fechainicioestimacion', $this->request->data['Estimacion'] ['fechainicioestimacion']);
-			$this->Estimacion->set('fechafinestimacion', $this->request->data['Estimacion'] ['fechafinestimacion']);
-			$this->Estimacion->set('montoestimado', $this->request->data['Estimacion'] ['montoestimado']);
-			$this->Estimacion->set('porcentajeestimadoavance', $this->request->data['Estimacion'] ['porcentajeestimadoavance']);	
-            $this->Estimacion->set('fechaestimacion', $this->request->data['Estimacion'] ['fechaestimacion']);	
-			$this->Estimacion->set('userc', $this->Session->read('User.username'));
+			$this->factura->set('fechainicioestimacion', $this->request->data['Estimacion'] ['fechainicioestimacion']);
+			$this->factura->set('fechafinestimacion', $this->request->data['Estimacion'] ['fechafinestimacion']);
+			$this->factura->set('montoestimado', $this->request->data['Estimacion'] ['montoestimado']);
+			$this->factura->set('porcentajeestimadoavance', $this->request->data['Estimacion'] ['porcentajeestimadoavance']);	
+            $this->factura->set('fechaestimacion', $this->request->data['Estimacion'] ['fechaestimacion']);	
+			$this->factura->set('userc', $this->Session->read('User.username'));
 			
 			if($this->Estimacion->save()) 	{
             	
        	
-            	$this->Session->setFlash('La Estimación de Avance ha sido registrada.');
+            	$this->Session->setFlash('La Estimación de Avance ha sido registrada.', 'default', array('class'=>'success'));
             	$this->redirect(array('action' => 'index'));
         	} else {
             	$this->Session->setFlash('No se pudo realizar el registro');
@@ -72,9 +72,9 @@ public function proyectojson() {
 	}
 		function update_selectContrato1()
         {
-                if (!empty($this->data['Estimacion']['proyectos']))
+                if (!empty($this->data['factura']['proyectos']))
                 {
-                        $proyecto_id = $this->data['Estimacion']['proyectos'];
+                        $proyecto_id = $this->data['factura']['proyectos'];
                         $contratos= $this->Contrato->find('all', array(
 	                        'fields'=>array('Contrato.idcontrato','Contrato.codigocontrato'),
 	                        'order'=>'Contrato.codigocontrato ASC',
@@ -87,21 +87,21 @@ public function proyectojson() {
 
 
 
-	function ModificarEstimacion($id = null)  {
+	function Modificarfactura($id = null)  {
 	    $this->layout = 'cyanspark';
         //preguntar si es post
-        $this->Estimacion->id = $id;
+        $this->factura->id = $id;
 		if ($this->request->is('get')) {
-		   	$this->request->data=$this->Estimacion->read();
+		   	$this->request->data=$this->factura->read();
 		 }
         else {
-        	$this->Estimacion->set('tituloestimacion', $this->request->data['Estimacion'] ['tituloestimacion']);
-			$this->Estimacion->set('fechainicioestimacion', $this->request->data['Estimacion'] ['fechainicioestimacion']);
-			$this->Estimacion->set('fechafinestimacion', $this->request->data['Estimacion'] ['fechafinestimacion']);
-			$this->Estimacion->set('montoestimado', $this->request->data['Estimacion'] ['montoestimado']);
-			$this->Estimacion->set('porcentajeestimadoavance', $this->request->data['Estimacion'] ['porcentajeestimadoavance']);	
-            $this->Estimacion->set('fechaestimacion', $this->request->data['Estimacion'] ['fechaestimacion']);	
-			$this->Estimacion->set('userc', $this->Session->read('User.username'));
+        	$this->factura->set('tituloestimacion', $this->request->data['factura'] ['tituloestimacion']);
+			$this->factura->set('fechainicioestimacion', $this->request->data['factura'] ['fechainicioestimacion']);
+			$this->factura->set('fechafinestimacion', $this->request->data['factura'] ['fechafinestimacion']);
+			$this->factura->set('montoestimado', $this->request->data['factura'] ['montoestimado']);
+			$this->factura->set('porcentajeestimadoavance', $this->request->data['factura'] ['porcentajeestimadoavance']);	
+            $this->factura->set('fechaestimacion', $this->request->data['factura'] ['fechaestimacion']);	
+			$this->factura->set('userc', $this->Session->read('User.username'));
 			  
 		if ($this->Estimacion->save()) {
 		            $this->Session->setFlash('La Estimación de Avance ha sido actualizada.', 'default', array('class'=>'success'));
