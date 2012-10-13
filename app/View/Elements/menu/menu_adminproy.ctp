@@ -1,33 +1,24 @@
 <div class="navmenu" style="margin:0px auto; width: 970px">
 						<ul id="menu">
-							<li>Proyectos
-								<ul>
-									<li>Ficha t&eacute;cnica
-										<ul>
-											<li disabled="disabled">Consultar ficha t&eacute;cnica</li>
-										</ul>
-									</li>	
-								</ul>
-							</li>
 							<li>Contratos
 								<ul>
 									<li>Constructor
 										<ul>
-											<li><?php echo $this->Html->link('Registrar contrato constuctor', array('controller' => 'Contratoconstructors','action'=>'add')); ?></li>
+											<li><?php echo $this->Html->link('Registrar contrato constuctor', array('controller' => 'Contratoconstructors','action'=>'contratoconstructor_registrar')); ?></li>
 											<li><?php echo $this->Html->link('Modificar contrato constuctor', array('controller' => 'Contratoconstructors','action'=>'contratoconstructor_modificar')); ?></li>
 											<li disabled="disabled">Eliminar contrato constructor</li>
 										</ul>
 									</li>
 									<li>Supervisor
 										<ul>
-											<li><?php echo $this->Html->link('Registrar contrato supervisor', array('controller' => 'Contratosupervisors','action'=>'add')); ?></li>
-											<li disabled="disabled">Modificar contrato supervisor</li>
+											<li><?php echo $this->Html->link('Registrar contrato supervisor', array('controller' => 'Contratosupervisors','action'=>'contratosupervisor_registrar')); ?></li>
+											<li><?php echo $this->Html->link('Modificar contrato supervisor', array('controller' => 'Contratosupervisors','action'=>'contratosupervisor_modificar')); ?></li>
 											<li disabled="disabled">Eliminar contrato supervisor</li>
 										</ul>
-									</li>	
+									</li>		
 									<li disabled="disabled">Consultar contrato</li>
 									<li><?php echo $this->Html->link('Actualizar estado de contrato', array('controller' => 'Contratoconstructors','action'=>'contrato_actualizarestado')); ?></li>
-									<li disabled="disabled">Asignaci&oacute;n de t&eacute;cnicos</li>
+									<li><?php echo $this->Html->link('Asignación de técnicos', array('controller' => 'Nombramientos','action'=>'Nombramiento_asignartecnico')); ?></li>
 								</ul>
 							</li>
 							<li>Control y seguimiento
@@ -51,8 +42,7 @@
 										<ul>
 											<li disabled="disabled">Consultar Informe T&eacute;cnico</li>
 										</ul>
-									</li>	
-									<li disabled="disabled">Actualizar porcentaje de avance en las metas</li>
+									</li>
 								</ul>
 							</li>	
 							<li>Facturas
@@ -61,25 +51,29 @@
 									<li disabled="disabled">Consultar facturas por contrato</li>
 								</ul>
 							</li>	
-							<li disabled="disabled">Reportes
+							<li>Reportes
 								<ul>
-									<li>General de proyecto</li>
-									<li>Historial de empresas</li>
-									<li>Consultar avances de contratos</li>
-									<li>Estado de proyecto y contratos</li>
-									<li>Contratos asociados a proyectos</li>
-									<li>Lugares en los que se han desarrollado proyectos</li>
-									<li>Beneficiarios y empleos generados</li>
-									<li>Personal asignado &nbsp;por contrato</li>
+									<li disabled="disabled">General de proyecto</li>
+									<li disabled="disabled">Historial de empresas</li>
+									<li disabled="disabled">Consultar avances de contratos</li>
+									<li disabled="disabled">Estado de proyecto y contratos</li>
+									<li disabled="disabled">Contratos asociados a proyectos</li>
+									<li disabled="disabled">Lugares en los que se han desarrollado proyectos</li>
+									<li disabled="disabled">Beneficiarios y empleos generados</li>
+									<li disabled="disabled">Personal asignado &nbsp;por contrato</li>
 								</ul>
 							</li>
 							<li>Mantenimiento
 								<ul>
+									<li><?php echo $this->Html->link('Empresas', array('controller' => 'empresas','action'=>'index')); ?></li>
 									<li>Fuentes de financiamiento
 										<ul>
 											<li disabled="disabled">Consultar fuente de financiamiento (en un periodo)</li>
 										</ul>
 									</li>
+									<li><?php echo $this->Html->link('Administración de personal', array('controller' => 'personas','action'=>'persona_index')); ?></li>
+									<li><?php echo $this->Html->link('Administración de usuarios', array('controller' => 'users','action'=>'user_index')); ?></li>
+									
 									<li>Perfil
 										<ul>
 											<li disabled="disabled">Modificar perfil</li>

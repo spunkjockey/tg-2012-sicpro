@@ -44,7 +44,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO » Mantenimiento » Empresa
+			?> » Mantenimiento » Empresa
 			
 		</div>
 	</div>
@@ -91,15 +91,6 @@ $this->end(); ?>
             	array('action' => 'view', $emp['Empresa']['idempresa']),
             	array('class'=>'k-button')
 			);?>
-            <!--<div id='popup'>
-             <?php echo $this->Html->link(
-            	'Detalles_w', 
-            	'#',array('action' => 'view_w', $emp['Empresa']['idempresa']),
-            	array('id' => 'openButton', 'class'=>'k-button')
-			);?> 
-			</div>
-            <a href="#" onclick="cambiarid('<?php echo $emp['Empresa']['idempresa'];?>');" class="k-button">Agregar Metas</a>
-            -->
         </td>
         
     </tr>

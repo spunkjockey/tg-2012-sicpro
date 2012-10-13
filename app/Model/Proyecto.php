@@ -22,18 +22,6 @@ class Proyecto extends AppModel {
 	        		)
 				
 				),
-			'montoplaneado' => array(
-				'rule' => array('decimal', 2),
-				'required'=> true,
-				'allowEmpty' => false,
-				'message' => 'Solo son permitidos números'
-			),
-			'divisions' => array(
-				'required' => true,
-	        	'allowEmpty' => false,
-	        	'message' => 'Seleccione una división'
-	        	
-			),
 			'numeroproyecto'=>array(
 				'numeric' => array(
 		        	'rule'    => 'numeric',

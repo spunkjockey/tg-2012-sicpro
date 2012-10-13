@@ -43,7 +43,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO » Mantenimiento » Empresa » Registrar Empresa
+			?> » Mantenimiento » Empresa » Registrar Empresa
 			
 		</div>
 	</div>
@@ -141,13 +141,23 @@ $this->end(); ?>
 		        </script> 
 			</li>	
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar Empresa', 'class' => 'k-button')); ?>
-				<?php echo $this->Html->link(
-					'Regresar', 
-					array('controller' => 'Empresas', 'action' => 'index'),
-					array('class'=>'k-button')
-				); ?>
-				<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
+				<table>
+					<tr>
+						<td>
+						<?php echo $this->Html->link(
+							'Regresar', 
+							array('controller' => 'Empresas', 'action' => 'index'),
+							array('class'=>'k-button')
+						); ?>	
+						</td>
+						<td>
+							<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
+						</td>
+						<td>
+							<?php echo $this->Form->end(array('label' => 'Registrar Empresa', 'class' => 'k-button')); ?>
+						</td>
+				</tr>
+				</table>
 			</li>
             
             <li class="status">

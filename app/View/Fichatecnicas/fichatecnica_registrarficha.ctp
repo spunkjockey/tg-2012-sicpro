@@ -1,4 +1,4 @@
-<!-- File: /app/View/Fichatecnicas/add.ctp -->
+<!-- File: /app/View/Fichatecnicas/fichatecnica_registrarficha.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -43,7 +43,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO » Registrar Ficha Tecnica
+			?> » Proyectos » Ficha Tecnica » Registrar Ficha Tecnica
 			
 		</div>
 	</div>
@@ -60,28 +60,44 @@ $this->end(); ?>
 				<?php echo $this->Form->input('proyectos',
 					array(
 						'label' => 'Proyectos:', 
+						'div' => array('class' => 'requerido'),
+						'class' => 'k-dropdownlist',
 						'id' => 'proyectos'
 					)); ?>
+				<script type="text/javascript">
+		            var proyectos = new LiveValidation( "proyectos", { validMessage: " " } );
+		            proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script> 
 			</li>
 			<li>
 				<?php echo $this->Form->input('problematica', 
 					array(
 						'label' => 'Problematica: ', 
+						'div' => array('class' => 'requerido'),
 						'class' => 'k-textbox', 
 						'placeholder' => 'Problematica',
-						"rows"=>"5", 
-						'required', 
-						'validationMessage' => 'Ingrese la Problematica')); ?>
+						'id' => 'problematica',
+						"rows"=>"5"
+						)); ?>
+				<script type="text/javascript">
+		            var problematica = new LiveValidation( "problematica", { validMessage: " " } );
+		            problematica.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script> 
 			</li>
 			<li>
 				<?php echo $this->Form->input('objgeneral', 
 					array(
 						'label' => 'Objetivo General: ', 
+						'div' => array('class' => 'requerido'),
 						'class' => 'k-textbox', 
 						'placeholder' => 'Objetivo General',
-						"rows"=>"2",  
-						'required', 
-						'validationMessage' => 'Ingrese el Objetivo General')); ?>
+						'id' => 'objgeneral',
+						"rows"=>"5"
+						)); ?>
+				<script type="text/javascript">
+		            var objgeneral = new LiveValidation( "objgeneral", { validMessage: " " } );
+		            objgeneral.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script> 
 			</li>
 			<li>
 				<?php echo $this->Form->input('objespecifico', 
@@ -89,39 +105,52 @@ $this->end(); ?>
 						'label' => 'Objetivo Especifico: ', 
 						'class' => 'k-textbox', 
 						'placeholder' => 'Objetivo Especifico',
-						"rows"=>"2", 
-						'validationMessage' => 'Ingrese el Objetivo Especifico')); ?>
+						"rows"=>"2"
+						)); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('descripcionproyecto', 
 					array(
-						'label' => 'Descripcion : ', 
+						'label' => 'Descripcion : ',
+						'div' => array('class' => 'requerido'), 
 						'class' => 'k-textbox', 
 						'placeholder' => 'Descipcion',
-						"rows"=>"6", 
-						'required', 
-						'validationMessage' => 'Ingrese la Descripcion del Proyecto')); ?>
+						"rows"=>"6",
+						'id' => 'descripcion'
+						)); ?>
+				<script type="text/javascript">
+		            var descripcion = new LiveValidation( "descripcion", { validMessage: " " } );
+		            descripcion.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script> 
 			</li>
 			<li>
 				<?php echo $this->Form->input('empleosgenerados', 
 					array(
 						'label' => 'Empleos Generados: ', 
+						'div' => array('class' => 'requerido'),
 						'id' => 'numero1',
 						'class' => 'k-textbox', 
-						'placeholder' => 'Empleos Generados', 
-						'required', 
-						'validationMessage' => 'Ingrese la cantidad de empleos')); ?>
+						'placeholder' => 'Empleos Generados'
+						)); ?>
+				<script type="text/javascript">
+		            var numero1 = new LiveValidation( "numero1", { validMessage: " " } );
+		            numero1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script> 
 			</li>
 			<li>
 				<?php echo $this->Form->input('beneficiarios', 
 					array(
 						'label' => 'Beneficiarios: ', 
+						'div' => array('class' => 'requerido'),
 						'id' => 'numero2',
 						'class' => 'k-textbox', 
 						'placeholder' => 'Beneficiarios',
-						"rows"=>"2", 
-						'required', 
-						'validationMessage' => 'Ingrese Beneficiarios')); ?>
+						"rows"=>"2"
+						)); ?>
+				<script type="text/javascript">
+		            var numero2 = new LiveValidation( "numero2", { validMessage: " " } );
+		            numero2.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script> 
 			</li>
 			<li>
 				<?php echo $this->Form->input('resultadosesperados', 
@@ -129,8 +158,8 @@ $this->end(); ?>
 						'label' => 'Resultados: ', 
 						'class' => 'k-textbox', 
 						'placeholder' => 'Resultados Esperados',
-						"rows"=>"3", 
-						'validationMessage' => 'Ingrese los Resultados Esperados')); ?>
+						"rows"=>"3"
+						)); ?>
 			</li>							
 			
 			<li  class="accept">
@@ -144,20 +173,19 @@ $this->end(); ?>
 	</div>
 </div>
 
- <style scoped>
+<style scoped>
 
                 .k-textbox {
                     width: 300px;
                     margin-left: 5px;
                     
-                }    
+                }
 				
-				.k-combobox
-				{
-				    width: 400px;
-				    margin-left: 5px;
-				}
-
+				.k-dropdownlist{
+                    width: 300px;
+                }
+			
+			
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -183,14 +211,21 @@ $this->end(); ?>
 
                 label {
                     display: inline-block;
-                    width: 150px;
+                    width: 160px;
                     text-align: right;
                     
                 }
 
-                .required {
+                /*.required {
                     font-weight: bold;
-                }
+                }*/
+                
+                form .requerido label:after {
+                	font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+				}
 
                 .accept, .status {
                 	padding-top: 15px;
@@ -204,9 +239,44 @@ $this->end(); ?>
                 .invalid {
                     color: red;
                 }
-                span.k-tooltip {
-                    margin-left: 6px;
-                }
+                
+               
+               
+                
+				
+				.LV_validation_message{
+				    font-weight:bold;
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+					clear:both;
+               		display:inline-block;
+               		margin-left: 170px; 
+               
+				}
+				    
+				.LV_valid_field,
+				input.LV_valid_field:hover, 
+				input.LV_valid_field:active,
+				textarea.LV_valid_field:hover, 
+				textarea.LV_valid_field:active {
+				    border: 1px solid #00CC00;
+				}
+				    
+				.LV_invalid_field, 
+				input.LV_invalid_field:hover, 
+				input.LV_invalid_field:active,
+				textarea.LV_invalid_field:hover, 
+				textarea.LV_invalid_field:active {
+				    border: 1px solid #CC0000;
+				}
+                
 </style>
 
 <script>
@@ -224,7 +294,7 @@ $this->end(); ?>
                 
 
 					$("#proyectos").kendoDropDownList({
-            			optionLabel: "Seleccione proyecto...",
+						optionLabel: "Seleccione Proyecto",
 			            dataTextField: "nombreproyecto",
 			            dataValueField: "idproyecto",
 			            dataSource: {

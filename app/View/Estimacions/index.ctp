@@ -59,19 +59,21 @@ $this->end(); ?>
 		array('class'=>'k-button')
 	); ?>
 </div> 
+
 <table id="grid">
     <tr>
+        <th data-field="idcontrato">IdContrato</th>
         <th data-field="tituloestimacion">Titulo Estimación</th>
-        <th data-field="fechainicioestimacion">Inicio Estimación</th>
-        
+        <th data-field="fechainicioestimacion">Fecha Inicio</th>
         <th data-field="montoestimado">Monto Estimado</th>
-        <th data-field="accion" width="250 px">Acción</th>
+        <th data-field="accion" width="250px">Acción</th>
     </tr>
 
-    <!-- Here is where we loop through our $fuente array, printing out post info -->
-
+    
+    
     <?php foreach ($estimacions as $esti): ?>
     <tr>
+        <td><?php echo $esti['Contratoconstructor'] ['idcontrato']; ?></td>
         <td><?php echo $esti['Estimacion'] ['tituloestimacion']; ?></td>
         <td><?php echo date('d/m/Y',strtotime ($esti['Estimacion']['fechainicioestimacion'])); ?></td>
         
@@ -83,11 +85,13 @@ $this->end(); ?>
             	array('action' => 'modificarestimacion', $esti['Estimacion']['idestimacion']),
             	array('class'=>'k-button')
 			);?>
+			
             <?php echo $this->Form->postLink(
                 'Eliminar',
                 array('action' => 'delete', $esti['Estimacion']['idestimacion']),
                 array('confirm' => '¿Está seguro que desea eliminar los datos de la estimación?','class'=>'k-button')
             )?>
+            
            <?php echo $this->Html->link(
             	'Cargar Archivo', 
             	array('controller' => 'Estimacions','action' => 'agregar_archivo',$esti['Estimacion']['idestimacion']),
@@ -100,9 +104,41 @@ $this->end(); ?>
     <?php unset($estimacions); ?>
 </table>
 
+
+
+
+<!-- <div id="grid2"> </div> -->
+
+<script type="text/x-kendo-template" id="template">
+    <div class="toolbar">
+        <label class="codigocontrato-label" for="codigocontrato">Mostrar Estimaciones por Contrato:</label>
+        <input type="search" id="codigocontrato" style="width: 230px"></input>
+    </div>
+</script>
+
+    <style scoped="scoped">
+        #grid .k-toolbar
+        {
+            min-height: 27px;
+        }
+        .codigocontrato-label
+        {
+            vertical-align: middle;
+            padding-right: .5em;
+        }
+        #codigocontrato
+        {
+            vertical-align: middle;
+        }
+        .toolbar {
+            float: right;
+            margin-right: .8em;
+        }
+    </style>
+
 <script>
 	$(document).ready(function() {
-    	$("#grid").kendoGrid({
+    	var grid =$("#grid").kendoGrid({
             	dataSource: {
 	           		pageSize: 10,
             	},
@@ -121,14 +157,83 @@ $this->end(); ?>
             			refresh: "Actualizar"
             		}
             	},
+ 				toolbar: kendo.template($("#template").html()),
             	sortable: true,
             	sortable: {
  			    	mode: "single", // enables multi-column sorting
         			allowUnsort: true
 				},
 				scrollable: false
+            	});
+           
+          
+         	
+       /* var grid = $("#grid2").kendoGrid({
+            	dataSource: {
+	           		pageSize: 10,
+            	},
+            	pageable: true,
+            	pageable: {
+            		messages: {
+            			display: "{0} - {1} de {2} Estimaciones",
+            			empty: "No hay Estimaciones de Avances a mostrar",
+            			page: "Página",
+            			of: "de {0}",
+            			itempsPerPage: "Estimaciones por página",
+            			first: "Ir a la primera página",
+            			previous: "Ir a la página anterior",
+            			next: "Ir a la siguiente página",
+            			last: "Ir a la última página",
+            			refresh: "Actualizar"
+            		}
+            	},
+            	toolbar: kendo.template($("#template").html()),
+            	sortable: true,
+            	sortable: {
+ 			    	mode: "single", // enables multi-column sorting
+        			allowUnsort: true
+				},
+				scrollable: false,
+				columns:[
+		              {
+		                  field: "tituloestimacion",
+		                  title: "Titulo Estimación"
+		              },
+		              {
+		                  field: "fechainicioestimacion",
+		                  title: "Fecha Inicio Estimación"
+		          }],
+		          dataSource: {
+	                	type: "json",
+		                transport: {
+		                	read: "/Estimacions/indexjson.json"
+		               	}
+		            }
+            	});*/
             	
+            	var dropDown = $("#codigocontrato").kendoDropDownList({
+	            	dataTextField: "codigocontrato",
+	                dataValueField: "idcontrato",
+	                autoBind: false,
+	                optionLabel: "Todos los contratos",
+	                dataSource: {
+	                	type: "json",
+		                transport: {
+		                	read: "/Estimacions/contratojson.json"
+		               	}
+		            },
+	                change: function() {
+	                    var value = this.value();
+	                    //alert(value);
+	                    if (value) {
+	                        grid.data("kendoGrid").dataSource.filter({ field: "idcontrato", operator: "eq", value: parseInt(value) });
+	                    } else {
+	                        grid.data("kendoGrid").dataSource.filter({});
+	                    }
+	                }
+	            });
             	
-        	});
+        	 var gridyy = $("#grid").data("kendoGrid");
+        	 gridyy.hideColumn("idcontrato"); 
         });
 </script>

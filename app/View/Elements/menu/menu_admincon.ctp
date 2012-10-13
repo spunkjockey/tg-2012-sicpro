@@ -1,47 +1,34 @@
 <div class="navmenu" style="margin:0px auto; width: 970px">
 						<ul id="menu">
-							<li>Proyectos
-								<ul>
-									<li>Ficha t&eacute;cnica
-										<ul>
-											<li disabled="disabled">Consultar ficha t&eacute;cnica</li>
-										</ul>
-									</li>	
-								</ul>
-							</li>
 							<li>Contratos
 								<ul>
 									<li disabled="disabled">Consultar contrato</li>
-									<li disabled="disabled">Actualizar estado de contrato</li>
-									<li disabled="disabled">Asignaci&oacute;n de t&eacute;cnicos</li>
-									<li><?php echo $this->Html->link('Registrar Orden de Inicio', array('controller' => 'Contratos','action'=>'addordeninicio')); ?></li>
-									<li>Orden de Cambio</li>
+									<li><?php echo $this->Html->link('Actualizar estado de contrato', array('controller' => 'Contratoconstructors','action'=>'contrato_actualizarestado')); ?></li>
+									<li><?php echo $this->Html->link('Asignación de técnicos', array('controller' => 'Nombramientos','action'=>'Nombramiento_asignartecnico')); ?></li>
+									<li><?php echo $this->Html->link('Orden de Inicio', array('controller' => 'Contratos','action'=>'addordeninicio')); ?></li>
+									<li disabled="disabled">Orden de Cambio</li>
 								</ul>
 							</li>
 							<li>Control y seguimiento
 								<ul>
 									<li>Programaci&oacute;n de avance
 										<ul>
-											<li><?php echo $this->Html->link('Registrar Programación', array('controller' => 'Avanceprogramados','action'=>'index')); ?></li>
+											<li><?php echo $this->Html->link('Programación de Avance', array('controller' => 'Avanceprogramados','action'=>'index')); ?></li>
 											<li disabled="disabled">Consultar Programaci&oacute;n</li>
 										</ul>
 									</li>
 									<li>Informe de supervisi&oacute;n
 										<ul>
-											<li disabled="disabled">Registrar informe supervisi&oacute;n</li>
-											<li disabled="disabled">Modificar informe supervisi&oacute;n</li>
-											<li disabled="disabled">Eliminar informe supervisi&oacute;n</li>
+											<li><?php echo $this->Html->link('Informe supervisión', array('controller' => 'Informesupervisors','action'=>'informesupervisor_index')); ?></li>
 											<li disabled="disabled">Consultar informe supervisi&oacute;n</li>
 										</ul>
 									</li>
 									<li>Estimaci&oacute;n de avance
 										<ul>
-											<li disabled="disabled">Registrar estimaci&oacute;n de avance</li>
-											<li disabled="disabled">Modificar estimaci&oacute;n de avance</li>
-											<li disabled="disabled">Eliminar estimaci&oacute;n de avance</li>
+											<li><?php echo $this->Html->link('Estimación de Avance', array('controller' => 'Estimacions','action'=>'index')); ?></li>
 											<li disabled="disabled">Consultar estimaci&oacute;n de avance</li>
 										</ul>
-									</li>	
+									</li>		
 									<li>Informe t&eacute;cnico
 										<ul>
 											<li disabled="disabled">Consultar Informe T&eacute;cnico</li>
@@ -52,23 +39,21 @@
 							</li>	
 							<li>Facturas
 								<ul>
-									<li disabled="disabled">Registrar factura</li>
-									<li disabled="disabled">Modificar factura</li>
-									<li disabled="disabled">Eliminar factura</li>
+									<li><?php echo $this->Html->link('Administración de Facturas', array('controller' => 'Facturas','action'=>'index')); ?></li>
 									<li disabled="disabled">Consultar facturas por proyecto</li>
 									<li disabled="disabled">Consultar facturas por contrato</li>
 								</ul>
 							</li>	
-							<li disabled="disabled">Reportes
+							<li>Reportes
 								<ul>
-									<li>General de proyecto</li>
-									<li>Historial de empresas</li>
-									<li>Consultar avances de contratos</li>
-									<li>Estado de proyecto y contratos</li>
-									<li>Contratos asociados a proyectos</li>
-									<li>Lugares en los que se han desarrollado proyectos</li>
-									<li>Beneficiarios y empleos generados</li>
-									<li>Personal asignado &nbsp;por contrato</li>
+									<li disabled="disabled">General de proyecto</li>
+									<li disabled="disabled">Historial de empresas</li>
+									<li disabled="disabled">Consultar avances de contratos</li>
+									<li disabled="disabled">Estado de proyecto y contratos</li>
+									<li disabled="disabled">Contratos asociados a proyectos</li>
+									<li disabled="disabled">Lugares en los que se han desarrollado proyectos</li>
+									<li disabled="disabled">Beneficiarios y empleos generados</li>
+									<li disabled="disabled">Personal asignado &nbsp;por contrato</li>
 								</ul>
 							</li>
 							<li>Mantenimiento

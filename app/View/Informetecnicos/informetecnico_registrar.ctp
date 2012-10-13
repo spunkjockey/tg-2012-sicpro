@@ -60,46 +60,20 @@ $this->end(); ?>
 							'label' => 'Seleccione código de Contrato:', 
 							'id' => 'contratos'));
 				?>
+				<script type="text/javascript">
+					var contratos= new LiveValidation( "contratos", { validMessage: " " } );
+					contratos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+				</script>
 			</li>
-			<li>
-				Nombre proyecto: 
-			</li>
-			<li>
-				Descripción:
-			</li>
-			<li>
-				<?php echo $this->Form->input('fechavisita', 
-					array(
-						'label' => 'Fecha de visita:', 
-						'id'	=> 'datePicker1',
-						'type'  => 'Text')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('fechaelab', 
-					array(
-						'label' => 'Fecha de elaboración:', 
-						'id'	=> 'datePicker2',
-						'type'  => 'Text')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('antecedentes', 
-					array(
-						'label' => 'Antecedentes:', 
-						'class' => 'k-textbox', 
-						'rows' => 4, 
-						'placeholder' => 'Descripción de antecedentes')); ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('anotaciones', 
-					array(
-						'label' => 'Anotaciones:', 
-						'class' => 'k-textbox', 
-						'rows' => 4, 
-						'placeholder' => 'Observaciones de la visita')); ?>
-			</li>
-			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar informe', 'class' => 'k-button')); ?>
-			</li>
+			<div id=infoproy>
+				
+			</div>
+			<?php echo $this->ajax->observeField( 'contratos',array(
+			        		'url' => array( 'action' => 'update_infoproy_inftec'),
+			        		'update' => 'infoproy'));  
+					?>
+			
+			
             <li class="status">
             </li>
 			
@@ -108,15 +82,20 @@ $this->end(); ?>
 </div>
 
 <style scoped>
+
                 .k-textbox {
                     width: 300px;
-                    margin-left: 5px;
+                    
                     
                 }
 				
 				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
-			
-                form .required label:after {
+				
+				.k-combobox {
+                    width: 300px;
+                }
+                
+                form .requerido label:after {
 					font-size: 1.4em;
 					color: #e32;
 					content: '*';
@@ -150,11 +129,7 @@ $this->end(); ?>
                     display: inline-block;
                     width: 150px;
                     text-align: right;
-                    
-                }
-
-                .required {
-                    font-weight: bold;
+                    margin-right: 5px;
                 }
 
                 .accept, .status {
@@ -172,7 +147,40 @@ $this->end(); ?>
                 span.k-tooltip {
                     margin-left: 6px;
                 }
-</style>
+                
+                .LV_validation_message{
+				    font-weight:bold;
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+					clear:both;
+               		display:inline-block;
+               		margin-left: 170px; 
+               
+				}
+				    
+				.LV_valid_field,
+				input.LV_valid_field:hover, 
+				input.LV_valid_field:active,
+				textarea.LV_valid_field:hover, 
+				textarea.LV_valid_field:active {
+				    border: 1px solid #00CC00;
+				}
+				    
+				.LV_invalid_field, 
+				input.LV_invalid_field:hover, 
+				input.LV_invalid_field:active,
+				textarea.LV_invalid_field:hover, 
+				textarea.LV_invalid_field:active {
+				    border: 1px solid #CC0000;
+				}
+            </style>
 			
 <script>
                 $(document).ready(function() {
@@ -200,17 +208,6 @@ $this->end(); ?>
 			        });
 			        
 			        var contratos = $("#contratos").data("kendoDropDownList");
-				
-				$("#datePicker1").kendoDatePicker({
-		   			format: "dd/MM/yyyy",
-		   			culture: "es-ES"
-		   		});
-		   		
-		   		$("#datePicker2").kendoDatePicker({
-		   			format: "dd/MM/yyyy",
-		   			culture: "es-ES"
-		   		});
-				
 				
 				
 				});

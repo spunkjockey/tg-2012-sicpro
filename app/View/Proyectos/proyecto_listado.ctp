@@ -98,37 +98,91 @@ $this->end(); ?>
 	</table>
 		
 	</div>
+
+
+	<script type="text/x-kendo-template" id="template">
+	    <div class="toolbar">
+	        <label class="estadoproyecto-label" for="estadoproyecto">Mostrar Proyectos por Estado:</label>
+	        <input type="search" id="estadoproyecto" style="width: 230px"></input>
+	    </div>
+	</script>
+	
+	
+	<script>
+		$(document).ready(function() {
+	    	var grid = $("#grid").kendoGrid({
+	            	dataSource: {
+		           		pageSize: 10,
+	            	},
+	            	pageable: true,
+	            	pageable: {
+	            		messages: {
+	            			display: "{0} - {1} de {2} Proyectos",
+	            			empty: "No proyectos a mostrar",
+	            			page: "Página",
+	            			of: "de {0}",
+	            			itempsPerPage: "Proyectos por página",
+	            			first: "Ir a la primera página",
+	            			previous: "Ir a la página anterior",
+	            			next: "Ir a la siguiente página",
+	            			last: "Ir a la última página",
+	            			refresh: "Actualizar"
+	            		}
+	            	},
+	            	toolbar: kendo.template($("#template").html()),
+	            	sortable: true,
+	            	sortable: {
+	 			    	mode: "single", // enables multi-column sorting
+	        			allowUnsort: true
+					},
+					scrollable: false
+	        	});
+	        	
+	        	var dropDown = $("#estadoproyecto").kendoDropDownList({
+	            	dataTextField: "estadoproyecto",
+	                dataValueField: "estadoproyecto",
+	                autoBind: false,
+	                optionLabel: "Todos los estados",
+	                dataSource: {
+	                	type: "json",
+		                transport: {
+		                	read: "/Proyectos/estadojson.json"
+		               	}
+		            },
+	                change: function() {
+	                    var value = this.value();
+	                    //alert(value);
+	                    if (value != "Todos los estados") {
+	                        grid.data("kendoGrid").dataSource.filter({ field: "estadoproyecto", operator: "eq", value: value });
+	                    } else {
+	                        grid.data("kendoGrid").dataSource.filter({});
+	                    }
+	                }
+	            });
+	        });
+	</script>
+
+    <style scoped="scoped">
+        #grid .k-toolbar
+        {
+            min-height: 27px;
+        }
+        .estadoproyecto-label
+        {
+            vertical-align: middle;
+            padding-right: .5em;
+        }
+        #estadoproyecto
+        {
+            vertical-align: middle;
+        }
+        .toolbar {
+            float: right;
+            margin-right: .8em;
+        }
+    </style>
+
+
 </div>
 
-<script>
-	$(document).ready(function() {
-    	$("#grid").kendoGrid({
-            	dataSource: {
-	           		pageSize: 10,
-            	},
-            	pageable: true,
-            	pageable: {
-            		messages: {
-            			display: "{0} - {1} de {2} Proyectos",
-            			empty: "No plazas a mostrar",
-            			page: "Página",
-            			of: "de {0}",
-            			itempsPerPage: "Proyectos por página",
-            			first: "Ir a la primera página",
-            			previous: "Ir a la página anterior",
-            			next: "Ir a la siguiente página",
-            			last: "Ir a la última página",
-            			refresh: "Actualizar"
-            		}
-            	},
-            	sortable: true,
-            	sortable: {
- 			    	mode: "single", // enables multi-column sorting
-        			allowUnsort: true
-				},
-				scrollable: false
-            	
-            	
-        	});
-        });
-</script>
+

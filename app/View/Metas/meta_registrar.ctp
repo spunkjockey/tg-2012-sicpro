@@ -1,5 +1,54 @@
 <!-- File: /app/View/Metas/add.ctp -->
+<?php $this->start('menu');
+	switch ($this->Session->read('User.idrol')) {
+		case 9:
+	        echo $this->element('menu/menu_all');
+	        break;
+	    case 8:
+	        echo $this->element('menu/menu_observer');
+	        break;
+	    case 7:
+	        echo $this->element('menu/menu_jefeplan');
+	        break;
+		case 6:
+	        echo $this->element('menu/menu_tecproy');
+	        break;
+	    case 5:
+	        echo $this->element('menu/menu_tecplan');
+	        break;
+	    case 4:
+	        echo $this->element('menu/menu_adminsys');
+	        break;
+		case 3:
+	        echo $this->element('menu/menu_admincon');
+	        break;
+	    case 2:
+	        echo $this->element('menu/menu_adminproy');
+	        break;
+	    case 1:
+	        echo $this->element('menu/menu_director');
+	        break;			
+	}
+$this->end(); ?>
 
+<?php $this->start('breadcrumb'); ?>
+	
+	<div id="menuderastros">
+		<div id="rastros">
+			
+			<?php
+			echo $this->Html->image("home.png", array(
+	    		"alt" => "Inicio",
+	    		'url' => array('controller' => 'mains'),
+				'width' => '30px',
+				'class' => 'homeimg'
+			));
+			?> » Proyectos » Ficha Tecnica » Modificar Ficha Tecnica
+			
+		</div>
+	</div>
+	
+<?php $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Registrar Metas</h2>
@@ -10,9 +59,13 @@
 					array(
 						'label' => 'Descripcion de la meta:', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Descripcion de la Meta', 
-						'required', 
-						'validationMessage' => 'Ingrese la Descripcion de la meta')); ?>
+						'id' => 'descmeta',
+						'div' => array('class' => 'requerido'),
+						'placeholder' => 'Descripcion de la Meta')); ?>
+				<script type="text/javascript">
+		            var descmeta = new LiveValidation( "descmeta", { validMessage: " " } );
+		            descmeta.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script> 
 			</li>
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar Meta', 'class' => 'k-button')); ?>
@@ -24,7 +77,6 @@
 		</ul>
 	</div>
 </div>
-
 <style scoped>
 
                 .k-textbox {
@@ -33,7 +85,9 @@
                     
                 }
 				
-				
+				.k-dropdownlist{
+                    width: 200px;
+                }
 			
                 #formulario {
                     width: 600px;
@@ -65,11 +119,11 @@
                     
                 }
 
-                .required {
+                /*.required {
                     font-weight: bold;
-                }
+                }*/
                 
-                form .required label:after {
+                form .requerido label:after {
                 	font-size: 1.4em;
 					color: #e32;
 					content: '*';
@@ -88,9 +142,44 @@
                 .invalid {
                     color: red;
                 }
-                span.k-tooltip {
-                    margin-left: 6px;
-                }
+                
+               
+               
+                
+				
+				.LV_validation_message{
+				    font-weight:bold;
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+					clear:both;
+               		display:inline-block;
+               		margin-left: 170px; 
+               
+				}
+				    
+				.LV_valid_field,
+				input.LV_valid_field:hover, 
+				input.LV_valid_field:active,
+				textarea.LV_valid_field:hover, 
+				textarea.LV_valid_field:active {
+				    border: 1px solid #00CC00;
+				}
+				    
+				.LV_invalid_field, 
+				input.LV_invalid_field:hover, 
+				input.LV_invalid_field:active,
+				textarea.LV_invalid_field:hover, 
+				textarea.LV_invalid_field:active {
+				    border: 1px solid #CC0000;
+				}
+                
 </style>
 <script>
                 $(document).ready(function() {

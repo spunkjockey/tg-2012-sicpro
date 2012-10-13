@@ -11,7 +11,9 @@
 		echo $this->Html->meta('icono.ico','icono.ico',array('type' => 'icon'));
 
 		echo $this -> Html -> css('style.8loginform');
-
+		echo $this -> Html -> script('livevalidation_standalone');
+		echo $this -> Html -> script('kendojs/jquery.min');
+		echo $this -> Html -> script('slides.jquery');
 		echo $this -> fetch('meta');
 		echo $this -> fetch('css');
 		echo $this -> fetch('script');
