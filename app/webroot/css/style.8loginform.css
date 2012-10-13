@@ -80,33 +80,58 @@ a:hover {
 
 .container {
   width: 350px;
-  margin-left: auto;
-  margin-right: auto;
+  float: right;
+  
+  
+}
+
+
+/* header */
+.header { height:158px; background:url(../img/cyanspark/header_bg.jpg) no-repeat center top;}
+.header_resize { margin:25px auto; padding:0; width:970px;}
+
+.resumen {
+  width: 560px;
+  height: 300px;
+  float:left;
+  margin-top: 50px;
+  padding: 20px 20px 20px;
+  background: #eee;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.principal {
+	width: 960px;
+	margin-left: auto; 
+	margin-right: auto;
+	
+}
+
+.piedepagina {
+	clear: both; 
+	width: 970px;
+	margin-top: 500px;
+	margin-left: auto; 
+	margin-right: auto;
 }
 
 /* ========================================================
    Login form
    ===================================================== */
 
-.contenido {
-  position: relative;
-  margin-top: 100px;
-  padding: 20px 20px 20px;
-  background: #fff;
-  border-radius: 3px;
-  -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
-}
+
 .login {
-  position: relative;
-  margin-top: 100px;
+  /*position: relative;*/
+  margin-top: 50px;
   padding: 20px 20px 20px;
   background: #fff;
   border-radius: 3px;
   -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
 }
-.login:before {
+/*.login:before {
   content: '';
   position: absolute;
   top: -8px;
@@ -116,7 +141,7 @@ a:hover {
   z-index: -1;
   background: rgba(0, 0, 0, 0.08);
   border-radius: 4px;
-}
+}*/
 .login h1 {
   margin: -20px -20px 21px;
   line-height: 40px;
@@ -300,6 +325,131 @@ input[type=submit]:active {
   font-size: 11px;
 }
 
+
+/*error*/
 .errorlogin {
 	color: red;
+}
+
+
+/*
+	Frame
+*/
+
+
+#frame {
+	position:absolute;
+	z-index:0;
+	width:550px;
+	height:250px;
+	top:310px;
+	left:210px;
+}
+
+/*
+	Slideshow
+*/
+
+#slides {
+	position:absolute;
+	top:325px;
+	left:210px;
+	z-index:100;
+}
+
+/*
+	Slides container
+	Important:
+	Set the width of your slides container
+	Set to display none, prevents content flash
+*/
+
+.slides_container {
+	width:500px;
+	overflow:hidden;
+	position:relative;
+	display:none;
+}
+
+/*
+	Each slide
+	Important:
+	Set the width of your slides
+	If height not specified height will be set by the slide content
+	Set to display block
+*/
+
+.slides_container div.slide {
+	width:500px;
+	height:200px;
+	display:block;
+}
+
+/*
+	Next/prev buttons
+*/
+
+#slides .next,#slides .prev {
+	position:absolute;
+	top:75px;
+	left:-24px;
+	width:24px;
+	height:43px;
+	display:block;
+	z-index:101;
+}
+
+#slides .next {
+	left:499px;
+}
+
+/*
+	Pagination
+*/
+
+.pagination {
+	margin:26px auto 0;
+	width:100px;
+}
+
+.pagination li {
+	float:left;
+	margin:0 1px;
+	list-style:none;
+}
+
+.pagination li a {
+	display:block;
+	width:12px;
+	height:0;
+	padding-top:12px;
+	background-image:url(../img/login/pagination.png);
+	background-position:0 0;
+	float:left;
+	overflow:hidden;
+}
+
+.pagination li.current a {
+	background-position:0 -12px;
+}
+
+/*
+	Caption
+*/
+
+.caption {
+	z-index:500;
+	position:absolute;
+	bottom:-10px;
+	left:0;
+	height:30px;
+	padding:5px 20px 0 20px;
+	background:#000;
+	background:rgba(0,0,0,.5);
+	width:500px;
+	font-size:1.3em;
+	line-height:1.33;
+	color:#fff;
+	border-top:1px solid #000;
+	text-shadow:none;
 }

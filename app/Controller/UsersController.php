@@ -19,20 +19,24 @@ class UsersController extends AppController {
 	public function login() {
 		$this->layout = '8loginform';
 		$this->set('title_for_layout', 'Login');
-	    if ($this->request->is('post')) {
-	        if ($this->Auth->login()) {
-	        	$someone = $this->User->findByUsername($this->data['User']['username']);
-				$this->Session->write('User.username',$someone['User']['username']);
-				$this->Session->write('User.idpersona',$someone['User']['idpersona']);
-				$this->Session->write('User.idrol',$someone['User']['idrol']);
-				$this->Session->write('User.useragent',$this->request->header('User-Agent'));
-				$this->Session->write('User.userip',$this->request->clientIp());
-				$this->Session->write('User.nombre',$someone['User']['nombre']);
-	             $this->redirect($this->Auth->redirect());
-	            //$this->redirect(array('controller'=>'mains'));
-	        } else {
-	            $this->Session->setFlash(__('Usuario o Contraseña Incorrecta, intente otra vez', 'default', array('class' => 'errorlogin')));
-	        }
+	    if($this->Auth->loggedIn()) {
+	    	$this->redirect(array('controller'=>'mains'));
+		} else {
+	    	if ($this->request->is('post')) {
+	    	    if ($this->Auth->login()) {
+		        	$someone = $this->User->findByUsername($this->data['User']['username']);
+					$this->Session->write('User.username',$someone['User']['username']);
+					$this->Session->write('User.idpersona',$someone['User']['idpersona']);
+					$this->Session->write('User.idrol',$someone['User']['idrol']);
+					$this->Session->write('User.useragent',$this->request->header('User-Agent'));
+					$this->Session->write('User.userip',$this->request->clientIp());
+					$this->Session->write('User.nombre',$someone['User']['nombre']);
+		            $this->redirect($this->Auth->redirect());
+		            //$this->redirect(array('controller'=>'mains'));
+		        } else {
+		            $this->Session->setFlash(__('Usuario o Contraseña Incorrecta, intente otra vez', 'default', array('class' => 'errorlogin')));
+		        }
+	      	}
     	}
 	}
 	
