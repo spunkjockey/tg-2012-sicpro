@@ -68,7 +68,7 @@ class FichatecnicasController extends AppController {
 		array(
 		'conditions'=>array( "OR" => 
 							array('Proyecto.estadoproyecto' => 
-							array('Licitacion','Adjudicacion')
+							array('Formulacion','Licitacion','Adjudicacion')
 		)))));
 	}
 	public function view($id = null) {

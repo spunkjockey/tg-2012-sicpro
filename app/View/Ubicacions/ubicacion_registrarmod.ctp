@@ -88,7 +88,7 @@ $this->end(); ?>
 					array(
 						'label' => 'Direccion: ', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Objetivo General',
+						'placeholder' => 'Direccion',
 						"rows"=>"2")); ?>
 			</li>
 			<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	

@@ -4,31 +4,39 @@ class NombramientosController extends AppController {
     public $components = array('Session','RequestHandler');
 	public $uses = array('Contrato','Persona','Nombramiento','Proyecto','Contratoconstructor');
 	
-	public function Nombramiento_asignartecnico(){
+	public function nombramiento_asignartecnico(){
 		$this->layout = 'cyanspark';
 		//$selected = $this->Nombramiento->find('all',array('conditions' => array('Nombramiento.idcontrato' => '1')));
 		//$d = Hash::extract($selected,'{n}.Nombramiento.idpersona');
-		
-		if ($this->request->is('post')) {
-				    // it validated logic
-				    Debugger::dump($this->request->data);
-					$this->Nombramiento->set('idpersona', $this->request->data['disponibles']);
-					$this->Nombramiento->set('idcontrato', $this->request->data['Nombramiento']['contratos']);
-					//$this->Nombramiento->set('fechanombramiento', $this->request->data['Nombramiento']['fechanombramiento']);
-					$this->Nombramiento->set('userc', $this->Session->read('User.username'));			
-				    if ($this->Nombramiento->save()) {
-				    	$tecnico=$this->Persona->findByIdpersona($this->request->data['disponibles']);
-						$contrato=$this->Contratoconstructor->findByIdcontrato($this->request->data['Nombramiento']['contratos']);
-		            	$this->Session->setFlash('Tecnico "'. $tecnico['Persona']['nombrespersona'] .' '. $tecnico['Persona']['apellidospersona'] .'" Asignado al contrato "'. $contrato['Contratoconstructor']['codigocontrato'] .'".','default',array('class'=>'success'));
-		            	//$this->redirect(array('controller' => 'fichatecnicas','action' => 'add'));
-		            	$this->redirect(array('controller' => 'Nombramientos','action' => 'Nombramiento_asignartecnico'));
-		        	} else {
-		            	$this->Session->setFlash('No se pudo realizar el registro' /*. $this->data['Fichatecnica']['idfichatenica'] */);
-		        	}
-    	}
+		if(isset($this->request->data['boton_1'])){
+			if ($this->request->is('post')) {
+					    // it validated logic
+						$this->Nombramiento->set('idpersona', $this->request->data['disponibles']);
+						$this->Nombramiento->set('idcontrato', $this->request->data['Nombramiento']['contratos']);
+						//$this->Nombramiento->set('fechanombramiento', $this->request->data['Nombramiento']['fechanombramiento']);
+						$this->Nombramiento->set('userc', $this->Session->read('User.username'));			
+					    if ($this->Nombramiento->save()) {
+					    	$tecnico=$this->Persona->findByIdpersona($this->request->data['disponibles']);
+							$contrato=$this->Contratoconstructor->findByIdcontrato($this->request->data['Nombramiento']['contratos']);
+			            	$this->Session->setFlash('Tecnico "'. $tecnico['Persona']['nombrespersona'] .' '. $tecnico['Persona']['apellidospersona'] .'" Asignado al contrato "'. $contrato['Contratoconstructor']['codigocontrato'] .'".','default',array('class'=>'success'));
+			            	//$this->redirect(array('controller' => 'fichatecnicas','action' => 'add'));
+			            	$this->redirect(array('controller' => 'Nombramientos','action' => 'nombramiento_asignartecnico'));
+			        	} else {
+			            	$this->Session->setFlash('No se pudo realizar el registro' /*. $this->data['Fichatecnica']['idfichatenica'] */);
+			        	}
+	    	}
+		}
+		if(isset($this->request->data['boton_2'])){
+			$valor = $this->request->data['seleccionados'];
+			$tmp = $this->Nombramiento->findByIdnombramiento($valor);
+			if ($this->Nombramiento->delete($this->request->data['seleccionados'])) {	
+		        $this->Session->setFlash('Tecnico "'. $tmp['Persona']['nombrespersona'] .' '. $tmp['Persona']['apellidospersona'] .'" Desasignado al contrato "'. $tmp['Contrato']['codigocontrato'] .'".','default',array('class'=>'success'));
+		        $this->redirect(array('controller' => 'Nombramientos','action' => 'nombramiento_asignartecnico'));
+		    }
+		}
 	}
 
-	public function Nombramiento_desasignartecnico()
+	public function nombramiento_desasignartecnico()
 	{
 		echo "Eliminando..";
 		Debugger::dump($this->request->data);
@@ -104,7 +112,7 @@ class NombramientosController extends AppController {
 		
 		$per2= $this->Nombramiento->find('all', array(
 			                        'fields'=>array(
-			                        'Persona.idpersona','Persona.nombrespersona', 'Persona.apellidospersona'),
+			                        'Nombramiento.idnombramiento','Persona.nombrespersona', 'Persona.apellidospersona'),
 			'conditions' => array('Nombramiento.idcontrato' => $contrato_id)
 											));
 		//Tecnicos que estan asignados al contrato seleccinado

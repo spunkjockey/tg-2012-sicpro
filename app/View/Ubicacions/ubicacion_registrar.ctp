@@ -88,7 +88,7 @@ $this->end(); ?>
 					array(
 						'label' => 'Direccion: ', 
 						'class' => 'k-textbox', 
-						'placeholder' => 'Objetivo General',
+						'placeholder' => 'Direccion',
 						"rows"=>"2")); ?>
 			</li>
 				

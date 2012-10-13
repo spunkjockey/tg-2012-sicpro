@@ -18,7 +18,7 @@
 									</li>		
 									<li disabled="disabled">Consultar contrato</li>
 									<li><?php echo $this->Html->link('Actualizar estado de contrato', array('controller' => 'Contratoconstructors','action'=>'contrato_actualizarestado')); ?></li>
-									<li><?php echo $this->Html->link('Asignación de técnicos', array('controller' => 'Nombramientos','action'=>'Nombramiento_asignartecnico')); ?></li>
+									<li><?php echo $this->Html->link('Asignación de técnicos', array('controller' => 'nombramientos','action'=>'nombramiento_asignartecnico')); ?></li>
 								</ul>
 							</li>
 							<li>Control y seguimiento

@@ -24,6 +24,7 @@
 		echo $this -> Html -> script('jquery.maskedinput-1.3.min');
 		echo $this -> Html -> script('jquery.twosidedmultiselect');
 		echo $this -> Html -> script('livevalidation_standalone');
+		echo $this -> Html -> script('jquery.validate.min');
 		
 
 		
