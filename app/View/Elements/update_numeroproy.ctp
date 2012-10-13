@@ -30,10 +30,3 @@
 	
 </li>
 
-<li  class="accept">
-	
-	<?php echo $this->Form->end(array('label' => 'Asignar número proyecto', 'class' => 'k-button')); ?>
-	<?php echo $this->Html->link('Regresar', 
-						array('controller' => 'Proyectos','action' => 'proyecto_listado'),
-						array('class'=>'k-button')); ?>
-</li>
