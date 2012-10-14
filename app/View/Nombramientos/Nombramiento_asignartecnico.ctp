@@ -88,7 +88,7 @@ $this->end(); ?>
 						<tr>
 							<td>
 								<?php echo $this->Html->link('Regresar',
-									array('controller' => 'Mains', 'action' => 'index'),array('class'=>'k-button')); 
+									array('controller' => 'Mains', 'action' => 'index'),array('id' => 'regresar','class'=>'k-button')); 
 								?>				
 							</td>
 							<td>
@@ -190,6 +190,7 @@ $this->end(); ?>
 
 <script type="text/javascript">
     $(document).ready(function () {    	
+    	
        	/*$(".multiselect").twosidedmultiselect();*/
        	
        	$("#proyectos").kendoDropDownList({
@@ -248,6 +249,7 @@ $this->end(); ?>
 				                /*alert('Ok!');*/
 				                return true;
 				            }
-				    });		
+				    });
+		
     });
 </script>

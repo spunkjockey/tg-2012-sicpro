@@ -39,7 +39,6 @@
 									</li>	
 									<li disabled="disabled">Consultar contrato</li>
 									<li disabled="disabled">Actualizar estado de contrato</li>
-									<li disabled="disabled">Asignaci&oacute;n de t&eacute;cnicos</li>
 									<li><?php echo $this->Html->link('Registrar Orden de Inicio', array('controller' => 'Contratos','action'=>'addordeninicio')); ?></li>
 									<li>Orden de Cambio</li>
 								</ul>

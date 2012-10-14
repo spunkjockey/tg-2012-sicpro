@@ -1,6 +1,6 @@
 <?php
 class ContratosController extends AppController {
-    public $helpers = array('Html', 'Form', 'Session');
+    public $helpers = array('Html', 'Form', 'Session','Ajax');
    public $components = array('Session','AjaxMultiUpload.Upload','RequestHandler');
 	public $uses = array('Contrato','Contratoconstructor','Contratosupervisor');
 

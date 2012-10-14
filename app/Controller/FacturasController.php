@@ -27,13 +27,11 @@ class FacturasController extends AppController {
 						$this->set('supervisor',$supervisor);
 				        break;		
 				}
-	
-			}
-	
+
 		}
         //$this->set('facturas', $this->Factura->find('all'));
     }
-
+  }
     public function proyectojson() {
 		$proyectos = $this->Contrato->find('all',array(
 			'fields' => array('DISTINCT Proyecto.idproyecto', 'Proyecto.numeroproyecto'),
@@ -59,7 +57,7 @@ class FacturasController extends AppController {
 		$this->set('_serialize', 'contratos');
 		$this->render('/json/jsondatad');
 	}
-		
+
 	public function update_facturas() {
 		if(isset($this->request->data['Facturas']['contratos']) && !empty($this->request->data['Facturas']['contratos'])) {
 			$idcontrato = $this->request->data['Facturas']['contratos'];

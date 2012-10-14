@@ -92,6 +92,7 @@ $this->end(); ?>
 						'label' => 'Inicio Estimación:', 
 						'id'	=> 'datePicker1',
 						'type'  => 'Text',
+						'maxlength'=> 10,
 						'div' => array('class' => 'requerido')
 						 ) ); ?>
 					<script type="text/javascript">
@@ -151,6 +152,7 @@ $this->end(); ?>
 						'label' => 'Fecha Estimación:', 
 						'id'	=> 'datePicker3',
 						'type'  => 'Text',
+						'maxlength'=> 10,
 						'div' => array('class' => 'requerido')
 						 ) ); ?>
 				<script type="text/javascript">
@@ -324,7 +326,7 @@ $this->end(); ?>
 		 });
 		 
 		$("#proyectos").kendoDropDownList({
-		            			
+		            			optionLabel: "Seleccione Proyecto",
 					            dataTextField: "numeroproyecto",
 					            dataValueField: "idproyecto",
 					            dataSource: {
@@ -340,7 +342,7 @@ $this->end(); ?>
 			        var contratos = $("#contratos").kendoDropDownList({
 			                        autoBind: false,
 			                        cascadeFrom: "proyectos",
-			                        
+			                        optionLabel: "Seleccione Contrato",
 			                        dataTextField: "codigocontrato",
 			                        dataValueField: "idcontrato",
 			                        dataSource: {
