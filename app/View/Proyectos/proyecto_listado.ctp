@@ -44,7 +44,8 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Administración de proyectos
+			?> » Reportes 
+			» Contratos asociados a proyectos
 			
 		</div>
 	</div>
