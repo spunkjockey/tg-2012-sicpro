@@ -59,6 +59,9 @@ $this->end(); ?>
 		<?php echo $this->Form->create('Avanceprogramado'); ?>
 		<ul>
 			<li>
+				<?php echo '<label>Código de Contrato:</label> '.$contrato['codigocontrato']; ?>
+			</li>
+			<li>
 				<?php echo $this->Form->input('plazoejecuciondias', array(
 								'label' => 'Plazo de Ejecución',
 								'type' => 'text',
@@ -79,17 +82,23 @@ $this->end(); ?>
 				</script>
 			</li>
 			<li>
-				<?php echo $this->Form->input('fechaavance', array(
+				<?php echo $this->Form->input('avance', array(
 								'label' => 'Fecha de Avance',
 								'type' => 'text', 
 								'id' => 'fechaavance',
-								'div' => array('class' => 'requerido'),
+								'div' => array('id' => 'fecha', 'class' => 'requerido'),
 								'style' => 'width:120px;',
 								'error' => array('attributes' => array('wrap' => 'span', 'class' => 'LV_validation_message LV_invalid', "id" => 'errorfechaavance'))
 								
-							)); ?>  
+							)); 
+							
+							if ($this->Form->isFieldError('fechaavance')) {
+    							echo $this->Form->error('fechaavance');
+							}
+							
+							?>  
 				<script type="text/javascript">
-		            var fechaavance = new LiveValidation( "fechaavance", { validMessage: " " } );
+		            var fechaavance = new LiveValidation( "fechaavance", { validMessage: " ", insertAfterWhatNode: "fecha"  } );
 		            fechaavance.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            fechaavance.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d$/, failureMessage: "La Fecha debe contener el siguiente formato DD/MM/AAAA"  } );
 		        </script> 
@@ -116,10 +125,10 @@ $this->end(); ?>
 								'id' => 'montoavfinancieroprog',
 								'style' => 'width:120px;',
 								'maxlength' => 12,
-								'div' => array('class' => 'requerido')
+								'div' => array('id' => 'monto','class' => 'requerido')
 							)); ?>
 				<script type="text/javascript">
-					var montoavfinancieroprog = new LiveValidation( "montoavfinancieroprog", { validMessage: " " } );
+					var montoavfinancieroprog = new LiveValidation( "montoavfinancieroprog", { validMessage: " ", insertAfterWhatNode: "monto" } );
 		            montoavfinancieroprog.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            montoavfinancieroprog.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
 		        </script>
@@ -133,7 +142,12 @@ $this->end(); ?>
 							<?php echo $this->Form->end(array('label' => 'Editar Avance', 'class' => 'k-button', 'id' => 'button')); ?>
 						</td>
 						<td>
-							<?php echo $this->Html->link('Cancelar',array('controller' => 'Avanceprogramados', 'action' => 'index'),array('class'=>'k-button')); ?>
+							<?php echo $this->Html->link('Regresar',
+								array('controller' => 'Avanceprogramados', 'action' => 'index',
+										$contrato['idproyecto'],
+										$contrato['idcontrato']
+									),
+								array('class'=>'k-button')); ?>
 						</td>
 					</tr>
 				</table>
@@ -221,25 +235,23 @@ $this->end(); ?>
                 }
 
  				.LV_validation_message{
-				    font-weight:bold;
+				    /*font-weight:bold;*/
 				    margin:0 0 0 5px;
 				}
 				
 				.LV_valid {
 				    color:#00CC00;
 				    margin-left: 10px;
+				    display: none;
 				}
 					
 				.LV_invalid {
 				    color:#CC0000;
-				    
-					clear:both;
-               		display:inline-block;
-               		margin-left: 25px; 
-               
+               		display:block;
+               		margin-left: 130px;
 				}
 				    
-				.LV_valid_field,
+			/*	.LV_valid_field,
 				input.LV_valid_field:hover, 
 				input.LV_valid_field:active,
 				textarea.LV_valid_field:hover, 
@@ -254,6 +266,7 @@ $this->end(); ?>
 				textarea.LV_invalid_field:active {
 				    border: 1px solid #CC0000;
 				}
+                */
                 
 
             </style>

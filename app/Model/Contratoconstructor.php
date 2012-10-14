@@ -29,6 +29,9 @@
 
 			);
 			
-		
-	};
-?>
+	public $virtualFields = array(
+		'montototal' => "montooriginal + variacion"
+	);
+}	
+	
+	

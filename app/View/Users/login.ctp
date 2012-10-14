@@ -29,7 +29,7 @@
 							<p>Anyone!</p>
 						</div>
 				</div>
-				<div class="slide">
+				<!--<div class="slide">
 						<a href="#" title="titulo" target="_blank"><img src="../img/login/miley.gif" alt="Slide 1"></a>
 						<div class="caption" style="bottom:0">
 							<p>Miley!</p>
@@ -40,7 +40,7 @@
 						<div class="caption" style="bottom:0">
 							<p>Katy!</p>
 						</div>
-				</div>
+				</div>-->
                 
             </div>
             <a href="#" class="prev"><img src="../img/login/arrow-prev.png" width="24" height="43" alt="Arrow Prev"></a>
@@ -68,24 +68,24 @@
 		    	'placeholder'=>'Nombre de Usuario',
 				'autofocus' => 'autofocus')); ?></p>
 		    
-		    <!--
+		    
 		    <script type="text/javascript">
-						var username = new LiveValidation( "username", { validMessage: " " } );
-						username.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+						var username = new LiveValidation( "username", { validMessage: " ", onlyOnSubmit: true } );
+						username.add(Validate.Presence, { failureMessage: "Escribe tu nombre de usuario" } );
 			</script>
-		    -->
+		   
 		    
 		    
 		    <p><?php echo $this->Form->input('password', array(
 		    	'id' => 'password',
 		    	'placeholder'=>'Contraseña')); ?></p>
 		    
-		    <!--
+		    
 		    <script type="text/javascript">
-						var password = new LiveValidation( "password", { validMessage: " " } );
-						password.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+						var password = new LiveValidation( "password", { validMessage: " ", onlyOnSubmit: true } );
+						password.add(Validate.Presence, { failureMessage: "Escribe la contraseña" } );
 			</script>
-			-->
+			
 			
 		    <p class="remember_me">
 				<label>
@@ -95,17 +95,18 @@
 		    </p>
 		    
 		    <p class="submit">
-	        	<?php echo $this->Form->end(array('label' => 'Login', 'name' => 'commit', 'div' => false)); ?>
+	        	<?php echo $this->Form->end(array('id' => 'botonlogin', 'label' => 'Login', 'name' => 'commit', 'div' => false)); ?>
 	        	<?php //echo $this->Form->end(__('Login'), array( 'name'=>'commit')); ?>
 	        </p>
 	        
 	        
-	    
+	    	<p style="font-size: 11px;
+  text-align: center;">¿Ha olvidado su contraseña? Contacte al Administrador.</p>
 	    </section>
 	
-	    <section class="login-help">
+	    <!--<section class="login-help">
 	      <p>¿Ha olvidado su contraseña? Contacte al Administrador.</p>
-	    </section>
+	    </section>-->
 	</div>
 
 </div>
@@ -123,35 +124,40 @@
   </section>
 </div>
 
-			<style scoped>
+<div id="window">
+    Content of the Window
+</div>
 
- 				.LV_validation_message{
-				    /*font-weight:bold;*/
-				    margin:0 0 0 5px;
-				}
-				
-				.LV_valid {
-				    color:#00CC00;
-				    margin-left: 10px;
-				}
-					
-				.LV_invalid {
-				    color:#CC0000;
-				    
-					clear:both;
-               		display:inline-block;
-               		margin-left: 20px; 
-               
-				}
-				
-				.message {
-				    color:#CC0000;
-				    
-					clear:both;
-               		display:inline-block;
-               		margin-left: 10px; 
-               
-				}
+
+<style scoped>
+
+	.LV_validation_message{
+	    /*font-weight:bold;*/
+	    margin:0 0 0 5px;
+	}
+	
+	.LV_valid {
+	    color:#00CC00;
+	    margin-left: 10px;
+	    display: none;
+	}
+		
+	.LV_invalid {
+	    color:#CC0000;
+	    
+		clear:both;
+   		display:inline-block;
+   		margin-left: 20px; 
+   
+	}
+	
+	.message {
+	    color:#CC0000;
+	    
+		
+   		margin-left: 10px; 
+   
+	}
 /*				    
 				.LV_valid_field,
 				input.LV_valid_field:hover, 
@@ -169,82 +175,65 @@
 				    border: 1px solid #CC0000;
 				}
 */                
-
-            </style>
+</style>
 
 
 <script>
-	
-			$("input").focusin(function () {
-  						$("#flashMessage").fadeOut(5000);
-  				});
-                
-  /*              
-              
-var specifyimage=new Array() //Your images
-specifyimage[0]="../img/login/robyn.jpg"
-specifyimage[1]="../img/login/mujeres2.jpg"
-specifyimage[2]="../img/login/katy.gif"
+	$(document).ready(function() {
+		
+		 $("#window").kendoWindow({
+		    actions: ["Close"],
+		    draggable: false,
+		    height: "300px",
+		    modal: true,
+		    visible: false,
+		    resizable: false,
+		    title: "Modal Window",
+		    width: "500px"
+		});
+		
+		
+		/*$("#botonlogin").click(function(){
+		    var win = $("#window").data("kendoWindow");
+		    win.center();
+		    win.open();
+		    return false;
+		});*/
+		
+		$("input").focusin(function () {
+					$("#flashMessage").fadeOut(5000);
+		});
+ 	
 
-var delay=3000 //3 seconds
-
-//Counter for array 
-var count =1;
-
-var cubeimage=new Array()
-for (i=0;i<specifyimage.length;i++){
-cubeimage[i]=new Image()
-cubeimage[i].src=specifyimage[i]
-}
-
-function movecube(){
-if (window.createPopup)
-cube.filters[0].apply()
-document.images.cube.src=cubeimage[count].src;
-if (window.createPopup)
-cube.filters[0].play()
-count++;
-if (count==cubeimage.length)
-count=0;
-setTimeout("movecube()",delay)
-}
-
-window.onload=new Function("setTimeout('movecube()',delay)")
-
-*/
-
-
-
-                $('#slides').slides({
-				preload: true,
-				preloadImage: '...img/login/spinner.gif',
-				play: 5000,
-				pause: 2500,
-				hoverPause: true,
-				animationStart: function(current){
-					$('.caption').animate({
-						bottom:-35
-					},100);
-					if (window.console && console.log) {
-						// example return of current slide number
-						console.log('animationStart on slide: ', current);
-					};
-				},
-				animationComplete: function(current){
-					$('.caption').animate({
-						bottom:0
-					},200);
-					if (window.console && console.log) {
-						// example return of current slide number
-						console.log('animationComplete on slide: ', current);
-					};
-				},
-				slidesLoaded: function() {
-					$('.caption').animate({
-						bottom:0
-					},200);
-				}
-			});
-            
-	
+	 	$('#slides').slides({
+			preload: true,
+			preloadImage: '...img/login/spinner.gif',
+			play: 5000,
+			pause: 2500,
+			hoverPause: true,
+			animationStart: function(current){
+				$('.caption').animate({
+					bottom:-35
+				},100);
+				if (window.console && console.log) {
+					// example return of current slide number
+					console.log('animationStart on slide: ', current);
+				};
+			},
+			animationComplete: function(current){
+				$('.caption').animate({
+					bottom:0
+				},200);
+				if (window.console && console.log) {
+					// example return of current slide number
+					console.log('animationComplete on slide: ', current);
+				};
+			},
+			slidesLoaded: function() {
+				$('.caption').animate({
+					bottom:0
+				},200);
+			}
+		});
+    });
 </script>

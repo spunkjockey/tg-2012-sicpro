@@ -4,48 +4,52 @@ class FinanciasController extends AppController {
     public $components = array('Session','RequestHandler');
 	public $uses = array('Proyecto','Fuentefinanciamiento','Financia','Division','Contratoconstructor');
 	
-	public function index() {
+	public function index($idproyecto=null) {
 		$this->layout = 'cyanspark';
-				
 		//Logica de inserción
 		if ($this->request->is('post')) {
+			
 			$this->Financia->set('idproyecto', $this->request->data['Financia']['proyectos']);
 			$this->Financia->set('montoparcial', $this->request->data['Financia']['montoparcial']);
-			if (is_numeric($this->request->data['Financia']['fuentes'])) {
-				$this->Financia->set('idfuentefinanciamiento', $this->request->data['Financia']['fuentes']);	
-			} else {
-				$fuenteid = $this->Fuentefinanciamiento->findByNombrefuente($this->request->data['Financia']['fuentes']);
-				$this->Financia->set('idfuentefinanciamiento', $fuenteid['Fuentefinanciamiento']['idfuentefinanciamiento']);
-			}
-			
-			
+			$this->Financia->set('idfuentefinanciamiento', $this->request->data['Financia']['fuentes']);	
 			$this->Financia->set('userc', $this->Session->read('User.username'));
 		    if ($this->Financia->save()) {
             	$proyecto = $this->Financia->findByIdproyecto($this->request->data['Financia']['proyectos']);	
-            	
+            	//Debugger::dump($proyecto);
             	$this->Session->setFlash('Se han asignado $' . 
             		$this->request->data['Financia']['montoparcial'] . 
-            		' al proyecto ' . $proyecto['nombreproyecto'] . 
+            		' al proyecto ' . $proyecto['Proyecto']['nombreproyecto'] . 
             		' satisfactoriamente','default',
             		array('class'=>'success'));
             	
-            	$this->redirect(array('action' => 'index'));
+            	$this->redirect(array('action' => 'index',$proyecto['Proyecto']['idproyecto']));
         	} else {
-            	$this->Session->setFlash('No se pudo realizar el registro');
+            	$this->Session->setFlash('Ha ocurrido un eror. No se pudo realizar el registro');
         	}
-		}
+		} else {
+				
+			if (isset($idproyecto) && !empty($idproyecto)) {
+				$this->set('proyecto', $this->Proyecto->query("SELECT * FROM sicpro2012.proyecto AS Proyecto WHERE Proyecto.idproyecto=$idproyecto;"));
+				$this->set('proyectos', $this->Financia->findAllByIdproyecto($idproyecto));
+				$this->set('idproyecto', $idproyecto);
+			}
+		} 
+			
 		
 	}
 
 	function financia_modificar($id = null) {
 		$this->layout = 'cyanspark';
 	    $this->Financia->id = $id;
+		$idproyecto = $this->Financia->findByFuente_proyecto($id);
 	    if ($this->request->is('get')) {
 	        $this->request->data = $this->Financia->read();
 	    } else {
 	        if ($this->Financia->save($this->request->data)) {
-	            $this->Session->setFlash('El financiamiento '. $this->request->data['Financia']['fuente_proyecto'] .' ha sido modificado correctamente.','default',array('class' => 'success'));
-	            $this->redirect(array('action' => 'index'));
+	        	$financia = $this->Fuentefinanciamiento->findByIdfuentefinanciamiento($this->request->data['Financia']['idfuentefinanciamiento']);
+	            
+	            $this->Session->setFlash('El monto de la fuente de financiamiento: "'. $financia['Fuentefinanciamiento']['nombrefuente'] .'", asignado a este proyecto ha sido modificado correctamente.','default',array('class' => 'success'));
+	            $this->redirect(array('action' => 'index',$idproyecto['Proyecto']['idproyecto']));
 	        } else {
 	        	//$this->request->data = $this->Financia->read();
 	        	$financia = $this->Financia->findByFuente_proyecto($id);
@@ -60,12 +64,16 @@ class FinanciasController extends AppController {
 
 	function financia_eliminar($id) {
 		$financia = $this->Financia->findByFuente_proyecto($id);
+		$financiaa = $this->Fuentefinanciamiento->findByIdfuentefinanciamiento($financia['Financia']['idfuentefinanciamiento']);
 		if (!$this->request->is('post')) {
 	        throw new MethodNotAllowedException();
 	    }
 	    if ($this->Financia->delete($id)) {
-	        $this->Session->setFlash('El financiamiento '. $financia['Financia']['fuente_proyecto'] .' ha sido eliminado satisfactoriamente.','default',array('class' => 'success'));
-	        $this->redirect(array('action' => 'index'));
+	    	
+	        $this->Session->setFlash('El monto de la fuente de financiamiento: '. $financiaa['Fuentefinanciamiento']['nombrefuente'] .' asignado a este proyecto ha sido eliminado correctamente.','default',array('class' => 'success'));
+	        
+	        
+	        $this->redirect(array('action' => 'index',$financia['Financia']['idproyecto']));
 	    }
 	}
 

@@ -23,19 +23,33 @@ class UsersController extends AppController {
 	    	$this->redirect(array('controller'=>'mains'));
 		} else {
 	    	if ($this->request->is('post')) {
-	    	    if ($this->Auth->login()) {
-		        	$someone = $this->User->findByUsername($this->data['User']['username']);
-					$this->Session->write('User.username',$someone['User']['username']);
-					$this->Session->write('User.idpersona',$someone['User']['idpersona']);
-					$this->Session->write('User.idrol',$someone['User']['idrol']);
-					$this->Session->write('User.useragent',$this->request->header('User-Agent'));
-					$this->Session->write('User.userip',$this->request->clientIp());
-					$this->Session->write('User.nombre',$someone['User']['nombre']);
-		            $this->redirect($this->Auth->redirect());
-		            //$this->redirect(array('controller'=>'mains'));
-		        } else {
-		            $this->Session->setFlash(__('Usuario o Contraseña Incorrecta, intente otra vez', 'default', array('class' => 'errorlogin')));
-		        }
+	    	    $conteo = $this->User->find('count', array(
+	    	    				'conditions' => array('User.username' => $this->data['User']['username'])));
+				//comprobar si existe
+				if($conteo != 0 ) {	
+					$usuarios = $this->User->findByUsername($this->data['User']['username']);
+		    	    //comprobar si esta habilitado en el sistema
+		    	    if($usuarios['User']['estado'] = TRUE) {
+			    	    //logear en el sistema	
+			    	    if ($this->Auth->login()) {
+				        	$someone = $this->User->findByUsername($this->data['User']['username']);
+							$this->Session->write('User.username',$someone['User']['username']);
+							$this->Session->write('User.idpersona',$someone['User']['idpersona']);
+							$this->Session->write('User.idrol',$someone['User']['idrol']);
+							$this->Session->write('User.useragent',$this->request->header('User-Agent'));
+							$this->Session->write('User.userip',$this->request->clientIp());
+							$this->Session->write('User.nombre',$someone['User']['nombre']);
+				            $this->redirect($this->Auth->redirect());
+				            //$this->redirect(array('controller'=>'mains'));
+				        } else {
+				            $this->Session->setFlash(__('Usuario o Contraseña Incorrecta, intente otra vez', 'default', array('class' => 'errorlogin')));
+				        }
+					} else {
+						$this->Session->setFlash(__('El usuario ha sido deshabilitado', 'default', array('class' => 'errorlogin')));
+					}
+				} else {
+					$this->Session->setFlash(__('El usuario no existe en el sistema', 'default', array('class' => 'errorlogin')));
+				}
 	      	}
     	}
 	}

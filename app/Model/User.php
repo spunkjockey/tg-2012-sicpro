@@ -15,7 +15,12 @@ class User extends AppModel {
             'required' => array(
                 'rule' => array('notEmpty'),
                 'message' => 'El Nombre de Usuario es obligatorio'
-            )
+            ),
+            'unique' => array(
+		        'rule' => 'isUnique',
+		        'required' => 'create',
+		        'message' => 'El nombre de usuario ya existe'
+		    )
         ),
         'password' => array(
             'required' => array(

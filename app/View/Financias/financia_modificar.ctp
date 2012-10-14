@@ -77,15 +77,15 @@ $this->end(); ?>
 						'id' => 'monto', 
 						'type' => 'text',
 						'class' => 'k-textbox',
-						'maxlength' => 12,
+						'maxlength' => 13,
 						'error' => array('attributes' => array('wrap' => 'span', 'class' => 'LV_validation_message LV_invalid', "id" => 'errormonto'))
 					)); ?>
 					
 				
 				<script type="text/javascript">
-					var monto = new LiveValidation( "monto", { validMessage: "Correcto" } );
+					var monto = new LiveValidation( "monto", { validMessage: " " } );
 		            monto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            monto.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99, tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
+		            monto.add( Validate.Numericality, { minimum: 0.01, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.01", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
 		        </script>	
 			</li>
 			<li  class="accept">

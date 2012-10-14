@@ -21,7 +21,7 @@
 	    <tr>
 	        <th data-field="idfuentefinanciamiento">Fuente</th>
 	        <th data-field="montoparcial">Monto</th>
-	        <th data-field="userc">Usuario</th>
+	        <!--<th data-field="userc">Usuario</th>-->
 	        <th data-field="creacion">Fecha Asignación</th>
 	        <th>Acción</th>
 	    </tr>
@@ -29,19 +29,19 @@
 		    <tr>
 		        <td><?php echo $pro['Fuentefinanciamiento']['nombrefuente']; ?></td>
 		        <td><?php echo $pro['Financia']['montoparcial']; ?></td>        
-		        <td><?php echo $pro['Financia']['userc']; ?></td>
+		        <!--<td><?php echo $pro['Financia']['userc']; ?></td>-->
 		        <td><?php echo $pro['Financia']['creacion']; ?></td>
 		        <td>  
 		        	<?php echo $this->Html->link(
-            			'Editar', 
+            			'<span class="k-icon k-i-pencil"></span> Editar', 
             			array('action' => 'financia_modificar', $pro['Financia']['fuente_proyecto']),
-            			array('class'=>'k-button')
+            			array('class'=>'k-button', 'escape' => false)
 					);?>
             		<?php echo $this->Form->postLink(
-                		'Eliminar',
+                		'<span class="k-icon k-i-cancel"></span> Eliminar',
                 		array('action' => 'financia_eliminar', $pro['Financia']['fuente_proyecto']),
                 		array('confirm' => '¿Está seguro que desea eliminar el financiamiento ' . $pro['Financia']['fuente_proyecto'] . '?',
-                			'class'=>'k-button')
+                			'class'=>'k-button', 'escape' => false)
             		)?>
              	</td>
 		    </tr>
@@ -75,7 +75,7 @@
         columns: [
         	{ field: "idfuentefinanciamiento", title: "Fuente", width: 200 },
             { field: "montoparcial", title: "Monto", format: "{0:c}", footerTemplate: <?php echo "<strong>#= kendo.toString(sum,'c2') #</strong>"; ?>},
-            { field: "userc", title: "Usuario"},
+            /*{ field: "userc", title: "Usuario"},*/
             { field: "creacion", title: "Fecha Asignación", format: "{0:dd/MM/yyyy}"},
             { field: "accion", width: 200} 
 		]

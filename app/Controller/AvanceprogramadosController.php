@@ -4,9 +4,25 @@ class AvanceprogramadosController extends AppController {
     public $components = array('Session','RequestHandler');
 	public $uses = array('Contratoconstructor','Proyecto','Avanceprogramado');
 	
-	public function index() {
+	public function index($idproyecto=null,$idcontrato=null) {
 		$this->layout = 'cyanspark';
-	
+		
+		if(isset($idcontrato) && !empty($idcontrato)) {	
+			$avances = $this->Avanceprogramado->find('all', array(
+				'conditions' => array('Avanceprogramado.idcontrato' => $idcontrato),
+				'order' => 'Avanceprogramado.plazoejecuciondias ASC')
+			);
+			
+			$contrato = $this->Avanceprogramado->Contratoconstructor->findByIdcontrato($idcontrato);
+			
+			$this->set('avances',$avances);
+			$this->set('nombrecontrato',$contrato['Contratoconstructor']['nombrecontrato']);
+			$this->set('ordeninicio',$contrato['Contratoconstructor']['ordeninicio']);
+			$this->set('montooriginal',$contrato['Contratoconstructor']['montooriginal']);
+			$this->set('plazoejecucion',$contrato['Contratoconstructor']['plazoejecucion']);
+			$this->set('idproyecto',$idproyecto);
+			$this->set('idcontrato',$idcontrato);
+		}
     }
 	
 	public function Avanceprogramado_agregaravance($id=null) {
@@ -45,14 +61,38 @@ class AvanceprogramadosController extends AppController {
 
 	public function Avanceprogramado_editaravance($id=null) {
 		$this->layout = 'cyanspark';
+
+			$avances = $this->Avanceprogramado->find('all', array(
+				'conditions' => array('Avanceprogramado.idavanceprogramado' => $id),
+				'order' => 'Avanceprogramado.plazoejecuciondias ASC')
+			);
+			
+			$this->set('avances',$avances);
+			$this->set('contrato',Hash::extract($avances,'0.Contratoconstructor'));
+
+	    
 	    $this->Avanceprogramado->id = $id;
+
+			
 	    if ($this->request->is('get')) {
 	        $this->request->data = $this->Avanceprogramado->read();
+			
+			
 	    } else {
-	        if ($this->Avanceprogramado->save($this->request->data)) {
+	    	$this->Avanceprogramado->set('plazoejecuciondias', $this->request->data['Avanceprogramado']['plazoejecuciondias']);
+			$this->Avanceprogramado->set('porcentajeavfisicoprog', $this->request->data['Avanceprogramado']['porcentajeavfisicoprog']);
+			$this->Avanceprogramado->set('montoavfinancieroprog', $this->request->data['Avanceprogramado']['montoavfinancieroprog']);
+			$this->Avanceprogramado->set('fechaavance', $this->request->data['Avanceprogramado']['avance']);
+			$this->Avanceprogramado->set('idcontrato', $id);
+			$this->Avanceprogramado->set('userm', $this->Session->read('User.username'));
+			$this->Avanceprogramado->set('modificacion', date("Y-m-d H:i:s"));
+		    if ($this->Avanceprogramado->save()) {
 	            $this->Session->setFlash('El Avance ha sido actualizado exitosamente.','default',array('class'=>'success'));
 	            $this->redirect(array('action' => 'index'));
-	        }
+	        } else {
+            	$this->Session->setFlash('Ha ocurrido un error. No se pudo realizar el registro');
+
+        	}
 	    }
 	}
 	
@@ -93,23 +133,22 @@ class AvanceprogramadosController extends AppController {
 	}
 
 	public function update_avanceprog() {
-		$idcontrato = $this->request->data['Avanceprogramado']['contratos'];
-		
-		$avances = $this->Avanceprogramado->find('all', array(
-			'conditions' => array('Avanceprogramado.idcontrato' => $idcontrato),
-			'order' => 'Avanceprogramado.plazoejecuciondias ASC')
-		);
-		
-		$contrato = $this->Avanceprogramado->Contratoconstructor->findByIdcontrato($idcontrato);
-		
-		$this->set('avances',$avances);
-		$this->set('nombrecontrato',$contrato['Contratoconstructor']['nombrecontrato']);
-		$this->set('ordeninicio',$contrato['Contratoconstructor']['ordeninicio']);
-		$this->set('montooriginal',$contrato['Contratoconstructor']['montooriginal']);
-		$this->set('plazoejecucion',$contrato['Contratoconstructor']['plazoejecucion']);
-		$this->set('idcontrato',$idcontrato);
-		
-		
+		if(isset($this->request->data['Avanceprogramado']['contratos']) && !empty($this->request->data['Avanceprogramado']['contratos'])) {	
+			$idcontrato = $this->request->data['Avanceprogramado']['contratos'];
+			$avances = $this->Avanceprogramado->find('all', array(
+				'conditions' => array('Avanceprogramado.idcontrato' => $idcontrato),
+				'order' => 'Avanceprogramado.plazoejecuciondias ASC')
+			);
+			
+			$contrato = $this->Avanceprogramado->Contratoconstructor->findByIdcontrato($idcontrato);
+			
+			$this->set('avances',$avances);
+			$this->set('nombrecontrato',$contrato['Contratoconstructor']['nombrecontrato']);
+			$this->set('ordeninicio',$contrato['Contratoconstructor']['ordeninicio']);
+			$this->set('montooriginal',$contrato['Contratoconstructor']['montooriginal']);
+			$this->set('plazoejecucion',$contrato['Contratoconstructor']['plazoejecucion']);
+			$this->set('idcontrato',$idcontrato);
+		}	
 		
 		$this->render('/Elements/update_avanceprog', 'ajax');
 	}
