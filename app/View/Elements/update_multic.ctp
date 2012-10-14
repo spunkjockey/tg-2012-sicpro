@@ -35,8 +35,8 @@
 			  		</td>
 			  		<td>
 			  			<!--<?php echo $this->Form->end(array('label' => '>', 'class' => 'k-button', 'id' => 'button')); ?>-->
-			  			<input type="submit" name="boton_1" id="boton_1" value=">" dir="nombramiento_asignartecnico" class="k-button"/>
-			  			<input type="submit" name="boton_2" id="boton_2" value="<" dir="nombramiento_asignartecnico" class="k-button" />
+			  			<input type="submit" name="boton_1" id="boton_1" value=">" dir="nombramiento_asignartecnico" class="k-button" onclick="validardisponibles();" />
+			  			<input type="submit" name="boton_2" id="boton_2" value="<" dir="nombramiento_asignartecnico" class="k-button" onclick= "validarseleccionados();" />
 			  		</td>
 					<td>
 					  <select id="seleccionados" name="seleccionados" size="4">
@@ -69,32 +69,59 @@
     	$("#disponibles").val("");
     });	
     
-    $("#NombramientoNombramientoAsignartecnicoForm").submit(function(){
+    function validardisponibles(){
     	var select1 = $("#disponibles :selected").val();
-    	var select2 = $("#seleccionados :selected").val();
-    			$("#boton_1").click(function(){
-    				if(select1 == null){
-			    	$('#errordisponibles').text("Seleccione un  Técnico disponible");
-			    		return false;
-		    		}
-					 else{
-					 		return true;
-					}
-			    });	
-    	
-    	
-    			$("#boton_2").click(function(){
-    				if(select2 == null){
-			    	$('#errordisponibles').text("Seleccione un  Técnico asignado");
-			    	return false;
-		    		}
-					 else{
-					 		return true;
-					}
-			    });
+		 if(select1 == undefined){
+		 			alert('indefinido');
+			    	$('#errordisponibles').text("Seleccione un  Técnico disponible");  
+		       return false;
+		    }
+		 else{
+		 		alert('ok');
+		 		return true;
+		 }
+    }
+  /*  $('#boton_1').click(function() {
+		$('#NombramientoNombramientoAsignartecnicoForm').submit(function(){
+		 var select1 = $("#disponibles :selected").val();
+		 if(select1 == null){
+			    	$('#errordisponibles').text("Seleccione un  Técnico disponible");  
+		       return false;
+		    }
+		 else{
+		 		return true;
+		 }
+		});
+
+	});
+	
+    $('#boton_2').click(function() {
+		$('#NombramientoNombramientoAsignartecnicoForm').submit(function(){
+		 var select2 = $("#seleccionados :selected").val();
+		 if(select2 == null){
+			    	$('#errordisponibles').text("Seleccione un  Técnico Asignado");  
+		       return false;
+		    }
+		 else{
+		 		return true;
+		 }
+		});
+
+	});
+/*    
+    $("#NombramientoNombramientoAsignartecnicoForm").submit(function(){
+    	alert($("button").text());
+    	var select = $("#disponibles :selected").val();
+		 if(select == null){
+			    	$('#errordisponibles').text("Seleccione un  Técnico disponible");  
+		       return false;
+		    }
+		 else{
+		 		return true;
+		 }
 	});		
     	
-
+*/
 	 $("input[type=submit]").click(function() {
 		        var accion = $(this).attr('dir');
 		        $('form').attr('action', accion);
