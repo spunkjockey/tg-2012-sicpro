@@ -3,7 +3,7 @@
 class UsersController extends AppController {
 		public $helpers = array('Html', 'Form', 'Session', 'Js');
     	public $components = array('Session','RequestHandler');
-		public $uses = array('User','Rol');
+		public $uses = array('User','Rol','Auditoria_sesion');
 	
     public function beforeFilter() {
         parent::beforeFilter();
@@ -28,8 +28,9 @@ class UsersController extends AppController {
 				//comprobar si existe
 				if($conteo != 0 ) {	
 					$usuarios = $this->User->findByUsername($this->data['User']['username']);
+		    	    //Debugger::dump($usuarios);
 		    	    //comprobar si esta habilitado en el sistema
-		    	    if($usuarios['User']['estado'] = TRUE) {
+		    	    if($usuarios['User']['estado'] == TRUE) {
 			    	    //logear en el sistema	
 			    	    if ($this->Auth->login()) {
 				        	$someone = $this->User->findByUsername($this->data['User']['username']);
@@ -39,13 +40,23 @@ class UsersController extends AppController {
 							$this->Session->write('User.useragent',$this->request->header('User-Agent'));
 							$this->Session->write('User.userip',$this->request->clientIp());
 							$this->Session->write('User.nombre',$someone['User']['nombre']);
+							
+							$this->Auditoria_sesion->set('ipmaquina', $this->request->clientIp());
+							$this->Auditoria_sesion->set('useragent',$this->request->header('User-Agent'));
+							$this->Auditoria_sesion->set('username',$someone['User']['username']);
+							$this->Auditoria_sesion->set('login', date("Y-m-d H:i:s"));
+							if ($this->Auditoria_sesion->save()) {
+					            $this->Session->write('User.idauditoria',$this->Auditoria_sesion->id);
+					        } 
+							
+							
 				            $this->redirect($this->Auth->redirect());
 				            //$this->redirect(array('controller'=>'mains'));
 				        } else {
 				            $this->Session->setFlash(__('Usuario o Contraseña Incorrecta, intente otra vez', 'default', array('class' => 'errorlogin')));
 				        }
 					} else {
-						$this->Session->setFlash(__('El usuario ha sido deshabilitado', 'default', array('class' => 'errorlogin')));
+						$this->Session->setFlash(__('El usuario se encuentra deshabilitado', 'default', array('class' => 'errorlogin')));
 					}
 				} else {
 					$this->Session->setFlash(__('El usuario no existe en el sistema', 'default', array('class' => 'errorlogin')));
@@ -55,8 +66,15 @@ class UsersController extends AppController {
 	}
 	
 	public function logout() {
-    	$this->Session->destroy();
-    	$this->redirect($this->Auth->logout());
+		/*$this->Auditoria_sesion->id = $this->Session->read('User.idauditoria');
+		$this->Auditoria_sesion->set('logout', date("Y-m-d H:i:s"));
+		if ($this->Auditoria_sesion->save()) {*/
+            $this->Session->destroy();
+    		$this->redirect($this->Auth->logout());
+        /*} else {
+			$this->Session->setFlash(__('Un error ha ocurrido', 'default', array('class' => 'errorlogin')));
+		}*/
+
 		
 	}
 

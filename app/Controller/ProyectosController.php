@@ -1,7 +1,7 @@
 <?php class ProyectosController extends AppController {
     public $name = 'Proyectos';
     public $components = array('Session','RequestHandler');
-	public $uses = array('Proyecto','Division');
+	public $uses = array('Proyecto','Division','Contrato');
 	
 	public function proyecto_registrar() {
         $this->layout = 'cyanspark';
@@ -188,6 +188,42 @@
 		$this->render('/json/jsonproys');
 	}
 		
+			
 		
 		
+	public function proyecto_reportecontratos() {
+		$this->layout = 'cyanspark';
+		
+		
+	}	
+	
+	public function update_reportecontratos() {
+			
+		$this->set('proyectos',$this->data['Proyecto']['proyectos']);
+		
+		$this->render('/Elements/reportes/update_reportecontratos', 'ajax');
+	}	
+	
+	public function reportecontratosjson() 
+	{
+		$proys = $this->Contrato->find('all', array(
+									'fields'=> array('DISTINCT Proyecto.idproyecto','Proyecto.nombreproyecto','Proyecto.creacion'),
+									'order'=> array('Proyecto.nombreproyecto ASC')));
+		$this->set('proys', Hash::extract($proys, "{n}.Proyecto"));
+		$this->set('_serialize', 'proys');
+		$this->render('/json/jsonproys');
+		
+	}
+	
+	public function reportegridcontratosjson() 
+	{
+		$proys = $this->Contrato->find('all', array(
+									//'fields'=> array('Proyecto.idproyecto','Proyecto.nombreproyecto','Proyecto.creacion'),
+									'order'=> array('Proyecto.numeroproyecto ASC', 'Contrato.codigocontrato ASC')));
+		$this->set('proys', Hash::extract($proys, "{n}"));
+		$this->set('_serialize', 'proys');
+		$this->render('/json/jsonproys');
+		
+	}
+	
 }

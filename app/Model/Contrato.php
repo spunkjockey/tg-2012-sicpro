@@ -12,6 +12,10 @@
 			'Proyecto' => array(
 				'className'    => 'Proyecto',
 				'foreignKey'   => 'idproyecto'
+				),
+			'Empresa' => array(
+				'className'    => 'Empresa',
+				'foreignKey'   => 'idempresa'
 				)
 			);
 		
