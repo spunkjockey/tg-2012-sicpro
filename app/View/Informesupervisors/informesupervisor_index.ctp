@@ -58,8 +58,8 @@ $this->end(); ?>
 <table id="grid">
     <tr>
         <th data-field="tituloinforme">Título informe</th>
-        <th data-field="periodo" width="100px">Período</th>
-        <th data-field="accion" width="250px">Acción</th>
+        <th data-field="periodo" width="120px">Fecha supervisión</th>
+        <th data-field="accion" width="120px">Acción</th>
     </tr>
 
     <?php foreach ($informes as $info): ?>
@@ -68,24 +68,23 @@ $this->end(); ?>
         	<?php echo $info['Informesupervisor']['tituloinformesup']; ?>
         </td>
         <td>
-        	<?php echo date('d/m/Y',strtotime($info['Informesupervisor']['fechainiciosupervision'])); ?>
-        	al <?php echo date('d/m/Y',strtotime($info['Informesupervisor']['fechafinsupervision'])); ?>
+        	<?php echo date('d/m/Y',strtotime($info['Informesupervisor']['fechafinsupervision'])); ?>
         </td>
        	<td align="center">
             <?php echo $this->Html->link(
-            	'Editar', 
+            	'<span class="k-icon k-i-pencil"></span>', 
             	array('action' => 'informesupervisor_modificar', $info['Informesupervisor']['idinformesupervision']),
-            	array('class'=>'k-button')
+            	array('class'=>'k-button', 'escape' => false)
 			);?>
 			<?php echo $this->Form->postLink(
-                'Eliminar',
+                '<span class="k-icon k-i-close"></span>',
                 array('action' => 'informesupervisor_eliminar', $info['Informesupervisor']['idinformesupervision']),
-                array('confirm' => '¿Está seguro?','class'=>'k-button')
+                array('confirm' => '¿Está seguro?','class'=>'k-button', 'escape' => false)
             )?>
             <?php echo $this->Html->link(
-            	'Cargar archivo', 
+            	'<span class="k-icon k-i-plus"></span>',
             	array('action' => 'informesupervisor_cargar_archivo', $info['Informesupervisor']['idinformesupervision']),
-            	array('class'=>'k-button')
+            	array('class'=>'k-button', 'escape' => false)
 			);?>
             
        	</td> 
@@ -93,7 +92,17 @@ $this->end(); ?>
     <?php endforeach; ?>
     <?php unset($informes); ?>
 </table>
-
+<style scoped>
+        #grid .k-button
+        {
+            vertical-align: middle;
+            width: 28px;
+            margin: 0 3px;
+            padding: .1em .4em .3em;
+            display: inline;
+            
+        }
+    </style>
 <script>
 	$(document).ready(function() {
     	$("#grid").kendoGrid({

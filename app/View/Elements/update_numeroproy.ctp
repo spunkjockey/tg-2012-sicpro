@@ -19,7 +19,7 @@
 		var numero = new LiveValidation( "numero", { validMessage: " " } );
         numero.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
         numero.add( Validate.Numericality, { onlyInteger: true,
-        								   notAnIntegerMessage: "Debe ser un número entero",
+        								   notAnIntegerMessage: "Debe ser un número sin parte decimal",
         								   notANumberMessage:"Debe ser un número"} );
         numero.add(Validate.Length, {minimum: 4, maximum: 6, 
         							 tooShortMessage:"Longitud mínima de 4 dígitos",

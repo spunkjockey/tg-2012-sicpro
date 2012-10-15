@@ -22,12 +22,12 @@
 	            'dependent'    => true
 			)
 	    );
-		
+		/*
 		public $virtualFields = array(
 			 'fechainicio' => "to_char(Informesupervisor.fechainiciosupervision, 'DD/MM/YYYY')",
 			 'fechafin' => "to_char(Informesupervisor.fechafinsupervision, 'DD/MM/YYYY')"
 			 );
-		
+		/*
 		public $validate = array(
 	    'fechafinsupervision' => array(
 	        'finmayorinicio' => array(
@@ -47,14 +47,14 @@
 		        'allowEmpty' => true,
 				'required'=>false)
 		
-		);
+		);*/
 	
-	public function finmayorinicio($check) 
+	/*public function finmayorinicio($check) 
 		{
 			
 			return date_create_from_format('d/m/Y', $this->data['Informesupervisor']['fechafinsupervision']) > date_create_from_format('d/m/Y', $this->data['Informesupervisor']['fechainiciosupervision']);
     	
-		}
+		}*/
 
 
 	

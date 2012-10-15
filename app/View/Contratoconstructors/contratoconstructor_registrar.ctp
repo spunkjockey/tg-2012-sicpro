@@ -75,7 +75,7 @@ $this->end(); ?>
 				</div>
 			</li>
 			<li>
-				<?php echo $this->Form->input('Contrato.codigocontrato', 
+				<?php echo $this->Form->input('codigocontrato', 
 					array(
 						'label' => 'Código del contrato:', 
 						'class' => 'k-textbox',

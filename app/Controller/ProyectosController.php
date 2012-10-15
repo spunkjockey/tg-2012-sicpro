@@ -78,15 +78,19 @@
 			
 	}
 	
-	function proyecto_eliminar($id) 
+	function proyecto_eliminar($id=null) 
 		{
+		    $proy = $this->Proyecto->find('first',array(
+									'fields'=>array('Proyecto.nombreproyecto'),
+									'conditions'=>array('Proyecto.idproyecto'=>$id)));
 		    if (!$this->request->is('post')) 
 		    {
 		        throw new MethodNotAllowedException();
 		    }
 		    if ($this->Proyecto->delete($id)) 
 		    {
-		        $this->Session->setFlash('El proyecto ha sido eliminado','default',array('class'=>'success'));
+		        $this->Session->setFlash('El proyecto "'.$proy['Proyecto']['nombreproyecto'].'" ha sido eliminado'
+		        						,'default',array('class'=>'success'));
 		        $this->redirect(array('action' => 'proyecto_listado'));
 		    }
 		}
@@ -129,7 +133,6 @@
 		if   ($this->request->is('post')) 
 			{
                 $this->Proyecto->create();
-				Debugger::dump($this->request->data);
 				$id = $this->request->data['Proyecto']['proys'];
 				$this->Proyecto->read(null, $id);
 				$this->Proyecto->set('numeroproyecto', $this->request->data['Proyecto']['numeroproyecto']);

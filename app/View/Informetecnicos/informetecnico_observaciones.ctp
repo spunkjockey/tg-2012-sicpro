@@ -1,5 +1,3 @@
-<!-- File: /app/View/Proyectos/add_num.ctp -->
-
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -44,82 +42,71 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Proyecto » Asignar número de proyecto
+			?> Control y seguimiento » Informe técnico » Consultar informe técnico 
 			
 		</div>
 	</div>
+	
 <?php $this->end(); ?>
-
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Asignar número de proyecto</h2>
-		<?php echo $this->Form->create('Proyecto',array('action' => 'proyecto_asignar_num')); ?>
+		<h2>Consultar informe técnico</h2>
+		<?php echo $this->Form->create('Informetecnico',array('action' => 'informetecnico_observaciones')); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('proys', 
+				<?php echo $this->Form->input('proyectos', 
 					array(
 						'label' => 'Seleccione proyecto:', 
-						'id' => 'proys',
-						'class'=>'k-combobox',
-						'div' => array('class' => 'requerido'))); 
-				?>
+						'id' => 'proyectos',
+						'div' => array('class' => 'requerido'))); ?>
 				<script type="text/javascript">
-					var proys = new LiveValidation( "proys", { validMessage: " " } );
-		            proys.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script>
+					var proyectos= new LiveValidation( "proyectos", { validMessage: " " } );
+					proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+				</script>
 			</li>
 			<li>
-				<div id=actnumero>
-					<?php 
-						if(isset($num['Proyecto']['numeroproyecto']))
-							$numero = $num['Proyecto']['numeroproyecto']; 
-						else
-						   $numero = '';
+				<?php echo $this->Form->input('contratos', 
+					array(
+						'label' => 'Contrato de construcción:', 
+						'id' => 'contratos',
+						'div' => array('class' => 'requerido'))); ?>
+				<script type="text/javascript">
+					var contratos= new LiveValidation( "contratos", { validMessage: " " } );
+					contratos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+				</script>
+			</li>
+			<li>
+				<?php echo $this->Form->input('fechas', 
+					array(
+						'label' => 'Fecha de elaboración:', 
+						'id' => 'fechas',
+						'div' => array('class' => 'requerido')
+						)); 
 					?>
-							
-						<!--- aqui se actualizara el campo de numero de proyecto con el cambio de proyecto --->
-					<?php echo $this->Form->input('Proyecto.numeroproyecto', 
-						array(
-							'label' => 'Ingrese número de proyecto:', 
-							'id' => 'numero',
-							'value'=>$numero,
-							'class' => 'k-textbox',  
-							'placeholder' => 'Número del proyecto', 
-							'div' => array('class' => 'requerido'))); ?>
-					<script type="text/javascript">
-						var numero = new LiveValidation( "numero", { validMessage: " " } );
-					    numero.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-					    numero.add( Validate.Numericality, { onlyInteger: true,
-					    								   notAnIntegerMessage: "Debe ser un número sin parte decimal",
-					    								   notANumberMessage:"Debe ser un número"} );
-					    numero.add(Validate.Length, {minimum: 4, maximum: 6, 
-					    							 tooShortMessage:"Longitud mínima de 4 dígitos",
-					    							 tooLongMessage:"Longitud máxima de 6 dígitos"});
-					    
-					</script>
+				<script type="text/javascript">
+					var fechas= new LiveValidation( "fechas", { validMessage: " " } );
+					fechas.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+				</script>
+			</li>
+			<li>
+				<div id=datainftecnico>
+					<!--- aquí se carga la información del informe tecnico--->
 				</div>
 			</li>
-			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar', 'class' => 'k-button')); ?>
-				<?php echo $this->Html->link('Regresar', 
-									array('controller' => 'Proyectos','action' => 'proyecto_listado'),
-									array('class'=>'k-button')); ?>
-				<?php echo $this->ajax->observeField( 'proys', 
-		    					array('url' => array( 'action' => 'update_numeroproy'),'update' => 'actnumero'));  ?>
+			<li>
+				<div id=formobservaciones>
+					
+				</div>
 			</li>
 			
-				
-				
-			
-            
-            <li class="status">
-            </li>
+				<?php echo $this->ajax->observeField( 'fechas',array(
+			        		'url' => array( 'action' => 'update_datainfotec'),
+			        		'update' => 'datainftecnico'));  
+					?>
 		</ul>
-		
 	</div>
 </div>
-
-			<style scoped>
+<style scoped>
 
                 .k-textbox {
                     width: 300px;
@@ -165,7 +152,7 @@ $this->end(); ?>
 
                 label {
                     display: inline-block;
-                    width: 200px;
+                    width: 150px;
                     text-align: right;
                     margin-right: 5px;
                 }
@@ -220,35 +207,60 @@ $this->end(); ?>
 				}
             </style>
 			
-            <script>
+			<script>
                 $(document).ready(function() {
-                    
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
 
-                    $("#button").click(function() {
+                    $("button").click(function() {
                         if (validator.validate()) {
-                        	save();  
-                        } 
+                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
+                            } else {
+                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
+                        }
                     });
-                    
-                    $("#proys").kendoDropDownList({
-			            dataTextField: "nombreproyecto",
+                
+				
+				$("#proyectos").kendoDropDownList({
+            			optionLabel: "Seleccione proyecto",
+			            dataTextField: "numeroproyecto",
 			            dataValueField: "idproyecto",
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
-			                                read: "/Proyectos/proyectosjson.json"
+			                                read: "/Informetecnicos/proyectojson.json"
 			                            }
 			                        }
 			        });
+			        var proyectos = $("#proyectos").data("kendoDropDownList");
 			        
-			        var proys = $("#proys").data("kendoDropDownList");
-                    proys.list.width(300);
-                    
-                    
-                   
-                });
-                
+			    var contratos = $("#contratos").kendoDropDownList({
+			                        autoBind: false,
+			                        cascadeFrom: "proyectos",
+			                        optionLabel: "Seleccione contrato",
+			                        dataTextField: "codigocontrato",
+			                        dataValueField: "idcontrato",
+			                        dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Informetecnicos/contratosconstructorjson.json"
+			                            }
+			                        }
+			                    }).data("kendoDropDownList");
+			    
+			    var fechas = $("#fechas").kendoDropDownList({
+			                        autoBind: false,
+			                        cascadeFrom: "contratos",
+			                        optionLabel: "Seleccione fecha",
+			                        dataTextField: "fechaelab",
+			                        dataValueField: "idinformetecnico",
+			                        dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Informetecnicos/fechasvisitasjson.json"
+			                            }
+			                        }
+			                    }).data("kendoDropDownList");
+				});
                 
             </script>

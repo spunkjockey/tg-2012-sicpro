@@ -46,7 +46,6 @@ $this->end(); ?>
 		</div>
 	</div>
 <?php $this->end(); ?>
-
 <div id="example" class="k-content">
 	<div id="formulario">
 		<?php echo $this->Form->create('Informesupervisor',array('action' => 'informesupervisor_modificar')); ?>
@@ -70,43 +69,22 @@ $this->end(); ?>
 					titulo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				</script>
 			</li>
+			
 			<li>
-				<?php echo $this->Form->input('fechainicio', 
+				
+				<?php echo $this->Form->input('fechas', 
 					array(
-						'label' => 'Fecha inicio:', 
-						'id'	=> 'datePicker1',
-						'div' => array('class' => 'requerido'),
-						'type'  => 'Text'
-						));
-					?>
-				<script type="text/javascript">
-		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " } );
-		            datePicker1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d$/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
-		            datePicker1.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
-		        </script>
-		        <?php if ($this->Form->isFieldError('fechainiciosupervision')) {
-				    echo $this->Form->error('fechainiciosupervision');
-				} ?>
-			</li>
-			<li>
-				<?php echo $this->Form->input('fechafin', 
-					array(
-						'label' => 'Fecha fin:', 
-						'id'	=> 'datePicker2',
-						'div' => array('class' => 'requerido'),
-						'type'  => 'Text'
+						'label' => 'Fecha:', 
+						'id' => 'fechas',
+						'value'=> $this->request->data['Informesupervisor']['fechafinsupervision'],
+						'div' => array('class' => 'requerido')
 						)); 
 					?>
 				<script type="text/javascript">
-		            var datePicker2 = new LiveValidation( "datePicker2", { validMessage: " " } );
-		            datePicker2.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            datePicker2.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d$/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
-		        	datePicker2.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
-		        </script>
-		         <?php if ($this->Form->isFieldError('fechafinsupervision')) {
-				    echo $this->Form->error('fechafinsupervision');
-				} ?>
+					var fechas= new LiveValidation( "fechas", { validMessage: " " } );
+					fechas.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+				</script>	
+				
 			</li>
 			<li>
 				<?php echo $this->Form->input('plazoejecuciondias', 
@@ -182,7 +160,7 @@ $this->end(); ?>
 	.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 	
 	.k-combobox {
-        width: 300px;
+        
     }
     
     form .requerido label:after {
@@ -301,17 +279,14 @@ $this->end(); ?>
 				     spinners: false
 				 });
 				
-				
-				var fechainicio = $("#datePicker1").kendoDatePicker({
-		   			format: "dd/MM/yyyy",
-		   			culture: "es-ES"
-		   			
-		   		});
-		   		
-		   		var fechafin = $("#datePicker2").kendoDatePicker({
-		   			format: "dd/MM/yyyy",
-		   			culture: "es-ES"
-		   		});
+				$("#fechas").kendoComboBox({
+			         //placeholder: "Seleccionar...",
+			         //index: -1,
+			        suggest: true,
+			        
+			        dataTextField: "fechafin",
+        			dataValueField: "fechaavance",
+			    });
 		   		
 				
 				

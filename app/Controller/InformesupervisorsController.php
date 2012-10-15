@@ -3,7 +3,7 @@
     {
     	public $helpers = array('Html', 'Form', 'Session','Ajax','AjaxMultiUpload.Upload');
 	    public $components = array('Session','RequestHandler','AjaxMultiUpload.Upload');
-		public $uses = array('Informesupervisor','Proyecto','Contrato','User','Contratosupervisor');
+		public $uses = array('Informesupervisor','Proyecto','Contrato','User','Contratosupervisor','Avancedisponible','Avancetodos');
 		
 		public function informesupervisor_index()
 		{
@@ -11,7 +11,7 @@
 			//Falta filtrar en base a la necesidad...
 			$this->set('informes',$this->Informesupervisor->find('all',array(
 									'fields'=>array('Informesupervisor.idinformesupervision','Informesupervisor.tituloinformesup',
-													'Informesupervisor.fechafinsupervision','Informesupervisor.fechainiciosupervision'),
+													'Informesupervisor.fechafinsupervision'),
 									'conditions'=>array(),
 									'order'=>array()
 									)));
@@ -30,8 +30,7 @@
 			{
 				$this->Informesupervisor->set('idcontrato',$this->request->data['Informesupervisor']['contratos']);
 				$this->Informesupervisor->set('tituloinformesup',$this->request->data['Informesupervisor']['tituloinforme']);
-				$this->Informesupervisor->set('fechainiciosupervision',$this->request->data['Informesupervisor']['fechainicio']);
-				$this->Informesupervisor->set('fechafinsupervision',$this->request->data['Informesupervisor']['fechafin']);
+				$this->Informesupervisor->set('fechafinsupervision',$this->request->data['Informesupervisor']['fechas']);
 				$this->Informesupervisor->set('plazoejecuciondias',$this->request->data['Informesupervisor']['plazoejecucion']);
 				$this->Informesupervisor->set('valoravancefinanciero',$this->request->data['Informesupervisor']['avfinanciero']);
 				$this->Informesupervisor->set('porcentajeavancefisico',$this->request->data['Informesupervisor']['avfisico']);
@@ -112,11 +111,25 @@
 				$cont_id = $this->request->data['Informesupervisor']['contratos'];
 				$info = $this->Contratosupervisor->find('first',array(
 							'fields'=>array('Contratosupervisor.nombrecontrato','Contratosupervisor.plazoejecucion',
-											'Contratosupervisor.ordeninicio'),
+											'Contratosupervisor.ordeninicio','Contratosupervisor.con_idcontrato'),
 							'conditions'=>array('Contratosupervisor.idcontrato'=>$cont_id)));
 				$this->set('info',$info);
 			}
 			$this->render('/Elements/update_nomcontrato', 'ajax');	
+		}
+		
+		function fechasjson()
+		{
+			
+			$fechas = $this->Avancedisponible->find('all',array(
+				'fields'=>array('Avancedisponible.idcontrato','Avancedisponible.fechaavance','Avancedisponible.fechafin'),
+				
+				'order'=>array('Avancedisponible.fechaavance')
+				));
+			$this->set('fechas', Hash::extract($fechas, "{n}.Avancedisponible"));
+			$this->set('_serialize', 'fechas');
+			$this->render('/json/jsonfechas');
+			
 		}
 		
 		/*informesupervisor_cargar_archivo($id=null)
@@ -138,14 +151,22 @@
 										
 			if ($this->request->is('get')) 
 			{
-				
+					
+				Debugger::dump($id);
 				$this->request->data=$this->Informesupervisor->read();
+				$contratoid = $this->Informesupervisor->field('idcontrato',array('idinformesupervision'=>$id));
+				$this->set('fechas',$this->Avancetodos->find('list',array(
+						'fields'=>array('Avancetodos.fechaavance','Avancetodos.fechafin'),
+						'conditions'=>array('Avancetodos.idcontrato'=>$contratoid),
+						'order'=>array('Avancetodos.fechaavance')
+						)));
+				Debugger::dump($contratoid);
+				
 			}
 			else 
 			{
 				$this->Informesupervisor->set('tituloinformesup',$this->request->data['Informesupervisor']['tituloinformesup']);
-				$this->Informesupervisor->set('fechainiciosupervision',$this->request->data['Informesupervisor']['fechainicio']);
-				$this->Informesupervisor->set('fechafinsupervision',$this->request->data['Informesupervisor']['fechafin']);
+				$this->Informesupervisor->set('fechafinsupervision',$this->request->data['Informesupervisor']['fechas']);
 				$this->Informesupervisor->set('plazoejecuciondias',$this->request->data['Informesupervisor']['plazoejecuciondias']);
 				$this->Informesupervisor->set('valoravancefinanciero',$this->request->data['Informesupervisor']['valoravancefinanciero']);
 				$this->Informesupervisor->set('porcentajeavancefisico',$this->request->data['Informesupervisor']['porcentajeavancefisico']);

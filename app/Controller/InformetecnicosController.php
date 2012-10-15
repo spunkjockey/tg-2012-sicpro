@@ -13,7 +13,7 @@
 			{
 				$this->Informetecnico->set('antecedentes', $this->request->data['Informetecnico']['antecedentes']);
 				$this->Informetecnico->set('fechavisita', $this->request->data['Informetecnico']['fechavisita']);
-				$this->Informetecnico->set('fechaelaboracion', $this->request->data['Informetecnico']['fechaelab']);
+				$this->Informetecnico->set('fechaelaboracion', $this->request->data['Informetecnico']['fechaelaboracion']);
 				$this->Informetecnico->set('anotacion', $this->request->data['Informetecnico']['anotaciones']);
 				$this->Informetecnico->set('idcontrato', $this->request->data['Informetecnico']['contratos']);
 				$this->Informetecnico->set('idpersona',$idpersona);
@@ -41,7 +41,7 @@
 			$contratos = $this->Contratotecproy->find('all', array(
 								'fields'=> array('idcontrato','codigocontrato'),
 								'conditions'=>array('AND'=>array(
-													'estadocontrato' => array('a tiempo','atrasado'),
+													'estadocontrato' => array('a tiempo','atrasado','en marcha','en pausa'),
 													'estadoproyecto'=>'Ejecucion',
 													'username'=>$this->Session->read('User.username')))
 										));
@@ -66,6 +66,60 @@
 				$this->set('info',$info);
 			}
 			$this->render('/Elements/update_infoproy_inftec', 'ajax');
+		}
+
+		/*
+		 * */
+		 function informetecnico_observaciones()
+		 {
+		 	$this->layout = 'cyanspark';
+		 }
+		 
+		 function proyectojson() 
+		{
+			$proyectos = $this->Proyecto->find('all', array(
+											'fields'=> array('Proyecto.idproyecto','Proyecto.numeroproyecto'),
+											'conditions'=>array('Proyecto.estadoproyecto' => 'Ejecucion')));
+			$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
+			$this->set('_serialize', 'proyectos');
+			$this->render('/json/jsondata');
+		}
+		
+		function contratosconstructorjson()
+		{
+			$contratos = $this->Contratoconstructor->find('all',array(
+					'fields'=>array('idproyecto','idcontrato','codigocontrato'),
+					'conditions'=>array('Contratoconstructor.estadocontrato'=>array("en marcha","a tiempo","atrasado")),
+					'order'=>'codigocontrato'
+					));
+			$this->set('contratos', Hash::extract($contratos, "{n}.Contratoconstructor"));
+			$this->set('_serialize', 'contratos');
+			$this->render('/json/jsondatad');
+		}
+		
+		function fechasvisitasjson()
+		{
+			$fechas = $this->Informetecnico->find('all',array(
+				'fields'=>array('idcontrato','idinformetecnico',"fechaelab"),
+				'order'=>'fechavisita'
+				));
+			$this->set('fechas', Hash::extract($fechas, "{n}.Informetecnico"));
+			$this->set('_serialize', 'fechas');
+			$this->render('/json/jsonfechas');
+		}
+		
+		function update_datainfotec()
+		{
+			if (!empty($this->data['Informetecnico']['fechas']))
+			{
+				$inf_id = $this->request->data['Informetecnico']['fechas'];
+				$info = $this->Informetecnico->find('first',array(
+					'fields'=>array('antecedentes','anotacion'),
+					'conditions'=>array('idinformetecnico'=>$inf_id)
+					));
+				$this->set('info',$info);
+			}
+			$this->render('/Elements/update_datainfotec', 'ajax');
 		}
 	}
 ?>

@@ -24,11 +24,15 @@ class Financia extends AppModel {
 	);
 	
 	public function limitarMonto($check) {
-        $monto_disponible = $this->find('first', array(
+        $monto_disponible = $this->Fuentefinanciamiento->find('first', array(
             'fields' => 'Fuentefinanciamiento.montodisponible',
             'conditions' => array('Fuentefinanciamiento.idfuentefinanciamiento ' => $this->data['Financia']['idfuentefinanciamiento'])   
 			
         ));
+		
+		Debugger::dump($this->data['Financia']['idfuentefinanciamiento']);
+		Debugger::dump($monto_disponible);
+		Debugger::dump($check['montoparcial']);
         return $monto_disponible['Fuentefinanciamiento']['montodisponible'] >= $check['montoparcial'];
     }
 	
@@ -37,6 +41,7 @@ class Financia extends AppModel {
 	    if (!empty($this->data['Financia']['montoparcial'])) {
 	        $this->data['Financia']['montoparcial'] = number_format($this->data['Financia']['montoparcial'], 2, '.', '');
 	    }
+		
 	    return true;
 	}
 	
