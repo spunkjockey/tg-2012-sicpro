@@ -19,6 +19,13 @@
 				)
 			);
 		
+		public $hasMany= array(
+			'Nombramiento'=>array(
+				'className'=> 'Nombramiento',
+				'foreignKey'=>'idcontrato'
+				)
+		);
+		
 		public $validate = array(
 			'codigocontrato' => array(
 				'isUnique' => array(

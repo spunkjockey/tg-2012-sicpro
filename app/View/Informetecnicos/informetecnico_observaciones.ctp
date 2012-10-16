@@ -78,7 +78,7 @@ $this->end(); ?>
 			<li>
 				<?php echo $this->Form->input('fechas', 
 					array(
-						'label' => 'Fecha de elaboración:', 
+						'label' => 'Fecha de visita:', 
 						'id' => 'fechas',
 						'div' => array('class' => 'requerido')
 						)); 
@@ -103,6 +103,15 @@ $this->end(); ?>
 			        		'url' => array( 'action' => 'update_datainfotec'),
 			        		'update' => 'datainftecnico'));  
 					?>
+				<?php echo $this->ajax->observeField( 'fechas',array(
+			        		'url' => array( 'action' => 'agregar_observaciones'),
+			        		'update' => 'formobservaciones'));  
+					?>
+				<?php echo $this->Html->link(
+							'Regresar', 
+							array('controller' => 'Mains', 'action' => 'index'),
+							array('class'=>'k-button')
+						); ?>
 		</ul>
 	</div>
 </div>
@@ -252,7 +261,7 @@ $this->end(); ?>
 			                        autoBind: false,
 			                        cascadeFrom: "contratos",
 			                        optionLabel: "Seleccione fecha",
-			                        dataTextField: "fechaelab",
+			                        dataTextField: "fechav",
 			                        dataValueField: "idinformetecnico",
 			                        dataSource: {
 			                            type: "json",
