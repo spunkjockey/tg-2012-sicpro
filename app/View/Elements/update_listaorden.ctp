@@ -30,12 +30,14 @@ if(!empty($ordenes)){ ?>
 		<td><?php echo $or['Ordendecambio']['descripcionordencambio']; ?></td> 
 		<td><?php echo date('d/m/Y',strtotime($or['Ordendecambio']['fecharegistroorden'])); ?></td> 
         <td align="center">
+        	<?php if(isset($ultimo) && $or['Ordendecambio']['idordencambio']==$ultimo['Ordendecambio']['idordencambio']){ ?>
             <?php echo $this->Html->link(
             	'<span class="k-icon k-i-pencil"></span>', 
             	array('action' => 'ordendecambio_modificar', $or['Ordendecambio']['idordencambio']),
             	array('class'=>'k-button','escape' => false)
 			);?>
-			<?php if(isset($ultimo) && $or['Ordendecambio']['idordencambio']==$ultimo['Ordendecambio']['idordencambio']){ ?>
+			
+			
             <?php echo $this->Form->postLink(
                 '<span class="k-icon k-i-close"></span>',
                 array('action' => 'ordendecambio_eliminar', $or['Ordendecambio']['idordencambio']),

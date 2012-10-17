@@ -104,7 +104,7 @@ class OrdendecambiosController extends AppController {
 		$this->render('/json/jsondatad');
 	}
 	
-	function update_infoconconstructor()
+	function update_ordenesc()
 	{
 	 	if (!empty($this->data['ordenc']['contratos']))
 		{
