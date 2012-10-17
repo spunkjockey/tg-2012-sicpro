@@ -36,7 +36,9 @@
 			'fechafincontrato' => array(
 		        'finmayorinicio_con' => array(
 	            	'rule'    => array('finmayorinicio_con'),
-	            	'message' => 'El valor de fecha fin debe ser mayor que la fecha de inicio'
+	            	'message' => 'El valor de fecha fin debe ser mayor que la fecha de inicio',
+	            	'allowEmpty' => true,
+	            	'required'=>false
 	        		),
 	        	'formatofecha'=>array(
 					'rule'       => array('date', 'dmy'),
@@ -45,6 +47,7 @@
 					'required'=>false
 					)
 				),
+				
 	        'fechainiciocontrato' => array(
 		        'rule'       => array('date', 'dmy'),
 		        'message'    => 'Ingrese fecha inicio con el siguiente formato DD/MM/AAAA.',
@@ -55,6 +58,7 @@
 		
 		public function finmayorinicio_con($check) 
 		{
+				Debugger::dump($check);
 			return date_create_from_format('d/m/Y', $this->data['Contrato']['fechainiciocontrato']) < date_create_from_format('d/m/Y', $this->data['Contrato']['fechafincontrato']);
     	
 		}
