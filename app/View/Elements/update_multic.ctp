@@ -13,11 +13,12 @@
 
 				<table>
 				<tr>
-					<td>Disponibles</td>
+					<td><strong>Disponibles</strong></td>
 					<td></td>
-					<td>Asignados</td>
+					<td><strong>Asignados</strong></td>
 				</tr>
 				<tr>
+					<center>
 					<td>
 					<!--<?php echo $this->Form->create('Disponibles'); ?>-->
 					<?php if(!empty($disponibles)){ ?>
@@ -47,6 +48,7 @@
 					  </select>
 					  <div id="disponiblesinfo"></div>
 			  		</td>
+			  		</center>
 			  </tr>
 			  <tr>
 			  	<td colspan="3">
@@ -130,3 +132,12 @@
 		
     });
 </script>
+<style>
+select option{
+		background-color: #E3F1F7;
+		font-size:12px; 
+		width: 250px;
+		padding:5px;
+		margin:2px;
+	}
+</style>
