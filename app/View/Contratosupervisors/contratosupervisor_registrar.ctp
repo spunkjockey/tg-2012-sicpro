@@ -150,7 +150,9 @@ $this->end(); ?>
 		            datePicker2.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            datePicker2.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 		        	datePicker2.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
-		        </script> 
+		        </script>
+		        <?php if ($this->Form->isFieldError('Contrato.fechafincontrato')) {
+ 	 					echo $this->Form->error('Contrato.fechafincontrato'); } ?> 
 			</li>
 			<li>
 				<?php echo $this->Form->input('plazoejecucion', 
@@ -224,10 +226,20 @@ $this->end(); ?>
 		            admin.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script>
 			</li>
-			
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar contrato', 'class' => 'k-button')); ?>
-				
+				<table>
+					<tr>
+						<td>
+							<?php echo $this->Form->end(array('label' => 'Registrar', 'class' => 'k-button')); ?>
+						</td>
+						<td>	
+							<?php echo $this->Html->link('Regresar', 
+									array('controller' => 'Mains','action' => 'index'),
+									array('class'=>'k-button')); ?>
+						</td>
+					</tr>
+				</table>
+			</li>
 				<?php echo $this->ajax->observeField( 'proyectos',array(
 			        		'url' => array( 'action' => 'update_nomproyecto'),
 			        		'update' => 'infoproy'));  
@@ -237,7 +249,6 @@ $this->end(); ?>
 			        		'url' => array( 'action' => 'update_infoconstructor'),
 			        		'update' => 'infoconstructor'));  
 					?>
-			</li>
             <li class="status">
             </li>
 		</ul>

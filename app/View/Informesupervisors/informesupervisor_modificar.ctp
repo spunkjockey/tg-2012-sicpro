@@ -138,13 +138,21 @@ $this->end(); ?>
 				<?php echo $this->Form->input('idinformesupervision',array('type'=>'hidden'))?>
 				<?php echo $this->Form->input('Contratosupervisor.codigocontrato',array('type'=>'hidden'))?>
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Modificar informe', 'class' => 'k-button')); ?>
+				<table>
+					<tr>
+						<td>
+							<?php echo $this->Form->end(array('label' => 'Modificar informe', 'class' => 'k-button')); ?>
+						</td>
+						<td>
+							<?php echo $this->Html->link(
+				            	'Regresar', 
+				            	array('controller' => 'Informesupervisors','action' => 'informesupervisor_index'),
+				            	array('class'=>'k-button')
+							);?>
+						</td>
+					</tr>
+				</table>
 			</li>
-			 <?php echo $this->Html->link(
-            	'Regresar', 
-            	array('controller' => 'Informesupervisors','action' => 'informesupervisor_index'),
-            	array('class'=>'k-button')
-			);?>
 		</ul>
 	</div>
 </div>

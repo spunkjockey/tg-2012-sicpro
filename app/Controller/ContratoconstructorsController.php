@@ -58,8 +58,7 @@
 				}
 				else 
 				{
-					$this->Session->setFlash('Ha ocurrido un error c');
-					Debugger::dump($this->request->data);
+					$this->Session->setFlash('Ha ocurrido un error verifique que los datos se han correctos');
                 }
 			}
 		}

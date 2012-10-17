@@ -166,14 +166,22 @@ $this->end(); ?>
 				<?php echo $this->Form->input('idinformesupervision',array('type'=>'hidden'))?>
 				
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar', 'class' => 'k-button')); ?>
-			</li>
-				 <?php echo $this->Html->link(
-            	'Regresar', 
-            	array('controller' => 'Informesupervisors','action' => 'informesupervisor_index'),
-            	array('class'=>'k-button')
-			);?>
+				<table>
+					<tr>
+						<td>
+							<?php echo $this->Form->end(array('label' => 'Registrar', 'class' => 'k-button')); ?>
+						</td>
+						<td>
+							<?php echo $this->Html->link('Regresar', 
+				            	array('controller' => 'Mains','action' => 'index'),
+				            	array('class'=>'k-button'));?>
+						</td>
+					</tr>
+				</table>
+				
 			
+				 
+			</li>
 				<?php echo $this->ajax->observeField( 'proyectos',array(
 			        		'url' => array( 'action' => 'update_nomproyecto'),
 			        		'update' => 'infoproy'));  

@@ -95,10 +95,18 @@ $this->end(); ?>
 			</li>
 				<?php echo $this->Form->input('idproyecto')?>
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Modificar', 'class' => 'k-button')); ?>
-				<?php echo $this->Html->link('Regresar', 
-									array('controller' => 'Proyectos','action' => 'proyecto_listado'),
-									array('class'=>'k-button')); ?>
+				<table>
+					<tr>
+						<td>
+							<?php echo $this->Form->end(array('label' => 'Modificar', 'class' => 'k-button')); ?>
+						</td>
+						<td>	
+							<?php echo $this->Html->link('Regresar', 
+								array('controller' => 'Proyectos','action' => 'proyecto_listado'),
+								array('class'=>'k-button')); ?>
+						</td>
+					</tr>
+				</table>
 			</li>
             
             <li class="status">

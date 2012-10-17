@@ -31,14 +31,15 @@
 				'isUnique' => array(
 		        	'rule'    => 'isUnique',
 		        	'message' => 'Este código de contrato ya existe'
-					))
-	            	
+					))  	
 
 			);
 			
 	public $virtualFields = array(
 		'montototal' => "montooriginal + variacion"
 	);
+	
+	
 }	
 	
 	
