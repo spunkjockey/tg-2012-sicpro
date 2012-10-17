@@ -63,7 +63,7 @@
 											<li><?php echo $this->Html->link('Consultar informe técnico', array('controller' => 'Informetecnicos','action'=>'informetecnico_observaciones')); ?></li>
 										</ul>
 									</li>	
-									<li disabled="disabled">Actualizar porcentaje de avance en las metas</li>
+									<li><?php echo $this->Html->link('Actualizar porcentaje de avance en las metas', array('controller' => 'Metas','action'=>'meta_actualizarporcentaje')); ?></li>
 								</ul>
 							</li>	
 							<li>Facturas

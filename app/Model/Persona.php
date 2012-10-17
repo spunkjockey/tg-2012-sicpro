@@ -4,6 +4,7 @@
 	    public $name = 'Persona';
 		public $useTable = 'persona';
 		public $primaryKey = 'idpersona';
+		
 		public $belongsTo = array(
 				'Plaza' => array(
 					'className'    => 'Plaza',

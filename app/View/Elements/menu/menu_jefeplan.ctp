@@ -20,7 +20,7 @@
 							</li>
 							<li>Control y seguimiento
 								<ul>
-									<li disabled="disabled">Actualizar porcentaje de avance en las metas</li>
+									<li><?php echo $this->Html->link('Actualizar porcentaje de avance en las metas', array('controller' => 'Metas','action'=>'meta_actualizarporcentaje')); ?></li>
 								</ul>
 							</li>	
 							<li>Reportes

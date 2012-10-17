@@ -12,4 +12,11 @@ public $hasMany	= array(
 	)
 );
 
+public $belongsTo = array(
+        'Fichatecnica' => array(
+            'className'    => 'Fichatecnica',
+            'foreignKey'   => 'idfichatecnica'
+        )
+    );
+
 }

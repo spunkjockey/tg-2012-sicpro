@@ -18,6 +18,7 @@
 		public $virtualFields = array(
 			 'fechav' => "to_char(Informetecnico.fechavisita, 'DD/MM/YYYY')",
 			 'fechaelab' => "to_char(Informetecnico.fechaelaboracion, 'DD/MM/YYYY')"
+			 
 			 );
 		 
 		public $validate=array(
