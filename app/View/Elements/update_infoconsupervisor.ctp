@@ -209,11 +209,20 @@
     
 </li>
 <li  class="accept">
-					<?php echo $this->Form->end(array('label' => 'Modificar contrato', 'class' => 'k-button')); ?>
-				</li>
-					<?php echo $this->Html->link('Regresar', 
-										array('controller' => 'Mains','action' => 'index'),
-										array('class'=>'k-button')); ?>
+	<table>
+		<tr>
+			<td>
+				<?php echo $this->Form->end(array('label' => 'Modificar contrato', 'class' => 'k-button')); ?>
+			</td>
+			<td>
+				<?php echo $this->Html->link('Regresar', 
+					array('controller' => 'Mains','action' => 'index'),
+					array('class'=>'k-button')); ?>
+			</td>
+		</tr>
+	</table>
+</li>
+					
 
 
 

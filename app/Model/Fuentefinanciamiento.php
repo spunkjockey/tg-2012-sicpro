@@ -20,14 +20,11 @@
 	            'allowEmpty' => false,
 	            'message' => 'El nombre de la fuente ya existe')
 	        ),
-	    'montoinicial' => array(
-	    	'regla1' => array(
-		        'rule'    => 'notEmpty',
-		        'message' => 'Debe ingresa el Monto Inicial'
-		    	)
-			)
-		  
-		
-		
-	);
+		'fechadisponible' => array(
+		        'rule'       => array('date', 'dmy'),
+		        'message'    => 'Ingrese fecha bajo el siguiente formato DD/MM/AAAA.',
+		        'required'=>true) 
+		 
+		);
+	
 }

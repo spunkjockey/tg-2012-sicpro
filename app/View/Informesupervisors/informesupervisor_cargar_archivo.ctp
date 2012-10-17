@@ -50,7 +50,7 @@ $this->end(); ?>
 <?php $this->end(); ?>
 		   
 
-				<h2>Cargar Archivos:</h2>
+				<h2>Cargar archivos:</h2>
 	  <table><tr>
 				<h3>Archivos a Agregar</h3>
 				<?php echo $this->Upload->edit('Informe supervision',$idinformesupervision); ?>
