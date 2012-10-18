@@ -58,8 +58,7 @@
 				}
 				else 
 				{
-					$this->Session->setFlash('Ha ocurrido un error c');
-					Debugger::dump($this->request->data);
+					$this->Session->setFlash('Ha ocurrido un error verifique que los datos se han correctos');
                 }
 			}
 		}
@@ -258,31 +257,47 @@
 		$this->layout = 'cyanspark';
 		if($this->request->is('post'))
 			{
-				$id=$this->request->data['Estado']['contratos'];	
-				$this->Contratoconstructor->read(null, $id);
-				$this->Contratoconstructor->set('estadocontrato', $this->request->data['Estados']);	
-				$this->Contratoconstructor->set('userm', $this->Session->read('User.username'));		
-				$this->Contratoconstructor->set('modificacion', date('Y-m-d h:i:s'));
-				Debugger::dump($this->request->data);
-				if ($this->Contratoconstructor->save($id)) {
-					$contraselected=$this->Contratoconstructor->findByIdcontrato($this->request->data['Estado']['contratos']);
-		            $this->Session->setFlash('El Contrato constructor '. $contraselected['Contratoconstructor']['codigocontrato'] .' ha sido actualizado al estado "'. $this->request->data['Estados'] .'" .','default',array('class'=>'success'));
-		            $this->redirect(array('action' => 'contrato_actualizarestado'));
-			        } else {
-		            	$this->Session->setFlash('Imposible actualizar el estado del contrato constructor');
-	        	}
-			}
+			$idc=$this->request->data['Estado']['contratos'];
+			$this->Contrato->set('idcontrato', $this->request->data['Estado']['contratos']);
+			$this->Contrato->set('estadocontrato', $this->request->data['Estados']);
+			$this->Contrato->set('userm', $this->Session->read('User.username'));		
+			$this->Contrato->set('modificacion', date('Y-m-d h:i:s'));
+			if($this->Contrato->save($idc, array('fieldList'=>array('estadocontrato','userm','modificacion'))))
+				{
+					$id=$this->request->data['Estado']['contratos'];	
+					$this->Contratoconstructor->read(null, $id);
+					$this->Contratoconstructor->set('estadocontrato', $this->request->data['Estados']);	
+					$this->Contratoconstructor->set('userm', $this->Session->read('User.username'));		
+					$this->Contratoconstructor->set('modificacion', date('Y-m-d h:i:s'));
+					if ($this->Contratoconstructor->save($id)) 
+					{
+						$contraselected=$this->Contratoconstructor->findByIdcontrato($this->request->data['Estado']['contratos']);
+			            $this->Session->setFlash('El Contrato constructor "'. $contraselected['Contratoconstructor']['codigocontrato'] .'" ha sido actualizado al estado "'. $this->request->data['Estados'] .'" .','default',array('class'=>'success'));
+			            $this->redirect(array('action' => 'contrato_actualizarestado'));
+				    } else 
+				        	{
+			            		$this->Session->setFlash('Imposible actualizar el estado del contrato constructor');
+		        			}
+				}
+				else 
+					{
+			          $this->Session->setFlash('Imposible actualizar el estado del contrato');
+					}
+		}
 	}
 		
 	function update_infocontrato(){
 				 if (!empty($this->data['Estado']['contratos']))
 		                {
 								$contrato_id = $this->request->data['Estado']['contratos'];
-		                        $contrato= $this->Contratoconstructor->find('first', array(
+		                        $contrato= $this->Contratoconstructor->find('all', array(
+		                        	'recursive' => 0,
 			                        'fields'=>array(
 			                        'Contratoconstructor.nombrecontrato','Contratoconstructor.estadocontrato'),
+			                        'group' => array('Contratoconstructor.idcontrato'),
 			                        'conditions'=>array('Contratoconstructor.idcontrato'=>$contrato_id)));
-						$this->set('informacion',$contrato);	
+						$this->set('informacion', Hash::extract($contrato, "{n}.Contratoconstructor"));			
+						//$this->set('informacion',$contrato);	
 		                }
 
 				$this->render('/Elements/update_infocontrato', 'ajax');
@@ -295,7 +310,8 @@
 		                        $contrato= $this->Contratoconstructor->find('first', array(
 			                        'fields'=>array('Contratoconstructor.estadocontrato'),
 			                        'conditions'=>array('Contratoconstructor.idcontrato'=>$contrato_id)));
-						$this->set('informacion',$contrato);	
+						
+						$this->set('informacion',Hash::extract($contrato,"Contratoconstructor"));	
 					}
 				$this->render('/Elements/update_opcionesactualizar', 'ajax');
 	}

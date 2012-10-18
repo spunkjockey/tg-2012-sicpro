@@ -48,7 +48,6 @@ $this->end(); ?>
 			?> » Bienvenido a SICPRO » Contratos » Registrar Orden de Inicio
 		
 <?php $this->end(); ?>
-
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Agregar Orden de Inicio</h2>
@@ -86,7 +85,10 @@ $this->end(); ?>
 		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d$/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 		        </script> 
 			</li>
-			<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
+			<?php if ($this->Form->isFieldError('Contrato.fechafincontrato')) {
+ 	 					echo $this->Form->error('Contrato.fechafincontrato'); } ?> 
+			<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
+				
 			<li  class="accept">
 				<table><tr><td>
 				<?php echo $this->Form->end(array('label' => 'Registrar Orden de Inicio', 'class' => 'k-button')); ?>

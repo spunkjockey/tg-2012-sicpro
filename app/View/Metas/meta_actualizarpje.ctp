@@ -1,4 +1,3 @@
-<!-- File: /app/View/Proyectos/add.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -43,7 +42,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Proyecto » Registrar proyecto
+			?> Control y seguimiento » Actualizar porcentaje de avance de meta
 			
 		</div>
 	</div>
@@ -51,73 +50,45 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar proyecto</h2>
-		<?php echo $this->Form->create('Proyecto'); ?>
+		<h2>Actualizar meta</h2>
+		<?php echo $this->Form->create('Meta',array('action' => 'meta_actualizarpje')); ?>
+		<h3><?php echo $this->data['Meta']['descripcionmeta'];?></h3>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('nombreproyecto', 
+				<?php echo $this->Form->input('porcestimado', 
 					array(
-						'label' => 'Nombre del proyecto:', 
-						'div' => array('class' => 'requerido'),
-						'id' => 'nombreproyecto',
-						'class' => 'k-textbox', 
-						'placeholder' => 'Nombre del proyecto')); ?>
-				<script type="text/javascript">
-		            var nombreproyecto = new LiveValidation( "nombreproyecto", { validMessage: " " } );
-		            nombreproyecto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script>
-			</li>
-			<li>
-				<?php echo $this->Form->input('divisiones', 
-					array(
-						'label' => 'División:', 
-						'id' => 'divisiones',
-						'class'=>'k-combobox',
-						'div' => array('class' => 'requerido'))); ?>
-				<script type="text/javascript">
-					var divisiones = new LiveValidation( "divisiones", { validMessage: " " } );
-		            divisiones.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script>
-			</li>
-			<li>
-				<?php 
-					echo $this->Form->input('montoplaneado', 
-					array(
-						'label' => 'Monto planeado: ($)',
+						'label' => 'Porcentaje de avance (%)', 
 						'type'=>'text',  
-						'id' => 'txmonto',
+						'id' => 'porcestimado',
 						'div' => array('class' => 'requerido'),
-						'maxlength'=>'12'
-						)); 
-				?>
+						'maxlength'=>'5')); ?>
 				<script type="text/javascript">
-					var txmonto = new LiveValidation( "txmonto", { validMessage: " " } );
-		            txmonto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+					var porcestimado = new LiveValidation( "porcestimado", { validMessage: " " } );
+		            porcestimado.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script>
 			</li>
 			<li  class="accept">
-			<table>
-				<tr>
-					<td>
-						<?php echo $this->Form->end(array('label' => 'Registrar', 'class' => 'k-button')); ?>
-					</td>
-					<td>
-						<?php echo $this->Html->link('Regresar', 
-									array('controller' => 'Proyectos','action' => 'proyecto_listado'),
+				<table>
+					<tr>
+						<td>
+							<?php echo $this->Form->end(array('label' => 'Actualizar', 'class' => 'k-button')); ?>
+						</td>
+						<td>
+							<?php echo $this->Html->link('Regresar', 
+									array('controller' => 'Metas','action' => 'meta_actualizarporcentaje'),
 									array('class'=>'k-button')); ?>
-					</td>	
-				</tr>
-			</table>
+						</td>
+					</tr>
+				</table>
 			</li>
             
             <li class="status">
             </li>
 		</ul>
-		
 	</div>
 </div>
 
-			<style scoped>
+<style scoped>
 
                 .k-textbox {
                     width: 300px;
@@ -128,7 +99,7 @@ $this->end(); ?>
 				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 				
 				.k-combobox {
-                    width: 200px;
+                    width: 300px;
                 }
                 
                 form .requerido label:after {
@@ -217,46 +188,32 @@ $this->end(); ?>
 				    border: 1px solid #CC0000;
 				}
             </style>
-			
-			<script>
+            
+<script>
                 $(document).ready(function() {
+                    
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
 
-                    $("button").click(function() {
+                    $("#button").click(function() {
                         if (validator.validate()) {
-                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-                            } else {
-                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-                        }
+                        	save();  
+                        } 
                     });
+                    
+                    
+                    
+                    
+                    $("#porcestimado").kendoNumericTextBox({
+                        decimals: 2,
+                        min: 0,
+    					max: 100.00,
+    					spinners: false
+                    });
+                    
+                    
+               
+                });
                 
-				$("#divisiones").kendoDropDownList({
-            			dataTextField: "divison",
-			            dataValueField: "iddivision",
-			            dataSource: {
-			                            type: "json",
-			                            transport: {
-			                                read: "/Proyectos/divisionjson.json"
-			                            }
-			                        }
-			        });
-			        
-			        var divisiones = $("#divisiones").data("kendoDropDownList");
-			        divisiones.list.width(400);
-				
-				$("#txmonto").kendoNumericTextBox({
-				     min: 0,
-				     max: 999999999.99,
-				     spinners: false,
-				     format: "c2",
-				     decimals: 2
-				 });
-
-
-				
-				
-				
-				});
                 
             </script>

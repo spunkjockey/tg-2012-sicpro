@@ -149,6 +149,7 @@ $this->end(); ?>
 		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 		            datePicker1.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
 		        </script>
+		        
 			</li>
 			<li>
 				<?php echo $this->Form->input('fechafincontrato', 
@@ -165,6 +166,8 @@ $this->end(); ?>
 		            datePicker2.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 		        	datePicker2.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
 		        </script>
+		         <?php if ($this->Form->isFieldError('Contrato.fechafincontrato')) {
+ 	 					echo $this->Form->error('Contrato.fechafincontrato'); } ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('plazoejecucion', 
@@ -225,13 +228,24 @@ $this->end(); ?>
 		        </script>
 			</li>
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar contrato', 'class' => 'k-button')); ?>
-				
+				<table>
+					<tr>
+						<td>
+							<?php echo $this->Form->end(array('label' => 'Registrar', 'class' => 'k-button')); ?>
+						</td>
+						<td>	
+							<?php echo $this->Html->link('Regresar', 
+								array('controller' => 'Mains','action' => 'index'),
+								array('class'=>'k-button')); ?>
+						</td>
+					</tr>
+				</table>
+			</li>
+			
 				<?php echo $this->ajax->observeField( 'proyectos',array(
 			        		'url' => array( 'action' => 'update_nomproyecto'),
 			        		'update' => 'infoproy'));  
 					?>
-			</li>
             <li class="status">
             </li>
 		</ul>

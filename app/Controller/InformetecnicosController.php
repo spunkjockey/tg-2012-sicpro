@@ -83,7 +83,7 @@
 				if ($this->Observacion->save()) 
 				{
 	            	$this->Session->setFlash('Ha agregado una observación al informe.','default',array('class'=>'success'));
-	            	$this->redirect(array('controller'=>'mains', 'action' => 'index'));
+	            	$this->redirect(array('controller'=>'Informetecnicos', 'action' => 'informetecnico_observaciones'));
         		}
         		else 
         		{
@@ -186,7 +186,18 @@
 		
 		function otras_observaciones() 
 		{
-			
+			if (!empty($this->data['Informetecnico']['fechas']))
+			{
+				$inf_id = $this->request->data['Informetecnico']['fechas'];
+				$otros = $this->Observacion->find('all',array(
+					'fields'=>array('observacioninforme','fechaingresoobservacion','userc',
+					'Persona.nombrespersona','Persona.apellidospersona'),
+					'conditions'=>array('Observacion.idinformetecnico'=>$inf_id),
+					'order'=>'fechaingresoobservacion ASC'
+					));
+				$this->set('otros',$otros);
+			}
+			$this->render('/Elements/otras_observaciones', 'ajax');
 		}
 		
 		/*
@@ -204,5 +215,6 @@
 			}
 			$this->render('/Elements/agregar_observaciones', 'ajax');
 		}
+		
 	}
 ?>

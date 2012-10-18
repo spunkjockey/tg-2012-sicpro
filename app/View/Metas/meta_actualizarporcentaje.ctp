@@ -42,92 +42,50 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Control y seguimiento » Informe técnico » Consultar informe técnico 
+			?> Control y seguimiento » Porcentaje de avance de metas
 			
 		</div>
 	</div>
-	
 <?php $this->end(); ?>
+
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Consultar informe técnico</h2>
-		<?php echo $this->Form->create('Informetecnico',array('action' => 'informetecnico_observaciones')); ?>
+		<h2>Porcentajes de avance de metas</h2>
+		<?php echo $this->Form->create('Meta',array('action' => 'meta_actualizarporcentaje')); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('proyectos', 
+				<?php echo $this->Form->input('proys', 
 					array(
 						'label' => 'Seleccione proyecto:', 
-						'id' => 'proyectos',
-						'div' => array('class' => 'requerido'))); ?>
-				<script type="text/javascript">
-					var proyectos= new LiveValidation( "proyectos", { validMessage: " " } );
-					proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-				</script>
+						'id' => 'proys',
+						'class'=>'k-combobox')); 
+				?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('contratos', 
+				<?php echo $this->Form->input('comps', 
 					array(
-						'label' => 'Contrato de construcción:', 
-						'id' => 'contratos',
-						'div' => array('class' => 'requerido'))); ?>
-				<script type="text/javascript">
-					var contratos= new LiveValidation( "contratos", { validMessage: " " } );
-					contratos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-				</script>
+						'label' => 'Seleccione componente:', 
+						'id' => 'comps',
+						'class'=>'k-combobox')); 
+				?>
 			</li>
+			<div id=tablametas>
+				
+			</div>
 			<li>
-				<?php echo $this->Form->input('fechas', 
-					array(
-						'label' => 'Fecha de visita:', 
-						'id' => 'fechas',
-						'div' => array('class' => 'requerido')
-						)); 
-					?>
-				<script type="text/javascript">
-					var fechas= new LiveValidation( "fechas", { validMessage: " " } );
-					fechas.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-				</script>
+				<?php echo $this->Html->link('Regresar', 
+						array('controller' => 'Mains','action' => 'index'),
+						array('class'=>'k-button')); ?>
 			</li>
-			
-				<li>
-					<div id=datainftecnico>
-						<!--- aquí se carga la información del informe tecnico--->
-					</div>
-				</li>
-				<li>
-					<div id=otrasobservaciones>
-						
-					</div>
-				</li>
-				<li>
-					<div id=formobservaciones>
-						
-					</div>
-				</li>
-			
-				
-				<?php echo $this->ajax->observeField( 'fechas',array(
-			        		'url' => array( 'action' => 'update_datainfotec'),
-			        		'update' => 'datainftecnico'));  
-					?>
-				
-				<?php echo $this->ajax->observeField( 'fechas',array(
-			        		'url' => array( 'action' => 'otras_observaciones'),
-			        		'update' => 'otrasobservaciones'));  
-					?>
-				
-				<?php echo $this->ajax->observeField( 'fechas',array(
-			        		'url' => array( 'action' => 'agregar_observaciones'),
-			        		'update' => 'formobservaciones'));  
-					?>
-				<?php echo $this->Html->link(
-							'Regresar', 
-							array('controller' => 'Mains', 'action' => 'index'),
-							array('class'=>'k-button')
-						); ?>
 		</ul>
+		
+		<?php echo $this->ajax->observeField( 'comps',array(
+			        		'url' => array( 'action' => 'update_tablametas'),
+			        		'update' => 'tablametas'));  
+					?>
 	</div>
 </div>
+
 <style scoped>
 
                 .k-textbox {
@@ -148,6 +106,7 @@ $this->end(); ?>
 					content: '*';
 					display:inline;
 					}
+				
                 
                 #formulario {
                     width: 600px;
@@ -174,7 +133,7 @@ $this->end(); ?>
 
                 label {
                     display: inline-block;
-                    width: 150px;
+                    width: 200px;
                     text-align: right;
                     margin-right: 5px;
                 }
@@ -228,61 +187,49 @@ $this->end(); ?>
 				    border: 1px solid #CC0000;
 				}
             </style>
-			
-			<script>
+            
+<script>
                 $(document).ready(function() {
+                    
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
 
-                    $("button").click(function() {
+                    $("#button").click(function() {
                         if (validator.validate()) {
-                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-                            } else {
-                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-                        }
+                        	save();  
+                        } 
                     });
-                
-				
-				$("#proyectos").kendoDropDownList({
-            			optionLabel: "Seleccione proyecto",
+                    
+                    $("#proys").kendoDropDownList({
+			            optionLabel: "Seleccione número de proyecto",
 			            dataTextField: "numeroproyecto",
 			            dataValueField: "idproyecto",
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
-			                                read: "/Informetecnicos/proyectojson.json"
+			                                read: "/Metas/proyectosjson.json"
 			                            }
 			                        }
 			        });
-			        var proyectos = $("#proyectos").data("kendoDropDownList");
 			        
-			    var contratos = $("#contratos").kendoDropDownList({
+			        var proys = $("#proys").data("kendoDropDownList");
+                    proys.list.width(300);
+                    
+                    var comps = $("#comps").kendoDropDownList({
 			                        autoBind: false,
-			                        cascadeFrom: "proyectos",
-			                        optionLabel: "Seleccione contrato",
-			                        dataTextField: "codigocontrato",
-			                        dataValueField: "idcontrato",
+			                        cascadeFrom: "proys",
+			                        optionLabel: "Seleccione componente",
+			                        dataTextField: "nombrecomponente",
+			                        dataValueField: "idcomponente",
 			                        dataSource: {
 			                            type: "json",
 			                            transport: {
-			                                read: "/Informetecnicos/contratosconstructorjson.json"
+			                                read: "/Metas/componentesjson.json"
 			                            }
 			                        }
 			                    }).data("kendoDropDownList");
-			    
-			    var fechas = $("#fechas").kendoDropDownList({
-			                        autoBind: false,
-			                        cascadeFrom: "contratos",
-			                        optionLabel: "Seleccione fecha",
-			                        dataTextField: "fechav",
-			                        dataValueField: "idinformetecnico",
-			                        dataSource: {
-			                            type: "json",
-			                            transport: {
-			                                read: "/Informetecnicos/fechasvisitasjson.json"
-			                            }
-			                        }
-			                    }).data("kendoDropDownList");
-				});
+                   
+                });
+                
                 
             </script>

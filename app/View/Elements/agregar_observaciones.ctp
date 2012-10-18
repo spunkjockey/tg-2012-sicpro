@@ -8,7 +8,7 @@
 		$idper='';
 		$rolus='';
 	}
-	echo "<h3>Observaciones:</h3>";
+	echo "<h3>Añada su observación:</h3>";
 	switch ($rolus) {
 		case 'Director':
 		case 'Admincon':
@@ -42,9 +42,10 @@
 	}
 ?>
 <script type="text/javascript">
-					var obser= new LiveValidation( "obser", { validMessage: " " } );
-					obser.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-				</script>
+	var obser= new LiveValidation( "obser", { validMessage: " " } );
+	obser.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+	obser.add(Validate.Length, { maximum: 250, tooLongMessage:"Longitud máxima de 250 caracteres" } );
+</script>
 <script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
