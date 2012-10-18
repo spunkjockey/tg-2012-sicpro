@@ -124,7 +124,7 @@ $this->end(); ?>
 				<script type="text/javascript">
 		            var fechaavance = new LiveValidation( "fechaavance", { validMessage: " ", insertAfterWhatNode: "fecha" } );
 		            fechaavance.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            fechaavance.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d$/, failureMessage: "La Fecha debe contener el siguiente formato DD/MM/AAAA"  } );
+		            fechaavance.add(Validate.Format, { pattern: /^\d\d\/\d\d\/\d\d\d\d$/, failureMessage: "La Fecha debe contener el siguiente formato DD/MM/AAAA"  } );
 		        </script> 
 			</li>
 			<li>
@@ -140,7 +140,7 @@ $this->end(); ?>
 				<script type="text/javascript">
 					var porcentajeavfisicoprog = new LiveValidation( "porcentajeavfisicoprog", { validMessage: " " } );
 		            porcentajeavfisicoprog.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            porcentajeavfisicoprog.add( Validate.Numericality,{ minimum: 0, maximum: 100, onlyInteger: true, tooLowMessage: "El porcentaje no puede ser menor a 0 %", tooHighMessage: "El porcentaje no debe ser mayor al 100 %", notAnIntegerMessage: "Debe ser un número entero", notANumberMessage:"Debe ser un número"} );
+		            porcentajeavfisicoprog.add( Validate.Numericality,{ minimum: 0, maximum: 100, tooLowMessage: "El porcentaje no puede ser menor a 0 %", tooHighMessage: "El porcentaje no debe ser mayor al 100 %", notANumberMessage:"Debe ser un número"} );
 		            
 		        </script>				 
 			</li>
@@ -155,7 +155,7 @@ $this->end(); ?>
 				<script type="text/javascript">
 					var montoavfinancieroprog = new LiveValidation( "montoavfinancieroprog", { validMessage: " ", insertAfterWhatNode: "monto" } );
 		            montoavfinancieroprog.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            montoavfinancieroprog.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
+		            montoavfinancieroprog.add( Validate.Numericality, { minimum: 0.01, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
 		        </script>
 						
 						<!--<td><a class="k-button"><span class="k-icon k-i-pencil"></span></a> <a class="k-button"><span class="k-icon k-i-close"></span></a></td>-->

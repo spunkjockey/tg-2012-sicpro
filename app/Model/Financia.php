@@ -30,9 +30,9 @@ class Financia extends AppModel {
 			
         ));
 		
-		Debugger::dump($this->data['Financia']['idfuentefinanciamiento']);
-		Debugger::dump($monto_disponible);
-		Debugger::dump($check['montoparcial']);
+		//Debugger::dump($this->data['Financia']['idfuentefinanciamiento']);
+		//Debugger::dump($monto_disponible);
+		//Debugger::dump($check['montoparcial']);
         return $monto_disponible['Fuentefinanciamiento']['montodisponible'] >= $check['montoparcial'];
     }
 	
