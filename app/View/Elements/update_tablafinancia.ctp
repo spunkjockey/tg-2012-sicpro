@@ -53,7 +53,7 @@
 
 
 <script>
-	$("#grid").kendoGrid({
+	var grid =  $("#grid").kendoGrid({
     	sortable: false,
     	scrollable: false,
 		dataSource: {
@@ -80,5 +80,7 @@
             { field: "accion", width: 200} 
 		]
           
-	});
+	}).data("kendoGrid");
+
+grid.hideColumn("userc");
 </script>

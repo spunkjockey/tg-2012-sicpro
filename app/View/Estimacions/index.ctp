@@ -81,21 +81,21 @@ $this->end(); ?>
         <td><?php echo '$ ' . number_format ($esti['Estimacion']['montoestimado'],2); ?></td>    
         <td align="center">
             <?php echo $this->Html->link(
-            	'Editar', 
+            	'<span class="k-icon k-i-pencil"></span> Editar', 
             	array('action' => 'modificarestimacion', $esti['Estimacion']['idestimacion']),
-            	array('class'=>'k-button')
+            	array('class'=>'k-button', 'escape' => false)
 			);?>
 			
             <?php echo $this->Form->postLink(
-                'Eliminar',
+                '<span class="k-icon k-i-close"></span> Eliminar',
                 array('action' => 'delete', $esti['Estimacion']['idestimacion']),
-                array('confirm' => '¿Está seguro que desea eliminar los datos de la estimación?','class'=>'k-button')
+                array('confirm' => '¿Está seguro que desea eliminar los datos de la estimación?','class'=>'k-button', 'escape' => false)
             )?>
             
            <?php echo $this->Html->link(
-            	'Cargar Archivo', 
+            	'<span class="k-icon k-i-folder-up"></span> Archivo', 
             	array('controller' => 'Estimacions','action' => 'agregar_archivo',$esti['Estimacion']['idestimacion']),
-            	array('class'=>'k-button')
+            	array('class'=>'k-button', 'escape' => false)
 			);?>
 
         </td>
