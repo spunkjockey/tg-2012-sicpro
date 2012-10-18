@@ -193,17 +193,12 @@
 		
 	public function proyecto_reportecontratos() {
 		$this->layout = 'cyanspark';
-		
+		if($this->request->is('post')) {
+			$this->redirect(array('action' => 'proyecto_reportecontratos_pdf',$this->request->data['Proyecto']['proyectos']));
+		}
 		
 	}	
-	
-	public function update_reportecontratos() {
-			
-		$this->set('proyectos',$this->data['Proyecto']['proyectos']);
-		
-		$this->render('/Elements/reportes/update_reportecontratos', 'ajax');
-	}	
-	
+
 	public function reportecontratosjson() 
 	{
 		$proys = $this->Contrato->find('all', array(
@@ -223,7 +218,21 @@
 		$this->set('proys', Hash::extract($proys, "{n}"));
 		$this->set('_serialize', 'proys');
 		$this->render('/json/jsonproys');
-		
+
+	}
+	
+	function proyecto_reportecontratos_pdf($idproyecto=null) {
+			Configure::write('debug',0);
+			$this->layout = 'pdf'; //esto utilizara el layout 'pdf.ctp'
+			
+			$proys = $this->Contrato->find('all', array(
+									//'fields'=> array('Proyecto.idproyecto','Proyecto.nombreproyecto','Proyecto.creacion'),
+									'conditions' => array('Proyecto.idproyecto' => $idproyecto), 
+									'order'=> array('Proyecto.numeroproyecto ASC', 'Contrato.codigocontrato ASC')));
+			$this->set('proyectos', Hash::extract($proys, "{n}"));
+			$this->set('proyecto', Hash::extract($proys, "{n}.Proyecto"));
+			// Operaciones que deseamos realizar y variables que pasaremos a la vista.
+			$this->render();
 	}
 	
 }

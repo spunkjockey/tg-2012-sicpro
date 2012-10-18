@@ -2,7 +2,7 @@
 // app/Model/User.php
 class User extends AppModel {
     public $name = 'User';
-
+    //public $cacheQueries = true;
 	public $belongsTo = array(
 			'Rol' => array(
 				'className'    => 'Rol',
@@ -71,4 +71,6 @@ class User extends AppModel {
 	    }
 	    return true;
 	}
+
+
 }

@@ -46,11 +46,14 @@ class UsersController extends AppController {
 							$this->Auditoria_sesion->set('username',$someone['User']['username']);
 							$this->Auditoria_sesion->set('login', date("Y-m-d H:i:s"));
 							if ($this->Auditoria_sesion->save()) {
-					            $this->Session->write('User.idauditoria',$this->Auditoria_sesion->id);
+								$this->Session->write('User.idauditoria',$this->Auditoria_sesion->getInsertID());
+								$this->redirect($this->Auth->redirect());
+					        } else {
+					        	$this->Session->setFlash(__('Ha ocurrido un error con la base de datos, notifique al administrador sobre este problema', 'default', array('class' => 'errorlogin')));
+								$this->Session->destroy();
+    							$this->Auth->logout();
 					        } 
 							
-							
-				            $this->redirect($this->Auth->redirect());
 				            //$this->redirect(array('controller'=>'mains'));
 				        } else {
 				            $this->Session->setFlash(__('Usuario o Contraseña Incorrecta, intente otra vez', 'default', array('class' => 'errorlogin')));
@@ -66,14 +69,19 @@ class UsersController extends AppController {
 	}
 	
 	public function logout() {
-		/*$this->Auditoria_sesion->id = $this->Session->read('User.idauditoria');
-		$this->Auditoria_sesion->set('logout', date("Y-m-d H:i:s"));
-		if ($this->Auditoria_sesion->save()) {*/
-            $this->Session->destroy();
-    		$this->redirect($this->Auth->logout());
-        /*} else {
-			$this->Session->setFlash(__('Un error ha ocurrido', 'default', array('class' => 'errorlogin')));
-		}*/
+		if($this->Session->check('User.idauditoria')) {
+			$this->Auditoria_sesion->id = $this->Session->read('User.idauditoria');
+			$this->Auditoria_sesion->set('logout', date("Y-m-d H:i:s"));
+			if ($this->Auditoria_sesion->save()) {
+	            $this->Session->destroy();
+	    		$this->redirect($this->Auth->logout());
+	        } else {
+				$this->Session->setFlash(__('Un error inseperado ha ocurrido', 'default', array('class' => 'errorlogin')));
+			}
+		} else {
+			$this->Session->destroy();
+	    	$this->redirect($this->Auth->logout());
+		}
 
 		
 	}

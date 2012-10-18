@@ -62,84 +62,115 @@ $this->end(); ?>
 						array(
 							'label' => 'Nombres:', 
 							'class' => 'k-textbox', 
-							'placeholder' => 'Nombres de la persona', 
-							'required', 
-							'validationMessage' => 'Ingrese nombres de la persona')); ?>
+							'id' => 'nombrepersona',
+							'placeholder' => 'Nombre',
+							'div' => array('class' => 'requerido'))); ?>
+					<script type="text/javascript">
+						var nombrepersona = new LiveValidation( "nombrepersona", { validMessage: " " } );
+			            nombrepersona.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			            nombrepersona.add(Validate.Format, { pattern: /^[a-zA-Z áéíóúÁÉÍÓÚñÑ]+$/i, failureMessage: "Solo letras" } );
+		            </script>
 				</li>
 				<li>
 					<?php echo $this->Form->input('apellidospersona', 
 						array(
 							'label' => 'Apellidos:', 
 							'class' => 'k-textbox', 
-							'placeholder' => 'Apellidos de la persona', 
-							'required', 
-							'validationMessage' => 'Ingrese apellidos de la persona')); ?>
+							'id' => 'apellidospersona',
+							'placeholder' => 'Apellidos',
+							'div' => array('class' => 'requerido') 
+							)); ?>
+					<script type="text/javascript">
+						var apellidospersona = new LiveValidation( "apellidospersona", { validMessage: " " } );
+			            apellidospersona.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			            apellidospersona.add(Validate.Format, { pattern: /^[a-zA-Z áéíóúÁÉÍÓÚñÑ]+$/i, failureMessage: "Solo letras" } );
+		            </script>
 				</li>
 				<li>
 					<?php echo $this->Form->input('plazas', 
 						array(
 							'label' => 'Plaza:', 
 							'id' => 'plazas',
-							'required')); ?>
+							'class' => 'k-combobox',
+							'div' => array('id' => 'plazacb', 'class' => 'requerido'))); ?>
 				</li>
 				<li>
 					<?php echo $this->Form->input('cargos', 
 						array(
 							'label' => 'Cargo funcional:', 
 							'id' => 'cargos',
-							'required')); ?>
+							'class' => 'k-combobox',
+							'div' => array('class' => 'requerido'))); ?>
 				</li>
 				<li>
 					<?php echo $this->Form->input('telefonocontacto', 
 						array(
 							'label' => 'Telefono:', 
 							'class' => 'k-textbox', 
-							'id'	=>	'phone',
-							'placeholder' => 'Telefono Empresa', 
-							'validationMessage' => 'Ingrese Telefono Empresa')); ?>
+							'id'	=>	'phone')); ?>
+					<script type="text/javascript">
+			            var phone = new LiveValidation( "phone", { validMessage: " ", onlyOnSubmit: true} );
+			            phone.add(Validate.Format, { pattern: /^[2378]\d\d\d-\d\d\d\d$/i, failureMessage: "El numero de télefono no es valido"} );
+			        </script>
 				</li>
 				<li>
 					<?php echo $this->Form->input('correoelectronico', 
 						array(
 							'label' => 'Correo electronico:', 
 							'class' => 'k-textbox', 
-							'placeholder' => 'Correo Electronico', 
-							'required', 
-							'validationMessage' => 'Ingrese Correo Electronico')); ?>
+							'id' => 'correo',
+							'placeholder' => 'Correo Electronico',
+							'div' => array('class' => 'requerido'))); ?>
+					<script type="text/javascript">
+			            var correo = new LiveValidation( "correo", { validMessage: " " } );
+			            correo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			            correo.add(Validate.Email, { failureMessage: "El correo electronico es invalido"} );
+			            
+			        </script>
 				</li>
 			
 				<h2>Registrar usuario principal</h2>
-				<li>
-					<?php echo $this->Form->input('username', 
-						array(
-							'label' => 'Nombre de usuario:', 
-							'class' => 'k-textbox', 
-							'placeholder' => 'Usuario', 
-							'required', 
-							'validationMessage' => 'Ingrese nombre de usuario')); ?>
-				</li>
 				<li>
 					<?php echo $this->Form->input('rol', 
 						array(
 							'label' => 'Rol:',
 							'id' => 'rol',
-							'required',
-							'validationMessage' => 'Seleccione un rol')); ?>
+							'class' => 'k-combobox',
+							'div' => array('class' => 'requerido'))); ?>
+				</li>
+				<li>
+					<?php echo $this->Form->input('estado',
+						array('options' => array(0 => 'Deshabilitado', 1 => 'Habilitado'),
+							  'id' => 'selectedo',
+							  'class' => 'k-combobox',
+							  'div' => array('class' => 'requerido'))); ?>
+				</li>
+				<li>
+					<?php echo $this->Form->input('username', 
+						array(
+							'label' => 'Nombre de usuario:', 
+							'class' => 'k-textbox', 
+							'placeholder' => 'Usuario',
+							'id' => 'username',
+							//'readonly' => 'readonly',
+							'div' => array('class' => 'requerido'))); ?>
+					<script type="text/javascript">
+						var username = new LiveValidation( "nombrepersona", { validMessage: " " } );
+			            username.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			            username.add(Validate.Format, { pattern: /^\w+$/i, failureMessage: "No puede llevar espacios en blanco o caracteres especiales" } );
+		            </script>
 				</li>
 				<li>
 					<?php echo $this->Form->input('password', 
 						array(
 							'label' => 'Contraseña:', 
-							'class' => 'k-textbox', 
-							'placeholder' => 'Contraseña', 
-							'required', 
-							'validationMessage' => 'Ingrese Contraseña')); ?>
+							'class' => 'k-textbox',
+							'type' => 'text', 
+							'placeholder' => 'Contraseña',
+							//'readonly' => 'readonly',
+							'div' => array('class' => 'requerido'))); ?>
 				</li>
-				<li>
-					<?php echo $this->Form->input('estado',
-						array('options' => array(0 => 'Deshabilitado', 1 => 'Habilitado'),
-							  'id' => 'selectedo')); ?>
-				</li>
+
 			
 			<li  class="accept">
 				<?php echo $this->Form->end(array('label' => 'Registrar persona', 'class' => 'k-button')); ?>
@@ -156,13 +187,15 @@ $this->end(); ?>
 
                 .k-textbox {
                     width: 300px;
-                    margin-left: 5px;
-                    
+                }
+                
+                .k-combobox {
+                    width: 250px;
                 }
 				
 				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 			
-                form .required label:after {
+                form .requerido label:after {
 					font-size: 1.4em;
 					color: #e32;
 					content: '*';
@@ -196,12 +229,9 @@ $this->end(); ?>
                     display: inline-block;
                     width: 150px;
                     text-align: right;
-                    
+                    margin-right: 5px;
                 }
 
-                .required {
-                    font-weight: bold;
-                }
 
                 .accept, .status {
                 	padding-top: 15px;
@@ -218,6 +248,41 @@ $this->end(); ?>
                 span.k-tooltip {
                     margin-left: 6px;
                 }
+                
+                .LV_validation_message{
+				    /*font-weight:bold;*/
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				    margin-left: 10px;
+				    display: none;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+               		display:block;
+               		margin-left: 155px;
+				}
+				    
+			/*	.LV_valid_field,
+				input.LV_valid_field:hover, 
+				input.LV_valid_field:active,
+				textarea.LV_valid_field:hover, 
+				textarea.LV_valid_field:active {
+				    border: 1px solid #00CC00;
+				}
+				    
+				.LV_invalid_field, 
+				input.LV_invalid_field:hover, 
+				input.LV_invalid_field:active,
+				textarea.LV_invalid_field:hover, 
+				textarea.LV_invalid_field:active {
+				    border: 1px solid #CC0000;
+				}
+                */
+
             </style>
 			
 			<script>
@@ -234,7 +299,7 @@ $this->end(); ?>
                     });
                 
 				$("#plazas").kendoDropDownList({
-            			optionLabel: "Seleccione plaza...",
+            			optionLabel: "Seleccione plaza",
 			            dataTextField: "plaza",
 			            dataValueField: "idplaza",
 			            dataSource: {
@@ -247,7 +312,7 @@ $this->end(); ?>
 			        var plazas = $("#plazas").data("kendoDropDownList");
 				
 				$("#cargos").kendoDropDownList({
-            			optionLabel: "Seleccione cargo funcional...",
+            			optionLabel: "Seleccione cargo funcional",
 			            dataTextField: "cargofuncional",
 			            dataValueField: "idcargofuncional",
 			            dataSource: {
@@ -260,7 +325,7 @@ $this->end(); ?>
 			        var cargos = $("#cargos").data("kendoDropDownList");
 				
 				$("#rol").kendoDropDownList({
-            			optionLabel: "Seleccione rol...",
+            			optionLabel: "Seleccione rol",
 			            dataTextField: "rol",
 			            dataValueField: "idrol",
 			            dataSource: {
