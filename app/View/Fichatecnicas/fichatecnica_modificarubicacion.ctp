@@ -176,7 +176,7 @@ else {
                 
 				
 				.LV_validation_message{
-				    font-weight:bold;
+				    /*font-weight:bold;*/
 				    margin:0 0 0 5px;
 				}
 				
@@ -191,7 +191,7 @@ else {
                		margin-left: 170px; 
                
 				}
-				    
+				 /*   
 				.LV_valid_field,
 				input.LV_valid_field:hover, 
 				input.LV_valid_field:active,
@@ -207,7 +207,7 @@ else {
 				textarea.LV_invalid_field:active {
 				    border: 1px solid #CC0000;
 				}
-                
+                */
 </style>
 
 <script>
