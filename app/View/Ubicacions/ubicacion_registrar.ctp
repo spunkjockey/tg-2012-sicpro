@@ -59,11 +59,12 @@ $this->end(); ?>
 				<?php echo $this->Form->input('departamentos',
 					array(
 						'label' => 'Departamento:', 
+						'div' => array('id'=>'depto','class' => 'requerido'),
 						'id' => 'departamentos',
 						'class' => 'k-dropdownlist'
 					)); ?>
 				<script type="text/javascript">
-		            var departamentos = new LiveValidation( "departamentos", { validMessage: " " } );
+		            var departamentos = new LiveValidation( "departamentos", { validMessage: " " , insertAfterWhatNode: "depto" } );
 		            departamentos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script> 
 			</li>
@@ -71,12 +72,13 @@ $this->end(); ?>
 			<li>
 				<?php echo $this->Form->input('municipios',
 					array(
-						'label' => 'Municipio:', 
+						'label' => 'Municipio:',
+						'div' => array('id'=>'muni','class' => 'requerido'), 
 						'id' => 'municipios',
 						'class' => 'k-dropdownlist'
 					)); ?>
 				<script type="text/javascript">
-		            var municipios = new LiveValidation( "municipios", { validMessage: " " } );
+		            var municipios = new LiveValidation( "municipios", { validMessage: " ", insertAfterWhatNode: "muni" } );
 		            municipios.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script> 
 		        <?php if ($this->Form->isFieldError('idmunicipio')) {
@@ -98,14 +100,19 @@ $this->end(); ?>
 					
 				</div>
 				<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
-				<div style="display:inline;">
+				
+				<table><tr>
+				<td>
 				<?php echo $this->Form->end(array('label' => 'Registrar Ubicacion', 'class' => 'k-button')); ?>
+				</td>
+				<td>
 				<?php echo $this->Html->link(
 					'Regresar', 
 					array('controller' => 'Fichatecnicas', 'action' => 'view',$idfct),
 					array('class'=>'k-button')
 				); ?>
-				</div>
+				</td>
+				</tr></table>
 				<?php $options = array('url' => 'update_select','update' => 'select2');
 				echo $this->ajax->observeField('select1',$options);?>
 			</li>
@@ -119,13 +126,11 @@ $this->end(); ?>
 <style scoped>
 
                 .k-textbox {
-                    width: 300px;
-                    margin-left: 5px;
-                    
+                    width: 300px;      
                 }
 				
 				.k-dropdownlist{
-                    width: 200px;
+                    width: 300px;
                 }
 			
                 #formulario {
@@ -187,7 +192,7 @@ $this->end(); ?>
                 
 				
 				.LV_validation_message{
-				    font-weight:bold;
+				    /*font-weight:bold;*/
 				    margin:0 0 0 5px;
 				}
 				
@@ -202,7 +207,7 @@ $this->end(); ?>
                		margin-left: 170px; 
                
 				}
-				    
+/*				    
 				.LV_valid_field,
 				input.LV_valid_field:hover, 
 				input.LV_valid_field:active,
@@ -218,7 +223,7 @@ $this->end(); ?>
 				textarea.LV_invalid_field:active {
 				    border: 1px solid #CC0000;
 				}
-                
+*/                
             </style>
 
 <script>
