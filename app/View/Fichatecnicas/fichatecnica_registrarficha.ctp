@@ -133,7 +133,8 @@ $this->end(); ?>
 						'id' => 'numero1',
 						'type' => 'text',
 						'class' => 'k-textbox', 
-						'placeholder' => 'Empleos Generados'
+						'placeholder' => 'Empleos Generados',
+						'maxlength' => "7"
 						)); ?>
 				<script type="text/javascript">
 		            var numero1 = new LiveValidation( "numero1", { validMessage: " ", insertAfterWhatNode: "empleos" } );
@@ -151,7 +152,8 @@ $this->end(); ?>
 						'type' => 'text',
 						'id' => 'numero2',
 						'class' => 'k-textbox', 
-						'placeholder' => 'Beneficiarios'
+						'placeholder' => 'Beneficiarios',
+						'maxlength' => "7"
 						)); ?>
 				<script type="text/javascript">
 		            var numero2 = new LiveValidation( "numero2", { validMessage: " ", insertAfterWhatNode: "benefic" } );
@@ -173,7 +175,16 @@ $this->end(); ?>
 			
 			<li  class="accept">
 				<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
+				<table>
+				<tr><td>
 				<?php echo $this->Form->end(array('label' => 'Registrar Ficha', 'class' => 'k-button', 'id' => 'submit')); ?>
+				</td>
+				<td>
+				<?php echo $this->Html->link('Regresar',
+					array('controller' => 'Mains', 'action' => 'index'),array('id' => 'regresar','class'=>'k-button')); 
+				?>	
+				</td></tr>
+				</table>
 				</li>
             
             <li class="status">
@@ -323,16 +334,18 @@ $this->end(); ?>
        
       
        $("#numero1").kendoNumericTextBox({
-                min: 000000,
-				max: 999999,
+                min: 0000001,
+				max: 9999999,
+				format : "{0:n0}",
 				decimals: 0,
 				placeholder: "Ej. 100",
 				spinners: false
             });
             
        $("#numero2").kendoNumericTextBox({
-                min: 000000,
-				max: 999999,
+                min: 0000001,
+				max: 9999999,
+				format : "{0:n0}",
 				decimals: 0,
 				placeholder: "Ej. 100",
 				spinners: false

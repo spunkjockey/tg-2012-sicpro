@@ -52,7 +52,12 @@ $this->end(); ?>
 			<h2>Direcciones</h2>			   
 	<?php foreach ($ubicaciones as $ubi): ?>
     	<li class='capa2'>
-        <?php echo $ubi['Ubicacion']['direccion']; ?>,
+        <?php echo $ubi['Ubicacion']['direccion']; 
+        if(!empty($ubi['Ubicacion']['direccion']))
+		{
+			echo ", ";
+		}
+        ?>
         <?php echo $ubi['Municipio']['municipio']; ?>,
         <?php echo $ubi['Departamento']['departamento']; ?>
         </li> 
