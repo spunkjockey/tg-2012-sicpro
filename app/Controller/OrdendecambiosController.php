@@ -36,6 +36,10 @@ class OrdendecambiosController extends AppController {
 
 	public function ordendecambio_modificar($idordencambio=null){
 		$this->layout = 'cyanspark';
+		
+		$this->set('anterior',$this->Ordendecambio->find('first',
+				array('conditions'=>array('Ordendecambio.idordencambio !='. $idordencambio),
+					'order'=>'fecharegistroorden DESC')));
 		$this->Ordendecambio->id =  $idordencambio;
 		$contrato = $this->Ordendecambio->findByIdordencambio($idordencambio);
 	    if ($this->request->is('get')) {

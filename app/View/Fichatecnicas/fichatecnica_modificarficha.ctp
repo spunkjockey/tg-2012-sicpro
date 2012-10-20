@@ -224,6 +224,7 @@ $this->end(); ?>
                     display: inline-block;
                     width: 160px;
                     text-align: right;
+                    margin-right: 5px;
                     
                 }
 
@@ -268,7 +269,7 @@ $this->end(); ?>
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 170px; 
+               		margin-left: 165px; 
                
 				}
 				/*    

@@ -261,6 +261,7 @@ $this->end(); ?>
 		$("#datePicker1").kendoDatePicker({
 		   			format: "dd/MM/yyyy",
 		   			<?php if(isset($anterior)){	echo "min: kendo.parseDate('".$anterior['Ordendecambio']['fecharegistroorden']."'),";}?>
+		   			<?php	echo "value: kendo.parseDate('".$this->request->data['Ordendecambio']['fecharegistroorden']."'),";?>
 		   			culture: "es-ES"
 		});
 		                

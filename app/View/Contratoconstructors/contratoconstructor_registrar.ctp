@@ -61,12 +61,12 @@ $this->end(); ?>
 					array(
 						'label' => 'Seleccione proyecto:', 
 						'id' => 'proyectos',
-						'div' => array('class' => 'requerido')
+						'div' => array('id' => 'proyo','class' => 'requerido')
 						)); 
 				?>
 				<script type="text/javascript">
-					var proyectos= new LiveValidation( "proyectos", { validMessage: " " } );
-					proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+					var proyectos= new LiveValidation( "proyectos", { validMessage: " ", insertAfterWhatNode: "proyo" } );
+					proyectos.add(Validate.Presence, { failureMessage: "Seleccione un Proyecto" } );
 				</script>
 			</li>
 			<li>
@@ -113,10 +113,10 @@ $this->end(); ?>
 						'id' => 'txmonto',
 						'type' => 'text',
 						'placeholder' => 'Monto del contrato',
-						'div' => array('class' => 'requerido')
+						'div' => array('id' => 'monto','class' => 'requerido')
 						)); ?>
 				<script type="text/javascript">
-					var txmonto = new LiveValidation( "txmonto", { validMessage: " " } );
+					var txmonto = new LiveValidation( "txmonto", { validMessage: " ", insertAfterWhatNode: "monto"  } );
 		            txmonto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script>
 			</li>
@@ -128,9 +128,9 @@ $this->end(); ?>
 						'id' => 'txanticipo',
 						'type' => 'text',
 						'placeholder' => 'Anticipo del contrato',
-						'div' => array('class' => 'requerido'))); ?>
+						'div' => array('id'=> 'antic','class' => 'requerido'))); ?>
 				<script type="text/javascript">
-					var txanticipo = new LiveValidation( "txanticipo", { validMessage: " " } );
+					var txanticipo = new LiveValidation( "txanticipo", { validMessage: " " , insertAfterWhatNode: "antic" } );
 		            txanticipo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script>
 			</li>
@@ -139,12 +139,12 @@ $this->end(); ?>
 					array(
 						'label' => 'Fecha inicio de vigencia:', 
 						'id'	=> 'datePicker1',
-						'div' => array('class' => 'requerido'),
+						'div' => array('id'=>'fechaini','class' => 'requerido'),
 						'type'  => 'Text'
 						));
 					?>
 				<script type="text/javascript">
-		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " } );
+		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " , insertAfterWhatNode: "fechaini" } );
 		            datePicker1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 		            datePicker1.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
@@ -156,12 +156,12 @@ $this->end(); ?>
 					array(
 						'label' => 'Fecha fin de vigencia:', 
 						'id'	=> 'datePicker2',
-						'div' => array('class' => 'requerido'),
+						'div' => array('id'=>'fechafin','class' => 'requerido'),
 						'type'  => 'Text'
 						)); 
 					?>
 				<script type="text/javascript">
-		            var datePicker2 = new LiveValidation( "datePicker2", { validMessage: " " } );
+		            var datePicker2 = new LiveValidation( "datePicker2", { validMessage: " " , insertAfterWhatNode: "fechafin" } );
 		            datePicker2.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            datePicker2.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 		        	datePicker2.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
@@ -176,6 +176,7 @@ $this->end(); ?>
 						'class' => 'k-textbox',  
 						'id' => 'txplazo',
 						'type'  => 'Text', 
+						'maxlength' => '4',
 						'placeholder' => 'Cantidad de días', 
 						'div' => array('class' => 'requerido')
 						));
@@ -186,9 +187,9 @@ $this->end(); ?>
 					txplazo.add( Validate.Numericality,{ onlyInteger: true,
 					   								   	notAnIntegerMessage: "Debe ser un número entero",
 						            				 	notANumberMessage:"Debe ser un número"} );
-					txplazo.add(Validate.Length, {minimum: 2, maximum: 3, 
+					txplazo.add(Validate.Length, {minimum: 2, maximum: 4, 
 				           							 tooShortMessage:"Longitud mínima de 2 dígitos",
-				           							 tooLongMessage:"Longitud máxima de 3 dígitos"});
+				           							 tooLongMessage:"Longitud máxima de 4 dígitos"});
 				</script>
 			</li>
 			<li>
@@ -206,24 +207,25 @@ $this->end(); ?>
 					array(
 						'label' => 'Empresa ejecutora:', 
 						'id' => 'empresas',
-						'div' => array('class' => 'requerido')
+						'div' => array('id'=>'empeje','class' => 'requerido')
 						));
 					?>
 				<script type="text/javascript">
-					var empresas = new LiveValidation( "empresas", { validMessage: " " } );
+					var empresas = new LiveValidation( "empresas", { validMessage: " " , insertAfterWhatNode: "empeje"  } );
 		            empresas.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script>
+		        <div id="errorempresa" class="LV_validation_message LV_invalid"></div>
 			</li>
 			<li>
 				<?php echo $this->Form->input('admin', 
 					array(
 						'label' => 'Administrador del contrato:', 
 						'id' => 'admin',
-						'div' => array('class' => 'requerido')
+						'div' => array('id'=>'admc','class' => 'requerido')
 						)); 
 					?>
 				<script type="text/javascript">
-					var admin = new LiveValidation( "admin", { validMessage: " " } );
+					var admin = new LiveValidation( "admin", { validMessage: " " , insertAfterWhatNode: "admc"  } );
 		            admin.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script>
 			</li>
@@ -231,7 +233,7 @@ $this->end(); ?>
 				<table>
 					<tr>
 						<td>
-							<?php echo $this->Form->end(array('label' => 'Registrar', 'class' => 'k-button')); ?>
+							<?php echo $this->Form->end(array('label' => 'Registrar', 'id'=>'button','class' => 'k-button')); ?>
 						</td>
 						<td>	
 							<?php echo $this->Html->link('Regresar', 
@@ -320,53 +322,48 @@ $this->end(); ?>
                 }
                 
                 .LV_validation_message{
-				    font-weight:bold;
 				    margin:0 0 0 5px;
 				}
 				
 				.LV_valid {
 				    color:#00CC00;
+				    display:none;
 				}
 					
 				.LV_invalid {
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 170px; 
+               		margin-left: 155px; 
                
 				}
-				    
-				.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
+				
+				#errorempresa{
+					display: none;
 				}
-				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
-            </style>
+				   
+</style>
 			
 			<script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
 
-                    $("button").click(function() {
-                        if (validator.validate()) {
-                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-                            } else {
-                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-                        }
+                    $("#ContratoconstructorContratoconstructorRegistrarForm").submit(function() {
+                    	alert(empresas.value());
+                    	
+	                       	if(empresas.dataItem()){
+								
+								$('#errorempresa').hide();
+								return true;
+							}
+							else {
+									//alert("No Existe");
+										$('#errorempresa').show().text('No Existe la empresa');
+								return false;
+							}
                     });
-                
-                
+                                    
 
 				$("#txmonto").kendoNumericTextBox({
 				     min: 0,
@@ -399,10 +396,15 @@ $this->end(); ?>
 			        });
 			        var proyectos = $("#proyectos").data("kendoDropDownList");
 			        
-			    $("#empresas").kendoDropDownList({
+			    $("#empresas").kendoComboBox({
             			optionLabel: "Seleccione empresa",
             			dataTextField: "nombreempresa",
 			            dataValueField: "idempresa",
+			            filter: "contains",
+			            highLightFirst: false,
+			            ignoreCase: false,
+			            change: limpiaremp,
+			            //suggest: true,
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
@@ -410,7 +412,7 @@ $this->end(); ?>
 			                            }
 			                        }
 			        });
-			        var empresas = $("#empresas").data("kendoDropDownList");
+			        var empresas = $("#empresas").data("kendoComboBox");
 			        empresas.list.width(300);
 			    
 			    $("#admin").kendoDropDownList({
@@ -427,7 +429,7 @@ $this->end(); ?>
 			        var admin = $("#admin").data("kendoDropDownList");
 			        admin.list.width(300);
 				
-				
+		/*		
 				$("#datePicker1").kendoDatePicker({
 		   			format: "dd/MM/yyyy",
 		   			culture: "es-ES"
@@ -436,11 +438,63 @@ $this->end(); ?>
 		   			format: "dd/MM/yyyy",
 		   			culture: "es-ES"
 		   		});
-				
+			*/	
 				$("#codigo").mask("999-9999");
+
+		function limpiaremp(){        
+				$('#errorempresa').hide("slow");
+		}
+		
+		
+		
+	function filtrarDrop() {
+		var startDate = start.value();
+		var endDate = end.value();
+			//alert('dafuq');
+			/*proy.data("kendoDropDownList").dataSource.filter([
+				     { field: "creacion", operator: "gte", value: startDate },
+				     { field: "creacion", operator: "lte", value: endDate }
+				]);
+			*/
+			
+			//proy.data("kendoDropDownList").dataSource.filter({ field: "idproyecto", operator: "eq", value: 5});
+	}
+		
+	
+	function startChange() {
+		var startDate = start.value();
+		if (startDate) {
+            startDate = new Date(startDate);
+            startDate.setDate(startDate.getDate() + 1);
+            end.min(startDate);
+    	}
+    }
+	
+	function endChange() {
+		var endDate = end.value();
+	    if (endDate) {
+	        endDate = new Date(endDate);
+	        endDate.setDate(endDate.getDate() - 1);
+	        start.max(endDate);
+	    }
+	}
+
+    var start = $("#datePicker1").kendoDatePicker({
+        culture: "es-ES",
+	   	format: "dd/MM/yyyy",
+        change: startChange,
+        close: filtrarDrop
+    }).data("kendoDatePicker");
+	
+    var end = $("#datePicker2").kendoDatePicker({
+        culture: "es-ES",
+	   	format: "dd/MM/yyyy",
+        change: endChange,
+        close: filtrarDrop
+    }).data("kendoDatePicker");
+	
+    start.max(end.value());
+    end.min(start.value());
 				
-				
-				
-				});
-                
+				});    
             </script>
