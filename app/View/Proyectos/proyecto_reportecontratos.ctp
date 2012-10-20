@@ -98,22 +98,41 @@ $this->end(); ?>
 		            proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script>
 			</li>
-			<li>
-				<div id="grid"></div>
+		</ul>
+			
+				
+			
+		<ul>
+			<li  class="accept">
+				<table>
+					<tr>
+						<td>
+							<?php echo $this->Form->end(array('label' => 'Generar Informe', 'class' => 'k-button', 'id' => 'button')); ?>
+						</td>
+						<td>
+							<?php echo $this->Html->link('Regresar',
+								array('controller' => 'Mains', 'action' => 'index'),
+								array('class'=>'k-button')); ?>
+						</td>
+					</tr>
+				</table>
 			</li>
-			<li>
-				<?php echo $this->ajax->submit('Consultar', array(
+				<!--<?php echo $this->ajax->submit('Consultar', array(
 					'url'=> array('controller'=>'Proyectos', 'action'=>'update_reportecontratos'), 
 					'update' => 'post',
-					'class' => 'k-button')); ?>
+					'class' => 'k-button')); ?>-->
 			</li>
 			<!--<td><a class="k-button"><span class="k-icon k-i-pencil"></span></a> <a class="k-button"><span class="k-icon k-i-close"></span></a></td>-->
 		</ul>
 		
-		<?php echo $this->form->end(); ?>
+		
 	</div>
-
-	<div id="post"></div>
+	
+	<div id="info"></div>
+	
+	<div id="grid"></div>
+	
+	
 
 </div>
 	
@@ -203,169 +222,136 @@ $this->end(); ?>
                 }
                 
                 #grid {
-                	margin-top: 50px;
+                	margin-top: 10px;
                 }
 
             </style>
 
 <script>
-    $(document).ready(function() {
-    	
+	$(document).ready(function() {
     	var grid = $("#grid").kendoGrid({
-          columns:[
-              
-             {
-                  field: "Contrato.codigocontrato",
-                  title: "Codigo",
-                  width: 75
-          	 },
-          	 {
-                  field: "Contrato.nombrecontrato",
-                  title: "Contrato",
-                  width: 200
-          	 },
-          	 {
-                  field: "Contrato.plazoejecucion",
-                  title: "Plazo",
-                  width: 50
-          	 },
-          	 {
-                  field: "Contrato.montooriginal",
-                  title: "Monto",
-                  template: '#= kendo.toString(kendo.parseFloat(Contrato.montooriginal),"c2") #',
-                  width: 100
-          	 },
-          	 {
-                  field: "Empresa.nombreempresa",
-                  title: "Empresa"
-          	 }
-          	 
-          	 
-          ],
-          dataSource: {
+        	columns:[
+            	{field: "Contrato.codigocontrato", title: "Codigo", width: 70},
+          	 	{field: "Contrato.nombrecontrato", title: "Contrato", width: 200},
+          	 	{field: "Contrato.tipocontrato", title: "Tipo", width: 175},
+          	 	{field: "Contrato.plazoejecucion", title: "Plazo", width: 50},
+          	 	{field: "Contrato.montooriginal", title: "Monto", template: '#= kendo.toString(kendo.parseFloat(Contrato.montooriginal),"c2") #', width: 100},
+          	 	{field: "Contrato.variacion", title: "Variación", template: '#= kendo.toString(kendo.parseFloat(Contrato.variacion),"c2") #', width: 100},
+          	 	/*{field: "Empresa.nombreempresa", title: "Empresa"}*/
+          	],
+          	dataSource: {
+          		pageSize: 10,
                 type: "json",
                 transport: {
                     read: {
                     	url: "/Proyectos/reportegridcontratosjson.json",
                     	dataType: "json"
                     }
-                },
-                schema: {
-                	
-                	//proyecto: "Proyecto", contrato: "Contrato"
-                	model: {
-			        	fields: {
-			            	montooriginal: { type: "number" },
-			             	creacion: { type: "date" }
-			            }
-			     	}
-			   	}
-			    
-                            
-         
-          }
-      });
-      
-
-    	
-    	
- 
+                }
+			},
+		   	pageable: true,
+            pageable: {
+            	messages: {
+            		display: "{0} - {1} de {2} Contratos",
+            		empty: "No contratos a mostrar",
+            		page: "Página",
+            		of: "de {0}",
+        			itempsPerPage: "Contratos por página",
+        			first: "Ir a la primera página",
+        			previous: "Ir a la página anterior",
+        			next: "Ir a la siguiente página",
+        			last: "Ir a la última página",
+        			refresh: "Actualizar"
+        		}
+        	},
+            sortable: true,
+            sortable: {
+ 			   	mode: "single", // enables multi-column sorting
+        		allowUnsort: true
+			},
+			scrollable: false
 		
-		
-		function filtrarGrid() {
-
-			var proyecto = proy.value();
-			
-			if (proyecto) {
-				grid.data("kendoGrid").dataSource.filter({ field: "Proyecto.idproyecto", operator: "eq", value: parseInt(proyecto)});
-			} else {
-				grid.data("kendoGrid").dataSource.filter({});
-			}
+    	});
+    	
+	function filtrarGrid() {
+		var proyecto = proy.value();
+		var str = "";
+		if (proyecto) {
+			grid.data("kendoGrid").dataSource.filter({ field: "Proyecto.idproyecto", operator: "eq", value: parseInt(proyecto)});
+			str = "Proyecto Seleccionado: " + proy.text() + ".";
+			$("div #info").slideUp(300);
+			$("div #info").slideDown(300).text(str);
+		} else {
+			grid.data("kendoGrid").dataSource.filter({});
+			$("div #info").slideUp(300).delay(800);
 		}
 		
-		function filtrarDrop() {
-			var startDate = start.value();
-			var endDate = end.value();
-			alert('dafuq');
+	}
+		
+	function filtrarDrop() {
+		var startDate = start.value();
+		var endDate = end.value();
+			//alert('dafuq');
 			/*proy.data("kendoDropDownList").dataSource.filter([
 				     { field: "creacion", operator: "gte", value: startDate },
 				     { field: "creacion", operator: "lte", value: endDate }
 				]);
 			*/
 			
-			proy.data("kendoDropDownList").dataSource.filter({ field: "idproyecto", operator: "eq", value: 5});
-		}
+			//proy.data("kendoDropDownList").dataSource.filter({ field: "idproyecto", operator: "eq", value: 5});
+	}
 		
-		
-		function startChange() {
-	        var startDate = start.value();
 	
-	        if (startDate) {
-	        	
-                
-                //grid.data("kendoGrid").dataSource.filter({ field: "creacion", operator: "gte", value: startDate });
-                
-	            startDate = new Date(startDate);
-	            startDate.setDate(startDate.getDate() + 1);
-	            end.min(startDate);
-	            
-	            
-                
-                   // grid.data("kendoGrid").dataSource.filter({});
-	        }
+	function startChange() {
+		var startDate = start.value();
+		if (startDate) {
+            startDate = new Date(startDate);
+            startDate.setDate(startDate.getDate() + 1);
+            end.min(startDate);
+    	}
+    }
+	
+	function endChange() {
+		var endDate = end.value();
+	    if (endDate) {
+	        endDate = new Date(endDate);
+	        endDate.setDate(endDate.getDate() - 1);
+	        start.max(endDate);
 	    }
+	}
+
+    var start = $("#start").kendoDatePicker({
+        culture: "es-ES",
+	   	format: "dd/MM/yyyy",
+        change: startChange,
+        close: filtrarDrop
+    }).data("kendoDatePicker");
 	
-	    function endChange() {
-	        var endDate = end.value();
+    var end = $("#end").kendoDatePicker({
+        culture: "es-ES",
+	   	format: "dd/MM/yyyy",
+        change: endChange,
+        close: filtrarDrop
+    }).data("kendoDatePicker");
 	
-	        if (endDate) {
-	        	
-	        	
-	        	
-	        	//grid.data("kendoGrid").dataSource.filter({ field: "creacion", operator: "lte", value: endDate });
-	        	
-	            endDate = new Date(endDate);
-	            endDate.setDate(endDate.getDate() - 1);
-	            start.max(endDate);
-	        }
-	    }
-	
-	    var start = $("#start").kendoDatePicker({
-	        culture: "es-ES",
-		   	format: "dd/MM/yyyy",
-	        change: startChange,
-	        close: filtrarDrop
-	    }).data("kendoDatePicker");
-	
-	    var end = $("#end").kendoDatePicker({
-	        culture: "es-ES",
-		   	format: "dd/MM/yyyy",
-	        change: endChange,
-	        close: filtrarDrop
-	    }).data("kendoDatePicker");
-	
-	    start.max(end.value());
-	    end.min(start.value());
+    start.max(end.value());
+    end.min(start.value());
 		
-		
-		var proy = $("#proyectos").kendoDropDownList({
-			optionLabel: "Seleccione proyecto",
-            
-            dataTextField: "nombreproyecto",
-            dataValueField: "idproyecto",
-            
-            <?php if(isset($idproyecto)) { echo 'value: ' . $idproyecto . ','; } ?> 
-            dataSource: {
-                            type: "json",
-                            transport: {
-                                read: "/Proyectos/reportecontratosjson.json"
-                            }
-                       },
-             change: filtrarGrid
-        }).data("kendoDropDownList");
-		proy.list.width(400);
-		
-		
-    });
+	var proy = $("#proyectos").kendoDropDownList({
+		optionLabel: "Seleccione proyecto",
+        dataTextField: "nombreproyecto",
+        dataValueField: "idproyecto",
+        <?php if(isset($idproyecto)) { echo 'value: ' . $idproyecto . ','; } ?> 
+        dataSource: {
+            type: "json",
+            transport: {
+            	read: "/Proyectos/reportecontratosjson.json"
+            }
+		},
+     	change: filtrarGrid
+	}).data("kendoDropDownList");
+	
+	proy.list.width(400);
+});
 </script>
 

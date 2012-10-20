@@ -52,7 +52,12 @@ $this->end(); ?>
 			<h2>Direcciones</h2>			   
 	<?php foreach ($ubicaciones as $ubi): ?>
     	<li class='capa2'>
-        <?php echo $ubi['Ubicacion']['direccion']; ?>,
+        <?php echo $ubi['Ubicacion']['direccion']; 
+        if(!empty($ubi['Ubicacion']['direccion']))
+		{
+			echo ", ";
+		}
+        ?>
         <?php echo $ubi['Municipio']['municipio']; ?>,
         <?php echo $ubi['Departamento']['departamento']; ?>
         </li> 
@@ -75,11 +80,15 @@ $this->end(); ?>
 					<div class='capa2'><li><?php echo $metas['descripcionmeta']; ?></li></div>
 				<?php endforeach; ?>
 			<?php endforeach; ?>
+			<br>
 			<?php echo $this->Html->link(
             	'Agregar Componentes', 
             	array('controller' => 'Componentes','action' => 'componente_registrar',$fichatecnicas['Fichatecnica']['idfichatecnica']),
             	array('class'=>'k-button')
 			);?>
+			<?php echo $this->Html->link('Terminar Ficha Tecnica',
+				array('controller' => 'Mains', 'action' => 'index'),array('id' => 'regresar','class'=>'k-button')); 
+			?>	
 			
 
 <style scoped>

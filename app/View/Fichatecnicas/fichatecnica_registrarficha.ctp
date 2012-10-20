@@ -60,12 +60,14 @@ $this->end(); ?>
 				<?php echo $this->Form->input('proyectos',
 					array(
 						'label' => 'Proyectos:', 
-						'div' => array('class' => 'requerido'),
+						'div' => array('id' => 'proyo', 'class' => 'requerido'),
 						'class' => 'k-dropdownlist',
 						'id' => 'proyectos'
+						
 					)); ?>
+					<div id="errorproyecto" class="LV_validation_message LV_invalid"></div>
 				<script type="text/javascript">
-		            var proyectos = new LiveValidation( "proyectos", { validMessage: " " } );
+		            var proyectos = new LiveValidation( "proyectos", { validMessage: " ", insertAfterWhatNode: "proyo" } );
 		            proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script> 
 			</li>
@@ -127,29 +129,38 @@ $this->end(); ?>
 				<?php echo $this->Form->input('empleosgenerados', 
 					array(
 						'label' => 'Empleos Generados: ', 
-						'div' => array('class' => 'requerido'),
+						'div' => array('id' => 'empleos','class' => 'requerido'),
 						'id' => 'numero1',
+						'type' => 'text',
 						'class' => 'k-textbox', 
-						'placeholder' => 'Empleos Generados'
+						'placeholder' => 'Empleos Generados',
+						'maxlength' => "7"
 						)); ?>
 				<script type="text/javascript">
-		            var numero1 = new LiveValidation( "numero1", { validMessage: " " } );
+		            var numero1 = new LiveValidation( "numero1", { validMessage: " ", insertAfterWhatNode: "empleos" } );
 		            numero1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            numero1.add( Validate.Numericality,{ onlyInteger: true,
+					   								   	notAnIntegerMessage: "Debe ser un número entero",
+						            				 	notANumberMessage:"Debe ser un número"} );
 		        </script> 
 			</li>
 			<li>
 				<?php echo $this->Form->input('beneficiarios', 
 					array(
 						'label' => 'Beneficiarios: ', 
-						'div' => array('class' => 'requerido'),
+						'div' => array('id' => 'benefic', 'class' => 'requerido'),
+						'type' => 'text',
 						'id' => 'numero2',
 						'class' => 'k-textbox', 
 						'placeholder' => 'Beneficiarios',
-						"rows"=>"2"
+						'maxlength' => "7"
 						)); ?>
 				<script type="text/javascript">
-		            var numero2 = new LiveValidation( "numero2", { validMessage: " " } );
+		            var numero2 = new LiveValidation( "numero2", { validMessage: " ", insertAfterWhatNode: "benefic" } );
 		            numero2.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            numero2.add( Validate.Numericality,{ onlyInteger: true,
+					   								   	notAnIntegerMessage: "Debe ser un número entero",
+						            				 	notANumberMessage:"Debe ser un número"} );
 		        </script> 
 			</li>
 			<li>
@@ -164,7 +175,16 @@ $this->end(); ?>
 			
 			<li  class="accept">
 				<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
-				<?php echo $this->Form->end(array('label' => 'Registrar Ficha', 'class' => 'k-button')); ?>
+				<table>
+				<tr><td>
+				<?php echo $this->Form->end(array('label' => 'Registrar Ficha', 'class' => 'k-button', 'id' => 'submit')); ?>
+				</td>
+				<td>
+				<?php echo $this->Html->link('Regresar',
+					array('controller' => 'Mains', 'action' => 'index'),array('id' => 'regresar','class'=>'k-button')); 
+				?>	
+				</td></tr>
+				</table>
 				</li>
             
             <li class="status">
@@ -177,9 +197,7 @@ $this->end(); ?>
 
                 .k-textbox {
                     width: 300px;
-                    margin-left: 5px;
-                    
-                }
+               }
 				
 				.k-dropdownlist{
                     width: 300px;
@@ -213,6 +231,7 @@ $this->end(); ?>
                     display: inline-block;
                     width: 160px;
                     text-align: right;
+                    margin-right: 5px;
                     
                 }
 
@@ -245,7 +264,7 @@ $this->end(); ?>
                 
 				
 				.LV_validation_message{
-				    font-weight:bold;
+				    /*font-weight:bold;*/
 				    margin:0 0 0 5px;
 				}
 				
@@ -261,7 +280,7 @@ $this->end(); ?>
                
 				}
 				    
-				.LV_valid_field,
+			/*	.LV_valid_field,
 				input.LV_valid_field:hover, 
 				input.LV_valid_field:active,
 				textarea.LV_valid_field:hover, 
@@ -275,55 +294,65 @@ $this->end(); ?>
 				textarea.LV_invalid_field:hover, 
 				textarea.LV_invalid_field:active {
 				    border: 1px solid #CC0000;
-				}
+				}*/
                 
+                
+                #errorproyecto {
+                	display: none;
+                }
 </style>
 
 <script>
-                $(document).ready(function() {
-                    var validator = $("#formulario").kendoValidator().data("kendoValidator"),
-                    status = $(".status");
-
-                    $("button").click(function() {
-                        if (validator.validate()) {
-                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-                            } else {
-                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-                        }
-                    });
-                
-
-					$("#proyectos").kendoDropDownList({
-						optionLabel: "Seleccione Proyecto",
-			            dataTextField: "nombreproyecto",
-			            dataValueField: "idproyecto",
-			            dataSource: {
-			                            type: "json",
-			                            transport: {
-			                                read: "/Fichatecnicas/proyectojson.json"
-			                            }
-			                        }
-			        });
-               
-               var combobox = $("#select").data("kendoComboBox");
-               combobox.list.width(400);
-               });
-               
-               $("#numero1").kendoNumericTextBox({
-                        min: 000000,
-    					max: 999999,
-    					decimals: 0,
-    					placeholder: "Ej. 100",
-    					spinners: false
-                    });
-                    
-               $("#numero2").kendoNumericTextBox({
-                        min: 000000,
-    					max: 999999,
-    					decimals: 0,
-    					placeholder: "Ej. 100",
-    					spinners: false
-                    });
-
-                    
+	$(document).ready(function() {
+    
+    	$("form").submit(function() {
+			var proyecto = proyo.value();
+		    if (proyecto) {
+		        //alert("exito");
+		        $("#errorproyecto").hide();
+		        return true;
+		    } else {
+		    	//alert("fracaso");
+		    	//$("#errorproyecto").hide();
+		    	$("#errorproyecto").show().text("Seleccione un proyecto para continuar");
+		    	return false;
+		    }
+		});
+    	
+    	var proyo =$("#proyectos").kendoDropDownList({
+			optionLabel: "Seleccione Proyecto",
+            dataTextField: "nombreproyecto",
+            dataValueField: "idproyecto",
+            dataSource: {
+                            type: "json",
+                            transport: {
+                                read: "/Fichatecnicas/proyectojson.json"
+                            }
+                       }
+             
+        }).data("kendoDropDownList");
+       
+      
+       $("#numero1").kendoNumericTextBox({
+                min: 0000001,
+				max: 9999999,
+				format : "{0:n0}",
+				decimals: 0,
+				placeholder: "Ej. 100",
+				spinners: false
+            });
+            
+       $("#numero2").kendoNumericTextBox({
+                min: 0000001,
+				max: 9999999,
+				format : "{0:n0}",
+				decimals: 0,
+				placeholder: "Ej. 100",
+				spinners: false
+            });
+            
+        $("#problematica").focusIn(function() {
+        	$("#errorproyecto").hide();
+        });
+    });                    
 </script>

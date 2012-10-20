@@ -21,7 +21,7 @@
 	    <tr>
 	        <th data-field="idfuentefinanciamiento">Fuente</th>
 	        <th data-field="montoparcial">Monto</th>
-	        <!--<th data-field="userc">Usuario</th>-->
+	        <th data-field="userc">Usuario</th>
 	        <th data-field="creacion">Fecha Asignación</th>
 	        <th>Acción</th>
 	    </tr>
@@ -29,7 +29,7 @@
 		    <tr>
 		        <td><?php echo $pro['Fuentefinanciamiento']['nombrefuente']; ?></td>
 		        <td><?php echo $pro['Financia']['montoparcial']; ?></td>        
-		        <!--<td><?php echo $pro['Financia']['userc']; ?></td>-->
+		        <td><?php echo $pro['Financia']['userc']; ?></td>
 		        <td><?php echo $pro['Financia']['creacion']; ?></td>
 		        <td>  
 		        	<?php echo $this->Html->link(
@@ -53,7 +53,7 @@
 
 
 <script>
-	$("#grid").kendoGrid({
+	var grid =  $("#grid").kendoGrid({
     	sortable: false,
     	scrollable: false,
 		dataSource: {
@@ -75,10 +75,12 @@
         columns: [
         	{ field: "idfuentefinanciamiento", title: "Fuente", width: 200 },
             { field: "montoparcial", title: "Monto", format: "{0:c}", footerTemplate: <?php echo "<strong>#= kendo.toString(sum,'c2') #</strong>"; ?>},
-            /*{ field: "userc", title: "Usuario"},*/
+            { field: "userc", title: "Usuario"},
             { field: "creacion", title: "Fecha Asignación", format: "{0:dd/MM/yyyy}"},
             { field: "accion", width: 200} 
 		]
           
-	});
+	}).data("kendoGrid");
+
+grid.hideColumn("userc");
 </script>

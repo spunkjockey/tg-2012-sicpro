@@ -70,14 +70,6 @@ class NombramientosController extends AppController {
 		    }
 		}
 	}
-
-	public function nombramiento_desasignartecnico()
-	{
-		echo "Eliminando..";
-		Debugger::dump($this->request->data);
-		
-	}
-	
 	
 	
 	public function proyectojson() {
@@ -108,11 +100,6 @@ class NombramientosController extends AppController {
 		$this->render('/json/jsondatad');
 	}
 	
-					
-				/*$this->set('informacion', Set::combine($contrato,
-				"{s}.Contratoconstructor.nombrecontrato",
-				"{s}.Contratoconstructor.estadocontrato"
-				));*/	
 	
 	function update_multic(){
 				 if (!empty($this->data['Nombramiento']['contratos']))

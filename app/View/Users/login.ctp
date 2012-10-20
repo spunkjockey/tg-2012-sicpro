@@ -7,7 +7,9 @@
 
 	<div class="resumen">
 		
-		<p> SICPRO. Sistema Informatico para control y seguimiento de proyectos para la Direcció General de ORenamiento Foresta, Cuenca y Riego del Ministerio de Agricultura y Ganadería</p>
+		<p> SICPRO. Sistema Informático para control y seguimiento de proyectos para la Dirección 
+			General de Ordenamiento Forestal, Cuenca y Riego del 
+			Ministerio de Agricultura y Ganadería </p>
 		
 		<!--<div style="margin: 10px 30px 10px; width: 500px; height: 200px;">
 			
@@ -16,26 +18,27 @@
 		</div>-->
 		
 		<div id="slides">
+            <div class="atras"><a href="#" class="prev"><img src="../img/login/arrow-prev.png" alt="Anterior" class="img"></a></div>
             <div class="slides_container">
                 <div class="slide">
-						<a href="#" title="titulo" target="_blank"><img src="../img/login/robyn.jpg" alt="Slide 1"></a>
-						<div class="caption" style="bottom:0">
-							<p>Robyn!</p>
+						<a href="#" title="titulo" target="_blank"><img src="../img/login/mag/elobservatodo11-10-2012.jpg" alt="Slide 1"></a>
+						<div class="caption">
+							<p>mag proyecto 1</p>
 						</div>
 				</div>
 				<div class="slide">
-						<a href="#" title="titulo" target="_blank"><img src="../img/login/mujeres2.jpg" alt="Slide 1"></a>
-						<div class="caption" style="bottom:0">
-							<p>Anyone!</p>
+						<a href="#" title="titulo" target="_blank"><img src="../img/login/mag/2012_7_17_FS9L9ZeGkaHgVwnF1e4Zu.jpg" alt="Slide 1"></a>
+						<div class="caption">
+							<p>mag proyecto 2</p>
+						</div>
+				</div>
+				<div class="slide">
+						<a href="#" title="titulo" target="_blank"><img src="../img/login/mag/caleao-parque-redes-500px.jpg" alt="Slide 1"></a>
+						<div class="caption">
+							<p>mag proyecto 3</p>
 						</div>
 				</div>
 				<!--<div class="slide">
-						<a href="#" title="titulo" target="_blank"><img src="../img/login/miley.gif" alt="Slide 1"></a>
-						<div class="caption" style="bottom:0">
-							<p>Miley!</p>
-						</div>
-				</div>
-				<div class="slide">
 						<a href="#" title="titulo" target="_blank"><img src="../img/login/katy.gif" alt="Slide 1"></a>
 						<div class="caption" style="bottom:0">
 							<p>Katy!</p>
@@ -43,8 +46,7 @@
 				</div>-->
                 
             </div>
-            <a href="#" class="prev"><img src="../img/login/arrow-prev.png" width="24" height="43" alt="Arrow Prev"></a>
-			<a href="#" class="next"><img src="../img/login/arrow-next.png" width="24" height="43" alt="Arrow Next"></a>
+            <div class="siguiente"><a href="#" class="next"><img src="../img/login/arrow-next.png" class="img" alt="Siguiente"></a></div>
         </div>
 		<!--<img src="../img/login/example-frame.png" width="550" height="250" alt="Example Frame" id="frame">-->
 	</div>

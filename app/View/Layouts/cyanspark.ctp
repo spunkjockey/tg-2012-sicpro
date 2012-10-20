@@ -37,8 +37,8 @@
 	</head>
 	<body>
 		<div class="main">
-			<div class="menu_nav">
-				<div class="menu_nav_resize">
+			<!--<div class="menu_nav">
+				!<div class="menu_nav_resize">
 					<ul>
 						<li class="active">
 							<?php echo $this->Html->link('Inicio', array('controller' => 'mains','action'=>'index')); ?>
@@ -53,8 +53,8 @@
 				</div>
 				<div class="clr"></div>
 				
-			</div>
-			<div class="usuario">
+			</div>-->
+			<div class="usuario" style="margin-top: 10px;">
 				<?php echo 'Bienvenido ' . 
 					$this->Session->read('User.username') . ' ' . 
 					$this->Html->link('Cerrar Sesión', array('controller' => 'users','action'=>'logout')); ?> 

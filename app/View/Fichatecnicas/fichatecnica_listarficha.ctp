@@ -54,7 +54,7 @@ $this->end(); ?>
 <table id="grid">
     <tr>
         <th data-field="nombreproyeto">Nombre Proyecto</th>
-        <th data-field="accion" width="100px">Acción</th>
+        <th data-field="accion" width="270px">Acción</th>
     </tr>
 
     <!-- Here is where we loop through our $empresas array, printing out post info -->
@@ -62,21 +62,21 @@ $this->end(); ?>
     <?php foreach ($fichas as $fc): ?>
     <tr>
         <td><?php echo $fc['Proyecto']['nombreproyecto']; ?></td>     
-        <td align="center">
+        <td align="center">        	
             <?php echo $this->Html->link(
-            	'Datos Generales', 
+            	'<span class="k-icon k-i-pencil"></span>Ficha', 
             	array('action' => 'fichatecnica_modificarficha', $fc['Fichatecnica']['idfichatecnica']),
-            	array('class'=>'k-button')
+            	array('class'=>'k-button', 'escape' => false)
 			);?>
             <?php echo $this->Html->link(
-            	'Modificar Ubicaciones', 
+            	'<span class="k-icon k-i-pencil"></span>Ubicacion',
             	array('action' => 'fichatecnica_modificarubicacion', $fc['Fichatecnica']['idfichatecnica']),
-            	array('class'=>'k-button')
+            	array('class'=>'k-button', 'escape' => false)
 			);?>
             <?php echo $this->Html->link(
-            	'Modificar Componentes', 
+            	'<span class="k-icon k-i-pencil"></span>Componente',
             	array('controller'=>'Componentes','action' => 'componente_listar', $fc['Fichatecnica']['idfichatecnica']),
-            	array('class'=>'k-button')
+            	array('class'=>'k-button', 'escape' => false)
 			);?>
         </td>
         
@@ -90,6 +90,7 @@ else {
 	echo "No hay Fichas Tecnicas<br />";
 }
 ?>
+	<br />
 	<?php echo $this->Html->link(
 	   	'Regresar', 
 	   	array('controller'=>'Mains'),
@@ -167,7 +168,7 @@ else {
                 
 				
 				.LV_validation_message{
-				    font-weight:bold;
+				    /*font-weight:bold;*/
 				    margin:0 0 0 5px;
 				}
 				
@@ -182,7 +183,7 @@ else {
                		margin-left: 170px; 
                
 				}
-				    
+				/*    
 				.LV_valid_field,
 				input.LV_valid_field:hover, 
 				input.LV_valid_field:active,
@@ -198,7 +199,7 @@ else {
 				textarea.LV_invalid_field:active {
 				    border: 1px solid #CC0000;
 				}
-                
+                */
 </style>
 
 <script>

@@ -129,9 +129,14 @@ $this->end(); ?>
 	        <td align="center">
 	            <?php 
 	            
+	            	
 	            	if(!empty($es['Facturaestimacion']['idfacturaestimacion'])) {
-	            		echo "Facturada el " . $es['Facturaestimacion']['facturacion'];
-
+	            		?>
+						<div style="display: inline; margin-right: 10px">
+	            		<?php echo "Facturada el " . $es['Facturaestimacion']['facturacion']; ?>
+						</div>
+						
+						<?php
 		            	/*echo $this->Html->link(
 			            	'<span class="k-icon k-i-pencil"></span>', 
 			            	array('controller' => 'Facturaestimacions', 'action' => 'facturaestimacion_modificar', $es['Facturaestimacion']['idfacturaestimacion']),
@@ -187,9 +192,12 @@ $this->end(); ?>
 	        <td align="center">
 	            <?php 
 	            
-	            	if(!empty($su['Facturasupervision']['idinformesupervision'])) {
-	            		echo "Facturada el " . $su['Facturasupervision']['facturacion'];
-						
+	            	if(!empty($su['Facturasupervision']['idinformesupervision'])) { ?>
+	            		
+	            		<div style="display: inline; margin-right: 10px">
+	            		<?php echo "Facturada el " . $su['Facturasupervision']['facturacion']; ?>
+						</div>
+						<?php	
 		            	/*echo $this->Html->link(
 			            	'<span class="k-icon k-i-pencil"></span>', 
 			            	array('controller' => 'Facturasupervisions', 'action' => 'facturasupervision_modificar', $su['Facturasupervision']['idinformesupervision']),

@@ -82,7 +82,7 @@ $this->end(); ?>
 				
 				<?php echo $this->ajax->observeField( 'contratos', 
 		    		array(
-		        		'url' => array( 'action' => 'update_infoconconstructor'),
+		        		'url' => array( 'action' => 'update_ordenesc'),
 		        		'update' => 'listaordenes'
 		    		) 
 				);  ?>

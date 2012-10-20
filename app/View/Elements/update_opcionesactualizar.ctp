@@ -1,10 +1,9 @@
 <!-- /app/views/elements/update_opcionesactualizar.ctp -->
-	<?php
+<?php
 	if(!empty($informacion))
 	{
-	if($informacion != false){	
-	foreach ($informacion as $inf): 
-		switch ($inf['estadocontrato']) {
+	if($informacion != false){
+		switch ($informacion['estadocontrato']) {
 		    case 'en pausa':
 				{
 			        $options = array('en marcha' => 'En Marcha','cancelado' => 'Cancelado','finalizado' => 'Finalizado');
@@ -41,7 +40,6 @@
 				}
 			break;
 		}
-	endforeach; 
 	}}?>
 	
 <style scoped>
