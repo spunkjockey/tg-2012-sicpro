@@ -108,7 +108,7 @@ $this->end(); ?>
 				<table>
 					<tr>
 						<td>
-							<?php echo $this->Form->end(array('label' => 'Agregar Fuente', 'class' => 'k-button', 'id' => 'button')); ?>
+							<?php echo $this->Form->end(array('label' => 'Asignar Fondos', 'class' => 'k-button', 'id' => 'button')); ?>
 						</td>
 						<td>
 							<?php echo $this->Html->link('Cancelar',array('controller' => 'Mains', 'action' => 'index'),array('class'=>'k-button')); ?>
