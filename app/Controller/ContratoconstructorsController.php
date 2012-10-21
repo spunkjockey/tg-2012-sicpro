@@ -190,15 +190,15 @@
 	 * se auxilia de las funciones conconstructorjson(), conconstructorjson() y
 	 * update_infoconstructor() esta ultima implementa ajax a los campos
 	 * */
-	function contratoconstructor_modificar()
+	function contratoconstructor_modificar($id=null)
 	{
 		$this->layout = 'cyanspark';
-		Debugger::dump($this->request->is('post'));
 		  if ($this->request->is('post')) 
 		{
 			$this->Contrato->create();
 			$id = $this->request->data['Contratoconstructor']['contratos'];
 			$this->Contrato->read(null, $id);
+			$this->Contrato->set('idcontrato', $this->request->data['Contratoconstructor']['contratos']);
 			$this->Contrato->set('ipersona', $this->request->data['Contratoconstructor']['admin']);
 			$this->Contrato->set('idempresa', $this->request->data['Contratoconstructor']['empresas']);
 			$this->Contrato->set('codigocontrato', $this->request->data['Contratoconstructor']['codigocontrato']);
@@ -210,11 +210,16 @@
 			$this->Contrato->set('detalleobras', $this->request->data['Contratoconstructor']['obras']);
 			$this->Contrato->set('userm', $this->Session->read('User.username'));
 			$this->Contrato->set('modificacion', date('Y-m-d h:i:s'));
-			if ($this->Contrato->save()) 
+			if ($this->Contrato->save($id, array(
+							'fieldList'=>array('idpersona','idempresa','codigocontrato','nombrecontrato',
+											   'montooriginal','plazoejecucion','fechainiciocontrato',
+											   'fechafincontrato','detalleobras','userm','modificacion')))) 
 				{
 					//Registro en tabla contrato constructor
 					$this->Contratoconstructor->create();
+					$id = $this->request->data['Contratoconstructor']['contratos'];
 					$this->Contratoconstructor->read(null, $id);
+					$this->Contratoconstructor->set('idcontrato', $this->request->data['Contratoconstructor']['contratos']);
 					$this->Contratoconstructor->set('idpersona', $this->request->data['Contratoconstructor']['admin']);
 					$this->Contratoconstructor->set('idempresa', $this->request->data['Contratoconstructor']['empresas']);
 					$this->Contratoconstructor->set('codigocontrato', $this->request->data['Contratoconstructor']['codigocontrato']);
@@ -229,9 +234,13 @@
 					$this->Contratoconstructor->set('anticipo', $this->request->data['Contratoconstructor']['anticipo']);
 					$this->Contratoconstructor->set('userm', $this->Session->read('User.username'));
 					$this->Contratoconstructor->set('modificacion', date('Y-m-d h:i:s'));
-	                if($this->Contratoconstructor->save($id))
+	                if($this->Contratoconstructor->save($id,array(
+							'fieldList'=>array('idpersona','idempresa','codigocontrato','nombrecontrato',
+											   'montooriginal','plazoejecucion','fechainiciocontrato',
+											   'fechafincontrato','detalleobras','userm','modificacion',
+											   'retencion','anticipo'))))
 					{
-						Debugger::dump($this->request->data);
+						//Debugger::dump($this->request->data);
 						$this->Session->setFlash('El contrato '.$this->request->data['Contratoconstructor']['codigocontrato'].' ha sido actualizado.',
 												 'default',array('class'=>'success'));	
 						$this->redirect(array('controller'=>'mains', 'action' => 'index'));
@@ -240,13 +249,12 @@
 					else 
 					{
 						$this->Session->setFlash('Ha ocurrido un error cc');
-						Debugger::dump($this->request->data);
 	                }
 				}
 				else 
 				{
 					$this->Session->setFlash('Ha ocurrido un error c');
-					debug($this->Contrato->validationErros);
+					//debug($this->Contrato->validationErros);
                 }
 		}
 		

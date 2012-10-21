@@ -71,9 +71,9 @@ $this->end(); ?>
 		        </script> 
 			</li>
 			<li>
-				<?php echo $this->Form->input('montoinicial', 
+				<?php echo $this->Form->input('montodisponible', 
 					array(
-						'label' => 'Monto:', 
+						'label' => 'Monto disponible actual:', 
 						'id'    => 'moneda',
 						'maxlength'=> 11,
 						'type'=>'text',
@@ -107,7 +107,8 @@ $this->end(); ?>
 						'div' => array('class' => 'requerido')
 					)); ?>
 			</li>
-		
+		<?php echo $this->request->data['Fuentefinanciamiento']['idtipofuente']; ?>
+		<?php Debugger::dump($this->request->data);?>
 		<li  class="accept">
 				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
 				<?php echo $this->Form->input('userm', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
@@ -257,7 +258,8 @@ $this->end(); ?>
 		$("#fuentes").kendoDropDownList({
             		
 			            dataTextField: "tipofuente",
-			            dataValueField: "id",
+			            dataValueField: "idtipofuente",
+			            index: <?php echo $this->request->data['Fuentefinanciamiento']['idtipofuente']-1; ?>,
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
@@ -266,6 +268,6 @@ $this->end(); ?>
 			                        }
 			                        
 			        });
-	         
+			        var fuentes = $("#fuentes").data("kendoDropDownList");    
 	                });
             </script>

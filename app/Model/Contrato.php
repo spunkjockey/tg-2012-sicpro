@@ -58,7 +58,7 @@
 		
 		public function finmayorinicio_con($check) 
 		{
-				Debugger::dump($check);
+			//	Debugger::dump($check);
 			return date_create_from_format('d/m/Y', $this->data['Contrato']['fechainiciocontrato']) < date_create_from_format('d/m/Y', $this->data['Contrato']['fechafincontrato']);
     	
 		}
