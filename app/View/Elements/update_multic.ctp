@@ -36,8 +36,8 @@
 			  		</td>
 			  		<td>
 			  			<!--<?php echo $this->Form->end(array('label' => '>', 'class' => 'k-button', 'id' => 'button')); ?>-->
-			  			<input type="submit" name="boton_1" id="boton_1" value=">" dir="nombramiento_asignartecnico" class="k-button" onclick="validardisponibles();" />
-			  			<input type="submit" name="boton_2" id="boton_2" value="<" dir="nombramiento_asignartecnico" class="k-button" onclick= "validarseleccionados();" />
+			  			<input type="submit" name="boton_1" id="boton_1" value=">" class="k-button" onclick="validardisponibles();" />
+			  			<input type="submit" name="boton_2" id="boton_2" value="<" class="k-button" onclick= "validarseleccionados();" />
 			  		</td>
 					<td>
 					  <select id="seleccionados" name="seleccionados" size="4">
@@ -133,7 +133,16 @@
     });
 </script>
 <style>
-select option{
+select {
+		background-color: #E3F1F7;
+		font-size:12px; 
+		width: 250px;
+		height: 110px;
+		/*padding:5px;
+		margin:2px;*/
+	}
+
+option{
 		background-color: #E3F1F7;
 		font-size:12px; 
 		width: 250px;

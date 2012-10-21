@@ -11,7 +11,7 @@
 		echo $this -> Html -> css('kendostyles/kendo.common.min');
 		echo $this -> Html -> css('kendostyles/kendo.blueopal.min');
 		echo $this -> Html -> css('jquery-ui');
-		
+		//echo $this -> Html -> css('jquery.tooltip');
 		//echo $this -> Html -> css('global');
 		
 		echo $this -> Html -> script('cyanspark/cufon-yui');
@@ -22,9 +22,14 @@
 		echo $this -> Html -> script('kendojs/cultures/kendo.culture.es-ES.min');
 		echo $this -> Html -> script('flot/jquery.flot');
 		echo $this -> Html -> script('jquery.maskedinput-1.3.min');
-		echo $this -> Html -> script('jquery.twosidedmultiselect');
+		//echo $this -> Html -> script('jquery.twosidedmultiselect');
 		echo $this -> Html -> script('livevalidation_standalone');
 		echo $this -> Html -> script('jquery.validate.min');
+		//echo $this -> Html -> script('jquery-tooltip/jquery.tooltip.min');
+		//echo $this -> Html -> script('jquery-tooltip/lib/jquery.dimensions');
+		//echo $this -> Html -> script('jquery-tooltip/lib/jquery.bgiframe');
+		//echo $this -> Html -> script('jquery-tooltip/lib/jquery.delegate');
+
 		
 
 		

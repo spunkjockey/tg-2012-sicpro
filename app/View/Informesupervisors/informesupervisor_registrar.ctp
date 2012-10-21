@@ -57,11 +57,11 @@ $this->end(); ?>
 					array(
 						'label' => 'Proyecto:', 
 						'id' => 'proyectos',
-						'div' => array('class' => 'requerido')
+						'div' => array('id' => 'proyo','class' => 'requerido')
 						)); 
 				?>
 				<script type="text/javascript">
-					var proyectos= new LiveValidation( "proyectos", { validMessage: " " } );
+					var proyectos= new LiveValidation( "proyectos", { validMessage: " ", insertAfterWhatNode: "proyo" } );
 					proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				</script>
 			</li>
@@ -70,9 +70,9 @@ $this->end(); ?>
 					array(
 						'label' => 'Contrato de supervisión:', 
 						'id' => 'contratos',
-						'div' => array('class' => 'requerido'))); ?>
+						'div' => array('id' => 'contro','class' => 'requerido'))); ?>
 				<script type="text/javascript">
-					var contratos= new LiveValidation( "contratos", { validMessage: " " } );
+					var contratos= new LiveValidation( "contratos", { validMessage: " ", insertAfterWhatNode: "contro" } );
 					contratos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				</script>
 			</li>
@@ -84,6 +84,23 @@ $this->end(); ?>
 				<!--- Aqui se muestran datos sobre el contrato seleccionado -->
 				</div>
 			</li>
+
+			<li>
+				
+				<?php echo $this->Form->input('fechas', 
+					array(
+						'label' => 'Fecha evaluación avance:', 
+						'id' => 'fechas',
+						'div' => array('id' => 'fecho', 'class' => 'requerido')
+						)); 
+					?>
+				<script type="text/javascript">
+					var fechas= new LiveValidation( "fechas", { validMessage: " ", insertAfterWhatNode: "fecho" } );
+					fechas.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+				</script>	
+				
+			</li>
+			
 			<li>
 				<?php echo $this->Form->input('tituloinforme', 
 					array(
@@ -99,21 +116,7 @@ $this->end(); ?>
 					titulo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				</script>
 			</li>
-			<li>
-				
-				<?php echo $this->Form->input('fechas', 
-					array(
-						'label' => 'Fecha evaluación avance:', 
-						'id' => 'fechas',
-						'div' => array('class' => 'requerido')
-						)); 
-					?>
-				<script type="text/javascript">
-					var fechas= new LiveValidation( "fechas", { validMessage: " " } );
-					fechas.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-				</script>	
-				
-			</li>
+			
 			<li>
 				<?php echo $this->Form->input('plazoejecucion', 
 					array(
@@ -121,46 +124,73 @@ $this->end(); ?>
 						'class' => 'k-textbox',  
 						'id' => 'txplazo',
 						'type'  => 'Text', 
-						'placeholder' => 'Cantidad de días de supervisión'
+						'placeholder' => 'ej. 45',
+						'maxlength' => 4,
+						'div' => array('id' => 'plazo','class' => 'requerido')
 						));
 					?>
 				<script type="text/javascript">
-					var txplazo= new LiveValidation( "txplazo", { validMessage: " " } );
+					var txplazo= new LiveValidation( "txplazo", { validMessage: " ", insertAfterWhatNode: "plazo" } );
+					txplazo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 					txplazo.add( Validate.Numericality,{ onlyInteger: true,
 														notAnIntegerMessage: "Debe ser un número entero",
 						            				 	notANumberMessage:"Debe ser un número"} );
 				</script>
 			</li>
 			<li>
+				<?php echo $this->Form->input('avfisico', 
+					array(
+						'label' => 'Avance físico:',
+						'class' => 'k-textbox',  
+						'id' => 'txavfisico',
+						'type'  => 'Text', 
+						'maxlength' => 6,
+						'placeholder' => 'Porcentaje de avance', 
+						'div' => array('id' => 'porce','class' => 'requerido')
+						));
+					?>
+				<script type="text/javascript">
+					var txavfisico= new LiveValidation( "txavfisico", { validMessage: " ", insertAfterWhatNode: "porce" } );
+					txavfisico.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+					txavfisico.add( Validate.Numericality,{ minimum: 0, maximum: 100, tooLowMessage: "El porcentaje no puede ser menor a 0 %", tooHighMessage: "El porcentaje no debe ser mayor al 100 %", notANumberMessage:"Debe ser un número"} );
+		            
+				</script>
+			</li>
+			<li>
 				<?php echo $this->Form->input('avfinanciero', 
 					array(
-						'label' => 'Avance financiero: ($)',
+						'label' => 'Avance financiero: ',
 						'class' => 'k-textbox',  
 						'id' => 'txavfinanciero',
 						'type' => 'text',
-						'placeholder' => 'Valor monetario de avance',
-						'div' => array('class' => 'requerido')
+						'placeholder' => 'ej. 1000',
+						'maxlength' => 12,
+						'div' => array('id' => 'monto','class' => 'requerido')
 						)); ?>
 				<script type="text/javascript">
-					var txavfinanciero = new LiveValidation( "txavfinanciero", { validMessage: " " } );
+					var txavfinanciero = new LiveValidation( "txavfinanciero", { validMessage: " ", insertAfterWhatNode: "monto" } );
 		            txavfinanciero.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+					txavfinanciero.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
+		        		        
 		        </script>
 			</li>
 			<li>
 				<?php echo $this->Form->input('avfisico', 
 					array(
-						'label' => 'Avance físico (%):',
+						'label' => 'Avance físico:',
 						'class' => 'k-textbox',  
 						'id' => 'txavfisico',
 						'type'  => 'Text', 
+						'maxlength' => 6,
 						'placeholder' => 'Porcentaje de avance', 
-						'div' => array('class' => 'requerido')
+						'div' => array('id' => 'porce','class' => 'requerido')
 						));
 					?>
 				<script type="text/javascript">
-					var txavfisico= new LiveValidation( "txavfisico", { validMessage: " " } );
+					var txavfisico= new LiveValidation( "txavfisico", { validMessage: " ", insertAfterWhatNode: "porce" } );
 					txavfisico.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-					
+					txavfisico.add( Validate.Numericality,{ minimum: 0, maximum: 100, tooLowMessage: "El porcentaje no puede ser menor a 0 %", tooHighMessage: "El porcentaje no debe ser mayor al 100 %", notANumberMessage:"Debe ser un número"} );
+		            
 				</script>
 			</li>
 				<?php echo $this->Form->input('idinformesupervision',array('type'=>'hidden'))?>
@@ -263,52 +293,28 @@ $this->end(); ?>
     }
     
     .LV_validation_message{
-	    font-weight:bold;
+
 	    margin:0 0 0 5px;
 	}
 	
 	.LV_valid {
 	    color:#00CC00;
+	    display: none;
 	}
 		
 	.LV_invalid {
 	    color:#CC0000;
 		clear:both;
    		display:inline-block;
-   		margin-left: 170px; 
+   		margin-left: 155px; 
    
 	}
 	    
-	.LV_valid_field,
-	input.LV_valid_field:hover, 
-	input.LV_valid_field:active,
-	textarea.LV_valid_field:hover, 
-	textarea.LV_valid_field:active {
-	    border: 1px solid #00CC00;
-	}
-	    
-	.LV_invalid_field, 
-	input.LV_invalid_field:hover, 
-	input.LV_invalid_field:active,
-	textarea.LV_invalid_field:hover, 
-	textarea.LV_invalid_field:active {
-	    border: 1px solid #CC0000;
-	}
+
 </style>
 
 <script>
-                $(document).ready(function() {
-                    var validator = $("#formulario").kendoValidator().data("kendoValidator"),
-                    status = $(".status");
-
-                    $("button").click(function() {
-                        if (validator.validate()) {
-                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-                            } else {
-                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-                        }
-                    });
-                
+	$(document).ready(function() {
                 $("#proyectos").kendoDropDownList({
             			optionLabel: "Seleccione proyecto",
             			dataTextField: "numeroproyecto",
@@ -352,15 +358,22 @@ $this->end(); ?>
 			        
 			    $("#txavfinanciero").kendoNumericTextBox({
 				     min: 0,
-				     max: 999999999.99,
+				     
 				     format: "c2",
 				     decimals: 2,
 				     spinners: false
 				 });
+				 
+				 $("#txplazo").kendoNumericTextBox({
+				     min: 0,
+				     format: "n0",
+				     spinners: false
+				 });
+
 
 				$("#txavfisico").kendoNumericTextBox({
 				     min: 0,
-				     max: 100.00,
+				     
 				     format: "n",
 				     decimals: 2,
 				     spinners: false

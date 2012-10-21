@@ -252,6 +252,15 @@ $this->end(); ?>
                 span.k-tooltip {
                     margin-left: 6px;
                 }
+                
+
+					
+				.error-message {
+				    color:#CC0000;
+               		display:block;
+               		margin-left: 130px;
+               		margin:0 0 0 5px;
+				}
 
             </style>
             
@@ -309,14 +318,14 @@ $this->end(); ?>
 				        var selectfue = $("#contratos").val();
 				 			
 				            if(selectpro == ""){
-				                $('#error1').text("Seleccione un Proyecto");
+				                $('#error1').show().text("Seleccione un Proyecto");
 				                return false;
 				            } else if(selectfue == ""){
-				                $('#error2').text("Seleccione un Contrato");
+				                $('#error2').show().text("Seleccione un Contrato");
 				                return false;
 				            } else {
 				                $('.error-message').hide();
-				                alert('Ok!');
+				                //alert('Ok!');
 				                return true;
 				            }
 				    });

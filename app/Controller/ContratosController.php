@@ -9,17 +9,19 @@ class ContratosController extends AppController {
         $this->set('contratos', $this->Contrato->find('all'));
     }
 	
+	 
+	 
 	 public function addordeninicio($id=null) {
 		$this->layout = 'cyanspark';
 		
 		
         if ($this->request->is('post')) 
         {
+        	//Debugger::dump($this->request->data);	
         	$id = $this->request->data['Contrato']['contratos'];
 			$this->Contrato->create();
 			$tipo = $this->Contrato->field('tipocontrato',array('idcontrato'=>$id));
-			
-			Debugger::dump($tipo);
+			//Debugger::dump($tipo);
             $this->Contrato->set('idcontrato', $this->request->data['Contrato']['contratos']);
             $this->Contrato->set('ordeninicio', $this->request->data['Contrato']['ordeninicio']);
 			$this->Contrato->set('userm', $this->Session->read('User.username'));
@@ -73,6 +75,7 @@ class ContratosController extends AppController {
         } 
     	else 
     	{
+        		
         	//no es post
 		}
 	}
@@ -80,7 +83,8 @@ class ContratosController extends AppController {
 	public function contratojson() {
 		$contratos = $this->Contrato->find('all',array(
 			'fields' => array('Contrato.idproyecto','Contrato.idcontrato', 'Contrato.codigocontrato'),
-			'conditions'=>array('Contrato.ordeninicio is null'),
+			'conditions'=> array(
+			'OR' => array('Contrato.ordeninicio' => null, 'Contrato.ordeninicio >= now()')),
 			
 			'order' => array('Contrato.codigocontrato')
 		));
@@ -101,10 +105,20 @@ class ContratosController extends AppController {
 		$this->render('/json/jsondata');
 		
 	}
+	
+	public function proyectoordenjson() {
+		$proyectos = $this->Contrato->find('all',array(
+					'fields' => array('DISTINCT Proyecto.idproyecto', 'Proyecto.numeroproyecto'),
+					'conditions' => array('Proyecto.estadoproyecto' => array('Ejecucion','Adjudicacion'),
+						'OR' => array('Contrato.ordeninicio' => null, 'Contrato.ordeninicio >= now()')),
+					'order'=>'Proyecto.numeroproyecto')
+		 );
+		$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
+		$this->set('_serialize', 'proyectos');
+		$this->render('/json/jsondata');
+		
+	}
 
-	
-	
-	
 	public function edit() {
 	    $this->layout = 'cyanspark';
 
@@ -141,13 +155,13 @@ class ContratosController extends AppController {
 	}
 	
 		function update_infoinicio(){
-				 if (!empty($this->data['Contrato']['contratos']))
+				 if (isset($this->data['Contrato']['contratos']) && !empty($this->data['Contrato']['contratos']))
 		                {
 		                        //$contrato_id = $this->data['Estado']['contratos']['idcontrato'];
 								$contrato_id = $this->data['Contrato']['contratos'];
 		                        $contrato= $this->Contrato->find('first', array(
 			                        'fields'=>array(
-			                        'Contrato.nombrecontrato','Contrato.fechainiciocontrato','Contrato.fechafincontrato'),
+			                        'Contrato.nombrecontrato','Contrato.fechainiciocontrato','Contrato.fechafincontrato','Contrato.ordeninicio'),
 			                        'conditions'=>array('Contrato.idcontrato'=>$contrato_id)));
 						$this->set('informacion',$contrato);
 		                }

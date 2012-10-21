@@ -56,9 +56,9 @@ $this->end(); ?>
 		<h2>Proyectos</h2>
 		<div style='margin:4px 0' >
 			<?php echo $this->Html->link(
-				'Registrar proyecto', 
+				'<span class="k-icon k-i-plus"></span> Registrar proyecto', 
 				array('controller' => 'proyectos', 'action' => 'proyecto_registrar'),
-				array('class'=>'k-button')); 
+				array('class'=>'k-button', 'escape' => false)); 
 			?>
 			<?php echo $this->Html->link(
 				'Asignar número de proyecto', 
@@ -66,31 +66,43 @@ $this->end(); ?>
 				array('class'=>'k-button')); 
 			?>
 		</div>
-		
+		<?php //Debugger::dump($proyectos); ?>
 		<table id="grid">
 		    <tr>
-		        <th data-field="nombreproyecto" width="280px">Nombre proyecto</th>
+		        <th data-field="numeroproyecto"  width="50px">Número</th>
+		        <th data-field="nombreproyecto" width="250px">Nombre proyecto</th>
 		        <th data-field="estadoproyecto">Estado</th>
-		        <th data-field="accion" width="210px">Acción</th>
+		        <th data-field="montoplaneado">Monto</th>
+		        <th data-field="idfichatecnica">idficha</th>
+		        <th data-field="accion" width="150px">Acción</th>
 		    </tr>
 			<?php foreach ($proyectos as $proy): ?>
 		    <tr>
-		        <td><?php echo $proy['Proyecto']['nombreproyecto']; ?></td>
+		        <!--<td><?php echo $proy['Proyecto']['nombreproyecto']; ?></td>-->
+		        <td><?php echo $proy['Proyecto']['numeroproyecto']; ?></td>
+		        <td><?php echo $this->Html->link($proy['Proyecto']['nombreproyecto'], 
+		            				array('action' => 'proyecto_detalles', $proy['Proyecto']['idproyecto']),
+									array('class'=>'detalles')); ?></td>
 		        <td><?php echo $proy['Proyecto']['estadoproyecto']; ?></td>
+		      	<td><?php echo '$ '.number_format($proy['Proyecto']['montoplaneado'],2); ?></td>
+		      	<td><?php echo $proy['Fichatecnica']['idfichatecnica']; ?></td>
 		      	<td align="center">
 		            <?php 
-		            	echo $this->Html->link('Detalles', 
+		            	/*echo $this->Html->link('Detalles', 
 		            				array('action' => 'proyecto_detalles', $proy['Proyecto']['idproyecto']),
-		            				array('class'=>'k-button')); 
+		            				array('class'=>'k-button'));*/ 
 			            if ($proy['Proyecto']['estadoproyecto'] == 'Formulacion')
 			            {
-			            	echo $this->Html->link('Editar', 
+			            	echo $this->Html->link('<span class="k-icon k-i-pencil"></span>', 
 						            	array('action' => 'proyecto_modificar', $proy['Proyecto']['idproyecto']),
-						            	array('class'=>'k-button'));
-							echo $this->Form->postLink('Eliminar', 
+						            	array('class'=>'k-button', 'escape' => false));
+							echo $this->Form->postLink('<span class="k-icon k-i-close"></span>', 
 			            				array('action' => 'proyecto_eliminar', $proy['Proyecto']['idproyecto']),
-			            				array('confirm' => '¿Está seguro?','class'=>'k-button'));
+			            				array('confirm' => '¿Está seguro que desea eliminar el proyecto?','class'=>'k-button', 'escape' => false));
+			            } else {
+			            	echo 'Sin acciones disponibles';
 			            }
+			            
 		            ?>
 		           </td>
 		    </tr>
@@ -99,6 +111,9 @@ $this->end(); ?>
 	</table>
 		
 	</div>
+
+
+
 
 
 	<script type="text/x-kendo-template" id="template">
@@ -138,6 +153,10 @@ $this->end(); ?>
 					},
 					scrollable: false
 	        	});
+	        	
+	        	grid.data("kendoGrid").hideColumn("estadoproyecto");
+	        	
+	        	grid.data("kendoGrid").hideColumn("idfichatecnica");
 	        	
 	        	var dropDown = $("#estadoproyecto").kendoDropDownList({
 	            	dataTextField: "estadoproyecto",
@@ -181,6 +200,23 @@ $this->end(); ?>
             float: right;
             margin-right: .8em;
         }
+    
+
+		#grid .k-button
+		{
+			vertical-align: top;
+			width: 28px;
+			padding: .1em .4em .3em;
+			display: inline-block;
+			margin: auto 5px;
+		}
+		
+		 a.detalles:link {text-decoration:none; color: #045773;} /* Link no visitado*/
+		 a.detalles:visited {text-decoration:none; color:#045773;} /*Link visitado*/
+		 a.detalles:active {text-decoration:none; color:#045773; background:#A8ACB2} /*Link activo*/
+		 a.detalles:hover {text-decoration:underline; color:#045773; background: #A8ACB2} /*Mause sobre el link*/
+    
+    
     </style>
 
 

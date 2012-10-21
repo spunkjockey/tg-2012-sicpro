@@ -9,14 +9,17 @@ class ComponentesController extends AppController {
 		$this->layout = 'cyanspark';
 		$this->set('idfichatecnica',$id);
         if ($this->request->is('post')) {
-        			Debugger::dump($this->request->data);
+        			foreach ($this->request->data['Meta'] as $key => $value) {
+						if(!isset($value['descripcionmeta'])){
+							unset($this->request->data['Meta'][$key]);
+						}
+					}
 				    if ($this->Componente->saveAssociated($this->request->data, array('validate' => true, 'callbacks' => true))) {
 		            	$this->Session->setFlash('El componente ha sido registrado.','default',array('class' => 'success'));
 		            	$this->redirect(array('controller' => 'fichatecnicas','action' => 'view',$id));
 		        	} else {
 		            	$this->Session->setFlash('No se pudo realizar el registro');
 		        	}		
-			
 		}
     }
 	

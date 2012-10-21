@@ -9,6 +9,6 @@
 		   $ordini= '';
 		
 ?>
-<p><strong class:'etiqueta'>Título del contrato: </strong><?php echo $info['Contratosupervisor']['nombrecontrato']; ?></p>
-<p><strong class:'etiqueta'>Plazo de ejecución: </strong> <?php echo $info['Contratosupervisor']['plazoejecucion']; ?> días  
-<strong class:'etiqueta'>Orden de inicio: </strong> <?php echo date('d/m/Y',strtotime($ordini)); ?></p>
+<p><label>Título del contrato: </label><?php echo $info['Contratosupervisor']['nombrecontrato']; ?></p>
+<p><label>Plazo de ejecución: </label> <?php echo $info['Contratosupervisor']['plazoejecucion']; ?> días  
+<label'>Orden de inicio: </label> <?php echo date('d/m/Y',strtotime($ordini)); ?></p>

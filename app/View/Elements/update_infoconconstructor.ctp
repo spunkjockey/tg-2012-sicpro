@@ -93,10 +93,10 @@
 			'value' => $antcon,
 			'type' => 'text',
 			'placeholder' => 'Anticipo del contrato',
-			'div' => array('class' => 'requerido'))); 
+			'div' => array('id'=>'antici','class' => 'requerido'))); 
 	?>
 	<script type="text/javascript">
-		var txanticipo = new LiveValidation( "txanticipo", { validMessage: " " } );
+		var txanticipo = new LiveValidation( "txanticipo", { validMessage: " " , insertAfterWhatNode: "antici"} );
         txanticipo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
     </script>
 </li>
@@ -106,10 +106,16 @@
 			'label' => 'Fecha inicio de vigencia:', 
 			'id'	=> 'datePicker1',
 			'value' => date('d/m/Y',strtotime($inicon)),
-			'div' => array('class' => 'requerido'),
+			'div' => array('id'=>'fechaini','class' => 'requerido'),
 			'type'  => 'Text'
 			));
 		?>
+		<script type="text/javascript">
+		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " , insertAfterWhatNode: "fechaini" } );
+		            datePicker1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
+		            datePicker1.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
+		</script>
 </li>
 <li>
 	<?php echo $this->Form->input('Contratoconstructor.fechafincontrato', 
@@ -117,10 +123,17 @@
 			'label' => 'Fecha fin de vigencia:', 
 			'id'	=> 'datePicker2',
 			'value' => date('d/m/Y',strtotime($fincon)),
-			'div' => array('class' => 'requerido'),
+			'div' => array('id'=>'fechafin','class' => 'requerido'),
 			'type'  => 'Text'
 			)); 
 		?>
+		
+		<script type="text/javascript">
+		            var datePicker2 = new LiveValidation( "datePicker2", { validMessage: " " , insertAfterWhatNode: "fechafin" } );
+		            datePicker2.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            datePicker2.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
+		        	datePicker2.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
+		</script>
 </li>
 <li>
 	<?php echo $this->Form->input('Contratoconstructor.plazoejecucion', 
@@ -161,15 +174,15 @@
 		array(
 			'label' => 'Empresa ejecutora:', 
 			'id' => 'empresas',
-			'class' => 'k-combobox',
 			'value' => $idecon,
-			'div' => array('class' => 'requerido')
+			'div' => array('id'=>'empeje','class' => 'requerido')
 			));
 		?>
 	<script type="text/javascript">
-		var empresas = new LiveValidation( "empresas", { validMessage: " " } );
+		var empresas = new LiveValidation( "empresas", { validMessage: " " , insertAfterWhatNode: "empeje" } );
         empresas.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
     </script>
+    <div id="errorempresa" class="LV_validation_message LV_invalid"></div>
 </li>
 <li>
 	<?php echo $this->Form->input('Contratoconstructor.admin', 
@@ -191,6 +204,7 @@
 	<table>
 		<tr>
 			<td>
+				<!--<button  type="submit" name="Modificar" id="boton_1" value="Modificar" dir="contratoconstructor_modificar" class="k-button" onclick="evaluarempresa()" />--></button>
 				<?php echo $this->Form->end(array('label' => 'Modificar', 'class' => 'k-button')); ?>
 			</td>
 			<td>	
@@ -206,21 +220,100 @@
 			        		'update' => 'infoconconstructor'));  
 					?>
 
+<style scoped>
 
+                .k-textbox {
+                    width: 300px;
+                    
+                    
+                }
+				
+				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
+				
+				.k-combobox {
+                    width: 200px;
+                }
+                
+                form .requerido label:after {
+					font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+					}
+                
+                #formulario {
+                    width: 600px;
+                    /*height: 323px;*/
+                    margin: 15px 0;
+                    padding: 10px 20px 20px 0px;
+                    /*background: url('../../content/web/validator/ticketsOnline.png') transparent no-repeat 0 0;*/
+                }
+
+                #formulario h3 {
+                    font-weight: normal;
+                    font-size: 1.4em;
+                    border-bottom: 1px solid #ccc;
+                }
+
+                #formulario ul {
+                    list-style-type: none;
+                    margin: 0;
+                    padding: 0;
+                }
+                #formulario li {
+                    margin: 10px 0 0 0;
+                }
+
+                label {
+                    display: inline-block;
+                    width: 150px;
+                    text-align: right;
+                    margin-right: 5px;
+                }
+
+                .accept, .status {
+                	padding-top: 15px;
+                    padding-left: 150px;
+                }
+
+                .valid {
+                    color: green;
+                }
+
+                .invalid {
+                    color: red;
+                }
+                span.k-tooltip {
+                    margin-left: 6px;
+                }
+                
+                .LV_validation_message{
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				    display:none;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+					clear:both;
+               		display:inline-block;
+               		margin-left: 155px; 
+               
+				}
+				
+				#errorempresa{
+					display: none;
+				}
+				   
+</style>
 <script>
     $(document).ready(function() {
         var validator = $("#formulario").kendoValidator().data("kendoValidator"),
         status = $(".status");
 
-        $("button").click(function() {
-            if (validator.validate()) {
-                //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-                } else {
-                //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-            }
-        });
-    
-    
 
 	$("#txmonto").kendoNumericTextBox({
 	     min: 0,
@@ -238,10 +331,14 @@
 	     spinners: false
 	 });
 	 
-    $("#empresas").kendoDropDownList({
+    $("#empresas").kendoComboBox({
 			optionLabel: "Seleccione empresa",
 			dataTextField: "nombreempresa",
             dataValueField: "idempresa",
+            filter: "contains",
+			highLightFirst: false,
+			ignoreCase: false,
+			change: limpiaremp,
             dataSource: {
                             type: "json",
                             transport: {
@@ -265,16 +362,63 @@
         var admin = $("#admin").data("kendoDropDownList");
 	
 	
-	$("#datePicker1").kendoDatePicker({
-		format: "dd/MM/yyyy",
-		culture: "es-ES"
-	});
-	$("#datePicker2").kendoDatePicker({
-		format: "dd/MM/yyyy",
-		culture: "es-ES"
-	});
+
 	
 	$("#codigo").mask("999-9999");
+	
+	function limpiaremp(){        
+		$('#errorempresa').hide("slow");
+	}	
+	
+	function filtrarDrop() {
+		var startDate = start.value();
+		var endDate = end.value();
+			//alert('dafuq');
+			/*proy.data("kendoDropDownList").dataSource.filter([
+				     { field: "creacion", operator: "gte", value: startDate },
+				     { field: "creacion", operator: "lte", value: endDate }
+				]);
+			*/
+			
+			//proy.data("kendoDropDownList").dataSource.filter({ field: "idproyecto", operator: "eq", value: 5});
+	}
+		
+	
+	function startChange() {
+		var startDate = start.value();
+		if (startDate) {
+            startDate = new Date(startDate);
+            startDate.setDate(startDate.getDate() + 1);
+            end.min(startDate);
+    	}
+    }
+	
+	function endChange() {
+		var endDate = end.value();
+	    if (endDate) {
+	        endDate = new Date(endDate);
+	        endDate.setDate(endDate.getDate() - 1);
+	        start.max(endDate);
+	    }
+	}
+
+    var start = $("#datePicker1").kendoDatePicker({
+        culture: "es-ES",
+	   	format: "dd/MM/yyyy",
+        change: startChange,
+        close: filtrarDrop
+    }).data("kendoDatePicker");
+	
+    var end = $("#datePicker2").kendoDatePicker({
+        culture: "es-ES",
+	   	format: "dd/MM/yyyy",
+        change: endChange,
+        close: filtrarDrop
+    }).data("kendoDatePicker");
+	
+    start.max(end.value());
+    end.min(start.value());
+    
 	});
     
 </script>

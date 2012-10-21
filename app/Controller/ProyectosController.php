@@ -2,6 +2,9 @@
     public $name = 'Proyectos';
     public $components = array('Session','RequestHandler');
 	public $uses = array('Proyecto','Division','Contrato','Financia');
+	public $helpers = array('Html', 'Form', 'Session','Ajax');
+
+
 	
 	public function proyecto_registrar() {
         $this->layout = 'cyanspark';
@@ -29,8 +32,8 @@
 	{
 		$this->layout = 'cyanspark';
 		$this->set('proyectos', $this->Proyecto->find('all', array(
-									'fields'=>array('Proyecto.idproyecto','Proyecto.nombreproyecto',
-													'Proyecto.estadoproyecto'),
+									'fields'=>array('Proyecto.idproyecto','Proyecto.numeroproyecto','Proyecto.nombreproyecto',
+													'Proyecto.estadoproyecto','Proyecto.montoplaneado','Fichatecnica.idfichatecnica'),
 									'order'=> array('Proyecto.nombreproyecto'))));
 	}
 	

@@ -10,6 +10,12 @@ class Proyecto extends AppModel {
 				'foreignKey'   => 'iddivision'
 			)
 		);
+		public $hasOne = array(
+			'Fichatecnica' => array(
+				'className' => 'Fichatecnica',
+				'foreignKey'   => 'idproyecto' 
+			)
+		);
 		
 		public $validate = array(
 			'nombreproyecto' => array(

@@ -55,14 +55,53 @@ class EstimacionsController extends AppController {
 			'order' => array('Proyecto.numeroproyecto')
 		));
 		
-		$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
+		//$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
+		$this->set('proyectos', $this->eliminarduplicados(Hash::extract($proyectos, "{n}.Proyecto")));
 		$this->set('_serialize', 'proyectos');
 		$this->render('/json/jsondata');
+	}
+
+	public function eliminarduplicados($array=null) {
+		$count = 0;
+		$value = ""; 
+    	foreach($array as $array_key => $array_value) 
+    	{	 
+        	if ( $count > 1 ) {
+        		if($value != $array_value['idproyecto']) {
+        			$count = 0; 
+        		}
+        	}
+        	if ( $count == 0 ) 
+        	{
+            	$value = $array_value['idproyecto']; 
+            	$count++;
+        	} else {
+        		if($array_value['idproyecto'] == $value) {
+        			unset($array[$array_key]);
+					$count++;
+				} else {
+					$count = 0;
+				}
+        	}
+        	
+    	} 
+        return array_values($array);
 	}
 
 	public function contratojson() {
 		$contratos = $this->Contratoconstructor->find('all',array(
 			'fields' => array('Contratoconstructor.idproyecto','Contratoconstructor.idcontrato', 'Contratoconstructor.codigocontrato'),
+			'order' => array('Contratoconstructor.codigocontrato'),
+			'conditions' => array('Contratoconstructor.idpersona' => $this->Session->read('User.idpersona')),
+		));
+		$this->set('contratos', Hash::extract($contratos, "{n}.Contratoconstructor"));
+		$this->set('_serialize', 'contratos');
+		$this->render('/json/jsondatad');
+	}
+	
+	public function contratoestjson() {
+		$contratos = $this->Estimacion->find('all',array(
+			'fields' => array('DISTINCT Contratoconstructor.idproyecto','Contratoconstructor.idcontrato', 'Contratoconstructor.codigocontrato'),
 			'order' => array('Contratoconstructor.codigocontrato'),
 			'conditions' => array('Contratoconstructor.idpersona' => $this->Session->read('User.idpersona')),
 		));
