@@ -10,8 +10,8 @@
 			$this->layout = 'cyanspark';
 			//Falta filtrar en base a la necesidad...
 			$this->set('informes',$this->Informesupervisor->find('all',array(
-									'fields'=>array('Informesupervisor.idinformesupervision','Informesupervisor.tituloinformesup',
-													'Informesupervisor.fechafinsupervision'),
+									//'fields'=>array('Informesupervisor.idinformesupervision','Informesupervisor.tituloinformesup',
+										//			'Informesupervisor.fechafinsupervision'),
 									'conditions'=>array(),
 									'order'=>array()
 									)));
@@ -152,7 +152,7 @@
 			if ($this->request->is('get')) 
 			{
 					
-				Debugger::dump($id);
+				//Debugger::dump($id);
 				$this->request->data=$this->Informesupervisor->read();
 				$contratoid = $this->Informesupervisor->field('idcontrato',array('idinformesupervision'=>$id));
 				$this->set('fechas',$this->Avancetodos->find('list',array(
@@ -160,7 +160,7 @@
 						'conditions'=>array('Avancetodos.idcontrato'=>$contratoid),
 						'order'=>array('Avancetodos.fechaavance')
 						)));
-				Debugger::dump($contratoid);
+				//Debugger::dump($contratoid);
 				
 			}
 			else 
@@ -204,6 +204,21 @@
 		        						 'default', array('class'=>'success'));
 		        $this->redirect(array('action' => 'informesupervisor_index'));
 		    }
+		}
+		
+		
+		function contratosinfjson()
+		{
+			$idpersona = $this->User->field('idpersona',array('username'=>$this->Session->read('User.username')));
+			$contratos = $this->Informesupervisor->find('all',array(
+				'fields' => array('DISTINCT Contratosupervisor.idproyecto','Contratosupervisor.idcontrato', 'Contratosupervisor.codigocontrato'),
+				'conditions'=>array('Contratosupervisor.idpersona='.$idpersona),
+				'order' => array('Contratosupervisor.codigocontrato')
+			));
+			
+			$this->set('contratos', Hash::extract($contratos, "{n}.Contratosupervisor"));
+			$this->set('_serialize', 'contratos');
+			$this->render('/json/jsondatad');
 		}
 		
     }

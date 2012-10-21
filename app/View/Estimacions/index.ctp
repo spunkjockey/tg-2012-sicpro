@@ -63,10 +63,11 @@ $this->end(); ?>
 <table id="grid">
     <tr>
         <th data-field="idcontrato">IdContrato</th>
-        <th data-field="tituloestimacion">Titulo Estimación</th>
-        <th data-field="fechainicioestimacion">Fecha Inicio</th>
-        <th data-field="montoestimado">Monto Estimado</th>
-        <th data-field="accion" width="250px">Acción</th>
+        <th data-field="tituloestimacion" width="200px">Titulo Estimación</th>
+        <th data-field="fechainicioestimacion">Fecha</th>
+        <th data-field="porcentajeestimadoavance">Porcentaje</th>
+        <th data-field="montoestimado">Monto</th>
+        <th data-field="accion">Acción</th>
     </tr>
 
     
@@ -77,25 +78,25 @@ $this->end(); ?>
         <td><?php echo $esti['Estimacion'] ['tituloestimacion']; ?></td>
         <td><?php echo date('d/m/Y',strtotime ($esti['Estimacion']['fechainicioestimacion'])); ?></td>
         
-        
+        <td><?php echo number_format ($esti['Estimacion']['porcentajeestimadoavance'],2) . '%'; ?></td> 
         <td><?php echo '$ ' . number_format ($esti['Estimacion']['montoestimado'],2); ?></td>    
         <td align="center">
             <?php echo $this->Html->link(
-            	'<span class="k-icon k-i-pencil"></span> Editar', 
+            	'<span class="k-icon k-i-pencil"></span>', 
             	array('action' => 'modificarestimacion', $esti['Estimacion']['idestimacion']),
-            	array('class'=>'k-button', 'escape' => false)
+            	array('class'=>'k-button', 'escape' => false, "title"=>"Editar")
 			);?>
 			
             <?php echo $this->Form->postLink(
-                '<span class="k-icon k-i-close"></span> Eliminar',
+                '<span class="k-icon k-i-close"></span>',
                 array('action' => 'delete', $esti['Estimacion']['idestimacion']),
-                array('confirm' => '¿Está seguro que desea eliminar los datos de la estimación?','class'=>'k-button', 'escape' => false)
+                array('confirm' => '¿Está seguro que desea eliminar la estimación seleccionada?','class'=>'k-button', 'escape' => false, "title"=>"Eliminar")
             )?>
             
            <?php echo $this->Html->link(
-            	'<span class="k-icon k-i-folder-up"></span> Archivo', 
+            	'<span class="k-icon k-i-folder-up"></span>', 
             	array('controller' => 'Estimacions','action' => 'agregar_archivo',$esti['Estimacion']['idestimacion']),
-            	array('class'=>'k-button', 'escape' => false)
+            	array('class'=>'k-button', 'escape' => false, "title"=>"Cargar Archivos")
 			);?>
 
         </td>
@@ -117,6 +118,16 @@ $this->end(); ?>
 </script>
 
     <style scoped="scoped">
+    	#grid .k-button
+        {
+            vertical-align: middle;
+            width: 28px;
+            margin: 0 3px;
+            padding: .1em .4em .3em;
+            display: inline;
+            
+        }
+        
         #grid .k-toolbar
         {
             min-height: 27px;
@@ -136,8 +147,12 @@ $this->end(); ?>
         }
     </style>
 
+
 <script>
 	$(document).ready(function() {
+		
+		
+		
     	var grid =$("#grid").kendoGrid({
             	dataSource: {
 	           		pageSize: 10,
@@ -219,7 +234,7 @@ $this->end(); ?>
 	                dataSource: {
 	                	type: "json",
 		                transport: {
-		                	read: "/Estimacions/contratojson.json"
+		                	read: "/Estimacions/contratoestjson.json"
 		               	}
 		            },
 	                change: function() {

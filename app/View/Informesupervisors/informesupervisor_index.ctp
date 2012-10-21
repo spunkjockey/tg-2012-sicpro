@@ -53,38 +53,44 @@ $this->end(); ?>
 		'Registrar informe de supervisión', 
 		array('controller' => 'informesupervisors', 'action' => 'informesupervisor_registrar'),
 		array('class'=>'k-button')
-	); ?>
+	);?>
 </div> 
 <table id="grid">
     <tr>
-        <th data-field="tituloinforme">Título informe</th>
-        <th data-field="periodo" width="120px">Fecha supervisión</th>
+        <th data-field="idcontrato">IdContrato</th>
+        <th data-field="tituloinforme" width="200px">Título informe</th>
+        <th data-field="periodo">Fecha</th>
+        <th data-field="porcentajeavancefisico">Porcentaje</th>
+        <th data-field="valoravancefinanciero">Monto</th>
         <th data-field="accion" width="120px">Acción</th>
     </tr>
 
     <?php foreach ($informes as $info): ?>
     <tr>
+        <td><?php echo $info['Informesupervisor'] ['idcontrato']; ?></td>
         <td>
         	<?php echo $info['Informesupervisor']['tituloinformesup']; ?>
         </td>
         <td>
         	<?php echo date('d/m/Y',strtotime($info['Informesupervisor']['fechafinsupervision'])); ?>
         </td>
+        <td><?php echo number_format ($info['Informesupervisor']['porcentajeavancefisico'],2) . '%'; ?></td> 
+        <td><?php echo '$ ' . number_format ($info['Informesupervisor']['valoravancefinanciero'],2); ?></td>   
        	<td align="center">
             <?php echo $this->Html->link(
             	'<span class="k-icon k-i-pencil"></span>', 
             	array('action' => 'informesupervisor_modificar', $info['Informesupervisor']['idinformesupervision']),
-            	array('class'=>'k-button', 'escape' => false)
+            	array('class'=>'k-button', 'escape' => false, "title"=>"Editar")
 			);?>
 			<?php echo $this->Form->postLink(
                 '<span class="k-icon k-i-close"></span>',
                 array('action' => 'informesupervisor_eliminar', $info['Informesupervisor']['idinformesupervision']),
-                array('confirm' => '¿Está seguro?','class'=>'k-button', 'escape' => false)
+                array('confirm' => '¿Está seguro que desea eliminar el informe de supervisión seleccionado?','class'=>'k-button', 'escape' => false, "title"=>"Eliminar")
             )?>
             <?php echo $this->Html->link(
-            	'<span class="k-icon k-i-plus"></span>',
+            	'<span class="k-icon k-i-folder-up"></span>',
             	array('action' => 'informesupervisor_cargar_archivo', $info['Informesupervisor']['idinformesupervision']),
-            	array('class'=>'k-button', 'escape' => false)
+            	array('class'=>'k-button', 'escape' => false, "title"=>"Cargar Archivo")
 			);?>
             
        	</td> 
@@ -92,6 +98,15 @@ $this->end(); ?>
     <?php endforeach; ?>
     <?php unset($informes); ?>
 </table>
+
+
+<script type="text/x-kendo-template" id="template">
+    <div class="toolbar">
+        <label class="codigocontrato-label" for="codigocontrato">Mostrar Informes de Supervision por Contrato:</label>
+        <input type="search" id="codigocontrato" style="width: 230px"></input>
+    </div>
+</script>
+
 <style scoped>
         #grid .k-button
         {
@@ -102,10 +117,29 @@ $this->end(); ?>
             display: inline;
             
         }
+        
+                #grid .k-toolbar
+        {
+            min-height: 27px;
+        }
+        .codigocontrato-label
+        {
+            vertical-align: middle;
+            padding-right: .5em;
+        }
+        #codigocontrato
+        {
+            vertical-align: middle;
+        }
+        .toolbar {
+            float: right;
+            margin-right: .8em;
+        }
     </style>
 <script>
 	$(document).ready(function() {
-    	$("#grid").kendoGrid({
+    	var grid = $("#grid").kendoGrid({
+    			//height: 200,
             	dataSource: {
 	           		pageSize: 10,
             	},
@@ -129,9 +163,37 @@ $this->end(); ?>
  			    	mode: "single", // enables multi-column sorting
         			allowUnsort: true
 				},
-				scrollable: false
+				scrollable: false,
+				toolbar: kendo.template($("#template").html())
             	
             	
         	});
+        	
+        	var dropDown = $("#codigocontrato").kendoDropDownList({
+	            	dataTextField: "codigocontrato",
+	                dataValueField: "idcontrato",
+	                autoBind: false,
+	                optionLabel: "Todos los contratos",
+	                dataSource: {
+	                	type: "json",
+		                transport: {
+		                	read: "/Informesupervisors/contratosinfjson.json"
+		               	}
+		            },
+	                change: function() {
+	                    var value = this.value();
+	                    //alert(value);
+	                    if (value) {
+	                        grid.data("kendoGrid").dataSource.filter({ field: "idcontrato", operator: "eq", value: parseInt(value) });
+	                    } else {
+	                        grid.data("kendoGrid").dataSource.filter({});
+	                    }
+	                }
+	            });
+        	
+        	
+        	
+        	var gridyy = $("#grid").data("kendoGrid");
+        	 gridyy.hideColumn("idcontrato"); 
         });
 </script>

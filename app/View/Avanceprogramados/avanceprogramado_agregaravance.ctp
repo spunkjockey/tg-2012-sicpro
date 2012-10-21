@@ -155,7 +155,7 @@ $this->end(); ?>
 				<script type="text/javascript">
 					var montoavfinancieroprog = new LiveValidation( "montoavfinancieroprog", { validMessage: " ", insertAfterWhatNode: "monto" } );
 		            montoavfinancieroprog.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            montoavfinancieroprog.add( Validate.Numericality, { minimum: 0.01, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
+		            montoavfinancieroprog.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
 		        </script>
 						
 						<!--<td><a class="k-button"><span class="k-icon k-i-pencil"></span></a> <a class="k-button"><span class="k-icon k-i-close"></span></a></td>-->
