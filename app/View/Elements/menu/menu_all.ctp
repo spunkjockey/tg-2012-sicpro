@@ -73,16 +73,16 @@
 									<li disabled="disabled">Consultar facturas por contrato</li>
 								</ul>
 							</li>	
-							<li disabled="disabled">Reportes
+							<li>Reportes
 								<ul>
-									<li>Reporte general de proyecto</li>
-									<li>Historial de empresas</li>
-									<li>Consultar avances de contratos</li>
-									<li>Estado de proyecto y contratos</li>
-									<li>Contratos asociados a proyectos</li>
-									<li>Lugares en los que se han desarrollado proyectos</li>
-									<li>Beneficiarios y empleos generados</li>
-									<li>Personal asignado por contrato</li>
+									<li><?php echo $this->Html->link('Reporte general de proyecto', array('controller' => 'Proyectos','action'=>'proyecto_reportegeneral')); ?></li>
+									<li disabled="disabled">Historial de empresas</li>
+									<li disabled="disabled">Consultar avances de contratos</li>
+									<li disabled="disabled">Estado de proyecto y contratos</li>
+									<li><?php echo $this->Html->link('Contratos asociados a proyectos ', array('controller' => 'Proyectos','action'=>'proyecto_reportecontratos')); ?></li>
+									<li disabled="disabled">Lugares en los que se han desarrollado proyectos</li>
+									<li disabled="disabled">Beneficiarios y empleos generados</li>
+									<li disabled="disabled">Personal asignado por contrato</li>
 								</ul>
 							</li>
 							<li>Mantenimiento

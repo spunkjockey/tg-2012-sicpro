@@ -1,7 +1,7 @@
 <?php class ProyectosController extends AppController {
     public $name = 'Proyectos';
     public $components = array('Session','RequestHandler');
-	public $uses = array('Proyecto','Division','Contrato');
+	public $uses = array('Proyecto','Division','Contrato','Financia');
 	
 	public function proyecto_registrar() {
         $this->layout = 'cyanspark';
@@ -234,5 +234,57 @@
 			// Operaciones que deseamos realizar y variables que pasaremos a la vista.
 			$this->render();
 	}
+
+	/*Las siguiente funciones han sido utilizadas para llevar a cabo el reporte general de un proyecto
+	 * proyecto_reportegeneral()
+	 * Invoca una pantalla de selección de proyecto*/
+	
+	function proyecto_reportegeneral()
+	{
+		$this->layout = 'cyanspark';
+		if($this->request->is('post')) {
+			$this->redirect(array('action' => 'proyecto_resultados_repgen',$this->request->data['Proyecto']['proys']));
+		}
+	}
+	
+	/*proyecto_resultados_repgen()
+	 * Habiendose seleccionado el proyecto se realiza la búsqueda de los elementos a desplegar en el reporte
+	 * esta función realiza la búsqueda de aspectos generales del proyecto, fuentes de financiamiento y contratos*/
+	
+	function proyecto_resultados_repgen($idproy=null)
+	{
+		$this->layout = 'cyanspark';
+		$this->set('dataproy', $this->Proyecto->find('all',array(
+				'fields'=>array('Proyecto.nombreproyecto','Proyecto.numeroproyecto',
+								'Proyecto.estadoproyecto','Division.divison'),
+				'conditions'=>array('Proyecto.idproyecto'=>$idproy)
+				)));
+		
+		$this->set('fuentes', $this->Financia->find('all',array(
+				'fields'=>array('Fuentefinanciamiento.nombrefuente','Financia.montoparcial'),
+				'conditions'=>array('Proyecto.idproyecto'=>$idproy))));
+		
+		$this->set('contratos',$this->Contrato->find('all',array(
+				'fields'=>array('Contrato.codigocontrato','Contrato.nombrecontrato','Contrato.tipocontrato',
+								'Contrato.montooriginal','Contrato.plazoejecucion','Contrato.ordeninicio',
+								'Persona.nombrespersona','Persona.apellidospersona'),
+				'conditions'=>array('Contrato.idproyecto'=>$idproy),
+				'order'=>'Contrato.codigocontrato'
+				)));
+		
+	}
+	
+	/* Esta función recupera los proyectos en estado de ejecucion y finalizado*/
+	public function proyectotodosjson() 
+		{
+			$proys = $this->Proyecto->find('all', array(
+										'fields'=> array('Proyecto.idproyecto','Proyecto.numeroproyecto'),
+										'conditions'=>array('Proyecto.estadoproyecto' => array('Ejecucion','Finalizado')),
+										'order'=> array('Proyecto.numeroproyecto ASC')));
+			$this->set('proys', Hash::extract($proys, "{n}.Proyecto"));
+			$this->set('_serialize', 'proys');
+			$this->render('/json/jsonproys');
+			
+		}
 	
 }

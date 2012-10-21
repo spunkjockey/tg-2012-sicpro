@@ -9,12 +9,13 @@
 		{
 			$this->layout = 'cyanspark';
 			//Falta filtrar en base a la necesidad...
+			$idpersona = $this->User->field('idpersona',array('username'=>$this->Session->read('User.username')));
 			$this->set('informes',$this->Informesupervisor->find('all',array(
-									'fields'=>array('Informesupervisor.idinformesupervision','Informesupervisor.tituloinformesup',
-													'Informesupervisor.fechafinsupervision'),
-									'conditions'=>array(),
-									'order'=>array()
-									)));
+						'fields'=>array('Informesupervisor.idinformesupervision','Informesupervisor.tituloinformesup',
+										'Informesupervisor.fechafinsupervision'),
+						'conditions'=>array('Contratosupervisor.idpersona'=>$idpersona),
+						'order'=>array()
+						)));
 		}
 		
 		/*informesupervisor_registrar()
