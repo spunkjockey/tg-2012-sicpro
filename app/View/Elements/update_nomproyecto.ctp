@@ -8,4 +8,4 @@
 		$nomproy='';
 	}
 ?>
-<p><strong class:'etiqueta'>Nombre del proyecto: </strong> <?php echo $nomproy; ?></p>
+<p><label>Nombre del proyecto: </label> <?php echo $nomproy; ?></p>

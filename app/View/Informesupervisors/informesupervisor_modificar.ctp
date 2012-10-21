@@ -93,48 +93,59 @@ $this->end(); ?>
 						'class' => 'k-textbox',  
 						'id' => 'txplazo',
 						'type'  => 'Text', 
-						'placeholder' => 'Cantidad de días de supervisión'
+						'placeholder' => 'ej. 45',
+						'maxlength' => 4,
+						'div' => array('id' => 'plazo','class' => 'requerido')
 						));
 					?>
 				<script type="text/javascript">
-					var txplazo= new LiveValidation( "txplazo", { validMessage: " " } );
+					var txplazo= new LiveValidation( "txplazo", { validMessage: " ", insertAfterWhatNode: "plazo" } );
+					txplazo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 					txplazo.add( Validate.Numericality,{ onlyInteger: true,
 														notAnIntegerMessage: "Debe ser un número entero",
 						            				 	notANumberMessage:"Debe ser un número"} );
 				</script>
 			</li>
-			<li>
-				<?php echo $this->Form->input('valoravancefinanciero', 
-					array(
-						'label' => 'Avance financiero: ($)',
-						'class' => 'k-textbox',  
-						'id' => 'txavfinanciero',
-						'type' => 'text',
-						'placeholder' => 'Valor monetario de avance',
-						'div' => array('class' => 'requerido')
-						)); ?>
-				<script type="text/javascript">
-					var txavfinanciero = new LiveValidation( "txavfinanciero", { validMessage: " " } );
-		            txavfinanciero.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script>
-			</li>
+			
 			<li>
 				<?php echo $this->Form->input('porcentajeavancefisico', 
 					array(
-						'label' => 'Avance físico (%):',
+						'label' => 'Avance físico:',
 						'class' => 'k-textbox',  
 						'id' => 'txavfisico',
 						'type'  => 'Text', 
+						'maxlength' => 6,
 						'placeholder' => 'Porcentaje de avance', 
-						'div' => array('class' => 'requerido')
+						'div' => array('id' => 'porce','class' => 'requerido')
 						));
 					?>
 				<script type="text/javascript">
-					var txavfisico= new LiveValidation( "txavfisico", { validMessage: " " } );
+					var txavfisico= new LiveValidation( "txavfisico", { validMessage: " ", insertAfterWhatNode: "porce" } );
 					txavfisico.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-					
+					txavfisico.add( Validate.Numericality,{ minimum: 0, maximum: 100, tooLowMessage: "El porcentaje no puede ser menor a 0 %", tooHighMessage: "El porcentaje no debe ser mayor al 100 %", notANumberMessage:"Debe ser un número"} );
+		            
 				</script>
 			</li>
+			
+			<li>
+				<?php echo $this->Form->input('valoravancefinanciero', 
+					array(
+						'label' => 'Avance financiero: ',
+						'class' => 'k-textbox',  
+						'id' => 'txavfinanciero',
+						'type' => 'text',
+						'placeholder' => 'ej. 1000',
+						'maxlength' => 12,
+						'div' => array('id' => 'monto','class' => 'requerido')
+						)); ?>
+				<script type="text/javascript">
+					var txavfinanciero = new LiveValidation( "txavfinanciero", { validMessage: " ", insertAfterWhatNode: "monto" } );
+		            txavfinanciero.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+					txavfinanciero.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
+		        		        
+		        </script>
+			</li>
+
 				<?php echo $this->Form->input('idinformesupervision',array('type'=>'hidden'))?>
 				<?php echo $this->Form->input('Contratosupervisor.codigocontrato',array('type'=>'hidden'))?>
 			<li  class="accept">
@@ -225,12 +236,13 @@ $this->end(); ?>
     }
     
     .LV_validation_message{
-	    font-weight:bold;
+	    
 	    margin:0 0 0 5px;
 	}
 	
 	.LV_valid {
 	    color:#00CC00;
+	    display: none;
 	}
 		
 	.LV_invalid {
@@ -241,36 +253,12 @@ $this->end(); ?>
    
 	}
 	    
-	.LV_valid_field,
-	input.LV_valid_field:hover, 
-	input.LV_valid_field:active,
-	textarea.LV_valid_field:hover, 
-	textarea.LV_valid_field:active {
-	    border: 1px solid #00CC00;
-	}
-	    
-	.LV_invalid_field, 
-	input.LV_invalid_field:hover, 
-	input.LV_invalid_field:active,
-	textarea.LV_invalid_field:hover, 
-	textarea.LV_invalid_field:active {
-	    border: 1px solid #CC0000;
-	}
+
 </style>
 
 <script>
                 $(document).ready(function() {
-                    var validator = $("#formulario").kendoValidator().data("kendoValidator"),
-                    status = $(".status");
 
-                    $("button").click(function() {
-                        if (validator.validate()) {
-                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-                            } else {
-                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-                        }
-                    });
-                
                 $("#txavfinanciero").kendoNumericTextBox({
 				     min: 0,
 				     max: 999999999.99,
@@ -287,16 +275,20 @@ $this->end(); ?>
 				     spinners: false
 				 });
 				
-				$("#fechas").kendoComboBox({
-			         //placeholder: "Seleccionar...",
-			         //index: -1,
+				$("#fechas").kendoDropDownList({
+			      placeholder: "Seleccionar...",
+			         index: -1,
 			        suggest: true,
 			        
 			        dataTextField: "fechafin",
         			dataValueField: "fechaavance",
 			    });
 		   		
-				
+				$("#txplazo").kendoNumericTextBox({
+				     min: 0,
+				     format: "n0",
+				     spinners: false
+				 });
 				
 				});
                 

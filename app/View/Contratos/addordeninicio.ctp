@@ -46,7 +46,8 @@ $this->end(); ?>
 			));
 
 			?> » Bienvenido a SICPRO » Contratos » Registrar Orden de Inicio
-		
+		</div>
+		</div>
 <?php $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
@@ -57,60 +58,35 @@ $this->end(); ?>
 				<?php echo $this->Form->input('proyectos',
 					array(
 						'label' => 'Proyectos:', 
-						'id' => 'proyectos'
+						'id' => 'proyectos',
+						'class' => 'k-dropdown'
 					)); ?>
+				<div id="error1"></div>
 			</li>
 			<li>
 				<?php echo $this->Form->input('contratos',
 					array(
 						'label' => 'Contratos:', 
-						'id' => 'contratos'
+						'id' => 'contratos',
+						'class' => 'k-dropdown'
 					)); ?>
+				<div id="error2"></div>
 			</li>
 			<div id='info_contrato'>
 				
 			</div>
-			<li>
-				<?php echo $this->Form->input('ordeninicio', 
-					array(
-						'label' => 'Orden de Inicio:', 
-						'id'	=> 'datePicker1',
-						'type'  => 'Text',
-						'div' => array('class' => 'requerido')
-						)); ?>
-				
-				<script type="text/javascript">
-		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " } );
-		            datePicker1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d$/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
-		        </script> 
-			</li>
-			<?php if ($this->Form->isFieldError('Contrato.fechafincontrato')) {
- 	 					echo $this->Form->error('Contrato.fechafincontrato'); } ?> 
-			<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
-				
-			<li  class="accept">
-				<table><tr><td>
-				<?php echo $this->Form->end(array('label' => 'Registrar Orden de Inicio', 'class' => 'k-button')); ?>
-				</td><td>
-				<?php echo $this->Html->link(
-					'Regresar', 
-					array('controller' => 'mains', 'action' => 'index'),
-					array('class'=>'k-button')
-				); ?>
-				</td>
-				</tr>
-				</table>
-								<?php echo $this->ajax->observeField( 'contratos', 
+
+
+<?php //echo $this->Form->end(); ?>
+				<?php echo $this->ajax->observeForm( 'ContratoAddordeninicioForm', 
 		    		array(
 		        		'url' => array( 'action' => 'update_infoinicio'),
 		        		'update' => 'info_contrato'
 		    		) 
 				);  ?>
-			</li>
+			
             
-            <li class="status">
-            </li>
+          
 		</ul>
 		
 	</div>
@@ -118,7 +94,7 @@ $this->end(); ?>
 
             <style scoped>
 
-                .k-textbox {
+                .k-textbox .k-dropdown {
                     width: 300px;
                     margin-left: 5px;
                     
@@ -157,7 +133,7 @@ $this->end(); ?>
 
                label {
                     display: inline-block;
-                    width: 210px;
+                    width: 150px;
                     text-align: right;
                     margin-right: 5px;
                     
@@ -181,57 +157,41 @@ $this->end(); ?>
                 }
                 
                  .LV_validation_message{
-				    font-weight:bold;
+				    
 				    margin:0 0 0 5px;
 				}
 				
 				.LV_valid {
 				    color:#00CC00;
+				    display: none;
 				}
 					
 				.LV_invalid {
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 170px; 
+               		margin-left: 105px; 
                
 				}
-				    
-				.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
+				
+				
+				#error1, #error2  {
+					margin:0 0 0 5px;
+					color:#CC0000;
+					clear:both;
+               		display:none;
+               		margin-left: 105px; 
 				}
+
 				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
+				
             </style>
             
             <script>
                 $(document).ready(function() {
-                    var validator = $("#formulario").kendoValidator().data("kendoValidator"),
-                    status = $(".status");
-
-                    $("button").click(function() {
-                        if (validator.validate()) {
-                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-                            } else {
-                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-                        }
-                    });
 
 
-		$("#datePicker1").kendoDatePicker({
-		 format: "dd/MM/yyyy", //Define el formato de fecha
-		   culture:"es-ES"
-		});
+
 		 
 
 	              $("#proyectos").kendoDropDownList({
@@ -241,9 +201,10 @@ $this->end(); ?>
 					            dataSource: {
 					                            type: "json",
 					                            transport: {
-					                                read: "/Contratos/proyectojson.json"
+					                                read: "/Contratos/proyectoordenjson.json"
 					                            }
-					                        }
+					                       },
+					            change: function() { $('#error1').hide(); }
 					        });
 
 		var proyectos = $("#proyectos").data("kendoDropDownList");
@@ -259,8 +220,28 @@ $this->end(); ?>
 			                            transport: {
 			                                read: "/Contratos/contratojson.json"
 			                            }
-			                        }
+			                        },
+			                        change: function() { $('#error2').hide(); }
 			                    }).data("kendoDropDownList");
 	                });
+	                
+	                
+	               $("form").submit( function(){
+				        var selectpro = $("#proyectos").val();
+				        var selectfue = $("#contratos").val();
+				 			//alert(selectpro);
+				 			//alert(selectfue);
+				            if(selectpro == ""){
+				                $('#error1').show().text("Seleccione un Proyecto");
+				                return false;
+				            } else if(selectfue == ""){
+				                $('#error2').show().text("Seleccione un Contrato");
+				                return false;
+				            } else {
+				                $('.error-message').hide();
+				                //alert('Ok!');
+				                return true;
+				            }
+				    });
             </script>
             
