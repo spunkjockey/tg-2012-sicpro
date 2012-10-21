@@ -61,7 +61,13 @@ $this->end(); ?>
 		<?php /*Debugger::dump($this->request->data);*/ echo $this->Form->create('Facturasupervision'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('idinformesupervision', array(
+				<li> <label>Contrato: </label> <?php echo $this->request->data['Contratosupervisor']['codigocontrato'];?></li>
+				<li> <label>Estimación: </label> <?php echo $this->request->data['Informesupervisor']['tituloinformesup'];?></li>
+				<li> <label>Monto Informe: </label> <?php echo '$' . number_format($this->request->data['Informesupervisor']['valoravancefinanciero'],2);?></li>
+				<?php echo $this->Form->hidden('Contratosupervisor.codigocontrato');?>
+				<?php echo $this->Form->hidden('Informesupervisor.tituloinformesup');?>
+				<?php echo $this->Form->hidden('Informesupervisor.valoravancefinanciero');?>
+				<?php echo $this->Form->hidden('idinformesupervision', array(
 								'label' => 'IDSupervision',
 								'id' => 'idestimacion',
 								'tye' => 'hidden',
@@ -120,7 +126,7 @@ $this->end(); ?>
 			</li>	
 			<li>
 				<?php echo $this->Form->input('fechafactura', array(
-								'label' => 'Fecha de Avance',
+								'label' => 'Fecha de facturación',
 								'type' => 'text', 
 								'id' => 'fechafactura',
 								'div' => array('id' => 'fechaf', 'class' => 'requerido'),

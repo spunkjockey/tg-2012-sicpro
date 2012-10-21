@@ -2,7 +2,7 @@
 class FacturasController extends AppController {
     public $helpers = array('Html', 'Form', 'Session','Ajax');
     public $components = array('Session','RequestHandler');
-	public $uses = array('Factura','Contrato','Informesupervisor','Estimacion');
+	public $uses = array('Factura','Contrato','Informesupervisor','Estimacion','Facturaxcontrato');
 
     public function index($idproyecto=null,$idcontrato=null) {
     	$this->layout = 'cyanspark';
@@ -79,6 +79,59 @@ class FacturasController extends AppController {
 
 		}
 		$this->render('/Elements/update_facturas', 'ajax');
+	}
+
+	public function consultarporproyecto() {
+		$this->layout = 'cyanspark';
+	} 
+
+
+	public function proyectosfactjson() {
+		$proyectos = $this->Facturaxcontrato->find('all',array(
+			'fields' => array('DISTINCT Facturaxcontrato.idproyecto', 'Facturaxcontrato.numeroproyecto'),
+			'order' => array('Facturaxcontrato.numeroproyecto'),
+			'conditions' => array('Facturaxcontrato.idpersona' => $this->Session->read('User.idpersona'))
+		));
+		
+		$this->set('proyectos', Hash::extract($proyectos, "{n}.Facturaxcontrato"));
+		//$this->set('proyectos', $proyectos);
+		$this->set('_serialize', 'proyectos');
+		$this->render('/json/jsondata');
+		
 	}	
+
+	public function update_facturasxproyecto() {
+		//Debugger::dump($this->request->data);
+		if(isset($this->request->data['proyectos'])&&!empty($this->request->data['proyectos']))
+		{
+			$facturas = $this->Facturaxcontrato->find('all',array(
+					//'fields' => array('DISTINCT Facturaxcontrato.idproyecto', 'Facturaxcontrato.numeroproyecto'),
+					'order' => array('Facturaxcontrato.numeroproyecto'),
+					'conditions' => array(
+						'Facturaxcontrato.numeroproyecto' => $this->request->data['proyectos'],
+						'Facturaxcontrato.idpersona' => $this->Session->read('User.idpersona'))
+				));
+			$this->set('facturas',$facturas);
+			
+			$proyectos = $this->Facturaxcontrato->find('all',array(
+				'fields' => array('DISTINCT Facturaxcontrato.idproyecto', 'Facturaxcontrato.numeroproyecto'
+						, 'Facturaxcontrato.nombreproyecto'
+						, 'Facturaxcontrato.montoplaneado'
+						, 'Facturaxcontrato.estadoproyecto'),
+				'order' => array('Facturaxcontrato.numeroproyecto'),
+				'conditions' => array(
+						'Facturaxcontrato.numeroproyecto' => $this->request->data['proyectos'],
+						'Facturaxcontrato.idpersona' => $this->Session->read('User.idpersona'))
+			));
+			
+			$this->set('proyectos', Hash::extract($proyectos, "{n}.Facturaxcontrato"));
+			
+						
+			//Debugger::dump($facturas);
+		}
+		
+			
+		$this->render('/Elements/update_facturasxproyecto', 'ajax');
+	}
 
 }

@@ -25,6 +25,11 @@ class FacturaestimacionsController extends AppController {
 			
 		} else {
 			$this->request->data['Facturaestimacion']['idestimacion'] = $id;
+			$estimacion = $this->Estimacion->findByIdestimacion($id);
+			$this->request->data['Contratoconstructor']['codigocontrato'] = $estimacion['Contratoconstructor']['codigocontrato'];
+			$this->request->data['Estimacion']['tituloestimacion'] = $estimacion['Estimacion']['tituloestimacion'];
+			$this->request->data['Estimacion']['montoestimado'] = $estimacion['Estimacion']['montoestimado'];
+			
 		}
         
     }

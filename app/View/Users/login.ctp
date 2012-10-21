@@ -97,7 +97,7 @@
 		    </p>
 		    
 		    <p class="submit">
-	        	<?php echo $this->Form->end(array('id' => 'botonlogin', 'label' => 'Login', 'name' => 'commit', 'div' => false)); ?>
+	        	<?php echo $this->Form->end(array('id' => 'botonlogin', 'label' => 'Iniciar Sesión', 'name' => 'commit', 'div' => false)); ?>
 	        	<?php //echo $this->Form->end(__('Login'), array( 'name'=>'commit')); ?>
 	        </p>
 	        

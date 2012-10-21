@@ -25,6 +25,11 @@ class FacturasupervisionsController extends AppController {
 			
 		} else {
 			$this->request->data['Facturasupervision']['idinformesupervision'] = $id;
+			$supervision = $this->Informesupervisor->findByIdinformesupervision($id);
+			$this->request->data['Contratosupervisor']['codigocontrato'] = $supervision['Contratosupervisor']['codigocontrato'];
+			$this->request->data['Informesupervisor']['tituloinformesup'] = $supervision['Informesupervisor']['tituloinformesup'];
+			$this->request->data['Informesupervisor']['valoravancefinanciero'] = $supervision['Informesupervisor']['valoravancefinanciero'];
+			
 		}
         
     }

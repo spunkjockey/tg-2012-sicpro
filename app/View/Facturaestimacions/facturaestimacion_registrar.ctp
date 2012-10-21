@@ -58,8 +58,16 @@ $this->end(); ?>
 	<div id="formulario">
 		<h2>Registrar Factura de Estimación</h2>
 		
+		<?php //Debugger::dump($estimacion); ?>
+		
 		<?php /*Debugger::dump($this->request->data);*/ echo $this->Form->create('Facturaestimacion'); ?>
 		<ul>
+			<li> <label>Contrato: </label> <?php echo $this->request->data['Contratoconstructor']['codigocontrato'];?></li>
+			<li> <label>Estimación: </label> <?php echo $this->request->data['Estimacion']['tituloestimacion'];?></li>
+			<li> <label>Monto Estimación: </label> <?php echo '$' . number_format($this->request->data['Estimacion']['montoestimado'],2);?></li>
+			<?php echo $this->Form->hidden('Contratoconstructor.codigocontrato');?>
+			<?php echo $this->Form->hidden('Estimacion.tituloestimacion');?>
+			<?php echo $this->Form->hidden('Estimacion.montoestimado');?>
 			<li>
 				<?php echo $this->Form->hidden('idestimacion', array(
 								'label' => 'IDEstimacion',
@@ -119,7 +127,7 @@ $this->end(); ?>
 			</li>	
 			<li>
 				<?php echo $this->Form->input('fechafactura', array(
-								'label' => 'Fecha de Avance',
+								'label' => 'Fecha de facturación',
 								'type' => 'text', 
 								'id' => 'fechafactura',
 								'div' => array('id' => 'fechaf', 'class' => 'requerido'),
