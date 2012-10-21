@@ -45,6 +45,9 @@ if(!empty($ordenes)){ ?>
                 		'class'=>'k-button','escape' => false)
             );
             }
+				else{
+					echo "Sin acciones Disponibles";
+				}
             ?>
         </td>
         

@@ -71,7 +71,7 @@ class OrdendecambiosController extends AppController {
 	}
 
 	public function proyectojson() {
-		$proyectos = $this->Ordendecambio->query("SELECT DISTINCT Proyecto.idproyecto AS Proyecto__idproyecto, 
+		/*$proyectos = $this->Ordendecambio->query("SELECT DISTINCT Proyecto.idproyecto AS Proyecto__idproyecto, 
 		Proyecto.numeroproyecto AS Proyecto__numeroproyecto
 			FROM sicpro2012.contratoconstructor AS Contratoconstructor 
 			LEFT JOIN sicpro2012.empresa AS Empresa 
@@ -83,15 +83,16 @@ class OrdendecambiosController extends AppController {
 			WHERE Proyecto.estadoproyecto = 'Ejecucion' 
 				AND Contratoconstructor.estadocontrato 
 				IN ('en marcha', 'en pausa', 'a tiempo', 'atrasado') 
-			ORDER BY Proyecto.numeroproyecto ASC");
-		/*$proyectos = $this->Contratoconstructor->Proyecto->find('all',array(
-			'fields' => array('DISTINCT Proyecto.idproyecto', 'Proyecto.numeroproyecto'), 
+			ORDER BY Proyecto.numeroproyecto ASC");*/
+			
+		$proyectos = $this->Contratoconstructor->find('all',array(
+			'fields' => array('Proyecto.idproyecto', 'Proyecto.numeroproyecto'), 
 			'conditions' => array('Proyecto.estadoproyecto'=>'Ejecucion',
 			'OR' => array('Contratoconstructor.estadocontrato'=> array('en marcha','en pausa','a tiempo','atrasado'))),
 			'order' => array('Proyecto.numeroproyecto')
-		));*/
+		));
 		//$this->set('proyectos', $proyectos);
-		$this->set('proyectos', Hash::extract($proyectos, "{n}.proyecto"));
+		$this->set('proyectos', $this->eliminarduplicados(Hash::extract($proyectos, "{n}.Proyecto")));
 		$this->set('_serialize', 'proyectos');
 		$this->render('/json/jsondata');
 	}
@@ -124,5 +125,37 @@ class OrdendecambiosController extends AppController {
 		}
 		$this->render('/Elements/update_listaorden', 'ajax');
 	 }
+
+
+
+	public function eliminarduplicados($array=null) {
+		$count = 0;
+		$value = "";
+		foreach($array as $array_key => $array_value)
+		{
+			if ( $count > 1 ) 
+			{
+				if($value != $array_value['idproyecto']) 
+				{
+					$count = 0;
+				}
+			}
+			if ( $count == 0 )
+			{
+				$value = $array_value['idproyecto'];
+				$count++;
+			} else 
+				{
+				if($array_value['idproyecto'] == $value) {
+					unset($array[$array_key]);
+					$count++;
+				} else {
+					$count = 0;
+				}
+			}
+		
+		}
+		return array_values($array);
+	}
 	
 }?>

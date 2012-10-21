@@ -246,7 +246,7 @@ $this->end(); ?>
 			                        }
 			    }).data("kendoDropDownList");
 			    
-			    
+			 /*   
 			    $("#empresas").kendoDropDownList({
             			optionLabel: "Seleccione empresa",
             			dataTextField: "nombreempresa",
@@ -259,7 +259,7 @@ $this->end(); ?>
 			                        }
 			        });
 			        var empresas = $("#empresas").data("kendoDropDownList");
-			    
+			    */
 			    $("#admin").kendoDropDownList({
             			optionLabel: "Seleccione administrador",
             			dataTextField: "nomcompleto",
@@ -273,7 +273,7 @@ $this->end(); ?>
 			        });
 			        var admin = $("#admin").data("kendoDropDownList");
 				
-				
+				/*
 				$("#datePicker1").kendoDatePicker({
 		   			format: "dd/MM/yyyy",
 		   			culture: "es-ES"
@@ -282,10 +282,9 @@ $this->end(); ?>
 		   			format: "dd/MM/yyyy",
 		   			culture: "es-ES"
 		   		});
-				
+				*/
 				$("#codigo").mask("999-9999");
-				
-				
+							
 				
 				});
                 
