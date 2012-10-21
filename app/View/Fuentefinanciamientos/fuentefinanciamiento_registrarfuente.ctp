@@ -259,7 +259,7 @@ $this->end(); ?>
 		$("#fuentes").kendoDropDownList({
             		
 			            dataTextField: "tipofuente",
-			            dataValueField: "id",
+			            dataValueField: "idtipofuente",
 			            dataSource: {
 			                            type: "json",
 			                            transport: {

@@ -41,12 +41,11 @@ class FuentefinanciamientosController extends AppController {
 	    $this->Fuentefinanciamiento->id = $id;
 				
 	    if ($this->request->is('get')) {
-	    	$this->set('tipofuentes', $this->Fuentefinanciamiento->Tipofuente->find('list',
-		array ('fields'=> array ('id', 'tipofuente') ) ));
+	    	
 	        $this->request->data = $this->Fuentefinanciamiento->read();
 	    } else {
 	    	$this->Fuentefinanciamiento->set('nombrefuente', $this->request->data['Fuentefinanciamiento'] ['nombrefuente']);
-			$this->Fuentefinanciamiento->set('montoinicial', $this->request->data['Fuentefinanciamiento'] ['montoinicial']);
+			$this->Fuentefinanciamiento->set('montodisponible', $this->request->data['Fuentefinanciamiento'] ['montodisponible']);
 			$this->Fuentefinanciamiento->set('fechadisponible', $this->request->data['Fuentefinanciamiento'] ['fechadisponible']);
 			$this->Fuentefinanciamiento->set('userm', $this->request->data['Fuentefinanciamiento'] ['userm']);
 			$this->Fuentefinanciamiento->set('idtipofuente', $this->request->data['Fuentefinanciamiento'] ['tipofuentes']);
@@ -63,7 +62,7 @@ class FuentefinanciamientosController extends AppController {
 	
 	public function fuentejson() {
 		$fuentes = $this->Tipofuente->find('all',array(
-			'fields' => array('Tipofuente.id', 'Tipofuente.tipofuente'),
+			'fields' => array('Tipofuente.idtipofuente', 'Tipofuente.tipofuente'),
 			'order' => array('Tipofuente.tipofuente')
 		));
 		
