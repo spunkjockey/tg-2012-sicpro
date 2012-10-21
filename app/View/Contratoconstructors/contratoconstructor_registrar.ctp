@@ -350,8 +350,6 @@ $this->end(); ?>
                     status = $(".status");
 
                     $("#ContratoconstructorContratoconstructorRegistrarForm").submit(function() {
-                    	alert(empresas.value());
-                    	
 	                       	if(empresas.dataItem()){
 								
 								$('#errorempresa').hide();
