@@ -258,7 +258,7 @@
 	{
 		$this->layout = 'cyanspark';
 		$this->set('dataproy', $this->Proyecto->find('all',array(
-				'fields'=>array('Proyecto.nombreproyecto','Proyecto.numeroproyecto',
+				'fields'=>array('Proyecto.idproyecto','Proyecto.nombreproyecto','Proyecto.numeroproyecto',
 								'Proyecto.estadoproyecto','Division.divison'),
 				'conditions'=>array('Proyecto.idproyecto'=>$idproy)
 				)));
@@ -275,6 +275,47 @@
 				'order'=>'Contrato.codigocontrato'
 				)));
 		
+		if($this->request->is('post')) {
+			$idproyecto = $idproy;
+			$this->redirect(array('action' => 'proyecto_resultados_repgen_pdf',
+								$this->request->data['Proyecto']['idproyecto']));
+		}
+		
+	}
+	
+	function proyecto_resultados_repgen_pdf($idproy=null) {
+		Configure::write('debug',0);
+		$this->layout = 'pdf'; //esto utilizara el layout 'pdf.ctp'
+		
+		$this->set('dataproy', $this->Proyecto->find('all',array(
+			'fields'=>array('Proyecto.nombreproyecto','Proyecto.numeroproyecto',
+							'Proyecto.estadoproyecto','Division.divison'),
+			'conditions'=>array('Proyecto.idproyecto'=>$idproy)
+			)));
+		
+		$this->set('fuentes', $this->Financia->find('all',array(
+				'fields'=>array('Fuentefinanciamiento.nombrefuente','Financia.montoparcial'),
+				'conditions'=>array('Proyecto.idproyecto'=>$idproy))));
+		
+		$this->set('contratos',$this->Contrato->find('all',array(
+				'fields'=>array('Contrato.codigocontrato','Contrato.nombrecontrato','Contrato.tipocontrato',
+								'Contrato.montooriginal','Contrato.plazoejecucion','Contrato.ordeninicio',
+								'Persona.nombrespersona','Persona.apellidospersona'),
+				'conditions'=>array('Contrato.idproyecto'=>$idproy),
+				'order'=>'Contrato.codigocontrato'
+				)));
+			
+			/*
+			$proys = $this->Contrato->find('all', array(
+									//'fields'=> array('Proyecto.idproyecto','Proyecto.nombreproyecto','Proyecto.creacion'),
+									'conditions' => array('Proyecto.idproyecto' => $idproyecto), 
+									'order'=> array('Proyecto.numeroproyecto ASC', 'Contrato.codigocontrato ASC')));
+			$this->set('proyectos', Hash::extract($proys, "{n}"));
+			$this->set('proyecto', Hash::extract($proys, "{n}.Proyecto"));
+			// Operaciones que deseamos realizar y variables que pasaremos a la vista.
+			*/
+			
+			$this->render();
 	}
 	
 	/* Esta función recupera los proyectos en estado de ejecucion y finalizado*/

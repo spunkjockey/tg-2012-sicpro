@@ -50,15 +50,17 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<?php foreach ($dataproy as $proy): ?>
-			<h3><?php echo $proy['Proyecto']['nombreproyecto'];?></h3>
+		<?php echo $this->Form->create('Proyecto',array('action' => 'proyecto_resultados_repgen')); ?>
+		
+		<?php echo $dataproy[0]['Proyecto']['nombreproyecto'];?>
+		
+			<h3><?php echo $dataproy[0]['Proyecto']['nombreproyecto'];?></h3>
 			<p>
-				Número de proyecto: <?php echo $proy['Proyecto']['numeroproyecto'];?><br>
-				Estado actual: <?php echo $proy['Proyecto']['estadoproyecto'];?><br>
-				División responsable; <?php echo $proy['Division']['divison'];?>
+				Número de proyecto: <?php echo $dataproy[0]['Proyecto']['numeroproyecto'];?><br>
+				Estado actual: <?php echo $dataproy[0]['Proyecto']['estadoproyecto'];?><br>
+				División responsable; <?php echo $dataproy[0]['Division']['divison'];?>
 			</p>
-		<?php endforeach; ?>
-		<?php unset($dataproy); ?>
+		
 		
 		<h3>Financiamientos</h3>
 			<table>
@@ -111,10 +113,24 @@ $this->end(); ?>
 			</table>
 		<ul>
 			<li  class="accept">
-				<?php echo $this->Html->link('Regresar', 
-					array('controller' => 'Proyectos','action' => 'proyecto_reportegeneral'),
-					array('class'=>'k-button')); ?>
+			<table>
+				<tr>
+					<td>
+						<?php echo $this->Form->input('Proyecto.idproyecto', 
+							array('type' => 'hidden',
+								  'value'=> $dataproy[0]['Proyecto']['idproyecto'])); ?>
+						<?php echo $this->Form->end(array('label' => 'Generar PDF', 
+									'class' => 'k-button', 'id' => 'button')); ?>
+					</td>
+					<td>
+						<?php echo $this->Html->link('Regresar', 
+							array('controller' => 'Proyectos','action' => 'proyecto_reportegeneral'),
+							array('class'=>'k-button')); ?>
+					</td>
+				</tr>
+			</table>
 			</li>
+			
 		</ul>
 	</div>
 </div>
