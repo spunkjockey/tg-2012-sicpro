@@ -165,14 +165,14 @@ $this->end(); ?>
 			<tr>
 				<td>
 				<!--<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>-->
+				<?php echo $this->Form->end(array('label' => 'Modificar Ficha', 'class' => 'k-button')); ?>
+				</td>
+				<td>
 				<?php echo $this->Html->link(
 	            	'Regresar', 
 	            	array('controller'=>'Fichatecnicas','action' => 'fichatecnica_listarficha'),
 	            	array('class'=>'k-button')
 				);?>
-				</td>
-				<td>
-				<?php echo $this->Form->end(array('label' => 'Modificar Ficha', 'class' => 'k-button')); ?>
 				</td>
 			</tr>
 			</table>
@@ -224,6 +224,7 @@ $this->end(); ?>
                     display: inline-block;
                     width: 160px;
                     text-align: right;
+                    margin-right: 5px;
                     
                 }
 
@@ -256,7 +257,7 @@ $this->end(); ?>
                 
 				
 				.LV_validation_message{
-				    font-weight:bold;
+				    /*font-weight:bold;*/
 				    margin:0 0 0 5px;
 				}
 				
@@ -268,10 +269,10 @@ $this->end(); ?>
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 170px; 
+               		margin-left: 165px; 
                
 				}
-				    
+				/*    
 				.LV_valid_field,
 				input.LV_valid_field:hover, 
 				input.LV_valid_field:active,
@@ -287,7 +288,7 @@ $this->end(); ?>
 				textarea.LV_invalid_field:active {
 				    border: 1px solid #CC0000;
 				}
-                
+                */
 </style>
 
 <script>

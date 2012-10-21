@@ -89,12 +89,19 @@ $this->end(); ?>
 	    	</script> 
 			<li  class="accept">
 				<?php echo $this->Form->input('Componente.idfichatecnica', array('type' => 'hidden','value'=>$idfichatecnica)); ?>
-				<?php echo $this->Form->end(array('label' => 'Registrar Componente', 'class' => 'k-button')); ?>
+				<table>
+				<tr>
+				<td>
+				<?php echo $this->Form->end(array('label' => 'Registrar', 'class' => 'k-button')); ?>
+				</td><td>
 				<?php echo $this->Html->link(
 					'Regresar', 
 					array('controller' => 'Fichatecnicas', 'action' => 'view',$idfichatecnica),
 					array('class'=>'k-button')
 				); ?>
+				</td>
+				</tr>
+				</table>
 			</li>
             
             <li class="status">
@@ -173,7 +180,7 @@ $this->end(); ?>
                 
 				
 				.LV_validation_message{
-				    font-weight:bold;
+				    /*font-weight:bold;*/
 				    margin:0 0 0 5px;
 				}
 				
@@ -188,7 +195,7 @@ $this->end(); ?>
                		margin-left: 170px; 
                
 				}
-				    
+/*				    
 				.LV_valid_field,
 				input.LV_valid_field:hover, 
 				input.LV_valid_field:active,
@@ -204,7 +211,7 @@ $this->end(); ?>
 				textarea.LV_invalid_field:active {
 				    border: 1px solid #CC0000;
 				}
-                
+*/                
 </style>
 <script>
                 $(document).ready(function() {

@@ -7,3 +7,4 @@
  app/tmp/logs/error.logapp/tmp
  app/tmp/cache
 app/tmp
+app/webroot/files

@@ -76,11 +76,11 @@
 			'value' => $moncon,
 			'type' => 'text',
 			'placeholder' => 'Monto del contrato',
-			'div' => array('class' => 'requerido')
+			'div' => array('id'=>'monto','class' => 'requerido')
 			)); 
 	?>
 	<script type="text/javascript">
-		var txmonto = new LiveValidation( "txmonto", { validMessage: " " } );
+		var txmonto = new LiveValidation( "txmonto", { validMessage: " " , insertAfterWhatNode: "monto"  } );
         txmonto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
     </script>
 </li>

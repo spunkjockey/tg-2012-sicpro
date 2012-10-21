@@ -193,7 +193,6 @@
 	function contratoconstructor_modificar()
 	{
 		$this->layout = 'cyanspark';
-		Debugger::dump($this->request->is('post'));
 		  if ($this->request->is('post')) 
 		{
 			$this->Contrato->create();
@@ -231,7 +230,7 @@
 					$this->Contratoconstructor->set('modificacion', date('Y-m-d h:i:s'));
 	                if($this->Contratoconstructor->save($id))
 					{
-						Debugger::dump($this->request->data);
+						//Debugger::dump($this->request->data);
 						$this->Session->setFlash('El contrato '.$this->request->data['Contratoconstructor']['codigocontrato'].' ha sido actualizado.',
 												 'default',array('class'=>'success'));	
 						$this->redirect(array('controller'=>'mains', 'action' => 'index'));
@@ -240,13 +239,12 @@
 					else 
 					{
 						$this->Session->setFlash('Ha ocurrido un error cc');
-						Debugger::dump($this->request->data);
 	                }
 				}
 				else 
 				{
 					$this->Session->setFlash('Ha ocurrido un error c');
-					debug($this->Contrato->validationErros);
+					//debug($this->Contrato->validationErros);
                 }
 		}
 		

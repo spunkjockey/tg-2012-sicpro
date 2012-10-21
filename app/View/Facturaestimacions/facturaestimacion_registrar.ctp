@@ -46,7 +46,7 @@ $this->end(); ?>
 			));
 			?> » Facturas 
 			» Administración de Facturas 
-			» Registrar Factura
+			» Registrar Factura de Estimación
 			
 		</div>
 	</div>
@@ -56,12 +56,12 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar Factura</h2>
+		<h2>Registrar Factura de Estimación</h2>
 		
 		<?php /*Debugger::dump($this->request->data);*/ echo $this->Form->create('Facturaestimacion'); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('idestimacion', array(
+				<?php echo $this->Form->hidden('idestimacion', array(
 								'label' => 'IDEstimacion',
 								'id' => 'idestimacion',
 								'class' => 'k-textbox',
@@ -92,6 +92,7 @@ $this->end(); ?>
 								'label' => 'Descripción Factura',
 								'id' => 'descripcionfactura',
 								'class' => 'k-textbox',
+								'rows'=>'3',
 								'div' => array('class' => 'requerido')
 							)); ?> 
 				<script type="text/javascript">
@@ -105,11 +106,11 @@ $this->end(); ?>
 								'id' => 'montofactura',
 								'style' => 'width:120px;',
 								'maxlength' => 12,
-								'div' => array('class' => 'requerido'),
+								'div' => array('id' => 'montof', 'class' => 'requerido'),
 								'error' => array('attributes' => array('wrap' => 'span', 'class' => 'LV_validation_message LV_invalid', "id" => 'errormontofactura'))
 							)); ?>
 				<script type="text/javascript">
-					var montofactura = new LiveValidation( "montofactura", { validMessage: " " } );
+					var montofactura = new LiveValidation( "montofactura", { validMessage: " ", insertAfterWhatNode: "montof" } );
 		            montofactura.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            montofactura.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
 		        </script>
@@ -121,13 +122,13 @@ $this->end(); ?>
 								'label' => 'Fecha de Avance',
 								'type' => 'text', 
 								'id' => 'fechafactura',
-								'div' => array('class' => 'requerido'),
+								'div' => array('id' => 'fechaf', 'class' => 'requerido'),
 								'style' => 'width:120px;',
 								'error' => array('attributes' => array('wrap' => 'span', 'class' => 'LV_validation_message LV_invalid', "id" => 'errorfechafactura'))
 								
 							)); ?>  
 				<script type="text/javascript">
-		            var fechafactura = new LiveValidation( "fechafactura", { validMessage: " " } );
+		            var fechafactura = new LiveValidation( "fechafactura", { validMessage: " ", insertAfterWhatNode: "fechaf" } );
 		            fechafactura.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            fechafactura.add(Validate.Format, { pattern: /[0-3]\d\/[0-1]\d\/\d\d\d\d$/, failureMessage: "La Fecha debe contener el siguiente formato DD/MM/AAAA"  } );
 		        </script> 
@@ -139,7 +140,7 @@ $this->end(); ?>
 							<?php echo $this->Form->end(array('label' => 'Agregar Factura', 'class' => 'k-button', 'id' => 'button')); ?>
 						</td>
 						<td>
-							<?php echo $this->Html->link('Cancelar',array('controller' => 'Mains', 'action' => 'index'),array('class'=>'k-button')); ?>
+							<?php echo $this->Html->link('Regresar',array('controller' => 'Facturas', 'action' => 'index'),array('class'=>'k-button')); ?>
 						</td>
 					</tr>
 				</table>
@@ -152,6 +153,10 @@ $this->end(); ?>
 
                 .k-textbox {
                     width: 120px;
+                }
+				
+				#descripcionfactura {
+                    width: 250px;
                 }
 				
 				#tablat {
@@ -227,25 +232,23 @@ $this->end(); ?>
                 }
 
  				.LV_validation_message{
-				    font-weight:bold;
+				    /*font-weight:bold;*/
 				    margin:0 0 0 5px;
 				}
 				
 				.LV_valid {
 				    color:#00CC00;
 				    margin-left: 10px;
+				    display: none;
 				}
 					
 				.LV_invalid {
 				    color:#CC0000;
-				    
-					clear:both;
-               		display:inline-block;
-               		margin-left: 25px; 
-               
+               		display:block;
+               		margin-left: 130px;
 				}
 				    
-				.LV_valid_field,
+			/*	.LV_valid_field,
 				input.LV_valid_field:hover, 
 				input.LV_valid_field:active,
 				textarea.LV_valid_field:hover, 
@@ -260,6 +263,7 @@ $this->end(); ?>
 				textarea.LV_invalid_field:active {
 				    border: 1px solid #CC0000;
 				}
+                */
                 
 
             </style>

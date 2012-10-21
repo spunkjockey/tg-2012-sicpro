@@ -79,13 +79,14 @@ $this->end(); ?>
 						'id'	=> 'datePicker1',
 						'type'  => 'Text',
 						'value' => date('d/m/Y',strtotime($this->request->data['Estimacion']['fechainicioestimacion'])),
-						'div' => array('class' => 'requerido')
+						'maxlength'=> 10,
+						'div' => array('id' => 'iniciofecha', 'class' => 'requerido')
 						 ) ); ?>
-				<script type="text/javascript">
-		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " } );
+					<script type="text/javascript">
+		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " ", insertAfterWhatNode: "iniciofecha" } );
 		            datePicker1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
-		        </script>  
+		            datePicker1.add(Validate.Format, { pattern: /^\d\d\/\d\d\/\d\d\d\d$/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
+		        </script> 
 			</li>
 			<li>
 				<?php echo $this->Form->input('fechafinestimacion', 
@@ -94,12 +95,13 @@ $this->end(); ?>
 						'id'	=> 'datePicker2',
 						'value' => date('d/m/Y',strtotime($this->request->data['Estimacion']['fechafinestimacion'])),
 						'type'  => 'Text',
-						'div' => array('class' => 'requerido')
+						'maxlength'=> 10,
+						'div' => array('id' => 'finfecha', 'class' => 'requerido')
 						 ) ); ?>
-				 <script type="text/javascript">
-		            var datePicker2 = new LiveValidation( "datePicker2", { validMessage: " " } );
+				<script type="text/javascript">
+		            var datePicker2 = new LiveValidation( "datePicker2", { validMessage: " ", insertAfterWhatNode: "finfecha" } );
 		            datePicker2.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            datePicker2.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
+		            datePicker2.add(Validate.Format, { pattern: /^\d\d\/\d\d\/\d\d\d\d$/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 		        </script>  
 			</li>
 			<li>
@@ -108,11 +110,12 @@ $this->end(); ?>
 						'label' => 'Monto Estimado:',
 						'id'    => 'moneda',
 						'placeholder' => 'Monto Estimado', 
-						'div' => array('class' => 'requerido'))); ?>
+						'div' => array('id' => 'monto', 'class' => 'requerido')
+						)); ?>
 				<script type="text/javascript">
-		            var moneda = new LiveValidation( "moneda", { validMessage: " " } );
+		            var moneda = new LiveValidation( "moneda", { validMessage: " ", insertAfterWhatNode: "monto" } );
 		            moneda.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            moneda.add(Validate.Format, { pattern: /[a-zA-Z0-9_ ]+/, failureMessage: "El monto de la Estimación debe ser numérico" } );
+		            moneda.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
 		        </script> 
 		    </li>
 		    <li>
@@ -122,12 +125,14 @@ $this->end(); ?>
 						'class' => 'k-textbox',
 						'id'=>'porcentaje', 
 						'type' => 'text',
+						'style' => 'width: 150px;',
 						'placeholder' => 'Porcentaje Estimado',
+						'maxlength'=> 5,
 						'div' => array('class' => 'requerido'))); ?>
 				<script type="text/javascript">
 		            var porcentaje = new LiveValidation( "porcentaje", { validMessage: " " } );
 		            porcentaje.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            porcentaje.add(Validate.Format, { pattern: /[a-zA-Z0-9_ ]+/, failureMessage: "El Titulo de Estimación debe ser numérico" } );
+		            porcentaje.add( Validate.Numericality,{ minimum: 0, maximum: 100, tooLowMessage: "El porcentaje no puede ser menor a 0 %", tooHighMessage: "El porcentaje no debe ser mayor al 100 %", notANumberMessage:"Debe ser un número"} );
 		        </script>
 			</li>
 			<li>
@@ -136,13 +141,14 @@ $this->end(); ?>
 						'label' => 'Fecha Estimación:', 
 						'id'	=> 'datePicker3',
 						'type'  => 'Text',
-						'div' => array('class' => 'requerido')
+						'maxlength'=> 10,
+						'div' => array('id' => 'fecha', 'class' => 'requerido')
 						 ) ); ?>
 				<script type="text/javascript">
-		            var datePicker3 = new LiveValidation( "datePicker3", { validMessage: " " } );
+		            var datePicker3 = new LiveValidation( "datePicker3", { validMessage: " ", insertAfterWhatNode: "fecha"  } );
 		            datePicker3.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            datePicker3.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
-		        </script>  
+		            datePicker3.add(Validate.Format, { pattern: /^\d\d\/\d\d\/\d\d\d\d$/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
+		        </script> 
 						 
 			</li>	
 		<li  class="accept">
@@ -168,20 +174,19 @@ $this->end(); ?>
  
    </div>
   </div>
-          <style scoped>
+             <style scoped>
 
                 .k-textbox {
-                    width: 300px;
-                    
-                    
+                    width: 300px;    
                 }
-				
+                
 				form .requerido label:after {
                 	font-size: 1.4em;
 					color: #e32;
 					content: '*';
 					display:inline;
 				}
+                
 			
                 #formulario {
                     width: 600px;
@@ -206,9 +211,9 @@ $this->end(); ?>
                     margin: 10px 0 0 0;
                 }
 
-                label {
+              label {
                     display: inline-block;
-                    width: 210px;
+                    width: 140px;
                     text-align: right;
                     margin-right: 5px;
                     
@@ -231,24 +236,24 @@ $this->end(); ?>
                     margin-left: 6px;
                 }
                 
-                 .LV_validation_message{
-				    font-weight:bold;
+ 				.LV_validation_message{
+				    /*font-weight:bold;*/
 				    margin:0 0 0 5px;
 				}
 				
 				.LV_valid {
 				    color:#00CC00;
+				    margin-left: 10px;
+				    display: none;
 				}
 					
 				.LV_invalid {
 				    color:#CC0000;
-					clear:both;
-               		display:inline-block;
-               		margin-left: 170px; 
-               
+               		display:block;
+               		margin-left: 145px;
 				}
 				    
-				.LV_valid_field,
+			/*	.LV_valid_field,
 				input.LV_valid_field:hover, 
 				input.LV_valid_field:active,
 				textarea.LV_valid_field:hover, 
@@ -263,30 +268,53 @@ $this->end(); ?>
 				textarea.LV_invalid_field:active {
 				    border: 1px solid #CC0000;
 				}
+                */
             </style>
             
             <script>
                 $(document).ready(function() {
-                    var validator = $("#formulario").kendoValidator().data("kendoValidator"),
-                    status = $(".status");
+function startChange() {
+			var startDate = start.value();
+			if (startDate) {
+	            startDate = new Date(startDate);
+	            startDate.setDate(startDate.getDate() + 1);
+	            end.min(startDate);
+	    	}
+	    }
+		
+		function endChange() {
+			var endDate = end.value();
+		    if (endDate) {
+		        endDate = new Date(endDate);
+		        endDate.setDate(endDate.getDate() - 1);
+		        start.max(endDate);
+		    }
+		}
+	
+	    var start = $("#datePicker1").kendoDatePicker({
+	        culture: "es-ES",
+		   	format: "dd/MM/yyyy",
+	        change: startChange
+	    }).data("kendoDatePicker");
+		
+	    var end = $("#datePicker2").kendoDatePicker({
+	        culture: "es-ES",
+		   	format: "dd/MM/yyyy",
+	        change: endChange
+	    }).data("kendoDatePicker");
+		
+	    start.max(end.value());
+	    end.min(start.value());
 
-                    $("button").click(function() {
-                        if (validator.validate()) {
-                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-                            } else {
-                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-                        }
-                    });
 
-
-		$("#datePicker1").kendoDatePicker({
+		/*$("#datePicker1").kendoDatePicker({
 		   culture: "es-ES",
 		   format: "dd/MM/yyyy" //Define el formato de fecha
 		});
 		$("#datePicker2").kendoDatePicker({
 	 culture: "es-ES",
 		   format: "dd/MM/yyyy" //Define el formato de fecha
-		});
+		});*/
 		$("#datePicker3").kendoDatePicker({
 		   culture: "es-ES",
 		   format: "dd/MM/yyyy" //Define el formato de fecha
@@ -295,17 +323,7 @@ $this->end(); ?>
 		     format: "c2", //Define currency type and 2 digits precision
 		     spinners: false
 		 });
-		 $("#porcentaje").kendoNumericTextBox({
-   			format: "p0", // format as percentage with % sign
-   			min: 0,
-   			max: 1,
-  		    step: 0.01
-		 });
-		$("#select").kendoComboBox({
-		//placeholder: "Seleccionar...",
-		//index: -1,
-		suggest: true
-			    });
+
 	         
 	                });
             </script>
