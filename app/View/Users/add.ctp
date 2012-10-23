@@ -60,27 +60,50 @@ $this->end(); ?>
 					array(
 						'label' => 'Nombres:', 
 						'class' => 'k-textbox', 
+						'id' => 'nombres',
 						'placeholder' => 'Nombre del usuario',
 						'div' => array('class' => 'requerido') 
 					)); ?>
 			</li>
+			<script type="text/javascript">
+			            var nombres = new LiveValidation( "nombres", { validMessage: " "} );
+			            nombres.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			            
+		    </script>
 			<li>
 				<?php echo $this->Form->input('apellidospersona', 
 					array(
 						'label' => 'Apellidos:', 
-						'class' => 'k-textbox', 
+						'class' => 'k-textbox',
+						'id' => 'apellidos',  
 						'placeholder' => 'Apellido del usuario',
 						'div' => array('class' => 'requerido') 
 					)); ?>
+			<script type="text/javascript">
+			            var apellidos = new LiveValidation( "apellidos", { validMessage: " "} );
+			            apellidos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			            
+		    </script>
 			</li>
+			<script type="text/javascript">
+			            var roles = new LiveValidation( "roles", { validMessage: " ", insertAfterWhatNode: "divrol" } );
+			            roles.add(Validate.Presence, { failureMessage: "Seleccione un rol para continuar" } );
+			            
+		    </script>
 	    	<li>
 				<?php echo $this->Form->input('username', 
 						array(
 							'label' => 'Nombre de usuario:', 
 							'class' => 'k-textbox', 
+							'id' => 'username',
 							'placeholder' => 'Usuario',
 							'div' => array('class' => 'requerido') 
 					)); ?>
+					<script type="text/javascript">
+			            var username = new LiveValidation( "username", { validMessage: " " } );
+			            username.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			            username.add(Validate.Format, { pattern: /‎?^.*[ ].*$/, failureMessage: "No se permiten espacios en blanco", negate: true  } );
+		        	</script>
 				</li>
 				<li>
 					<?php echo $this->Form->input('password', 
@@ -106,13 +129,20 @@ $this->end(); ?>
 						array(
 							'label' => 'Rol:', 
 							'id' => 'roles',
-							'div' => array('class' => 'requerido')
-					)); ?>
+							'div' => array('id' => 'divrol','class' => 'requerido') 
+							
+							)); ?>
+					<script type="text/javascript">
+			            var roles = new LiveValidation( "roles", { validMessage: " ", insertAfterWhatNode: "divrol" } );
+			            roles.add(Validate.Presence, { failureMessage: "Seleccione un rol para continuar" } );
+			            
+		        	</script>
 				</li>
 				<li>
 					<?php echo $this->Form->input('estado', 
 								array(
-								'id' => 'Estado: ',
+								'label' => 'Estado: ',
+								'id' => 'estados',
 								'div' => array('class' => 'requerido'),
 								'options' => array(0 => 'Deshabilitado', 
 												   1 => 'Habilitado'))); ?>
@@ -190,7 +220,7 @@ $this->end(); ?>
                 }
                 
                 .LV_validation_message{
-				    font-weight:bold;
+				    
 				    margin:0 0 0 5px;
 				}
 				
@@ -204,31 +234,18 @@ $this->end(); ?>
 				    
 					clear:both;
                		display:inline-block;
-               		margin-left: 25px; 
+               		margin-left: 155px; 
                
 				}
-				    
-				.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
-				}
-				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
+				
                 
             </style>
 			
 			<script>
                 $(document).ready(function() {
-					$("#roles").kendoDropDownList();
+					$("#roles").kendoDropDownList({
+						optionLabel: "Seleccione rol"
+					});
 					$("#estados").kendoDropDownList();
 					$("#phone").mask("9999-9999");
 				});

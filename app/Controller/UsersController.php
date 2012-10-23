@@ -40,6 +40,8 @@ class UsersController extends AppController {
 							$this->Session->write('User.useragent',$this->request->header('User-Agent'));
 							$this->Session->write('User.userip',$this->request->clientIp());
 							$this->Session->write('User.nombre',$someone['User']['nombre']);
+							$this->Session->write('User.apellidos',$someone['User']['apellidos']);
+							$this->Session->write('User.id',$someone['User']['id']);
 							
 							$this->Auditoria_sesion->set('ipmaquina', $this->request->clientIp());
 							$this->Auditoria_sesion->set('useragent',$this->request->header('User-Agent'));
@@ -105,7 +107,9 @@ class UsersController extends AppController {
     public function add() {
         $this->layout = 'cyanspark';
 		$this->set('roles', $this->User->Rol->find('list',
-												array('fields' => array('Rol.idrol', 'Rol.rol'))));
+												array('fields' => array('Rol.idrol', 'Rol.rol'),
+													'conditions' => array('Rol.idrol IN (4,8)')
+													)));
         if ($this->request->is('post')) 
         {
             $this->User->create();
@@ -117,7 +121,7 @@ class UsersController extends AppController {
 			$this->User->set('idrol', $this->request->data['User']['roles']);
             if ($this->User->save()) 
             {
-                $this->Session->setFlash(('Usuario registrado'));
+                $this->Session->setFlash(__('El Usuario registrado con exito'),'default',array('class'=>'success'));
                 $this->redirect(array('controller'=>'mains', 'action' => 'index'));
             } 
             else 
@@ -160,4 +164,29 @@ class UsersController extends AppController {
         $this->Session->setFlash(__('Usuario no fué eliminado'));
         $this->redirect(array('action' => 'index'));
     }
+	
+	public function cambiarpass() {
+		$this->layout = 'cyanspark';
+		$this->set('usuario',$this->User->findById($this->Session->read('User.id')));
+		if ($this->request->is('post')) {
+			$this->User->create();
+			$id = $this->request->data['User']['idusuario'];
+			$this->User->read(null, $id);
+			$this->User->set('password', $this->request->data['User']['newpassword']);
+			$this->User->set('userm', $this->Session->read('User.username'));
+			$this->User->set('modified', date("Y-m-d H:i:s"));
+			$this->User->set('oldpass', $this->request->data['User']['password']);
+            if ($this->User->save($id, array(
+										'fieldList'=>array('password','userm','modified')))) 
+			
+            {
+                $this->Session->setFlash('Contraseña actualizada con exito','default',array('class'=>'success'));
+                $this->redirect(array('controller'=>'mains', 'action' => 'index'));
+            } 
+            else 
+            {
+                $this->Session->setFlash('Ha ocurrido un error.');
+            }
+		} 
+	} 
 }

@@ -5,21 +5,21 @@
 		
 		<?php echo $this->element('helpbox', array("helptext" => "Oh, this text is very helpful.")); ?>
 		
-		<div id="post" style="height: 200px;
+	<!--	<div id="notificaciones" style="height: 400px;
 			width: 300px;
 			overflow: auto;
 			border: 1px solid #666;
-			background-color: #ccc;
+			background-color: #CCEECC;
 			padding: 8px;">
-		</div>
-		<?php
-			echo $this->ajax->remoteTimer(
-			array(
-				'url' => array( 'controller' => 'departamentos', 'action' => 'pruebaajax'),
-				'update' => 'post', 'position' => 'html', 'frequency' => 5
-				)
-			);
-		?> 
+	</div> -->
+	
+		
+		
+
+		
+		<!--<div id="notificaciones"></div>-->
+		
+
 		<h2>Agregar Departamento</h2>
 		<?php echo $this->Form->create('Departamento'); ?>
 		<?php $this->Form->inputDefaults(array(
@@ -58,6 +58,9 @@
 </div>
 
             <style scoped>
+            
+            
+
 
                 .k-textbox {
                     width: 11.8em;
@@ -120,6 +123,10 @@
             
             <script>
                 $(document).ready(function() {
+                    
+                    
+                    
+                    
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
 

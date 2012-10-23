@@ -1,15 +1,18 @@
 <?php
 class DepartamentosController extends AppController {
-    public $helpers = array('Html', 'Form', 'Session','Ajax','AjaxMultiUpload.Upload');
+    public $helpers = array('Html', 'Form', 'Time', 'Session','Ajax','AjaxMultiUpload.Upload');
     public $components = array('Session','AjaxMultiUpload.Upload');
-
+	public $uses = array('Departamento','Notificacion');
     public function index() {
     	$this->layout = 'cyanspark';
         $this->set('departamentos', $this->Departamento->find('all'));
     }
 	
+
+	
 	public function add() {
 		$this->layout = 'cyanspark';
+
         if ($this->request->is('post')) {
             if ($this->Departamento->save($this->request->data)) {
                 $this->Session->setFlash('El Departamento ha sido registrado con exito.');
@@ -50,4 +53,28 @@ class DepartamentosController extends AppController {
 		$this->render('/elements/helpbox', 'ajax');
 	}
 	
+	function notificaciones() {
+		$this->set('notificaciones',$this->Notificacion->find('all',array(
+			'conditions' => array("Notificacion.creacion >= now() - interval '21 second'"),
+			'order' => array('Notificacion.creacion DESC'))));	
+		//$this->set('helptext', 'Oh, this text is very helpful. ' . date("d-m-Y H:i:s"));
+		$this->render('/elements/notificaciones', 'ajax');
+	}
+	
+	
+	function notificacionesjson() {
+		$notificaciones = $this->set('notificaciones',$this->Notificacion->find('all',array(
+			//'conditions' => array("Notificacion.creacion >= now() - interval '60 second'"),
+			'order' => array('Notificacion.creacion DESC'))));
+	
+		$this->set('notificaciones', $notificaciones);
+		//$this->set('notificaciones', Hash::extract($notificaciones, "{n}.Notificacion"));
+		$this->set('_serialize', 'notificaciones');
+		$this->render('/json/jsonnotificacion');
+	}
+	
+	
+
+	
+
 }

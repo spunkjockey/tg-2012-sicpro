@@ -356,11 +356,7 @@ $this->end(); ?>
                         ]
                     });
 					
-				$("form").focusin(function () {
-  						$("#flashMessage").fadeOut("slow");
-  				});
-                
-                
+
                 $("#fechaavance").focusin(function () {
   						$("#errorfechaavance").fadeOut("slow");
   				});

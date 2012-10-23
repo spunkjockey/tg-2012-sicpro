@@ -174,25 +174,7 @@ $this->end(); ?>
 		        		        
 		        </script>
 			</li>
-			<li>
-				<?php echo $this->Form->input('avfisico', 
-					array(
-						'label' => 'Avance físico:',
-						'class' => 'k-textbox',  
-						'id' => 'txavfisico',
-						'type'  => 'Text', 
-						'maxlength' => 6,
-						'placeholder' => 'Porcentaje de avance', 
-						'div' => array('id' => 'porce','class' => 'requerido')
-						));
-					?>
-				<script type="text/javascript">
-					var txavfisico= new LiveValidation( "txavfisico", { validMessage: " ", insertAfterWhatNode: "porce" } );
-					txavfisico.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-					txavfisico.add( Validate.Numericality,{ minimum: 0, maximum: 100, tooLowMessage: "El porcentaje no puede ser menor a 0 %", tooHighMessage: "El porcentaje no debe ser mayor al 100 %", notANumberMessage:"Debe ser un número"} );
-		            
-				</script>
-			</li>
+			
 				<?php echo $this->Form->input('idinformesupervision',array('type'=>'hidden'))?>
 				
 			<li  class="accept">

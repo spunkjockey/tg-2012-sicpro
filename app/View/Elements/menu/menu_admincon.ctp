@@ -40,7 +40,7 @@
 							<li>Facturas
 								<ul>
 									<li><?php echo $this->Html->link('Administración de Facturas', array('controller' => 'Facturas','action'=>'index')); ?></li>
-									<li disabled="disabled">Consultar facturas por proyecto</li>
+									<li><?php echo $this->Html->link('Consultar facturas por proyecto', array('controller' => 'Facturas','action'=>'consultarporproyecto')); ?></li>
 									<li disabled="disabled">Consultar facturas por contrato</li>
 								</ul>
 							</li>	
@@ -70,7 +70,7 @@
 									<li>Perfil
 										<ul>
 											<li disabled="disabled">Modificar perfil</li>
-											<li disabled="disabled">Cambiar contrase&ntilde;a</li>
+											<li><?php echo $this->Html->link('Cambiar Contraseña', array('controller' => 'Users','action'=>'cambiarpass')); ?></li>
 											<li disabled="disabled">Consultar perfil</li>
 										</ul>
 									</li>
