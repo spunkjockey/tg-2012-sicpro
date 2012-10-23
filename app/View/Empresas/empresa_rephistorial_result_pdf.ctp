@@ -37,8 +37,7 @@ class MYPDF extends TCPDF {
 		$this->Cell(0, 10, date("d/m/yy H:i:s"), 0, false, 'R', 0, '', 0, false, 'T', 'M');
     }
 	
-	// Tabla de fuentes de financiamiento
-	public function Tablafuentes($header,$fuentes)
+	public function Tablacontratos($header, $datos)
 	{
 		// Colors, line width and bold font
         $this->SetFillColor(230, 237, 245);
@@ -47,7 +46,8 @@ class MYPDF extends TCPDF {
         $this->SetLineWidth(0.3);
         $this->SetFont('', 'B');
         // Header
-        $w = array(60, 30);
+        //$header = array('Código','Monto','Orden de inicio','Plazo(días)','Administrador','Empresa supervisada');
+        $w = array(20,25,30,25,30,40);
         $num_headers = count($header);
         for($i = 0; $i < $num_headers; ++$i) {
             $this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', 1);
@@ -59,62 +59,30 @@ class MYPDF extends TCPDF {
         $this->SetFont('');
         // Data
         $fill = 0;
-        foreach ($fuentes as $ff) 
-        {
-            $this->Cell($w[0], 12, $ff['Fuentefinanciamiento']['nombrefuente'], 'LR', 0, 'C', $fill);
-            $this->MultiCell($w[1], 12, '$'.number_format($ff['Financia']['montoparcial'],2), 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 6,'M',true);
-            $this->Ln();
-            $fill=!$fill;
-        }
-        $this->Cell(array_sum($w), 0, '', 'T');
-        
-	}
-
-	public function Tablacontratos($header, $contratos)
-	{
-		// Colors, line width and bold font
-        $this->SetFillColor(230, 237, 245);
-        $this->SetTextColor(79,118,163);
-        $this->SetDrawColor(0, 0, 0);
-        $this->SetLineWidth(0.3);
-        $this->SetFont('', 'B');
-        // Header
-        $w = array(20,35,25,15,35,35);
-        $num_headers = count($header);
-        for($i = 0; $i < $num_headers; ++$i) {
-            $this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', 1);
-        }
-		$this->Ln();
-        // Color and font restoration
-        $this->SetFillColor(247, 249, 252);
-        $this->SetTextColor(0,5,85);
-        $this->SetFont('');
-        // Data
-        $fill = 0;
-		//$header = array('Código','Tipo','Monto','Plazo','Orden de inicio','Administrador');
-        foreach ($contratos as $con) 
+		foreach ($datos as $dat) 
         {
             //codigo
-            $this->Cell($w[0], 12, $con['Contrato']['codigocontrato'], 'LR', 0, 'C', $fill);
-			//tipo
-			$this->MultiCell($w[1], 12, $con['Contrato']['tipocontrato'], 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 12,'M',true);
-            //monto
-            $this->MultiCell($w[2], 12, '$'.number_format($con['Contrato']['montooriginal'],2), 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 6,'M',true);
-            //plazo
-            $this->Cell($w[3], 12, $con['Contrato']['plazoejecucion'], 'LR', 0, 'C', $fill);
-			//orden inicio
-			if(isset($con['Contrato']['ordeninicio']))
-				$fecha = date('d/m/Y',strtotime($con['Contrato']['ordeninicio']));
+            $this->Cell($w[0], 12, $dat['Empresaconsuper']['codigosuper'], 'LR', 0, 'C', $fill);
+			//monto
+            $this->MultiCell($w[1], 12, '$'.number_format($dat['Empresaconsuper']['montooriginal'],2), 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 6,'M',true);
+            //orden inicio
+			if(isset($dat['Empresaconsuper']['ordeninicio']))
+				$fecha = date('d/m/Y',strtotime($dat['Empresaconsuper']['ordeninicio']));
 			else
 			    $fecha= 'No definida'; 
-			$this->MultiCell($w[4], 12, $fecha,'LR', 'C', $fill, 0, '', '', true, 0, false, true, 6,'M',true);
+			$this->MultiCell($w[2], 12, $fecha,'LR', 'C', $fill, 0, '', '', true, 0, false, true, 6,'M',true);
+			//plazo
+            $this->Cell($w[3], 12, $dat['Empresaconsuper']['plazoejecucion'], 'LR', 0, 'C', $fill);
 			//admin
-			$this->MultiCell($w[5], 12, $con['Persona']['nombrespersona'].' '.$con['Persona']['apellidospersona'], 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 12,'M',true);
+			$this->MultiCell($w[4], 12, $dat['Empresaconsuper']['nomcompleto'], 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 12,'M',true);
+            //constructora
+            $this->MultiCell($w[5], 12, $dat['Empresaconsuper']['constructora'], 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 12,'M',true);
             $this->Ln();
             $fill=!$fill;
         }
         $this->Cell(array_sum($w), 0, '', 'T');
 	}
+	
 	
 
 } // fin class MYPDF
@@ -125,9 +93,9 @@ $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('TG2012 - SICPRO');
-$pdf->SetTitle('Reporte general de proyecto');
-$pdf->SetSubject('Proyecto');
-$pdf->SetKeywords('Proyecto, Contrato, MAG');
+$pdf->SetTitle('Historial de empresa');
+$pdf->SetSubject('Empresa supervisora');
+$pdf->SetKeywords('Empresa, Supervisora, Supervisión, Contrato, MAG');
 
 // set default header data
 $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
@@ -159,37 +127,17 @@ $pdf->setLanguageArray($l);
 $pdf->AddPage();
 
 $pdf->SetFont('helvetica', 'B', 14);
-$pdf->Cell(0, 10, 'Reporte general', 0, false, 'C', 0, '', 0, false, 'T', 'M');
+$pdf->Cell(0, 10, 'Historial de empresa', 0, false, 'C', 0, '', 0, false, 'T', 'M');
 $pdf->Ln(20);
 $fill = 0;
 $pdf->SetFont('helvetica', '', 11);
-
-$pdf->MultiCell(160, 12, $dataproy[0]['Proyecto']['nombreproyecto'], 
-				0, 'C', $fill, 0, '', '', true, 0, false, true, 12,'T',true);
-$pdf->Ln(15);
-$pdf->MultiCell(135, 12, 'Número de proyecto: '.$dataproy[0]['Proyecto']['numeroproyecto'], 
-				0, 'L', $fill, 0, '', '', true, 0, false, true, 12,'T',true);
-$pdf->Ln(5);
-$pdf->MultiCell(135, 12, 'Estado actual: '.$dataproy[0]['Proyecto']['estadoproyecto'], 
-				0, 'L', $fill, 0, '', '', true, 0, false, true, 12,'T',true);
-$pdf->Ln(5);
-$pdf->MultiCell(135, 12, 'División responsable: '.$dataproy[0]['Division']['divison'], 
-				0, 'L', $fill, 0, '', '', true, 0, false, true, 12,'T',true);
+$pdf->Cell(160, 10, $nombre, 0, false, 'C', 0, '', 0, false, 'T', 'M');
 $pdf->Ln(20);
-
 $pdf->SetFont('helvetica', '', 10);
-
-$pdf->Cell(0, 10, 'Fuentes asignadas', 0, false, 'C', 0, '', 0, false, 'T', 'M');
+$pdf->Cell(0, 10, 'Contratos que ha desarrollado', 0, false, 'C', 0, '', 0, false, 'T', 'M');
 $pdf->Ln(10);
-$header = array('Fuente financiamiento', 'Monto destinado');
-$pdf->Tablafuentes($header,$fuentes);
-$pdf->Ln(10);
-$pdf->Cell(0, 10, 'Contratos', 0, false, 'C', 0, '', 0, false, 'T', 'M');
-$pdf->Ln(10);
-$header = array('Código','Tipo','Monto','Plazo','Orden de inicio','Administrador');
-$pdf->Tablacontratos($header,$contratos);
-$pdf->Ln(20);
-
+$header = array('Código','Monto','Orden de inicio','Plazo(días)','Administrador','Empresa supervisada');
+$pdf->Tablacontratos($header,$datos);
 $pdf->Output('example_001.pdf', 'I');
 exit;
 //============================================================+

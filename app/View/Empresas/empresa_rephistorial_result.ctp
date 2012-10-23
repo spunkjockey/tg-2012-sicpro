@@ -1,3 +1,4 @@
+<!-- File: /app/View/Empresas/empresa_rephistorial_result.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -42,95 +43,64 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Reporte general de proyecto
+			?> » Reportes » Historial de empresa » Resultados
 			
 		</div>
 	</div>
+	
 <?php $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<?php echo $this->Form->create('Proyecto',array('action' => 'proyecto_resultados_repgen')); ?>
-
-		
-			<h3><?php echo $dataproy[0]['Proyecto']['nombreproyecto'];?></h3>
-			<p>
-				Número de proyecto: <?php echo $dataproy[0]['Proyecto']['numeroproyecto'];?><br>
-				Estado actual: <?php echo $dataproy[0]['Proyecto']['estadoproyecto'];?><br>
-				División responsable; <?php echo $dataproy[0]['Division']['divison'];?>
-			</p>
-		
-		
-		<h3>Financiamientos</h3>
-			<table>
+		<?php echo $this->Form->create('Empresa',array('action' => 'empresa_rephistorial_result')); ?>
+		<h2><?php echo "Historial de ". $nombre?></h2>
+		<h3>Contratos que ha supervisado:</h3>
+		<table>
+			<tr>
+				<td>Código</td>
+				<td>Monto</td>
+				<td>Orden de inicio</td>
+				<td>Plazo(días)</td>
+				<td>Administrador</td>
+				<td>Empresa supervisada</td>
+			</tr>
+			<?php foreach ($datos as $dat): ?>
 				<tr>
-					<td width="200px">Fondo</td>
-					<td width="200px">Monto destinado</td>
-				</tr>
-				<?php $totalfuente = 0;?>
-				<?php foreach ($fuentes as $ff): ?>
-				<tr>
-					<td>
-						<?php echo $ff['Fuentefinanciamiento']['nombrefuente'];?>
-					</td>
-					<td>
-						<?php echo "$".number_format($ff['Financia']['montoparcial'],2);?>
-						<?php $totalfuente = $totalfuente + $ff['Financia']['montoparcial'];?>
-					</td>
-				</tr>
-				<?php endforeach; ?>
-				<?php unset($fuentes); ?>	
-			</table>
-		<br>
-		Fondo total destinado: <?php echo "$".number_format($totalfuente,2); ?>
-		<h3>Contratos</h3>
-			<table>
-				<tr>
-					<td>Código</td>
-					<td>Tipo</td>
-					<td>Monto original</td>
-					<td>Plazo de ejecución</td>
-					<td>Orden de inicio</td>
-					<td>Administrador</td>
-				</tr>
-				<?php foreach ($contratos as $con): ?>
-					<tr>
-						<td><?php echo $con['Contrato']['codigocontrato'];?></td>
-						<td><?php echo $con['Contrato']['tipocontrato'];?></td>
-						<td><?php echo "$".number_format($con['Contrato']['montooriginal'],2);?></td>
-						<td><?php echo $con['Contrato']['plazoejecucion'];?></td>
-						<td><?php 
-								if(isset($con['Contrato']['ordeninicio']))
-									echo date('d/m/Y',strtotime($con['Contrato']['ordeninicio']));
+					<td width="75px"><?php echo $dat['Empresaconsuper']['codigosuper'];?></td>
+					<td width="85px"><?php echo "$".number_format($dat['Empresaconsuper']['montooriginal'],2);?></td>
+					<td width="85px"><?php 
+							if(isset($dat['Empresaconsuper']['ordeninicio']))
+									echo date('d/m/Y',strtotime($dat['Empresaconsuper']['ordeninicio']));
 								else
 									echo "No definida";
-								?></td>
-						<td><?php echo $con['Persona']['nombrespersona']." ".$con['Persona']['apellidospersona']?></td>
-					</tr>
-					<?php endforeach; ?>
-				<?php unset($contratos); ?>
-			</table>
+						?></td>
+					<td width="70px"><?php echo $dat['Empresaconsuper']['plazoejecucion'];?></td>
+					<td width="100px"><?php echo $dat['Empresaconsuper']['nomcompleto'];?></td>
+					<td width="125px"><?php echo $dat['Empresaconsuper']['constructora'];?></td>
+				</tr>
+			<?php endforeach; ?>
+		</table>
 		<ul>
 			<li  class="accept">
 			<table>
 				<tr>
 					<td>
-						<?php echo $this->Form->input('Proyecto.idproyecto', 
+						<?php echo $this->Form->input('Empresa.empresasup', 
 							array('type' => 'hidden',
-								  'value'=> $dataproy[0]['Proyecto']['idproyecto'])); ?>
+								  'value'=> $datos[0]['Empresaconsuper']['empresasup'])); ?>
 						<?php echo $this->Form->end(array('label' => 'Generar PDF', 
 									'class' => 'k-button', 'id' => 'button')); ?>
 					</td>
 					<td>
 						<?php echo $this->Html->link('Regresar', 
-							array('controller' => 'Proyectos','action' => 'proyecto_reportegeneral'),
+							array('controller' => 'Empresas','action' => 'empresa_rephistorial'),
 							array('class'=>'k-button')); ?>
 					</td>
 				</tr>
 			</table>
 			</li>
-			
 		</ul>
+		<?php unset($datos); ?>	
 	</div>
 </div>
 
