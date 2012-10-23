@@ -2,7 +2,8 @@
 class FichatecnicasController extends AppController {
     public $helpers = array('Html', 'Form', 'Session','Ajax');
     public $components = array('Session','RequestHandler');
-	public $uses = array('Proyecto','Fichatecnica','Ubicacion','Departamento','Municipio','Meta','Componente');
+	public $uses = array('Proyecto','Fichatecnica','Ubicacion','Departamento',
+						 'Municipio','Meta','Componente','Proyembe','Division');
 	
 	
     public function index() {
@@ -95,4 +96,31 @@ class FichatecnicasController extends AppController {
 		$this->set('_serialize', 'proyectos');
 		$this->render('/json/jsondata');
 	}
+
+	function fichatecnica_rep_empbene() 
+	{
+		$this->layout = 'cyanspark';
+		if($this->request->is('post')) 
+		{
+			$this->redirect(array('action' => 'empresa_rephistorial_result',
+												$this->request->data['Fichatecnica']['empresas'],
+												$this->request->data['Fichatecnica']['fechainicio'],
+												$this->request->data['Fichatecnica']['fechafin']));
+		}
+	}
+	
+	function fichatecnica_rep_empbene_resul($iddiv=null, $fechaini=null, $fechafin=null)
+	{
+		
+	}
+	
+	public function divisionjson() 
+		{
+			$divisiones = $this->Division->find('all',array(
+											'fields' => array('iddivision', 'divison')));
+			$this->set('divisiones', Hash::extract($divisiones, "{n}.Division"));
+			$this->set('_serialize', 'divisiones');
+			$this->render('/json/jsondivision');
+			
+		}
 }
