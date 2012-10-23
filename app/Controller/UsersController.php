@@ -100,8 +100,9 @@ class UsersController extends AppController {
 	{
 		$this->layout = 'cyanspark';
 		$this->set('usuarios',$this->User->find('all',array(
-										'fields' => array('User.id','User.nombre','User.apellidos','User.username',
-														  'User.estado','Rol.rol'))));
+										'fields' => array('User.id','User.nombre','User.apellidos','User.username','User.estado','Rol.rol'),
+										'conditions' => array('User.idrol != 9'),
+										'order' => array('User.nombre','User.apellidos'))));
 	}
 
     public function add() {
@@ -132,14 +133,24 @@ class UsersController extends AppController {
     }
 
     public function edit($id = null) {
+    	$this->layout = 'cyanspark';
         $this->User->id = $id;
         if (!$this->User->exists()) {
             throw new NotFoundException(__('Usuario invalido'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
-            if ($this->User->save($this->request->data)) {
-                $this->Session->setFlash(__('El usuario ha sido actualizado'));
-                $this->redirect(array('action' => 'index'));
+            	$this->User->create();
+			
+			$this->User->read(null, $id);
+			$this->User->set('password', $this->request->data['User']['newpassword']);
+			$this->User->set('userm', $this->Session->read('User.username'));
+			$this->User->set('modified', date("Y-m-d H:i:s"));
+			if ($this->User->save($id, array(
+										'fieldList'=>array('password','userm','modified'))))
+				{
+            //if ($this->User->save($this->request->data)) {
+                $this->Session->setFlash(__('El usuario ha sido actualizado'),'default',array('class'=>'success'));
+                $this->redirect(array('action' => 'user_index'));
             } else {
                 $this->Session->setFlash(__('El usuario no puede ser registrado. Intente otra vez.'));
             }
@@ -149,7 +160,39 @@ class UsersController extends AppController {
         }
     }
 
-    public function delete($id = null) {
+    public function cambiarestado($id = null) {
+        if (!$this->request->is('post')) {
+            throw new MethodNotAllowedException();
+        }
+        $this->User->id = $id;
+        if (!$this->User->exists()) {
+            throw new NotFoundException(__('Usuario invalido'));
+        }
+        $this->User->create();
+		
+		$this->User->read(null, $id);
+		$estado = $this->User->field('estado');
+		if($estado == 1) {
+			$this->User->set('estado', 0);
+			$nestado = 'Deshabilitado';
+		} else {
+			$this->User->set('estado', 1);
+			$nestado = 'Habilitado';
+		}
+		
+			
+			if ($this->User->save($id, array('fieldList'=>array('estado'))))
+			{
+            	$this->Session->setFlash(__('El usuario ha sido ' . $nestado . ' con éxito'),'default',array('class'=>'success'));
+            	$this->redirect(array('action' => 'user_index'));
+        	}
+        
+		
+        $this->Session->setFlash(__('El Estado del Usuario no fué cambiado'));
+        $this->redirect(array('action' => 'user_index'));
+    }
+	
+	public function delete($id = null) {
         if (!$this->request->is('post')) {
             throw new MethodNotAllowedException();
         }
@@ -158,11 +201,11 @@ class UsersController extends AppController {
             throw new NotFoundException(__('Usuario invalido'));
         }
         if ($this->User->delete()) {
-            $this->Session->setFlash(__('Usuario eliminado'));
-            $this->redirect(array('action' => 'index'));
+            $this->Session->setFlash(__('Usuario eliminado'),'default',array('class'=>'success'));
+            $this->redirect(array('action' => 'user_index'));
         }
         $this->Session->setFlash(__('Usuario no fué eliminado'));
-        $this->redirect(array('action' => 'index'));
+        $this->redirect(array('action' => 'user_index'));
     }
 	
 	public function cambiarpass() {

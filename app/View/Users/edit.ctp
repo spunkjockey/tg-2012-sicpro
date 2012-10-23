@@ -56,13 +56,14 @@ $this->end(); ?>
 		<?php echo $this->Form->create('User'); ?>
     	<ul>
 	    	<li>
-				<?php echo $this->Form->input('nombrespersona', 
+				<?php echo $this->Form->input('nombre', 
 					array(
 						'label' => 'Nombres:', 
 						'class' => 'k-textbox', 
+						'readOnly' => 'readOnly',
 						'id' => 'nombres',
-						'placeholder' => 'Nombre del usuario',
-						'div' => array('class' => 'requerido') 
+						'placeholder' => 'Nombre del usuario'
+						//'div' => array('class' => 'requerido') 
 					)); ?>
 			</li>
 			<script type="text/javascript">
@@ -71,13 +72,14 @@ $this->end(); ?>
 			            
 		    </script>
 			<li>
-				<?php echo $this->Form->input('apellidospersona', 
+				<?php echo $this->Form->input('apellidos', 
 					array(
 						'label' => 'Apellidos:', 
 						'class' => 'k-textbox',
+						'readOnly' => 'readOnly',
 						'id' => 'apellidos',  
-						'placeholder' => 'Apellido del usuario',
-						'div' => array('class' => 'requerido') 
+						'placeholder' => 'Apellido del usuario'
+						//'div' => array('class' => 'requerido') 
 					)); ?>
 			<script type="text/javascript">
 			            var apellidos = new LiveValidation( "apellidos", { validMessage: " "} );
@@ -95,9 +97,10 @@ $this->end(); ?>
 						array(
 							'label' => 'Nombre de usuario:', 
 							'class' => 'k-textbox', 
+							'readOnly' => 'readOnly',
 							'id' => 'username',
-							'placeholder' => 'Usuario',
-							'div' => array('class' => 'requerido') 
+							'placeholder' => 'Usuario'
+							//'div' => array('class' => 'requerido') 
 					)); ?>
 					<script type="text/javascript">
 			            var username = new LiveValidation( "username", { validMessage: " " } );
@@ -106,9 +109,20 @@ $this->end(); ?>
 		        	</script>
 				</li>
 				<li>
-					<?php echo $this->Form->input('password', 
+					<?php echo $this->Form->input('Rol.rol', 
 						array(
-							'label' => 'Contraseña:', 
+							'label' => 'Rol:', 
+							'class' => 'k-textbox',
+							'readOnly' => 'readOnly'
+							)); ?>
+
+				</li>
+				<br />
+				<li>
+					<?php echo $this->Form->input('newpassword', 
+						array(
+							'label' => 'Nueva Contraseña:', 
+							'type' => 'text',
 							'id' => 'password',
 							'class' => 'k-textbox', 
 							'placeholder' => 'Contraseña',
@@ -117,41 +131,30 @@ $this->end(); ?>
 				<script type="text/javascript">
 		            var password = new LiveValidation( "password", { validMessage: " " } );
 		            password.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            password.add(Validate.Format, { pattern: /‎?^.{8,}$/, failureMessage: "Debe contener al menos 8 caracteres"  } );
-		            password.add(Validate.Format, { pattern: /‎?^.*\d.*$/, failureMessage: "Debe contener al menos un número"  } );
-		            password.add(Validate.Format, { pattern: /‎?^.*\W+.*$/, failureMessage: "Debe contener al menos un caracter especial"  } );
-		            password.add(Validate.Format, { pattern: /‎?^.*[A-Z].*$/, failureMessage: "Debe contener al menos una letra mayúscula"  } );
-		            password.add(Validate.Format, { pattern: /‎?^.*[a-z].*$/, failureMessage: "Debe contener al menos una letra minúscula"  } );
+		            //password.add(Validate.Format, { pattern: /‎?^.{8,}$/, failureMessage: "Debe contener al menos 8 caracteres"  } );
+		            //password.add(Validate.Format, { pattern: /‎?^.*\d.*$/, failureMessage: "Debe contener al menos un número"  } );
+		            //password.add(Validate.Format, { pattern: /‎?^.*\W+.*$/, failureMessage: "Debe contener al menos un caracter especial"  } );
+		            //password.add(Validate.Format, { pattern: /‎?^.*[A-Z].*$/, failureMessage: "Debe contener al menos una letra mayúscula"  } );
+		            //password.add(Validate.Format, { pattern: /‎?^.*[a-z].*$/, failureMessage: "Debe contener al menos una letra minúscula"  } );
 		        </script>
 				</li>
-				<li>
-					<?php echo $this->Form->input('roles', 
-						array(
-							'label' => 'Rol:', 
-							'id' => 'roles',
-							'div' => array('id' => 'divrol','class' => 'requerido') 
-							
-							)); ?>
-					<script type="text/javascript">
-			            var roles = new LiveValidation( "roles", { validMessage: " ", insertAfterWhatNode: "divrol" } );
-			            roles.add(Validate.Presence, { failureMessage: "Seleccione un rol para continuar" } );
-			            
-		        	</script>
-				</li>
-				<li>
+
+				<!--<li>
 					<?php echo $this->Form->input('estado', 
 								array(
 								'label' => 'Estado: ',
+								
 								'id' => 'estados',
+								'value' => $this->request->data['User']['estado'],
 								'div' => array('class' => 'requerido'),
 								'options' => array(0 => 'Deshabilitado', 
 												   1 => 'Habilitado'))); ?>
-				</li>
+				</li>-->
 				<li  class="accept">
-					<table>
+				<table>
 					<tr>
 					<td>
-					<?php echo $this->Form->end(array('label' => 'Registrar Usuario', 'class' => 'k-button')); ?>
+						<?php echo $this->Form->end(array('label' => 'Cambiar Contraseña', 'class' => 'k-button')); ?>
 					</td>
 					<td>
 						<?php echo $this->Html->link('Regresar',
@@ -254,9 +257,7 @@ $this->end(); ?>
 			
 			<script>
                 $(document).ready(function() {
-					$("#roles").kendoDropDownList({
-						optionLabel: "Seleccione rol"
-					});
+
 					$("#estados").kendoDropDownList();
 					$("#phone").mask("9999-9999");
 				});

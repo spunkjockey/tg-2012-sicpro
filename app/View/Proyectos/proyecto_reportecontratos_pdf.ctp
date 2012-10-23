@@ -46,7 +46,7 @@ class MYPDF extends TCPDF {
         $this->SetLineWidth(0.3);
         $this->SetFont('', 'B');
         // Header
-        $w = array(20, 70, 15, 20, 40);
+        $w = array(20, 70, 15, 25, 40);
         $num_headers = count($header);
         for($i = 0; $i < $num_headers; ++$i) {
             $this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', 1);
@@ -64,7 +64,7 @@ class MYPDF extends TCPDF {
             $this->MultiCell($w[1], 12, $proys['Contrato']['nombrecontrato'], 0, 'L', $fill, 0, '', '', true, 0, false, true, 12,'M',true);
             $this->Cell($w[2], 12, $proys['Contrato']['plazoejecucion'], 'LR', 0, 'C', $fill);
             //$this->Cell($w[3], 12, '$ '.number_format($proys['Contrato']['montooriginal'],2), 'LR', 0, 'L', $fill);
-			$this->MultiCell($w[3], 12, '$'.number_format($proys['Contrato']['montooriginal'],2), 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 6,'M',true);
+			$this->MultiCell($w[3], 12, '$'.number_format($proys['Contrato']['montooriginal'],2), 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 12,'M',true);
 			//$this->Cell($w[4], 12, $proys['Empresa']['nombreempresa'], 'LR', 0, 'L', $fill);
             $this->MultiCell($w[4], 12, $proys['Empresa']['nombreempresa'], 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 12,'M',true);
             $this->Ln();

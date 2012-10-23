@@ -84,11 +84,15 @@ class User extends AppModel {
 
 	public function matchPass($check) {
 		//Debugger::dump($this->data);
-		$resultado = $this->find('count',array('conditions' => array(
-			'User.id' => $this->data['User']['id'],
-			'User.password' => AuthComponent::password($this->data['User']['oldpass']))));
-		//Debugger::dump($resultado);
-		return $resultado;
+		if(isset($this->data['User']['oldpass'])) {
+			$resultado = $this->find('count',array('conditions' => array(
+				'User.id' => $this->data['User']['id'],
+				'User.password' => AuthComponent::password($this->data['User']['oldpass']))));
+			//Debugger::dump($resultado);
+			return $resultado;
+		} else {
+			return true;
+		}
 	}
 
 }
