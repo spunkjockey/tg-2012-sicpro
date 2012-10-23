@@ -1,7 +1,7 @@
 <?php class ProyectosController extends AppController {
     public $name = 'Proyectos';
     public $components = array('Session','RequestHandler');
-	public $uses = array('Proyecto','Division','Contrato','Financia');
+	public $uses = array('Proyecto','Division','Contrato','Financia','Contratoconstructor');
 	public $helpers = array('Html', 'Form', 'Session','Ajax');
 
 
@@ -314,7 +314,6 @@
 			$this->set('proyecto', Hash::extract($proys, "{n}.Proyecto"));
 			// Operaciones que deseamos realizar y variables que pasaremos a la vista.
 			*/
-			
 			$this->render();
 	}
 	
@@ -327,8 +326,61 @@
 										'order'=> array('Proyecto.numeroproyecto ASC')));
 			$this->set('proys', Hash::extract($proys, "{n}.Proyecto"));
 			$this->set('_serialize', 'proys');
-			$this->render('/json/jsonproys');
-			
+			$this->render('/json/jsonproys');			
+		}
+
+
+	public function proyecto_consultaestados(){
+		$this->layout = 'cyanspark';
+		if($this->request->is('post')) {
+			$this->set('division', $this->request->data['Division']['divisiones']);
+			$this->redirect(array('action' => 'proyecto_reporteestados'));
+		}		
+	}
+	
+	public function proyecto_reporteestados($division=null){
+		$this->layout = 'cyanspark';
+		$this->set('division', $division);
+		
+	} 
+	
+	
+	public function update_consultaestados(){
+		if (!empty($this->data['Division']['divisiones']))
+		   		{
+                     //$contrato_id = $this->data['Estado']['contratos']['idcontrato'];
+					$iddivision = $this->data['Division']['divisiones'];	
+					$fechaini = $this->data['Division']['start'];	
+					$fechafin = $this->data['Division']['end'];				
+		            $proyectos= $this->Financia->find('all', array(
+			                'fields'=>array(
+			                'Proyecto.idproyecto','Proyecto.numeroproyecto','Proyecto.nombreproyecto','Proyecto.montoplaneado','Proyecto.iddivision',
+			                'Proyecto.estadoproyecto','Fuentefinanciamiento.nombrefuente','Financia.montoparcial'),
+			                'conditions'=>array('Proyecto.iddivision'=>$iddivision)));
+							
+					$this->set('proyectos',$proyectos);
+					
+					$this->set('idproyectos', Hash::extract($proyectos,'{n}.Proyecto.idproyecto'));
+					
+					$contratos= $this->Contratoconstructor->find('all', array(
+			                'conditions'=>array('Proyecto.iddivision'=>$iddivision,
+							'Contratoconstructor.idproyecto' => Hash::extract($proyectos,'{n}.Proyecto.idproyecto'))));
+					$this->set('contratos',Hash::extract($contratos, '{n}.Contratoconstructor'));
+					
+		        }
+		$this->render('/Elements/update_consultaestados', 'ajax');
+	} 
+	
+		
+	public function divisionesjson() 
+		{
+			$divs = $this->Division->find('all', array(
+										'fields'=> array('Division.iddivision','Division.divison'),
+										'order'=> array('Division.iddivision ASC')));
+			//$this->set('divisiones',$divs);							
+			$this->set('divisiones', Hash::extract($divs, "{n}.Division"));
+			$this->set('_serialize', 'divisiones');
+			$this->render('/json/jsondivision');			
 		}
 	
 }

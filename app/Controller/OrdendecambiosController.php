@@ -101,6 +101,7 @@ class OrdendecambiosController extends AppController {
 		$contratos = $this->Contratoconstructor->find('all',array(
 			'fields' => array('Contratoconstructor.idproyecto','Contratoconstructor.idcontrato', 'Contratoconstructor.codigocontrato'),
 			'conditions' => array(
+			//'Contratoconstructor.idpersona' => $this->Session->read('User.idpersona'),
 			'OR' => array('Contratoconstructor.estadocontrato'=> array('en marcha','en pausa','a tiempo','atrasado'))),
 			'order' => array('Contratoconstructor.codigocontrato')
 		));

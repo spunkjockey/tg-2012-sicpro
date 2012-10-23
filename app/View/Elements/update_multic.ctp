@@ -36,8 +36,8 @@
 			  		</td>
 			  		<td>
 			  			<!--<?php echo $this->Form->end(array('label' => '>', 'class' => 'k-button', 'id' => 'button')); ?>-->
-			  			<input type="submit" name="boton_1" id="boton_1" value=">" class="k-button" onclick="validardisponibles();" />
-			  			<input type="submit" name="boton_2" id="boton_2" value="<" class="k-button" onclick= "validarseleccionados();" />
+			  			<p><input type="submit" name="boton_1" id="boton_1" value=" > " title="Asignar" class="k-button" onclick="validardisponibles();" /></p>
+			  			<p><input type="submit" name="boton_2" id="boton_2" value=" < " title="Desasignar" class="k-button" onclick= "validarseleccionados();" /></p>
 			  		</td>
 					<td>
 					  <select id="seleccionados" name="seleccionados" size="4">
