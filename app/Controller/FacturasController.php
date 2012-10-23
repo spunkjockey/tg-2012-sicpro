@@ -106,7 +106,7 @@ class FacturasController extends AppController {
 		{
 			$facturas = $this->Facturaxcontrato->find('all',array(
 					//'fields' => array('DISTINCT Facturaxcontrato.idproyecto', 'Facturaxcontrato.numeroproyecto'),
-					'order' => array('Facturaxcontrato.numeroproyecto'),
+					'order' => array('Facturaxcontrato.numeroproyecto','Facturaxcontrato.numerofactura'),
 					'conditions' => array(
 						'Facturaxcontrato.numeroproyecto' => $this->request->data['proyectos'],
 						'Facturaxcontrato.idpersona' => $this->Session->read('User.idpersona'))

@@ -55,6 +55,21 @@ ul.sb_menu li a:hover, ul.ex_menu li a:hover { color:#3a90ca; font-weight:bold;}
 ul.sb_menu li a:hover { text-decoration:underline;}
 ul.ex_menu li a:hover { text-decoration:none;}
 
+            div.twit-reader 
+    {
+    	/*width: 340px;*/
+    	width: 270px;
+    	margin: 0 auto !Important; 
+    	padding: 0;
+    	border: 0;
+    	border: 1px solid rgba(0,0,0,0.1);
+    	height: 400px !Important;
+    	
+    	overflow: auto !Important;
+        -webkit-transform: translatez(0);
+    }
+
+
 /* subpages */
 .content .mainbar .comment { margin:0; padding:16px 0 0 0;}
 .content .mainbar .comment img.userpic { border:1px solid #dedede; margin:10px 16px 0 0; padding:0; float:left;}

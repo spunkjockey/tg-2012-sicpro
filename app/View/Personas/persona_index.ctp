@@ -72,20 +72,20 @@ $this->end(); ?>
       		<?php echo $this->Html->link(
             	'<span class="k-icon k-i-plus"></span>',
             	array('action' => 'persona_agregar_usuario', $person['Persona']['idpersona']),
-            	array('class'=>'k-button', 'escape' => false)
+            	array('class'=>'k-button', 'escape' => false,'title' => 'Agregar Nuevo Usuario')
 			);?>
       		
       		<?php echo $this->Html->link(
             	'<span class="k-icon k-i-pencil"></span>', 
             	array('action' => 'persona_modificar', $person['Persona']['idpersona']),
-            	array('class'=>'k-button', 'escape' => false)
+            	array('class'=>'k-button', 'escape' => false,'title' => 'Editar Persona')
 			);?>
 			
-            <?php echo $this->Form->postLink(
+            <!--<?php echo $this->Form->postLink(
                 '<span class="k-icon k-i-close"></span>',
                 array('action' => 'persona_eliminar', $person['Persona']['idpersona']),
-                array('confirm' => '¿Está seguro?','class'=>'k-button', 'escape' => false)
-            )?>
+                array('confirm' => '¿Está seguro?','class'=>'k-button', 'escape' => false,'title' => 'Eliminar Persona')
+            )?>-->
             
        </td> 
     </tr>

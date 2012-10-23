@@ -26,6 +26,11 @@ class User extends AppModel {
             'required' => array(
                 'rule' => array('notEmpty'),
                 'message' => 'La Contraseña es obligatoria'
+            ),
+			'matchPass' => array(
+                'rule' => array('matchPass'),
+                'message' => 'La contraseña es invalida',
+                'on' => 'update'
             )
         ),
         'nombrespersona'=>array(
@@ -64,6 +69,11 @@ class User extends AppModel {
 		
     );
 	
+	public $virtualFields = array(
+		'nombrecomun' => "initcap(split_part(nombre, ' ', 1) || ' ' || split_part(apellidos, ' ', 1))"
+		
+	);
+	
 	
 	public function beforeSave($options = array()) {
 	    if (isset($this->data[$this->alias]['password'])) {
@@ -72,5 +82,17 @@ class User extends AppModel {
 	    return true;
 	}
 
+	public function matchPass($check) {
+		//Debugger::dump($this->data);
+		if(isset($this->data['User']['oldpass'])) {
+			$resultado = $this->find('count',array('conditions' => array(
+				'User.id' => $this->data['User']['id'],
+				'User.password' => AuthComponent::password($this->data['User']['oldpass']))));
+			//Debugger::dump($resultado);
+			return $resultado;
+		} else {
+			return true;
+		}
+	}
 
 }

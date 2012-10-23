@@ -13,6 +13,7 @@
 			$this->set('informes',$this->Informesupervisor->find('all',array(
 
 						'fields'=>array('Informesupervisor.idinformesupervision','Informesupervisor.tituloinformesup',
+										'Informesupervisor.porcentajeavancefisico','Informesupervisor.valoravancefinanciero',
 										'Informesupervisor.fechafinsupervision'),
 						'conditions'=>array('Contratosupervisor.idpersona'=>$idpersona),
 						'order'=>array()

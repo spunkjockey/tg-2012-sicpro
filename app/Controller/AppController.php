@@ -33,7 +33,7 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 	//...
-
+	public $uses = array('Notificacion');
     public $components = array(
         'Session',
         'Auth' => array(
@@ -52,4 +52,11 @@ class AppController extends Controller {
 	  */
     //...
 	
+	
+	 public function beforeFilter() {
+     
+        $this->set('notificaciones',$this->Notificacion->find('all',array(
+			'conditions' => array("Notificacion.creacion >= now() - interval '1 day'"),
+			'order' => array('Notificacion.creacion DESC'))));
+    }
 }

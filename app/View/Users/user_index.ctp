@@ -47,6 +47,7 @@ $this->end(); ?>
 		</div>
 	</div>
 <?php $this->end(); ?>
+<h2>Usuarios</h2>
 <div style='margin:4px 0' >
 	<?php echo $this->Html->link(
 		'Registrar usuario', 
@@ -54,14 +55,12 @@ $this->end(); ?>
 		array('class'=>'k-button')
 	); ?>
 </div> 
-<h2>Usuarios</h2>
-
 <table id="grid">
     <tr>
-        <th data-field="nombre">Nombre</th>
+        <th data-field="nombre" width="250px">Nombre</th>
         <th data-field="username">Usuario</th>
         <th data-field="rol">Rol</th>
-        <th data-field="accion" width="225px">Acción</th>
+        <th data-field="accion" width="120px">Acción</th>
     </tr>
 
     <?php foreach ($usuarios as $usu): ?>
@@ -71,22 +70,44 @@ $this->end(); ?>
         <td><?php echo $usu['Rol']['rol']; ?></td>
       <td align="center">
             <?php echo $this->Html->link(
-            	'Editar', 
+            	'<span class="k-icon k-i-pencil"></span>',
             	array('action' => 'edit', $usu['User']['id']),
-            	array('class'=>'k-button')
+            	array('class'=>'k-button', 'escape' => false,'title' => 'Cambiar contraseña')
 			);?>
-			
-            <?php echo $this->Form->postLink(
-                'Eliminar',
-                array('action' => 'persona_eliminar', $usu['User']['id']),
-                array('confirm' => '¿Está seguro?','class'=>'k-button')
+
+             <?php echo $this->Form->postLink(
+                '<span class="k-icon k-i-custom"></span>',
+                array('action' => 'cambiarestado', $usu['User']['id']),
+                array('confirm' => '¿Está seguro que desea cambiar el Estado del Usuario seleccionado?','class'=>'k-button', 'escape' => false,'title' => 'Habilitar/Deshabilitar')
             )?>
             
+		<?php if($usu['User']['id']!=$this->Session->read('User.id')) { ?>
+            <?php echo $this->Form->postLink(
+                '<span class="k-icon k-i-close"></span>',
+                array('action' => 'delete', $usu['User']['id']),
+                array('confirm' => '¿Está seguro que desea eliminar el Usuario seleccionado?','class'=>'k-button', 'escape' => false,'title' => 'Eliminar Usuario')
+            );
+           }?>
+            
+
        </td> 
     </tr>
     <?php endforeach; ?>
     <?php unset($personas); ?>
 </table>
+
+<style scoped>
+        #grid .k-button
+        {
+            vertical-align: middle;
+            width: 28px;
+            margin: 0 5px;
+            padding: .1em .4em .3em;
+            display: inline;
+            
+        }
+    </style>
+
 
 <script>
 	$(document).ready(function() {
@@ -97,11 +118,11 @@ $this->end(); ?>
             	pageable: true,
             	pageable: {
             		messages: {
-            			display: "{0} - {1} de {2} Personas",
-            			empty: "No hay personas a mostrar",
+            			display: "{0} - {1} de {2} Usuarios",
+            			empty: "No hay usuarios a mostrar",
             			page: "Página",
             			of: "de {0}",
-            			itempsPerPage: "Personas por página",
+            			itempsPerPage: "Usuarios por página",
             			first: "Ir a la primera página",
             			previous: "Ir a la página anterior",
             			next: "Ir a la siguiente página",

@@ -59,51 +59,75 @@ $this->end(); ?>
 					<?php echo $this->Form->input('nombrespersona', 
 						array(
 							'label' => 'Nombres:', 
-							'class' => 'k-textbox', 
-							'placeholder' => 'Nombres de la persona', 
-							'required', 
-							'validationMessage' => 'Ingrese nombres de la persona')); ?>
+							'class' => 'k-textbox',
+							//'div' => array('class' => 'requerido'),
+							'readonly'=>'readonly' 
+							)); ?>
 				</li>
 				<li>
 					<?php echo $this->Form->input('apellidospersona', 
 						array(
 							'label' => 'Apellidos:', 
-							'class' => 'k-textbox', 
-							'placeholder' => 'Apellidos de la persona', 
-							'required', 
-							'validationMessage' => 'Ingrese apellidos de la persona')); ?>
+							'class' => 'k-textbox',
+							//'div' => array('class' => 'requerido'),
+							'readonly'=>'readonly' 
+							)); ?>
 				</li>
-				
+				<br />
 				<li>
 					<?php echo $this->Form->input('username', 
 						array(
 							'label' => 'Nombre de usuario:', 
 							'class' => 'k-textbox', 
-							'placeholder' => 'username', 
-							'required', 
-							'validationMessage' => 'Ingrese nombre de usuario')); ?>
+							'id' => 'username',
+							'placeholder' => 'username',
+							'div' => array('class' => 'requerido')
+						)); ?>
+					<script type="text/javascript">
+			            var username = new LiveValidation( "username", { validMessage: " " } );
+			            username.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			            username.add(Validate.Format, { pattern: /‎?^.*[ ].*$/, failureMessage: "No se permiten espacios en blanco", negate: true  } );
+		        	</script>
 				</li>
 				<li>
 					<?php echo $this->Form->input('rol', 
 						array(
 							'label' => 'Rol:',
 							'id' => 'rol',
-							'required',
-							'validationMessage' => 'Seleccione un rol')); ?>
+							'div' => array('id' => 'divrol','class' => 'requerido') 
+							
+							)); ?>
+					<script type="text/javascript">
+			            var rol = new LiveValidation( "rol", { validMessage: " ", insertAfterWhatNode: "divrol" } );
+			            rol.add(Validate.Presence, { failureMessage: "Seleccione un rol para continuar" } );
+			            
+		        	</script>
 				</li>
 				<li>
 					<?php echo $this->Form->input('password', 
 						array(
 							'label' => 'Contraseña:', 
-							'class' => 'k-textbox', 
-							'placeholder' => 'password', 
-							'required', 
-							'validationMessage' => 'Ingrese Contraseña')); ?>
+							'class' => 'k-textbox',
+							'id' => 'password', 
+							'placeholder' => 'password',
+							'div' => array('class' => 'requerido')
+							)); ?>
+					<script type="text/javascript">
+			            var password = new LiveValidation( "password", { validMessage: " " } );
+			            password.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			            password.add(Validate.Format, { pattern: /‎?^.{8,}$/, failureMessage: "Debe contener al menos 8 caracteres"  } );
+			            password.add(Validate.Format, { pattern: /‎?^.*\d.*$/, failureMessage: "Debe contener al menos un número"  } );
+			            password.add(Validate.Format, { pattern: /‎?^.*\W+.*$/, failureMessage: "Debe contener al menos un caracter especial"  } );
+			            password.add(Validate.Format, { pattern: /‎?^.*[A-Z].*$/, failureMessage: "Debe contener al menos una letra mayúscula"  } );
+			            password.add(Validate.Format, { pattern: /‎?^.*[a-z].*$/, failureMessage: "Debe contener al menos una letra minúscula"  } );
+		        	</script>
 				</li>
 				<li>
 					<?php echo $this->Form->input('estado',
-						array('options' => array(0 => 'Deshabilitado', 1 => 'Habilitado'),
-							  'id' => 'selectedo')); ?>
+						array(
+							'options' => array(0 => 'Deshabilitado', 1 => 'Habilitado'),
+							'div' => array('class' => 'requerido'),
+							'id' => 'selectedo')); ?>
 				</li>
 				<?php echo $this->Form->input('idpersona')?>
 			<li  class="accept">
@@ -121,13 +145,13 @@ $this->end(); ?>
 
                 .k-textbox {
                     width: 300px;
-                    margin-left: 5px;
+                    
                     
                 }
 				
 				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 			
-                form .required label:after {
+                form .requerido label:after {
 					font-size: 1.4em;
 					color: #e32;
 					content: '*';
@@ -161,16 +185,12 @@ $this->end(); ?>
                     display: inline-block;
                     width: 150px;
                     text-align: right;
-                    
-                }
-
-                .required {
-                    font-weight: bold;
+                    margin-right: 5px;
                 }
 
                 .accept, .status {
                 	padding-top: 15px;
-                    padding-left: 150px;
+                    padding-left: 155px;
                 }
 
                 .valid {
@@ -183,6 +203,25 @@ $this->end(); ?>
                 span.k-tooltip {
                     margin-left: 6px;
                 }
+                
+                
+            .LV_validation_message{
+			    /*font-weight:bold;*/
+			    margin:0 0 0 5px;
+			}
+			
+			.LV_valid {
+			    color:#00CC00;
+			    margin-left: 10px;
+			    display: none;
+			}
+				
+			.LV_invalid {
+			    color:#CC0000;
+           		display:block;
+           		margin-left: 155px;
+			}
+			
             </style>
 			
 			<script>
@@ -199,7 +238,7 @@ $this->end(); ?>
                     });
                
 				$("#rol").kendoDropDownList({
-            			optionLabel: "Seleccione rol...",
+            			optionLabel: "Seleccione rol",
 			            dataTextField: "rol",
 			            dataValueField: "idrol",
 			            dataSource: {

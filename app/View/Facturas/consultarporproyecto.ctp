@@ -44,7 +44,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO » Facturas » Consultar facturas por proyecto
+			?> » Bienvenido a SICPRO » Facturas » Consulta de facturas por proyecto
 			
 		</div>
 	</div>
@@ -57,7 +57,7 @@ $this->end(); ?>
 		
 		<?php //echo $this->Form->create('Factura'); ?>
 		
-		<?= $this->ajax->form(array('type' => 'post',
+		<?php echo $this->ajax->form(array('type' => 'post',
 		    'options' => array(
 		        'model'=>'Factura',
 		        'update'=>'facturaxproy',
@@ -74,7 +74,7 @@ $this->end(); ?>
             		<!--<td><input id="proyectos" /></td>-->
             		<td><?php echo $this->form->input('proyectos',array('id'=>'proyectos','label'=>false,'div'=>false,'maxlength'=>4,'autofocus'=>'autofocus'));?></td>
             
-             		<td><?php echo $this->Form->end('Buscar'); ?></td>
+             		<td><?php echo $this->Form->end(array('label' => 'Buscar', 'class' => 'k-button', 'id' => 'button')); ?></td>
              		<!--<td><a class="k-button"><span class="k-icon k-i-search"></span></a></td>-->
              	</tr>
              

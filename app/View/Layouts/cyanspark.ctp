@@ -29,7 +29,9 @@
 		//echo $this -> Html -> script('jquery-tooltip/lib/jquery.dimensions');
 		//echo $this -> Html -> script('jquery-tooltip/lib/jquery.bgiframe');
 		//echo $this -> Html -> script('jquery-tooltip/lib/jquery.delegate');
-
+		//para ver scrollbar
+		//echo $this -> Html -> script('jquery.validate.min');
+		
 		
 
 		
@@ -143,6 +145,25 @@
 						</div> -->
 						<div class="gadget">
 							<h2 class="star"><span>Notificaciones</span></h2>
+							<div class="twit-reader">
+							    <div id="listView">	
+									
+									<?php echo $this->element('notificaciones', array("notificaciones" => $notificaciones)); ?>
+							    	
+							    </div>
+							</div>
+							
+							
+							<?php
+								echo $this->ajax->remoteTimer(
+								array(
+									'url' => array( 'controller' => 'departamentos', 'action' => 'notificaciones'),
+									'update' => 'listView', 'position' => 'prepend', 'frequency' => 20
+									)
+								);
+							?> 
+							
+							<!--
 							<ul class="ex_menu">
 								<li>
 									<a href="#">Cambio de Estado Proyecto 0610</a>
@@ -165,6 +186,7 @@
 									Informe Tecnico de Pedro Lainez ha sido registrado del contrato 006/2011
 								</li>
 							</ul>
+							-->
 						</div>
 					</div>
 					<div class="clr"></div>
@@ -218,10 +240,15 @@
 			</div>
 		</div>
 	</body>
+	
 	<!-- Scripts -->
 	<script>
 		
 			$("#menu").kendoMenu();
+			
+			$(document).ready(function() {
+  						$("#flashMessage").fadeOut(5000);
+  	});
 		
 	</script>
 
