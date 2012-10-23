@@ -53,7 +53,16 @@ $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Beneficiarios y empleos generados</h2>
-		<?php echo $this->Form->create('Fichatecnica',array('action' => 'fichatecnica_rep_empbene')); ?>
+		
+		
+		<?php echo $this->ajax->form(array(
+				'type' => 'post',
+			    'options' => array(
+					        'model'=>'Fichatecnica',
+					        'update'=>'resultadosbusqueda',
+					        'url' => array('action' => 'update_rep_empbene')
+							))); ?>	
+		
 		<ul>
 			<li>
 				<?php echo $this->Form->input('divisiones', 
@@ -110,8 +119,14 @@ $this->end(); ?>
 						</td>
 					</tr>
 				</table>
-			</li>	
+			</li>
 		</ul>
+			<div id=resultadosbusqueda>
+			
+			</div>
+					
+		
+		
 	</div>
 </div>
 

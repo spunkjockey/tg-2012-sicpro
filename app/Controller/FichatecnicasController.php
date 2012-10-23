@@ -100,18 +100,48 @@ class FichatecnicasController extends AppController {
 	function fichatecnica_rep_empbene() 
 	{
 		$this->layout = 'cyanspark';
-		if($this->request->is('post')) 
-		{
-			$this->redirect(array('action' => 'empresa_rephistorial_result',
-												$this->request->data['Fichatecnica']['empresas'],
-												$this->request->data['Fichatecnica']['fechainicio'],
-												$this->request->data['Fichatecnica']['fechafin']));
-		}
+		
 	}
 	
-	function fichatecnica_rep_empbene_resul($iddiv=null, $fechaini=null, $fechafin=null)
+	function update_rep_empbene()
 	{
+		if(isset($this->request->data['Fichatecnica']['divisiones']) && !empty($this->request->data['Fichatecnica']['divisiones']))
+		{
+			$iddiv = $this->request->data['Fichatecnica']['divisiones'];
+			$fechai= $this->request->data['Fichatecnica']['fechainicio'];
+			$fechaf= $this->request->data['Fichatecnica']['fechafin'];
+			$this->set('nomdiv',$this->Division->field('Division.divison',array('iddivision'=>$iddiv)));
+			$this->set('inicio',$this->request->data['Fichatecnica']['fechainicio']);
+			$this->set('fin',$this->request->data['Fichatecnica']['fechafin']);
+			$this->set('proys',$this->Proyembe->find('all',array(
+				'fields'=>array('Proyembe.nombreproyecto','Proyembe.numeroproyecto',
+								'Proyembe.empleosgenerados','Proyembe.beneficiarios',
+								'Proyembe.iddivision'),
+				'conditions'=>array("AND"=>array('Proyembe.iddivision'=>$iddiv,
+												 'Proyembe.fechainicio >'=>$fechai,
+												 'Proyembe.fechafin <'=>$fechaf)))));
+		}
+		$this->render('/Elements/update_rep_empbene', 'ajax');
 		
+	}
+	
+	function fichatecnica_rep_empbene_pdf($iddiv=null, $inicio=null, $fin=null)
+	{
+		Configure::write('debug',0);
+		$this->layout = 'pdf'; //esto utilizara el layout 'pdf.ctp'
+		$fechai = substr($inicio,0,2).'/'.substr($inicio,2,2).'/'.substr($inicio,4,4);
+		$fechaf = substr($fin,0,2).'/'.substr($fin,2,2).'/'.substr($fin,4,4);
+		$this->set('proys',$this->Proyembe->find('all',array(
+							'fields'=>array('Proyembe.nombreproyecto','Proyembe.numeroproyecto',
+											'Proyembe.empleosgenerados','Proyembe.beneficiarios',
+											'Proyembe.iddivision'),
+							'conditions'=>array("AND"=>array('Proyembe.iddivision'=>$iddiv,
+															 'Proyembe.fechainicio >'=>$fechai,
+															 'Proyembe.fechafin <'=>$fechaf)))));
+		$this->set('nomdiv',$this->Division->field('Division.divison',array('iddivision'=>$iddiv)));
+		$this->set('inicio',$fechai);
+		$this->set('fin',$fechaf);
+		$this->render();
 	}
 	
 	public function divisionjson() 

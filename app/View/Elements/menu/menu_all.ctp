@@ -81,7 +81,7 @@
 									<li disabled="disabled">Estado de proyecto y contratos</li>
 									<li><?php echo $this->Html->link('Contratos asociados a proyectos ', array('controller' => 'Proyectos','action'=>'proyecto_reportecontratos')); ?></li>
 									<li disabled="disabled">Lugares en los que se han desarrollado proyectos</li>
-									<li disabled="disabled">Beneficiarios y empleos generados</li>
+									<li><?php echo $this->Html->link('Beneficiarios y empleos generados ', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_rep_empbene')); ?></li>
 									<li disabled="disabled">Personal asignado por contrato</li>
 								</ul>
 							</li>
