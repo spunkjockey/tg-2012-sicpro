@@ -1,7 +1,8 @@
 <?php
 class EmpresasController extends AppController {
     public $helpers = array('Html', 'Form', 'Session','Ajax','Javascript','Js');
-    public $components = array('Session');
+    public $components = array('Session','RequestHandler');
+	public $uses = array('Empresa','Empresaconsuper');
 
     public function index() {
     	$this->layout = 'cyanspark';
@@ -69,5 +70,57 @@ class EmpresasController extends AppController {
 	        $this->Session->setFlash('La Empresa '. $empresa['Empresa']['nombreempresa'] .' ha sido eliminada.','default',array('class' => 'success'));
 	        $this->redirect(array('action' => 'index'));
 	    }
+	}
+	
+	function empresa_rephistorial()
+	{
+		$this->layout = 'cyanspark';
+		if($this->request->is('post')) 
+		{
+			$this->redirect(array('action' => 'empresa_rephistorial_result',$this->request->data['Empresa']['empresas']));
+		}
+	}
+	
+	function empresa_rephistorial_result($idempresa = null)
+	{
+		$this->layout = 'cyanspark';
+		$this->set('datos',$this->Empresaconsuper->find('all',array(
+			'fields'=>array('Empresaconsuper.codigosuper','Empresaconsuper.montooriginal','Empresaconsuper.plazoejecucion',
+							'Empresaconsuper.ordeninicio','Empresaconsuper.nomcompleto','Empresaconsuper.constructora',
+							'Empresaconsuper.empresasup'),
+			'conditions'=>array('Empresaconsuper.empresasup'=>$idempresa)
+			)));
+		$this->set('nombre',$this->Empresa->field('nombreempresa',array('idempresa'=>$idempresa)));
+		if($this->request->is('post')) 
+		{
+			$this->redirect(array('action' => 'empresa_rephistorial_result_pdf',
+								$this->request->data['Empresa']['empresasup']));
+		}
+	}
+	
+	function empresa_rephistorial_result_pdf($idempresa = null)
+	{
+		Configure::write('debug',0);
+		$this->layout = 'pdf'; //esto utilizara el layout 'pdf.ctp'
+		
+		$this->set('datos',$this->Empresaconsuper->find('all',array(
+			'fields'=>array('Empresaconsuper.codigosuper','Empresaconsuper.montooriginal','Empresaconsuper.plazoejecucion',
+							'Empresaconsuper.ordeninicio','Empresaconsuper.nomcompleto','Empresaconsuper.constructora',
+							'Empresaconsuper.empresasup'),
+			'conditions'=>array('Empresaconsuper.empresasup'=>$idempresa)
+			)));
+		$this->set('nombre',$this->Empresa->field('nombreempresa',array('idempresa'=>$idempresa)));
+		
+		$this->render();
+	}
+
+	function empresarepjson()
+	{
+		$empresas = $this->Empresa->find('all',array(
+							'fields' => array('Empresa.idempresa', 'Empresa.nombreempresa'),
+							'conditions'=>array('Empresa.idempresa IN (SELECT idempresa FROM sicpro2012.contratosupervisor)')));
+		$this->set('empresas', Hash::extract($empresas, "{n}.Empresa"));
+		$this->set('_serialize', 'empresas');
+		$this->render('/json/jsonempresa');	
 	}
 }

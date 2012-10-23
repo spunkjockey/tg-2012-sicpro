@@ -1,3 +1,4 @@
+<!-- File: /app/View/Empresas/empresa_rephistorial.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -42,100 +43,57 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Reporte general de proyecto
+			?> » Reportes » Historial de empresa
 			
 		</div>
 	</div>
+	
 <?php $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<?php echo $this->Form->create('Proyecto',array('action' => 'proyecto_resultados_repgen')); ?>
-
-		
-			<h3><?php echo $dataproy[0]['Proyecto']['nombreproyecto'];?></h3>
-			<p>
-				Número de proyecto: <?php echo $dataproy[0]['Proyecto']['numeroproyecto'];?><br>
-				Estado actual: <?php echo $dataproy[0]['Proyecto']['estadoproyecto'];?><br>
-				División responsable; <?php echo $dataproy[0]['Division']['divison'];?>
-			</p>
-		
-		
-		<h3>Financiamientos</h3>
-			<table>
-				<tr>
-					<td width="200px">Fondo</td>
-					<td width="200px">Monto destinado</td>
-				</tr>
-				<?php $totalfuente = 0;?>
-				<?php foreach ($fuentes as $ff): ?>
-				<tr>
-					<td>
-						<?php echo $ff['Fuentefinanciamiento']['nombrefuente'];?>
-					</td>
-					<td>
-						<?php echo "$".number_format($ff['Financia']['montoparcial'],2);?>
-						<?php $totalfuente = $totalfuente + $ff['Financia']['montoparcial'];?>
-					</td>
-				</tr>
-				<?php endforeach; ?>
-				<?php unset($fuentes); ?>	
-			</table>
-		<br>
-		Fondo total destinado: <?php echo "$".number_format($totalfuente,2); ?>
-		<h3>Contratos</h3>
-			<table>
-				<tr>
-					<td>Código</td>
-					<td>Tipo</td>
-					<td>Monto original</td>
-					<td>Plazo de ejecución</td>
-					<td>Orden de inicio</td>
-					<td>Administrador</td>
-				</tr>
-				<?php foreach ($contratos as $con): ?>
-					<tr>
-						<td><?php echo $con['Contrato']['codigocontrato'];?></td>
-						<td><?php echo $con['Contrato']['tipocontrato'];?></td>
-						<td><?php echo "$".number_format($con['Contrato']['montooriginal'],2);?></td>
-						<td><?php echo $con['Contrato']['plazoejecucion'];?></td>
-						<td><?php 
-								if(isset($con['Contrato']['ordeninicio']))
-									echo date('d/m/Y',strtotime($con['Contrato']['ordeninicio']));
-								else
-									echo "No definida";
-								?></td>
-						<td><?php echo $con['Persona']['nombrespersona']." ".$con['Persona']['apellidospersona']?></td>
-					</tr>
-					<?php endforeach; ?>
-				<?php unset($contratos); ?>
-			</table>
+		<h2>Reporte historial de empresa</h2>
+		<?php echo $this->Form->create('Empresa',array('action' => 'empresa_rephistorial')); ?>
 		<ul>
-			<li  class="accept">
-			<table>
-				<tr>
-					<td>
-						<?php echo $this->Form->input('Proyecto.idproyecto', 
-							array('type' => 'hidden',
-								  'value'=> $dataproy[0]['Proyecto']['idproyecto'])); ?>
-						<?php echo $this->Form->end(array('label' => 'Generar PDF', 
-									'class' => 'k-button', 'id' => 'button')); ?>
-					</td>
-					<td>
-						<?php echo $this->Html->link('Regresar', 
-							array('controller' => 'Proyectos','action' => 'proyecto_reportegeneral'),
-							array('class'=>'k-button')); ?>
-					</td>
-				</tr>
-			</table>
+			<li>
+				<?php echo $this->Form->input('empresas', 
+					array(
+						'label' => 'Seleccione empresa:', 
+						'id' => 'empresas',
+						'class'=>'k-combobox',
+						'div' => array('class' => 'requerido'))); 
+				?>
+				<script type="text/javascript">
+					var empresas = new LiveValidation( "empresas", { validMessage: " " } );
+		            empresas.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script>
 			</li>
 			
+			<li  class="accept">
+				<table>
+					<tr>
+						<td>
+							<?php echo $this->Form->end(array('label' => 'Buscar', 
+									'class' => 'k-button', 'id' => 'button')); ?>
+						</td>
+						<td>	
+							<?php echo $this->Html->link('Regresar', 
+								array('controller' => 'Mains','action' => 'index'),
+								array('class'=>'k-button')); ?>
+						</td>
+					</tr>
+				</table>
+			</li>	
 		</ul>
 	</div>
 </div>
 
 <style scoped>
 
+                .k-combobox {
+                    width: 300px;
+                }
+                
                 form .requerido label:after {
 					font-size: 1.4em;
 					color: #e32;
@@ -189,9 +147,41 @@ $this->end(); ?>
                     margin-left: 6px;
                 }
                 
+                .LV_validation_message{
+				    font-weight:bold;
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+					clear:both;
+               		display:inline-block;
+               		margin-left: 170px; 
+               
+				}
+				    
+				.LV_valid_field,
+				input.LV_valid_field:hover, 
+				input.LV_valid_field:active,
+				textarea.LV_valid_field:hover, 
+				textarea.LV_valid_field:active {
+				    border: 1px solid #00CC00;
+				}
+				    
+				.LV_invalid_field, 
+				input.LV_invalid_field:hover, 
+				input.LV_invalid_field:active,
+				textarea.LV_invalid_field:hover, 
+				textarea.LV_invalid_field:active {
+				    border: 1px solid #CC0000;
+				}
             </style>
-            
-<script>
+			
+            <script>
                 $(document).ready(function() {
                     
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
@@ -202,6 +192,25 @@ $this->end(); ?>
                         	save();  
                         } 
                     });
+                    
+                    $("#empresas").kendoDropDownList({
+			            optionLabel: "Seleccione empresa",
+			            dataTextField: "nombreempresa",
+			            dataValueField: "idempresa",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Empresas/empresarepjson.json"
+			                            }
+			                        }
+			        });
+			        
+			        var proys = $("#empresas").data("kendoDropDownList");
+                    proys.list.width(300);
+                    
+                    
+                   
+                });
                 
                 
             </script>
