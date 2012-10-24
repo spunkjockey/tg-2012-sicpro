@@ -133,7 +133,7 @@ $this->end(); ?>
 								'id' => 'porcentajeavfisicoprog',
 								'class' => 'k-textbox',
 								'placeholder' => 'Ej. 50',
-								'maxlength' => 3,
+								'maxlength' => 5,
 								'type' => 'text',
 								'div' => array('class' => 'requerido')
 							)); ?>

@@ -55,7 +55,7 @@ class DepartamentosController extends AppController {
 	
 	function notificaciones() {
 		$this->set('notificaciones',$this->Notificacion->find('all',array(
-			'conditions' => array("Notificacion.creacion >= now() - interval '21 second'"),
+			'conditions' => array("Notificacion.creacion >= now() - interval '3601 second'"),
 			'order' => array('Notificacion.creacion DESC'))));	
 		//$this->set('helptext', 'Oh, this text is very helpful. ' . date("d-m-Y H:i:s"));
 		$this->render('/elements/notificaciones', 'ajax');

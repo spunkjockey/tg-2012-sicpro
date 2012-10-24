@@ -64,6 +64,9 @@
 	    return str_replace("-", "", $numberString);
 	}
 	
+		public $virtualFields = array(
+		'nombrecompleto' => "initcap(nombrespersona || ' ' || apellidospersona)"
+		
+	);
 	
 	}
-?>

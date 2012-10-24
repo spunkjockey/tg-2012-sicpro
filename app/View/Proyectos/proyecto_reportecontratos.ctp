@@ -54,7 +54,7 @@ $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Seleccione un proyecto:</h2>
-		<?php echo $this->Form->create('Proyecto'); ?>
+		<?php echo $this->Form->create('Proyecto', array('target' => '_blank')); ?>
 		<ul>
 			<!--<li>
 				<?php echo $this->Form->input('start',
@@ -107,7 +107,7 @@ $this->end(); ?>
 				<table id="botones">
 					<tr>
 						<td width="130">
-							<?php echo $this->Form->end(array('label' => 'Generar Informe', 'class' => 'k-button', 'id' => 'boton')); ?>
+							<?php echo $this->Form->end(array('label' => 'Generar PDF', 'class' => 'k-button', 'id' => 'boton')); ?>
 						</td >
 						<td width="100">
 							<?php echo $this->Html->link('Regresar',

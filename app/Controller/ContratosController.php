@@ -2,7 +2,7 @@
 class ContratosController extends AppController {
     public $helpers = array('Html', 'Form', 'Session','Ajax');
    public $components = array('Session','AjaxMultiUpload.Upload','RequestHandler');
-	public $uses = array('Contrato','Contratoconstructor','Contratosupervisor','Proyecto');
+	public $uses = array('Contrato','Contratoconstructor','Contratosupervisor','Proyecto','Avanceprogramado','Estimacion','Informesupervisor');
 
     public function index() {
     	$this->layout = 'cyanspark';
@@ -175,6 +175,66 @@ class ContratosController extends AppController {
 				));*/		
 				$this->render('/Elements/update_infoinicio', 'ajax');
 	}	
+		
+	public function avancecontrato() {
+		$this->layout = 'cyanspark';
+	} 
+
+	public function contratosjson() {
+		$contratos = $this->Contratoconstructor->find('all',array(
+			'fields' => array('Contratoconstructor.idcontrato', 'Contratoconstructor.codigocontrato','Contratoconstructor.nombrecontrato'),
+			'order' => array('Contratoconstructor.idcontrato')//,
+			//'conditions' => array('Facturaxcontrato.idpersona' => $this->Session->read('User.idpersona'))
+		));
+		
+		$this->set('contratos', Hash::extract($contratos, "{n}.Contratoconstructor"));
+		//$this->set('contratos', $contratos);
+		$this->set('_serialize', 'contratos');
+		$this->render('/json/jsoncontratotecproy');
+		
+	}
+	
+	public function update_avancecontrato() {
+		//Debugger::dump($this->request->data);
+		if(isset($this->request->data['contratos'])&&!empty($this->request->data['contratos']))
+		{
+			$contrato = $this->Contratoconstructor->findByNombrecontrato($this->request->data['contratos']);
+			//Debugger::dump($contrato);
+			
+			$avance = $this->Avanceprogramado->findAllByIdcontrato($contrato['Contratoconstructor']['idcontrato'],
+				array(),
+				array('Avanceprogramado.fechaavance' => 'ASC') 
+			);
+			//Debugger::dump($avance);
+			
+			$estimacion = $this->Estimacion->findAllByIdcontrato($contrato['Contratoconstructor']['idcontrato'],
+				array(),
+				array('Estimacion.fechafinestimacion' => 'ASC') 
+			);
+		
+			//Debugger::dump($estimacion);
+			
+			$scontrato = $this->Contratosupervisor->findByCon_idcontrato($contrato['Contratoconstructor']['idcontrato'],array('recursive'=>0 ));
+			//Debugger::dump($scontrato);
+			
+			$supervision = $this->Informesupervisor->findAllByIdcontrato($scontrato['Contratosupervisor']['idcontrato'],
+				array(),
+				array('Informesupervisor.fechafinsupervision' => 'ASC') 
+			);
+			
+			//Debugger::dump($supervision);
+			
+			$this->set('contrato',$contrato);
+			$this->set('avances',$avance);
+			$this->set('estimaciones',$estimacion);
+			$this->set('scontrato',$scontrato);
+			$this->set('supervisiones',$supervision); 
+		}
+		
+			
+		$this->render('/Elements/update_avancecontrato', 'ajax');
+	}
+	
 }
 
 

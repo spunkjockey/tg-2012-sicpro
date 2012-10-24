@@ -54,20 +54,22 @@ $this->end(); ?>
 		array('controller' => 'users', 'action' => 'add'),
 		array('class'=>'k-button')
 	); ?>
-</div> 
+</div>
 <table id="grid">
     <tr>
-        <th data-field="nombre" width="250px">Nombre</th>
         <th data-field="username">Usuario</th>
+        <th data-field="nombre">Nombre</th>
         <th data-field="rol">Rol</th>
-        <th data-field="accion" width="120px">Acción</th>
+        <th data-field="estado">Estado</th>
+        <th data-field="accion">Acción</th>
     </tr>
 
     <?php foreach ($usuarios as $usu): ?>
     <tr>
-        <td><?php echo $usu['User']['nombre'].' '.$usu['User']['apellidos']; ?></td>
         <td><?php echo $usu['User']['username']; ?></td>
+        <td><?php echo $usu['User']['nombre'].' '.$usu['User']['apellidos']; ?></td>
         <td><?php echo $usu['Rol']['rol']; ?></td>
+        <td><?php echo ($usu['User']['estado'])? 'Habilitado':'Deshabilitado';  ?></td>
       <td align="center">
             <?php echo $this->Html->link(
             	'<span class="k-icon k-i-pencil"></span>',
@@ -135,8 +137,33 @@ $this->end(); ?>
  			    	mode: "single", // enables multi-column sorting
         			allowUnsort: true
 				},
-				scrollable: false
-            	
+				scrollable: true,
+            	height: 360,
+            	columns: [{
+	                    field:"username",
+	                    width: 100,
+	                    filterable: true
+	                },
+	                {
+	                    field: "nombre",
+	                    width: 150,
+	                    filterable: true
+	                }, 
+	                {
+	                    field: "rol",
+	                    width: 100,
+	                    filterable: true
+	                },
+	                {
+	                    field: "estado",
+	                    width: 100,
+	                    filterable: true
+	                }, 
+	                {
+	                    field: "accion",
+	                    filterable: false
+	                }
+	            ]
             	
         	});
         });

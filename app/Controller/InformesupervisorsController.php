@@ -12,9 +12,9 @@
 			$idpersona = $this->User->field('idpersona',array('username'=>$this->Session->read('User.username')));
 			$this->set('informes',$this->Informesupervisor->find('all',array(
 
-						'fields'=>array('Informesupervisor.idinformesupervision','Informesupervisor.tituloinformesup',
+						/*'fields'=>array('Informesupervisor.idcontrato,Informesupervisor.idinformesupervision','Informesupervisor.tituloinformesup',
 										'Informesupervisor.porcentajeavancefisico','Informesupervisor.valoravancefinanciero',
-										'Informesupervisor.fechafinsupervision'),
+										'Informesupervisor.fechafinsupervision'),*/
 						'conditions'=>array('Contratosupervisor.idpersona'=>$idpersona),
 						'order'=>array()
 						)));
