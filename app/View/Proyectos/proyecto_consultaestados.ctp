@@ -53,8 +53,16 @@ $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Consultar Estados</h2>
-		
-				<?php echo $this->Form->create('Division'); ?>
+		<?php echo $this->ajax->form(array('type' => 'post',
+		    'options' => array(
+		        'model'=>'Proyecto',
+		        'update'=>'consultaestados',
+		        'url' => array(
+		        	'controller' => 'Proyectos',
+		            'action' => 'update_consultaestados'
+		        )
+		    )
+		)); ?>
 		<ul>
 			<li>
 				<?php echo $this->Form->input('start',
@@ -86,27 +94,22 @@ $this->end(); ?>
 				<?php echo $this->Form->input('divisiones',
 					array(
 						'label' => 'Division:', 
-						'div' => array('id' => 'proyo', 'class' => 'requerido'),
+						'div' => array('id' => 'divi', 'class' => 'requerido'),
 						'class' => 'k-dropdownlist',
-						'id' => 'divisiones'
-						
+						'id' => 'division'
 					)); ?>
-					<div id="errorproyecto" class="LV_validation_message LV_invalid"></div>
 				<script type="text/javascript">
-		            var proyectos = new LiveValidation( "proyectos", { validMessage: " ", insertAfterWhatNode: "proyo" } );
-		            proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            var division = new LiveValidation( "division", { validMessage: " ", insertAfterWhatNode: "divi" } );
+		            division.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script> 
 			</li>
-				<?php echo $this->ajax->observeField( 'divisiones', 
-		    		array(
-		        		'url' => array( 'action' => 'update_consultaestados'),
-		        		'update' => 'consulta_estados'
-		    		) 
-				);  ?>
 			<li  class="accept">
 				<table>
 				<tr><td>
-				<?php echo $this->Form->end(array('label' => 'Consultar', 'class' => 'k-button', 'id' => 'submit')); ?>
+				<?php //echo $this->Form->end(array('label' => 'Consultar', 'class' => 'k-button', 'id' => 'submit')); ?>
+				
+				<?php echo $this->Ajax->submit('Buscar', array('class' => 'k-button','url'=> array('controller'=>'Proyectos', 'action'=>'update_consultaestados'), 'update' => 'consultaestados')); ?>
+				<?php echo $this->Form->end();?> 
 				</td>
 				<td>
 				<?php echo $this->Html->link('Regresar',
@@ -119,11 +122,10 @@ $this->end(); ?>
             <li class="status">
             </li>
 		</ul>
+		<div id="consultaestados"></div>
 	</div>
 </div>
-<div id="consulta_estados">
-	
-</div>
+
 <style scoped>
 
                 .k-textbox {
@@ -235,22 +237,8 @@ $this->end(); ?>
 
 <script>
 	$(document).ready(function() {
-    
-    	$("form").submit(function() {
-			var proyecto = proyo.value();
-		    if (proyecto) {
-		        //alert("exito");
-		        $("#errorproyecto").hide();
-		        return true;
-		    } else {
-		    	//alert("fracaso");
-		    	//$("#errorproyecto").hide();
-		    	$("#errorproyecto").show().text("Seleccione un proyecto para continuar");
-		    	return false;
-		    }
-		});
     	
-    	var proyo =$("#divisiones").kendoDropDownList({
+    	var proyo =$("#division").kendoDropDownList({
 			optionLabel: "Seleccione Division",
             dataTextField: "divison",
             dataValueField: "iddivision",

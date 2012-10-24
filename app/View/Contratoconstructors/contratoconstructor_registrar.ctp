@@ -89,6 +89,8 @@ $this->end(); ?>
 		            codigo.add(Validate.Format, { pattern: /___-____/i, failureMessage: "No puedes dejar este campo en blanco", negate: true } );
 		            codigo.add(Validate.Format, { pattern: /\d\d\d-\d\d\d\d/i, failureMessage: "El código de contrato debe tener 7 números"} );
 		        </script> 
+		         <?php if ($this->Form->isFieldError('Contrato.codigocontrato')) {
+ 	 					echo $this->Form->error('Contrato.codigocontrato'); } ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('nombrecontrato', 
