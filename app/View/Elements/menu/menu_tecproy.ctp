@@ -45,7 +45,7 @@
 								<ul>
 									<li>General de proyecto</li>
 									<li>Consultar avances de contratos</li>
-									<li>Estado de proyecto y contratos</li>
+									<li><?php echo $this->Html->link('Estado de proyecto y contratos ', array('controller' => 'Proyectos','action'=>'update_consultaestados')); ?></li>
 								</ul>
 							</li>
 							<li>Mantenimiento

@@ -332,10 +332,6 @@
 
 	public function proyecto_consultaestados(){
 		$this->layout = 'cyanspark';
-		if($this->request->is('post')) {
-			$this->set('division', $this->request->data['Division']['divisiones']);
-			$this->redirect(array('action' => 'proyecto_reporteestados'));
-		}		
 	}
 	
 	public function proyecto_reporteestados($division=null){
@@ -344,14 +340,15 @@
 		
 	} 
 	
-	
+
 	public function update_consultaestados(){
-		if (!empty($this->data['Division']['divisiones']))
+		if (!empty($this->data['Proyecto']['divisiones']))
 		   		{
                      //$contrato_id = $this->data['Estado']['contratos']['idcontrato'];
-					$iddivision = $this->data['Division']['divisiones'];	
-					$fechaini = $this->data['Division']['start'];	
-					$fechafin = $this->data['Division']['end'];				
+                    //Debugger::dump($this->request->data);
+					$iddivision = $this->data['Proyecto']['divisiones'];	
+					//$fechaini = $this->data['Division']['start'];	
+					//$fechafin = $this->data['Division']['end'];				
 		            $proyectos= $this->Financia->find('all', array(
 			                'fields'=>array(
 			                'Proyecto.idproyecto','Proyecto.numeroproyecto','Proyecto.nombreproyecto','Proyecto.montoplaneado','Proyecto.iddivision',
@@ -370,13 +367,15 @@
 		        }
 		$this->render('/Elements/update_consultaestados', 'ajax');
 	} 
-	
 		
 	public function divisionesjson() 
 		{
 			$divs = $this->Division->find('all', array(
 										'fields'=> array('Division.iddivision','Division.divison'),
-										'order'=> array('Division.iddivision ASC')));
+										'order'=> array('Division.iddivision ASC'),
+										'conditions'=> array(
+										'Division.iddivision IN (SELECT iddivision from sicpro2012.proyecto)'
+										)));
 			//$this->set('divisiones',$divs);							
 			$this->set('divisiones', Hash::extract($divs, "{n}.Division"));
 			$this->set('_serialize', 'divisiones');
