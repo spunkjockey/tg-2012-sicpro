@@ -82,112 +82,143 @@ $pdf->setLanguageArray($l);
 $pdf->AddPage();
 
 $pdf->SetFont('helvetica', 'B', 14);
-$pdf->Cell(0, 10, 'Estado de Proyectos y Contratos', 0, false, 'C', 0, '', 0, false, 'T', 'M');
+$pdf->Cell(0, 10, 'Estado de Proyectos y Contratos para la Division '.$nombredivision['Division']['divison'], 0, false, 'C', 0, '', 0, false, 'T', 'M');
 $pdf->Ln(20);
 $fill = 0;
 
-/*
-$pdf->SetFont('helvetica', '', 11);
 
-$pdf->MultiCell(160, 12, $dataproy[0]['Proyecto']['nombreproyecto'], 
-				0, 'C', $fill, 0, '', '', true, 0, false, true, 12,'T',true);
-$pdf->Ln(15);
-$pdf->MultiCell(135, 12, 'Número de proyecto: '.$dataproy[0]['Proyecto']['numeroproyecto'], 
-				0, 'L', $fill, 0, '', '', true, 0, false, true, 12,'T',true);
-$pdf->Ln(5);
-$pdf->MultiCell(135, 12, 'Estado actual: '.$dataproy[0]['Proyecto']['estadoproyecto'], 
-				0, 'L', $fill, 0, '', '', true, 0, false, true, 12,'T',true);
-$pdf->Ln(5);
-$pdf->MultiCell(135, 12, 'División responsable: '.$dataproy[0]['Division']['divison'], 
-				0, 'L', $fill, 0, '', '', true, 0, false, true, 12,'T',true);
-$pdf->Ln(20);
-
-$pdf->SetFont('helvetica', '', 10);
-
-$pdf->Cell(0, 10, 'Fuentes asignadas', 0, false, 'C', 0, '', 0, false, 'T', 'M');
-$pdf->Ln(10);
-$header = array('Fuente financiamiento', 'Monto destinado');
-$pdf->Tablafuentes($header,$fuentes);
-$pdf->Ln(10);
-$pdf->Cell(0, 10, 'Contratos', 0, false, 'C', 0, '', 0, false, 'T', 'M');
-$pdf->Ln(10);
-$header = array('Código','Tipo','Monto','Plazo','Orden de inicio','Administrador');
-$pdf->Tablacontratos($header,$contratos);
-$pdf->Ln(20);
-*/
  $anterior = null; 
+ $ultimo = end($proyectos);
+	 
 foreach ($proyectos as $proy): 
  if($proy['Proyecto']['idproyecto']!=$anterior){
- 	
-		$pdf->Ln(20);
+ 		// Colors, line width and bold font
+        $pdf->SetFillColor(255, 255, 255);
+        $pdf->SetTextColor(0,0,0);
+        $pdf->SetDrawColor(0, 0, 0);
+        $pdf->SetLineWidth(0.3);
+        $pdf->SetFont('', 'B');
 		
+				
 		$pdf->SetFont('helvetica', '', 10);
+								
 		$pdf->Ln(5);
 		$pdf->MultiCell(135, 12, 'Proyecto: '.$proy['Proyecto']['numeroproyecto'], 
 				0, 'L', $fill, 0, '', '', true, 0, false, true, 12,'T',true); 	 
 	//Proyecto: $proy['Proyecto']['numeroproyecto'];
-		$pdf->Ln(25);
+		$pdf->Ln(5);
 		$pdf->MultiCell(135, 12, 'Nombre Proyecto: '.$proy['Proyecto']['nombreproyecto'], 
+				0, 'L', $fill, 0, '', '', true, 0, false, true, 12,'T',true);
+				
+		$pdf->Ln(5);
+		$pdf->MultiCell(135, 12, 'Estado Proyecto: '.$proy['Proyecto']['estadoproyecto'], 
 				0, 'L', $fill, 0, '', '', true, 0, false, true, 12,'T',true);
 				
 			//NombreProyecto:  $proy['Proyecto']['nombreproyecto'];
 			//Estado: $proy['Proyecto']['estadoproyecto'];
-			
-			
-		/*	<!--<h4>Fuentes Asignadas: </h4>
-				<div id="tablagrid">
-				<table id="grid">
-				    <thead>
-				    <tr>
-				        <th data-field="Nombrefuente" width="85%">Nombre fuente</th>
-				        <th data-field="Montofuente" width="20%">Monto</th>
-				    </tr>
-				    </thead>
-				    <tbody>
-				    <?php foreach ($proyectos as $fuentes): 
-						if($fuentes['Proyecto']['idproyecto']==$proy['Proyecto']['idproyecto']) {?>
-				   	<tr>
-				   		<td><?php echo $fuentes['Fuentefinanciamiento']['nombrefuente'];?></td>
-				   		<td><?php echo $fuentes['Financia']['montoparcial'];?></td>
-				   	</tr>
-				   	<?php } 
-					endforeach?>
-					</tbody>
-				</table>
-				</div>
-
-			<h4>Contratos: </h4>
-				<div id="tablagrid">
-				<table id="grid">
-				    <thead>
-				    <tr>
-				        <th data-field="Codigocontrato" width="15%">Codigo Contrato</th>
-				        <th data-field="Nombrecontrato" width="35%">Nombre Contrato</th>
-				        <th data-field="Estadocontrato">Estado Contrato</th>
-				        <th data-field="fechaini" width="15%">Fecha Inicio</th>
-				        <th data-field="fechafin" width="15%">Fecha Fin</th>
-				    </tr>
-				    </thead>
-				    <tbody>
-					<?php foreach ($contratos as $contra): 
-						if($contra['idproyecto']==$proy['Proyecto']['idproyecto']) {?>
-				   	<tr>
-				   		<td><?php echo $contra['codigocontrato'];?></td>
-				   		<td><?php echo $contra['nombrecontrato'];?></td>
-				   		<td><?php echo $contra['estadocontrato'];?></td>
-				   		<td><?php echo $contra['fechainiciocontrato'];?></td>
-				   		<td><?php echo $contra['fechafincontrato'];?></td>
-				   	</tr>
-				   	<?php } 
-					endforeach?>
-					</tbody>
-				</table>
-				</div>-->		*/						
 		
+		$pdf->Ln(10);
+		$pdf->MultiCell(135, 12, 'Fuentes Asignadas: ', 
+				0, 'L', $fill, 0, '', '', true, 0, false, true, 12,'T',true);
+		$pdf->Ln(10);
+						
+		// Colors, line width and bold font
+        $pdf->SetFillColor(230, 237, 245);
+        $pdf->SetTextColor(79,118,163);
+        $pdf->SetDrawColor(0, 0, 0);
+        $pdf->SetLineWidth(0.3);
+        $pdf->SetFont('', 'B');
+		
+		
+		$pdf->Cell(65, 7, 'Nombre Fuente', 1, 0, 'C', 1);
+		$pdf->Cell(35, 7, 'Monto', 1, 0, 'C', 1);
+		$pdf->ln();
+        // Color and font restoration
+        $pdf->SetFillColor(247, 249, 252);
+        $pdf->SetTextColor(0,5,85);
+        $pdf->SetFont('');
+        // Data
+        $fill = 0;
+		
+		foreach ($proyectos as $fuentes): 
+			{
+						if($fuentes['Proyecto']['idproyecto']==$proy['Proyecto']['idproyecto'])
+						 {
+							$pdf->MultiCell(65, 7, $fuentes['Fuentefinanciamiento']['nombrefuente'], 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 12,'M',true);
+							$pdf->MultiCell(35, 7, "$ ".$fuentes['Financia']['montoparcial'], 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 12,'M',true);
+							$pdf->ln();	
+				   	 	}
+        $fill=!$fill; 
+		}
+		endforeach;
+		$pdf->Cell(100, 0, '', 'T');
+		$pdf->Ln(5);	
+
+		$pdf->SetFillColor(255, 255, 255);
+        $pdf->SetTextColor(0,0,0);
+        $pdf->SetDrawColor(0, 0, 0);
+        $pdf->SetLineWidth(0.3);
+		
+		$pdf->Ln(10);
+		$pdf->MultiCell(135, 12, 'Contratos: ', 
+				0, 'L', $fill, 0, '', '', true, 0, false, true, 12,'T',true);
+		$pdf->Ln(10);
+						
+		// Colors, line width and bold font
+        $pdf->SetFillColor(230, 237, 245);
+        $pdf->SetTextColor(79,118,163);
+        $pdf->SetDrawColor(0, 0, 0);
+        $pdf->SetLineWidth(0.3);
+        $pdf->SetFont('', 'B');
+		
+		
+		$pdf->Cell(20, 7, 'Codigo', 1, 0, 'C', 1);
+		$pdf->Cell(70, 7, 'Nombre Contrato', 1, 0, 'C', 1);
+		$pdf->Cell(25, 7, 'Estado', 1, 0, 'C', 1);
+		$pdf->Cell(25, 7, 'Fecha Inicio', 1, 0, 'C', 1);
+		$pdf->Cell(25, 7, 'Fecha fin', 1, 0, 'C', 1);
+		$pdf->ln();
+        // Color and font restoration
+        $pdf->SetFillColor(247, 249, 252);
+        $pdf->SetTextColor(0,5,85);
+        $pdf->SetFont('');
+        // Data
+        $fill = 0;
+		
+		foreach ($contratos as $contra): 
+			{
+				if($contra['idproyecto']==$proy['Proyecto']['idproyecto']) {
+					$pdf->MultiCell(20, 12, $contra['codigocontrato'], 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 12,'M',true);
+					$pdf->MultiCell(70, 12, $contra['nombrecontrato'], 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 12,'M',true);
+					if (isset($contra['estadocontrato']))
+						$estado = $contra['estadocontrato'];
+					else 
+						$estado = "No Iniciado";
+					$pdf->MultiCell(25, 12, $estado, 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 12,'M',true);
+					$pdf->MultiCell(25, 12,  date('d/m/Y',strtotime($contra['fechainiciocontrato'])), 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 12,'M',true);
+					$pdf->MultiCell(25, 12,  date('d/m/Y',strtotime($contra['fechafincontrato'])), 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 12,'M',true);
+					$pdf->ln();	
+				}
+			$fill=!$fill; 
+			} 
+		endforeach;
+		$pdf->Cell(165, 0, '', 'T');
+		$pdf->Ln(5);
+					
+			// add a page
+			if($proy['Proyecto']['idproyecto']!=$ultimo['Proyecto']['idproyecto'])
+			{
+			 $pdf->AddPage();
+			 $pdf->SetFont('helvetica', 'B', 14);
+			 $pdf->SetTextColor(0,0,0);
+			 $pdf->Cell(0, 10, 'Estado de Proyectos y Contratos para la Division '.$nombredivision['Division']['divison'], 0, false, 'C', 0, '', 0, false, 'T', 'M');
+			 $pdf->Ln(20);
+			 $fill = 0;
+			}
 			$anterior= $proy['Proyecto']['idproyecto'];
 			}
 			endforeach; 
-$pdf->Output('example_001.pdf', 'I');
+$pdf->Output('EstadoProyectoContrato.pdf', 'I');
 exit;
 //============================================================+
 // END OF FILE
