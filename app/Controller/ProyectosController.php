@@ -343,6 +343,9 @@
 		$fechai = substr($inicio,0,2).'/'.substr($inicio,2,2).'/'.substr($inicio,4,4);
 		$fechaf = substr($fin,0,2).'/'.substr($fin,2,2).'/'.substr($fin,4,4);
 		
+		$arraydiv=$this->Division->find('first',array('conditions'=>array('Division.iddivision' => $iddiv)));
+		$this->set('nombredivision',$arraydiv);
+		
 		//Genear los datos para construir el PDF
 		$tmp = $this->Proyembe->find('all',array(
 					'conditions'=>array(

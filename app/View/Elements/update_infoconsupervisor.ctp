@@ -40,9 +40,9 @@
 			'label' => 'Contrato de construcción a supervisar:', 
 			'id' => 'construccion',
 			'value'=>$coidcon,
-			'div' => array('class' => 'requerido'))); ?>
+			'div' => array('id'=>'contraasu','class' => 'requerido'))); ?>
 	<script type="text/javascript">
-		var construccion= new LiveValidation( "construccion", { validMessage: " " } );
+		var construccion= new LiveValidation( "construccion", { validMessage: " " , insertAfterWhatNode: "contraasu" } );
 		construccion.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 	</script>
 </li>
@@ -91,11 +91,11 @@
 			'value' => $moncon,
 			'type' => 'text',
 			'placeholder' => 'Monto del contrato',
-			'div' => array('class' => 'requerido')
+			'div' => array('id'=>'montocont','class' => 'requerido')
 			)); 
 	?>
 	<script type="text/javascript">
-		var txmonto = new LiveValidation( "txmonto", { validMessage: " " } );
+		var txmonto = new LiveValidation( "txmonto", { validMessage: " " , insertAfterWhatNode: "montocont"} );
         txmonto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
     </script>
 </li>
@@ -106,10 +106,16 @@
 			'label' => 'Fecha inicio de vigencia:', 
 			'id'	=> 'datePicker1',
 			'value' => date('d/m/Y',strtotime($inicon)),
-			'div' => array('class' => 'requerido'),
+			'div' => array('id'=>'fchaini','class' => 'requerido'),
 			'type'  => 'Text'
 			));
 		?>
+		<script type="text/javascript">
+		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " , insertAfterWhatNode: "fchaini"} );
+		            datePicker1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
+		            datePicker1.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
+		</script> 
 </li>
 <li>
 	<?php echo $this->Form->input('Contratosupervisor.fechafincontrato', 
@@ -117,10 +123,16 @@
 			'label' => 'Fecha fin de vigencia:', 
 			'id'	=> 'datePicker2',
 			'value' => date('d/m/Y',strtotime($fincon)),
-			'div' => array('class' => 'requerido'),
+			'div' => array('id'=>'fchafin','class' => 'requerido'),
 			'type'  => 'Text'
 			)); 
 		?>
+		<script type="text/javascript">
+		    var datePicker2 = new LiveValidation( "datePicker2", { validMessage: " " , insertAfterWhatNode: "fchafin"} );
+		    datePicker2.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		    datePicker2.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
+		   	datePicker2.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
+		</script>
 </li>
 <li>
 	<?php echo $this->Form->input('Contratosupervisor.plazoejecucion', 
@@ -184,11 +196,11 @@
 			'id' => 'empresas',
 			'class' => 'k-combobox',
 			'value' => $idecon,
-			'div' => array('class' => 'requerido')
+			'div' => array('id'=>'empsup','class' => 'requerido')
 			));
 		?>
 	<script type="text/javascript">
-		var empresas = new LiveValidation( "empresas", { validMessage: " " } );
+		var empresas = new LiveValidation( "empresas", { validMessage: " " , insertAfterWhatNode: "empsup"} );
         empresas.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
     </script>
 </li>
@@ -199,11 +211,11 @@
 			'id' => 'admin',
 			'class' => 'k-combobox',
 			'value' => $idpcon,
-			'div' => array('class' => 'requerido')
+			'div' => array('id'=>'admcon','class' => 'requerido')
 			)); 
 		?>
 	<script type="text/javascript">
-		var admin = new LiveValidation( "admin", { validMessage: " " } );
+		var admin = new LiveValidation( "admin", { validMessage: " " , insertAfterWhatNode: "admcon"} );
         admin.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
     </script>
     
@@ -285,14 +297,54 @@
         var admin = $("#admin").data("kendoDropDownList");
 	
 	
-	$("#datePicker1").kendoDatePicker({
-		format: "dd/MM/yyyy",
-		culture: "es-ES"
-	});
-	$("#datePicker2").kendoDatePicker({
-		format: "dd/MM/yyyy",
-		culture: "es-ES"
-	});
+	function filtrarDrop() {
+		var startDate = start.value();
+		var endDate = end.value();
+			//alert('dafuq');
+			/*proy.data("kendoDropDownList").dataSource.filter([
+				     { field: "creacion", operator: "gte", value: startDate },
+				     { field: "creacion", operator: "lte", value: endDate }
+				]);
+			*/
+			
+			//proy.data("kendoDropDownList").dataSource.filter({ field: "idproyecto", operator: "eq", value: 5});
+	}
+		
+	
+	function startChange() {
+		var startDate = start.value();
+		if (startDate) {
+            startDate = new Date(startDate);
+            startDate.setDate(startDate.getDate() + 1);
+            end.min(startDate);
+    	}
+    }
+	
+	function endChange() {
+		var endDate = end.value();
+	    if (endDate) {
+	        endDate = new Date(endDate);
+	        endDate.setDate(endDate.getDate() - 1);
+	        start.max(endDate);
+	    }
+	}
+
+    var start = $("#datePicker1").kendoDatePicker({
+        culture: "es-ES",
+	   	format: "dd/MM/yyyy",
+        change: startChange,
+        close: filtrarDrop
+    }).data("kendoDatePicker");
+	
+    var end = $("#datePicker2").kendoDatePicker({
+        culture: "es-ES",
+	   	format: "dd/MM/yyyy",
+        change: endChange,
+        close: filtrarDrop
+    }).data("kendoDatePicker");
+	
+    start.max(end.value());
+    end.min(start.value());
 	
 	$("#codigo").mask("999-9999");
 	});

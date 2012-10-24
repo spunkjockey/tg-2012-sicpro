@@ -2,7 +2,8 @@
 						<ul id="menu">
 							<li>Proyectos
 								<ul>
-									<li><?php echo $this->Html->link('Administración de proyectos', array('controller' => 'proyectos','action'=>'proyecto_listado')); ?></li>
+									<li><?php echo $this->Html->link('Administración de proyectos', array('controller' => 'Proyectos','action'=>'proyecto_listado')); ?></li>
+									<li><?php echo $this->Html->link('Asignar número de proyecto', array('controller' => 'Proyectos','action'=>'proyecto_asignar_num')); ?></li>
 									<li>Ficha t&eacute;cnica
 										<ul>
 											<li><?php echo $this->Html->link('Registrar Ficha Técnica', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_registrarficha')); ?></li>
@@ -25,12 +26,13 @@
 							</li>	
 							<li>Reportes
 								<ul>
-									<li disabled="disabled">Reporte general de proyecto</li>
-									<li disabled="disabled">Consultar avances de contratos</li>
+									<li><?php echo $this->Html->link('Reporte general de proyecto', array('controller' => 'Proyectos','action'=>'proyecto_reportegeneral')); ?></li>
+									<li><?php echo $this->Html->link('Historial de empresas ', array('controller' => 'Empresas','action'=>'empresa_rephistorial')); ?></li>
+									<li><?php echo $this->Html->link('Consultar avances de contratos ', array('controller' => 'Contratos','action'=>'avancecontrato')); ?></li>
 									<li><?php echo $this->Html->link('Estado de proyecto y contratos ', array('controller' => 'Proyectos','action'=>'proyecto_consultaestados')); ?></li>
-									<li disabled="disabled">Contratos asociados a proyectos</li>
+									<li><?php echo $this->Html->link('Contratos asociados a proyectos ', array('controller' => 'Proyectos','action'=>'proyecto_reportecontratos')); ?></li>
 									<li disabled="disabled">Lugares en los que se han desarrollado proyectos</li>
-									<li disabled="disabled">Beneficiarios y empleos generados</li>
+									<li><?php echo $this->Html->link('Beneficiarios y empleos generados ', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_rep_empbene')); ?></li>
 								</ul>
 							</li>
 							<li>Mantenimiento
@@ -39,7 +41,7 @@
 									<li>Fuentes de financiamiento
 										<ul>
 											<li><?php echo $this->Html->link('Fuente de financiamiento', array('controller' => 'Fuentefinanciamientos','action'=>'index')); ?></li>
-											<li disabled="disabled">Consultar fuente de financiamiento (en un periodo)</li>
+											<li disabled="disabled">Consultar fuentes de financiamiento</li>
 										</ul>
 									</li>
 									

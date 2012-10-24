@@ -97,12 +97,19 @@ class FichatecnicasController extends AppController {
 		$this->render('/json/jsondata');
 	}
 
+	/*las siguientes funciones permiten realizar el reporte de beneficiarios
+	 * y empleos generados por proyectos.
+	 * fichatecnica_rep_empbene
+	 * Invoca el formulario para toma de parametros
+	 * */
 	function fichatecnica_rep_empbene() 
 	{
 		$this->layout = 'cyanspark';
 		
 	}
-	
+	/* update_rep_empbene
+	 * Genera los resultados en la página web y permite invocar la funcion para convertir en pdf
+	 * */
 	function update_rep_empbene()
 	{
 		if(isset($this->request->data['Fichatecnica']['divisiones']) && !empty($this->request->data['Fichatecnica']['divisiones']))
@@ -125,6 +132,9 @@ class FichatecnicasController extends AppController {
 		
 	}
 	
+	/*fichatecnica_rep_empbene_pdf
+	 * realiza el reporte en formato pdf
+	 * */
 	function fichatecnica_rep_empbene_pdf($iddiv=null, $inicio=null, $fin=null)
 	{
 		Configure::write('debug',0);
@@ -153,4 +163,50 @@ class FichatecnicasController extends AppController {
 			$this->render('/json/jsondivision');
 			
 		}
+		
+	function fichatecnica_consultarficha()
+	{
+		$this->layout = 'cyanspark';
+	}
+	
+	function proyectosfichajson()
+	{
+		$proys = $this->Proyecto->find('all', array(
+			'fields'=> array('Proyecto.idproyecto','Proyecto.nombreproyecto'),
+			'conditions'=>array('Proyecto.idproyecto IN (SELECT idproyecto 
+														 FROM sicpro2012.fichatecnica)'),
+			'order'=> array('Proyecto.nombreproyecto ASC')));
+		$this->set('proys', Hash::extract($proys, "{n}.Proyecto"));
+		$this->set('_serialize', 'proys');
+		$this->render('/json/jsonproys');	
+	}
+
+	function update_res_ficha()
+	{
+		if(isset($this->request->data['proyectos']) && !empty($this->request->data['proyectos']))
+		{
+			$nomproy= $this->request->data['proyectos'];
+			$idproy = $this->Proyecto->field('idproyecto',array('nombreproyecto' => $nomproy));
+			$this->set('numproy',$this->Proyecto->field('numeroproyecto',array('nombreproyecto' => $nomproy)));
+			$idficha = $this->Fichatecnica->field('idfichatecnica',array('idproyecto' => $idproy));
+			$this->set('nomproy',$nomproy);
+			$this->set('fichatec',$this->Componente->find('all',array(
+				'fields'=>array('Fichatecnica.problematica','Fichatecnica.objgeneral','Fichatecnica.objespecifico',
+								'Fichatecnica.descripcionproyecto','Fichatecnica.empleosgenerados',
+								'Fichatecnica.beneficiarios','Fichatecnica.resultadosesperados',
+								'Componente.nombrecomponente','Componente.descripcioncomponente'
+								),
+				'conditions'=>array('Fichatecnica.idproyecto'=>$idproy)
+				)));
+			$this->set('component',$this->Meta->find('all',array(
+				'fields'=>array('Meta.idcomponente','Meta.descripcionmeta'),
+				'conditions'=>array('Componente.idfichatecnica'=>$idficha)
+				)));
+			$this->set('ubicaciones',$this->Ubicacion->find('all',array(
+				'fields'=>array('Ubicacion.direccion','Departamento.departamento','Municipio.municipio'),
+				'conditions'=>array('Ubicacion.idfichatecnica'=>$idficha)
+				)));
+		}
+		$this->render('/Elements/update_res_ficha', 'ajax');
+	}
 }

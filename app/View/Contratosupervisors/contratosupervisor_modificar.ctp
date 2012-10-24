@@ -58,9 +58,9 @@ $this->end(); ?>
 					array(
 						'label' => 'Seleccione proyecto:', 
 						'id' => 'proyectos',
-						'div' => array('class' => 'requerido'))); ?>
+						'div' => array('id'=>'proyo','class' => 'requerido'))); ?>
 				<script type="text/javascript">
-					var proyectos= new LiveValidation( "proyectos", { validMessage: " " } );
+					var proyectos= new LiveValidation( "proyectos", { validMessage: " " , insertAfterWhatNode: "proyo"} );
 					proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				</script>
 			</li>
@@ -69,9 +69,9 @@ $this->end(); ?>
 					array(
 						'label' => 'Contrato de supervisión:', 
 						'id' => 'contratos',
-						'div' => array('class' => 'requerido'))); ?>
+						'div' => array('id'=>'contras','class' => 'requerido'))); ?>
 				<script type="text/javascript">
-					var contratos= new LiveValidation( "contratos", { validMessage: " " } );
+					var contratos= new LiveValidation( "contratos", { validMessage: " " , insertAfterWhatNode: "contras" } );
 					contratos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				</script>
 			</li>
@@ -165,7 +165,6 @@ $this->end(); ?>
                 }
                 
                 .LV_validation_message{
-				    font-weight:bold;
 				    margin:0 0 0 5px;
 				}
 				
@@ -177,25 +176,10 @@ $this->end(); ?>
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 170px; 
+               		margin-left: 155px; 
                
 				}
-				    
-				.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
-				}
-				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
+
             </style>
 
 <script>

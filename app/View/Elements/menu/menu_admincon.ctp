@@ -54,21 +54,14 @@
 
 									<li><?php echo $this->Html->link('Contratos asociados a proyectos ', array('controller' => 'Proyectos','action'=>'proyecto_reportecontratos')); ?></li>
 									<li disabled="disabled">Lugares en los que se han desarrollado proyectos</li>
-									<li disabled="disabled">Beneficiarios y empleos generados</li>
-									<li disabled="disabled">Personal asignado por contrato</li>
+									<li><?php echo $this->Html->link('Beneficiarios y empleos generados ', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_rep_empbene')); ?></li>
+									<li><?php echo $this->Html->link('Personal asignado por contrato ', array('controller' => 'Nombramientos','action'=>'nombramiento_reporte_asignados')); ?></li>
 								</ul>
 							</li>
 							<li>Mantenimiento
 								<ul>
 									<li><?php echo $this->Html->link('Empresas', array('controller' => 'empresas','action'=>'index')); ?></li>
-									
-									<li>Fuentes de financiamiento
-										<ul>
-											<li><?php echo $this->Html->link('Fuente de financiamiento', array('controller' => 'Fuentefinanciamientos','action'=>'index')); ?></li>
-											<li disabled="disabled">Consultar fuente de financiamiento (en un periodo)</li>
-										</ul>
-									</li>
-									
+									<li disabled="disabled">Consultar fuente de financiamiento</li>
 									<li>Perfil
 										<ul>
 											<li disabled="disabled">Modificar perfil</li>
