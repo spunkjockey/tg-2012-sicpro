@@ -27,7 +27,7 @@
 								<ul>
 									<li disabled="disabled">Reporte general de proyecto</li>
 									<li disabled="disabled">Consultar avances de contratos</li>
-									<li disabled="disabled">Estado de proyecto y contratos</li>
+									<li><?php echo $this->Html->link('Estado de proyecto y contratos ', array('controller' => 'Proyectos','action'=>'proyecto_consultaestados')); ?></li>
 									<li disabled="disabled">Contratos asociados a proyectos</li>
 									<li disabled="disabled">Lugares en los que se han desarrollado proyectos</li>
 									<li disabled="disabled">Beneficiarios y empleos generados</li>

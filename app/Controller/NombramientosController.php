@@ -2,7 +2,8 @@
 class NombramientosController extends AppController {
     public $helpers = array('Html', 'Form', 'Session','Ajax','Javascript','Js');
     public $components = array('Session','RequestHandler');
-	public $uses = array('Contrato','Persona','Nombramiento','Proyecto','Contratoconstructor');
+	public $uses = array('Contrato','Persona','Nombramiento','Proyecto',
+						 'Contratoconstructor','Nombratecnico','Contratosupervisor');
 	
 	public function nombramiento_asignartecnico($idproyecto=null,$idcontrato=null){
 		$this->layout = 'cyanspark';
@@ -179,6 +180,90 @@ class NombramientosController extends AppController {
 
 		                }
 				$this->render('/Elements/update_multic', 'ajax');
+	}
+
+	function nombramiento_reporte_asignados()
+	{
+		$this->layout = 'cyanspark';
+		
+	}
+
+	function update_rep_asignados()
+	{
+		if(isset($this->request->data['proyectos']) && !empty($this->request->data['proyectos']))
+		{
+			$numproyecto = $this->request->data['proyectos'];
+			$idproy = $this->Proyecto->field('idproyecto',array('numeroproyecto' => $numproyecto));
+			$nomproy = $this->Proyecto->field('nombreproyecto',array('numeroproyecto' => $numproyecto));
+			$this->set('nombre',$nomproy);
+			$this->set('idproyecto',$idproy);
+			$this->set('construc', $this->Contratoconstructor->find('all',array(
+					'fields'=>array('Contratoconstructor.codigocontrato','Contratoconstructor.nombrecontrato',
+									'Contratoconstructor.idcontrato',
+									'Persona.nombrespersona','Persona.apellidospersona'),
+					'conditions'=>array('Contratoconstructor.idproyecto'=>$idproy),
+					'order'=>'Contratoconstructor.idcontrato'
+					)));
+					
+			$this->set('tecnicos',$this->Nombratecnico->find('all',array(
+					'fields'=>array('Nombratecnico.idcontrato','Nombratecnico.nomcompleto'),
+					'conditions'=>array('Nombratecnico.idproyecto'=>$idproy),
+					'order'=>'Nombratecnico.idcontrato'
+				)));
+				
+			$this->set('supervi',$this->Contratosupervisor->find('all',array(
+					'fields'=>array('Contratosupervisor.codigocontrato','Contratosupervisor.nombrecontrato',
+									'Contratosupervisor.idcontrato','Contratosupervisor.con_idcontrato',
+									'Persona.nombrespersona', 'Persona.apellidospersona'),
+					'conditions'=>array('Contratosupervisor.idproyecto'=>$idproy),
+					'order'=>'Contratosupervisor.idcontrato'
+				)));
+		}
+		$this->render('/Elements/update_rep_asignados', 'ajax');
+	}
+
+	function nombramiento_reporte_asignados_pdf($idproy=null)
+	{
+		Configure::write('debug',0);
+		$this->layout = 'pdf'; //esto utilizara el layout 'pdf.ctp'
+		$numproyecto = $this->Proyecto->field('numeroproyecto',array('idproyecto' => $idproy));
+		$nomproy = $this->Proyecto->field('nombreproyecto',array('idproyecto' => $idproy));
+		$this->set('nombre',$nomproy);
+		$this->set('numproy',$numproyecto);
+		$this->set('idproyecto',$idproy);
+		$this->set('construc', $this->Contratoconstructor->find('all',array(
+				'fields'=>array('Contratoconstructor.codigocontrato','Contratoconstructor.nombrecontrato',
+								'Contratoconstructor.idcontrato',
+								'Persona.nombrespersona','Persona.apellidospersona'),
+				'conditions'=>array('Contratoconstructor.idproyecto'=>$idproy),
+				'order'=>'Contratoconstructor.idcontrato'
+				)));
+				
+		$this->set('tecnicos',$this->Nombratecnico->find('all',array(
+				'fields'=>array('Nombratecnico.idcontrato','Nombratecnico.nomcompleto'),
+				'conditions'=>array('Nombratecnico.idproyecto'=>$idproy),
+				'order'=>'Nombratecnico.idcontrato'
+			)));
+			
+		$this->set('supervi',$this->Contratosupervisor->find('all',array(
+				'fields'=>array('Contratosupervisor.codigocontrato','Contratosupervisor.nombrecontrato',
+								'Contratosupervisor.idcontrato','Contratosupervisor.con_idcontrato',
+								'Persona.nombrespersona', 'Persona.apellidospersona'),
+				'conditions'=>array('Contratosupervisor.idproyecto'=>$idproy),
+				'order'=>'Contratosupervisor.idcontrato'
+			)));
+		
+		$this->render();
+	}
+
+	function proyectosrepjson()
+	{
+		$proys = $this->Proyecto->find('all', array(
+				'fields'=> array('Proyecto.idproyecto','Proyecto.numeroproyecto'),
+				'conditions'=>array('Proyecto.estadoproyecto' => array('Adjudicacion','Ejecucion','Finalizado'))));
+		$this->set('proys', Hash::extract($proys, "{n}.Proyecto"));
+		$this->set('_serialize', 'proys');
+		$this->render('/json/jsonproys');
 	}
 
 }
