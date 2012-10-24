@@ -110,7 +110,7 @@ foreach ($proyectos as $proy):
 		$pdf->MultiCell(135, 12, 'Nombre Proyecto: '.$proy['Proyecto']['nombreproyecto'], 
 				0, 'L', $fill, 0, '', '', true, 0, false, true, 12,'T',true);
 				
-		$pdf->Ln(5);
+		$pdf->Ln(15);
 		$pdf->MultiCell(135, 12, 'Estado Proyecto: '.$proy['Proyecto']['estadoproyecto'], 
 				0, 'L', $fill, 0, '', '', true, 0, false, true, 12,'T',true);
 				

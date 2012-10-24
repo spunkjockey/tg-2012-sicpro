@@ -60,9 +60,9 @@ $this->end(); ?>
 					array(
 						'label' => 'Seleccione proyecto:', 
 						'id' => 'proyectos',
-						'div' => array('class' => 'requerido'))); ?>
+						'div' => array('id'=>'proyo','class' => 'requerido'))); ?>
 				<script type="text/javascript">
-					var proyectos= new LiveValidation( "proyectos", { validMessage: " " } );
+					var proyectos= new LiveValidation( "proyectos", { validMessage: " ", insertAfterWhatNode: "proyo" } );
 					proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				</script>
 			</li>
@@ -71,9 +71,9 @@ $this->end(); ?>
 					array(
 						'label' => 'Contrato a supervisar:', 
 						'id' => 'contratos',
-						'div' => array('class' => 'requerido'))); ?>
+						'div' => array('id'=>'contrasup','class' => 'requerido'))); ?>
 				<script type="text/javascript">
-					var contratos= new LiveValidation( "contratos", { validMessage: " " } );
+					var contratos= new LiveValidation( "contratos", { validMessage: " " , insertAfterWhatNode: "contrasup"} );
 					contratos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				</script>
 			</li>
@@ -118,9 +118,9 @@ $this->end(); ?>
 						'id' => 'txmonto',
 						'type' => 'text',
 						'placeholder' => 'Ingrese Monto',
-						'div' => array('class' => 'requerido'))); ?>
+						'div' => array('id'=>'montot','class' => 'requerido'))); ?>
 				<script type="text/javascript">
-					var txmonto = new LiveValidation( "txmonto", { validMessage: " " } );
+					var txmonto = new LiveValidation( "txmonto", { validMessage: " " , insertAfterWhatNode: "montot"  } );
 		            txmonto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script>
 			</li>
@@ -129,10 +129,10 @@ $this->end(); ?>
 					array(
 						'label' => 'Fecha de inicio de contrato:', 
 						'id'	=> 'datePicker1',
-						'div' => array('class' => 'requerido'),
+						'div' => array('id'=>'fchaini','class' => 'requerido'),
 						'type'  => 'Text')); ?>
 				<script type="text/javascript">
-		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " } );
+		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " , insertAfterWhatNode: "fchaini"} );
 		            datePicker1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 		            datePicker1.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
@@ -143,10 +143,10 @@ $this->end(); ?>
 					array(
 						'label' => 'Fecha de fin de contrato:', 
 						'id'	=> 'datePicker2',
-						'div' => array('class' => 'requerido'),
+						'div' => array('id'=>'fchafin','class' => 'requerido'),
 						'type'  => 'Text')); ?>
 				<script type="text/javascript">
-		            var datePicker2 = new LiveValidation( "datePicker2", { validMessage: " " } );
+		            var datePicker2 = new LiveValidation( "datePicker2", { validMessage: " " , insertAfterWhatNode: "fchafin"} );
 		            datePicker2.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            datePicker2.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 		        	datePicker2.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
@@ -208,9 +208,9 @@ $this->end(); ?>
 						'label' => 'Empresa ejecutora:', 
 						'id' => 'empresas',
 						'class' => 'k-combobox',
-						'div' => array('class' => 'requerido'))); ?>
+						'div' => array('id'=>'empeje','class' => 'requerido'))); ?>
 				<script type="text/javascript">
-					var empresas = new LiveValidation( "empresas", { validMessage: " " } );
+					var empresas = new LiveValidation( "empresas", { validMessage: " " , insertAfterWhatNode: "empeje"} );
 		            empresas.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script>
 			</li>
@@ -220,9 +220,9 @@ $this->end(); ?>
 						'label' => 'Administrador del contrato:', 
 						'id' => 'admin',
 						'class' => 'k-combobox',
-						'div' => array('class' => 'requerido'))); ?>
+						'div' => array('id'=>'admco','class' => 'requerido'))); ?>
 				<script type="text/javascript">
-					var admin = new LiveValidation( "admin", { validMessage: " " } );
+					var admin = new LiveValidation( "admin", { validMessage: " " , insertAfterWhatNode: "admco"} );
 		            admin.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script>
 			</li>
@@ -323,7 +323,6 @@ $this->end(); ?>
                 }
                 
                 .LV_validation_message{
-				    font-weight:bold;
 				    margin:0 0 0 5px;
 				}
 				
@@ -335,25 +334,10 @@ $this->end(); ?>
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 170px; 
+               		margin-left: 155px; 
                
 				}
 				    
-				.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
-				}
-				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
             </style>
 			
 			<script>
@@ -439,14 +423,55 @@ $this->end(); ?>
 				$("#codigo").mask("999-9999");
 				
 						
-				$("#datePicker1").kendoDatePicker({
-		   			format: "dd/MM/yyyy",
-		   			culture: "es-ES"
-		   		});
-				$("#datePicker2").kendoDatePicker({
-		   			format: "dd/MM/yyyy",
-		   			culture: "es-ES"
-		   		});
+		
+	function filtrarDrop() {
+		var startDate = start.value();
+		var endDate = end.value();
+			//alert('dafuq');
+			/*proy.data("kendoDropDownList").dataSource.filter([
+				     { field: "creacion", operator: "gte", value: startDate },
+				     { field: "creacion", operator: "lte", value: endDate }
+				]);
+			*/
+			
+			//proy.data("kendoDropDownList").dataSource.filter({ field: "idproyecto", operator: "eq", value: 5});
+	}
+		
+	
+	function startChange() {
+		var startDate = start.value();
+		if (startDate) {
+            startDate = new Date(startDate);
+            startDate.setDate(startDate.getDate() + 1);
+            end.min(startDate);
+    	}
+    }
+	
+	function endChange() {
+		var endDate = end.value();
+	    if (endDate) {
+	        endDate = new Date(endDate);
+	        endDate.setDate(endDate.getDate() - 1);
+	        start.max(endDate);
+	    }
+	}
+
+    var start = $("#datePicker1").kendoDatePicker({
+        culture: "es-ES",
+	   	format: "dd/MM/yyyy",
+        change: startChange,
+        close: filtrarDrop
+    }).data("kendoDatePicker");
+	
+    var end = $("#datePicker2").kendoDatePicker({
+        culture: "es-ES",
+	   	format: "dd/MM/yyyy",
+        change: endChange,
+        close: filtrarDrop
+    }).data("kendoDatePicker");
+	
+    start.max(end.value());
+    end.min(start.value());
 				
 				
 				});
