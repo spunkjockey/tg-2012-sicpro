@@ -33,6 +33,7 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 	//...
+	public $helpers = array('Ajax');
 	public $uses = array('Notificacion');
     public $components = array(
         'Session',
