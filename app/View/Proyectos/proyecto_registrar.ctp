@@ -83,16 +83,17 @@ $this->end(); ?>
 				<?php 
 					echo $this->Form->input('montoplaneado', 
 					array(
-						'label' => 'Monto planeado: ($)',
+						'label' => 'Monto planeado ($):',
 						'type'=>'text',  
 						'id' => 'txmonto',
-						'div' => array('class' => 'requerido'),
-						'maxlength'=>'12'
+						'maxlength'=>'12',
+						'div' => array('id' => 'monto', 'class' => 'requerido')
 						)); 
 				?>
 				<script type="text/javascript">
-					var txmonto = new LiveValidation( "txmonto", { validMessage: " " } );
+					var txmonto = new LiveValidation( "txmonto", { validMessage: " ", insertAfterWhatNode: "monto" } );
 		            txmonto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        	txmonto.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
 		        </script>
 			</li>
 			<li  class="accept">
@@ -185,37 +186,23 @@ $this->end(); ?>
                 }
                 
                 .LV_validation_message{
-				    font-weight:bold;
+				    
 				    margin:0 0 0 5px;
 				}
 				
 				.LV_valid {
 				    color:#00CC00;
+				    display: none;
 				}
 					
 				.LV_invalid {
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 170px; 
+               		margin-left: 155px; 
                
 				}
-				    
-				.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
-				}
-				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
+
             </style>
 			
 			<script>

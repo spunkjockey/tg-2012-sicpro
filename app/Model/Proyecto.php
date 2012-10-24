@@ -17,6 +17,18 @@ class Proyecto extends AppModel {
 			)
 		);
 		
+			public $hasMany = array(  /*Relacion con las dos tablas Fuente financiamiento y tipo fuente*/
+        'Financia' => array(
+            'className'    => 'Financia',
+            'foreignKey'   => 'idproyecto'
+        ),
+        'Contrato' => array(
+            'className'    => 'Contrato',
+            'foreignKey'   => 'idproyecto'
+        )
+		
+    );	
+		
 		public $validate = array(
 			'nombreproyecto' => array(
 				'isUnique' => array(
@@ -51,6 +63,21 @@ class Proyecto extends AppModel {
 			),
 			
 			);
+	
+	
+	public function beforeDelete($cascade = false) {
+	    $count = $this->Financia->find("count", array(
+	        "conditions" => array("Financia.idproyecto" => $this->id))) +
+	        $this->Contrato->find("count", array(
+	        "conditions" => array("Contrato.idproyecto" => $this->id))) +
+	        $this->Fichatecnica->find("count", array(
+	        "conditions" => array("Fichatecnica.idproyecto" => $this->id)));
+	    
+	    if ($count == 0) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	}	
 }
 
-?>

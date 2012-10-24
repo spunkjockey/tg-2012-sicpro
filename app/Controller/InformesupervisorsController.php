@@ -209,7 +209,10 @@
 		        $this->Session->setFlash('El informe "'.$informesupervisor['Informesupervisor']['tituloinformesup'] .'" ha sido eliminado.',
 		        						 'default', array('class'=>'success'));
 		        $this->redirect(array('action' => 'informesupervisor_index'));
-		    }
+		 	} else {
+	    		$this->Session->setFlash('No se puede eliminar el Informe de Supervisión seleccionado, se han encontrado referencias');
+	        	$this->redirect(array('action' => 'informesupervisor_index'));
+	    	}
 		}
 		
 		

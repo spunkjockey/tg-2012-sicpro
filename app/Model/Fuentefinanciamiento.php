@@ -9,8 +9,16 @@
             'className'    => 'Tipofuente',
             'foreignKey'   => 'idtipofuente'
         )
+		
     );
-	
+
+	public $hasMany = array(  /*Relacion con las dos tablas Fuente financiamiento y tipo fuente*/
+        'Financia' => array(
+            'className'    => 'Financia',
+            'foreignKey'   => 'idfuentefinanciamiento'
+        )
+		
+    );	
 
 	public $validate = array(
 	    'nombrefuente' => array(
@@ -26,5 +34,17 @@
 		        'required'=>true) 
 		 
 		);
+	
+	public function beforeDelete($cascade = false) {
+	    $count = $this->Financia->find("count", array(
+	        "conditions" => array("Financia.idfuentefinanciamiento" => $this->id)
+	    ));
+	    if ($count == 0) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	}
+	
 	
 }

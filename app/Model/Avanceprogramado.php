@@ -9,6 +9,10 @@ class Avanceprogramado extends AppModel {
             'foreignKey'   => 'idcontrato'
         )
     );
+	
+
+	
+	
 	public $validate = array(
 		'plazoejecuciondias' => array(
 	    	'naturalNumber' => array(

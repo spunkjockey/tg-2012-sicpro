@@ -234,6 +234,14 @@ class ContratosController extends AppController {
 			
 		$this->render('/Elements/update_avancecontrato', 'ajax');
 	}
+
+	public function avancecontrato_pdf(){
+		Configure::write('debug',0);
+		$this->layout = 'pdf'; //esto utilizara el layout 'pdf.ctp'
+		
+		
+		$this->render();
+	} 
 	
 }
 

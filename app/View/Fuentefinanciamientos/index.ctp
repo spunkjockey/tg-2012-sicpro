@@ -62,10 +62,10 @@ $this->end(); ?>
 <table id="grid">
     <tr>
         <th data-field="nombrefuente">Nombre Fuente</th>
-        <th data-field="montoinicial">Monto Inicial</th>
-        <th data-field="fechadisponible">Fecha de Disponibilidad</th>
+        <th data-field="montoinicial">Monto</th>
+        <th data-field="montodisponible">Disponible</th>
         <th data-field="tipofuente">Tipo de Fuente</th>
-        <th data-field="accion" width="250px">Acción</th>
+        <th data-field="accion">Acción</th>
     </tr>
 
     <!-- Here is where we loop through our $fuente array, printing out post info -->
@@ -74,18 +74,19 @@ $this->end(); ?>
     <tr>
         <td><?php echo $fuente['Fuentefinanciamiento']['nombrefuente']; ?></td>
         <td><?php echo '$ ' . number_format($fuente['Fuentefinanciamiento']['montoinicial'],2); ?></td>
-        <td><?php echo date('d/m/Y',strtotime($fuente['Fuentefinanciamiento']['fechadisponible'])); ?></td>  
+        <td><?php echo '$ ' . number_format($fuente['Fuentefinanciamiento']['montodisponible'],2); ?></td>
+        <!--<td><?php echo date('d/m/Y',strtotime($fuente['Fuentefinanciamiento']['fechadisponible'])); ?></td>-->  
         <td><?php echo $fuente['Tipofuente']['tipofuente']; ?></td>      
         <td align="center">
             <?php echo $this->Html->link(
-            	'Editar', 
+            	'<span class="k-icon k-i-pencil"></span>', 
             	array('action' => 'fuentefinanciamiento_modificarfuente', $fuente['Fuentefinanciamiento']['idfuentefinanciamiento']),
-            	array('class'=>'k-button')
+            	array('class'=>'k-button','escape' => false,'title' => 'Editar Fuente Financiamiento')
 			);?>
             <?php echo $this->Form->postLink(
-                'Eliminar',
+                '<span class="k-icon k-i-close"></span>',
                 array('action' => 'delete', $fuente['Fuentefinanciamiento']['idfuentefinanciamiento']),
-                array('confirm' => '¿Está seguro que desea eliminar los datos de la Fuente de Financiamiento?','class'=>'k-button')
+                array('confirm' => '¿Está seguro que desea eliminar los datos de la Fuente de Financiamiento?','class'=>'k-button','escape' => false,'title' => 'Eliminar Fuente Financiamiento')
             )?>
             
         </td>
@@ -93,6 +94,19 @@ $this->end(); ?>
     <?php endforeach; ?>
     <?php unset($fuentefinanciamientos); ?>
 </table>
+
+<style scoped>
+        #grid .k-button
+        {
+            vertical-align: middle;
+            width: 28px;
+            margin: 0 3px;
+            padding: .1em .4em .3em;
+            display: inline;
+            
+        }
+    </style>
+
 
 <script>
 	$(document).ready(function() {
@@ -103,7 +117,7 @@ $this->end(); ?>
             	pageable: true,
             	pageable: {
             		messages: {
-            			display: "{0} - {1} de {2} Fuentes",
+            			display: "{0} - {1} de {2} Fuentes de Financiamiento",
             			empty: "No hay fuentes de financiamiento a mostrar",
             			page: "Página",
             			of: "de {0}",
@@ -120,7 +134,27 @@ $this->end(); ?>
  			    	mode: "single", // enables multi-column sorting
         			allowUnsort: true
 				},
-				scrollable: false
+				scrollable: false,
+				columns: [ {
+                                field: "nombrefuente",
+                                width: 200
+                                
+                            } , {
+                                field: "montoinicial",
+                                width: 100
+                                
+                            } , {
+                                width: 100,
+                                field: "montodisponible"
+                            } , {
+                                field: "tipofuente",
+                                width: 100,
+                            } , {
+                                field: "accion",
+                                width: 80
+                                
+                            } 
+                        ]
             	
             	
         	});

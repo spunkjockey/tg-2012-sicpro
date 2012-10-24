@@ -72,12 +72,15 @@ class FuentefinanciamientosController extends AppController {
 		
 	}
 	
-	function delete($id) {
+	function delete($id = null) {
 		if (!$this->request->is('post')) {
 	        throw new MethodNotAllowedException();
 	    }
 	    if ($this->Fuentefinanciamiento->delete($id)) {
 	        $this->Session->setFlash('La Fuente de Financiamiento ha sido eliminada.', 'default', array('class'=>'success'));
+	        $this->redirect(array('action' => 'index'));
+	    } else {
+	    	$this->Session->setFlash('Ha ocurrido un error. No se puede eliminar la Fuente de Financiamiento seleccionada');
 	        $this->redirect(array('action' => 'index'));
 	    }
 	}

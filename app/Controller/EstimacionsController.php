@@ -159,6 +159,9 @@ class EstimacionsController extends AppController {
 	    if ($this->Estimacion->delete($id)) {
 	        $this->Session->setFlash('La Estimación de Avance ha sido eliminada.','default', array('class'=>'success'));
 	        $this->redirect(array('action' => 'index'));
+	    } else {
+	    	$this->Session->setFlash('No se puede eliminar la Estimacion seleccionada, se han encontrado referencias');
+	        $this->redirect(array('action' => 'index'));
 	    }
 	}
 

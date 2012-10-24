@@ -95,6 +95,9 @@
 		        $this->Session->setFlash('El proyecto "'.$proy['Proyecto']['nombreproyecto'].'" ha sido eliminado'
 		        						,'default',array('class'=>'success'));
 		        $this->redirect(array('action' => 'proyecto_listado'));
+		    } else {
+		    	$this->Session->setFlash('El proyecto "'.$proy['Proyecto']['nombreproyecto'].'" no ha sido eliminado, tiene referencias con otro elemento');
+		    	$this->redirect(array('action' => 'proyecto_listado'));
 		    }
 		}
 	

@@ -58,7 +58,16 @@
 
 
 	
-
+	public function beforeDelete($cascade = false) {
+	    $count = $this->Facturasupervision->find("count", array(
+	        "conditions" => array("Facturasupervision.idinformesupervision" => $this->id)
+	    ));
+	    if ($count == 0) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	}
 
 
     }

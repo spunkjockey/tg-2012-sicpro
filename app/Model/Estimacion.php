@@ -16,7 +16,7 @@
 	            'className' => 'Facturaestimacion',
 	            'foreignKey' => 'idestimacion',
 	            //'conditions'   => array('Profile.published' => '1'),
-	            'dependent'    => true
+	            //'dependent'    => true
 			)
 	    );
 	
@@ -36,4 +36,15 @@
         return date_create_from_format('d/m/Y', $this->data['Estimacion']['fechafinestimacion']) > date_create_from_format('d/m/Y', $this->data['Estimacion']['fechainicioestimacion']);
     }
 	
+	
+	public function beforeDelete($cascade = false) {
+	    $count = $this->Facturaestimacion->find("count", array(
+	        "conditions" => array("Facturaestimacion.idestimacion" => $this->id)
+	    ));
+	    if ($count == 0) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	}
 }

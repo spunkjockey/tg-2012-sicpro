@@ -106,12 +106,12 @@ $this->end(); ?>
 					array(
 						'label' => 'Fecha:', 
 						'id'	=> 'datePicker1',
-						'div' => array('class' => 'requerido'),
+						'div' => array('id' => 'fechare','class' => 'requerido'),
 						'type'  => 'Text'
 						));
 					?>
 				<script type="text/javascript">
-		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " } );
+		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " ", insertAfterWhatNode:"fechare" } );
 		            datePicker1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 		            datePicker1.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
@@ -123,9 +123,7 @@ $this->end(); ?>
 						<td>
 							<?php echo $this->Form->end(array('label' => 'Registrar Orden de Cambio', 'class' => 'k-button')); ?>
 						</td>
-						<td>
-							<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
-						</td>
+
 						<td>
 							<?php echo $this->Html->link(
 								'Regresar', 
@@ -148,7 +146,7 @@ $this->end(); ?>
 
                 .k-textbox {
                     width: 300px;
-                    margin-left: 5px;
+                    
                     
                 }
 				
@@ -181,7 +179,7 @@ $this->end(); ?>
                     display: inline-block;
                     width: 160px;
                     text-align: right;
-                    
+                    margin-right: 5px;
                 }
 
                 /*.required {
@@ -213,37 +211,24 @@ $this->end(); ?>
                 
 				
 				.LV_validation_message{
-				    font-weight:bold;
+				    
 				    margin:0 0 0 5px;
 				}
 				
 				.LV_valid {
 				    color:#00CC00;
+				    display: none;
 				}
 					
 				.LV_invalid {
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 170px; 
+               		margin-left: 165px; 
                
 				}
 				    
-				.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
-				}
-				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
+			
                 
             </style>
             

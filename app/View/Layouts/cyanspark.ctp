@@ -21,10 +21,10 @@
 		echo $this -> Html -> script('kendojs/jquery.min');
 		echo $this -> Html -> script('kendojs/kendo.web.min');
 		echo $this -> Html -> script('kendojs/cultures/kendo.culture.es-ES.min');
-		echo $this -> Html -> script('flot/jquery.flot');
-		echo $this -> Html -> script('flot/jquery.flot.crosshair');
-		echo $this -> Html -> script('flot/jquery.flot.valuelabels');
-		echo $this -> Html -> script('flot/jquery.flot.text');
+		//echo $this -> Html -> script('flot/jquery.flot');
+		//echo $this -> Html -> script('flot/jquery.flot.crosshair');
+		//echo $this -> Html -> script('flot/jquery.flot.valuelabels');
+		//echo $this -> Html -> script('flot/jquery.flot.text');
 		echo $this -> Html -> script('jquery.maskedinput-1.3.min');
 		//echo $this -> Html -> script('jquery.twosidedmultiselect');
 		echo $this -> Html -> script('livevalidation_standalone');
@@ -35,7 +35,8 @@
 		//echo $this -> Html -> script('jquery-tooltip/lib/jquery.delegate');
 		//para ver scrollbar
 		//echo $this -> Html -> script('jquery.validate.min');
-		
+		echo $this -> Html -> script('highcharts/highcharts');
+		echo $this -> Html -> script('highcharts/modules/exporting');
 		
 
 		
