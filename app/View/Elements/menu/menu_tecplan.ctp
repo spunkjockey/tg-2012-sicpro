@@ -93,7 +93,7 @@
 									<li>General de proyecto</li>
 									<li>Historial de empresas</li>
 									<li>Consultar avances de contratos</li>
-									<li><?php echo $this->Html->link('Estado de proyecto y contratos ', array('controller' => 'Proyectos','action'=>'update_consultaestados')); ?></li>
+									<li><?php echo $this->Html->link('Estado de proyecto y contratos ', array('controller' => 'Proyectos','action'=>'proyecto_consultaestados')); ?></li>
 									<li>Contratos asociados a proyectos</li>
 									<li>Lugares en los que se han desarrollado proyectos</li>
 									<li>Beneficiarios y empleos generados</li>
