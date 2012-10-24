@@ -1,8 +1,9 @@
+<?php if(!empty($proyectos) && !empty($contratos)) {?>
 <ul id="panelBar">
 <?php $anterior = null; 
 	foreach ($proyectos as $proy): ?>
 	<?php if($proy['Proyecto']['idproyecto']!=$anterior){ ?>
-	<li style="margin: 0;" >Proyecto: <?php echo $proy['Proyecto']['numeroproyecto'];?>
+	<li style="margin: 0;" title="Click para Ver" >Proyecto: <?php echo $proy['Proyecto']['numeroproyecto'];?>
 		<div style="padding: 30px 20px;">
 			<br />Nombre Proyecto: <?php echo $proy['Proyecto']['nombreproyecto'];?>
 			<br />Estado: <?php echo $proy['Proyecto']['estadoproyecto'];?><br />
@@ -34,25 +35,28 @@
 				<table id="grid">
 				    <thead>
 				    <tr>
-				        <th data-field="Codigocontrato" width="20%">Codigo Contrato</th>
+				        <th data-field="Codigocontrato" width="15%">Codigo Contrato</th>
 				        <th data-field="Nombrecontrato" width="35%">Nombre Contrato</th>
-				        <th data-field="Estadocontrato" width="45%">Estado Contrato</th>
+				        <th data-field="Estadocontrato">Estado Contrato</th>
+				        <th data-field="fechaini" width="15%">Fecha Inicio</th>
+				        <th data-field="fechafin" width="15%">Fecha Fin</th>
 				    </tr>
 				    </thead>
 				    <tbody>
 					<?php foreach ($contratos as $contra): 
-						if($fuentes['Proyecto']['idproyecto']==$contra['idproyecto']) {?>
+						if($contra['idproyecto']==$proy['Proyecto']['idproyecto']) {?>
 				   	<tr>
 				   		<td><?php echo $contra['codigocontrato'];?></td>
 				   		<td><?php echo $contra['nombrecontrato'];?></td>
 				   		<td><?php echo $contra['estadocontrato'];?></td>
+				   		<td><?php echo $contra['fechainiciocontrato'];?></td>
+				   		<td><?php echo $contra['fechafincontrato'];?></td>
 				   	</tr>
 				   	<?php } 
 					endforeach?>
 					</tbody>
 				</table>
-				</div>
-								
+				</div>								
 		<?php
 			$anterior= $proy['Proyecto']['idproyecto'];
 			}
@@ -60,8 +64,21 @@
 		</div>
 	</li>
 </ul>
+<br />
+	<?php 
+	$fechaini = substr($fechai, 0, 2).substr($fechai, 3, 2).substr($fechai, -4);
+	$fechafin = substr($fechaf, 0, 2).substr($fechaf, 3, 2).substr($fechaf, -4); ?>
+	<?php echo $this->Html->link('Generar PDF',
+		array('controller' => 'Proyectos', 'action' => 'proyecto_reporteestados_pdf',$iddiv,$fechaini,$fechafin),
+		array('id' => 'regresar','class'=>'k-button', 'target' => '_blank')); 
+	?>	
+<?php } else {
+	echo 'No se encontro Proyectos para esas fechas';
+} ?>
+
 <!--<?php echo "Proyectos"; Debugger::dump($proyectos); ?>
-<?php echo "Contratos"; Debugger::dump($contratos); ?>-->
+<?php echo "Contratos"; Debugger::dump($contratos); ?>
+<?php echo "Temporal"; Debugger::dump($tmp); ?>-->
 
 <style>
 	#tablas {

@@ -1,7 +1,7 @@
 <?php class ProyectosController extends AppController {
     public $name = 'Proyectos';
     public $components = array('Session','RequestHandler');
-	public $uses = array('Proyecto','Division','Contrato','Financia','Contratoconstructor');
+	public $uses = array('Proyecto','Division','Contrato','Financia','Contratoconstructor','Proyembe');
 	public $helpers = array('Html', 'Form', 'Session','Ajax');
 
 
@@ -334,16 +334,50 @@
 		$this->layout = 'cyanspark';
 	}
 	
-	public function proyecto_reporteestados($division=null){
-		$this->layout = 'cyanspark';
-		$this->set('division', $division);
+	public function proyecto_reporteestados_pdf($iddiv=null, $inicio=null, $fin=null){
+		Configure::write('debug',0);
+		$this->layout = 'pdf'; //esto utilizara el layout 'pdf.ctp'
+		$fechai = substr($inicio,0,2).'/'.substr($inicio,2,2).'/'.substr($inicio,4,4);
+		$fechaf = substr($fin,0,2).'/'.substr($fin,2,2).'/'.substr($fin,4,4);
 		
+		//Genear los datos para construir el PDF
+		$tmp = $this->Proyembe->find('all',array(
+					'conditions'=>array(
+					'Proyembe.iddivision'=> $iddiv,
+					'Proyembe.fechainicio >' => $fechai,
+					'Proyembe.fechafin <'=> $fechaf)));
+		$this->set('tmp',Hash::extract($tmp,'{n}'));
+		
+		$proyectos= $this->Financia->find('all', array(
+			       	'fields'=>array(
+			        'Proyecto.idproyecto','Proyecto.numeroproyecto','Proyecto.nombreproyecto','Proyecto.montoplaneado','Proyecto.iddivision',
+			        'Proyecto.estadoproyecto','Fuentefinanciamiento.nombrefuente','Financia.montoparcial'),
+			        'conditions'=>array('Proyecto.idproyecto'=>Hash::extract($tmp,'{n}.Proyembe.idproyecto'))));
+		$this->set('proyectos',$proyectos);
+		
+		$contratos= $this->Contratoconstructor->find('all', array(
+			                'conditions'=>array('Proyecto.iddivision'=>$iddiv,
+							'Contratoconstructor.idproyecto' => Hash::extract($tmp,'{n}.Proyembe.idproyecto'))));
+		$this->set('contratos',Hash::extract($contratos, '{n}.Contratoconstructor'));
+		
+		$this->render();
 	} 
 	
 
 	public function update_consultaestados(){
 		if (!empty($this->data['Proyecto']['divisiones']))
+		
+			$this->set('iddiv', $this->data['Proyecto']['divisiones']);
+			$this->set('fechai', $this->request->data['Proyecto']['start']);
+			$this->set('fechaf',$this->request->data['Proyecto']['end']);
 		   		{
+		   			$tmp = $this->Proyembe->find('all',array(
+					'conditions'=>array(
+					'Proyembe.iddivision'=> $this->data['Proyecto']['divisiones'],
+					'Proyembe.fechainicio >' => $this->request->data['Proyecto']['start'],
+					'Proyembe.fechafin <'=> $this->request->data['Proyecto']['end'])));
+					
+					$this->set('tmp',Hash::extract($tmp,'{n}'));
                      //$contrato_id = $this->data['Estado']['contratos']['idcontrato'];
                     //Debugger::dump($this->request->data);
 					$iddivision = $this->data['Proyecto']['divisiones'];	
@@ -353,7 +387,7 @@
 			                'fields'=>array(
 			                'Proyecto.idproyecto','Proyecto.numeroproyecto','Proyecto.nombreproyecto','Proyecto.montoplaneado','Proyecto.iddivision',
 			                'Proyecto.estadoproyecto','Fuentefinanciamiento.nombrefuente','Financia.montoparcial'),
-			                'conditions'=>array('Proyecto.iddivision'=>$iddivision)));
+			                'conditions'=>array('Proyecto.idproyecto'=>Hash::extract($tmp,'{n}.Proyembe.idproyecto'))));
 							
 					$this->set('proyectos',$proyectos);
 					
@@ -361,7 +395,7 @@
 					
 					$contratos= $this->Contratoconstructor->find('all', array(
 			                'conditions'=>array('Proyecto.iddivision'=>$iddivision,
-							'Contratoconstructor.idproyecto' => Hash::extract($proyectos,'{n}.Proyecto.idproyecto'))));
+							'Contratoconstructor.idproyecto' => Hash::extract($tmp,'{n}.Proyembe.idproyecto'))));
 					$this->set('contratos',Hash::extract($contratos, '{n}.Contratoconstructor'));
 					
 		        }
