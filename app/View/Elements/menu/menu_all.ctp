@@ -82,7 +82,7 @@
 									<li><?php echo $this->Html->link('Contratos asociados a proyectos ', array('controller' => 'Proyectos','action'=>'proyecto_reportecontratos')); ?></li>
 									<li disabled="disabled">Lugares en los que se han desarrollado proyectos</li>
 									<li><?php echo $this->Html->link('Beneficiarios y empleos generados ', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_rep_empbene')); ?></li>
-									<li disabled="disabled">Personal asignado por contrato</li>
+									<li><?php echo $this->Html->link('Personal asignado por contrato ', array('controller' => 'Nombramientos','action'=>'nombramiento_reporte_asignados')); ?></li>
 								</ul>
 							</li>
 							<li>Mantenimiento
