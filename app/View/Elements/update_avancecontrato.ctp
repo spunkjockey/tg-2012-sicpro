@@ -1,13 +1,13 @@
 <?php if(!empty($contrato)) {?>
 	
 	
-	<div id="tablas" style="margin-bottom: 50px">
-		<h3>Contrato: </h3>
+	<div id="proyectos" style="margin-bottom: 50px">
+		<h2>Resumen de Contrato </h2>
 		<table id="Proyecto">
 			<tr> <td class="primerac">Número:</td>  <td><?php echo $contrato['Proyecto']['numeroproyecto']; ?></td> </tr>
 			<tr> <td class="primerac">Proyecto:</td>  <td><?php echo $contrato['Proyecto']['nombreproyecto']; ?></td> </tr>
-			<tr> <td class="primerac">Estado:</td>  <td><?php echo $contrato['Proyecto']['estadoproyecto']; ?></td> </tr>
-			<tr> <td class="primerac">Monto:</td>  <td><?php echo '$'.number_format($contrato['Proyecto']['montoplaneado'],2); ?></td> </tr>
+			<!--<tr> <td class="primerac">Estado:</td>  <td><?php echo $contrato['Proyecto']['estadoproyecto']; ?></td> </tr>-->
+			<!--<tr> <td class="primerac">Monto:</td>  <td><?php echo '$'.number_format($contrato['Proyecto']['montoplaneado'],2); ?></td> </tr>-->
 			
 			<tr> <td class="primerac">Código:</td>  <td><?php echo $contrato['Contratoconstructor']['codigocontrato']; ?></td> </tr>
 			<tr> <td class="primerac">Contrato:</td>  <td><?php echo $contrato['Contratoconstructor']['nombrecontrato']; ?></td> </tr>
@@ -16,14 +16,16 @@
 			<tr> <td class="primerac">Orden de Inicio:</td>  <td><?php echo $contrato['Contratoconstructor']['ordeninicio']; ?></td> </tr>
 			
 			<tr> <td class="primerac">Empresa:</td>  <td><?php echo $contrato['Empresa']['nombreempresa']; ?></td> </tr>
-			<tr> <td class="primerac">Representante:</td>  <td><?php echo $contrato['Empresa']['representantelegal']; ?></td> </tr>
+			<!--<tr> <td class="primerac">Representante:</td>  <td><?php echo $contrato['Empresa']['representantelegal']; ?></td> </tr>-->
 			
 			<tr> <td class="primerac">Administrador de Contrato:</td>  <td><?php echo $contrato['Persona']['nombrecompleto']; ?></td> </tr>
 			
 		</table>
 		
-		<br />
 		
+		
+		<!--		
+		<br />
 		<?php if(!empty($avances)) { ?>
 			<table>
 				<tr>
@@ -66,35 +68,79 @@
 		<?php } else { ?>	
 			No hay informes de supervision asociados a este contrato
 		<?php } ?>
+		-->
 		
 		<br />
+		<h2>Avance Fisico y Financiero</h2>
+		<div id = 'tablagrid'>
+		<?php if(!empty($avancesupervision)) { ?>
+			<table>
+				<caption>Tabla de Avances Programados vs Informes de Avance a la fecha </caption>
+				<thead>
+				<tr>
+					<th rowspan=2 style="width: 100px">Fecha</th>
+					<th colspan=2>Físico </th>
+					<th colspan=2>Financiero</th>
+					
+				</tr>
+				<tr>
+					
+					<!--<th style="width: 50px"></th>-->
+					<!--<th style="width: 100px">Fecha </th>-->
+					<th style="width: 100px">Prog.</th>
+					<th style="width: 100px">Ejecutado</th>
+					<th style="width: 100px">Prog.</th>
+					<th style="width: 100px">Ejecutado</th>
+				</tr>
+				</thead>
+				<?php foreach ($avancesupervision as $supi): ?>
+				<tr>
+					<!--<td><?php echo $supi['0']['plazoejecuciondias']; ?></td>-->
+					<td><?php echo date('d/m/Y',strtotime($supi['0']['fechaavance'])); ?></td>
+					<td><?php echo number_format($supi['0']['porcentajeavfisicoprog'],2).'%'; ?></td>
+					<td><?php echo number_format($supi['0']['porcentajeavancefisico'],2).'%'; ?></td>	
+					<td><?php echo '$'.number_format($supi['0']['montoavfinancieroprog'],2); ?></td>
+					<td><?php echo '$'.number_format($supi['0']['valoravancefinanciero'],2); ?></td>
+				</tr>
+				<?php endforeach; ?>
+				</table>
+		<?php } else { ?>	
+			No hay avances asociados a este contrato en particular
+		<?php } ?>
+		
+		
+		<br />
+		
 		<?php if(!empty($estimaciones)) { ?>
 			<table>
+				<caption>Tabla Estimaciones a la fecha </caption>
+				<thead>
 				<tr>
-					<td>fechainicioestimacion</td>
-					<td>fechafinestimacion</td>
-					<td>porcentajeestimadoavance</td>
-					<td>montoestimado</td>
+					<th style="width: 100px">Inicio</th>
+					<th style="width: 100px">Fin</th>
+					<th style="width: 100px">Porcentaje Fisico</th>
+					<th style="width: 100px">Avance Finan.</th>
 				</tr>
+				</thead>
 				<?php foreach ($estimaciones as $esti): ?>
 				<tr>
-					<td><?php echo $esti['Estimacion']['fechainicioestimacion']; ?></td>
-					<td><?php echo $esti['Estimacion']['fechafinestimacion'] ?></td>
-					<td><?php echo $esti['Estimacion']['porcentajeestimadoavance']; ?></td>
-					<td><?php echo $esti['Estimacion']['montoestimado']; ?></td>	
+					<td><?php echo date('d/m/Y',strtotime($esti['Estimacion']['fechainicioestimacion'])); ?></td>
+					<td><?php echo date('d/m/Y',strtotime($esti['Estimacion']['fechafinestimacion'])); ?></td>
+					<td><?php echo number_format($esti['Estimacion']['porcentajeestimadoavance'],2).'%'; ?></td>
+					<td><?php echo '$'.number_format($esti['Estimacion']['montoestimado'],2); ?></td>	
 				</tr>
 				<?php endforeach; ?>
 				</table>
 		<?php } else { ?>	
 			No hay estimaciones asociadas a este contrato
 		<?php } ?>
-		
-<?php } ?>
+		</div>
 
 
 
+<br />
 
-<h2>Gráficos</h2>
+<h2>Gráficos de Avance Fisico y Financiero</h2>
 
 <div id="tabstrip">
 					<ul>
@@ -129,18 +175,20 @@
 			</div>
 
 
+<?php } else {
+	echo 'No se han encontrado resultados a la busqueda';
+} ?>
 
 
 
-
-
+<!--
 <?php
 echo '<p>';
 $loc_es = setlocale(LC_ALL, 'esp_esp', 'esp_spain', 'spanish_esp', 'spanish_spain');
 echo "Preferred locale for spanish on this system is '$loc_es'";
 echo '<br/>' . strftime("%A %d %B %Y", mktime(0, 0, 0, 12, 22, 1978));
 ?>
-
+-->
 
 
 
@@ -172,16 +220,20 @@ $(function () {
 	
     var chart;
     $(document).ready(function() {
+    	
+    	//alert((new Date()).getTime());
 
 Highcharts.setOptions({
         lang: {
-            numericSymbols: [' cientos', ' millones'],
+            
             downloadJPEG: 'Descargar imagen JPEG',
             downloadPDF: 'Descargar documento PDF',
             downloadPNG: 'Descargar imagen PNG',
             downloadSVG: 'Descargar imagen SVG',
             exportButtonTitle: 'Exportar a imagen o pdf',
             printButtonTitle: 'Imprimir el gráfico',
+            months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
+			'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
             shortMonths: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
             
             
@@ -200,7 +252,7 @@ Highcharts.setOptions({
                 text: 'Gráfico de Avance Financiero'
             },
             subtitle: {
-                text: 'correspondiente a'
+                text: 'correspondiente a ' + Highcharts.dateFormat('%B %Y',(new Date()).getTime()) 
             },
             credits: {
             	href: "",
@@ -266,13 +318,15 @@ $(function () {
         
         Highcharts.setOptions({
         lang: {
-            numericSymbols: [' cientos', ' millones'],
+            
             downloadJPEG: 'Descargar imagen JPEG',
             downloadPDF: 'Descargar documento PDF',
             downloadPNG: 'Descargar imagen PNG',
             downloadSVG: 'Descargar imagen SVG',
             exportButtonTitle: 'Exportar a imagen o pdf',
             printButtonTitle: 'Imprimir el gráfico',
+            months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
+			'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
             shortMonths: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
             
             
@@ -290,7 +344,7 @@ $(function () {
                 text: 'Gráfico de Avance Fisico'
             },
             subtitle: {
-                text: 'correspondiente a'
+                text: 'correspondiente a ' + Highcharts.dateFormat('%B %Y',(new Date()).getTime())  
             },
             credits: {
             	href: "",
@@ -352,3 +406,81 @@ $(function () {
 </script>
 
 
+
+
+
+<style>
+	
+	
+	#Proyecto {
+		border-collapse: collapse;
+		color: black;
+	}
+	
+	#Proyecto .primerac {
+		font-family: "Trebuchet MS", Arial, sans-serif;
+		font-weight: bold;
+		text-align: right;
+		padding-right: 10px;
+		min-width: 80px;
+	}
+	
+	/* 
+	Cusco Sky table styles
+	written by Braulio Soncco http://www.buayacorp.com
+	*/
+
+	#tablagrid table, #tablagrid th, #tablagrid td {
+		border: 1px solid #D4E0EE;
+		border-collapse: collapse;
+		font-family: "Trebuchet MS", Arial, sans-serif;
+		color: #555;
+	}
+	
+	#tablagrid caption {
+		font-size: 100%;
+		font-weight: bold;
+		margin: 5px;
+	}
+	
+	#tablagrid td, #tablagrid th {
+		padding: 4px;
+		text-align: center;
+	}
+	
+	#tablagrid thead th {
+		text-align: center;
+		background: #E6EDF5;
+		color: #4F76A3;
+		font-size: 100% !important;
+	}
+	
+	#tablagrid tbody th {
+		font-weight: bold;
+	}
+	
+	#tablagrid tbody tr { background: #FCFDFE; }
+	
+	#tablagrid tbody tr.odd { background: #F7F9FC; }
+	
+	#tablagrid table a:link {
+		color: #718ABE;
+		text-decoration: none;
+	}
+	
+	#tablagrid table a:visited {
+		color: #718ABE;
+		text-decoration: none;
+	}
+	
+	#tablagrid table a:hover {
+		color: #718ABE;
+		text-decoration: underline !important;
+	}
+	
+	#tablagrid tfoot th, #tablagrid tfoot td {
+		font-size: 100%;
+		font-weight: bold;
+	}
+
+</style>
