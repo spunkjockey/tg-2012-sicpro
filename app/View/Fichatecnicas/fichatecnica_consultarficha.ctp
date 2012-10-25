@@ -239,4 +239,4 @@ $this->end(); ?>
 	            }
             });
 		});
-	</script>
+	</script> 
