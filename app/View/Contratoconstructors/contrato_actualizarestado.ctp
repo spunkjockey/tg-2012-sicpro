@@ -69,6 +69,7 @@ $this->end(); ?>
 				<?php echo $this->Form->input('contratos',
 					array(
 						'label' => 'Contratos:', 
+						'div' => array('class' => 'requerido'),
 						'id' => 'contratos',
 						'class' => 'k-dropdownlist'
 					)); ?>
