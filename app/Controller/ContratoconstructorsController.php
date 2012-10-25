@@ -4,6 +4,13 @@
 	    public $components = array('Session','RequestHandler');
 		public $uses = array('Contratoconstructor','Contrato','Proyecto','Empresa','Persona');
 		
+		public function contratoconstructor_listar(){
+			$this->layout = 'cyanspark';
+			$this->set('contratosc',$this->Contratoconstructor->find('all')); 
+						
+		}
+		
+		
 		/* Funcion para agregar contratos de construcción al sistema*/
 		public function contratoconstructor_registrar()
 		{

@@ -201,34 +201,58 @@ class ContratosController extends AppController {
 			$contrato = $this->Contratoconstructor->findByNombrecontrato($this->request->data['contratos']);
 			//Debugger::dump($contrato);
 			
-			$avance = $this->Avanceprogramado->findAllByIdcontrato($contrato['Contratoconstructor']['idcontrato'],
-				array(),
-				array('Avanceprogramado.fechaavance' => 'ASC') 
-			);
-			//Debugger::dump($avance);
 			
-			$estimacion = $this->Estimacion->findAllByIdcontrato($contrato['Contratoconstructor']['idcontrato'],
-				array(),
-				array('Estimacion.fechafinestimacion' => 'ASC') 
-			);
-		
-			//Debugger::dump($estimacion);
+			if(isset($contrato)&&!empty($contrato)) {
+				
+				$avance = $this->Avanceprogramado->findAllByIdcontrato($contrato['Contratoconstructor']['idcontrato'],
+					array(),
+					array('Avanceprogramado.fechaavance' => 'ASC'),
+					null,
+					null,
+					0 
+				);
+				//Debugger::dump($avance);
+				
+				$estimacion = $this->Estimacion->findAllByIdcontrato($contrato['Contratoconstructor']['idcontrato'],
+					array(),
+					array('Estimacion.fechafinestimacion' => 'ASC'),
+					null,
+					null,
+					0 
+				);
 			
-			$scontrato = $this->Contratosupervisor->findByCon_idcontrato($contrato['Contratoconstructor']['idcontrato'],array('recursive'=>0 ));
-			//Debugger::dump($scontrato);
-			
-			$supervision = $this->Informesupervisor->findAllByIdcontrato($scontrato['Contratosupervisor']['idcontrato'],
-				array(),
-				array('Informesupervisor.fechafinsupervision' => 'ASC') 
-			);
-			
-			//Debugger::dump($supervision);
-			
-			$this->set('contrato',$contrato);
-			$this->set('avances',$avance);
-			$this->set('estimaciones',$estimacion);
-			$this->set('scontrato',$scontrato);
-			$this->set('supervisiones',$supervision); 
+				//Debugger::dump($estimacion);
+				
+				$scontrato = $this->Contratosupervisor->findByCon_idcontrato($contrato['Contratoconstructor']['idcontrato'],array('recursive'=>0 ));
+				//Debugger::dump($scontrato);
+				
+				$supervision = $this->Informesupervisor->findAllByIdcontrato($scontrato['Contratosupervisor']['idcontrato'],
+					array(),
+					array('Informesupervisor.fechafinsupervision' => 'ASC'),
+					null,
+					null,
+					0
+				);
+				
+				
+				$avancesupervision = $this->Informesupervisor->query('select * 
+					from 
+					sicpro2012.avanceprogramado LEFT JOIN sicpro2012.informesupervision ON avanceprogramado.fechaavance = informesupervision.fechafinsupervision 
+					where avanceprogramado.idcontrato = '. $contrato['Contratoconstructor']['idcontrato'] .'
+					order by avanceprogramado.fechaavance');
+				
+				//Debugger::dump($avancesupervision);
+				//Debugger::dump(Hash::extract($avance,'{n}.Avanceprogramado'));
+				
+				
+				$this->set('contrato',$contrato);
+				$this->set('avances',$avance);
+				$this->set('estimaciones',$estimacion);
+				$this->set('scontrato',$scontrato);
+				$this->set('supervisiones',$supervision); 
+				$this->set('avancesupervision',$avancesupervision);
+				
+				}
 		}
 		
 			

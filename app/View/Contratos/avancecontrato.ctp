@@ -170,9 +170,11 @@ $this->end(); ?>
 	      	var autoComplete = $("#contratos").kendoAutoComplete({
             	dataTextField: "nombrecontrato",
             	filter: 'contains',
+            	delay: 1000,
             	minLength: 1,
             	//placeholder: "Ingrese un número de proyecto",
             	suggest: true,
+            	ignoreCase: false,
                 //dataValueField: "idproyecto",
                 //autoBind: false,
                 //optionLabel: "Todos los contratos",
