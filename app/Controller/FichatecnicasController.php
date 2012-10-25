@@ -190,18 +190,23 @@ class FichatecnicasController extends AppController {
 			$this->set('numproy',$this->Proyecto->field('numeroproyecto',array('nombreproyecto' => $nomproy)));
 			$idficha = $this->Fichatecnica->field('idfichatecnica',array('idproyecto' => $idproy));
 			$this->set('nomproy',$nomproy);
-			$this->set('fichatec',$this->Componente->find('all',array(
-				'fields'=>array('Fichatecnica.problematica','Fichatecnica.objgeneral','Fichatecnica.objespecifico',
-								'Fichatecnica.descripcionproyecto','Fichatecnica.empleosgenerados',
-								'Fichatecnica.beneficiarios','Fichatecnica.resultadosesperados',
-								'Componente.nombrecomponente','Componente.descripcioncomponente'
-								),
+			$this->set('fichatec',$this->Fichatecnica->find('all',array(
 				'conditions'=>array('Fichatecnica.idproyecto'=>$idproy)
 				)));
-			$this->set('component',$this->Meta->find('all',array(
-				'fields'=>array('Meta.idcomponente','Meta.descripcionmeta'),
-				'conditions'=>array('Componente.idfichatecnica'=>$idficha)
+			
+			$this->set('component',$this->Componente->find('all',array(
+				'fields'=>array('Componente.nombrecomponente','Componente.descripcioncomponente',
+								'Componente.idcomponente'),
+				'conditions'=>array('Componente.idfichatecnica'=>$idficha),
+				'order'=>'Componente.idcomponente'
 				)));
+				
+			$this->set('metas',$this->Meta->find('all',array(
+			 	'fields'=>array('Componente.idcomponente','Meta.descripcionmeta'),
+				'conditions'=>array('Componente.idfichatecnica'=>$idficha),
+				'order'=>'Meta.idmeta'
+				)));
+			
 			$this->set('ubicaciones',$this->Ubicacion->find('all',array(
 				'fields'=>array('Ubicacion.direccion','Departamento.departamento','Municipio.municipio'),
 				'conditions'=>array('Ubicacion.idfichatecnica'=>$idficha)
@@ -209,4 +214,4 @@ class FichatecnicasController extends AppController {
 		}
 		$this->render('/Elements/update_res_ficha', 'ajax');
 	}
-}
+} 
