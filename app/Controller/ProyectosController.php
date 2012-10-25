@@ -199,6 +199,7 @@
 			));
 		
 		$this->set('proys', $this->eliminarduplicados(Hash::extract($proys, "{n}.Proyecto")));
+		//$this->set('proys', Hash::extract($proys, "{n}.Proyecto"));
 		$this->set('_serialize', 'proys');
 		$this->render('/json/jsonproys');
 	}
@@ -207,9 +208,12 @@
 		$count = 0;
 		$value = ""; 
     	foreach($array as $array_key => $array_value) 
-    	{	 
-        	if ( $count > 1 ) {
-        		if($value != $array_value['estadoproyecto']) {
+    	{
+        	
+				 
+			
+        	if ( $count >= 1 ) {
+        		if($value !== $array_value['estadoproyecto']) {
         			$count = 0; 
         		}
         	}
@@ -218,7 +222,8 @@
             	$value = $array_value['estadoproyecto']; 
             	$count++;
         	} else {
-        		if($array_value['estadoproyecto'] == $value) {
+        		if($array_value['estadoproyecto'] === $value) {
+        			
         			unset($array[$array_key]);
 					$count++;
 				} else {

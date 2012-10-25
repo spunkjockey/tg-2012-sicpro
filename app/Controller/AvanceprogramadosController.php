@@ -126,7 +126,7 @@ class AvanceprogramadosController extends AppController {
 		$value = ""; 
     	foreach($array as $array_key => $array_value) 
     	{	 
-        	if ( $count > 1 ) {
+        	if ( $count >= 1 ) {
         		if($value != $array_value['idproyecto']) {
         			$count = 0; 
         		}
