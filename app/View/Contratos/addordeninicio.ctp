@@ -170,7 +170,7 @@ $this->end(); ?>
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 105px; 
+               		margin-left: 155px; 
                
 				}
 				

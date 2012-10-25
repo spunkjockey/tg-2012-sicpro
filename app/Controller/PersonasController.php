@@ -73,7 +73,7 @@
 		}
 		public function rolesjson()
 		{
-			$rol = $this->Persona->query("SELECT idrol, rol FROM sicpro2012.rol WHERE idrol!=9;");
+			$rol = $this->Persona->query("SELECT idrol, rol FROM sicpro2012.rol WHERE idrol NOT IN (9,8) ;");
 			$this->set('rol', Hash::extract($rol, '{n}.0'));
 			$this->set('_serialize', 'rol');
 			$this->render('/json/jsonrol');	

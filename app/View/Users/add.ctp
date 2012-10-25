@@ -110,11 +110,12 @@ $this->end(); ?>
 						array(
 							'label' => 'Contraseña:', 
 							'id' => 'password',
+							'type'=>'text',
 							'class' => 'k-textbox', 
 							'placeholder' => 'Contraseña',
 							'div' => array('class' => 'requerido') 
 					)); ?>
-				<script type="text/javascript">
+				<!--<script type="text/javascript">
 		            var password = new LiveValidation( "password", { validMessage: " " } );
 		            password.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            password.add(Validate.Format, { pattern: /‎?^.{8,}$/, failureMessage: "Debe contener al menos 8 caracteres"  } );
@@ -122,7 +123,7 @@ $this->end(); ?>
 		            password.add(Validate.Format, { pattern: /‎?^.*\W+.*$/, failureMessage: "Debe contener al menos un caracter especial"  } );
 		            password.add(Validate.Format, { pattern: /‎?^.*[A-Z].*$/, failureMessage: "Debe contener al menos una letra mayúscula"  } );
 		            password.add(Validate.Format, { pattern: /‎?^.*[a-z].*$/, failureMessage: "Debe contener al menos una letra minúscula"  } );
-		        </script>
+		     </script>-->
 				</li>
 				<li>
 					<?php echo $this->Form->input('roles', 

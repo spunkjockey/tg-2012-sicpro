@@ -204,7 +204,7 @@ $this->end(); ?>
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 170px; 
+               		margin-left: 165px; 
                
 				}
 /*				    

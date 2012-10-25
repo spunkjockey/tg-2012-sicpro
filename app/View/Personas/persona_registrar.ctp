@@ -155,7 +155,7 @@ $this->end(); ?>
 							//'readonly' => 'readonly',
 							'div' => array('class' => 'requerido'))); ?>
 					<script type="text/javascript">
-						var username = new LiveValidation( "nombrepersona", { validMessage: " " } );
+						var username = new LiveValidation( "username", { validMessage: " " } );
 			            username.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 			            username.add(Validate.Format, { pattern: /^\w+$/i, failureMessage: "No puede llevar espacios en blanco o caracteres especiales" } );
 		            </script>

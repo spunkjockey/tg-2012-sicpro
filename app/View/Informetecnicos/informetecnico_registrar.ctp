@@ -58,10 +58,11 @@ $this->end(); ?>
 				<?php 
 					echo $this->Form->input('contratos', array(
 							'label' => 'Seleccione código de Contrato:', 
+							'div' => array('id' => 'contrat', 'class' => 'requerido'),
 							'id' => 'contratos'));
 				?>
 				<script type="text/javascript">
-					var contratos= new LiveValidation( "contratos", { validMessage: " " } );
+					var contratos= new LiveValidation( "contratos", { validMessage: " " , insertAfterWhatNode: "contrat" } );
 					contratos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				</script>
 			</li>
@@ -73,10 +74,10 @@ $this->end(); ?>
 					array(
 						'label' => 'Fecha de visita:', 
 						'id'	=> 'datePicker1',
-						'div' => array('class' => 'requerido'),
+						'div' => array('id'=>'fechavis','class' => 'requerido'),
 						'type'  => 'Text')); ?>
 					<script type="text/javascript">
-			            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " } );
+			            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " , insertAfterWhatNode: "fechavis"} );
 			            datePicker1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 			            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 			        </script> 
@@ -86,10 +87,10 @@ $this->end(); ?>
 					array(
 						'label' => 'Fecha de elaboración:', 
 						'id'	=> 'datePicker2',
-						'div' => array('class' => 'requerido'),
+						'div' => array('id'=>'fechaela','class' => 'requerido'),
 						'type'  => 'Text')); ?>
 					<script type="text/javascript">
-			            var datePicker2 = new LiveValidation( "datePicker2", { validMessage: " " } );
+			            var datePicker2 = new LiveValidation( "datePicker2", { validMessage: " "  , insertAfterWhatNode: "fechaela" } );
 			            datePicker2.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 			            datePicker2.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 			        </script> 
@@ -213,7 +214,6 @@ $this->end(); ?>
                 }
                 
                 .LV_validation_message{
-				    font-weight:bold;
 				    margin:0 0 0 5px;
 				}
 				
@@ -225,25 +225,10 @@ $this->end(); ?>
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 170px; 
+               		margin-left: 155px; 
                
 				}
 				    
-				.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
-				}
-				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
             </style>
 			
 <script>
