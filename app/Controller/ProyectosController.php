@@ -127,14 +127,18 @@
 	{
 		$this->layout = 'cyanspark';
 		//primer proyecto
-		$proys = $this->Proyecto->find('first', array(
+		/*$proys = $this->Proyecto->find('first', array(
 										'fields'=> array('Proyecto.idproyecto'),
 										'conditions'=>array('Proyecto.estadoproyecto' => array('Licitacion','Formulacion')),
-										'order'=> array('Proyecto.nombreproyecto ASC')));
+										'order'=> array('Proyecto.nombreproyecto ASC')));*/
 		//numero proyecto del primer elemento
-		$this->set('num',$this->Proyecto->find('first',array(
-										'fields'=>array('Proyecto.numeroproyecto'),
-										'conditions'=>array('Proyecto.idproyecto='.$proys['Proyecto']['idproyecto']))));
+		$this->set('num',$this->Proyecto->find('all',array(
+										'fields'=>array('Proyecto.idproyecto','Proyecto.numeroproyecto'),
+										'recursive' => 0,
+										'conditions'=>array('Proyecto.estadoproyecto' => array('Licitacion','Formulacion')),
+										'order' => array('Proyecto.idproyecto '=>'ASC')
+										//'conditions'=>array('Proyecto.idproyecto='.$proys['Proyecto']['idproyecto'])
+										)));
 		
 		if   ($this->request->is('post')) 
 			{
@@ -157,6 +161,8 @@
 						{
 							$this->Session->setFlash('Ha ocurrido un error');
 		                 }
+        	} else {
+        		$this->request->data['Proyecto']['numeroproyecto'] = '8888';
         	}
 	}
 
@@ -187,13 +193,42 @@
 		
 	function estadojson() {
 		$proys = $this->Proyecto->find('all', array(
-			'fields'=>array('DISTINCT Proyecto.estadoproyecto')));
+			'fields'=>array('DISTINCT Proyecto.estadoproyecto'),
+			'recursive' => 0,
+			'order' => 'Proyecto.estadoproyecto'
+			));
 		
-		$this->set('proys', Hash::extract($proys, "{n}.Proyecto"));
+		$this->set('proys', $this->eliminarduplicados(Hash::extract($proys, "{n}.Proyecto")));
 		$this->set('_serialize', 'proys');
 		$this->render('/json/jsonproys');
 	}
-		
+	
+	public function eliminarduplicados($array=null) {
+		$count = 0;
+		$value = ""; 
+    	foreach($array as $array_key => $array_value) 
+    	{	 
+        	if ( $count > 1 ) {
+        		if($value != $array_value['estadoproyecto']) {
+        			$count = 0; 
+        		}
+        	}
+        	if ( $count == 0 ) 
+        	{
+            	$value = $array_value['estadoproyecto']; 
+            	$count++;
+        	} else {
+        		if($array_value['estadoproyecto'] == $value) {
+        			unset($array[$array_key]);
+					$count++;
+				} else {
+					$count = 0;
+				}
+        	}
+        	
+    	} 
+        return array_values($array);
+	}	
 			
 		
 		

@@ -151,7 +151,7 @@ $this->end(); ?>
 
             .k-autocomplete
             {
-                width: 250px;
+                width: 450px;
 				vertical-align: middle;
             }
 

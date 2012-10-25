@@ -94,6 +94,7 @@
 
 
 
+<h2>Gráficos</h2>
 
 <div id="tabstrip">
 					<ul>
@@ -167,13 +168,34 @@ echo '<br/>' . strftime("%A %d %B %Y", mktime(0, 0, 0, 12, 22, 1978));
 
 
 $(function () {
+
+	
     var chart;
     $(document).ready(function() {
+
+Highcharts.setOptions({
+        lang: {
+            numericSymbols: [' cientos', ' millones'],
+            downloadJPEG: 'Descargar imagen JPEG',
+            downloadPDF: 'Descargar documento PDF',
+            downloadPNG: 'Descargar imagen PNG',
+            downloadSVG: 'Descargar imagen SVG',
+            exportButtonTitle: 'Exportar a imagen o pdf',
+            printButtonTitle: 'Imprimir el gráfico',
+            shortMonths: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+            
+            
+			
+        }
+    });
+
+
         chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'container',
                 type: 'line'
             },
+            
             title: {
                 text: 'Gráfico de Avance Financiero'
             },
@@ -182,7 +204,7 @@ $(function () {
             },
             credits: {
             	href: "",
-            	text: "SICPRO"
+            	text: "MAG/SICPRO"
             },
             xAxis: {
                 type: 'datetime',
@@ -241,6 +263,24 @@ $(function () {
 $(function () {
     var chart;
     $(document).ready(function() {
+        
+        Highcharts.setOptions({
+        lang: {
+            numericSymbols: [' cientos', ' millones'],
+            downloadJPEG: 'Descargar imagen JPEG',
+            downloadPDF: 'Descargar documento PDF',
+            downloadPNG: 'Descargar imagen PNG',
+            downloadSVG: 'Descargar imagen SVG',
+            exportButtonTitle: 'Exportar a imagen o pdf',
+            printButtonTitle: 'Imprimir el gráfico',
+            shortMonths: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+            
+            
+			
+        }
+    });
+        
+        
         chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'container1',
@@ -254,7 +294,7 @@ $(function () {
             },
             credits: {
             	href: "",
-            	text: "SICPRO"
+            	text: "MAG/SICPRO"
             },
             xAxis: {
                 type: 'datetime',

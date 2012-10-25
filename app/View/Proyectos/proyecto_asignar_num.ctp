@@ -51,6 +51,9 @@ $this->end(); ?>
 <?php $this->end(); ?>
 
 <div id="example" class="k-content">
+	
+
+	
 	<div id="formulario">
 		<h2>Asignar número de proyecto</h2>
 		<?php echo $this->Form->create('Proyecto',array('action' => 'proyecto_asignar_num')); ?>
@@ -70,19 +73,13 @@ $this->end(); ?>
 			</li>
 			<li>
 				<div id=actnumero>
-					<?php 
-						if(isset($num['Proyecto']['numeroproyecto']))
-							$numero = $num['Proyecto']['numeroproyecto']; 
-						else
-						   $numero = '';
-					?>
-							
-						<!--- aqui se actualizara el campo de numero de proyecto con el cambio de proyecto --->
-					<?php echo $this->Form->input('Proyecto.numeroproyecto', 
+					
+					<!--- aqui se actualizara el campo de numero de proyecto con el cambio de proyecto --->
+					<?php echo $this->Form->input('numeroproyecto', 
 						array(
 							'label' => 'Ingrese número de proyecto:', 
 							'id' => 'numero',
-							'value'=>$numero,
+							//'value'=>$numero,
 							'class' => 'k-textbox',  
 							'placeholder' => 'Número del proyecto', 
 							'div' => array('class' => 'requerido'))); ?>
@@ -113,16 +110,13 @@ $this->end(); ?>
 					</tr>
 				</table>
 			</li>	
+			<!--
 				<?php echo $this->ajax->observeField( 'proys', 
 		    					array('url' => array( 'action' => 'update_numeroproy'),'update' => 'actnumero'));  ?>
-				
+			-->	
 			
 				
-				
-			
-            
-            <li class="status">
-            </li>
+
 		</ul>
 		
 	</div>
@@ -131,7 +125,7 @@ $this->end(); ?>
 			<style scoped>
 
                 .k-textbox {
-                    width: 300px;
+                    width: 100px;
                     
                     
                 }
@@ -139,7 +133,7 @@ $this->end(); ?>
 				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 				
 				.k-combobox {
-                    width: 300px;
+                    width: 350px;
                 }
                 
                 form .requerido label:after {
@@ -181,7 +175,7 @@ $this->end(); ?>
 
                 .accept, .status {
                 	padding-top: 15px;
-                    padding-left: 150px;
+                    padding-left: 205px;
                 }
 
                 .valid {
@@ -196,51 +190,26 @@ $this->end(); ?>
                 }
                 
                 .LV_validation_message{
-				    font-weight:bold;
 				    margin:0 0 0 5px;
 				}
 				
 				.LV_valid {
 				    color:#00CC00;
+				    display: none;
 				}
 					
 				.LV_invalid {
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 170px; 
+               		margin-left: 205px; 
                
 				}
-				    
-				.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
-				}
-				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
+
             </style>
 			
             <script>
                 $(document).ready(function() {
-                    
-                    var validator = $("#formulario").kendoValidator().data("kendoValidator"),
-                    status = $(".status");
-
-                    $("#button").click(function() {
-                        if (validator.validate()) {
-                        	save();  
-                        } 
-                    });
-                    
                     $("#proys").kendoDropDownList({
 			            dataTextField: "nombreproyecto",
 			            dataValueField: "idproyecto",
@@ -249,11 +218,25 @@ $this->end(); ?>
 			                            transport: {
 			                                read: "/Proyectos/proyectosjson.json"
 			                            }
-			                        }
+			                       },
+			            change: function() {
+                            var value = this.value();
+                            if (value) {
+                                //alert("si dato "+value);
+                                <?php foreach ($num as $nkey => $nvalue) {
+                                	echo 'if(' . $nvalue['Proyecto']['idproyecto'] . '==value){$("#numero").val("'.$nvalue['Proyecto']['numeroproyecto'].'");};';
+    							}?>
+								
+                                
+                            } else {
+                                //alert("no dato "+value);
+                                $('#numero').val('');
+                            }
+                        }
 			        });
 			        
 			        var proys = $("#proys").data("kendoDropDownList");
-                    proys.list.width(300);
+                    proys.list.width(400);
                     
                     
                    
