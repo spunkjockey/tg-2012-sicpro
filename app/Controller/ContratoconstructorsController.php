@@ -282,7 +282,7 @@
 					$this->Contratoconstructor->set('estadocontrato', $this->request->data['Estados']);	
 					$this->Contratoconstructor->set('userm', $this->Session->read('User.username'));		
 					$this->Contratoconstructor->set('modificacion', date('Y-m-d h:i:s'));
-					if ($this->Contratoconstructor->save($id)) 
+					if ($this->Contratoconstructor->save($id, array('fieldList'=>array('estadocontrato','userm','modificacion'))))  
 					{
 						$contraselected=$this->Contratoconstructor->findByIdcontrato($this->request->data['Estado']['contratos']);
 			            $this->Session->setFlash('El Contrato constructor "'. $contraselected['Contratoconstructor']['codigocontrato'] .'" ha sido actualizado al estado "'. $this->request->data['Estados'] .'" .','default',array('class'=>'success'));
