@@ -22,7 +22,12 @@
 			$this->layout = 'cyanspark';
 			if($this->request->is('post'))
 			{
-				//Registro en tabla contrato
+				/*$fechafin = $this->request->data['Contratoconstructor']['fechafincontrato'];
+				$fechaf = substr($fechafin,6,4).'-'.substr($fechafin,3,2).'-'.substr($fechafin,0,2);
+				$fechaini= $this->request->data['Contratoconstructor']['fechainicontrato'];
+				$fechai=$fechaf = substr($fechaini,6,4).'-'.substr($fechaini,3,2).'-'.substr($fechaini,0,2);
+				*/
+				  //Registro en tabla contrato
 				$this->Contrato->create();
 				//Debugger::dump($this->request->data);
 				$this->Contrato->set('idproyecto', $this->request->data['Contratoconstructor']['proyectos']);
@@ -48,8 +53,8 @@
 					$this->Contratoconstructor->set('nombrecontrato', $this->request->data['Contratoconstructor']['nombrecontrato']);
 					$this->Contratoconstructor->set('montooriginal', $this->request->data['Contratoconstructor']['montocon']);
 					$this->Contratoconstructor->set('plazoejecucion', $this->request->data['Contratoconstructor']['plazoejecucion']);
-					$this->Contratoconstructor->set('fechainiciocontrato', $this->request->data['Contratoconstructor']['fechainicontrato']);
-					$this->Contratoconstructor->set('fechafincontrato', $this->request->data['Contratoconstructor']['fechafincontrato']);
+					$this->Contratoconstructor->set('fechainiciocontrato',  $this->request->data['Contratoconstructor']['fechainicontrato']);
+					$this->Contratoconstructor->set('fechafincontrato',  $this->request->data['Contratoconstructor']['fechafincontrato']);
 					$this->Contratoconstructor->set('detalleobras', $this->request->data['Contratoconstructor']['obras']);
 					$this->Contratoconstructor->set('tipocontrato', 'Construcción de obras');
 					$this->Contratoconstructor->set('retencion', $this->request->data['Contratoconstructor']['montocon']*0.05);
@@ -64,13 +69,13 @@
 					}
 					else 
 					{
-						$this->Session->setFlash('Ha ocurrido un error cc');
+						$this->Session->setFlash('Ha ocurrido un error verifique que los datos sean correctos');
 						
 	                }
 				}
 				else 
 				{
-					$this->Session->setFlash('Ha ocurrido un error verifique que los datos se han correctos');
+					$this->Session->setFlash('Ha ocurrido un error verifique que los datos sean correctos');
                 }
 			}
 		}
@@ -122,7 +127,7 @@
 	
 	public function adminjson()
 	{
-		$admin = $this->Persona->query("SELECT personas.idpersona, (nombrespersona||' '||apellidospersona) AS nomcompleto FROM sicpro2012.persona AS personas;");
+		$admin = $this->Persona->query("SELECT personas.idpersona, (nombre||' '||apellidos) AS nomcompleto FROM sicpro2012.users AS personas WHERE estado = true and idrol=3;");
 		$this->set('admin', Hash::extract($admin,'{n}.0'));
 		$this->set('_serialize', 'admin');
 		$this->render('/json/jsonadmin');	
@@ -212,8 +217,14 @@
     	
 		  if ($this->request->is('post')) 
 		{
+
 			//$this->Contrato->create();
 			//$id = $this->request->data['Contratoconstructor']['contratos'];
+			$fechafin = $this->request->data['Contratoconstructor']['fechafincontrato'];
+			$fechaf = substr($fechafin,6,4).'-'.substr($fechafin,3,2).'-'.substr($fechafin,0,2);
+			$fechaini= $this->request->data['Contratoconstructor']['fechainicontrato'];
+			$fechai=$fechaf = substr($fechaini,6,4).'-'.substr($fechaini,3,2).'-'.substr($fechaini,0,2);
+
 			$this->Contrato->read(null, $id);
 			$this->Contrato->set('idcontrato', $this->request->data['Contratoconstructor']['contratos']);
 			$this->Contrato->set('ipersona', $this->request->data['Contratoconstructor']['admin']);
@@ -222,8 +233,8 @@
 			$this->Contrato->set('nombrecontrato', $this->request->data['Contratoconstructor']['nombrecontrato']);
 			$this->Contrato->set('montooriginal', $this->request->data['Contratoconstructor']['montocon']);
 			$this->Contrato->set('plazoejecucion', $this->request->data['Contratoconstructor']['plazoejecucion']);
-			$this->Contrato->set('fechainiciocontrato', $this->request->data['Contratoconstructor']['fechainicontrato']);
-			$this->Contrato->set('fechafincontrato', $this->request->data['Contratoconstructor']['fechafincontrato']);
+			$this->Contrato->set('fechainiciocontrato', $fechaini);
+			$this->Contrato->set('fechafincontrato', $fechafin);
 			$this->Contrato->set('detalleobras', $this->request->data['Contratoconstructor']['obras']);
 			$this->Contrato->set('userm', $this->Session->read('User.username'));
 			$this->Contrato->set('modificacion', date('Y-m-d h:i:s'));
@@ -243,8 +254,8 @@
 					$this->Contratoconstructor->set('nombrecontrato', $this->request->data['Contratoconstructor']['nombrecontrato']);
 					$this->Contratoconstructor->set('montooriginal', $this->request->data['Contratoconstructor']['montocon']);
 					$this->Contratoconstructor->set('plazoejecucion', $this->request->data['Contratoconstructor']['plazoejecucion']);
-					$this->Contratoconstructor->set('fechainiciocontrato', $this->request->data['Contratoconstructor']['fechainicontrato']);
-					$this->Contratoconstructor->set('fechafincontrato', $this->request->data['Contratoconstructor']['fechafincontrato']);
+					$this->Contratoconstructor->set('fechainiciocontrato', $fechaini);
+					$this->Contratoconstructor->set('fechafincontrato', $fechafin);
 					$this->Contratoconstructor->set('detalleobras', $this->request->data['Contratoconstructor']['obras']);
 					$this->Contratoconstructor->set('tipocontrato', 'Construcción de obras');
 					$this->Contratoconstructor->set('retencion', $this->request->data['Contratoconstructor']['montocon']*0.05);
@@ -265,12 +276,12 @@
 					}
 					else 
 					{
-						$this->Session->setFlash('Ha ocurrido un error cc');
+						$this->Session->setFlash('Ha ocurrido un error verifique que los datos sean correctos');
 	                }
 				}
 				else 
 				{
-					$this->Session->setFlash('Ha ocurrido un error c');
+					$this->Session->setFlash('Ha ocurrido un error verifique que los datos sean correctos');
 					//debug($this->Contrato->validationErros);
                 }
 		}

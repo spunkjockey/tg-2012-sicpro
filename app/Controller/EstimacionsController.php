@@ -27,7 +27,7 @@ class EstimacionsController extends AppController {
 	}
 	
 	
-	 public function registrarestimacion() {
+	 public function estimacion_registrar() {
 		$this->layout = 'cyanspark';
         if ($this->request->is('post')) {
 			$this->Estimacion->set('idcontrato', $this->request->data['Estimacion']['idcontrato']);

@@ -6,7 +6,9 @@
 	<li><?php echo '<strong>Nombre Contrato:</strong> '.$nombrecontrato; ?></li> 
 	<li><?php echo '<strong>Monto:</strong> $'.number_format($montooriginal,2); ?></li>
 	<li><?php echo '<strong>Plazo Ejecución:</strong> '.$plazoejecucion; ?></li>
-	<li><?php echo '<strong>Orden de Inicio:</strong> '. date('d/m/Y',strtotime($ordeninicio)); ?></li>
+	<?php if(isset($ordeninicio)){?>
+		<li><?php echo '<strong>Orden de Inicio:</strong> '. date('d/m/Y',strtotime($ordeninicio)); ?></li>
+	<?php } ?>
 	</ul>
 </div>
 

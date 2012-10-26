@@ -55,7 +55,7 @@ $this->end(); ?>
 <div style='margin:4px 0' >
 	<?php echo $this->Html->link(
 		'Registrar Estimación de Avance', 
-		array('controller' => 'Estimacions', 'action' => 'registrarestimacion'),
+		array('controller' => 'Estimacions', 'action' => 'estimacion_registrar'),
 		array('class'=>'k-button')
 	); ?>
 </div> 

@@ -75,4 +75,19 @@ class Avanceprogramado extends AppModel {
         return (float) $check['montoavfinancieroprog'] <= (float) $monto;
 
     }
+	
+	public function beforeSave($options = array()) {
+		    if (!empty($this->data['Avanceprogramado']['fechaavance'])) {
+		        $this->data['Avanceprogramado']['fechaavance'] = $this->dateFormatBeforeSave($this->data['Avanceprogramado']['fechaavance']);
+		     	    
+			}
+		    return true;
+		}
+		
+		public function dateFormatBeforeSave($dateString) {
+		    
+    		list($d, $m, $y) = explode('/', $dateString);
+    		$mk=mktime(0, 0, 0, $m, $d, $y);
+    		return strftime('%Y-%m-%d',$mk);
+		}
 }
