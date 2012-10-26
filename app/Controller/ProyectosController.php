@@ -380,8 +380,8 @@
 	public function proyecto_reporteestados_pdf($iddiv=null, $inicio=null, $fin=null){
 		Configure::write('debug',0);
 		$this->layout = 'pdf'; //esto utilizara el layout 'pdf.ctp'
-		$fechai = substr($inicio,0,2).'/'.substr($inicio,2,2).'/'.substr($inicio,4,4);
-		$fechaf = substr($fin,0,2).'/'.substr($fin,2,2).'/'.substr($fin,4,4);
+		$fechai = substr($inicio,4,4).'-'.substr($inicio,2,2).'-'.substr($inicio,0,2);
+		$fechaf = substr($fin,4,4).'-'.substr($fin,2,2).'-'.substr($fin,0,2);
 		
 		$arraydiv=$this->Division->find('first',array('conditions'=>array('Division.iddivision' => $iddiv)));
 		$this->set('nombredivision',$arraydiv);
@@ -413,6 +413,10 @@
 	public function update_consultaestados(){
 		if (!empty($this->data['Proyecto']['divisiones']))
 		
+			$fechaini=$this->request->data['Proyecto']['start'];
+			$fechafin=$this->request->data['Proyecto']['end'];
+			$fechainicio=substr($fechaini,6,4).'-'.substr($fechaini,3,2).'-'.substr($fechaini,0,2);
+			$fechafinal=substr($fechafin,6,4).'-'.substr($fechafin,3,2).'-'.substr($fechafin,0,2);
 			$this->set('iddiv', $this->data['Proyecto']['divisiones']);
 			$this->set('fechai', $this->request->data['Proyecto']['start']);
 			$this->set('fechaf',$this->request->data['Proyecto']['end']);
@@ -420,8 +424,8 @@
 		   			$tmp = $this->Proyembe->find('all',array(
 					'conditions'=>array(
 					'Proyembe.iddivision'=> $this->data['Proyecto']['divisiones'],
-					'Proyembe.fechainicio >' => $this->request->data['Proyecto']['start'],
-					'Proyembe.fechafin <'=> $this->request->data['Proyecto']['end'])));
+					'Proyembe.fechainicio >' => $fechainicio,
+					'Proyembe.fechafin <'=> $fechafinal)));
 					
 					$this->set('tmp',Hash::extract($tmp,'{n}'));
                      //$contrato_id = $this->data['Estado']['contratos']['idcontrato'];
