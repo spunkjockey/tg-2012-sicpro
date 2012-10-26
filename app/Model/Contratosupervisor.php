@@ -28,10 +28,6 @@
 	        		)
 				),
 			'fechafincontrato' => array(
-		        'finmayorinicio_sup' => array(
-	            	'rule'    => array('finmayorinicio_con'),
-	            	'message' => 'El valor de fecha fin debe ser mayor que la fecha de inicio'
-	        		),
 	        	'formatofecha'=>array(
 					'rule'       => array('date', 'dmy'),
 			        'message'    => 'Ingrese fecha fin con el siguiente formato DD/MM/AAAA.',
@@ -45,12 +41,24 @@
 		        'allowEmpty' => true,
 				'required'=>false) 
 			);
-			
-		public function finmayorinicio_sup($check) 
-		{
-			
-			return date_create_from_format('d/m/Y', $this->data['Contratosupervisor']['fechainicontrato']) < date_create_from_format('d/m/Y', $this->data['Contratosupervisor']['fechafincontrato']);
-    	
+					
+		public function beforeSave($options = array()) {
+		    if (!empty($this->data['Contratosupervisor']['fechainiciocontrato']) && !empty($this->data['Contratosupervisor']['fechafincontrato'])) {
+		        $this->data['Contratosupervisor']['fechainiciocontrato'] = $this->dateFormatBeforeSave($this->data['Contratosupervisor']['fechainiciocontrato']);
+		        $this->data['Contratosupervisor']['fechafincontrato'] = $this->dateFormatBeforeSave($this->data['Contratosupervisor']['fechafincontrato']);
+	    
+			}
+			if(!empty($this->data['Contratosupervisor']['ordeninicio'] )){
+				$this->data['Contratosupervisor']['ordeninicio'] = $this->dateFormatBeforeSave($this->data['Contratosupervisor']['ordeninicio']);
+			}
+		    return true;
+		}
+		
+		public function dateFormatBeforeSave($dateString) {
+		    
+    		list($d, $m, $y) = explode('/', $dateString);
+    		$mk=mktime(0, 0, 0, $m, $d, $y);
+    		return strftime('%Y-%m-%d',$mk);
 		}
 		
 	};

@@ -61,6 +61,7 @@ $this->end(); ?>
 					array(
 						'label' => 'Seleccione proyecto:', 
 						'id' => 'proyectos',
+						'class' => 'k-kendobox',
 						'div' => array('id' => 'proyo','class' => 'requerido')
 						)); 
 				?>
@@ -209,6 +210,7 @@ $this->end(); ?>
 					array(
 						'label' => 'Empresa ejecutora:', 
 						'id' => 'empresas',
+						'class' => 'k-combobox',
 						'div' => array('id'=>'empeje','class' => 'requerido')
 						));
 					?>
@@ -223,6 +225,7 @@ $this->end(); ?>
 					array(
 						'label' => 'Administrador del contrato:', 
 						'id' => 'admin',
+						'class' => 'k-kendobox',
 						'div' => array('id'=>'admc','class' => 'requerido')
 						)); 
 					?>
@@ -258,7 +261,7 @@ $this->end(); ?>
 
 	<style scoped>
 
-                .k-textbox {
+                .k-textbox, .k-kendobox{
                     width: 300px;
                     
                     
@@ -267,7 +270,7 @@ $this->end(); ?>
 				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 				
 				.k-combobox {
-                    width: 200px;
+                    width: 300px;
                 }
                 
                 form .requerido label:after {
