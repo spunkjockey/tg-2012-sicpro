@@ -211,8 +211,11 @@
 	{
 		$this->layout = 'cyanspark';
 		$this->Contratoconstructor->id = $id;
+		$info = $this->Contratoconstructor->find('all',
+		array('conditions'=>array('Contratoconstructor.idcontrato'=>$id)));
+		$this->set('infoc',$info);
 		if ($this->request->is('get')) {
-	        $this->request->data = $this->Contratoconstructor->read();
+	        $this->request->data = $this->Contratoconstructor->read();	
 	    } 
     	
 		  if ($this->request->is('post')) 
@@ -222,20 +225,20 @@
 			//$id = $this->request->data['Contratoconstructor']['contratos'];
 			$fechafin = $this->request->data['Contratoconstructor']['fechafincontrato'];
 			$fechaf = substr($fechafin,6,4).'-'.substr($fechafin,3,2).'-'.substr($fechafin,0,2);
-			$fechaini= $this->request->data['Contratoconstructor']['fechainicontrato'];
+			$fechaini= $this->request->data['Contratoconstructor']['fechainiciocontrato'];
 			$fechai=$fechaf = substr($fechaini,6,4).'-'.substr($fechaini,3,2).'-'.substr($fechaini,0,2);
 
 			$this->Contrato->read(null, $id);
-			$this->Contrato->set('idcontrato', $this->request->data['Contratoconstructor']['contratos']);
+			//$this->Contrato->set('idcontrato',$id);
 			$this->Contrato->set('ipersona', $this->request->data['Contratoconstructor']['admin']);
 			$this->Contrato->set('idempresa', $this->request->data['Contratoconstructor']['empresas']);
 			$this->Contrato->set('codigocontrato', $this->request->data['Contratoconstructor']['codigocontrato']);
 			$this->Contrato->set('nombrecontrato', $this->request->data['Contratoconstructor']['nombrecontrato']);
-			$this->Contrato->set('montooriginal', $this->request->data['Contratoconstructor']['montocon']);
+			$this->Contrato->set('montooriginal', $this->request->data['Contratoconstructor']['montooriginal']);
 			$this->Contrato->set('plazoejecucion', $this->request->data['Contratoconstructor']['plazoejecucion']);
-			$this->Contrato->set('fechainiciocontrato', $fechaini);
-			$this->Contrato->set('fechafincontrato', $fechafin);
-			$this->Contrato->set('detalleobras', $this->request->data['Contratoconstructor']['obras']);
+			$this->Contrato->set('fechainiciocontrato', $fechai);
+			$this->Contrato->set('fechafincontrato', $fechaf);
+			$this->Contrato->set('detalleobras', $this->request->data['Contratoconstructor']['detalleobras']);
 			$this->Contrato->set('userm', $this->Session->read('User.username'));
 			$this->Contrato->set('modificacion', date('Y-m-d h:i:s'));
 			if ($this->Contrato->save($id, array(
@@ -247,18 +250,18 @@
 					//$this->Contratoconstructor->create();
 					//$id = $this->request->data['Contratoconstructor']['contratos'];
 					$this->Contratoconstructor->read(null, $id);
-					$this->Contratoconstructor->set('idcontrato', $this->request->data['Contratoconstructor']['contratos']);
+					//$this->Contratoconstructor->set('idcontrato', $id);
 					$this->Contratoconstructor->set('idpersona', $this->request->data['Contratoconstructor']['admin']);
 					$this->Contratoconstructor->set('idempresa', $this->request->data['Contratoconstructor']['empresas']);
 					$this->Contratoconstructor->set('codigocontrato', $this->request->data['Contratoconstructor']['codigocontrato']);
 					$this->Contratoconstructor->set('nombrecontrato', $this->request->data['Contratoconstructor']['nombrecontrato']);
-					$this->Contratoconstructor->set('montooriginal', $this->request->data['Contratoconstructor']['montocon']);
+					$this->Contratoconstructor->set('montooriginal', $this->request->data['Contratoconstructor']['montooriginal']);
 					$this->Contratoconstructor->set('plazoejecucion', $this->request->data['Contratoconstructor']['plazoejecucion']);
-					$this->Contratoconstructor->set('fechainiciocontrato', $fechaini);
-					$this->Contratoconstructor->set('fechafincontrato', $fechafin);
-					$this->Contratoconstructor->set('detalleobras', $this->request->data['Contratoconstructor']['obras']);
+					$this->Contratoconstructor->set('fechainiciocontrato', $fechai);
+					$this->Contratoconstructor->set('fechafincontrato', $fechaf);
+					$this->Contratoconstructor->set('detalleobras', $this->request->data['Contratoconstructor']['detalleobras']);
 					$this->Contratoconstructor->set('tipocontrato', 'Construcción de obras');
-					$this->Contratoconstructor->set('retencion', $this->request->data['Contratoconstructor']['montocon']*0.05);
+					$this->Contratoconstructor->set('retencion', $this->request->data['Contratoconstructor']['montooriginal']*0.05);
 					$this->Contratoconstructor->set('anticipo', $this->request->data['Contratoconstructor']['anticipo']);
 					$this->Contratoconstructor->set('userm', $this->Session->read('User.username'));
 					$this->Contratoconstructor->set('modificacion', date('Y-m-d h:i:s'));
