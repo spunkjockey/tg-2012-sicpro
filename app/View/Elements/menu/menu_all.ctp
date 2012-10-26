@@ -18,8 +18,9 @@
 								<ul>
 									<li>Constructor
 										<ul>
+											<li><?php echo $this->Html->link('Administrar contrato constuctor', array('controller' => 'Contratoconstructors','action'=>'contratoconstructor_listar')); ?></li>
 											<li><?php echo $this->Html->link('Registrar contrato constuctor', array('controller' => 'Contratoconstructors','action'=>'contratoconstructor_registrar')); ?></li>
-											<li><?php echo $this->Html->link('Modificar contrato constuctor', array('controller' => 'Contratoconstructors','action'=>'contratoconstructor_modificar')); ?></li>
+											<!--<li><?php echo $this->Html->link('Modificar contrato constuctor', array('controller' => 'Contratoconstructors','action'=>'contratoconstructor_modificar')); ?></li>-->
 											<li disabled="disabled">Eliminar contrato constructor</li>
 										</ul>
 									</li>

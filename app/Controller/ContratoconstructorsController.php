@@ -6,7 +6,12 @@
 		
 		public function contratoconstructor_listar(){
 			$this->layout = 'cyanspark';
-			$this->set('contratosc',$this->Contratoconstructor->find('all')); 
+			$this->set('contratosc',$this->Contratoconstructor->find('all',
+			array('conditions'=> array(
+										'Proyecto.estadoproyecto <>' => 'Finalizado'
+										)
+				  )
+			)); 
 						
 		}
 		
@@ -200,10 +205,15 @@
 	function contratoconstructor_modificar($id=null)
 	{
 		$this->layout = 'cyanspark';
+		$this->Contratoconstructor->id = $id;
+		if ($this->request->is('get')) {
+	        $this->request->data = $this->Contratoconstructor->read();
+	    } 
+    	
 		  if ($this->request->is('post')) 
 		{
-			$this->Contrato->create();
-			$id = $this->request->data['Contratoconstructor']['contratos'];
+			//$this->Contrato->create();
+			//$id = $this->request->data['Contratoconstructor']['contratos'];
 			$this->Contrato->read(null, $id);
 			$this->Contrato->set('idcontrato', $this->request->data['Contratoconstructor']['contratos']);
 			$this->Contrato->set('ipersona', $this->request->data['Contratoconstructor']['admin']);
@@ -223,8 +233,8 @@
 											   'fechafincontrato','detalleobras','userm','modificacion')))) 
 				{
 					//Registro en tabla contrato constructor
-					$this->Contratoconstructor->create();
-					$id = $this->request->data['Contratoconstructor']['contratos'];
+					//$this->Contratoconstructor->create();
+					//$id = $this->request->data['Contratoconstructor']['contratos'];
 					$this->Contratoconstructor->read(null, $id);
 					$this->Contratoconstructor->set('idcontrato', $this->request->data['Contratoconstructor']['contratos']);
 					$this->Contratoconstructor->set('idpersona', $this->request->data['Contratoconstructor']['admin']);
@@ -266,6 +276,18 @@
 		}
 		
 		
+	}
+
+
+	function contratoconstructor_eliminar($idcontrato=null) {
+		$contra = $this->Contratoconstructor->findByIdcontrato($idcontrato);
+		if (!$this->request->is('post')) {
+	        throw new MethodNotAllowedException();
+	    }
+	    if ($this->Contratoconstructor->delete($idcontrato)) {
+	        $this->Session->setFlash('La Contrato Constructor '. $contra['Contratoconstructor']['codigocontrato'] .' ha sido eliminado.','default',array('class' => 'success'));
+	        $this->redirect(array('action' => 'contratoconstructor_listar'));
+	    }
 	}
 	
 	public function contrato_actualizarestado(){

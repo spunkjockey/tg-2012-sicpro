@@ -64,7 +64,7 @@ $this->end(); ?>
 	<tr>
         <th data-field="codigocontrato" width="20px">Codigo Contrato</th>
         <th data-field="numeroproyecto" width="20px">Proyecto</th>
-        <th data-field="nombrecontrato" width="200px">Nombre</th>
+        <th data-field="nombrecontrato" width="200px">Nombre Contrato</th>
         <th data-field="accion" width="80px">Acción</th>
     </tr>
           <?php foreach ($contratosc as $cc): ?>
@@ -80,8 +80,8 @@ $this->end(); ?>
 			);?>
             <?php echo $this->Form->postLink(
                 '<span class="k-icon k-i-close"></span>',
-                array('action' => 'delete', $cc['Contratoconstructor']['idcontrato']),
-                array('confirm' => '¿Está seguro que desea eliminar la empresa ?',
+                array('action' => 'contratoconstructor_eliminar', $cc['Contratoconstructor']['idcontrato']),
+                array('confirm' => '¿Está seguro que desea eliminar el Contrato Constructor ?',
                 		'class'=>'k-button','escape' => false,'title' => 'Eliminar Contrato')
             )?>
             <!--<?php echo $this->Html->link(
