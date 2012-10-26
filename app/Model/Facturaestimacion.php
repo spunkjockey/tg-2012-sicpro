@@ -19,7 +19,7 @@ class Facturaestimacion extends AppModel {
 	    'montofactura' => array(
 	        'montocorrecto' => array(
             	'rule'    => array('montocorrecto'),
-            	'message' => 'EL monto a facturar no es igual al monto de la estimacion'
+            	'message' => 'EL monto a facturar debe ser menor o igual al monto de la estimacion'
         	)
 		),
 	    'fechafactura' => array(
@@ -42,6 +42,21 @@ class Facturaestimacion extends AppModel {
 		
 		$monto = Hash::extract($mestimacion, '0.Estimacion');
 		//Debugger::dump($monto['montoestimado']);        
-        return (float) $check['montofactura'] == (float) $monto['montoestimado'];
+        return (float) $check['montofactura'] <= (float) $monto['montoestimado'];
     }
+
+
+	public function beforeSave($options = array()) {
+		   if (!empty($this->data['Facturaestimacion']['fechafactura'])) {
+		        $this->data['Facturaestimacion']['fechafactura'] = $this->dateFormatBeforeSave($this->data['Facturaestimacion']['fechafactura']);
+		   }
+		return true;
+		}
+		
+		public function dateFormatBeforeSave($dateString) {
+		    
+    		list($d, $m, $y) = explode('/', $dateString);
+    		$mk=mktime(0, 0, 0, $m, $d, $y);
+    		return strftime('%Y-%m-%d',$mk);
+		}
 }

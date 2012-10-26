@@ -1,6 +1,12 @@
 <?php if(!empty($contrato)) {?>
 	
 	
+	<?php echo $this->Html->link(
+		'<span class="k-icon k-i-plus"></span> Generar PDF', 
+		array('action' => 'avancecontrato_pdf',$contrato['Contratoconstructor']['idcontrato']),
+		array('class'=>'k-button', 'escape' => false, 'target' => '_blank')
+	); ?>
+	
 	<div id="proyectos" style="margin-bottom: 50px">
 		<h2>Resumen de Contrato </h2>
 		<table id="Proyecto">

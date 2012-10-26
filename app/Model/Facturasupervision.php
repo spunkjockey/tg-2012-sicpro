@@ -19,7 +19,7 @@ class Facturasupervision extends AppModel {
 	    'montofactura' => array(
 	        'montocorrecto' => array(
             	'rule'    => array('montocorrecto'),
-            	'message' => 'EL monto a facturar no es igual al monto de la supervision'
+            	'message' => 'El monto a facturar debe ser menor o igual al monto de la supervision'
         	)
 		),
 	    'fechafactura' => array(
@@ -42,6 +42,21 @@ class Facturasupervision extends AppModel {
 		//Debugger::dump($msupervision);
 		$monto = Hash::extract($msupervision, '0.Informesupervisor');
 		//Debugger::dump($monto['valoravancefinanciero']);        
-        return (float) $check['montofactura'] == (float) $monto['valoravancefinanciero'];
+        return (float) $check['montofactura'] <= (float) $monto['valoravancefinanciero'];
     }
+
+
+	public function beforeSave($options = array()) {
+		   if (!empty($this->data['Facturasupervision']['fechafactura'])) {
+		        $this->data['Facturasupervision']['fechafactura'] = $this->dateFormatBeforeSave($this->data['Facturasupervision']['fechafactura']);
+		   }
+		return true;
+		}
+		
+		public function dateFormatBeforeSave($dateString) {
+		    
+    		list($d, $m, $y) = explode('/', $dateString);
+    		$mk=mktime(0, 0, 0, $m, $d, $y);
+    		return strftime('%Y-%m-%d',$mk);
+		}
 }
