@@ -50,28 +50,176 @@ $this->end(); ?>
 	
 <?php $this->end(); ?>
 
-<?php Debugger::dump($contratos); ?>
-
+<!--<?php Debugger::dump($contratos); ?>-->
+<!--<?php Debugger::dump($ordenes); ?>-->
 <p>
-	<?php foreach ($contratos as $cts) 
-	{ 
-	?>
-		<b>Codigo Contrato:</b><br>
-			<?php echo $cts['Contrato']['codigocontrato']?> <br>
-		<b>Nombre Contrato:</b><br>
-			<?php echo $cts['Contrato']['nombrecontrato']?><br>
-		<b>Monto Original:</b><br>
-			<?php echo $cts['Contrato']['montooriginal']?><br>
-		<b>Tipo Contrato:</b><br>
-			<?php echo $cts['Contrato']['tipocontrato']?><br>
-		<b>Plazo Ejecucion:</b><br>
-			<?php echo $cts['Contrato']['plazoejecucion']?><br>
-		<b>Orden de Inicio:</b><br>
-			<?php echo $cts['Contrato']['ordeninicio']?><br>
-		<b>Detalle de Obras:</b><br>
-			<?php echo $cts['Contrato']['detalleobras']?><br>
-	<?php
-	}
-	unset($contratos);
-	?> 
+	<h2>Información Contrato</h2>
+	<div id="tablagrid">
+		<table id="grid">
+		<tbody>
+		<tr>
+			<td width="30%">Codigo Contrato</td><td width="60%"><?php echo $contratos['Contrato']['codigocontrato']?></td>
+		</tr>
+		<tr>
+			<td>Contrato</td><td><?php echo $contratos['Contrato']['nombrecontrato']?></td>
+		</tr>
+		<tr>
+			<td>Monto Original</td><td><?php echo $contratos['Contrato']['montooriginal']?></td>
+		</tr>
+		<tr>
+			<td>Tipo Contrato</td><td><?php echo $contratos['Contrato']['tipocontrato']?></td>
+		</tr>
+		<tr>
+			<td>Plazo Ejecucion</td><td><?php echo $contratos['Contrato']['plazoejecucion']?></td>
+		</tr>
+		<tr>
+			<td>Orden de Inicio</td><td>
+			<?php 
+			if(isset($contratos['Contrato']['ordeninicio'])){
+			echo $contratos['Contrato']['ordeninicio'];
+			}
+			else {
+				{echo "Orden de Inicio no disponible";}
+			}
+			?>
+			</td>
+		</tr>
+		<tr>
+			<td>Detalle de Obras</td><td><?php echo $contratos['Contrato']['detalleobras']?></td>
+		</tr>
+		<tr>
+			<td>Estado contrato</td><td>
+			<?php 
+			if(isset($contratos['Contrato']['estadocontrato'])){
+			echo $contratos['Contrato']['estadocontrato'];
+			}
+			else {
+				echo "Estado no disponible";
+			}
+			?>
+			</td>
+		</tr>
+		<tr>
+			<td>Administrador de Contrato</td><td><?php echo $contratos['Persona']['nombrespersona']. ''.$contratos['Persona']['apellidospersona']?></td>
+		</tr>
+		<tr>
+			<td>Empresa</td><td><?php echo $contratos['Empresa']['nombreempresa']?></td>
+		</tr>
+		</tbody>
+		</table>
+		</div>	
+			
+		<?php 
+			if(($contratos['Contrato']['tipocontrato']=='Construcción de obras')&& !empty($ordenes)){ ?>
+		<h2>Ordenes de Cambio</h2>
+		<div id="tablagrid">
+		<table id="grid">
+		<thead>
+		<tr>
+		   <th data-field="Titulo" width="15%">Titulo</th>
+		   <th data-field="Monto" width="35%">Monto</th>
+		   <th data-field="Descripcion">Descripcion</th>
+		   <th data-field="Fecha" width="15%">Fecha</th>
+		</tr>
+		</thead>
+		<tbody>
+		<?php foreach ($ordenes as $oc): ?>
+		<tr>
+			<td><?php echo $oc['Ordendecambio']['tituloordendecambio']?></td>
+			<td><?php echo $oc['Ordendecambio']['montoordencambio']?></td>
+			<td><?php echo $oc['Ordendecambio']['descripcionordencambio']?></td>
+			<td><?php echo $oc['Ordendecambio']['fecharegistroorden']?></td>
+		</tr>
+		<?php endforeach ?>
+		</tbody>
+		</table>
+		</div>
+			<?php }
+		?>
+		<br />
+		<?php echo $this->Html->link('Regresar',
+					array('controller' => 'Contratos', 'action' => 'contrato_consultar'),
+					array('id' => 'regresar','class'=>'k-button')); 
+		?>	
+			
 </p>
+
+
+<style>
+	#tablas {
+		width: 500px;
+		margin-left: 30px;
+	}
+	
+	#Proyecto, #Contrato {
+		border-collapse: collapse;
+		color: black;
+	}
+	
+	#Proyecto .primerac, #Contrato .primerac {
+		font-family: "Trebuchet MS", Arial, sans-serif;
+		font-weight: bold;
+		text-align: right;
+		padding-right: 10px;
+		min-width: 80px;
+	}
+	
+	/* 
+	Cusco Sky table styles
+	written by Braulio Soncco http://www.buayacorp.com
+	*/
+
+	#tablagrid table, #tablagrid th, #tablagrid td {
+		border: 1px solid #D4E0EE;
+		border-collapse: collapse;
+		font-family: "Trebuchet MS", Arial, sans-serif;
+		color: #555;
+	}
+	
+	#tablagrid caption {
+		font-size: 150%;
+		font-weight: bold;
+		margin: 5px;
+	}
+	
+	#tablagrid td, #tablagrid th {
+		padding: 4px;
+		text-align: center;
+	}
+	
+	#tablagrid thead th {
+		text-align: center;
+		background: #E6EDF5;
+		color: #4F76A3;
+		font-size: 100% !important;
+	}
+	
+	#tablagrid tbody th {
+		font-weight: bold;
+	}
+	
+	#tablagrid tbody tr { background: #FCFDFE; }
+	
+	#tablagrid tbody tr.odd { background: #F7F9FC; }
+	
+	#tablagrid table a:link {
+		color: #718ABE;
+		text-decoration: none;
+	}
+	
+	#tablagrid table a:visited {
+		color: #718ABE;
+		text-decoration: none;
+	}
+	
+	#tablagrid table a:hover {
+		color: #718ABE;
+		text-decoration: underline !important;
+	}
+	
+	#tablagrid tfoot th, #tablagrid tfoot td {
+		font-size: 100%;
+		font-weight: bold;
+	}
+
+</style>
