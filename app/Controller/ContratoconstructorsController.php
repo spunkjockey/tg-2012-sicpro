@@ -236,8 +236,8 @@
 			$this->Contrato->set('nombrecontrato', $this->request->data['Contratoconstructor']['nombrecontrato']);
 			$this->Contrato->set('montooriginal', $this->request->data['Contratoconstructor']['montooriginal']);
 			$this->Contrato->set('plazoejecucion', $this->request->data['Contratoconstructor']['plazoejecucion']);
-			$this->Contrato->set('fechainiciocontrato', $fechai);
-			$this->Contrato->set('fechafincontrato', $fechaf);
+			$this->Contrato->set('fechainiciocontrato', $this->request->data['Contratoconstructor']['fechainiciocontrato']);
+			$this->Contrato->set('fechafincontrato', $this->request->data['Contratoconstructor']['fechafincontrato']);
 			$this->Contrato->set('detalleobras', $this->request->data['Contratoconstructor']['detalleobras']);
 			$this->Contrato->set('userm', $this->Session->read('User.username'));
 			$this->Contrato->set('modificacion', date('Y-m-d h:i:s'));
@@ -257,8 +257,8 @@
 					$this->Contratoconstructor->set('nombrecontrato', $this->request->data['Contratoconstructor']['nombrecontrato']);
 					$this->Contratoconstructor->set('montooriginal', $this->request->data['Contratoconstructor']['montooriginal']);
 					$this->Contratoconstructor->set('plazoejecucion', $this->request->data['Contratoconstructor']['plazoejecucion']);
-					$this->Contratoconstructor->set('fechainiciocontrato', $fechai);
-					$this->Contratoconstructor->set('fechafincontrato', $fechaf);
+					$this->Contratoconstructor->set('fechainiciocontrato', $this->request->data['Contratoconstructor']['fechainiciocontrato']);
+					$this->Contratoconstructor->set('fechafincontrato', $this->request->data['Contratoconstructor']['fechafincontrato']);
 					$this->Contratoconstructor->set('detalleobras', $this->request->data['Contratoconstructor']['detalleobras']);
 					$this->Contratoconstructor->set('tipocontrato', 'Construcción de obras');
 					$this->Contratoconstructor->set('retencion', $this->request->data['Contratoconstructor']['montooriginal']*0.05);

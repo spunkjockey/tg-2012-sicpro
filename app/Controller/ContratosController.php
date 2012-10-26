@@ -267,6 +267,17 @@ class ContratosController extends AppController {
 		$this->render();
 	} 
 	
+	public function contrato_consultar(){
+		$this->layout = 'cyanspark';
+			$this->set('contratos',$this->Contrato->find('all')); 
+	}
+
+	public function contrato_detalle($idcontrato=null){
+		$this->layout = 'cyanspark';
+		$contratos = $this->Contrato->findByIdcontrato($idcontrato);
+		$this->set('contratos',$contratos);
+	}
+	
 }
 
 
