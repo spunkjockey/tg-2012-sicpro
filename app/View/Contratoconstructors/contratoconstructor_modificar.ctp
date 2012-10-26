@@ -67,8 +67,9 @@ $this->end(); ?>
 				</script>
 			</li>-->
 			<li>
+				<!--<?php Debugger::dump($infoc); ?>-->
 					<!--- Aqui se carga el nombre del proyecto seleccionado-->
-					<label>Nombre Proyecto: </label><?php echo $this->request->data['Proyecto']['nombreproyecto'];	?>
+					<label>Nombre Proyecto: </label><?php echo $infoc['0']['Proyecto']['nombreproyecto'];	?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('codigocontrato', 
@@ -207,7 +208,7 @@ $this->end(); ?>
 					array(
 						'label' => 'Empresa ejecutora:', 
 						'id' => 'empresas',
-						'value' => $this->request->data['Empresa']['nombreempresa'],
+						'value' => $infoc['0']['Empresa']['nombreempresa'],
 						'div' => array('id'=>'empeje','class' => 'requerido')
 						));
 					?>
@@ -238,7 +239,7 @@ $this->end(); ?>
 						</td>
 						<td>	
 							<?php echo $this->Html->link('Regresar', 
-								array('controller' => 'Contratoconstructor','action' => 'contratoconstructor_listar'),
+								array('controller' => 'Contratoconstructors','action' => 'contratoconstructor_listar'),
 								array('class'=>'k-button')); ?>
 						</td>
 					</tr>
