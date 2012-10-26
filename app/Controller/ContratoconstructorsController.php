@@ -212,6 +212,7 @@
 		$this->set('infoc',$info);
 		if ($this->request->is('post')) 
 		{
+
 			$this->Contratoconstructor->create();
 			
 			$this->Contratoconstructor->set('idcontrato', $id);
@@ -246,7 +247,7 @@
 			{
 				$this->Session->setFlash('Ha ocurrido un error verifique que los datos sean correctos');
             }
-		}
+        }
 	else
 		{
 			$this->request->data = $this->Contratoconstructor->read(null, $id);	
