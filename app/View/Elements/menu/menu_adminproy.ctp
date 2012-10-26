@@ -4,9 +4,7 @@
 								<ul>
 									<li>Constructor
 										<ul>
-											<li><?php echo $this->Html->link('Registrar contrato constuctor', array('controller' => 'Contratoconstructors','action'=>'contratoconstructor_registrar')); ?></li>
-											<li><?php echo $this->Html->link('Modificar contrato constuctor', array('controller' => 'Contratoconstructors','action'=>'contratoconstructor_modificar')); ?></li>
-											<li disabled="disabled">Eliminar contrato constructor</li>
+											<li><?php echo $this->Html->link('Administrar contrato constuctor', array('controller' => 'Contratoconstructors','action'=>'contratoconstructor_listar')); ?></li>
 										</ul>
 									</li>
 									<li>Supervisor
@@ -16,7 +14,7 @@
 											<li disabled="disabled">Eliminar contrato supervisor</li>
 										</ul>
 									</li>		
-									<li disabled="disabled">Consultar contrato</li>
+									<li><?php echo $this->Html->link('Consultar contrato', array('controller' => 'Contratos','action'=>'contrato_consultar')); ?></li>
 									<li><?php echo $this->Html->link('Actualizar estado de contrato', array('controller' => 'Contratoconstructors','action'=>'contrato_actualizarestado')); ?></li>
 									<li><?php echo $this->Html->link('Asignación de técnicos', array('controller' => 'nombramientos','action'=>'nombramiento_asignartecnico')); ?></li>
 								</ul>

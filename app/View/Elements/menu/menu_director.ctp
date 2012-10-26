@@ -7,7 +7,7 @@
 							</li>
 							<li>Contratos
 								<ul>
-									<li disabled="disabled">Consultar contrato</li>
+									<li><?php echo $this->Html->link('Consultar contrato', array('controller' => 'Contratos','action'=>'contrato_consultar')); ?></li>
 								</ul>
 							</li>
 							<li>Control y seguimiento
