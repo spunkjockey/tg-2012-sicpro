@@ -240,7 +240,7 @@
 				echo "supuestamente ya guarde en constructor";
 				$this->Session->setFlash('El contrato '.$this->request->data['Contratoconstructor']['codigocontrato'].' ha sido actualizado.',
 										 'default',array('class'=>'success'));	
-				$this->redirect(array('controller'=>'mains', 'action' => 'index'));
+				$this->redirect(array('controller'=>'Contratoconstructors', 'action' => 'contratoconstructor_listar'));
 				
 			}
 			else 
