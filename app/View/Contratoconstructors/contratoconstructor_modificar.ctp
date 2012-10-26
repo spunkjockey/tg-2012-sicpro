@@ -51,25 +51,11 @@ $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Modificar contrato constructor</h2>
-		<?php echo $this->Form->create('Contratoconstructor'); ?>
+		<?php echo $this->Form->create('Contratoconstructor',array('action' => 'contratoconstructor_modificar')); ?>
 		<ul>
-			<!--<li>
-				<?php echo $this->Form->input('proyectos', 
-					array(
-						'label' => 'Seleccione proyecto:', 
-						'id' => 'proyectos',
-						'div' => array('id' => 'proyo','class' => 'requerido')
-						)); 
-				?>
-				<script type="text/javascript">
-					var proyectos= new LiveValidation( "proyectos", { validMessage: " ", insertAfterWhatNode: "proyo" } );
-					proyectos.add(Validate.Presence, { failureMessage: "Seleccione un Proyecto" } );
-				</script>
-			</li>-->
 			<li>
-				<!--<?php Debugger::dump($infoc); ?>-->
-					<!--- Aqui se carga el nombre del proyecto seleccionado-->
-					<label>Nombre Proyecto: </label><?php echo $infoc['0']['Proyecto']['nombreproyecto'];	?>
+				<!--- Aqui se carga el nombre del proyecto seleccionado-->
+				<label>Nombre Proyecto: </label><?php echo $infoc['0']['Proyecto']['nombreproyecto'];	?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('codigocontrato', 
@@ -223,6 +209,7 @@ $this->end(); ?>
 					array(
 						'label' => 'Administrador del contrato:', 
 						'id' => 'admin',
+						'value' => $infoc['0']['Contratoconstructor']['idpersona'],
 						'div' => array('id'=>'admc','class' => 'requerido')
 						)); 
 					?>
