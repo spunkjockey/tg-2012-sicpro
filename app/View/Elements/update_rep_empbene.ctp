@@ -26,7 +26,7 @@
 			</table>
 			<ul>
 			<li  class="accept">
-				<?php echo $this->Form->input('Fichatecnica.iddivision', 
+				<?php echo $this->Form->input('Proyembe.iddivision', 
 					array('type' => 'hidden',
 						  'value'=> $proys[0]['Proyembe']['iddivision'])); ?>
 				
@@ -38,7 +38,7 @@
 									$proys[0]['Proyembe']['iddivision'],
 									$fechaini, 
 									$fechafin),
-						array('class'=>'k-button')); ?>
+						array('class'=>'k-button','target' => '_blank')); ?>
 			</li>
 		</ul>
 		<?php unset($proys); ?>	

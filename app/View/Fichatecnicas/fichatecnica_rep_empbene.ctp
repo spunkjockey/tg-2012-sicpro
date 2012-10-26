@@ -58,7 +58,7 @@ $this->end(); ?>
 		<?php echo $this->ajax->form(array(
 				'type' => 'post',
 			    'options' => array(
-					        'model'=>'Fichatecnica',
+					        'model'=>'Proyembe',
 					        'update'=>'resultadosbusqueda',
 					        'url' => array('action' => 'update_rep_empbene')
 							))); ?>	
@@ -258,15 +258,48 @@ $this->end(); ?>
 			        var proys = $("#divisiones").data("kendoDropDownList");
                     proys.list.width(300);
                     
-                    $("#datePicker1").kendoDatePicker({
-		   			format: "dd/MM/yyyy",
-		   			culture: "es-ES"
-			   		});
+                    
 			   		
-					$("#datePicker2").kendoDatePicker({
-			   			format: "dd/MM/yyyy",
-			   			culture: "es-ES"
-			   		});
+			   		function filtrarDrop() 
+			   		{
+						var startDate = datePicker1.value();
+						var endDate = datePicker2.value();
+					}    
+				        
+					function startChange() {
+						var startDate = datePicker1.value();
+						if (startDate) {
+				            startDate = new Date(startDate);
+				            startDate.setDate(startDate.getDate() + 1);
+				            datePicker2.min(startDate);
+				    	}
+				    }
+					
+					function endChange() {
+						var endDate = datePicker2.value();
+					    if (endDate) {
+					        endDate = new Date(endDate);
+					        endDate.setDate(endDate.getDate() - 1);
+					        datePicker1.max(endDate);
+					    }
+					}
+				
+				    var datePicker1 = $("#datePicker1").kendoDatePicker({
+				        culture: "es-ES",
+					   	format: "dd/MM/yyyy",
+				        change: startChange,
+				        close: filtrarDrop
+				    }).data("kendoDatePicker");
+					
+				    var datePicker2 = $("#datePicker2").kendoDatePicker({
+				        culture: "es-ES",
+					   	format: "dd/MM/yyyy",
+				        change: endChange,
+				        close: filtrarDrop
+				    }).data("kendoDatePicker");
+					
+				    datePicker1.max(datePicker2.value());
+				    datePicker2.min(datePicker1.value());
                     
                    
                 });

@@ -124,7 +124,7 @@ $this->end(); ?>
 					<td>
 						<?php echo $this->Html->link('Regresar', 
 							array('controller' => 'Proyectos','action' => 'proyecto_reportegeneral'),
-							array('class'=>'k-button')); ?>
+							array('class'=>'k-button','target' => '_blank')); ?>
 					</td>
 				</tr>
 			</table>

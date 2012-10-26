@@ -24,6 +24,24 @@ class Fichatecnica extends AppModel {
 	)
 	);	
 	
+	public $validate = array(
+		    'fechainicio' => array(
+		        'formatofecha'=>array(
+						'rule'       => array('date', 'dmy'),
+				        'message'    => 'Ingrese fecha de inicio con el siguiente formato DD/MM/AAAA.',
+				        'allowEmpty' => true,
+						'required'=>false
+						)
+				),
+			'fechafin' => array(
+				'formatofecha'=>array(
+						'rule'       => array('date', 'dmy'),
+				        'message'    => 'Ingrese fecha fin con el siguiente formato DD/MM/AAAA.',
+				        'allowEmpty' => true,
+						'required'=>false
+						)
+					)
+				);
 	
 	
 }
