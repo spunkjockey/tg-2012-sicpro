@@ -81,9 +81,9 @@ $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('TG2012 - SICPRO');
-$pdf->SetTitle('Informe de Contratos por Proyecto');
-$pdf->SetSubject('Contrato por proyecto');
-$pdf->SetKeywords('Proyecto, Contrato, MAG');
+$pdf->SetTitle('Informe de Estado de Avance por Contrato');
+$pdf->SetSubject('Avance de Contrato');
+$pdf->SetKeywords('Proyecto, Contrato, MAG, Avance, Graficas');
 
 // set default header data
 $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
@@ -115,95 +115,62 @@ $pdf->setLanguageArray($l);
 $pdf->AddPage();
 
 $pdf->SetFont('helvetica', 'B', 14);
-$pdf->Cell(0, 10, 'Contratos asociados a proyecto', 0, false, 'C', 0, '', 0, false, 'T', 'M');
+$pdf->Cell(0, 10, 'Estado de Avance de Contrato', 0, false, 'C', 0, '', 0, false, 'T', 'M');
 $pdf->Ln(20);
 
 $pdf->SetFont('helvetica', '', 11);
-$pdf->Cell(25, 12, 'Proyecto:', 0, false, 'R', 0, '', 0, false, 'T', 'T');
-//$pdf->MultiCell(135, 12, $proyecto['0']['nombreproyecto'], 0, 'L', $fill, 0, '', '', true, 0, false, true, 12,'T',true);
-//$pdf->Cell(135, 12, $proyecto['0']['nombreproyecto'], 1, false, 'L', 0, '', 0, false, 'T', 'M');
-$pdf->Ln(20);
 
-$html = 'ja<div id="placeholder3" style="width:600px;height:300px;margin-bottom:20px;"></div>';
+
+
+$html = '
+
+<style>
+    table.detailtable {
+        font-family: helvetica;
+        font-size: 10pt;
+    }
+    td.first {
+        width: 200px;
+        font-weight: bold;
+		text-align: right;
+		padding-right: 5px;
+    }
+	
+	td.second {
+        
+        
+		text-align: justify;
+		padding-left: 5px;
+    }
+    
+
+</style>
+<h2>Resumen de Contrato </h2>
+		<table  class="detailtable">
+			<tr> <td class="first">Número:</td>			<td class="second"> ' . $contrato['Proyecto']['numeroproyecto'] . '</td> </tr>
+			<tr> <td class="first">Proyecto:</td>		<td class="second"> ' . $contrato['Proyecto']['nombreproyecto'] . '</td> </tr>
+			<tr> <td class="first">Código:</td>			<td class="second"> ' . $contrato['Contratoconstructor']['codigocontrato'] . '</td> </tr>
+			<tr> <td class="first">Contrato:</td>		<td class="second"> ' . $contrato['Contratoconstructor']['nombrecontrato'] . '</td> </tr>
+			<tr> <td class="first">Monto Planeado:</td>	<td class="second"> ' . '$'.number_format($contrato['Contratoconstructor']['montooriginal'],2) . '</td> </tr>
+			<tr> <td class="first">Estado:</td>  		<td class="second"> ' . $contrato['Contratoconstructor']['estadocontrato'] . '</td> </tr>
+			<tr> <td class="first">Orden de Inicio:</td><td class="second"> ' . $contrato['Contratoconstructor']['ordeninicio'] . '</td> </tr>
+			<tr> <td class="first">Empresa:</td>  		<td class="second"> ' . $contrato['Empresa']['nombreempresa'] . '</td> </tr>
+			<tr> <td class="first">Administrador de Contrato:</td>  <td class="second"> ' . $contrato['Persona']['nombrecompleto'] . '</td> </tr>';
+
+$html .= '</table>';
+
+
 
 // output the HTML content
 $pdf->writeHTML($html, true, false, true, false, '');
 
-$js = <<<EOD
-$(function () {
-        var d1 = [];
-        for (var i = 0; i < Math.PI * 2; i += 0.25)
-            d1.push([i, Math.sin(i)]);
-    
-        var d2 = [];
-        for (var i = 0; i < Math.PI * 2; i += 0.25)
-            d2.push([i, Math.cos(i)]);
-
-        var d3 = [];
-        for (var i = 0; i < Math.PI * 2; i += 0.1)
-            d3.push([i, Math.tan(i)]);
-    
-        // ticks: [0, [Math.PI/2, "\u03c0/2"], [Math.PI, "\u03c0"], [Math.PI * 3/2, "3\u03c0/2"], [Math.PI * 2, "2\u03c0"]]
-
-        $.plot($("#placeholder3"), [
-            { label: "sin(x)",  data: d1},
-            { label: "cos(x)",  data: d2},
-            { label: "tan(x)",  data: d3}
-        ], {
-            series: {
-                lines: { show: true },
-                points: { show: true }
-            },
-            xaxis: {
-                ticks: [0, [Math.PI/2, "pi/2"], [Math.PI, "pi"], [Math.PI * 3/2, "3pi/2"], [Math.PI * 2, "2pi"]]
-            },
-            yaxis: {
-                ticks: 10,
-                min: -2,
-                max: 2
-            },
-            grid: {
-                backgroundColor: { colors: ["#fff", "#eee"]},   
-                canvasText: {show: true, font: "sans 9px"}         
-            },
-            legend: {
-                position: "se",
-                backgroundColor: "#ff4",
-                backgroundOpacity: 0.35
-            }
-        });
-
-        if ($.support.cssFloat) {   // currently evals to False in IE
-             var s = document.createElement("script");
-             s.setAttribute("type", "text/javascript");
-             s.setAttribute("src", "base64.js");
-             var h = document.getElementById("head");
-             h.appendChild(s);
-
-             var s2 = document.createElement("script");
-             s2.setAttribute("type", "text/javascript");
-             s2.setAttribute("src", "canvas2image.js");
-             h.appendChild(s2);
-
-             document.getElementById("convertpngbtn").onclick = function() {
-                 saveFlotGraphAsPNG("placeholder3", "main");
-             }
-         } else {
-             document.getElementById("convertpngbtn").onclick = function() {
-                 alert("Image Exporting not available in IE");
-             }
-         }
-
-    });
-EOD;
 
 
-$pdf->IncludeJS($js);
-//Column titles
+$pdf->Ln(20);
+
+
 //$header = array('Código', 'Nombre', 'Plazo', 'Monto', 'Empresa');
-
 //$pdf->SetFont('helvetica', '', 10);
-// print colored table
 //$pdf->ColoredTable($header,$proyectos);
 // ---------------------------------------------------------
 

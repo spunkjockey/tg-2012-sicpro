@@ -178,6 +178,7 @@ class ContratosController extends AppController {
 		
 	public function avancecontrato() {
 		$this->layout = 'cyanspark';
+
 	} 
 
 	public function contratosjson() {
@@ -259,9 +260,68 @@ class ContratosController extends AppController {
 		$this->render('/Elements/update_avancecontrato', 'ajax');
 	}
 
-	public function avancecontrato_pdf(){
+	public function avancecontrato_pdf($idcontrato=null){
 		Configure::write('debug',0);
 		$this->layout = 'pdf'; //esto utilizara el layout 'pdf.ctp'
+		
+		if(isset($idcontrato)&&!empty($idcontrato))
+		{
+			$contrato = $this->Contratoconstructor->findByIdcontrato($idcontrato);
+			//Debugger::dump($contrato);
+			
+			
+			if(isset($contrato)&&!empty($contrato)) {
+				
+				$avance = $this->Avanceprogramado->findAllByIdcontrato($idcontrato,
+					array(),
+					array('Avanceprogramado.fechaavance' => 'ASC'),
+					null,
+					null,
+					0 
+				);
+				//Debugger::dump($avance);
+				
+				$estimacion = $this->Estimacion->findAllByIdcontrato($idcontrato,
+					array(),
+					array('Estimacion.fechafinestimacion' => 'ASC'),
+					null,
+					null,
+					0 
+				);
+			
+				//Debugger::dump($estimacion);
+				
+				$scontrato = $this->Contratosupervisor->findByCon_idcontrato($idcontrato,array('recursive'=>0 ));
+				//Debugger::dump($scontrato);
+				
+				$supervision = $this->Informesupervisor->findAllByIdcontrato($scontrato['Contratosupervisor']['idcontrato'],
+					array(),
+					array('Informesupervisor.fechafinsupervision' => 'ASC'),
+					null,
+					null,
+					0
+				);
+				
+				
+				$avancesupervision = $this->Informesupervisor->query('select * 
+					from 
+					sicpro2012.avanceprogramado LEFT JOIN sicpro2012.informesupervision ON avanceprogramado.fechaavance = informesupervision.fechafinsupervision 
+					where avanceprogramado.idcontrato = '. $idcontrato .'
+					order by avanceprogramado.fechaavance');
+				
+				//Debugger::dump($avancesupervision);
+				//Debugger::dump(Hash::extract($avance,'{n}.Avanceprogramado'));
+				
+				
+				$this->set('contrato',$contrato);
+				$this->set('avances',$avance);
+				$this->set('estimaciones',$estimacion);
+				$this->set('scontrato',$scontrato);
+				$this->set('supervisiones',$supervision); 
+				$this->set('avancesupervision',$avancesupervision);
+				
+				}
+		}
 		
 		
 		$this->render();
