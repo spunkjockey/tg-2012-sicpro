@@ -112,21 +112,23 @@ class FichatecnicasController extends AppController {
 	 * */
 	function update_rep_empbene()
 	{
-		if(isset($this->request->data['Fichatecnica']['divisiones']) && !empty($this->request->data['Fichatecnica']['divisiones']))
+		if(isset($this->request->data['Proyembe']['divisiones']) && !empty($this->request->data['Proyembe']['divisiones']))
 		{
-			$iddiv = $this->request->data['Fichatecnica']['divisiones'];
-			$fechai= $this->request->data['Fichatecnica']['fechainicio'];
-			$fechaf= $this->request->data['Fichatecnica']['fechafin'];
+			$iddiv = $this->request->data['Proyembe']['divisiones'];
+			$fechai= $this->request->data['Proyembe']['fechainicio'];
+			$fechainicio=substr($fechai,6,4).'-'.substr($fechai,3,2).'-'.substr($fechai,0,2);
+			$fechaf= $this->request->data['Proyembe']['fechafin'];
+			$fechafin=substr($fechaf,6,4).'-'.substr($fechaf,3,2).'-'.substr($fechaf,0,2);
 			$this->set('nomdiv',$this->Division->field('Division.divison',array('iddivision'=>$iddiv)));
-			$this->set('inicio',$this->request->data['Fichatecnica']['fechainicio']);
-			$this->set('fin',$this->request->data['Fichatecnica']['fechafin']);
+			$this->set('inicio',$this->request->data['Proyembe']['fechainicio']);
+			$this->set('fin',$this->request->data['Proyembe']['fechafin']);
 			$this->set('proys',$this->Proyembe->find('all',array(
 				'fields'=>array('Proyembe.nombreproyecto','Proyembe.numeroproyecto',
 								'Proyembe.empleosgenerados','Proyembe.beneficiarios',
 								'Proyembe.iddivision'),
 				'conditions'=>array("AND"=>array('Proyembe.iddivision'=>$iddiv,
-												 'Proyembe.fechainicio >'=>$fechai,
-												 'Proyembe.fechafin <'=>$fechaf)))));
+												 'Proyembe.fechainicio >'=>$fechainicio,
+												 'Proyembe.fechafin <'=>$fechafin)))));
 		}
 		$this->render('/Elements/update_rep_empbene', 'ajax');
 		
@@ -139,8 +141,8 @@ class FichatecnicasController extends AppController {
 	{
 		Configure::write('debug',0);
 		$this->layout = 'pdf'; //esto utilizara el layout 'pdf.ctp'
-		$fechai = substr($inicio,0,2).'/'.substr($inicio,2,2).'/'.substr($inicio,4,4);
-		$fechaf = substr($fin,0,2).'/'.substr($fin,2,2).'/'.substr($fin,4,4);
+		$fechai = substr($inicio,4,4).'-'.substr($inicio,2,2).'-'.substr($inicio,0,2);
+		$fechaf = substr($fin,4,4).'-'.substr($fin,2,2).'-'.substr($fin,0,2);
 		$this->set('proys',$this->Proyembe->find('all',array(
 							'fields'=>array('Proyembe.nombreproyecto','Proyembe.numeroproyecto',
 											'Proyembe.empleosgenerados','Proyembe.beneficiarios',

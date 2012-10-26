@@ -21,20 +21,50 @@
 	    );
 	
 	public $validate = array(
-	    'fechafinestimacion' => array(
-	        'finmayorinicio' => array(
-            	'rule'    => array('finmayorinicio'),
-            	'message' => 'El valor de fecha fin estimacion tiene que se mayor que la fecha de inicio'
-        	)
-			)
+	    'fechainicioestimacion' => array(
+	        'formatofecha'=>array(
+					'rule'       => array('date', 'dmy'),
+			        'message'    => 'Ingrese fecha de inicio con el siguiente formato DD/MM/AAAA.',
+			        'allowEmpty' => true,
+					'required'=>false
+					)
+			),
+		'fechafinestimacion' => array(
+			'formatofecha'=>array(
+					'rule'       => array('date', 'dmy'),
+			        'message'    => 'Ingrese fecha fin con el siguiente formato DD/MM/AAAA.',
+			        'allowEmpty' => true,
+					'required'=>false
+					)
+				),
+		'fechaestimacion' => array(
+			'formatofecha'=>array(
+					'rule'       => array('date', 'dmy'),
+			        'message'    => 'Ingrese fecha de estimación con el siguiente formato DD/MM/AAAA.',
+			        'allowEmpty' => true,
+					'required'=>false
+					)
+				)
 		  
 		
 	);
 	
-	public function finmayorinicio($check) {
-			
-        return date_create_from_format('d/m/Y', $this->data['Estimacion']['fechafinestimacion']) > date_create_from_format('d/m/Y', $this->data['Estimacion']['fechainicioestimacion']);
-    }
+	
+	public function beforeSave($options = array()) {
+		    if (!empty($this->data['Estimacion']['fechainicioestimacion']) && !empty($this->data['Estimacion']['fechafinestimacion'])) 
+		    {
+		        $this->data['Estimacion']['fechainicioestimacion'] = $this->dateFormatBeforeSave($this->data['Estimacion']['fechainicioestimacion']);
+		        $this->data['Estimacion']['fechafinestimacion'] = $this->dateFormatBeforeSave($this->data['Estimacion']['fechafinestimacion']);
+	   		}
+		    return true;
+		}
+		
+		public function dateFormatBeforeSave($dateString) {
+		    
+    		list($d, $m, $y) = explode('/', $dateString);
+    		$mk=mktime(0, 0, 0, $m, $d, $y);
+    		return strftime('%Y-%m-%d',$mk);
+		}
 	
 	
 	public function beforeDelete($cascade = false) {

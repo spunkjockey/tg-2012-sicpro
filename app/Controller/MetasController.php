@@ -114,7 +114,7 @@ class MetasController extends AppController {
 					'fields'=> array('Proyecto.idproyecto','Proyecto.numeroproyecto'),
 					'conditions'=>array("AND"=>array(
 										'Proyecto.estadoproyecto' => array('Ejecucion'),
-										'idproyecto IN (SELECT idproyecto from sicpro2012.fichatecnica)')),
+										'Proyecto.idproyecto IN (SELECT idproyecto from sicpro2012.fichatecnica)')),
 					
 					'order'=> array('Proyecto.numeroproyecto ASC')));
 		$this->set('proys', Hash::extract($proys, "{n}.Proyecto"));

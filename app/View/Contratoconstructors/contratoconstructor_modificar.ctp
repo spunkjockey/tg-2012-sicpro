@@ -47,57 +47,190 @@ $this->end(); ?>
 	</div>
 <?php $this->end(); ?>
 
+
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Modificar contrato constructor</h2>
 		<?php echo $this->Form->create('Contratoconstructor',array('action' => 'contratoconstructor_modificar')); ?>
-		<ul>			
+		<ul>
 			<li>
-				<?php echo $this->Form->input('proyectos', 
-					array(
-						'label' => 'Proyecto:', 
-						'id' => 'proyectos',
-						'div' => array('class' => 'requerido')
-						)); 
-				?>
-				<script type="text/javascript">
-					var proyectos= new LiveValidation( "proyectos", { validMessage: " " } );
-					proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-				</script>
-			</li>
-			<li>
-				<?php echo $this->Form->input('contratos', 
-					array(
-						'label' => 'Contrato de construcción:', 
-						'id' => 'contratos',
-						'div' => array('class' => 'requerido'))); 
-				?>
-				<script type="text/javascript">
-					var contratos= new LiveValidation( "contratos", { validMessage: " " } );
-					contratos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-				</script>
-			</li>
-			
-			<div id=infoproy> 
 				<!--- Aqui se carga el nombre del proyecto seleccionado-->
-				<!--- Utiliza la vista en Elements/--> 
-			</div>
-			<div id=infoconconstructor> <!--- el formulario se generará con la función update_infoconconstructor() --> </div>
-			
-			
-			<?php echo $this->ajax->observeField( 'proyectos',array(
-			        		'url' => array( 'action' => 'update_nomproyecto'),
-			        		'update' => 'infoproy'));  
+				<label>Nombre Proyecto: </label><?php echo $infoc['0']['Proyecto']['nombreproyecto'];	?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('codigocontrato', 
+					array(
+						'label' => 'Código del contrato:', 
+						'class' => 'k-textbox',
+						'id'=>'codigo',
+						'div' => array('class' => 'requerido'), 
+						'placeholder' => 'Ej: 001-2012'
+						)); ?>
+				<script type="text/javascript">
+		            var codigo = new LiveValidation( "codigo", { validMessage: " " } );
+		            codigo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            codigo.add(Validate.Format, { pattern: /___-____/i, failureMessage: "No puedes dejar este campo en blanco", negate: true } );
+		            codigo.add(Validate.Format, { pattern: /\d\d\d-\d\d\d\d/i, failureMessage: "El código de contrato debe tener 7 números"} );
+		        </script> 
+		         <?php if ($this->Form->isFieldError('Contrato.codigocontrato')) {
+ 	 					echo $this->Form->error('Contrato.codigocontrato'); } ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('nombrecontrato', 
+					array(
+						'label' => 'Título del contrato:', 
+						'class' => 'k-textbox',
+						'id'=>'nombrecontrato', 
+						'placeholder' => 'Nombre del contrato', 
+						'rows'=> 2, 
+						'div' => array('class' => 'requerido')
+						)); ?>
+				<script type="text/javascript">
+					var nombrecontrato= new LiveValidation( "nombrecontrato", { validMessage: " " } );
+					nombrecontrato.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+				</script>
+			</li>
+			<li>
+				<?php echo $this->Form->input('montooriginal', 
+					array(
+						'label' => 'Monto: ($)',
+						'class' => 'k-textbox',  
+						'id' => 'txmonto',
+						'type' => 'text',
+						'placeholder' => 'Monto del contrato',
+						'div' => array('id' => 'monto','class' => 'requerido')
+						)); ?>
+				<script type="text/javascript">
+					var txmonto = new LiveValidation( "txmonto", { validMessage: " ", insertAfterWhatNode: "monto"  } );
+		            txmonto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script>
+			</li>
+			<li>
+				<?php echo $this->Form->input('anticipo', 
+					array(
+						'label' => 'Anticipo: ($)',
+						'class' => 'k-textbox',  
+						'id' => 'txanticipo',
+						'type' => 'text',
+						'placeholder' => 'Anticipo del contrato',
+						'div' => array('id'=> 'antic','class' => 'requerido'))); ?>
+				<script type="text/javascript">
+					var txanticipo = new LiveValidation( "txanticipo", { validMessage: " " , insertAfterWhatNode: "antic" } );
+		            txanticipo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script>
+			</li>
+			<li>
+				<?php echo $this->Form->input('fechainiciocontrato', 
+					array(
+						'label' => 'Fecha inicio de vigencia:', 
+						'id'	=> 'datePicker1',
+						'value' => date('d/m/Y',strtotime($this->request->data['Contratoconstructor']['fechainiciocontrato'])),
+						'div' => array('id'=>'fechaini','class' => 'requerido'),
+						'type'  => 'Text'
+						));
 					?>
-			
-			
-			<?php echo $this->ajax->observeField( 'contratos',array(
-			        		'url' => array( 'action' => 'update_infoconconstructor'),
-			        		'update' => 'infoconconstructor'));  
+				<script type="text/javascript">
+		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " , insertAfterWhatNode: "fechaini" } );
+		            datePicker1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
+		            datePicker1.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
+		        </script>
+		        
+			</li>
+			<li>
+				<?php echo $this->Form->input('fechafincontrato', 
+					array(
+						'label' => 'Fecha fin de vigencia:', 
+						'id'	=> 'datePicker2',
+						'value' => date('d/m/Y',strtotime($this->request->data['Contratoconstructor']['fechafincontrato'])),
+						'div' => array('id'=>'fechafin','class' => 'requerido'),
+						'type'  => 'Text'
+						)); 
 					?>
-			
-            <li class="status">
-            </li>
+				<script type="text/javascript">
+		            var datePicker2 = new LiveValidation( "datePicker2", { validMessage: " " , insertAfterWhatNode: "fechafin" } );
+		            datePicker2.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            datePicker2.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
+		        	datePicker2.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
+		        </script>
+		         <?php if ($this->Form->isFieldError('Contrato.fechafincontrato')) {
+ 	 					echo $this->Form->error('Contrato.fechafincontrato'); } ?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('plazoejecucion', 
+					array(
+						'label' => 'Plazo de ejecución:',
+						'class' => 'k-textbox',  
+						'id' => 'txplazo',
+						'type'  => 'Text', 
+						'maxlength' => '4',
+						'placeholder' => 'Cantidad de días', 
+						'div' => array('class' => 'requerido')
+						));
+					?>
+				<script type="text/javascript">
+					var txplazo= new LiveValidation( "txplazo", { validMessage: " " } );
+					txplazo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+					txplazo.add( Validate.Numericality,{ onlyInteger: true,
+					   								   	notAnIntegerMessage: "Debe ser un número entero",
+						            				 	notANumberMessage:"Debe ser un número"} );
+					txplazo.add(Validate.Length, {minimum: 2, maximum: 4, 
+				           							 tooShortMessage:"Longitud mínima de 2 dígitos",
+				           							 tooLongMessage:"Longitud máxima de 4 dígitos"});
+				</script>
+			</li>
+			<li>
+				<?php echo $this->Form->input('detalleobras', 
+					array(
+						'label' => 'Obras a desarrollar:', 
+						'class' => 'k-textbox',
+						'rows' => 4, 
+						'placeholder' => 'Descripción de obras'
+						));
+					?>
+			</li>
+			<li>
+				<?php echo $this->Form->input('empresas', 
+					array(
+						'label' => 'Empresa ejecutora:', 
+						'id' => 'empresas',
+						'value' => $infoc['0']['Empresa']['nombreempresa'],
+						'div' => array('id'=>'empeje','class' => 'requerido')
+						));
+					?>
+				<script type="text/javascript">
+					var empresas = new LiveValidation( "empresas", { validMessage: " " , insertAfterWhatNode: "empeje"  } );
+		            empresas.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script>
+		        <div id="errorempresa" class="LV_validation_message LV_invalid"></div>
+			</li>
+			<li>
+				<?php echo $this->Form->input('admin', 
+					array(
+						'label' => 'Administrador del contrato:', 
+						'id' => 'admin',
+						'value' => $infoc['0']['Contratoconstructor']['idpersona'],
+						'div' => array('id'=>'admc','class' => 'requerido')
+						)); 
+					?>
+				<script type="text/javascript">
+					var admin = new LiveValidation( "admin", { validMessage: " " , insertAfterWhatNode: "admc"  } );
+		            admin.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script>
+			</li>
+			<li  class="accept">
+				<table>
+					<tr>
+						<td>
+							<?php echo $this->Form->end(array('label' => 'Modificar', 'id'=>'button','class' => 'k-button')); ?>
+						</td>
+						<td>	
+							<?php echo $this->Html->link('Regresar', 
+								array('controller' => 'Contratoconstructors','action' => 'contratoconstructor_listar'),
+								array('class'=>'k-button')); ?>
+						</td>
+					</tr>
+				</table>
 		</ul>
 	</div>
 </div>
@@ -113,7 +246,7 @@ $this->end(); ?>
 				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 				
 				.k-combobox {
-                    width: 300px;
+                    width: 200px;
                 }
                 
                 form .requerido label:after {
@@ -175,6 +308,7 @@ $this->end(); ?>
 				
 				.LV_valid {
 				    color:#00CC00;
+				    display:none;
 				}
 					
 				.LV_invalid {
@@ -184,23 +318,31 @@ $this->end(); ?>
                		margin-left: 155px; 
                
 				}
-				    
-            </style>
+				
+				#errorempresa{
+					display: none;
+				}
+				   
+</style>
 			
 			<script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
 
-                    $("button").click(function() {
-                        if (validator.validate()) {
-                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-                            } else {
-                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-                        }
+                    $("#ContratoconstructorContratoconstructorRegistrarForm").submit(function() {
+	                       	if(empresas.dataItem()){
+								
+								$('#errorempresa').hide();
+								return true;
+							}
+							else {
+									//alert("No Existe");
+										$('#errorempresa').show().text('No Existe la empresa');
+								return false;
+							}
                     });
-                
-                
+                                    
 
 				$("#txmonto").kendoNumericTextBox({
 				     min: 0,
@@ -218,39 +360,30 @@ $this->end(); ?>
 				     spinners: false
 				 });
 				 
+				 
                 
 				$("#proyectos").kendoDropDownList({
-			            optionLabel: "Seleccione proyecto",
-			            dataTextField: "numeroproyecto",
+            			optionLabel: "Seleccione proyecto",
+            			dataTextField: "numeroproyecto",
 			            dataValueField: "idproyecto",
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
-			                                read: "/Contratoconstructors/proycontratosjson.json"
+			                                read: "/Contratoconstructors/proyectojson.json"
 			                            }
 			                        }
 			        });
 			        var proyectos = $("#proyectos").data("kendoDropDownList");
-			    
-			    var contratos = $("#contratos").kendoDropDownList({
-			                        optionLabel: "Seleccione contrato",
-			                        autoBind: true,
-			                        cascadeFrom: "proyectos",
-			                        dataTextField: "codigocontrato",
-			                        dataValueField: "idcontrato",
-			                        dataSource: {
-			                            type: "json",
-			                            transport: {
-			                                read: "/Contratoconstructors/conconstructorjson.json"
-			                            }
-			                        }
-			    }).data("kendoDropDownList");
-			    
-			 /*   
-			    $("#empresas").kendoDropDownList({
+			        
+			    $("#empresas").kendoComboBox({
             			optionLabel: "Seleccione empresa",
             			dataTextField: "nombreempresa",
 			            dataValueField: "idempresa",
+			            filter: "contains",
+			            highLightFirst: false,
+			            ignoreCase: false,
+			            change: limpiaremp,
+			            //suggest: true,
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
@@ -258,12 +391,16 @@ $this->end(); ?>
 			                            }
 			                        }
 			        });
-			        var empresas = $("#empresas").data("kendoDropDownList");
-			    */
+			        var empresas = $("#empresas").data("kendoComboBox");
+			        empresas.list.width(300);
+			    
 			    $("#admin").kendoDropDownList({
             			optionLabel: "Seleccione administrador",
             			dataTextField: "nomcompleto",
 			            dataValueField: "idpersona",
+			            <?php if( isset($this->request->data['Persona']['idpersona']))
+						 {echo "value: " . $this->request->data['Persona']['idpersona'] . ",";}
+						?>
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
@@ -272,8 +409,9 @@ $this->end(); ?>
 			                        }
 			        });
 			        var admin = $("#admin").data("kendoDropDownList");
+			        admin.list.width(300);
 				
-				/*
+		/*		
 				$("#datePicker1").kendoDatePicker({
 		   			format: "dd/MM/yyyy",
 		   			culture: "es-ES"
@@ -282,10 +420,63 @@ $this->end(); ?>
 		   			format: "dd/MM/yyyy",
 		   			culture: "es-ES"
 		   		});
-				*/
+			*/	
 				$("#codigo").mask("999-9999");
-							
+
+		function limpiaremp(){        
+				$('#errorempresa').hide("slow");
+		}
+		
+		
+		
+	function filtrarDrop() {
+		var startDate = start.value();
+		var endDate = end.value();
+			//alert('dafuq');
+			/*proy.data("kendoDropDownList").dataSource.filter([
+				     { field: "creacion", operator: "gte", value: startDate },
+				     { field: "creacion", operator: "lte", value: endDate }
+				]);
+			*/
+			
+			//proy.data("kendoDropDownList").dataSource.filter({ field: "idproyecto", operator: "eq", value: 5});
+	}
+		
+	
+	function startChange() {
+		var startDate = start.value();
+		if (startDate) {
+            startDate = new Date(startDate);
+            startDate.setDate(startDate.getDate() + 1);
+            end.min(startDate);
+    	}
+    }
+	
+	function endChange() {
+		var endDate = end.value();
+	    if (endDate) {
+	        endDate = new Date(endDate);
+	        endDate.setDate(endDate.getDate() - 1);
+	        start.max(endDate);
+	    }
+	}
+
+    var start = $("#datePicker1").kendoDatePicker({
+        culture: "es-ES",
+	   	format: "dd/MM/yyyy",
+        change: startChange,
+        close: filtrarDrop
+    }).data("kendoDatePicker");
+	
+    var end = $("#datePicker2").kendoDatePicker({
+        culture: "es-ES",
+	   	format: "dd/MM/yyyy",
+        change: endChange,
+        close: filtrarDrop
+    }).data("kendoDatePicker");
+	
+    start.max(end.value());
+    end.min(start.value());
 				
-				});
-                
-            </script>
+				});    
+</script>

@@ -1,4 +1,4 @@
-<!-- File: /app/View/Contratoconstructors/contratoconstructor_listar.ctp -->
+<!-- File: /app/View/Contratos/contrato_consultar.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -43,23 +43,16 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Contratos » Contrato Constructor
+			?> » Contratos » Consultar Contrato
 			
 		</div>
 	</div>
 	
 <?php $this->end(); ?>
 
-<!--<?php Debugger::dump($contratosc);?>-->
+<!--<?php Debugger::dump($contratos);?>-->
 
 <h2>Contratos</h2>
-<div style='margin:4px 0' >
-	<?php echo $this->Html->link(
-		'Registrar Contrato Constructor', 
-		array('controller' => 'Contratoconstructors', 'action' => 'contratoconstructor_registrar'),
-		array('class'=>'k-button')
-	); ?>
-</div> 
 <table id="grid">
 	<tr>
         <th data-field="codigocontrato" width="20px">Codigo Contrato</th>
@@ -67,23 +60,17 @@ $this->end(); ?>
         <th data-field="nombrecontrato" width="200px">Nombre Contrato</th>
         <th data-field="accion" width="80px">Acción</th>
     </tr>
-          <?php foreach ($contratosc as $cc): ?>
+          <?php foreach ($contratos as $cc): ?>
     <tr>
-        <td><?php echo $cc['Contratoconstructor']['codigocontrato']; ?></td>
+        <td><?php echo $cc['Contrato']['codigocontrato']; ?></td>
         <td><?php echo $cc['Proyecto']['numeroproyecto']; ?></td>
-        <td><?php echo $cc['Contratoconstructor']['nombrecontrato']; ?></td>        
+        <td><?php echo $cc['Contrato']['nombrecontrato']; ?></td>        
         <td align="center">
             <?php echo $this->Html->link(
-            	'<span class="k-icon k-i-pencil"></span>', 
-            	array('action' => 'contratoconstructor_modificar', $cc['Contratoconstructor']['idcontrato']),
-            	array('class'=>'k-button','escape' => false,'title' => 'Editar Contrato')
+            	'<span class="k-icon k-i-find"></span>', 
+            	array('action' => 'contrato_detalle', $cc['Contrato']['idcontrato']),
+            	array('class'=>'k-button','escape' => false,'title' => 'Detalle Contrato')
 			);?>
-            <?php echo $this->Form->postLink(
-                '<span class="k-icon k-i-close"></span>',
-                array('action' => 'contratoconstructor_eliminar', $cc['Contratoconstructor']['idcontrato']),
-                array('confirm' => '¿Está seguro que desea eliminar el Contrato Constructor ?',
-                		'class'=>'k-button','escape' => false,'title' => 'Eliminar Contrato')
-            )?>
             <!--<?php echo $this->Html->link(
             	'Detalles', 
             	array('action' => 'view', $cc['Empresa']['idempresa']),
@@ -93,7 +80,7 @@ $this->end(); ?>
         
     </tr>
     <?php endforeach; ?>
-    <?php unset($contratosc); ?>
+    <?php unset($contratos); ?>
 </table>
 
 
