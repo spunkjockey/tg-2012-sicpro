@@ -53,24 +53,39 @@ $this->end(); ?>
 <!--<?php Debugger::dump($contratos);?>-->
 
 <h2>Contratos</h2>
+
+<table style="margin-left: 100px; margin-bottom: 20px;">
+	<tr>
+	<td>Tipo de Contrato</td><td><div id="tipocontrato" style="width: 300px"></div></td>
+	</tr>
+	<tr>
+	<td>Estado de Contrato</td><td><div id="estadocontrato" style="width: 300px"></div></td>
+	</tr>
+</table>
 <table id="grid">
 	<tr>
-        <th data-field="codigocontrato" width="20px">Codigo Contrato</th>
-        <th data-field="numeroproyecto" width="20px">Proyecto</th>
-        <th data-field="nombrecontrato" width="200px">Nombre Contrato</th>
-        <th data-field="accion" width="80px">Acción</th>
+        <th data-field="numeroproyecto" >Proyecto</th>
+        <th data-field="codigocontrato" >Codigo</th>
+        <th data-field="nombrecontrato" >Contrato</th>
+        <th data-field="tipocontrato" >Tipo</th>
+        <th data-field="estadocontrato" >Estado</th>
+        <th data-field="montooriginal" >Monto</th>
+        
     </tr>
           <?php foreach ($contratos as $cc): ?>
     <tr>
-        <td><?php echo $cc['Contrato']['codigocontrato']; ?></td>
         <td><?php echo $cc['Proyecto']['numeroproyecto']; ?></td>
-        <td><?php echo $cc['Contrato']['nombrecontrato']; ?></td>        
-        <td align="center">
+        <td><?php echo $cc['Contrato']['codigocontrato']; ?></td>
+        <td><?php echo $cc['Contrato']['nombrecontrato']; ?></td>
+        <td><?php echo $cc['Contrato']['tipocontrato']; ?></td>
+        <td><?php echo $cc['Contrato']['estadocontrato']; ?></td>
+        <td><?php echo '$'.number_format($cc['Contrato']['montooriginal'],2); ?></td>
+        <!--<td align="center">
             <?php echo $this->Html->link(
             	'<span class="k-icon k-i-find"></span>', 
             	array('action' => 'contrato_detalle', $cc['Contrato']['idcontrato']),
             	array('class'=>'k-button','escape' => false,'title' => 'Detalle Contrato')
-			);?>
+			);?>-->
             <!--<?php echo $this->Html->link(
             	'Detalles', 
             	array('action' => 'view', $cc['Empresa']['idempresa']),
@@ -88,7 +103,7 @@ $this->end(); ?>
 <script>
 	$(document).ready(function() {
 
-    	$("#grid").kendoGrid({
+    	var grid = $("#grid").kendoGrid({
             	dataSource: {
 	           		pageSize: 10,
             	},
@@ -112,8 +127,95 @@ $this->end(); ?>
  			    	mode: "single", // enables multi-column sorting
         			allowUnsort: true
 				},
-				scrollable: false
+				scrollable: true,
+				height: 400,
+				columns: [ {
+                                field: "numeroproyecto",
+                                width: 100
+                            } , {
+                                field: "codigocontrato",
+                                width: 100
+                            } , {
+                                field: "nombrecontrato",
+                                width: 300
+                            } , {
+                                field: "tipocontrato",
+                                width: 50
+                            } , {
+                                field: "estadocontrato",
+                                width: 100
+                            } , {
+                                field: "montooriginal",
+                                width: 110
+                            }
+                        ]
         	});
+        	
+        	grid.data("kendoGrid").hideColumn("estadocontrato");
+	        grid.data("kendoGrid").hideColumn("tipocontrato");
 
-        });
+
+		function chequear() {
+            var valuee = dropDown.data("kendoDropDownList").value();
+            var valuet = dropDown1.data("kendoDropDownList").value();
+            if(valuee == null) {
+            	valuee = "Todos los estados";
+            }
+            
+            if(valuet == null) {
+            	valuet = "Ambos";
+            }
+            
+            if(valuee != null && valuet != null) {
+            	//alert("filtrar")
+	            if (valuee != "Todos los estados" && valuet != "Ambos") {
+	                grid.data("kendoGrid").dataSource.filter({ field: "estadocontrato", operator: "eq", value: valuee },{ field: "tipocontrato", operator: "eq", value: valuet });
+	            } 
+	            
+	            if (valuee != "Todos los estados" && valuet == "Ambos") {
+	                grid.data("kendoGrid").dataSource.filter({ field: "estadocontrato", operator: "eq", value: valuee });
+	            }
+	            
+	            if (valuee == "Todos los estados" && valuet != "Ambos") {
+	                grid.data("kendoGrid").dataSource.filter({ field: "tipocontrato", operator: "eq", value: valuet });
+	            }
+	            
+	            if (valuee == "Todos los estados" && valuet == "Ambos") {
+	                   grid.data("kendoGrid").dataSource.filter({});
+	            }
+            }
+	    }
+
+
+	var  dropDown1 = $("#tipocontrato").kendoDropDownList({
+			            	dataTextField: "tipocontrato",
+	                dataValueField: "tipocontrato",
+	                autoBind: false,
+	                optionLabel: "Ambos",
+	                dataSource: {
+	                	type: "json",
+		                transport: {
+		                	read: "/Contratos/tipojson.json"
+		               	}
+		            },
+	                change: chequear
+	            });
+        
+
+
+		var dropDown = $("#estadocontrato").kendoDropDownList({
+	            	dataTextField: "estadocontrato",
+	                dataValueField: "estadocontrato",
+	                autoBind: false,
+	                optionLabel: "Todos los estados",
+	                dataSource: {
+	                	type: "json",
+		                transport: {
+		                	read: "/Contratos/estadojson.json"
+		               	}
+		            },
+	                change: chequear   });
+
+  });
+
 </script>

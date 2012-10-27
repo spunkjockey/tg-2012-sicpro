@@ -342,6 +342,32 @@ class ContratosController extends AppController {
 		$this->set('ordenes',$ordenes);
 	}
 	
+	function estadojson() {
+		$contratos = $this->Contrato->find('all', array(
+			'fields'=>array('DISTINCT Contrato.estadocontrato'),
+			'recursive' => 0,
+			'order' => 'Contrato.estadocontrato'
+			));
+		
+		$this->set('contratos', Hash::extract($contratos, "{n}.Contrato"));
+		//$this->set('contratos', $contratos);
+		$this->set('_serialize', 'contratos');
+		$this->render('/json/jsoncontratotecproy');
+	}
+	
+	function tipojson() {
+		$contratos = $this->Contrato->find('all', array(
+			'fields'=>array('DISTINCT Contrato.tipocontrato'),
+			'recursive' => 0,
+			'order' => 'Contrato.tipocontrato'
+			));
+		
+		$this->set('contratos', Hash::extract($contratos, "{n}.Contrato"));
+		//$this->set('contratos', $contratos);
+		$this->set('_serialize', 'contratos');
+		$this->render('/json/jsoncontratotecproy');
+	}
+
 }
 
 

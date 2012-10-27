@@ -276,22 +276,7 @@ $this->end(); ?>
                		margin-left: 130px;
 				}
 				    
-			/*	.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
-				}
-				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
-                */
+
 
             </style>
             

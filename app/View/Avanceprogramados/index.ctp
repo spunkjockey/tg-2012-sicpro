@@ -127,12 +127,12 @@ $this->end(); ?>
 	            <?php echo $this->Html->link(
 	            	'<span class="k-icon k-i-pencil"></span>', 
 	            	array('action' => 'Avanceprogramado_editaravance', $av['Avanceprogramado']['idavanceprogramado']),
-	            	array('class'=>'k-button', 'escape' => false)
+	            	array('class'=>'k-button', 'escape' => false, 'title'=>'Editar avance')
 				);?>
 	            <?php echo $this->Form->postLink(
 	                '<span class="k-icon k-i-close"></span>',
 	                array('action' => 'Avanceprogramado_eliminaravance', $av['Avanceprogramado']['idavanceprogramado']),
-	                array('confirm' => '¿Está seguro?','class'=>'k-button', 'escape' => false)
+	                array('confirm' => '¿Está seguro?','class'=>'k-button', 'escape' => false, 'title'=>'Eliminar avance')
 	            )?>
 	            
 	        </td>
