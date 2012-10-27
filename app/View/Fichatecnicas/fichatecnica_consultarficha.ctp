@@ -69,10 +69,15 @@ $this->end(); ?>
             		<td><?php echo $this->form->input('proyectos',array(
             					'id'=>'proyectos',
             					'label'=>false,
-            					'div'=>false,
+            					'div' => array('id'=>'proyo','class' => 'requerido'),
+            					//'div'=>false,
             					'autofocus'=>'autofocus'
 							));
 						?>
+					<script type="text/javascript">
+		           		var proyectos = new LiveValidation( "proyectos", { validMessage: " ", insertAfterWhatNode: "proyo" } );
+		          	  proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        	</script> 
 					</td>
             
              		<td><?php echo $this->Form->end(array('label' => 'Buscar', 'class' => 'k-button', 'id' => 'button')); ?></td>
@@ -90,9 +95,10 @@ $this->end(); ?>
 									array('class'=>'k-button')); ?>
 			</li>
 		</ul>
-		<div id=resultadosficha> 
+		<div id="resultadosficha"> 
 			
 		</div>
+		<div id="proyo"></div>
 	</div>
 </div>
 <style scoped>
@@ -163,7 +169,6 @@ $this->end(); ?>
                 }
                 
                 .LV_validation_message{
-				    font-weight:bold;
 				    margin:0 0 0 5px;
 				}
 				
@@ -179,21 +184,6 @@ $this->end(); ?>
                
 				}
 				    
-				.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
-				}
-				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
 				
 				#shipping {
 				width: 350px;
