@@ -46,9 +46,11 @@
 			}
 		else
 			{
-				echo "No existen coincidencias para la búsqueda";
+				echo "<br>No existen coincidencias para la búsqueda<br>
+						  Ingrese nuevos parámetros para realizar una nueva búsqueda";
 			}	
 		}
 	else
-		echo "No existen coincidencias para la búsqueda";
+		echo "<br>No existen coincidencias para la búsqueda<br>
+				  Ingrese nuevos parámetros para realizar una nueva búsqueda";
 ?>

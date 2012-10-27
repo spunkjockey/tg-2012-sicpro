@@ -112,23 +112,65 @@ class FichatecnicasController extends AppController {
 	 * */
 	function update_rep_empbene()
 	{
-		if(isset($this->request->data['Proyembe']['divisiones']) && !empty($this->request->data['Proyembe']['divisiones']))
+		$fechai= $this->request->data['Proyembe']['fechainicio'];
+		$fechainicio=substr($fechai,6,4).'-'.substr($fechai,3,2).'-'.substr($fechai,0,2);
+		$fechaf= $this->request->data['Proyembe']['fechafin'];
+		$fechafin=substr($fechaf,6,4).'-'.substr($fechaf,3,2).'-'.substr($fechaf,0,2);
+
+		switch (substr($fechai,3,2)) 
 		{
-			$iddiv = $this->request->data['Proyembe']['divisiones'];
-			$fechai= $this->request->data['Proyembe']['fechainicio'];
-			$fechainicio=substr($fechai,6,4).'-'.substr($fechai,3,2).'-'.substr($fechai,0,2);
-			$fechaf= $this->request->data['Proyembe']['fechafin'];
-			$fechafin=substr($fechaf,6,4).'-'.substr($fechaf,3,2).'-'.substr($fechaf,0,2);
-			$this->set('nomdiv',$this->Division->field('Division.divison',array('iddivision'=>$iddiv)));
-			$this->set('inicio',$this->request->data['Proyembe']['fechainicio']);
-			$this->set('fin',$this->request->data['Proyembe']['fechafin']);
-			$this->set('proys',$this->Proyembe->find('all',array(
-				'fields'=>array('Proyembe.nombreproyecto','Proyembe.numeroproyecto',
-								'Proyembe.empleosgenerados','Proyembe.beneficiarios',
-								'Proyembe.iddivision'),
-				'conditions'=>array("AND"=>array('Proyembe.iddivision'=>$iddiv,
-												 'Proyembe.fechainicio >'=>$fechainicio,
-												 'Proyembe.fechafin <'=>$fechafin)))));
+			case '04': case '06': case '09': case '11':
+				if(substr($fechai,0,2) <= 30)	$pasai=1;
+				else 							$pasai=0;
+				break;
+			case '01': case '03': case '05': case '07': 
+			case '08': case '10': case '12':
+				if(substr($fechai,0,2) <= 31)	$pasai=1;
+				else 							$pasai=0;
+				break;
+			case '02':
+				if(substr($fechai,0,2) <= 29)	$pasai=1;
+				else 							$pasai=0;
+				break;
+			default:	$pasai=0;		
+				break;
+		}
+		
+		switch (substr($fechaf,3,2)) 
+		{
+			case '04': case '06': case '09': case '11':
+				if(substr($fechaf,0,2) <= 30)	$pasaf=1;
+				else 							$pasaf=0;
+				break;
+			case '01': case '03': case '05': case '07': 
+			case '08': case '10': case '12':
+				if(substr($fechaf,0,2) <=31)	$pasaf=1;
+				else 							$pasaf=0;
+				break;
+			case '02':
+				if(substr($fechaf,0,2) <=29)	$pasaf=1;
+				else 							$pasaf=0;
+				break;
+			default: 							$pasaf=0;
+				break;
+		}
+		if ($pasai==1 && $pasaf==1)
+		{
+			
+				if(isset($this->request->data['Proyembe']['divisiones']) && !empty($this->request->data['Proyembe']['divisiones']))
+				{
+					$iddiv = $this->request->data['Proyembe']['divisiones'];
+					$this->set('nomdiv',$this->Division->field('Division.divison',array('iddivision'=>$iddiv)));
+					$this->set('inicio',$this->request->data['Proyembe']['fechainicio']);
+					$this->set('fin',$this->request->data['Proyembe']['fechafin']);
+					$this->set('proys',$this->Proyembe->find('all',array(
+						'fields'=>array('Proyembe.nombreproyecto','Proyembe.numeroproyecto',
+										'Proyembe.empleosgenerados','Proyembe.beneficiarios',
+										'Proyembe.iddivision'),
+						'conditions'=>array("AND"=>array('Proyembe.iddivision'=>$iddiv,
+														 'Proyembe.fechainicio >'=>$fechainicio,
+														 'Proyembe.fechafin <'=>$fechafin)))));
+				}
 		}
 		$this->render('/Elements/update_rep_empbene', 'ajax');
 		

@@ -411,12 +411,54 @@
 	
 
 	public function update_consultaestados(){
+		$fechaini=$this->request->data['Proyecto']['start'];
+		$fechafin=$this->request->data['Proyecto']['end'];
+		$fechainicio=substr($fechaini,6,4).'-'.substr($fechaini,3,2).'-'.substr($fechaini,0,2);
+		$fechafinal=substr($fechafin,6,4).'-'.substr($fechafin,3,2).'-'.substr($fechafin,0,2);
+			
+		switch (substr($fechaini,3,2)) 
+		{
+			case '04': case '06': case '09': case '11':
+				if(substr($fechaini,0,2) <= 30)	$pasai=1;
+				else 							$pasai=0;
+				break;
+			case '01': case '03': case '05': case '07': 
+			case '08': case '10': case '12':
+				if(substr($fechaini,0,2) <= 31)	$pasai=1;
+				else 							$pasai=0;
+				break;
+			case '02':
+				if(substr($fechaini,0,2) <= 29)	$pasai=1;
+				else 							$pasai=0;
+				break;
+			default:	$pasai=0;		
+				break;
+		}
+		
+		switch (substr($fechafin,3,2)) 
+		{
+			case '04': case '06': case '09': case '11':
+				if(substr($fechafin,0,2) <= 30)	$pasaf=1;
+				else 							$pasaf=0;
+				break;
+			case '01': case '03': case '05': case '07': 
+			case '08': case '10': case '12':
+				if(substr($fechafin,0,2) <=31)	$pasaf=1;
+				else 							$pasaf=0;
+				break;
+			case '02':
+				if(substr($fechafin,0,2) <=29)	$pasaf=1;
+				else 							$pasaf=0;
+				break;
+			default: 							$pasaf=0;
+				break;
+		}
+		if ($pasai==1 && $pasaf==1)
+		{	
+		
 		if (!empty($this->data['Proyecto']['divisiones']))
 		
-			$fechaini=$this->request->data['Proyecto']['start'];
-			$fechafin=$this->request->data['Proyecto']['end'];
-			$fechainicio=substr($fechaini,6,4).'-'.substr($fechaini,3,2).'-'.substr($fechaini,0,2);
-			$fechafinal=substr($fechafin,6,4).'-'.substr($fechafin,3,2).'-'.substr($fechafin,0,2);
+			
 			$this->set('iddiv', $this->data['Proyecto']['divisiones']);
 			$this->set('fechai', $this->request->data['Proyecto']['start']);
 			$this->set('fechaf',$this->request->data['Proyecto']['end']);
@@ -449,6 +491,7 @@
 					$this->set('contratos',Hash::extract($contratos, '{n}.Contratoconstructor'));
 					
 		        }
+		 }
 		$this->render('/Elements/update_consultaestados', 'ajax');
 	} 
 		

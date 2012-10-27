@@ -2,7 +2,7 @@
 class ContratosController extends AppController {
     public $helpers = array('Html', 'Form', 'Session','Ajax');
    public $components = array('Session','AjaxMultiUpload.Upload','RequestHandler');
-	public $uses = array('Contrato','Contratoconstructor','Contratosupervisor','Proyecto','Avanceprogramado','Estimacion','Informesupervisor');
+	public $uses = array('Contrato','Contratoconstructor','Contratosupervisor','Proyecto','Avanceprogramado','Estimacion','Informesupervisor','Ordendecambio');
 
     public function index() {
     	$this->layout = 'cyanspark';
@@ -336,6 +336,10 @@ class ContratosController extends AppController {
 		$this->layout = 'cyanspark';
 		$contratos = $this->Contrato->findByIdcontrato($idcontrato);
 		$this->set('contratos',$contratos);
+		
+		$ordenes =$this->Ordendecambio->find('all',
+		array('conditions'=> array('Ordendecambio.idcontrato'=>$idcontrato)));
+		$this->set('ordenes',$ordenes);
 	}
 	
 	function estadojson() {
