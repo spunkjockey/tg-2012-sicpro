@@ -49,19 +49,18 @@ $this->end(); ?>
 	
 <?php $this->end(); ?>
 		   
-
+<?php Debugger::dump($idinformesupervision); ?>
 				<h2>Cargar archivos:</h2>
-	  <table><tr>
+
 				<h3>Archivos a Agregar</h3>
-				<?php echo $this->Upload->edit('Informe supervision',$idinformesupervision); ?>
+				<?php echo $this->Upload->edit('Informesupervisor',$idinformesupervision); ?>
 	
             <?php echo $this->Html->link(
             	'Regresar', 
             	array('controller' => 'Informesupervisors','action' => 'informesupervisor_index'),
             	array('class'=>'k-button')
 			);?>
-</tr>	
-</table>	
+	
 <style scoped>
 				#titulo {
 					color:#3A90CA;
