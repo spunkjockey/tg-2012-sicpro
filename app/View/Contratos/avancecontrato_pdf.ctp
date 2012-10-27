@@ -201,23 +201,15 @@ $pdf->writeHTML($html, true, false, true, false, '');
 $pdf->Ln(5);
 $pdf->writeHTML($htmlc, true, false, true, false, '');
 $pdf->Ln(5);
-if(empty($avancesupervision)) {  
-	$htmla =  'No hay avances asociados a este contrato en particular';
-	$pdf->Ln(20);
-	$pdf->writeHTML($htmla, true, false, true, false, '');  
-}
-
-if(empty($estimaciones)) {
-	$htmlb =  'No hay estimaciones asociadas a este contrato en particular';
-	$pdf->Ln(20);
-	$pdf->writeHTML($htmlb, true, false, true, false, '');
-}
-
 
 if(!empty($avancesupervision)) {
 	$header = array('Fecha', 'Prog', 'Ejecutado', 'Prog', 'Ejecutado');
 	$pdf->SetFont('helvetica', '', 10);
 	$pdf->ColoredTable($header,$avancesupervision);
+} else {
+	$htmla =  'No hay avances asociados a este contrato en particular';
+	$pdf->writeHTML($htmla, true, false, true, false, '');
+	$pdf->Ln(5);  
 }
 
 $pdf->Ln(10);
@@ -225,6 +217,10 @@ if(!empty($estimaciones)) {
 	$header = array('Inicio', 'Fin', 'Porcentaje Fisico', 'Avance Finan.');
 	$pdf->SetFont('helvetica', '', 10);
 	$pdf->ColoredTablea($header,$estimaciones);
+} else {
+	$htmlb =  'No hay estimaciones asociadas a este contrato en particular';
+	$pdf->writeHTML($htmlb, true, false, true, false, '');
+	$pdf->Ln(5);
 }
 
 

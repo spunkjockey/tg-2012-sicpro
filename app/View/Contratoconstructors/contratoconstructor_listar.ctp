@@ -65,7 +65,7 @@ $this->end(); ?>
         <th data-field="codigocontrato" width="20px">Codigo Contrato</th>
         <th data-field="numeroproyecto" width="20px">Proyecto</th>
         <th data-field="nombrecontrato" width="200px">Nombre Contrato</th>
-        <th data-field="accion" width="80px">Acción</th>
+        <th data-field="accion" width="60px">Acción</th>
     </tr>
           <?php foreach ($contratosc as $cc): ?>
     <tr>
@@ -96,7 +96,17 @@ $this->end(); ?>
     <?php unset($contratosc); ?>
 </table>
 
-
+<style scoped>
+        #grid .k-button
+        {
+            vertical-align: middle;
+            width: 28px;
+            margin: 0 3px;
+            padding: .1em .4em .3em;
+            display: inline;
+            
+        }
+    </style>
 
 <script>
 	$(document).ready(function() {

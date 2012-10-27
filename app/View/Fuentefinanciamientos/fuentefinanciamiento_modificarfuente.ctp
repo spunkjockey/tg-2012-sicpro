@@ -78,9 +78,9 @@ $this->end(); ?>
 						'maxlength'=> 11,
 						'type'=>'text',
 						'placeholder' => 'Monto Inicial', 
-						'div' => array('class' => 'requerido'))); ?>
+						'div' => array('id' => 'dmonto','class' => 'requerido'))); ?>
 				<script type="text/javascript">
-		            var moneda = new LiveValidation( "moneda", { validMessage: " " } );
+		            var moneda = new LiveValidation( "moneda", { validMessage: " ", insertAfterWhatNode: "dmonto" } );
 		            moneda.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            moneda.add(Validate.Format, { pattern: /[a-zA-Z0-9_ ]+/, failureMessage: "El monto de la fuente debe ser numérico" } );
 		        </script> 
@@ -91,10 +91,10 @@ $this->end(); ?>
 						'label' => 'Fecha:', 
 						'id'	=> 'datePicker1',
 						'type' => 'text',
-						'div' => array('class' => 'requerido')
+						'div' => array('id' => 'dfecha','class' => 'requerido')
 						)); ?>
 			   <script type="text/javascript">
-		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " } );
+		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " ", insertAfterWhatNode: "dfecha" } );
 		            datePicker1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato DD/MM/AAAA" } );
 		        </script> 
@@ -104,11 +104,11 @@ $this->end(); ?>
 					array(
 						'label' => 'Tipo Fuente:', 
 						'id' => 'fuentes',
-						'div' => array('class' => 'requerido')
+						'div' => array('id' => 'dfuentes','class' => 'requerido')
 					)); ?>
 			</li>
-		<?php echo $this->request->data['Fuentefinanciamiento']['idtipofuente']; ?>
-		<?php Debugger::dump($this->request->data);?>
+		
+		
 		<li  class="accept">
 				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
 				<?php echo $this->Form->input('userm', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
@@ -198,37 +198,23 @@ $this->end(); ?>
                 }
                 
                  .LV_validation_message{
-				    font-weight:bold;
+				   
 				    margin:0 0 0 5px;
 				}
 				
 				.LV_valid {
 				    color:#00CC00;
+				    display:none;
 				}
 					
 				.LV_invalid {
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 170px; 
+               		margin-left: 215px; 
                
 				}
-				    
-				.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
-				}
-				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
+
             </style>
             
             <script>
@@ -247,7 +233,8 @@ $this->end(); ?>
 
 		$("#datePicker1").kendoDatePicker({
 		   format: "dd/MM/yyyy", //Define el formato de fecha
-		   culture:"es-ES"
+		   culture:"es-ES",
+		   <?php if(isset($this->request->data['Fuentefinanciamiento']['fechadisponible'])) { echo 'value: kendo.parseDate("' . $this->request->data['Fuentefinanciamiento']['fechadisponible'] . '", "dd/MM/yyyy")';} ?>
 		});
          $("#moneda").kendoNumericTextBox({
 		     format: "c2", //Define currency type and 2 digits precision
