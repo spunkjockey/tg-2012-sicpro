@@ -54,9 +54,9 @@ $this->end(); ?>
 <h2>Empresas</h2>
 <div style='margin:4px 0' >
 	<?php echo $this->Html->link(
-		'Registrar Empresa', 
+		'<span class="k-icon k-i-plus"></span> Registrar Empresa', 
 		array('controller' => 'Empresas', 'action' => 'empresa_registrar'),
-		array('class'=>'k-button')
+		array('class'=>'k-button', 'escape' => false)
 	); ?>
 </div> 
 <table id="grid">
@@ -76,20 +76,20 @@ $this->end(); ?>
         <td><?php echo $emp['Empresa']['telefonoempresa']; ?></td>        
         <td align="center">
             <?php echo $this->Html->link(
-            	'Editar', 
+            	'<span class="k-icon k-i-pencil"></span>', 
             	array('action' => 'empresa_modificar', $emp['Empresa']['idempresa']),
-            	array('class'=>'k-button')
+            	array('class'=>'k-button', 'escape' => false,  'title'=>'Editar Empresa')
 			);?>
             <?php echo $this->Form->postLink(
-                'Eliminar',
+                '<span class="k-icon k-i-close"></span>',
                 array('action' => 'delete', $emp['Empresa']['idempresa']),
                 array('confirm' => '¿Está seguro que desea eliminar la empresa ?',
-                		'class'=>'k-button')
+                		'class'=>'k-button', 'escape' => false,  'title'=>'Eliminar Empresa')
             )?>
             <?php echo $this->Html->link(
-            	'Detalles', 
+            	'<span class="k-icon k-i-note"></span>', 
             	array('action' => 'view', $emp['Empresa']['idempresa']),
-            	array('class'=>'k-button')
+            	array('class'=>'k-button', 'escape' => false,  'title'=>'Detalle de Empresa')
 			);?>
         </td>
         

@@ -213,8 +213,8 @@ $this->end(); ?>
 		
 		 a.detalles:link {text-decoration:none; color: #045773;} /* Link no visitado*/
 		 a.detalles:visited {text-decoration:none; color:#045773;} /*Link visitado*/
-		 a.detalles:active {text-decoration:none; color:#045773; background:#A8ACB2} /*Link activo*/
-		 a.detalles:hover {text-decoration:underline; color:#045773; background: #A8ACB2} /*Mause sobre el link*/
+		 a.detalles:active {text-decoration:none; color:#045773; background:#CCCCCC} /*Link activo*/
+		 a.detalles:hover {text-decoration:underline; color:#045773; background: #CCCCCC} /*Mause sobre el link*/
     
     
     </style>

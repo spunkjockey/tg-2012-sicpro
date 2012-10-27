@@ -3,7 +3,12 @@ class Empresa extends AppModel {
 public $useTable = 'empresa';
 public $primaryKey = 'idempresa';
 
-
+	public $hasMany = array(  
+       	'Contrato' => array(
+    	        'className'    => 'Contrato',
+	            'foreignKey'   => 'idempresa'
+	        )
+	);
 
 	public $validate = array(
 		
@@ -115,6 +120,17 @@ public $primaryKey = 'idempresa';
 	
 	public function numberFormatBeforeSave($numberString) {
 	    return str_replace("-", "", $numberString);
+	}
+	
+public function beforeDelete($cascade = false) {
+	    $count = $this->Contrato->find("count", array(
+	        "conditions" => array("Contrato.idempresa" => $this->id)
+	    ));
+	    if ($count == 0) {
+	        return true;
+	    } else {
+	        return false;
+	    }
 	}
 	
 	

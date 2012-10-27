@@ -2,10 +2,21 @@
 class MainsController extends AppController {
     public $helpers = array('Html', 'Form', 'Session');
     public $components = array('Session','RequestHandler');
+	public $uses = array('Proyecto');
 		
 	public function index() {
 		//$this->layout = 'cyanspark';
 		$this->set('title_for_layout', 'Index');
+		$proyectos = $this->Proyecto->find('all', array(
+			'conditions' => array('Proyecto.estadoproyecto' => 'Ejecucion'),
+			'order' => array('Proyecto.numeroproyecto' => 'ASC')
+			));
+		$contratos = $this->Proyecto->Contrato->find('all', array(
+			'order' => array('Contrato.codigocontrato' => 'ASC')
+			));
+		$this->set('proyectos',$proyectos);
+		$this->set('contratos',$contratos);
+		//Debugger::dump($proyectos);
         switch ($this->Session->read('User.idrol')) {
 			case 9:
 		        $this->render('/Mains/master', 'cyanspark');
@@ -37,6 +48,8 @@ class MainsController extends AppController {
 		}
 		
 	}
+
+
 	
 	
 }

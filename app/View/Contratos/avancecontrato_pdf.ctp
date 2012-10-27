@@ -38,15 +38,18 @@ class MYPDF extends TCPDF {
     }
 	
 	 // Colored table
-    public function ColoredTable($header,$proyectos) {
+    public function ColoredTable($header,$avancesupervision) {
         // Colors, line width and bold font
+        $this->SetTextColor(140,140,140);
+        $this->Cell(150, 6, 'Tabla de Avances Programados vs Informes de Avance a la fecha', 0, 0, 'C', 0,'',0,true,'C','C');
+		$this->Ln();
         $this->SetFillColor(230, 237, 245);
         $this->SetTextColor(79,118,163);
         $this->SetDrawColor(0, 0, 0);
         $this->SetLineWidth(0.3);
         $this->SetFont('', 'B');
         // Header
-        $w = array(20, 70, 15, 25, 40);
+        $w = array(30, 30, 30, 30, 30);
         $num_headers = count($header);
         for($i = 0; $i < $num_headers; ++$i) {
             $this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', 1);
@@ -58,16 +61,47 @@ class MYPDF extends TCPDF {
         $this->SetFont('');
         // Data
         $fill = 0;
-        foreach ($proyectos as $proys) {
-            $this->Cell($w[0], 12, $proys['Contrato']['codigocontrato'], 'LR', 0, 'C', $fill);
-            //$this->Cell($w[1], 12, $proys['Contrato']['codigocontrato'], 'LR', 0, 'L', $fill);
-            $this->MultiCell($w[1], 12, $proys['Contrato']['nombrecontrato'], 0, 'L', $fill, 0, '', '', true, 0, false, true, 12,'M',true);
-            $this->Cell($w[2], 12, $proys['Contrato']['plazoejecucion'], 'LR', 0, 'C', $fill);
-            //$this->Cell($w[3], 12, '$ '.number_format($proys['Contrato']['montooriginal'],2), 'LR', 0, 'L', $fill);
-			$this->MultiCell($w[3], 12, '$'.number_format($proys['Contrato']['montooriginal'],2), 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 12,'M',true);
-			//$this->Cell($w[4], 12, $proys['Empresa']['nombreempresa'], 'LR', 0, 'L', $fill);
-            $this->MultiCell($w[4], 12, $proys['Empresa']['nombreempresa'], 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 12,'M',true);
+        foreach ($avancesupervision as $supi) {
+            $this->Cell($w[0], 6, date('d/m/Y',strtotime($supi['0']['fechaavance'])), 'LR', 0, 'C', $fill);
+            $this->Cell($w[1], 6, number_format($supi['0']['porcentajeavfisicoprog'],2).'%', 'LR', 0, 'R', $fill);
+            $this->Cell($w[2], 6, number_format($supi['0']['porcentajeavancefisico'],2).'%', 'LR', 0, 'R', $fill);
+            $this->Cell($w[3], 6, '$'.number_format($supi['0']['montoavfinancieroprog'],2), 'LR', 0, 'R', $fill);
+			$this->Cell($w[4], 6, '$'.number_format($supi['0']['valoravancefinanciero'],2), 'LR', 0, 'R', $fill);
             $this->Ln();
+            $fill=!$fill;
+        }
+        $this->Cell(array_sum($w), 0, '', 'T');
+    }
+
+	public function ColoredTablea($header,$estimaciones) {
+        // Colors, line width and bold font
+        $this->SetTextColor(140,140,140);
+        $this->Cell(120, 6, 'Tabla Estimaciones a la fecha', 0, 0, 'C', 0,'',0,true,'C','C');
+		$this->Ln();
+        $this->SetFillColor(230, 237, 245);
+        $this->SetTextColor(79,118,163);
+        $this->SetDrawColor(0, 0, 0);
+        $this->SetLineWidth(0.3);
+        $this->SetFont('', 'B');
+        // Header
+        $w = array(30, 30, 30, 30);
+        $num_headers = count($header);
+        for($i = 0; $i < $num_headers; ++$i) {
+            $this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', 1);
+        }
+        $this->Ln();
+        // Color and font restoration
+        $this->SetFillColor(247, 249, 252);
+        $this->SetTextColor(0,5,85);
+        $this->SetFont('');
+        // Data
+        $fill = 0;
+        foreach ($estimaciones as $esti) {
+            $this->Cell($w[0], 6, date('d/m/Y',strtotime($esti['Estimacion']['fechainicioestimacion'])), 'LR', 0, 'C', $fill);
+            $this->Cell($w[1], 6, date('d/m/Y',strtotime($esti['Estimacion']['fechafinestimacion'])), 'LR', 0, 'C', $fill);
+            $this->Cell($w[2], 6, number_format($esti['Estimacion']['porcentajeestimadoavance'],2).'%', 'LR', 0, 'R', $fill);
+            $this->Cell($w[3], 6, '$'.number_format($esti['Estimacion']['montoestimado'],2), 'LR', 0, 'R', $fill);
+			$this->Ln();
             $fill=!$fill;
         }
         $this->Cell(array_sum($w), 0, '', 'T');
@@ -158,15 +192,42 @@ $html = '
 			<tr> <td class="first">Administrador de Contrato:</td>  <td class="second"> ' . $contrato['Persona']['nombrecompleto'] . '</td> </tr>';
 
 $html .= '</table>';
+		
+$htmlc	=	'<h2 style="margin-top=20px">Avance Fisico y Financiero</h2>
+		<div id = "tablagrid"  class="tab">';
+
+		
+$pdf->writeHTML($html, true, false, true, false, '');		
+$pdf->Ln(5);
+$pdf->writeHTML($htmlc, true, false, true, false, '');
+$pdf->Ln(5);
+if(empty($avancesupervision)) {  
+	$htmla =  'No hay avances asociados a este contrato en particular';
+	$pdf->Ln(20);
+	$pdf->writeHTML($htmla, true, false, true, false, '');  
+}
+
+if(empty($estimaciones)) {
+	$htmlb =  'No hay estimaciones asociadas a este contrato en particular';
+	$pdf->Ln(20);
+	$pdf->writeHTML($htmlb, true, false, true, false, '');
+}
 
 
+if(!empty($avancesupervision)) {
+	$header = array('Fecha', 'Prog', 'Ejecutado', 'Prog', 'Ejecutado');
+	$pdf->SetFont('helvetica', '', 10);
+	$pdf->ColoredTable($header,$avancesupervision);
+}
 
-// output the HTML content
-$pdf->writeHTML($html, true, false, true, false, '');
+$pdf->Ln(10);
+if(!empty($estimaciones)) {
+	$header = array('Inicio', 'Fin', 'Porcentaje Fisico', 'Avance Finan.');
+	$pdf->SetFont('helvetica', '', 10);
+	$pdf->ColoredTablea($header,$estimaciones);
+}
 
 
-
-$pdf->Ln(20);
 
 
 //$header = array('Código', 'Nombre', 'Plazo', 'Monto', 'Empresa');

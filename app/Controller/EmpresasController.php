@@ -69,7 +69,10 @@ class EmpresasController extends AppController {
 	    if ($this->Empresa->delete($id)) {
 	        $this->Session->setFlash('La Empresa '. $empresa['Empresa']['nombreempresa'] .' ha sido eliminada.','default',array('class' => 'success'));
 	        $this->redirect(array('action' => 'index'));
-	    }
+	    } else {
+			$this->Session->setFlash('La Empresa '. $empresa['Empresa']['nombreempresa'] .' no se puede eliminar, mientras se encuentra asignada a un contrato.');
+			$this->redirect(array('action' => 'index'));
+		}
 	}
 	
 	function empresa_rephistorial()
