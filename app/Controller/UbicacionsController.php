@@ -2,7 +2,7 @@
 class UbicacionsController extends AppController {
     public $helpers = array('Html', 'Form', 'Session');
     public $components = array('Session','RequestHandler');
-	public $uses = array('Departamento','Municipio','Ubicacion');
+	public $uses = array('Departamento','Municipio','Ubicacion','Depmuni');
 	
 	public function ubicacion_registrar($id=null) {
 		$this->layout = 'cyanspark';
@@ -103,4 +103,78 @@ class UbicacionsController extends AppController {
 		$this->set('_serialize', 'municipios');
 		$this->render('/json/jsonmunicipio');
 	}
+	
+	/*Las siguientes funciones permiten generar el reporte sobre
+	 * municipios y departamentos donde se han desarrollado proyectos*
+	 * */
+	 function rep_proy_depmuni()
+	 {
+	 	$this->layout = 'cyanspark';
+	 }
+	 
+	 function update_rep_proy_depmuni()
+	 {
+	 	$fechai= $this->request->data['Depmuni']['fechainicio'];
+		$fechainicio=substr($fechai,6,4).'-'.substr($fechai,3,2).'-'.substr($fechai,0,2);
+		$fechaf= $this->request->data['Depmuni']['fechafin'];
+		$fechafin=substr($fechaf,6,4).'-'.substr($fechaf,3,2).'-'.substr($fechaf,0,2);
+
+		switch (substr($fechai,3,2)) 
+		{
+			case '04': case '06': case '09': case '11':
+				if(substr($fechai,0,2) <= 30)	$pasai=1;
+				else 							$pasai=0;
+				break;
+			case '01': case '03': case '05': case '07': 
+			case '08': case '10': case '12':
+				if(substr($fechai,0,2) <= 31)	$pasai=1;
+				else 							$pasai=0;
+				break;
+			case '02':
+				if(substr($fechai,0,2) <= 29)	$pasai=1;
+				else 							$pasai=0;
+				break;
+			default:	$pasai=0;		
+				break;
+		}
+		
+		switch (substr($fechaf,3,2)) 
+		{
+			case '04': case '06': case '09': case '11':
+				if(substr($fechaf,0,2) <= 30)	$pasaf=1;
+				else 							$pasaf=0;
+				break;
+			case '01': case '03': case '05': case '07': 
+			case '08': case '10': case '12':
+				if(substr($fechaf,0,2) <=31)	$pasaf=1;
+				else 							$pasaf=0;
+				break;
+			case '02':
+				if(substr($fechaf,0,2) <=29)	$pasaf=1;
+				else 							$pasaf=0;
+				break;
+			default: 							$pasaf=0;
+				break;
+		}
+		if ($pasai==1 && $pasaf==1)
+		{
+			$this->set('inicio',$this->request->data['Depmuni']['fechainicio']);
+			$this->set('fin',$this->request->data['Depmuni']['fechafin']);
+			$munis = $this->Depmuni->query(
+				"SELECT DISTINCT municipio, COUNT(DISTINCT municipio) cantimun
+				FROM sicpro2012.vi_depmuni
+				WHERE fechainiciocontrato >= '".$fechainicio."' AND fechafincontrato <= '".$fechafin."'
+				GROUP BY municipio");
+				$this->set('municipios', Hash::extract($munis, '{n}.0'));
+			
+			$deps = $this->Depmuni->query(
+				"SELECT DISTINCT departamento, COUNT(DISTINCT departamento) cantidep
+				FROM sicpro2012.vi_depmuni
+				WHERE fechainiciocontrato >= '".$fechainicio."' AND fechafincontrato <= '".$fechafin."'
+				GROUP BY departamento");
+				$this->set('departamentos', Hash::extract($deps, '{n}.0'));
+		}
+		$this->render('/Elements/update_rep_proy_depmuni', 'ajax');
+	 }
+
 }
