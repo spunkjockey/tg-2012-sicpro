@@ -72,14 +72,18 @@ $this->end(); ?>
 			<br> 
 			<br>
 			<h2>Componentes</h2>
-			<?php foreach ($fichatecnicas['Componente'] as $compo):?>
+			<?php 
+			if(isset($fichatecnicas['Componente'])){
+			foreach ($fichatecnicas['Componente'] as $compo):?>
 				<h3 id='titulo'><?php echo $compo['nombrecomponente']; ?></h3>
 				<div id='capa1'><?php echo $compo['descripcioncomponente']; ?></div>
 				<?php foreach ($compo['Meta'] as $metas):
 					if($compo['idcomponente']=$metas['idcomponente'])?>
 					<div class='capa2'><li><?php echo $metas['descripcionmeta']; ?></li></div>
 				<?php endforeach; ?>
-			<?php endforeach; ?>
+			<?php endforeach; 
+			}
+			?>
 			<br>
 			<?php echo $this->Html->link(
             	'Agregar Componentes', 
