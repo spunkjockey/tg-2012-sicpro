@@ -78,7 +78,7 @@
 					{
 						$this->Session->setFlash('Contrato supervisor '.$this->request->data['Contratosupervisor']['codigocontrato'] .'ha sido registrado.',
 												 'default',array('class'=>'success'));	
-						$this->redirect(array('controller'=>'mains', 'action' => 'index'));
+						$this->redirect(array('controller'=>'Contratosupervisors', 'action' => 'contratosupervisor_listar'));
 					}
 					else 
 					{
@@ -167,6 +167,14 @@
 	function contratosupervisor_modificar($id=null)
 	{
 		$this->layout = 'cyanspark';
+		$this->Contratoconstructor->id = $id;
+		if ($this->request->is('get')) {
+	        $this->request->data = $this->Contratosupervisor->read(null, $id);
+		}
+		$info = $this->Contratosupervisor->find('all',
+			array('conditions'=>array('Contratosupervisor.idcontrato'=>$id)));
+		$this->set('infoc',$info);
+		
 		if ($this->request->is('post')) 
 		{
 			$fechafin = $this->request->data['Contratosupervisor']['fechafincontrato'];
@@ -219,16 +227,14 @@
 														   'fechafincontrato','detalleobras','con_idcontrato','cantidadinformes',
 														   'userm','modificacion'))))
 					{
-						Debugger::dump($this->request->data);
 						$this->Session->setFlash('El contrato '.$this->request->data['Contratosupervisor']['codigocontrato'].' ha sido actualizado.',
 												 'default',array('class'=>'success'));	
-						$this->redirect(array('controller'=>'mains', 'action' => 'index'));
+						$this->redirect(array('controller'=>'Contratoconstructors', 'action' => 'contratoconstructor_listar'));
 						
 					}
 					else 
 					{
 						$this->Session->setFlash('Ha ocurrido un error cc');
-						Debugger::dump($this->request->data);
 	                }
 				}
 				else 

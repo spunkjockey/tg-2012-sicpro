@@ -23,9 +23,7 @@
 									</li>
 									<li>Supervisor
 										<ul>
-											<li><?php echo $this->Html->link('Registrar contrato supervisor', array('controller' => 'Contratosupervisors','action'=>'contratosupervisor_registrar')); ?></li>
-											<li><?php echo $this->Html->link('Modificar contrato supervisor', array('controller' => 'Contratosupervisors','action'=>'contratosupervisor_modificar')); ?></li>
-											<li disabled="disabled">Eliminar contrato supervisor</li>
+											<li><?php echo $this->Html->link('Administrar contrato supervisor', array('controller' => 'Contratosupervisors','action'=>'contratosupervisor_listar')); ?></li>
 										</ul>
 									</li>	
 									<li><?php echo $this->Html->link('Consultar contrato', array('controller' => 'Contratos','action'=>'contrato_consultar')); ?></li>
