@@ -48,8 +48,8 @@ $this->end(); ?>
 			
 		</div>
 	</div>
-	
 <?php $this->end(); ?>
+
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Registrar Estimación de Avance</h2>
