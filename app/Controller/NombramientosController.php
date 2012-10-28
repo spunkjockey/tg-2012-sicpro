@@ -56,7 +56,7 @@ class NombramientosController extends AppController {
 							    if ($this->Nombramiento->save()) {
 							    	$tecnico=$this->Persona->findByIdpersona($this->request->data['disponibles']);
 									$contrato=$this->Contratoconstructor->findByIdcontrato($this->request->data['Nombramiento']['contratos']);
-					            	$this->Session->setFlash('Tecnico "'. $tecnico['Persona']['nombrespersona'] .' '. $tecnico['Persona']['apellidospersona'] .'" Asignado al contrato "'. $contrato['Contratoconstructor']['codigocontrato'] .'".','default',array('class'=>'success'));
+					            	//$this->Session->setFlash('Tecnico "'. $tecnico['Persona']['nombrespersona'] .' '. $tecnico['Persona']['apellidospersona'] .'" Asignado al contrato "'. $contrato['Contratoconstructor']['codigocontrato'] .'".','default',array('class'=>'success'));
 					            	//$this->redirect(array('controller' => 'fichatecnicas','action' => 'add'));
 					            	$this->redirect(array('controller' => 'Nombramientos','action' => 'nombramiento_asignartecnico',
 					            	$this->request->data['Nombramiento']['proyectos'],
@@ -76,7 +76,7 @@ class NombramientosController extends AppController {
 							if ($this->Nombramiento->save($this->request->data)) {
 							    	$tecnico=$this->Persona->findByIdpersona($this->request->data['disponibles']);
 									$contrato=$this->Contratoconstructor->findByIdcontrato($this->request->data['Nombramiento']['contratos']);
-					            	$this->Session->setFlash('Tecnico "'. $tecnico['Persona']['nombrespersona'] .' '. $tecnico['Persona']['apellidospersona'] .'" Asignado al contrato "'. $contrato['Contratoconstructor']['codigocontrato'] .'".','default',array('class'=>'success'));
+					            	//$this->Session->setFlash('Tecnico "'. $tecnico['Persona']['nombrespersona'] .' '. $tecnico['Persona']['apellidospersona'] .'" Asignado al contrato "'. $contrato['Contratoconstructor']['codigocontrato'] .'".','default',array('class'=>'success'));
 					            	//$this->redirect(array('controller' => 'fichatecnicas','action' => 'add'));
 					            	$this->redirect(array('controller' => 'Nombramientos','action' => 'nombramiento_asignartecnico',
 					            	$this->request->data['Nombramiento']['proyectos'],
@@ -100,7 +100,7 @@ class NombramientosController extends AppController {
 			$this->Nombramiento->set('estado', FALSE);
 			$tmp = $this->Nombramiento->findByIdnombramiento($valor);
 			if ($this->Nombramiento->save($this->request->data)) {	
-		        $this->Session->setFlash('Tecnico "'. $tmp['Persona']['nombrespersona'] .' '. $tmp['Persona']['apellidospersona'] .'" Desasignado al contrato "'. $tmp['Contrato']['codigocontrato'] .'".','default',array('class'=>'success'));
+		        //$this->Session->setFlash('Tecnico "'. $tmp['Persona']['nombrespersona'] .' '. $tmp['Persona']['apellidospersona'] .'" Desasignado al contrato "'. $tmp['Contrato']['codigocontrato'] .'".','default',array('class'=>'success'));
 		        $this->redirect(array('controller' => 'Nombramientos','action' => 'nombramiento_asignartecnico',
 					  $this->request->data['Nombramiento']['proyectos'],
 					  $this->request->data['Nombramiento']['contratos']));
