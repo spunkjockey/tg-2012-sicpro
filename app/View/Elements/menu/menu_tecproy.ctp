@@ -14,7 +14,7 @@
 								<ul>
 									<li disabled="disabled">Consultar Programaci&oacute;n</li>
 									<li disabled="disabled">Consultar informe supervisi&oacute;n</li>
-									<li disabled="disabled">Consultar estimaci&oacute;n de avance</li>
+									<li><?php echo $this->Html->link('Consultar Estimación de Avance', array('controller' => 'Estimacions','action'=>'estimacion_consultar')); ?></li>
 									<li>Informe t&eacute;cnico
 										<ul>
 											<li><?php echo $this->Html->link('Registrar informe técnico', array('controller' => 'Informetecnicos','action'=>'informetecnico_registrar')); ?></li>

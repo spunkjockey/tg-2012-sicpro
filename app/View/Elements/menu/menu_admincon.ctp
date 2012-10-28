@@ -26,7 +26,7 @@
 									<li>Estimaci&oacute;n de avance
 										<ul>
 											<li><?php echo $this->Html->link('Estimación de Avance', array('controller' => 'Estimacions','action'=>'index')); ?></li>
-											<li disabled="disabled">Consultar estimaci&oacute;n de avance</li>
+											<li><?php echo $this->Html->link('Consultar Estimación de Avance', array('controller' => 'Estimacions','action'=>'estimacion_consultar')); ?></li>
 										</ul>
 									</li>		
 									<li>Informe t&eacute;cnico

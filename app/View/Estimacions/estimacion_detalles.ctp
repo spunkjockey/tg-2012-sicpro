@@ -51,8 +51,29 @@ $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h3>Datos de estimación de avance</h3>
-		<?php Debugger::dump($estima);?>
-		
+
+		<?php
+			if($estima!=false)
+				foreach ($estima as $est) 
+				{
+				?>
+					<h4><?php echo $est['Estimacion']['tituloestimacion'] ?></h4>
+					<p>
+						<?php
+							echo "Estimación comprendida del ".date('d/m/Y',strtotime($est['Estimacion'] ['fechainicioestimacion'])).
+								 " al".date('d/m/Y',strtotime($est['Estimacion'] ['fechafinestimacion']))."<br>";
+							echo "Realizada el ".date('d/m/Y',strtotime($est['Estimacion'] ['fechaestimacion']))." <br><br>";
+							echo "<strong>Monto de la estimación:</strong> $".number_format($est['Estimacion']['montoestimado'],2)."<br>";
+							echo "<strong>Porcentaje de avance estimado:</strong> ".number_format($est['Estimacion']['porcentajeestimadoavance'],2)."%<br>";
+							
+						?>
+					</p>
+					
+				<?php	
+				}
+			else 
+				echo "No hay información asociada a esta estimación";
+		?>
 		<h3>Archivos asociados</h3>
 				<?php
 					$results = $this->Upload->listing ('Estimacion', $idestimacion);
