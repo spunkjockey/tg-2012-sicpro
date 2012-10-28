@@ -69,6 +69,7 @@ $this->end(); ?>
 						'id' => 'password',
 						'type' => 'password',
 						'class' => 'k-textbox', 
+						'value' => '',
 						'placeholder' => 'Contraseña',
 						'error' => array('attributes' => array('wrap' => 'span', 'class' => 'LV_validation_message LV_invalid', "id" => 'errorpassword')),
 						'div' => array('class' => 'requerido') 

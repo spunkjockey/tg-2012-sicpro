@@ -13,6 +13,7 @@
 require_once (ROOT . DS . APP_DIR . "/Plugin/AjaxMultiUpload/Vendor/valums/upload.php");
 
 class AjaxMultiUploadAppController extends AppController {
+	public $uses = array('Notificacion');
 
 }
 

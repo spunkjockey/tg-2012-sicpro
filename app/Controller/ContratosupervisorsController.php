@@ -12,10 +12,7 @@
 			if($this->request->is('post'))
 			{
 				//Registro de contrato
-				$fechafin = $this->request->data['Contratosupervisor']['fechafincontrato'];
-				$fechaf = substr($fechafin,6,4).'-'.substr($fechafin,3,2).'-'.substr($fechafin,0,2);
-				$fechaini= $this->request->data['Contratosupervisor']['fechainicontrato'];
-				$fechai=$fechaf = substr($fechaini,6,4).'-'.substr($fechaini,3,2).'-'.substr($fechaini,0,2);
+				
 				$this->Contrato->create();
 				$this->Contrato->set('idproyecto', $this->request->data['Contratosupervisor']['proyectos']);
 				$this->Contrato->set('idpersona', $this->request->data['Contratosupervisor']['admin']);
@@ -24,8 +21,8 @@
 				$this->Contrato->set('nombrecontrato', $this->request->data['Contratosupervisor']['nombrecontrato']);
 				$this->Contrato->set('plazoejecucion', $this->request->data['Contratosupervisor']['plazoejecucion']);
 				$this->Contrato->set('montooriginal', $this->request->data['Contratosupervisor']['montocon']);
-				$this->Contrato->set('fechainiciocontrato', $fechaini);
-				$this->Contrato->set('fechafincontrato', $fechafin);
+				$this->Contrato->set('fechainiciocontrato', $this->request->data['Contratosupervisor']['fechainicontrato']);
+				$this->Contrato->set('fechafincontrato', $this->request->data['Contratosupervisor']['fechafincontrato']);
 				$this->Contrato->set('detalleobras', $this->request->data['Contratosupervisor']['obras']);
 				$this->Contrato->set('tipocontrato', 'Supervisión de obras');
 				$this->Contrato->set('userc', $this->Session->read('User.username'));
@@ -51,8 +48,8 @@
 					$this->Contratosupervisor->set('montooriginal', $this->request->data['Contratosupervisor']['montocon']);
 					$this->Contratosupervisor->set('tipocontrato', 'Supervisión de obras');
 					$this->Contratosupervisor->set('plazoejecucion', $this->request->data['Contratosupervisor']['plazoejecucion']);
-					$this->Contratosupervisor->set('fechainiciocontrato', $fechaini);
-					$this->Contratosupervisor->set('fechafincontrato', $fechafin);
+					$this->Contratosupervisor->set('fechainiciocontrato', $this->request->data['Contratosupervisor']['fechainicontrato']);
+					$this->Contratosupervisor->set('fechafincontrato', $this->request->data['Contratosupervisor']['fechafincontrato']);
 					$this->Contratosupervisor->set('detalleobras', $this->request->data['Contratosupervisor']['obras']);
 					$this->Contratosupervisor->set('cantidadinformes', $this->request->data['Contratosupervisor']['cantinf']);
 					$this->Contratosupervisor->set('userc', $this->Session->read('User.username'));
@@ -79,7 +76,7 @@
 				}
 				else 
 				{
-					$this->Session->setFlash('Ha ocurrido un error');
+					$this->Session->setFlash('Ha ocurrido un error. No se puede guardar el contrato');
                 }
 			}
 			
@@ -148,7 +145,7 @@
 	
 	public function adminjson()
 	{
-		$admin = $this->Persona->query("SELECT personas.idpersona, (nombrespersona||' '||apellidospersona) AS nomcompleto FROM sicpro2012.persona AS personas;");
+		$admin = $this->Persona->query("SELECT personas.idpersona, (nombre||' '||apellidos) AS nomcompleto FROM sicpro2012.users AS personas WHERE estado = true and idrol=3;");
 		$this->set('admin', Hash::extract($admin,'{n}.0'));
 		$this->set('_serialize', 'admin');
 		$this->render('/json/jsonadmin');	

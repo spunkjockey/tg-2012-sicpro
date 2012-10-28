@@ -13,8 +13,9 @@
 class UploadsController extends AjaxMultiUploadAppController {
 
 	public $name = "Upload";
-	public $uses = null;
-
+	//public $uses = null;
+	public $uses = array('Notificacion');
+	
 	// list of valid extensions, ex. array("jpeg", "xml", "bmp")
 	var $allowedExtensions = array();
 

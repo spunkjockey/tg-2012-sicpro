@@ -56,6 +56,10 @@
 		        $this->data['Estimacion']['fechainicioestimacion'] = $this->dateFormatBeforeSave($this->data['Estimacion']['fechainicioestimacion']);
 		        $this->data['Estimacion']['fechafinestimacion'] = $this->dateFormatBeforeSave($this->data['Estimacion']['fechafinestimacion']);
 	   		}
+
+			if (!empty($this->data['Estimacion']['fechaestimacion'])) {
+				$this->data['Estimacion']['fechaestimacion'] = $this->dateFormatBeforeSave($this->data['Estimacion']['fechaestimacion']);
+			}
 		    return true;
 		}
 		

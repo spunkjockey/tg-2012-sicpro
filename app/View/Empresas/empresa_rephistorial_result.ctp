@@ -52,7 +52,7 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<?php echo $this->Form->create('Empresa',array('action' => 'empresa_rephistorial_result')); ?>
+		<?php echo $this->Form->create('Empresa',array('action' => 'empresa_rephistorial_result','target' => '_blank')); ?>
 		<h2><?php echo "Historial de ". $nombre?></h2>
 		<h3>Contratos que ha supervisado:</h3>
 		<div id= tablagrid>

@@ -64,7 +64,7 @@ $this->end(); ?>
 				)); ?>
 				
 				<?php			
-					echo '<label>Nombre Proyecto:  </label><br /> '.$this->request->data['Proyecto']['nombreproyecto']; 
+					echo '<label>Nombre Proyecto:  </label> '.$this->request->data['Proyecto']['nombreproyecto']; 
 				?>
 			</li>
 			<li>

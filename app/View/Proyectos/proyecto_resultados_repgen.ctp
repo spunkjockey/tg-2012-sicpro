@@ -50,7 +50,7 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<?php echo $this->Form->create('Proyecto',array('action' => 'proyecto_resultados_repgen')); ?>
+		<?php echo $this->Form->create('Proyecto',array('action' => 'proyecto_resultados_repgen','target' => '_blank')); ?>
 
 		
 			<h3><?php echo $dataproy[0]['Proyecto']['nombreproyecto'];?></h3>
@@ -134,7 +134,7 @@ $this->end(); ?>
 					<td>
 						<?php echo $this->Html->link('Regresar', 
 							array('controller' => 'Proyectos','action' => 'proyecto_reportegeneral'),
-							array('class'=>'k-button','target' => '_blank')); ?>
+							array('class'=>'k-button')); ?>
 					</td>
 				</tr>
 			</table>

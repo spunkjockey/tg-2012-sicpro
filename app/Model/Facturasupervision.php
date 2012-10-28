@@ -19,7 +19,7 @@ class Facturasupervision extends AppModel {
 	    'montofactura' => array(
 	        'montocorrecto' => array(
             	'rule'    => array('montocorrecto'),
-            	'message' => 'El monto a facturar debe ser menor o igual al monto de la supervision'
+            	'message' => 'El monto a facturar sobrepasa el mondo del contrato'
         	)
 		),
 	    'fechafactura' => array(
@@ -36,13 +36,30 @@ class Facturasupervision extends AppModel {
 		//Debugger::dump($this->data['Facturaestimacion']['idestimacion']);
 		//$mestimacion = $this->findByIdestimacion($this->data['Facturaestimacion']['idestimacion']);
 		$msupervision = $this->Informesupervisor->find('all',array(
-			'fields' => array('Informesupervisor.valoravancefinanciero'),
+			//'fields' => array('Contratosupervisor.montooriginal, Contratosupervisor.variacion'),
 			'conditions' => array('Informesupervisor.idinformesupervision' => $this->data['Facturasupervision']['idinformesupervision'])
 		));
+		
+		/*$mfactura = $this->find('all',array(
+			'fields' => array('SUM(Facturasupervision.montofactura) AS sumamonto'),
+			'conditions' => array('Facturasupervision.idinformesupervision' => $this->data['Facturasupervision']['idinformesupervision'])
+		));*/
 		//Debugger::dump($msupervision);
-		$monto = Hash::extract($msupervision, '0.Informesupervisor');
-		//Debugger::dump($monto['valoravancefinanciero']);        
-        return (float) $check['montofactura'] <= (float) $monto['valoravancefinanciero'];
+		$monto = Hash::extract($msupervision, '0.Contratosupervisor');
+		//$mmonto = Hash::extract($mfactura, '0.0');
+		//$mmonto = Hash::extract($mfactura, '0.Informesupervisor');
+		
+		$mmonto = $this->query("SELECT SUM(montofactura) as 
+			TotalFactura FROM facturasupervision AS Facturasupervision 
+			WHERE idinformesupervision = " . 
+			$this->data['Facturasupervision']['idinformesupervision'] . ";");
+		
+		//Debugger::dump($monto);
+		//Debugger::dump($mmonto);
+		        
+        
+        return (float) $check['montofactura'] <= ( (float) $monto['montooriginal']+(float) $monto['variacion']);
+		//return false;
     }
 
 

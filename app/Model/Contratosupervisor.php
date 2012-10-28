@@ -51,6 +51,7 @@
 			if(!empty($this->data['Contratosupervisor']['ordeninicio'] )){
 				$this->data['Contratosupervisor']['ordeninicio'] = $this->dateFormatBeforeSave($this->data['Contratosupervisor']['ordeninicio']);
 			}
+			//Debugger::dump($this->data);
 		    return true;
 		}
 		
