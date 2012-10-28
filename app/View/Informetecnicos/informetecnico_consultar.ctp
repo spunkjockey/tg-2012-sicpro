@@ -51,7 +51,7 @@ $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Consultar informe técnico</h2>
-		<?php echo $this->Form->create('Informetecnico',array('action' => 'informetecnico_observaciones')); ?>
+		<?php echo $this->Form->create('Informetecnico',array('action' => 'informetecnico_consultar')); ?>
 		<ul>
 			<li>
 				<?php echo $this->Form->input('proyectos', 
@@ -89,45 +89,31 @@ $this->end(); ?>
 				</script>
 			</li>
 			
-				<li>
-					<div id=datainftecnico>
-						<!--- aquí se carga la información del informe tecnico--->
-					</div>
-				</li>
-				<li>
-					<div id=otrasobservaciones>
-						
-					</div>
-				</li>
-				<li>
-					<div id=formobservaciones>
-						
-					</div>
-				</li>
+				
+				<li  class="accept">
+				<table>
+					<tr>
+						<td>
+							<?php echo $this->Form->end(array('label' => 'Buscar', 
+									'class' => 'k-button', 'id' => 'button')); ?>
+						</td>
+						<td>	
+							<?php echo $this->Html->link('Regresar', 
+								array('controller' => 'Mains','action' => 'index'),
+								array('class'=>'k-button')); ?>
+						</td>
+					</tr>
+				</table>
+			</li>
 			
-				
-				<?php echo $this->ajax->observeField( 'fechas',array(
-			        		'url' => array( 'action' => 'update_datainfotec'),
-			        		'update' => 'datainftecnico'));  
-					?>
-				
-				<?php echo $this->ajax->observeField( 'fechas',array(
-			        		'url' => array( 'action' => 'otras_observaciones'),
-			        		'update' => 'otrasobservaciones'));  
-					?>
-				
-				<?php echo $this->ajax->observeField( 'fechas',array(
-			        		'url' => array( 'action' => 'agregar_observaciones'),
-			        		'update' => 'formobservaciones'));  
-					?>
-				<?php echo $this->Html->link(
-							'Regresar', 
-							array('controller' => 'Mains', 'action' => 'index'),
-							array('class'=>'k-button')
-						); ?>
 		</ul>
 	</div>
 </div>
+<div id=data_obs>
+						<!--- aquí se carga la información del informe tecnico--->
+					</div>
+
+
 <style scoped>
 
                 .k-textbox {

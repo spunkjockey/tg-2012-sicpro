@@ -3,20 +3,21 @@
 	<?php foreach ($fichatec as $ftec) 
 	{ 
 	?>
+		<p align="justify">
 		<b>Descripción:</b><br>
-			<?php echo $ftec['Fichatecnica']['descripcionproyecto']?> <br>
+			<?php echo $ftec['Fichatecnica']['descripcionproyecto']?> <br><br>
 		<b>Problemática:</b><br>
-			<?php echo $ftec['Fichatecnica']['problematica']?><br>
+			<?php echo $ftec['Fichatecnica']['problematica']?><br><br>
 		<b>Objetivo general:</b><br>
-			<?php echo $ftec['Fichatecnica']['objgeneral']?><br>
+			<?php echo $ftec['Fichatecnica']['objgeneral']?><br><br>
 		<b>Objetivo especifico:</b><br>
-			<?php echo $ftec['Fichatecnica']['objespecifico']?><br>
+			<?php echo $ftec['Fichatecnica']['objespecifico']?><br><br>
 		<b>Resultados esperados:</b><br>
-			<?php echo $ftec['Fichatecnica']['resultadosesperados']?><br>
+			<?php echo $ftec['Fichatecnica']['resultadosesperados']?><br><br>
 		<b>Empleos generados:</b><br>
-			<?php echo $ftec['Fichatecnica']['empleosgenerados']?><br>
+			<?php echo $ftec['Fichatecnica']['empleosgenerados']?><br><br>
 		<b>Beneficiarios:</b><br>
-			<?php echo $ftec['Fichatecnica']['beneficiarios']?><br>
+			<?php echo $ftec['Fichatecnica']['beneficiarios']?><br></p>
 	<?php
 	}
 	?> 
@@ -29,6 +30,7 @@
 		foreach ($component as $com) 
 		{ 
 		?>
+			<p align="justify">
 			<b>Componente: </b><?php echo $com['Componente']['nombrecomponente']?><br>
 			<b>Descripción: </b><?php echo $com['Componente']['descripcioncomponente']?><br>
 			<?php 
@@ -44,7 +46,7 @@
 								echo $met['Meta']['descripcionmeta']."<br>";
 						}
 				}
-				echo "<br>";
+				echo "<br></p>";
 		}	
 		?>
 </p>	
