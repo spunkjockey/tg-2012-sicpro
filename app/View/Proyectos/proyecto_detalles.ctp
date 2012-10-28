@@ -47,38 +47,56 @@ $this->end(); ?>
 		</div>
 	</div>
 <?php $this->end(); ?>
-<div id="formulario">
-<ul>
-		<li>
-			<h3>Nombre proyecto:</h3>
-			<?php echo $proyectos['Proyecto']['nombreproyecto']; ?>
-		</li>
-		<li>
-			<h3>Número proyecto: </h3>
-			<?php echo $proyectos['Proyecto']['numeroproyecto']; ?>
-		</li>
-		<li>
-			<h3>Monto planeado:</h3>
-			$<?php echo ($proyectos['Proyecto']['montoplaneado']); ?>
-		</li>
-		<li>
-			<h3>Estado proyecto: </h3>
-			<?php echo ($proyectos['Proyecto']['estadoproyecto']); ?>
-		</li>
-		<li>
-			<h3>División responsable:</h3>
-			<?php echo ($proyectos['Division']['divison']); ?>
-		</li>
-		<li>
-			<?php echo $this->Html->link('Regresar', 
-									array('controller' => 'Proyectos','action' => 'proyecto_listado'),
-									array('class'=>'k-button')); ?>
-		</li>
-</ul>
-</div>
-<style scoped>
 
-                                
+
+<div id="formulario">
+<h3>Informacion Proyecto</h3>
+<table>
+	<tr>
+		<td width="150px"><strong>Proyecto</strong></td><td><?php echo $proyectos['Proyecto']['nombreproyecto']; ?></td>
+	</tr>
+	<tr>
+		<td><strong>Número Proyecto</strong></td><td><?php echo $proyectos['Proyecto']['numeroproyecto']; ?></td>
+	</tr>		
+	<tr>
+		<td><strong>Monto Planeado</strong></td><td><?php echo "$ ".number_format($proyectos['Proyecto']['montoplaneado']); ?></td>
+	</tr>	
+	<tr>
+		<td><strong>Estado Proyecto</strong></td><td><?php echo ($proyectos['Proyecto']['estadoproyecto']); ?></td>
+	</tr>
+	<tr>
+		<td><strong>División Responsable</strong></td><td><?php echo ($proyectos['Division']['divison']); ?></td>
+	</tr>
+	<tr>
+		<td colspan="2" style="text-align: right">			
+			<?php echo $this->Html->link('Regresar', 
+						array('controller' => 'Proyectos','action' => 'proyecto_listado'),
+						array('class'=>'k-button')); 
+			?></td>
+	</tr>
+</table>	
+</div>
+			<style scoped>
+
+                .k-textbox {
+                    width: 300px;
+                    
+                    
+                }
+				
+				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
+				
+				.k-combobox {
+                    width: 200px;
+                }
+                
+                form .requerido label:after {
+					font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+					}
+                
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -90,8 +108,7 @@ $this->end(); ?>
                 #formulario h3 {
                     font-weight: normal;
                     font-size: 1.4em;
-                    color:#3A90CA;
-                   
+                    border-bottom: 1px solid #ccc;
                 }
 
                 #formulario ul {
@@ -103,6 +120,45 @@ $this->end(); ?>
                     margin: 10px 0 0 0;
                 }
 
-               
-              </style>
+                label {
+                    display: inline-block;
+                    width: 150px;
+                    text-align: right;
+                    margin-right: 5px;
+                }
 
+                .accept, .status {
+                	padding-top: 15px;
+                    padding-left: 150px;
+                }
+
+                .valid {
+                    color: green;
+                }
+
+                .invalid {
+                    color: red;
+                }
+                span.k-tooltip {
+                    margin-left: 6px;
+                }
+                
+                .LV_validation_message{
+				    
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				    display: none;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+					clear:both;
+               		display:inline-block;
+               		margin-left: 155px; 
+               
+				}
+
+            </style>

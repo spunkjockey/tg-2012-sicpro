@@ -53,7 +53,7 @@ $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Registrar Ficha Tecnica</h2>
-		
+		<div style="color: #959595;">Paso 1 de 2</div>
 				<?php echo $this->Form->create('Fichatecnica'); ?>
 		<ul>
 			<li>
@@ -107,7 +107,7 @@ $this->end(); ?>
 						'label' => 'Objetivo Especifico: ', 
 						'class' => 'k-textbox', 
 						'placeholder' => 'Objetivo Especifico',
-						"rows"=>"2"
+						"rows"=>"5"
 						)); ?>
 			</li>
 			<li>
@@ -176,7 +176,7 @@ $this->end(); ?>
 			<li  class="accept">
 				<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
 				<table>
-				<tr><td>
+				<tr><td style="margin-left: 10px;">
 				<?php echo $this->Form->end(array('label' => 'Registrar Ficha', 'class' => 'k-button', 'id' => 'submit')); ?>
 				</td>
 				<td>
@@ -196,11 +196,11 @@ $this->end(); ?>
 <style scoped>
 
                 .k-textbox {
-                    width: 300px;
+                    width: 400px;
                }
 				
 				.k-dropdownlist{
-                    width: 300px;
+                    width: 400px;
                 }
 			
 			
@@ -248,7 +248,7 @@ $this->end(); ?>
 
                 .accept, .status {
                 	padding-top: 15px;
-                    padding-left: 150px;
+                    padding-left: 165px;
                 }
 
                 .valid {
@@ -270,6 +270,7 @@ $this->end(); ?>
 				
 				.LV_valid {
 				    color:#00CC00;
+				    display: none;
 				}
 					
 				.LV_invalid {
