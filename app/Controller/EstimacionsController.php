@@ -164,5 +164,48 @@ class EstimacionsController extends AppController {
 	        $this->redirect(array('action' => 'index'));
 	    }
 	}
+	
+	function estimacion_consultar()
+	{
+		$this->layout = 'cyanspark';
+		if($this->request->is('post')) {
+				$this->redirect(array('action' => 'estimacion_detalles',$this->request->data['Estimacion']['informeestima']));
+			}
+		
+	}
+
+	function estimacion_detalles($idinfo=null)
+	{
+		$this->layout = 'cyanspark';
+		$this->set ('idestimacion', $idinfo);
+		$this->Estimacion->find('first',array(
+			'conditions'=>array('Estimacion.idestimacion'=>$idinfo)
+		)); 
+		$this->set();
+	}
+
+	public function contrato_est_json() {
+		$contratos = $this->Contratoconstructor->find('all',array(
+			'fields' => array('Contratoconstructor.idcontrato', 'Contratoconstructor.codigocontrato'),
+			'order' => array('Contratoconstructor.codigocontrato'),
+			'conditions' => array("Contratoconstructor.idcontrato IN (SELECT idcontrato FROM sicpro2012.estimacion)",
+								  "Contratoconstructor.estadocontrato IN ('a tiempo','en marcha','atrasado','en pausa')")
+		));
+		$this->set('contratos', Hash::extract($contratos, "{n}.Contratoconstructor"));
+		$this->set('_serialize', 'contratos');
+		$this->render('/json/jsondatad');
+	}
+	
+	public function estimacion_cons_json()
+	{
+		$estimaciones = $this->Estimacion->find('all',array(
+			'fields'=>array('Estimacion.idcontrato','Estimacion.idestimacion','Estimacion.tituloestimacion'),
+			'order'=>'Estimacion.fechaestimacion'
+		));
+		$this->set('estimacion', Hash::extract($estimaciones, "{n}.Estimacion"));
+		$this->set('_serialize', 'estimacion');
+		$this->render('/json/jsonestimacion');
+	}
+	
 
 }
