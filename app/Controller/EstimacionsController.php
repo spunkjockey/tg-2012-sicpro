@@ -178,10 +178,13 @@ class EstimacionsController extends AppController {
 	{
 		$this->layout = 'cyanspark';
 		$this->set ('idestimacion', $idinfo);
-		$this->Estimacion->find('first',array(
+		$info = $this->Estimacion->find('all',array(
+			'fields'=>array('Estimacion.tituloestimacion','Estimacion.fechainicioestimacion',
+							'Estimacion.fechafinestimacion','Estimacion.fechaestimacion',
+							'Estimacion.montoestimado','Estimacion.porcentajeestimadoavance'),
 			'conditions'=>array('Estimacion.idestimacion'=>$idinfo)
 		)); 
-		$this->set();
+		$this->set('estima',$info);
 	}
 
 	public function contrato_est_json() {

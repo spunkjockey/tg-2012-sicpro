@@ -50,8 +50,9 @@ $this->end(); ?>
 <?php $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
+		<h3>Datos de estimación de avance</h3>
+		<?php Debugger::dump($estima);?>
 		
-
 		<h3>Archivos asociados</h3>
 				<?php
 					$results = $this->Upload->listing ('Estimacion', $idestimacion);
