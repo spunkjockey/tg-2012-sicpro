@@ -31,7 +31,7 @@
 									</li>		
 									<li>Informe t&eacute;cnico
 										<ul>
-											<li><?php echo $this->Html->link('Consultar informe técnico', array('controller' => 'Informetecnicos','action'=>'informetecnico_observaciones')); ?></li>
+											<li><?php echo $this->Html->link('Consultar informe técnico', array('controller' => 'Informetecnicos','action'=>'informetecnico_consultar')); ?></li>
 										</ul>
 									</li>	
 									

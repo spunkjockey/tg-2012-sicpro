@@ -20,7 +20,7 @@
 											<li><?php echo $this->Html->link('Registrar informe técnico', array('controller' => 'Informetecnicos','action'=>'informetecnico_registrar')); ?></li>
 											<li disabled="disabled">Modificar informe t&eacute;cnico</li>
 											<li disabled="disabled">Eliminar informe t&eacute;cnico</li>
-											<li><?php echo $this->Html->link('Consultar informe técnico', array('controller' => 'Informetecnicos','action'=>'informetecnico_observaciones')); ?></li>
+											<li><?php echo $this->Html->link('Consultar informe técnico', array('controller' => 'Informetecnicos','action'=>'informetecnico_consultar')); ?></li>
 										</ul>
 									</li>	
 								</ul>
