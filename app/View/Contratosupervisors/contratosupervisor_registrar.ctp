@@ -236,7 +236,7 @@ $this->end(); ?>
 						</td>
 						<td>	
 							<?php echo $this->Html->link('Regresar', 
-									array('controller' => 'Mains','action' => 'index'),
+									array('controller' => 'Contratosupervisors','action' => 'contratosupervisor_listar'),
 									array('class'=>'k-button')); ?>
 						</td>
 					</tr>
