@@ -48,16 +48,19 @@ $this->end(); ?>
 	</div>
 <?php $this->end(); ?>
 
+<?php Debugger::dump($this->request->data); ?>
+<?php Debugger::dump($infoc); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Modificar contrato supervisor</h2>
 			<?php echo $this->Form->create('Contratosupervisor'); ?>
 		<ul>
 		<li>
-			<?php echo $this->Form->input('Contratosupervisor.conidcontratos', 
+			<?php echo $this->Form->input('con_idcontrato', 
 				array(
 					'label' => 'Contrato de construcción a supervisar:', 
 					'id' => 'construccion',
+					'value' => $infoc['0']['Contratosupervisor']['con_idcontrato'],
 					//'value'=>$coidcon,
 					'div' => array('id'=>'contraasu','class' => 'requerido'))); ?>
 			<script type="text/javascript">
@@ -67,7 +70,7 @@ $this->end(); ?>
 		</li>
 		
 		<li>
-			<?php echo $this->Form->input('Contratosupervisor.codigocontrato', 
+			<?php echo $this->Form->input('codigocontrato', 
 				array(
 					'label' => 'Código del contrato:', 
 					'class' => 'k-textbox',
@@ -85,7 +88,7 @@ $this->end(); ?>
 		    </script> 
 		</li>
 		<li>
-			<?php echo $this->Form->input('Contratosupervisor.nombrecontrato', 
+			<?php echo $this->Form->input('nombrecontrato', 
 				array(
 					'label' => 'Título del contrato:', 
 					'class' => 'k-textbox',
@@ -102,7 +105,7 @@ $this->end(); ?>
 			</script>
 		</li>
 		<li>
-			<?php echo $this->Form->input('Contratosupervisor.montocon', 
+			<?php echo $this->Form->input('montooriginal', 
 				array(
 					'label' => 'Monto: ($)',
 					'class' => 'k-textbox',  
@@ -120,11 +123,11 @@ $this->end(); ?>
 		</li>
 		
 		<li>
-			<?php echo $this->Form->input('Contratosupervisor.fechainicontrato', 
+			<?php echo $this->Form->input('fechainiciocontrato', 
 				array(
 					'label' => 'Fecha inicio de vigencia:', 
 					'id'	=> 'datePicker1',
-					//'value' => date('d/m/Y',strtotime($inicon)),
+					'value' => date('d/m/Y',strtotime($this->request->data['Contratosupervisor']['fechainiciocontrato'])),
 					'div' => array('id'=>'fchaini','class' => 'requerido'),
 					'type'  => 'Text'
 					));
@@ -137,11 +140,12 @@ $this->end(); ?>
 				</script> 
 		</li>
 		<li>
-			<?php echo $this->Form->input('Contratosupervisor.fechafincontrato', 
+			<?php echo $this->Form->input('fechafincontrato', 
 				array(
 					'label' => 'Fecha fin de vigencia:', 
 					'id'	=> 'datePicker2',
 					//'value' => date('d/m/Y',strtotime($fincon)),
+					'value' => date('d/m/Y',strtotime($this->request->data['Contratosupervisor']['fechafincontrato'])),
 					'div' => array('id'=>'fchafin','class' => 'requerido'),
 					'type'  => 'Text'
 					)); 
@@ -154,7 +158,7 @@ $this->end(); ?>
 				</script>
 		</li>
 		<li>
-			<?php echo $this->Form->input('Contratosupervisor.plazoejecucion', 
+			<?php echo $this->Form->input('plazoejecucion', 
 				array(
 					'label' => 'Plazo de ejecución:',
 					'class' => 'k-textbox',  
@@ -177,7 +181,7 @@ $this->end(); ?>
 			</script>
 		</li>
 		<li>
-			<?php echo $this->Form->input('Contratosupervisor.cantinf', 
+			<?php echo $this->Form->input('cantidadinformes', 
 				array(
 					'label' => 'Cantidad informes:',
 					'class' => 'k-textbox',  
@@ -198,7 +202,7 @@ $this->end(); ?>
 			</script>
 		</li>
 		<li>
-			<?php echo $this->Form->input('Contratosupervisor.obras', 
+			<?php echo $this->Form->input('detalleobras', 
 				array(
 					'label' => 'Obras a desarrollar:', 
 					'class' => 'k-textbox',
@@ -209,11 +213,12 @@ $this->end(); ?>
 				?>
 		</li>
 		<li>
-			<?php echo $this->Form->input('Contratosupervisor.empresas', 
+			<?php echo $this->Form->input('empresas', 
 				array(
 					'label' => 'Empresa ejecutora:', 
 					'id' => 'empresas',
 					'class' => 'k-combobox',
+					'value' => $infoc['0']['Empresa']['nombreempresa'],
 					//'value' => $idecon,
 					'div' => array('id'=>'empsup','class' => 'requerido')
 					));
@@ -224,11 +229,12 @@ $this->end(); ?>
 		    </script>
 		</li>
 		<li>
-			<?php echo $this->Form->input('Contratosupervisor.admin', 
+			<?php echo $this->Form->input('admin', 
 				array(
 					'label' => 'Administrador del contrato:', 
 					'id' => 'admin',
 					'class' => 'k-combobox',
+					//'value' => $infoc['0']['Contratosupervisor']['idpersona'],
 					//'value' => $idpcon,
 					'div' => array('id'=>'admcon','class' => 'requerido')
 					)); 
@@ -389,6 +395,9 @@ $this->end(); ?>
 			optionLabel: "Seleccione administrador",
 			dataTextField: "nomcompleto",
             dataValueField: "idpersona",
+            <?php if( isset($this->request->data['Persona']['idpersona']))
+						 {echo "value: " . $this->request->data['Persona']['idpersona'] . ",";}
+			?>
             dataSource: {
                             type: "json",
                             transport: {
@@ -449,13 +458,16 @@ $this->end(); ?>
     end.min(start.value());
 	
 	$("#codigo").mask("999-9999");
-	});
+	
 	var construccion = $("#construccion").kendoDropDownList({
         autoBind: false,
         cascadeFrom: "proyectos",
         optionLabel: "Seleccione contrato",
         dataTextField: "codigocontrato",
         dataValueField: "idcontrato",
+        <?php if( isset($this->request->data['Contratosupervisor']['con_idcontrato']))
+						 {echo "value: " . $this->request->data['Contratosupervisor']['con_idcontrato'] . ",";}
+		?>
         dataSource: {
             type: "json",
             transport: {
@@ -463,5 +475,5 @@ $this->end(); ?>
             }
         }
     }).data("kendoDropDownList");
-    
+  	});  
 </script>
