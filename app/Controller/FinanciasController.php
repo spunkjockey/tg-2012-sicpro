@@ -24,7 +24,7 @@ class FinanciasController extends AppController {
             	
             	$this->redirect(array('action' => 'index',$proyecto['Proyecto']['idproyecto']));
         	} else {
-            	$this->Session->setFlash('Ha ocurrido un eror. No se pudo realizar el registro');
+            	//$this->Session->setFlash('Ha ocurrido un eror. No se pudo realizar el registro');
         	}
 		} else {
 				
@@ -57,7 +57,7 @@ class FinanciasController extends AppController {
 				$this->request->data['Proyecto']['montoplaneado'] = $financia['Proyecto']['montoplaneado'];
 				$this->request->data['Fuentefinanciamiento']['nombrefuente'] = $financia['Fuentefinanciamiento']['nombrefuente'];
 				$this->request->data['Fuentefinanciamiento']['montodisponible'] = $financia['Fuentefinanciamiento']['montodisponible'];
-            	$this->Session->setFlash('Ha ocurrido un error. Imposible modificar el financiamiento');
+            	//$this->Session->setFlash('Ha ocurrido un error. Imposible modificar el financiamiento');
         	}
 	    }
 	}
@@ -111,7 +111,7 @@ class FinanciasController extends AppController {
 	}
 	
 	function proyectojson() {
-		$proyectos = $this->Financia->query('SELECT 
+		$proyectos = $this->Financia->query("SELECT 
 			  DISTINCT proyecto.idproyecto, 
 			  proyecto.nombreproyecto
 			FROM
@@ -128,7 +128,8 @@ class FinanciasController extends AppController {
 			      sicpro2012.fuentefinanciamiento
 			    WHERE 
 			      proyecto.idproyecto = financia.idproyecto AND
-			      fuentefinanciamiento.idfuentefinanciamiento = financia.idfuentefinanciamiento);'
+			      fuentefinanciamiento.idfuentefinanciamiento = financia.idfuentefinanciamiento) AND 
+				  proyecto.estadoproyecto != 'Finalizado';"
 		);
 				
 		$this->set('proyectos', Hash::extract($proyectos, "{n}.0"));

@@ -5,8 +5,8 @@
 		<title> <?php echo $title_for_layout; ?> </title>
 		<?php
 		//echo $this -> Html -> meta('icon');
-		echo $this->Html->meta('icono.ico','icono.ico',array('type' => 'icon'));
-
+		//echo $this->Html->meta('icono.ico','icono.ico',array('type' => 'icon'));
+		echo $this->Html->meta('favicon.ico','/favicon.ico',array('type' => 'icon'));
 		echo $this -> Html -> css('style.cyanspark');
 		echo $this -> Html -> css('kendostyles/kendo.common.min');
 		echo $this -> Html -> css('kendostyles/kendo.blueopal.min');

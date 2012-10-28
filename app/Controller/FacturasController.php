@@ -33,13 +33,43 @@ class FacturasController extends AppController {
     }
   }
     public function proyectojson() {
-		$proyectos = $this->Contrato->find('all',array(
+		/*$proyectos = $this->Contrato->find('all',array(
 			'fields' => array('DISTINCT Proyecto.idproyecto', 'Proyecto.numeroproyecto'),
 			'order' => array('Proyecto.numeroproyecto'),
 			'conditions' => array('Contrato.idpersona' => $this->Session->read('User.idpersona'))
-		));
+		));*/
 		
-		$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
+		$proyectos=$this->Contrato->query('(SELECT 
+  proyecto.idproyecto, 
+  proyecto.numeroproyecto, 
+  --contratoconstructor.idcontrato, 
+  --contratoconstructor.codigocontrato, 
+  contratoconstructor.idpersona
+FROM 
+  sicpro2012.proyecto, 
+  sicpro2012.contratoconstructor, 
+  sicpro2012.estimacion
+WHERE 
+  proyecto.idproyecto = contratoconstructor.idproyecto AND
+  contratoconstructor.idcontrato = estimacion.idcontrato AND 
+  contratoconstructor.idpersona = '. $this->Session->read('User.idpersona') .')
+UNION
+(SELECT 
+  proyecto.idproyecto, 
+  proyecto.numeroproyecto, 
+  --contratosupervisor.idcontrato, 
+  --contratosupervisor.codigocontrato, 
+  contratosupervisor.idpersona
+FROM 
+  sicpro2012.proyecto, 
+  sicpro2012.contratosupervisor, 
+  sicpro2012.informesupervision
+WHERE 
+  proyecto.idproyecto = contratosupervisor.idproyecto AND
+  contratosupervisor.idcontrato = informesupervision.idcontrato AND 
+  contratosupervisor.idpersona = '. $this->Session->read('User.idpersona') .');');
+		
+		$this->set('proyectos', Hash::extract($proyectos, "{n}.0"));
 		$this->set('_serialize', 'proyectos');
 		$this->render('/json/jsondata');
 		

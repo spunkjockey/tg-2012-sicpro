@@ -61,35 +61,7 @@ $this->end(); ?>
 			<li>
 				<?php echo '<label>Código de Contrato:</label> '.$contrato['Contratoconstructor']['codigocontrato']; ?>
 			</li>
-			<li>
-				<!-- Tabla de fedd back de los avances registrados -->
-				<div id="#tabla">
-				<?php if(!empty($avances)) {?>
-					<table id="grid">
-					    <tr>
-					        <th data-field="plazoejecuciondias">Plazo de Ejecucion</th>
-					        <th data-field="fechaavance">Fecha de Avance</th>
-					        <th data-field="porcentajeavfisicoprog" width="175px">Avance Físico</th>
-					        <th data-field="montoavfinancieroprog">Avance Financiero</th>
-					        
-					    </tr>
-					    
-					    <?php foreach ($avances as $av): ?>
-					    <tr>
-					        <td><?php echo $av['Avanceprogramado']['plazoejecuciondias']; ?></td>
-					        <td><?php echo $av['Avanceprogramado']['fechaavance']; ?></td>
-					        <td><?php echo $av['Avanceprogramado']['porcentajeavfisicoprog']/100; ?></td>
-					        <td><?php echo $av['Avanceprogramado']['montoavfinancieroprog']; ?></td>
-					    </tr>
-					    <?php endforeach; ?>
-					    <?php unset($avances); ?>
-					</table>
-				<?php } ?>
-				</div>
-				
 
-
-			</li>
 
 			<li>
 				<?php echo $this->Form->input('plazoejecuciondias', array(
@@ -160,6 +132,8 @@ $this->end(); ?>
 						
 						<!--<td><a class="k-button"><span class="k-icon k-i-pencil"></span></a> <a class="k-button"><span class="k-icon k-i-close"></span></a></td>-->
 			</li>	
+			
+			
 			<li  class="accept">
 				<table>
 					<tr>
@@ -177,6 +151,41 @@ $this->end(); ?>
 					</tr>
 				</table>
 			</li>
+			
+			
+			
+						<li>
+				<!-- Tabla de fedd back de los avances registrados -->
+				<div id="#tabla" style="margin-top: 20px">
+				<?php if(!empty($avances)) {?>
+					<table id="grid" >
+					    <tr>
+					        <th data-field="plazoejecuciondias">Plazo de Ejecucion</th>
+					        <th data-field="fechaavance">Fecha de Avance</th>
+					        <th data-field="porcentajeavfisicoprog" width="175px">Avance Físico</th>
+					        <th data-field="montoavfinancieroprog">Avance Financiero</th>
+					        
+					    </tr>
+					    
+					    <?php foreach ($avances as $av): ?>
+					    <tr>
+					        <td><?php echo $av['Avanceprogramado']['plazoejecuciondias']; ?></td>
+					        <td><?php echo $av['Avanceprogramado']['fechaavance']; ?></td>
+					        <td><?php echo $av['Avanceprogramado']['porcentajeavfisicoprog']/100; ?></td>
+					        <td><?php echo $av['Avanceprogramado']['montoavfinancieroprog']; ?></td>
+					    </tr>
+					    <?php endforeach; ?>
+					    <?php unset($avances); ?>
+					</table>
+				<?php } ?>
+				</div>
+				
+
+
+			</li>
+			
+			
+			
 		</ul>
 	</div>
 </div>
@@ -244,7 +253,7 @@ $this->end(); ?>
 
                 .accept, .status {
                 	padding-top: 15px;
-                    padding-left: 150px;
+                    padding-left: 130px;
                 }
 
                 .valid {

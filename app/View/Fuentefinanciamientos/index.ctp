@@ -137,14 +137,14 @@ $this->end(); ?>
 				scrollable: false,
 				columns: [ {
                                 field: "nombrefuente",
-                                width: 200
+                                width: 180
                                 
                             } , {
                                 field: "montoinicial",
-                                width: 100
+                                width: 110
                                 
                             } , {
-                                width: 100,
+                                width: 110,
                                 field: "montodisponible"
                             } , {
                                 field: "tipofuente",

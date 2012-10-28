@@ -39,7 +39,7 @@ class Avanceprogramado extends AppModel {
 	        ),*/
 			'montocorrecto' => array(
             	'rule'    => array('montocorrecto'),
-            	'message' => 'El monto del avance supera el monto del proyecto'
+            	'message' => 'El monto del avance supera el monto del contrato'
         	)
 		),
 		'fechaavance' => array(
@@ -63,14 +63,10 @@ class Avanceprogramado extends AppModel {
 			'fields' => array('Contratoconstructor.montototal'),
 			'conditions' => array('Contratoconstructor.idcontrato' => $this->data['Avanceprogramado']['idcontrato'])
 		));
-		
-	/*	$mavances = $this->find('all',array(
-			'fields' => array('SUM(Avanceprogramado.montoavfinancieroprog) AS avance'),
-			'conditions' => array('Avanceprogramado.idcontrato' => $this->data['Avanceprogramado']['idcontrato'])
-		));*/
+
 		
 		$montototal = Hash::extract($mavance, '0.Contratoconstructor');
-		/*$montoavances = Hash::extract($mavances, '0.0');	*/
+
 		$monto = $montototal['montototal'] /*- $montoavances['avance']*/;  
         return (float) $check['montoavfinancieroprog'] <= (float) $monto;
 

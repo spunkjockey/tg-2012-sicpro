@@ -3,8 +3,6 @@
     public $components = array('Session','RequestHandler');
 	public $uses = array('Proyecto','Division','Contrato','Financia','Contratoconstructor','Proyembe');
 	public $helpers = array('Html', 'Form', 'Session','Ajax');
-
-
 	
 	public function proyecto_registrar() {
         $this->layout = 'cyanspark';
@@ -17,13 +15,13 @@
 				$this->Proyecto->set('userc', $this->Session->read('User.username'));
 				$this->Proyecto->set('estadoproyecto', 'Formulacion');
 			if ($this->Proyecto->save()) {
-					$this->Session->setFlash('El proyecto '. $this->request->data['Proyecto']['nombreproyecto'].' ha sido registrado',
+					$this->Session->setFlash('El proyecto "'. $this->request->data['Proyecto']['nombreproyecto'].'" ha sido registrado',
 											 'default',array('class'=>'success'));
 	                $this->redirect(array('action' => 'proyecto_listado'));
 	            }
 				else {
 				
-					$this->Session->setFlash('Ha ocurrido un error');
+					//$this->Session->setFlash('Ha ocurrido un error');
 	                         }
         }
     }
@@ -65,13 +63,13 @@
 			$this->Proyecto->set('modificacion', date('Y-m-d h:i:s'));
 			if ($this->Proyecto->save())
 			{
-				$this->Session->setFlash('Proyecto '. $this->request->data['Proyecto']['nombreproyecto'].' ha sido actualizado.',
+				$this->Session->setFlash('El Proyecto "'. $this->request->data['Proyecto']['nombreproyecto'].'" ha sido actualizado.',
 										 'default',array('class'=>'success'));
 				$this->redirect(array('action' => 'proyecto_listado'));
 			}
 			else 
 			{
-				$this->Session->setFlash('Imposible editar proyecto');
+				//$this->Session->setFlash('Imposible editar proyecto');
 			}
 		}
 		else
@@ -96,7 +94,7 @@
 		        						,'default',array('class'=>'success'));
 		        $this->redirect(array('action' => 'proyecto_listado'));
 		    } else {
-		    	$this->Session->setFlash('El proyecto "'.$proy['Proyecto']['nombreproyecto'].'" no ha sido eliminado, tiene referencias con otro elemento');
+		    	$this->Session->setFlash('El proyecto "'.$proy['Proyecto']['nombreproyecto'].'" no ha sido eliminado, este se debe a que existen referencias con otros elementos');
 		    	$this->redirect(array('action' => 'proyecto_listado'));
 		    }
 		}
@@ -126,19 +124,13 @@
 	public function proyecto_asignar_num()
 	{
 		$this->layout = 'cyanspark';
-		//primer proyecto
-		/*$proys = $this->Proyecto->find('first', array(
-										'fields'=> array('Proyecto.idproyecto'),
-										'conditions'=>array('Proyecto.estadoproyecto' => array('Licitacion','Formulacion')),
-										'order'=> array('Proyecto.nombreproyecto ASC')));*/
 		//numero proyecto del primer elemento
 		$this->set('num',$this->Proyecto->find('all',array(
-										'fields'=>array('Proyecto.idproyecto','Proyecto.numeroproyecto'),
-										'recursive' => 0,
-										'conditions'=>array('Proyecto.estadoproyecto' => array('Licitacion','Formulacion')),
-										'order' => array('Proyecto.idproyecto '=>'ASC')
-										//'conditions'=>array('Proyecto.idproyecto='.$proys['Proyecto']['idproyecto'])
-										)));
+						'fields'=>array('Proyecto.idproyecto','Proyecto.numeroproyecto','Proyecto.nombreproyecto'),
+						'conditions'=>array('Proyecto.estadoproyecto' => array('Licitacion','Formulacion')),
+						'order' => array('Proyecto.nombreproyecto '=>'ASC')
+						//'conditions'=>array('Proyecto.idproyecto='.$proys['Proyecto']['idproyecto'])
+						)));
 		
 		if   ($this->request->is('post')) 
 			{
@@ -153,13 +145,13 @@
 				if ($this->Proyecto->save($id)) 
 					{
 						$this->Session->setFlash('Se ha asignado el número '.$this->request->data['Proyecto']['numeroproyecto'].
-												 ' al proyecto '.$this->request->data['Proyecto']['nombreproyecto'],
+												 ' al Proyecto "'.$this->request->data['Proyecto']['nombreproyecto'] .'"',
 												 'default',array('class'=>'success'));
 						$this->redirect(array('action' => 'proyecto_listado'));
 		            }
 					else 
 						{
-							$this->Session->setFlash('Ha ocurrido un error');
+							//$this->Session->setFlash('Ha ocurrido un error');
 		                 }
         	} else {
         		$this->request->data['Proyecto']['numeroproyecto'] = '8888';

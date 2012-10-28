@@ -44,7 +44,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Proyecto » Asignar número de proyecto
+			?> Proyecto » Asignar Número de Proyecto
 			
 		</div>
 	</div>
@@ -65,6 +65,8 @@ $this->end(); ?>
 						'id' => 'proys',
 						'class'=>'k-combobox',
 						'div' => array('class' => 'requerido'))); 
+						
+						//Debugger::dump(current($num['Proyecto']['numeroproyecto']));
 				?>
 				<script type="text/javascript">
 					var proys = new LiveValidation( "proys", { validMessage: " " } );
@@ -74,14 +76,26 @@ $this->end(); ?>
 			<li>
 				<div id=actnumero>
 					
+					
 					<!--- aqui se actualizara el campo de numero de proyecto con el cambio de proyecto --->
-					<?php echo $this->Form->input('numeroproyecto', 
+					<?php 
+					
+					if(isset($num)) {
+						$inio = current($num);
+						$ini = $inio['Proyecto']['numeroproyecto'];
+						//Debugger::dump($ini);
+					}
+					else {
+						$ini = '';
+					}
+					
+					echo $this->Form->input('numeroproyecto', 
 						array(
-							'label' => 'Ingrese número de proyecto:', 
+							'label' => 'Número de Proyecto:', 
 							'id' => 'numero',
-							//'value'=>$numero,
+							'value'=> $ini,
 							'class' => 'k-textbox',  
-							'placeholder' => 'Número del proyecto', 
+							 
 							'div' => array('class' => 'requerido'))); ?>
 					<script type="text/javascript">
 						var numero = new LiveValidation( "numero", { validMessage: " " } );
@@ -133,7 +147,7 @@ $this->end(); ?>
 				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 				
 				.k-combobox {
-                    width: 350px;
+                    width: 400px;
                 }
                 
                 form .requerido label:after {
@@ -168,14 +182,14 @@ $this->end(); ?>
 
                 label {
                     display: inline-block;
-                    width: 200px;
+                    width: 150px;
                     text-align: right;
                     margin-right: 5px;
                 }
 
                 .accept, .status {
                 	padding-top: 15px;
-                    padding-left: 205px;
+                    padding-left: 160px;
                 }
 
                 .valid {
@@ -213,6 +227,7 @@ $this->end(); ?>
                     $("#proys").kendoDropDownList({
 			            dataTextField: "nombreproyecto",
 			            dataValueField: "idproyecto",
+			            
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
@@ -224,7 +239,9 @@ $this->end(); ?>
                             if (value) {
                                 //alert("si dato "+value);
                                 <?php foreach ($num as $nkey => $nvalue) {
-                                	echo 'if(' . $nvalue['Proyecto']['idproyecto'] . '==value){$("#numero").val("'.$nvalue['Proyecto']['numeroproyecto'].'");};';
+                                	echo 'if(' . $nvalue['Proyecto']['idproyecto'] . '==value)
+                                		{$("#numero").val("'.$nvalue['Proyecto']['numeroproyecto'].'");}
+										';
     							}?>
 								
                                 
