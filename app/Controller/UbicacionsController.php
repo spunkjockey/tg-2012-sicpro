@@ -107,7 +107,7 @@ class UbicacionsController extends AppController {
 	/*Las siguientes funciones permiten generar el reporte sobre
 	 * municipios y departamentos donde se han desarrollado proyectos*
 	 * */
-	 function rep_proy_depmuni()
+	 function ubicacion_rep_proy_depmuni()
 	 {
 	 	$this->layout = 'cyanspark';
 	 }
@@ -161,14 +161,14 @@ class UbicacionsController extends AppController {
 			$this->set('inicio',$this->request->data['Depmuni']['fechainicio']);
 			$this->set('fin',$this->request->data['Depmuni']['fechafin']);
 			$munis = $this->Depmuni->query(
-				"SELECT DISTINCT municipio, COUNT(DISTINCT municipio) cantimun
+				"SELECT DISTINCT municipio, COUNT(DISTINCT idproyecto) cantmuni
 				FROM sicpro2012.vi_depmuni
 				WHERE fechainiciocontrato >= '".$fechainicio."' AND fechafincontrato <= '".$fechafin."'
 				GROUP BY municipio");
 				$this->set('municipios', Hash::extract($munis, '{n}.0'));
 			
 			$deps = $this->Depmuni->query(
-				"SELECT DISTINCT departamento, COUNT(DISTINCT departamento) cantidep
+				"SELECT DISTINCT departamento, COUNT(DISTINCT idproyecto) cantidep
 				FROM sicpro2012.vi_depmuni
 				WHERE fechainiciocontrato >= '".$fechainicio."' AND fechafincontrato <= '".$fechafin."'
 				GROUP BY departamento");
@@ -176,5 +176,31 @@ class UbicacionsController extends AppController {
 		}
 		$this->render('/Elements/update_rep_proy_depmuni', 'ajax');
 	 }
+
+	function ubicacion_rep_proy_depmuni_pdf($inicio=null, $fin=null)
+	{
+		Configure::write('debug',0);
+		$this->layout = 'pdf'; //esto utilizara el layout 'pdf.ctp'
+		$fechai = substr($inicio,4,4).'-'.substr($inicio,2,2).'-'.substr($inicio,0,2);
+		$fechaf = substr($fin,4,4).'-'.substr($fin,2,2).'-'.substr($fin,0,2);
+		
+		$munis = $this->Depmuni->query(
+				"SELECT DISTINCT municipio, COUNT(DISTINCT idproyecto) cantmuni
+				FROM sicpro2012.vi_depmuni
+				WHERE fechainiciocontrato >= '".$fechai."' AND fechafincontrato <= '".$fechaf."'
+				GROUP BY municipio");
+				$this->set('municipios', Hash::extract($munis, '{n}.0'));
+			
+		$deps = $this->Depmuni->query(
+			"SELECT DISTINCT departamento, COUNT(DISTINCT idproyecto) cantidep
+			FROM sicpro2012.vi_depmuni
+			WHERE fechainiciocontrato >= '".$fechai."' AND fechafincontrato <= '".$fechaf."'
+			GROUP BY departamento");
+			$this->set('departamentos', Hash::extract($deps, '{n}.0'));
+		
+		$this->set('inicio',$fechai);
+		$this->set('fin',$fechaf);
+		$this->render();
+	}
 
 }

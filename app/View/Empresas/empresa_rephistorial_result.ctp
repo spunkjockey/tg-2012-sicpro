@@ -55,31 +55,35 @@ $this->end(); ?>
 		<?php echo $this->Form->create('Empresa',array('action' => 'empresa_rephistorial_result')); ?>
 		<h2><?php echo "Historial de ". $nombre?></h2>
 		<h3>Contratos que ha supervisado:</h3>
-		<table>
-			<tr>
-				<td>Código</td>
-				<td>Monto</td>
-				<td>Orden de inicio</td>
-				<td>Plazo(días)</td>
-				<td>Administrador</td>
-				<td>Empresa supervisada</td>
-			</tr>
-			<?php foreach ($datos as $dat): ?>
-				<tr>
-					<td width="75px"><?php echo $dat['Empresaconsuper']['codigosuper'];?></td>
-					<td width="85px"><?php echo "$".number_format($dat['Empresaconsuper']['montooriginal'],2);?></td>
-					<td width="85px"><?php 
-							if(isset($dat['Empresaconsuper']['ordeninicio']))
-									echo date('d/m/Y',strtotime($dat['Empresaconsuper']['ordeninicio']));
-								else
-									echo "No definida";
-						?></td>
-					<td width="70px"><?php echo $dat['Empresaconsuper']['plazoejecucion'];?></td>
-					<td width="100px"><?php echo $dat['Empresaconsuper']['nomcompleto'];?></td>
-					<td width="125px"><?php echo $dat['Empresaconsuper']['constructora'];?></td>
-				</tr>
-			<?php endforeach; ?>
-		</table>
+		<div id= tablagrid>
+			<table>
+				<thead>
+					<tr>
+						<th data-field="codigo">Código</th>
+						<th data-field="monto">Monto</th>
+						<th data-field="orden">Orden de inicio</th>
+						<th data-field="plazo">Plazo(días)</th>
+						<th data-field="admin">Administrador</th>
+						<th data-field="empresa">Empresa supervisada</th>
+					</tr>
+					<?php foreach ($datos as $dat): ?>
+						<tr>
+							<td width="75px"><?php echo $dat['Empresaconsuper']['codigosuper'];?></td>
+							<td width="85px"><?php echo "$".number_format($dat['Empresaconsuper']['montooriginal'],2);?></td>
+							<td width="85px"><?php 
+									if(isset($dat['Empresaconsuper']['ordeninicio']))
+											echo date('d/m/Y',strtotime($dat['Empresaconsuper']['ordeninicio']));
+										else
+											echo "No definida";
+								?></td>
+							<td width="70px"><?php echo $dat['Empresaconsuper']['plazoejecucion'];?></td>
+							<td width="100px"><?php echo $dat['Empresaconsuper']['nomcompleto'];?></td>
+							<td width="125px"><?php echo $dat['Empresaconsuper']['constructora'];?></td>
+						</tr>
+					<?php endforeach; ?>
+				</thead>
+			</table>
+		</div>
 		<ul>
 			<li  class="accept">
 			<table>
@@ -158,6 +162,59 @@ $this->end(); ?>
                 span.k-tooltip {
                     margin-left: 6px;
                 }
+                
+                #tablagrid table, #tablagrid th, #tablagrid td {
+					border: 1px solid #D4E0EE;
+					border-collapse: collapse;
+					font-family: "Trebuchet MS", Arial, sans-serif;
+					color: #555;
+				}
+				
+				#tablagrid caption {
+					font-size: 100%;
+					font-weight: bold;
+					margin: 5px;
+				}
+				
+				#tablagrid td, #tablagrid th {
+					padding: 4px;
+					text-align: center;
+				}
+				
+				#tablagrid thead th {
+					text-align: center;
+					background: #E6EDF5;
+					color: #4F76A3;
+					font-size: 100% !important;
+				}
+				
+				#tablagrid tbody th {
+					font-weight: bold;
+				}
+				
+				#tablagrid tbody tr { background: #FCFDFE; }
+				
+				#tablagrid tbody tr.odd { background: #F7F9FC; }
+				
+				#tablagrid table a:link {
+					color: #718ABE;
+					text-decoration: none;
+				}
+				
+				#tablagrid table a:visited {
+					color: #718ABE;
+					text-decoration: none;
+				}
+				
+				#tablagrid table a:hover {
+					color: #718ABE;
+					text-decoration: underline !important;
+				}
+				
+				#tablagrid tfoot th, #tablagrid tfoot td {
+					font-size: 100%;
+					font-weight: bold;
+				}
                 
             </style>
             
