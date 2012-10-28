@@ -49,7 +49,9 @@ $this->end(); ?>
 	</div>
 	
 <?php $this->end(); ?>
-			<h2>Direcciones</h2>			   
+	<h2>Registrar Ficha Tecnica</h2>
+	<div style="color: #959595;">Paso 2 de 2</div>
+	<h2>Ubicaciones</h2>			   
 	<?php foreach ($ubicaciones as $ubi): ?>
     	<li class='capa2'>
         <?php echo $ubi['Ubicacion']['direccion']; 
@@ -64,14 +66,16 @@ $this->end(); ?>
     <?php endforeach; ?>
     <?php unset($ubicaciones); ?>
 			<br>
+			<p style="text-align: right">
 			<?php echo $this->Html->link(
-            	'Agregar Ubicacion', 
+            	'<span class="k-icon k-i-plus"></span> Agregar Ubicacion', 
             	array('controller' => 'Ubicacions','action' => 'ubicacion_registrar',$fichatecnicas['Fichatecnica']['idfichatecnica']),
-            	array('class'=>'k-button')
+            	array('class'=>'k-button', 'escape' => false)
 			);?>
+			</p>
 			<br> 
 			<br>
-			<h2>Componentes</h2>
+			<h2>Componentes y Metas</h2>
 			<?php 
 			if(isset($fichatecnicas['Componente'])){
 			foreach ($fichatecnicas['Componente'] as $compo):?>
@@ -85,15 +89,16 @@ $this->end(); ?>
 			}
 			?>
 			<br>
+			<p style="text-align: right">
 			<?php echo $this->Html->link(
-            	'Agregar Componentes', 
+            	'<span class="k-icon k-i-plus"></span> Agregar Componentes', 
             	array('controller' => 'Componentes','action' => 'componente_registrar',$fichatecnicas['Fichatecnica']['idfichatecnica']),
-            	array('class'=>'k-button')
+            	array('class'=>'k-button', 'escape' => false)
 			);?>
-			<?php echo $this->Html->link('Terminar Ficha Tecnica',
-				array('controller' => 'Mains', 'action' => 'index'),array('id' => 'regresar','class'=>'k-button')); 
+			<?php echo $this->Html->link('<span class="k-icon k-i-tick"></span> Terminar',
+				array('controller' => 'Mains', 'action' => 'index'),array('id' => 'regresar','class'=>'k-button','escape' => false)); 
 			?>	
-			
+			</p>
 
 <style scoped>
 				#titulo {

@@ -42,93 +42,62 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Control y seguimiento » Informe técnico » Consultar informe técnico 
+			?> Contrato supervisor » Registrar contrato supervisor
 			
 		</div>
 	</div>
-	
 <?php $this->end(); ?>
+
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Consultar informe técnico</h2>
-		<?php echo $this->Form->create('Informetecnico',array('action' => 'informetecnico_observaciones')); ?>
+		<h2>Modificar contrato supervisor</h2>
+		<?php echo $this->Form->create('Contratosupervisor',array('action' => 'contratosupervisor_modificar')); ?>
 		<ul>
 			<li>
 				<?php echo $this->Form->input('proyectos', 
 					array(
 						'label' => 'Seleccione proyecto:', 
 						'id' => 'proyectos',
-						'div' => array('class' => 'requerido'))); ?>
+						'div' => array('id'=>'proyo','class' => 'requerido'))); ?>
 				<script type="text/javascript">
-					var proyectos= new LiveValidation( "proyectos", { validMessage: " " } );
+					var proyectos= new LiveValidation( "proyectos", { validMessage: " " , insertAfterWhatNode: "proyo"} );
 					proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				</script>
 			</li>
 			<li>
 				<?php echo $this->Form->input('contratos', 
 					array(
-						'label' => 'Contrato de construcción:', 
+						'label' => 'Contrato de supervisión:', 
 						'id' => 'contratos',
-						'div' => array('class' => 'requerido'))); ?>
+						'div' => array('id'=>'contras','class' => 'requerido'))); ?>
 				<script type="text/javascript">
-					var contratos= new LiveValidation( "contratos", { validMessage: " " } );
+					var contratos= new LiveValidation( "contratos", { validMessage: " " , insertAfterWhatNode: "contras" } );
 					contratos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				</script>
 			</li>
-			<li>
-				<?php echo $this->Form->input('fechas', 
-					array(
-						'label' => 'Fecha de visita:', 
-						'id' => 'fechas',
-						'div' => array('class' => 'requerido')
-						)); 
-					?>
-				<script type="text/javascript">
-					var fechas= new LiveValidation( "fechas", { validMessage: " " } );
-					fechas.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-				</script>
-			</li>
+			<div id=infoproy>
+				<!--- Aqui se muestra el nombre del proyecto seleccionado	-->	
+				<!--- se utiliza la funcion update_nomproyecto				-->
+			</div>
+			<div id=infoconsupervisor>
+				<!--- Aqui se carga el formulario para modificar contrato sueprvisor 	-->
+				<!--- se utiliza la funcion update_infoconsupervisor							-->	
+			</div>
 			
-				<li>
-					<div id=datainftecnico>
-						<!--- aquí se carga la información del informe tecnico--->
-					</div>
-				</li>
-				<li>
-					<div id=otrasobservaciones>
-						
-					</div>
-				</li>
-				<li>
-					<div id=formobservaciones>
-						
-					</div>
-				</li>
-			
-				
-				<?php echo $this->ajax->observeField( 'fechas',array(
-			        		'url' => array( 'action' => 'update_datainfotec'),
-			        		'update' => 'datainftecnico'));  
-					?>
-				
-				<?php echo $this->ajax->observeField( 'fechas',array(
-			        		'url' => array( 'action' => 'otras_observaciones'),
-			        		'update' => 'otrasobservaciones'));  
-					?>
-				
-				<?php echo $this->ajax->observeField( 'fechas',array(
-			        		'url' => array( 'action' => 'agregar_observaciones'),
-			        		'update' => 'formobservaciones'));  
-					?>
-				<?php echo $this->Html->link(
-							'Regresar', 
-							array('controller' => 'Mains', 'action' => 'index'),
-							array('class'=>'k-button')
-						); ?>
 		</ul>
+		
+		<?php echo $this->ajax->observeField( 'proyectos',array(
+			        		'url' => array( 'action' => 'update_nomproyecto'),
+			        		'update' => 'infoproy'));  
+					?>
+		<?php echo $this->ajax->observeField( 'contratos',array(
+			        		'url' => array( 'action' => 'update_infoconsupervisor'),
+			        		'update' => 'infoconsupervisor'));  
+					?>
 	</div>
 </div>
-<style scoped>
+
+	<style scoped>
 
                 .k-textbox {
                     width: 300px;
@@ -196,7 +165,6 @@ $this->end(); ?>
                 }
                 
                 .LV_validation_message{
-				    font-weight:bold;
 				    margin:0 0 0 5px;
 				}
 				
@@ -208,28 +176,13 @@ $this->end(); ?>
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 170px; 
+               		margin-left: 155px; 
                
 				}
-				    
-				.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
-				}
-				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
+
             </style>
-			
-			<script>
+
+<script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
@@ -242,6 +195,19 @@ $this->end(); ?>
                         }
                     });
                 
+				$("#txmonto").kendoNumericTextBox({
+				     min: 0,
+				     max: 999999999.99,
+				     format: "c2",
+				     decimals: 2,
+				     spinners: false
+				 });
+				
+				$("#selectproy").kendoComboBox({
+					index: 0,
+			        suggest: true,
+			        filter: 'none'
+				});
 				
 				$("#proyectos").kendoDropDownList({
             			optionLabel: "Seleccione proyecto",
@@ -250,7 +216,7 @@ $this->end(); ?>
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
-			                                read: "/Informetecnicos/proyectojson.json"
+			                                read: "/Contratosupervisors/proyectoconjson.json"
 			                            }
 			                        }
 			        });
@@ -265,24 +231,50 @@ $this->end(); ?>
 			                        dataSource: {
 			                            type: "json",
 			                            transport: {
-			                                read: "/Informetecnicos/contratosconstructorjson.json"
+			                                read: "/Contratosupervisors/contratossuperjson.json"
 			                            }
 			                        }
 			                    }).data("kendoDropDownList");
-			    
-			    var fechas = $("#fechas").kendoDropDownList({
-			                        autoBind: false,
-			                        cascadeFrom: "contratos",
-			                        optionLabel: "Seleccione fecha",
-			                        dataTextField: "fechav",
-			                        dataValueField: "idinformetecnico",
-			                        dataSource: {
+			        
+			    $("#empresas").kendoDropDownList({
+            			optionLabel: "Seleccione empresa",
+			            dataTextField: "nombreempresa",
+			            dataValueField: "idempresa",
+			            dataSource: {
 			                            type: "json",
 			                            transport: {
-			                                read: "/Informetecnicos/fechasvisitasjson.json"
+			                                read: "/Contratoconstructors/empresajson.json"
 			                            }
 			                        }
-			                    }).data("kendoDropDownList");
+			        });
+			        var empresas = $("#empresas").data("kendoDropDownList");
+			    
+			    $("#admin").kendoDropDownList({
+            			optionLabel: "Seleccione administrador",
+			            dataTextField: "nomcompleto",
+			            dataValueField: "idpersona",
+			            dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Contratosupervisors/adminjson.json"
+			                            }
+			                        }
+			        });
+			        var admin = $("#admin").data("kendoDropDownList");
+				
+				$("#codigo").mask("999-9999");
+				
+						
+				$("#datePicker1").kendoDatePicker({
+		   			format: "dd/MM/yyyy",
+		   			culture: "es-ES"
+		   		});
+				$("#datePicker2").kendoDatePicker({
+		   			format: "dd/MM/yyyy",
+		   			culture: "es-ES"
+		   		});
+				
+				
 				});
                 
             </script>

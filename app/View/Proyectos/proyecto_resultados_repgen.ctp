@@ -62,54 +62,64 @@ $this->end(); ?>
 		
 		
 		<h3>Financiamientos</h3>
-			<table>
-				<tr>
-					<td width="200px">Fondo</td>
-					<td width="200px">Monto destinado</td>
-				</tr>
-				<?php $totalfuente = 0;?>
-				<?php foreach ($fuentes as $ff): ?>
-				<tr>
-					<td>
-						<?php echo $ff['Fuentefinanciamiento']['nombrefuente'];?>
-					</td>
-					<td>
-						<?php echo "$".number_format($ff['Financia']['montoparcial'],2);?>
-						<?php $totalfuente = $totalfuente + $ff['Financia']['montoparcial'];?>
-					</td>
-				</tr>
-				<?php endforeach; ?>
-				<?php unset($fuentes); ?>	
-			</table>
+			<div id= tablagrid>
+				<table>
+					<thead>
+						<tr>
+							<th data-field="fondo">Fondo</th>
+							<th data-field="monto">Monto destinado</th>
+						</tr>
+						<?php $totalfuente = 0;?>
+						<?php foreach ($fuentes as $ff): ?>
+						<tr>
+							<td>
+								<?php echo $ff['Fuentefinanciamiento']['nombrefuente'];?>
+							</td>
+							<td>
+								<?php echo "$".number_format($ff['Financia']['montoparcial'],2);?>
+								<?php $totalfuente = $totalfuente + $ff['Financia']['montoparcial'];?>
+							</td>
+						</tr>
+						<?php endforeach; ?>
+						<?php unset($fuentes); ?>	
+					</thead>
+				</table>
+			</div>
+			
+				
 		<br>
 		Fondo total destinado: <?php echo "$".number_format($totalfuente,2); ?>
 		<h3>Contratos</h3>
-			<table>
-				<tr>
-					<td>Código</td>
-					<td>Tipo</td>
-					<td>Monto original</td>
-					<td>Plazo de ejecución</td>
-					<td>Orden de inicio</td>
-					<td>Administrador</td>
-				</tr>
-				<?php foreach ($contratos as $con): ?>
-					<tr>
-						<td><?php echo $con['Contrato']['codigocontrato'];?></td>
-						<td><?php echo $con['Contrato']['tipocontrato'];?></td>
-						<td><?php echo "$".number_format($con['Contrato']['montooriginal'],2);?></td>
-						<td><?php echo $con['Contrato']['plazoejecucion'];?></td>
-						<td><?php 
-								if(isset($con['Contrato']['ordeninicio']))
-									echo date('d/m/Y',strtotime($con['Contrato']['ordeninicio']));
-								else
-									echo "No definida";
-								?></td>
-						<td><?php echo $con['Persona']['nombrespersona']." ".$con['Persona']['apellidospersona']?></td>
-					</tr>
-					<?php endforeach; ?>
-				<?php unset($contratos); ?>
-			</table>
+			<div id= tablagrid>
+				<table>
+					<thead>
+						<tr>
+							<th data-field="codigo">Código</th>
+							<th data-field="tipo">Tipo</th>
+							<th data-field="monto">Monto original</th>
+							<th data-field="plazo">Plazo de ejecución</th>
+							<th data-field="orden">Orden de inicio</th>
+							<th data-field="admin">Administrador</th>
+						</tr>
+						<?php foreach ($contratos as $con): ?>
+							<tr>
+								<td><?php echo $con['Contrato']['codigocontrato'];?></td>
+								<td><?php echo $con['Contrato']['tipocontrato'];?></td>
+								<td><?php echo "$".number_format($con['Contrato']['montooriginal'],2);?></td>
+								<td><?php echo $con['Contrato']['plazoejecucion'];?></td>
+								<td><?php 
+										if(isset($con['Contrato']['ordeninicio']))
+											echo date('d/m/Y',strtotime($con['Contrato']['ordeninicio']));
+										else
+											echo "No definida";
+										?></td>
+								<td><?php echo $con['Persona']['nombrespersona']." ".$con['Persona']['apellidospersona']?></td>
+							</tr>
+							<?php endforeach; ?>
+						<?php unset($contratos); ?>
+					</thead>
+				</table>
+			</div>
 		<ul>
 			<li  class="accept">
 			<table>
@@ -188,6 +198,59 @@ $this->end(); ?>
                 span.k-tooltip {
                     margin-left: 6px;
                 }
+                
+                #tablagrid table, #tablagrid th, #tablagrid td {
+					border: 1px solid #D4E0EE;
+					border-collapse: collapse;
+					font-family: "Trebuchet MS", Arial, sans-serif;
+					color: #555;
+				}
+				
+				#tablagrid caption {
+					font-size: 100%;
+					font-weight: bold;
+					margin: 5px;
+				}
+				
+				#tablagrid td, #tablagrid th {
+					padding: 4px;
+					text-align: center;
+				}
+				
+				#tablagrid thead th {
+					text-align: center;
+					background: #E6EDF5;
+					color: #4F76A3;
+					font-size: 100% !important;
+				}
+				
+				#tablagrid tbody th {
+					font-weight: bold;
+				}
+				
+				#tablagrid tbody tr { background: #FCFDFE; }
+				
+				#tablagrid tbody tr.odd { background: #F7F9FC; }
+				
+				#tablagrid table a:link {
+					color: #718ABE;
+					text-decoration: none;
+				}
+				
+				#tablagrid table a:visited {
+					color: #718ABE;
+					text-decoration: none;
+				}
+				
+				#tablagrid table a:hover {
+					color: #718ABE;
+					text-decoration: underline !important;
+				}
+				
+				#tablagrid tfoot th, #tablagrid tfoot td {
+					font-size: 100%;
+					font-weight: bold;
+				}
                 
             </style>
             

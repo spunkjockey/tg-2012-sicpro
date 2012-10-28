@@ -56,14 +56,17 @@
 			if (!empty($this->data['Informetecnico']['contratos']))
 			{
 				$cont_id = $this->request->data['Informetecnico']['contratos'];
-				$proy_id = $this->Contratoconstructor->find('first',array(
-							'fields'=>array('Contratoconstructor.idproyecto'),
-							'conditions'=>array('Contratoconstructor.idcontrato'=>$cont_id)));
-							
-				$info = $this->Fichatecnica->find('first',array(
-							'fields'=>array('Proyecto.nombreproyecto','Fichatecnica.descripcionproyecto'),
-							'conditions'=>array('Proyecto.idproyecto'=>$proy_id['Contratoconstructor']['idproyecto'])));
-				$this->set('info',$info);
+				
+				$proy_id= $this->Contratoconstructor->field('Contratoconstructor.idproyecto',
+							array('Contratoconstructor.idcontrato'=>$cont_id));
+				
+				$nomproy = $this->Proyecto->field('nombreproyecto',
+							array('idproyecto'=>$proy_id));
+				$this->set('nombreproy',$nomproy);
+				
+				$desc = $this->Fichatecnica->field('Fichatecnica.descripcionproyecto',
+							array('Fichatecnica.idproyecto'=>$proy_id));
+				$this->set('descripcion',$desc);
 			}
 			$this->render('/Elements/update_infoproy_inftec', 'ajax');
 		}
@@ -71,26 +74,57 @@
 		/*Las siguientes funciones permiten consultar informes técnicos y
 		 * registrar observaciones si el usuario se encuentra habilitado para dicha función.
 		 * */
-		 function informetecnico_observaciones()
+		 function informetecnico_consultar()
 		 {
 		 	$this->layout = 'cyanspark';
+			if($this->request->is('post')) {
+				$this->redirect(array('action' => 'informetecnico_observacion',$this->request->data['Informetecnico']['fechas']));
+			}
+				
+		 }
+		 
+		
+		function informetecnico_observacion($idinfo=null)
+		{
+			$this->layout = 'cyanspark';
+			$info = $this->Informetecnico->find('first',array(
+				'fields'=>array('antecedentes','anotacion'),
+				'conditions'=>array('idinformetecnico'=>$idinfo)
+				));
+			$this->set('info',$info);
+			//otras
+			$otros = $this->Observacion->find('all',array(
+				'fields'=>array('observacioninforme','fechaingresoobservacion','userc',
+				'Persona.nombrespersona','Persona.apellidospersona'),
+				'conditions'=>array('Observacion.idinformetecnico'=>$idinfo),
+				'order'=>'fechaingresoobservacion ASC'
+				));
+			$this->set('otros',$otros);
+			//agregar obs
+			$datos = $this->User->find('first',array(
+				'fields'=>array('User.idpersona', 'Rol.rol'),
+				'conditions'=>array('username'=>$this->Session->read('User.username'))
+				));	
+			$this->set('datos',$datos);
+			$this->set('idinfo',$idinfo);
+			
 			if($this->request->is('post'))
 			{
-				$this->Observacion->set('idinformetecnico', $this->request->data['Informetecnico']['fechas']);
+				$this->Observacion->set('idinformetecnico', $this->request->data['Informetecnico']['idinformetecnico']);
 				$this->Observacion->set('idpersona', $this->request->data['Informetecnico']['idpersona']);
 				$this->Observacion->set('observacioninforme', $this->request->data['Informetecnico']['observ']);
 				$this->Observacion->set('userc', $this->Session->read('User.username'));
 				if ($this->Observacion->save()) 
 				{
 	            	$this->Session->setFlash('Ha agregado una observación al informe.','default',array('class'=>'success'));
-	            	$this->redirect(array('controller'=>'Informetecnicos', 'action' => 'informetecnico_observaciones'));
+	            	$this->redirect(array('controller'=>'Informetecnicos', 'action' => 'informetecnico_consultar'));
         		}
         		else 
         		{
             		$this->Session->setFlash('No se pudo agregar la observación');
         		}
 			}
-		 }
+		}
 		 
 		 /*
 		  * proyectojson()
@@ -105,6 +139,7 @@
 			$this->set('_serialize', 'proyectos');
 			$this->render('/json/jsondata');
 		}
+		
 		/*contratosconstructorjson()
 		 * Esta funcion permite cargar los contratos de construccion de los proyectos
 		 * El listado de contratos se filtra de acuerdo al rol del usuario en uso*/
@@ -165,55 +200,6 @@
 			$this->set('fechas', Hash::extract($fechas, "{n}.Informetecnico"));
 			$this->set('_serialize', 'fechas');
 			$this->render('/json/jsonfechas');
-		}
-		
-		/*
-		 * update_datainfotec()
-		 * Esta funcion permite cargar la informacion de un informe tecnico en especifico*/
-		function update_datainfotec()
-		{
-			if (!empty($this->data['Informetecnico']['fechas']))
-			{
-				$inf_id = $this->request->data['Informetecnico']['fechas'];
-				$info = $this->Informetecnico->find('first',array(
-					'fields'=>array('antecedentes','anotacion'),
-					'conditions'=>array('idinformetecnico'=>$inf_id)
-					));
-				$this->set('info',$info);
-			}
-			$this->render('/Elements/update_datainfotec', 'ajax');
-		}
-		
-		function otras_observaciones() 
-		{
-			if (!empty($this->data['Informetecnico']['fechas']))
-			{
-				$inf_id = $this->request->data['Informetecnico']['fechas'];
-				$otros = $this->Observacion->find('all',array(
-					'fields'=>array('observacioninforme','fechaingresoobservacion','userc',
-					'Persona.nombrespersona','Persona.apellidospersona'),
-					'conditions'=>array('Observacion.idinformetecnico'=>$inf_id),
-					'order'=>'fechaingresoobservacion ASC'
-					));
-				$this->set('otros',$otros);
-			}
-			$this->render('/Elements/otras_observaciones', 'ajax');
-		}
-		
-		/*
-		 * agregar_observaciones()
-		 * Carga el formulario para el ingreso de observaciones, o muestra un mensaje que no puede realizar esta función*/
-		function agregar_observaciones()
-		{
-			if (!empty($this->data['Informetecnico']['fechas']))
-			{
-				$datos = $this->User->find('first',array(
-					'fields'=>array('User.idpersona', 'Rol.rol'),
-					'conditions'=>array('username'=>$this->Session->read('User.username'))
-					));	
-				$this->set('datos',$datos);
-			}
-			$this->render('/Elements/agregar_observaciones', 'ajax');
 		}
 		
 	}

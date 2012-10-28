@@ -164,7 +164,7 @@ $this->end(); ?>
 
                 .accept, .status {
                 	padding-top: 15px;
-                    padding-left: 150px;
+                    padding-left: 160px;
                 }
 
                 .valid {

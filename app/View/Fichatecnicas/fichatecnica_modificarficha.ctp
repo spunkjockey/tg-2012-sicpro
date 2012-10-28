@@ -64,7 +64,7 @@ $this->end(); ?>
 				)); ?>
 				
 				<?php			
-					echo '<label>Nombre Proyecto:  </label><br /> '.$this->request->data['Proyecto']['nombreproyecto']; 
+					echo '<label>Nombre Proyecto:  </label> '.$this->request->data['Proyecto']['nombreproyecto']; 
 				?>
 			</li>
 			<li>
@@ -103,7 +103,7 @@ $this->end(); ?>
 						'label' => 'Objetivo Especifico: ', 
 						'class' => 'k-textbox', 
 						'placeholder' => 'Objetivo Especifico',
-						"rows"=>"2"
+						"rows"=>"5"
 						)); ?>
 			</li>
 			<li>
@@ -125,29 +125,38 @@ $this->end(); ?>
 				<?php echo $this->Form->input('empleosgenerados', 
 					array(
 						'label' => 'Empleos Generados: ', 
-						'div' => array('class' => 'requerido'),
-						'id' => 'numero1',
+						'div' => array('id' => 'empleos','class' => 'requerido'),
+						'id' => 'numer1',
+						'type' => 'text',
 						'class' => 'k-textbox', 
-						'placeholder' => 'Empleos Generados'
+						'placeholder' => 'Empleos Generados',
+						'maxlength' => "7"
 						)); ?>
 				<script type="text/javascript">
-		            var numero1 = new LiveValidation( "numero1", { validMessage: " " } );
+		            var numero1 = new LiveValidation( "numero1", { validMessage: " ", insertAfterWhatNode: "empleos" } );
 		            numero1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            numero1.add( Validate.Numericality,{ onlyInteger: true,
+					   								   	notAnIntegerMessage: "Debe ser un número entero",
+						            				 	notANumberMessage:"Debe ser un número"} );
 		        </script> 
 			</li>
 			<li>
 				<?php echo $this->Form->input('beneficiarios', 
 					array(
 						'label' => 'Beneficiarios: ', 
-						'div' => array('class' => 'requerido'),
-						'id' => 'numero2',
+						'div' => array('id' => 'benefic', 'class' => 'requerido'),
+						'type' => 'text',
+						'id' => 'numer2',
 						'class' => 'k-textbox', 
 						'placeholder' => 'Beneficiarios',
-						"rows"=>"2"
+						'maxlength' => "7"
 						)); ?>
 				<script type="text/javascript">
-		            var numero2 = new LiveValidation( "numero2", { validMessage: " " } );
+		            var numero2 = new LiveValidation( "numero2", { validMessage: " ", insertAfterWhatNode: "benefic" } );
 		            numero2.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            numero2.add( Validate.Numericality,{ onlyInteger: true,
+					   								   	notAnIntegerMessage: "Debe ser un número entero",
+						            				 	notANumberMessage:"Debe ser un número"} );
 		        </script> 
 			</li>
 			<li>
@@ -187,13 +196,12 @@ $this->end(); ?>
 <style scoped>
 
                 .k-textbox {
-                    width: 300px;
-                    margin-left: 5px;
+                    width: 400px;
                     
                 }
 				
 				.k-dropdownlist{
-                    width: 300px;
+                    width: 400px;
                 }
 			
 			
@@ -241,7 +249,7 @@ $this->end(); ?>
 
                 .accept, .status {
                 	padding-top: 15px;
-                    padding-left: 150px;
+                    padding-left: 160px;
                 }
 
                 .valid {
@@ -263,6 +271,7 @@ $this->end(); ?>
 				
 				.LV_valid {
 				    color:#00CC00;
+				    display:none;
 				}
 					
 				.LV_invalid {
@@ -272,23 +281,7 @@ $this->end(); ?>
                		margin-left: 170px; 
                
 				}
-				/*    
-				.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
-				}
-				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
-                */
+
 </style>
 
 <script>
@@ -321,22 +314,24 @@ $this->end(); ?>
                combobox.list.width(400);
                
                
-               $("#numero1").kendoNumericTextBox({
-                        min: 000000,
-    					max: 999999,
-    					decimals: 0,
-    					placeholder: "Ej. 100",
-    					spinners: false
-                    });
-                    
-               $("#numero2").kendoNumericTextBox({
-                        min: 000000,
-    					max: 999999,
-    					decimals: 0,
-    					placeholder: "Ej. 100",
-    					spinners: false
-                    });
-                    
+       $("#numer1").kendoNumericTextBox({
+                min: 0000001,
+				max: 9999999,
+				format : "{0:n0}",
+				decimals: 0,
+				placeholder: "Ej. 100",
+				spinners: false
+            });
+            
+       $("#numer2").kendoNumericTextBox({
+                min: 0000001,
+				max: 9999999,
+				format : "{0:n0}",
+				decimals: 0,
+				placeholder: "Ej. 100",
+				spinners: false
+            });
+            
 				$("form").focusin(function () {
   						$("#flashMessage").fadeOut("slow");
   				});

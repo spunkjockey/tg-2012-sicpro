@@ -3,7 +3,18 @@
     {
 	    public $helpers = array('Html', 'Form', 'Session','Ajax');
 	    public $components = array('Session','RequestHandler');
-		public $uses = array('Contratoconstructor','Contrato','Proyecto','Empresa','Persona','Contratosupervisor');
+		public $uses = array('Contratoconstructor','Contrato','Proyecto','Empresa','Persona','Contratosupervisor','Contdisponibles');
+		
+		
+		public function contratosupervisor_listar(){
+			$this->layout = 'cyanspark';
+			$this->set('contratoss',$this->Contratosupervisor->find('all',
+			array('conditions'=> array(
+										'Proyecto.estadoproyecto <>' => 'Finalizado'
+										)
+				  )
+			)); 
+		}
 		
 		public function contratosupervisor_registrar()
 		{
@@ -67,7 +78,7 @@
 					{
 						$this->Session->setFlash('Contrato supervisor '.$this->request->data['Contratosupervisor']['codigocontrato'] .'ha sido registrado.',
 												 'default',array('class'=>'success'));	
-						$this->redirect(array('controller'=>'mains', 'action' => 'index'));
+						$this->redirect(array('controller'=>'Contratosupervisors', 'action' => 'contratosupervisor_listar'));
 					}
 					else 
 					{
@@ -112,11 +123,8 @@
 		
 		public function proyectojson() 
 		{
-			$proyectos = $this->Proyecto->find('all', array(
-											'fields'=> array('Proyecto.idproyecto','Proyecto.numeroproyecto'),
-											'conditions'=>array( "OR" => array(
-															'Proyecto.estadoproyecto' => array('Licitacion','Adjudicacion','Ejecucion')))));
-			$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
+			$proyectos = $this->Contdisponibles->find('all');
+			$this->set('proyectos', Hash::extract($proyectos, "{n}.Contdisponibles"));
 			$this->set('_serialize', 'proyectos');
 			$this->render('/json/jsondata');
 		}
@@ -159,6 +167,14 @@
 	function contratosupervisor_modificar($id=null)
 	{
 		$this->layout = 'cyanspark';
+		$this->Contratoconstructor->id = $id;
+		if ($this->request->is('get')) {
+	        $this->request->data = $this->Contratosupervisor->read(null, $id);
+		}
+		$info = $this->Contratosupervisor->find('all',
+			array('conditions'=>array('Contratosupervisor.idcontrato'=>$id)));
+		$this->set('infoc',$info);
+		
 		if ($this->request->is('post')) 
 		{
 			$fechafin = $this->request->data['Contratosupervisor']['fechafincontrato'];
@@ -211,16 +227,14 @@
 														   'fechafincontrato','detalleobras','con_idcontrato','cantidadinformes',
 														   'userm','modificacion'))))
 					{
-						Debugger::dump($this->request->data);
 						$this->Session->setFlash('El contrato '.$this->request->data['Contratosupervisor']['codigocontrato'].' ha sido actualizado.',
 												 'default',array('class'=>'success'));	
-						$this->redirect(array('controller'=>'mains', 'action' => 'index'));
+						$this->redirect(array('controller'=>'Contratoconstructors', 'action' => 'contratoconstructor_listar'));
 						
 					}
 					else 
 					{
 						$this->Session->setFlash('Ha ocurrido un error cc');
-						Debugger::dump($this->request->data);
 	                }
 				}
 				else 
@@ -256,13 +270,16 @@
 	
 	function conidcontratojson()
 	{
-		$construccion = $this->Contratoconstructor->find('all',array(
-			'fields' => array('Contratoconstructor.idproyecto','Contratoconstructor.idcontrato', 'Contratoconstructor.codigocontrato'),
-			'order' => array('Contratoconstructor.codigocontrato')
+		$contratos = $this->Contdisponibles->find('all');
+		$this->set('construccion', Hash::extract($contratos, "{n}.Contdisponibles"));
+		$this->set('_serialize', 'construccion');	
+		
+		/*$construccion = $this->Contdisponibles->find('all',array(
+			'fields' => array('Contratoconstructor.idcontrato','Contratoconstructor.codigocontrato'),
 		));
 		
 		$this->set('construccion', Hash::extract($construccion, "{n}.Contratoconstructor"));
-		$this->set('_serialize', 'construccion');
+		$this->set('_serialize', 'construccion');*/
 		$this->render('/json/jsonconidcontrato');
 		
 	}

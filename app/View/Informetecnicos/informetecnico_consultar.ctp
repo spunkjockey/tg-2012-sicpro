@@ -1,4 +1,3 @@
-<!-- File: /app/View/Ubicaciones/add.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -43,7 +42,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Proyecto » Ficha Tecnica » Modificar Ficha Tecnica
+			?> Control y seguimiento » Informe técnico » Consultar informe técnico 
 			
 		</div>
 	</div>
@@ -51,83 +50,91 @@ $this->end(); ?>
 <?php $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar Ubicacion</h2>
-		
-				<?php echo $this->Form->create('Ubicacion'); ?>
+		<h2>Consultar informe técnico</h2>
+		<?php echo $this->Form->create('Informetecnico',array('action' => 'informetecnico_consultar')); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('departamentos',
+				<?php echo $this->Form->input('proyectos', 
 					array(
-						'label' => 'Departamento:',
-						'div' => array('id'=>'depto','class' => 'requerido'), 
-						'id' => 'departamentos',
-						'class' => 'k-dropdownlist'
-					)); ?>
+						'label' => 'Seleccione proyecto:', 
+						'id' => 'proyectos',
+						'div' => array('class' => 'requerido'))); ?>
 				<script type="text/javascript">
-		            var departamentos = new LiveValidation( "departamentos", { validMessage: " " , insertAfterWhatNode: "depto" } );
-		            departamentos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script> 
-			</li>
-
-			<li>
-				<?php echo $this->Form->input('municipios',
-					array(
-						'label' => 'Municipio:', 
-						'div' => array('id'=>'muni','class' => 'requerido'), 
-						'id' => 'municipios',
-						'class' => 'k-dropdownlist'
-					)); ?>
-				<script type="text/javascript">
-		            var municipios = new LiveValidation( "municipios", { validMessage: " ", insertAfterWhatNode: "muni" } );
-		            municipios.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script> 
-		        <?php if ($this->Form->isFieldError('idmunicipio')) {
-				    echo $this->Form->error('idmunicipio');
-				} ?>
+					var proyectos= new LiveValidation( "proyectos", { validMessage: " " } );
+					proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+				</script>
 			</li>
 			<li>
-				<?php echo $this->Form->input('direccion', 
+				<?php echo $this->Form->input('contratos', 
 					array(
-						'label' => 'Direccion: ', 
-						'class' => 'k-textbox', 
-						'placeholder' => 'Direccion',
-						"rows"=>"2")); ?>
+						'label' => 'Contrato de construcción:', 
+						'id' => 'contratos',
+						'div' => array('class' => 'requerido'))); ?>
+				<script type="text/javascript">
+					var contratos= new LiveValidation( "contratos", { validMessage: " " } );
+					contratos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+				</script>
 			</li>
-			<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
-			<li  class="accept">
-			<table>
-			<tr>
-	
-				<td>
-				<?php echo $this->Form->end(array('label' => 'Registrar Ubicacion', 'class' => 'k-button')); ?>
-				</td>
-				<td>			
-				<?php echo $this->Html->link(
-					'Regresar', 
-					array('controller' => 'Fichatecnicas', 'action' => 'fichatecnica_modificarubicacion',$idfct),
-					array('class'=>'k-button')
-				); ?>
-				</td>
-			</tr>
-			</table>
+			<li>
+				<?php echo $this->Form->input('fechas', 
+					array(
+						'label' => 'Fecha de visita:', 
+						'id' => 'fechas',
+						'div' => array('class' => 'requerido')
+						)); 
+					?>
+				<script type="text/javascript">
+					var fechas= new LiveValidation( "fechas", { validMessage: " " } );
+					fechas.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+				</script>
 			</li>
-            
-            <li class="status">
-            </li>
+			
+				
+				<li  class="accept">
+				<table>
+					<tr>
+						<td>
+							<?php echo $this->Form->end(array('label' => 'Buscar', 
+									'class' => 'k-button', 'id' => 'button')); ?>
+						</td>
+						<td>	
+							<?php echo $this->Html->link('Regresar', 
+								array('controller' => 'Mains','action' => 'index'),
+								array('class'=>'k-button')); ?>
+						</td>
+					</tr>
+				</table>
+			</li>
+			
 		</ul>
 	</div>
 </div>
+<div id=data_obs>
+						<!--- aquí se carga la información del informe tecnico--->
+					</div>
+
 
 <style scoped>
 
                 .k-textbox {
-                    width: 300px;      
+                    width: 300px;
+                    
+                    
                 }
 				
-				.k-dropdownlist{
+				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
+				
+				.k-combobox {
                     width: 300px;
                 }
-			
+                
+                form .requerido label:after {
+					font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+					}
+                
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -153,26 +160,14 @@ $this->end(); ?>
 
                 label {
                     display: inline-block;
-                    width: 160px;
+                    width: 150px;
                     text-align: right;
                     margin-right: 5px;
-                    
                 }
-
-                /*.required {
-                    font-weight: bold;
-                }*/
-                
-                form .requerido label:after {
-                	font-size: 1.4em;
-					color: #e32;
-					content: '*';
-					display:inline;
-				}
 
                 .accept, .status {
                 	padding-top: 15px;
-                    padding-left: 160px;
+                    padding-left: 150px;
                 }
 
                 .valid {
@@ -182,13 +177,12 @@ $this->end(); ?>
                 .invalid {
                     color: red;
                 }
+                span.k-tooltip {
+                    margin-left: 6px;
+                }
                 
-               
-               
-                
-				
-				.LV_validation_message{
-				    /*font-weight:bold;*/
+                .LV_validation_message{
+				    font-weight:bold;
 				    margin:0 0 0 5px;
 				}
 				
@@ -200,10 +194,10 @@ $this->end(); ?>
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 165px; 
+               		margin-left: 170px; 
                
 				}
-/*				    
+				    
 				.LV_valid_field,
 				input.LV_valid_field:hover, 
 				input.LV_valid_field:active,
@@ -219,10 +213,9 @@ $this->end(); ?>
 				textarea.LV_invalid_field:active {
 				    border: 1px solid #CC0000;
 				}
-*/                
             </style>
-
-<script>
+			
+			<script>
                 $(document).ready(function() {
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
@@ -234,31 +227,48 @@ $this->end(); ?>
                             //status.text("Oops! There is invalid data in the form.").addClass("invalid");
                         }
                     });
-                    $("#departamentos").kendoDropDownList({
-            			optionLabel: "Seleccione departamento",
-			            dataTextField: "departamento",
-			            dataValueField: "iddepartamento",
+                
+				
+				$("#proyectos").kendoDropDownList({
+            			optionLabel: "Seleccione proyecto",
+			            dataTextField: "numeroproyecto",
+			            dataValueField: "idproyecto",
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
-			                                read: "/Ubicacions/departamentojson.json"
+			                                read: "/Informetecnicos/proyectojson.json"
 			                            }
 			                        }
 			        });
-			    	var departamentos = $("#departamentos").data("kendoDropDownList");
+			        var proyectos = $("#proyectos").data("kendoDropDownList");
 			        
-			    	var municipios = $("#municipios").kendoDropDownList({
+			    var contratos = $("#contratos").kendoDropDownList({
 			                        autoBind: false,
-			                        cascadeFrom: "departamentos",
-			                        optionLabel: "Seleccione Municpio",
-			                        dataTextField: "municipio",
-			                        dataValueField: "idmunicipio",
+			                        cascadeFrom: "proyectos",
+			                        optionLabel: "Seleccione contrato",
+			                        dataTextField: "codigocontrato",
+			                        dataValueField: "idcontrato",
 			                        dataSource: {
 			                            type: "json",
 			                            transport: {
-			                                read: "/Ubicacions/municipiojson.json"
+			                                read: "/Informetecnicos/contratosconstructorjson.json"
 			                            }
 			                        }
-			    }).data("kendoDropDownList");
-                });
-</script>
+			                    }).data("kendoDropDownList");
+			    
+			    var fechas = $("#fechas").kendoDropDownList({
+			                        autoBind: false,
+			                        cascadeFrom: "contratos",
+			                        optionLabel: "Seleccione fecha",
+			                        dataTextField: "fechav",
+			                        dataValueField: "idinformetecnico",
+			                        dataSource: {
+			                            type: "json",
+			                            transport: {
+			                                read: "/Informetecnicos/fechasvisitasjson.json"
+			                            }
+			                        }
+			                    }).data("kendoDropDownList");
+				});
+                
+            </script>

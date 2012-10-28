@@ -59,7 +59,7 @@
 					{
 						$this->Session->setFlash('Contrato constructor '.$this->request->data['Contratoconstructor']['codigocontrato'].' ha sido registrado.',
 												'default',array('class'=>'success'));	
-						$this->redirect(array('controller'=>'mains', 'action' => 'index'));
+						$this->redirect(array('controller'=>'Contratoconstructors', 'action' => 'contratoconstructor_listar'));
 						
 					}
 					else 

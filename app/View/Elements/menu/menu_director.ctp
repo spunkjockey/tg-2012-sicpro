@@ -2,7 +2,7 @@
 						<ul id="menu">
 							<li>Proyectos
 								<ul>
-									<li disabled="disabled">Consultar ficha t&eacute;cnica</li>
+									<li><?php echo $this->Html->link('Consultar Ficha Técnica', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_consultarficha')); ?></li>
 								</ul>
 							</li>
 							<li>Contratos
@@ -14,8 +14,8 @@
 								<ul>
 									<li disabled="disabled">Consultar Programaci&oacute;n de avance</li>
 									<li disabled="disabled">Consultar informe supervisi&oacute;n</li>
-									<li disabled="disabled">Consultar estimaci&oacute;n de avance</li>
-									<li><?php echo $this->Html->link('Consultar informe técnico', array('controller' => 'Informetecnicos','action'=>'informetecnico_observaciones')); ?></li>
+									<li><?php echo $this->Html->link('Consultar Estimación de Avance', array('controller' => 'Estimacions','action'=>'estimacion_consultar')); ?></li>
+									<li><?php echo $this->Html->link('Consultar informe técnico', array('controller' => 'Informetecnicos','action'=>'informetecnico_consultar')); ?></li>
 								</ul>
 							</li>	
 							<li>Facturas
@@ -31,7 +31,7 @@
 									<li><?php echo $this->Html->link('Consultar avances de contratos ', array('controller' => 'Contratos','action'=>'avancecontrato')); ?></li>
 									<li><?php echo $this->Html->link('Estado de proyecto y contratos ', array('controller' => 'Proyectos','action'=>'proyecto_consultaestados')); ?></li>
 									<li><?php echo $this->Html->link('Contratos asociados a proyectos ', array('controller' => 'Proyectos','action'=>'proyecto_reportecontratos')); ?></li>
-									<li disabled="disabled">Lugares en los que se han desarrollado proyectos</li>
+									<li><?php echo $this->Html->link('Zonas donde se han desarrollado proyectos ', array('controller' => 'Ubicacions','action'=>'ubicacion_rep_proy_depmuni')); ?></li>
 									<li><?php echo $this->Html->link('Beneficiarios y empleos generados ', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_rep_empbene')); ?></li>
 									<li><?php echo $this->Html->link('Personal asignado por contrato ', array('controller' => 'Nombramientos','action'=>'nombramiento_reporte_asignados')); ?></li>
 								</ul>

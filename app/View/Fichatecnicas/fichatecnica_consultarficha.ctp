@@ -52,7 +52,7 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Asignaciones por contrato</h2>
+		<h2>Consultar ficha técnica</h2>
 		<?php echo $this->ajax->form(array(
 				'type' => 'post',
 			    'options' => array(
@@ -74,10 +74,7 @@ $this->end(); ?>
             					'autofocus'=>'autofocus'
 							));
 						?>
-					<script type="text/javascript">
-		           		var proyectos = new LiveValidation( "proyectos", { validMessage: " ", insertAfterWhatNode: "proyo" } );
-		          	  proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        	</script> 
+					
 					</td>
             
              		<td><?php echo $this->Form->end(array('label' => 'Buscar', 'class' => 'k-button', 'id' => 'button')); ?></td>

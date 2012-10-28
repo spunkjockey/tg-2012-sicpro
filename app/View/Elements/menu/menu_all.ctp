@@ -23,9 +23,7 @@
 									</li>
 									<li>Supervisor
 										<ul>
-											<li><?php echo $this->Html->link('Registrar contrato supervisor', array('controller' => 'Contratosupervisors','action'=>'contratosupervisor_registrar')); ?></li>
-											<li><?php echo $this->Html->link('Modificar contrato supervisor', array('controller' => 'Contratosupervisors','action'=>'contratosupervisor_modificar')); ?></li>
-											<li disabled="disabled">Eliminar contrato supervisor</li>
+											<li><?php echo $this->Html->link('Administrar contrato supervisor', array('controller' => 'Contratosupervisors','action'=>'contratosupervisor_listar')); ?></li>
 										</ul>
 									</li>	
 									<li><?php echo $this->Html->link('Consultar contrato', array('controller' => 'Contratos','action'=>'contrato_consultar')); ?></li>
@@ -52,13 +50,13 @@
 									<li>Estimaci&oacute;n de avance
 										<ul>
 											<li><?php echo $this->Html->link('Estimación de Avance', array('controller' => 'Estimacions','action'=>'index')); ?></li>
-											<li disabled="disabled">Consultar estimaci&oacute;n de avance</li>
+											<li><?php echo $this->Html->link('Consultar Estimación de Avance', array('controller' => 'Estimacions','action'=>'estimacion_consultar')); ?></li>
 										</ul>
 									</li>	
 									<li>Informe t&eacute;cnico
 										<ul>
 											<li><?php echo $this->Html->link('Informe técnico', array('controller' => 'Informetecnicos','action'=>'informetecnico_registrar')); ?></li>
-											<li><?php echo $this->Html->link('Consultar informe técnico', array('controller' => 'Informetecnicos','action'=>'informetecnico_observaciones')); ?></li>
+											<li><?php echo $this->Html->link('Consultar informe técnico', array('controller' => 'Informetecnicos','action'=>'informetecnico_consultar')); ?></li>
 										</ul>
 									</li>	
 									<li><?php echo $this->Html->link('Actualizar porcentaje de avance en las metas', array('controller' => 'Metas','action'=>'meta_actualizarporcentaje')); ?></li>
@@ -78,7 +76,7 @@
 									<li disabled="disabled">Consultar avances de contratos</li>
 									<li><?php echo $this->Html->link('Estado de proyecto y contratos ', array('controller' => 'Proyectos','action'=>'proyecto_consultaestados')); ?></li>
 									<li><?php echo $this->Html->link('Contratos asociados a proyectos ', array('controller' => 'Proyectos','action'=>'proyecto_reportecontratos')); ?></li>
-									<li><?php echo $this->Html->link('Zonas donde se han desarrollado proyectos ', array('controller' => 'Ubicacions','action'=>'rep_proy_depmuni')); ?></li>
+									<li><?php echo $this->Html->link('Zonas donde se han desarrollado proyectos ', array('controller' => 'Ubicacions','action'=>'ubicacion_rep_proy_depmuni')); ?></li>
 									<li><?php echo $this->Html->link('Beneficiarios y empleos generados ', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_rep_empbene')); ?></li>
 									<li><?php echo $this->Html->link('Personal asignado por contrato ', array('controller' => 'Nombramientos','action'=>'nombramiento_reporte_asignados')); ?></li>
 								</ul>
