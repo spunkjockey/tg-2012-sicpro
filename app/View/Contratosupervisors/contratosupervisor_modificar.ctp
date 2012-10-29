@@ -48,20 +48,25 @@ $this->end(); ?>
 	</div>
 <?php $this->end(); ?>
 
-<?php Debugger::dump($this->request->data); ?>
-<?php Debugger::dump($infoc); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Modificar contrato supervisor</h2>
-			<?php echo $this->Form->create('Contratosupervisor'); ?>
+			<?php echo $this->Form->create('Contratosupervisor',array('action' => 'contratosupervisor_modificar')); ?>
 		<ul>
+		<?php 
+			$opciones=array();
+			foreach ($con_idcontrato as $con) 
+					{
+						$opciones[$con[0]['idcontrato']]=$con[0]['codigocontrato'];
+					}
+		?>
 		<li>
 			<?php echo $this->Form->input('con_idcontrato', 
 				array(
 					'label' => 'Contrato de construcción a supervisar:', 
-					'id' => 'construccion',
-					'value' => $infoc['0']['Contratosupervisor']['con_idcontrato'],
-					//'value'=>$coidcon,
+					'id' => 'con_idcontrato',
+					'options'=>$opciones,
+					'value'=> $this->request->data['Contratosupervisor']['con_idcontrato'],
 					'div' => array('id'=>'contraasu','class' => 'requerido'))); ?>
 			<script type="text/javascript">
 				var construccion= new LiveValidation( "construccion", { validMessage: " " , insertAfterWhatNode: "contraasu" } );
@@ -218,7 +223,7 @@ $this->end(); ?>
 					'label' => 'Empresa ejecutora:', 
 					'id' => 'empresas',
 					'class' => 'k-combobox',
-					'value' => $infoc['0']['Empresa']['nombreempresa'],
+					'value' => $this->request->data['Contratosupervisor']['idempresa'],
 					//'value' => $idecon,
 					'div' => array('id'=>'empsup','class' => 'requerido')
 					));
@@ -234,8 +239,7 @@ $this->end(); ?>
 					'label' => 'Administrador del contrato:', 
 					'id' => 'admin',
 					'class' => 'k-combobox',
-					//'value' => $infoc['0']['Contratosupervisor']['idpersona'],
-					//'value' => $idpcon,
+					'value' => $this->request->data['Contratosupervisor']['idpersona'],
 					'div' => array('id'=>'admcon','class' => 'requerido')
 					)); 
 				?>
@@ -253,7 +257,7 @@ $this->end(); ?>
 					</td>
 					<td>
 						<?php echo $this->Html->link('Regresar', 
-							array('controller' => 'Mains','action' => 'index'),
+							array('controller' => 'Contratosupervisors','action' => 'contratosupervisor_listar'),
 							array('class'=>'k-button')); ?>
 					</td>
 				</tr>
@@ -391,13 +395,14 @@ $this->end(); ?>
         });
         var empresas = $("#empresas").data("kendoDropDownList");
     
+    $("#con_idcontrato").kendoDropDownList({
+						
+					});
+    
     $("#admin").kendoDropDownList({
 			optionLabel: "Seleccione administrador",
 			dataTextField: "nomcompleto",
             dataValueField: "idpersona",
-            <?php if( isset($this->request->data['Persona']['idpersona']))
-						 {echo "value: " . $this->request->data['Persona']['idpersona'] . ",";}
-			?>
             dataSource: {
                             type: "json",
                             transport: {
@@ -411,14 +416,7 @@ $this->end(); ?>
 	function filtrarDrop() {
 		var startDate = start.value();
 		var endDate = end.value();
-			//alert('dafuq');
-			/*proy.data("kendoDropDownList").dataSource.filter([
-				     { field: "creacion", operator: "gte", value: startDate },
-				     { field: "creacion", operator: "lte", value: endDate }
-				]);
-			*/
 			
-			//proy.data("kendoDropDownList").dataSource.filter({ field: "idproyecto", operator: "eq", value: 5});
 	}
 		
 	
@@ -459,21 +457,5 @@ $this->end(); ?>
 	
 	$("#codigo").mask("999-9999");
 	
-	var construccion = $("#construccion").kendoDropDownList({
-        autoBind: false,
-        cascadeFrom: "proyectos",
-        optionLabel: "Seleccione contrato",
-        dataTextField: "codigocontrato",
-        dataValueField: "idcontrato",
-        <?php if( isset($this->request->data['Contratosupervisor']['con_idcontrato']))
-						 {echo "value: " . $this->request->data['Contratosupervisor']['con_idcontrato'] . ",";}
-		?>
-        dataSource: {
-            type: "json",
-            transport: {
-                read: "/Contratosupervisors/conidcontratojson.json"
-            }
-        }
-    }).data("kendoDropDownList");
   	});  
 </script>
