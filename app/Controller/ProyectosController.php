@@ -32,7 +32,7 @@
 		$this->set('proyectos', $this->Proyecto->find('all', array(
 									'fields'=>array('Proyecto.idproyecto','Proyecto.numeroproyecto','Proyecto.nombreproyecto',
 													'Proyecto.estadoproyecto','Proyecto.montoplaneado','Fichatecnica.idfichatecnica'),
-									'order'=> array('Proyecto.nombreproyecto'))));
+									'order'=> array('Proyecto.numeroproyecto DESC'))));
 	}
 	
 	function proyecto_detalles($id = null)
@@ -145,7 +145,7 @@
 				if ($this->Proyecto->save($id)) 
 					{
 						$this->Session->setFlash('Se ha asignado el número '.$this->request->data['Proyecto']['numeroproyecto'].
-												 ' al Proyecto "'.$this->request->data['Proyecto']['nombreproyecto'] .'"',
+												 ' al Proyecto "'.$this->Proyecto->field('nombreproyecto') .'"',
 												 'default',array('class'=>'success'));
 						$this->redirect(array('action' => 'proyecto_listado'));
 		            }
@@ -154,7 +154,7 @@
 							//$this->Session->setFlash('Ha ocurrido un error');
 		                 }
         	} else {
-        		$this->request->data['Proyecto']['numeroproyecto'] = '8888';
+        		$this->request->data['Proyecto']['numeroproyecto'] = '';
         	}
 	}
 

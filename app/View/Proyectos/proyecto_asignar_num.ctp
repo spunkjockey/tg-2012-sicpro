@@ -59,7 +59,9 @@ $this->end(); ?>
 		<?php echo $this->Form->create('Proyecto',array('action' => 'proyecto_asignar_num')); ?>
 		<ul>
 			<li>
-				<?php echo $this->Form->input('proys', 
+				<?php 
+				
+				echo $this->Form->input('proys', 
 					array(
 						'label' => 'Seleccione proyecto:', 
 						'id' => 'proys',
@@ -96,9 +98,9 @@ $this->end(); ?>
 							'value'=> $ini,
 							'class' => 'k-textbox',  
 							 
-							'div' => array('class' => 'requerido'))); ?>
+							'div' => array('id' => 'nproyo','class' => 'requerido'))); ?>
 					<script type="text/javascript">
-						var numero = new LiveValidation( "numero", { validMessage: " " } );
+						var numero = new LiveValidation( "numero", { validMessage: " ", insertAfterWhatNode: 'nproyo' } );
 					    numero.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 					    numero.add( Validate.Numericality, { onlyInteger: true,
 					    								   notAnIntegerMessage: "Debe ser un número sin parte decimal",
@@ -216,7 +218,7 @@ $this->end(); ?>
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 205px; 
+               		margin-left: 155px; 
                
 				}
 
