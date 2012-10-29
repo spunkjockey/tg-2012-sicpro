@@ -41,7 +41,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Contrato constructor » Modificar contrato constructor 
+			?> Contrato constructor » Modificar Contrato Constructor 
 			
 		</div>
 	</div>
@@ -55,7 +55,12 @@ $this->end(); ?>
 		<ul>
 			<li>
 				<!--- Aqui se carga el nombre del proyecto seleccionado-->
-				<label>Nombre Proyecto: </label><?php echo $infoc['0']['Proyecto']['nombreproyecto'];	?>
+				<table>
+					<tr>
+						<td><label>Nombre Proyecto: </label></td>
+						<td><?php echo $infoc['0']['Proyecto']['nombreproyecto'];	?></td>
+					</tr>
+				</table>
 			</li>
 			<li>
 				<?php echo $this->Form->input('codigocontrato', 
@@ -164,12 +169,13 @@ $this->end(); ?>
 						'id' => 'txplazo',
 						'type'  => 'Text', 
 						'maxlength' => '4',
+						'style' => 'width: 150px;',
 						'placeholder' => 'Cantidad de días', 
-						'div' => array('class' => 'requerido')
+						'div' => array('class' => 'requerido', 'style' => 'display:inline;')
 						));
-					?>
+					?><div id="diasdiv" style='display:inline;'> días</div>
 				<script type="text/javascript">
-					var txplazo= new LiveValidation( "txplazo", { validMessage: " " } );
+					var txplazo= new LiveValidation( "txplazo", { validMessage: " ", insertAfterWhatNode: "diasdiv" } );
 					txplazo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 					txplazo.add( Validate.Numericality,{ onlyInteger: true,
 					   								   	notAnIntegerMessage: "Debe ser un número entero",
@@ -209,6 +215,7 @@ $this->end(); ?>
 					array(
 						'label' => 'Administrador del contrato:', 
 						'id' => 'admin',
+						'class' => 'k-kendobox',
 						'value' => $infoc['0']['Contratoconstructor']['idpersona'],
 						'div' => array('id'=>'admc','class' => 'requerido')
 						)); 
@@ -237,7 +244,7 @@ $this->end(); ?>
 
 	<style scoped>
 
-                .k-textbox {
+                .k-textbox, .k-kendobox{
                     width: 300px;
                     
                     
@@ -246,7 +253,7 @@ $this->end(); ?>
 				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 				
 				.k-combobox {
-                    width: 200px;
+                    width: 300px;
                 }
                 
                 form .requerido label:after {

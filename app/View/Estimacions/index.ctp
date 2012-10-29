@@ -54,14 +54,15 @@ $this->end(); ?>
 <h2>Registrar Estimación de Avance</h2>
 <div style='margin:4px 0' >
 	<?php echo $this->Html->link(
-		'Registrar Estimación de Avance', 
+		'<span class="k-icon k-i-plus"></span> Registrar Estimación de Avance', 
 		array('controller' => 'Estimacions', 'action' => 'estimacion_registrar'),
-		array('class'=>'k-button')
-	); ?>
+		array('class'=>'k-button','escape' => false)
+	);  ?>
 </div> 
 
 <table id="grid">
     <tr>
+        <th data-field="codigocontrato">CodigoContrato</th>
         <th data-field="idcontrato">IdContrato</th>
         <th data-field="tituloestimacion" width="200px">Titulo Estimación</th>
         <th data-field="fechainicioestimacion">Fecha</th>
@@ -72,8 +73,9 @@ $this->end(); ?>
 
     
     
-    <?php foreach ($estimacions as $esti): ?>
+    <?php foreach ( $estimacions as $esti): ?>
     <tr>
+        <td><?php echo $esti['Contratoconstructor'] ['codigocontrato']; ?></td>
         <td><?php echo $esti['Contratoconstructor'] ['idcontrato']; ?></td>
         <td><?php echo $esti['Estimacion'] ['tituloestimacion']; ?></td>
         <td><?php echo date('d/m/Y',strtotime ($esti['Estimacion']['fechainicioestimacion'])); ?></td>
@@ -156,6 +158,7 @@ $this->end(); ?>
     	var grid =$("#grid").kendoGrid({
             	dataSource: {
 	           		pageSize: 10,
+	           		group: { field: "codigocontrato" }
             	},
             	pageable: true,
             	pageable: {
@@ -178,6 +181,17 @@ $this->end(); ?>
  			    	mode: "single", // enables multi-column sorting
         			allowUnsort: true
 				},
+				columns: [
+                            { field: "codigocontrato", title: "Codigo Contrato" },
+                            "idcontrato",
+                            "tituloestimacion",
+                            { field:"fechainicioestimacion", width:75 },
+                            { field:"porcentajeestimadoavance", width:75 },
+                            { field:"montoestimado", width:125 },
+                            { field:"accion", width:130 }
+                            
+                            
+                        ],
 				scrollable: false
             	});
            
@@ -250,5 +264,6 @@ $this->end(); ?>
             	
         	 var gridyy = $("#grid").data("kendoGrid");
         	 gridyy.hideColumn("idcontrato"); 
+        	 gridyy.hideColumn("codigocontrato"); 
         });
 </script>

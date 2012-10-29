@@ -61,6 +61,8 @@ $this->end(); ?>
 		    'options' => array(
 		        'model'=>'Contrato',
 		        'update'=>'avancecontrato',
+		        'indicator' => 'loading',
+		        'before' => '$("#avancecontrato").html(" ")',
 		        'url' => array(
 		            'action' => 'update_avancecontrato'
 		        )
@@ -82,6 +84,7 @@ $this->end(); ?>
             <div class="hint">Inicie escribiendo el nombre de un contrato</div>
 
 		</div>
+		<div id='loading' style="text-align: center; width: 600px; display: none;"><?php echo $this->Html->image('spinner.gif', array('alt' => 'cargando', "style" => "border: 0;")); ?></div>
 		
 		
 
@@ -149,7 +152,7 @@ $this->end(); ?>
 				margin: 30px 30px 10px 0;
 			}
 
-            .k-autocomplete
+            .k-combobox
             {
                 width: 450px;
 				vertical-align: middle;
@@ -167,14 +170,15 @@ $this->end(); ?>
 	
 	<script>
 		$(document).ready(function() {
-	      	var autoComplete = $("#contratos").kendoAutoComplete({
+	      	var autoComplete = $("#contratos").kendoComboBox({
+            	dataValueField: "nombrecontrato",
             	dataTextField: "nombrecontrato",
             	filter: 'contains',
-            	delay: 1000,
-            	minLength: 1,
+            	//delay: 1000,
+            	//minLength: 1,
             	//placeholder: "Ingrese un número de proyecto",
             	suggest: true,
-            	ignoreCase: false,
+            	ignoreCase: true,
                 //dataValueField: "idproyecto",
                 //autoBind: false,
                 //optionLabel: "Todos los contratos",

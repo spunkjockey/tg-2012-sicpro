@@ -155,9 +155,10 @@ $this->end(); ?>
 					txavfisico.add( Validate.Numericality,{ minimum: 0, maximum: 100, tooLowMessage: "El porcentaje no puede ser menor a 0 %", tooHighMessage: "El porcentaje no debe ser mayor al 100 %", notANumberMessage:"Debe ser un número"} );
 		            
 				</script>
+				
 			</li>
 			<li>
-				<?php echo $this->Form->input('avfinanciero', 
+				<?php echo $this->Form->input('valoravancefinanciero', 
 					array(
 						'label' => 'Avance financiero: ',
 						'class' => 'k-textbox',  

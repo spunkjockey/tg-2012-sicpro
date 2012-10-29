@@ -32,34 +32,40 @@ class Facturasupervision extends AppModel {
 	);
 	
 	public function montocorrecto($check) {
-		//Debugger::dump($check['montofactura']);
-		//Debugger::dump($this->data['Facturaestimacion']['idestimacion']);
-		//$mestimacion = $this->findByIdestimacion($this->data['Facturaestimacion']['idestimacion']);
-		$msupervision = $this->Informesupervisor->find('all',array(
-			//'fields' => array('Contratosupervisor.montooriginal, Contratosupervisor.variacion'),
+		
+		$monto_total = $this->Informesupervisor->find('first',array(
+			//'fields' => array('Contratosupervisor.montototal'),
 			'conditions' => array('Informesupervisor.idinformesupervision' => $this->data['Facturasupervision']['idinformesupervision'])
 		));
-		
-		/*$mfactura = $this->find('all',array(
-			'fields' => array('SUM(Facturasupervision.montofactura) AS sumamonto'),
-			'conditions' => array('Facturasupervision.idinformesupervision' => $this->data['Facturasupervision']['idinformesupervision'])
+		  
+		 
+		 /*$monto_total = $this->Informesupervisor->find('first',array(
+			'fields' => array('Contratosupervisor.montototal'),
+			'conditions' => array('Informesupervisor.idinformesupervision' => $this->data['Facturasupervision']['idinformesupervision'])
 		));*/
-		//Debugger::dump($msupervision);
-		$monto = Hash::extract($msupervision, '0.Contratosupervisor');
-		//$mmonto = Hash::extract($mfactura, '0.0');
-		//$mmonto = Hash::extract($mfactura, '0.Informesupervisor');
+				
+		$monto_facturado = $this->query('SELECT 
+				  idcontrato, SUM(montofactura) as totalmonto 
+				FROM 
+				  sicpro2012.facturasupervision, sicpro2012.informesupervision 
+				WHERE 
+				  informesupervision.idinformesupervision = facturasupervision.idinformesupervision AND 
+				  informesupervision.idcontrato = ' . $monto_total['Contratosupervisor']['idcontrato'] .'
+				GROUP BY 
+				  idcontrato;');
 		
-		$mmonto = $this->query("SELECT SUM(montofactura) as 
-			TotalFactura FROM facturasupervision AS Facturasupervision 
-			WHERE idinformesupervision = " . 
-			$this->data['Facturasupervision']['idinformesupervision'] . ";");
 		
-		//Debugger::dump($monto);
-		//Debugger::dump($mmonto);
-		        
-        
-        return (float) $check['montofactura'] <= ( (float) $monto['montooriginal']+(float) $monto['variacion']);
-		//return false;
+		//Debugger::dump($this->data);
+		//Debugger::dump($monto_total['Contratosupervisor']['montototal']);
+		//Debugger::dump($this->data['Facturasupervision']['idinformesupervision'] . ' ' .Hash::get($monto_facturado, '0.0.totalmonto'));
+		
+		$monto = $monto_total['Contratosupervisor']['montototal'] - Hash::get($monto_facturado, '0.0.totalmonto');
+		
+		//Debugger::dump(round($monto,2) . ' >= ' .$check['montofactura']);
+		
+		
+        return (float) round($monto,2) >= (float) $check['montofactura'];
+        //return false;
     }
 
 

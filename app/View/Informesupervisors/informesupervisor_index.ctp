@@ -50,24 +50,26 @@ $this->end(); ?>
 <h2>Informe supervisión</h2>
 <div style='margin:4px 0' >
 	<?php echo $this->Html->link(
-		'Registrar informe de supervisión', 
+		'<span class="k-icon k-i-plus"></span> Registrar informe de supervisión', 
 		array('controller' => 'informesupervisors', 'action' => 'informesupervisor_registrar'),
-		array('class'=>'k-button')
-	);?>
+		array('class'=>'k-button','escape' => false)
+	); /*Debugger::dump($informes);*/?>
 </div> 
 <table id="grid">
     <tr>
+        <th data-field="codigocontrato">CodigoContrato</th>
         <th data-field="idcontrato">IdContrato</th>
-        <th data-field="tituloinforme" width="200px">Título informe</th>
+        <th data-field="tituloinforme">Título informe</th>
         <th data-field="periodo">Fecha</th>
         <th data-field="porcentajeavancefisico">Porcentaje</th>
         <th data-field="valoravancefinanciero">Monto</th>
-        <th data-field="accion" width="120px">Acción</th>
+        <th data-field="accion">Acción</th>
     </tr>
 
     <?php foreach ($informes as $info): ?>
     <tr>
-        <td><?php echo $info['Informesupervisor'] ['idcontrato']; ?></td>
+        <td><?php echo $info['Contratosupervisor']['codigocontrato']; ?></td>
+        <td><?php echo $info['Informesupervisor']['idcontrato']; ?></td>
         <td>
         	<?php echo $info['Informesupervisor']['tituloinformesup']; ?>
         </td>
@@ -142,15 +144,16 @@ $this->end(); ?>
     			//height: 200,
             	dataSource: {
 	           		pageSize: 10,
+	           		group: { field: "codigocontrato" }
             	},
             	pageable: true,
             	pageable: {
             		messages: {
-            			display: "{0} - {1} de {2} Informes",
-            			empty: "No hay informes a mostrar",
+            			display: "{0} - {1} de {2} Informes de Supervisión",
+            			empty: "No hay informes de supervisión a mostrar",
             			page: "Página",
             			of: "de {0}",
-            			itempsPerPage: "Informes por página",
+            			itempsPerPage: "Informes de Supervisión por página",
             			first: "Ir a la primera página",
             			previous: "Ir a la página anterior",
             			next: "Ir a la siguiente página",
@@ -164,6 +167,17 @@ $this->end(); ?>
         			allowUnsort: true
 				},
 				scrollable: false,
+				columns: [
+                            { field: "codigocontrato", title: "Codigo Contrato" },
+                            "idcontrato",
+                            "tituloinforme",
+                            { field:"periodo", width:75 },
+                            { field:"porcentajeavancefisico", width:75 },
+                            { field:"valoravancefinanciero", width:125 },
+                            { field:"accion", width:130 }
+                            
+                            
+                        ],
 				toolbar: kendo.template($("#template").html())
             	
             	
@@ -179,6 +193,7 @@ $this->end(); ?>
 		                transport: {
 		                	read: "/Informesupervisors/contratosinfjson.json"
 		               	}
+		               	
 		            },
 	                change: function() {
 	                    var value = this.value();
@@ -194,6 +209,7 @@ $this->end(); ?>
         	
         	
         	var gridyy = $("#grid").data("kendoGrid");
-        	 gridyy.hideColumn("idcontrato"); 
+        	 gridyy.hideColumn("codigocontrato");
+        	 gridyy.hideColumn("idcontrato");
         });
 </script>

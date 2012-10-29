@@ -43,7 +43,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Proyecto » Registrar proyecto
+			?> Proyecto » Registrar Proyecto
 			
 		</div>
 	</div>
@@ -51,7 +51,7 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar proyecto</h2>
+		<h3>Registrar Proyecto</h3>
 		<?php echo $this->Form->create('Proyecto'); ?>
 		<ul>
 			<li>
@@ -60,7 +60,8 @@ $this->end(); ?>
 						'label' => 'Nombre del proyecto:', 
 						'div' => array('class' => 'requerido'),
 						'id' => 'nombreproyecto',
-						'class' => 'k-textbox', 
+						'class' => 'k-textbox',
+						'rows' => '3', 
 						'placeholder' => 'Nombre del proyecto')); ?>
 				<script type="text/javascript">
 		            var nombreproyecto = new LiveValidation( "nombreproyecto", { validMessage: " " } );
@@ -86,6 +87,7 @@ $this->end(); ?>
 						'label' => 'Monto planeado ($):',
 						'type'=>'text',  
 						'id' => 'txmonto',
+						'style'=>'width: 200px',
 						'maxlength'=>'12',
 						'div' => array('id' => 'monto', 'class' => 'requerido')
 						)); 
@@ -121,7 +123,7 @@ $this->end(); ?>
 			<style scoped>
 
                 .k-textbox {
-                    width: 300px;
+                    width: 350px;
                     
                     
                 }

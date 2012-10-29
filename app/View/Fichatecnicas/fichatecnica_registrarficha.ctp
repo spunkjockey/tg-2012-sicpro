@@ -280,7 +280,14 @@ $this->end(); ?>
                		margin-left: 165px; 
                
 				}
+<<<<<<< HEAD
+				    
+
+                
+                
+=======
                
+>>>>>>> 53a649adc9060ea621df99ee69f2875c79ea00d1
                 #errorproyecto {
                 	display: none;
                 }

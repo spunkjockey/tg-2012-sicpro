@@ -44,7 +44,14 @@
 			        'allowEmpty' => true,
 					'required'=>false
 					)
-				)
+				),
+		'montoestimado' => array(
+			'mayorqueproyecto' => array(
+            	'rule'    => array('limitarMontoContrato'),
+            	'allowEmpty' => true,
+            	'message' => 'El valor  estimado sobrepasa el monto del contrato'
+        	)
+		)
 		  
 		
 	);
@@ -81,4 +88,31 @@
 	        return false;
 	    }
 	}
+	
+	
+	public function limitarMontoContrato($check) {
+        $monto_disponible = $this->Contratoconstructor->find('first',array(
+			'fields' => array('Contratoconstructor.montototal'),
+			'conditions' => array('Contratoconstructor.idcontrato' => $this->data['Estimacion']['idcontrato'])
+		));
+		
+		$monto_utilizado = $this->query('SELECT 
+				   idcontrato, SUM(montoestimado) as totalmonto 
+				FROM 
+				  sicpro2012.estimacion
+				WHERE 
+				  idcontrato = ' . $this->data['Estimacion']['idcontrato'] .'
+				GROUP BY
+				  idcontrato;');
+		
+		//Debugger::dump($monto_disponible['Contratoconstructor']['montototal']);
+		//Debugger::dump(Hash::get($monto_utilizado, '0.0.totalmonto'));
+		
+		$montototal = $monto_disponible['Contratoconstructor']['montototal'] - Hash::get($monto_utilizado, '0.0.totalmonto');
+		
+		//Debugger::dump(round($montototal,2) . ' >= ' .$check['montoestimado']);
+		
+		
+        return (float) round($montototal,2) >= (float) $check['montoestimado'];
+    }
 }

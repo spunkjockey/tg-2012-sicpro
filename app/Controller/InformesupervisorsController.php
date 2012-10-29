@@ -11,15 +11,12 @@
 			//Falta filtrar en base a la necesidad...
 			$idpersona = $this->User->field('idpersona',array('username'=>$this->Session->read('User.username')));
 			$this->set('informes',$this->Informesupervisor->find('all',array(
-
-						/*'fields'=>array('Informesupervisor.idcontrato,Informesupervisor.idinformesupervision','Informesupervisor.tituloinformesup',
-										'Informesupervisor.porcentajeavancefisico','Informesupervisor.valoravancefinanciero',
-										'Informesupervisor.fechafinsupervision'),*/
-						'conditions'=>array('Contratosupervisor.idpersona'=>$idpersona),
+						'conditions'=>array(
+							'Contratosupervisor.idpersona'=>$idpersona),
 						'order'=>array()
 						)));
 
-
+			
 
 		}
 		
@@ -38,7 +35,7 @@
 				$this->Informesupervisor->set('tituloinformesup',$this->request->data['Informesupervisor']['tituloinforme']);
 				$this->Informesupervisor->set('fechafinsupervision',$this->request->data['Informesupervisor']['fechas']);
 				$this->Informesupervisor->set('plazoejecuciondias',$this->request->data['Informesupervisor']['plazoejecucion']);
-				$this->Informesupervisor->set('valoravancefinanciero',$this->request->data['Informesupervisor']['avfinanciero']);
+				$this->Informesupervisor->set('valoravancefinanciero',$this->request->data['Informesupervisor']['valoravancefinanciero']);
 				$this->Informesupervisor->set('porcentajeavancefisico',$this->request->data['Informesupervisor']['avfisico']);
 				$this->Informesupervisor->set('userc',$this->Session->read('User.username'));
 				if ($this->Informesupervisor->save()) 
@@ -49,7 +46,7 @@
 	            }
 				else 
 				{
-					$this->Session->setFlash('Ha ocurrido un error');
+					//$this->Session->setFlash('Ha ocurrido un error');
 	            }
 			}
 		}
@@ -64,10 +61,10 @@
 			
 			$proyectos = $this->Proyecto->find('all',array(
 					'fields'=> array('Proyecto.idproyecto','Proyecto.numeroproyecto'),
-					'conditions'=>array( "AND" => array('Proyecto.estadoproyecto' => array('Ejecucion'),
+					'conditions'=>array( "AND" => array('Proyecto.estadoproyecto' => array('Ejecucion')),
 												  array('Proyecto.idproyecto IN (SELECT idproyecto 
 												  								FROM sicpro2012.contratosupervisor 
-												  								WHERE contratosupervisor.idpersona='.$idpersona.')'))),
+												  								WHERE contratosupervisor.idpersona='.$idpersona.')')),
 					'order'=>array('Proyecto.numeroproyecto')
 					));
 			$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
