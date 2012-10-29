@@ -241,7 +241,7 @@
 									   'retencion','anticipo'))))
 			{
 				//Debugger::dump($this->request->data);
-				echo "supuestamente ya guarde en constructor";
+				
 				$this->Session->setFlash('El contrato '.$this->request->data['Contratoconstructor']['codigocontrato'].' ha sido actualizado.',
 										 'default',array('class'=>'success'));	
 				$this->redirect(array('controller'=>'Contratoconstructors', 'action' => 'contratoconstructor_listar'));
@@ -249,7 +249,7 @@
 			}
 			else 
 			{
-				$this->Session->setFlash('Ha ocurrido un error verifique que los datos sean correctos');
+				//$this->Session->setFlash('Ha ocurrido un error verifique que los datos sean correctos');
             }
         }
 	else
@@ -264,7 +264,7 @@
 		if (!$this->request->is('post')) {
 	        throw new MethodNotAllowedException();
 	    }
-	    if ($this->Contratoconstructor->delete($idcontrato)) {
+	    if ($this->Contratoconstructor->delete($idcontrato) && $this->Contrato->delete($idcontrato)) {
 	        $this->Session->setFlash('El Contrato Constructor "'. $contra['Contratoconstructor']['codigocontrato'] .'" ha sido eliminado.','default',array('class' => 'success'));
 	        $this->redirect(array('action' => 'contratoconstructor_listar'));
 	    } else {

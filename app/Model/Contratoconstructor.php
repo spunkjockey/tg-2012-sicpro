@@ -122,7 +122,7 @@
 				 GROUP BY 
 				 idcontrato;');
 	    
-		Debugger::dump(Hash::get($count, '0.0.sum'));
+		//Debugger::dump(Hash::get($count, '0.0.sum'));
 	    if (Hash::get($count, '0.0.sum') == 0) {
 	        return true;
 	    } else {

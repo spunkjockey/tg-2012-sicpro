@@ -55,23 +55,29 @@ $this->end(); ?>
 <h2>Contratos</h2>
 <div style='margin:4px 0' >
 	<?php echo $this->Html->link(
-		'Registrar Contrato Supervisor', 
+		'<span class="k-icon k-i-plus"></span> Registrar Contrato Supervisor', 
 		array('controller' => 'Contratosupervisors', 'action' => 'contratosupervisor_registrar'),
-		array('class'=>'k-button')
-	); ?>
+		array('class'=>'k-button', 'escape'=>false)
+	); /*Debugger::dump($contratosup);*/?>
 </div> 
 <table id="grid">
 	<tr>
-        <th data-field="codigocontrato" width="20px">Codigo Contrato</th>
-        <th data-field="numeroproyecto" width="20px">Proyecto</th>
-        <th data-field="nombrecontrato" width="200px">Nombre Contrato</th>
-        <th data-field="accion" width="60px">Acción</th>
+        <th data-field="numeroproyecto" >Proyecto</th>
+        <th data-field="codigocontrato" >Codigo</th>
+        <th data-field="nombrecontrato" >Contrato</th>
+        <th data-field="asupervisar" >A Supervisar</th>
+        <th data-field="accion">Acción</th>
     </tr>
           <?php foreach ($contratoss as $cc): ?>
     <tr>
-        <td><?php echo $cc['Contratosupervisor']['codigocontrato']; ?></td>
         <td><?php echo $cc['Proyecto']['numeroproyecto']; ?></td>
-        <td><?php echo $cc['Contratosupervisor']['nombrecontrato']; ?></td>        
+        <td><?php echo $cc['Contratosupervisor']['codigocontrato']; ?></td>
+        <td><?php echo $cc['Contratosupervisor']['nombrecontrato']; ?></td>
+        
+        <?php foreach ($contratosup as $csup): ?>
+        	<?php if($csup['0']['idcontrato'] == $cc['Contratosupervisor']['idcontrato']) { ?>
+        		<td><?php echo $csup['0']['codigocontrato']; ?></td>        
+        <?php } endforeach; ?>
         <td align="center">
             <?php echo $this->Html->link(
             	'<span class="k-icon k-i-pencil"></span>', 
@@ -114,6 +120,7 @@ $this->end(); ?>
     	$("#grid").kendoGrid({
             	dataSource: {
 	           		pageSize: 10,
+	           		group: { field: "numeroproyecto" }
             	},
             	pageable: true,
             	pageable: {
@@ -135,8 +142,20 @@ $this->end(); ?>
  			    	mode: "single", // enables multi-column sorting
         			allowUnsort: true
 				},
-				scrollable: false
+				scrollable: false,
+				columns: [
+                            { field: "numeroproyecto", title: "Proyecto" },
+                            { field:"codigocontrato", width:80},
+                            { field:"nombrecontrato", width:250 },
+                            { field:"asupervisar", width:80 },
+                            { field:"accion", width:80 }
+                            
+                            
+                        ]
         	});
+        	
+        	        	var gridyy = $("#grid").data("kendoGrid");
+        	 gridyy.hideColumn("numeroproyecto");
 
         });
 </script>
