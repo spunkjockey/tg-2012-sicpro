@@ -38,7 +38,7 @@ class AvanceprogramadosController extends AppController {
             	$this->Session->setFlash('El Avance ha sido agregado exitosamente.','default',array('class'=>'success'));
             	$this->redirect(array('action' => 'Avanceprogramado_agregaravance', $id));
         	} else {
-            	$this->Session->setFlash('No se pudo realizar el registro');
+            	//$this->Session->setFlash('No se pudo realizar el registro');
 				$contrato = $this->Avanceprogramado->Contratoconstructor->findByIdcontrato($id);
 				$this->set('contrato',$contrato);
 				$avances = $this->Avanceprogramado->find('all', array(
@@ -90,7 +90,7 @@ class AvanceprogramadosController extends AppController {
 	            $this->Session->setFlash('El Avance ha sido actualizado exitosamente.','default',array('class'=>'success'));
 	            $this->redirect(array('action' => 'index'));
 	        } else {
-            	$this->Session->setFlash('Ha ocurrido un error. No se pudo realizar el registro');
+            	//$this->Session->setFlash('Ha ocurrido un error. No se pudo realizar el registro');
 
         	}
 	    }
@@ -110,7 +110,10 @@ class AvanceprogramadosController extends AppController {
 		$proyectos = $this->Contratoconstructor->find('all',array(
 			'fields' => array('DISTINCT Proyecto.idproyecto', 'Proyecto.numeroproyecto'),
 			'order' => array('Proyecto.numeroproyecto'),
-			'conditions' => array('Contratoconstructor.idpersona' => $this->Session->read('User.idpersona'))
+			'conditions' => array(
+				'Contratoconstructor.idpersona' => $this->Session->read('User.idpersona'),
+				'NOT' => array('Contratoconstructor.estadocontrato' => array("cancelado","en pausa", "finalizado"))
+				)
 			
 		));
 		

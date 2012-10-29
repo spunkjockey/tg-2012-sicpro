@@ -261,8 +261,11 @@
 	        throw new MethodNotAllowedException();
 	    }
 	    if ($this->Contratoconstructor->delete($idcontrato)) {
-	        $this->Session->setFlash('La Contrato Constructor '. $contra['Contratoconstructor']['codigocontrato'] .' ha sido eliminado.','default',array('class' => 'success'));
+	        $this->Session->setFlash('El Contrato Constructor "'. $contra['Contratoconstructor']['codigocontrato'] .'" ha sido eliminado.','default',array('class' => 'success'));
 	        $this->redirect(array('action' => 'contratoconstructor_listar'));
+	    } else {
+	    	$this->Session->setFlash('El Contrato Constructor "'. $contra['Contratoconstructor']['codigocontrato'] .'" no ha sido eliminado, esto se debe a que tiene relaciones con otros elementos');
+			$this->redirect(array('action' => 'contratoconstructor_listar'));
 	    }
 	}
 	

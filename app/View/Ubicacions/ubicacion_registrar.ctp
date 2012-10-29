@@ -161,12 +161,8 @@ $this->end(); ?>
                     width: 160px;
                     text-align: right;
                     margin-right: 5px;
-                    
                 }
 
-                /*.required {
-                    font-weight: bold;
-                }*/
                 
                 form .requerido label:after {
                 	font-size: 1.4em;
@@ -187,11 +183,7 @@ $this->end(); ?>
                 .invalid {
                     color: red;
                 }
-                
-               
-               
-                
-				
+
 				.LV_validation_message{
 				    /*font-weight:bold;*/
 				    margin:0 0 0 5px;
@@ -199,6 +191,7 @@ $this->end(); ?>
 				
 				.LV_valid {
 				    color:#00CC00;
+				    display: none;
 				}
 					
 				.LV_invalid {

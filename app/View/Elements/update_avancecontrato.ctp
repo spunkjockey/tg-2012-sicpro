@@ -1,11 +1,16 @@
 <?php if(!empty($contrato)) {?>
 	
-	
-	<?php echo $this->Html->link(
-		'<span class="k-icon k-i-plus"></span> Generar PDF', 
-		array('action' => 'avancecontrato_pdf',$contrato['Contratoconstructor']['idcontrato']),
-		array('class'=>'k-button', 'escape' => false, 'target' => '_blank')
-	); ?>
+	<table>
+		<tr>
+			<td colspan="2" style="text-align: right; width: 550px">
+				<?php echo $this->Html->link(
+					'<span class="k-icon k-i-plus"></span> Generar PDF', 
+					array('action' => 'avancecontrato_pdf',$contrato['Contratoconstructor']['idcontrato']),
+					array('class'=>'k-button', 'escape' => false, 'target' => '_blank')
+				); ?>
+			</td>
+		</tr>
+	</table>
 	
 	<div id="proyectos" style="margin-bottom: 50px">
 		<h2>Resumen de Contrato </h2>
@@ -116,24 +121,39 @@
 		
 		
 		<br />
-		
+		<?php $acumulado = 0 ?>
+		<?php $pacumulado = 0 ?>
 		<?php if(!empty($estimaciones)) { ?>
 			<table>
 				<caption>Tabla Estimaciones a la fecha </caption>
 				<thead>
 				<tr>
+					<th colspan=2>Periodo Estimación</th>
+					<th colspan=2>Físico </th>
+					<th colspan=2>Financiero</th>
+					
+				</tr>
+				<tr>
 					<th style="width: 100px">Inicio</th>
 					<th style="width: 100px">Fin</th>
-					<th style="width: 100px">Porcentaje Fisico</th>
-					<th style="width: 100px">Avance Finan.</th>
+					<th style="width: 100px">Estimado</th>
+					<th style="width: 100px">Acumumulado</th>
+					<th style="width: 100px">Estimado</th>
+					<th style="width: 100px">Acumumulado</th>
 				</tr>
 				</thead>
 				<?php foreach ($estimaciones as $esti): ?>
+				<?php $acumulado = $acumulado + $esti['Estimacion']['montoestimado']; ?>
+				<?php $esti['Estimacion']['montoestimadoacum'] = $acumulado; ?>
+				<?php $pacumulado = $pacumulado + $esti['Estimacion']['porcentajeestimadoavance']; ?>
+				<?php $esti['Estimacion']['porcentajeestimadoavanceacum'] = $pacumulado; ?>
 				<tr>
 					<td><?php echo date('d/m/Y',strtotime($esti['Estimacion']['fechainicioestimacion'])); ?></td>
 					<td><?php echo date('d/m/Y',strtotime($esti['Estimacion']['fechafinestimacion'])); ?></td>
 					<td><?php echo number_format($esti['Estimacion']['porcentajeestimadoavance'],2).'%'; ?></td>
+					<td><?php echo number_format($esti['Estimacion']['porcentajeestimadoavanceacum'],2).'%'; ?></td>
 					<td><?php echo '$'.number_format($esti['Estimacion']['montoestimado'],2); ?></td>	
+					<td><?php echo '$'.number_format($esti['Estimacion']['montoestimadoacum'],2); ?></td>	
 				</tr>
 				<?php endforeach; ?>
 				</table>

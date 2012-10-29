@@ -80,8 +80,8 @@ $this->end(); ?>
 			);?>
             <?php echo $this->Form->postLink(
                 '<span class="k-icon k-i-close"></span>',
-                array('action' => 'contratoconstructor_eliminar', $cc['Contratosupervisor']['idcontrato']),
-                array('confirm' => '¿Está seguro que desea eliminar el Contrato Constructor ?',
+                array('action' => 'contratosupervisor_eliminar', $cc['Contratosupervisor']['idcontrato']),
+                array('confirm' => '¿Está seguro que desea eliminar el Contrato de supervisión ?',
                 		'class'=>'k-button','escape' => false,'title' => 'Eliminar Contrato')
             )?>
             <!--<?php echo $this->Html->link(

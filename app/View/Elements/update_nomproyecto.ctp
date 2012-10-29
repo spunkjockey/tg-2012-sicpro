@@ -8,4 +8,9 @@
 		$nomproy='';
 	}
 ?>
-<p><label>Nombre del proyecto: </label> <?php echo $nomproy; ?></p>
+<table>
+	<tr>
+		<td><label>Nombre del proyecto: </label></td> 
+		<td><?php echo $nomproy; ?></td>
+	</tr>
+</table>

@@ -59,6 +59,77 @@
 				
 		    //return date('Y-m-d', strtotime($dateString));
 		}
+		
+	public function beforeDelete($cascade = false) {
+	    $count = $this->query('SELECT idcontrato, sum(count)
+				FROM
+				(SELECT 
+				  contratoconstructor.idcontrato, count(contratoconstructor.idcontrato)
+				FROM 
+				  sicpro2012.contratoconstructor, 
+				  sicpro2012.contratosupervisor 
+				WHERE 
+				  contratoconstructor.idcontrato = contratosupervisor.con_idcontrato
+				GROUP BY 
+				 contratoconstructor.idcontrato
+				
+				UNION
+				
+				 SELECT 
+				  contratoconstructor.idcontrato, count(contratoconstructor.idcontrato)
+				FROM 
+				  sicpro2012.contratoconstructor,
+				  sicpro2012.informetecnico
+				WHERE 
+				  contratoconstructor.idcontrato = informetecnico.idcontrato
+				GROUP BY 
+				 contratoconstructor.idcontrato
+				
+				UNION
+				
+				 SELECT 
+				  contratoconstructor.idcontrato, count(contratoconstructor.idcontrato)
+				FROM 
+				  sicpro2012.contratoconstructor, 
+				  sicpro2012.estimacion
+				WHERE 
+				  contratoconstructor.idcontrato = estimacion.idcontrato
+				GROUP BY 
+				 contratoconstructor.idcontrato
+				
+				UNION
+				
+				 SELECT 
+				  contratoconstructor.idcontrato, 0 as count
+				FROM 
+				  sicpro2012.contratoconstructor
+				
+				GROUP BY 
+				 contratoconstructor.idcontrato
+				
+				UNION
+				
+				 SELECT 
+				  contratoconstructor.idcontrato, count(contratoconstructor.idcontrato)
+				FROM 
+				  sicpro2012.contratoconstructor, 
+				  sicpro2012.avanceprogramado
+				WHERE 
+				  contratoconstructor.idcontrato = avanceprogramado.idcontrato
+				GROUP BY 
+				 contratoconstructor.idcontrato) as tabla
+				WHERE idcontrato = '. $this->id .'
+				 GROUP BY 
+				 idcontrato;');
+	    
+		Debugger::dump(Hash::get($count, '0.0.sum'));
+	    if (Hash::get($count, '0.0.sum') == 0) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	    
+	}
 }	
 	
 	

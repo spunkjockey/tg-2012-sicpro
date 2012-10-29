@@ -23,17 +23,21 @@ class UsersController extends AppController {
 	    	$this->redirect(array('controller'=>'mains'));
 		} else {
 	    	if ($this->request->is('post')) {
+	    		
 	    	    $conteo = $this->User->find('count', array(
-	    	    				'conditions' => array('User.username' => $this->data['User']['username'])));
+	    	    				'conditions' => array('User.username' => trim($this->data['User']['username']))));
 				//comprobar si existe
 				if($conteo != 0 ) {	
-					$usuarios = $this->User->findByUsername($this->data['User']['username']);
+					$usuarios = $this->User->findByUsername(trim($this->data['User']['username']));
 		    	    //Debugger::dump($usuarios);
 		    	    //comprobar si esta habilitado en el sistema
 		    	    if($usuarios['User']['estado'] == TRUE) {
+		    	    	
+						$user['User']['username'] = trim($this->data['User']['username']);
+						$user['User']['password'] = $this->data['User']['password'];
 			    	    //logear en el sistema	
-			    	    if ($this->Auth->login()) {
-				        	$someone = $this->User->findByUsername($this->data['User']['username']);
+			    	    if ($this->Auth->login($user)) {
+				        	$someone = $this->User->findByUsername(trim($this->data['User']['username']));
 							$this->Session->write('User.username',$someone['User']['username']);
 							$this->Session->write('User.idpersona',$someone['User']['idpersona']);
 							$this->Session->write('User.idrol',$someone['User']['idrol']);

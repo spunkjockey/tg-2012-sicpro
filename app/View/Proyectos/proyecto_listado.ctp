@@ -44,8 +44,8 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Reportes 
-			» Contratos asociados a proyectos
+			?> » Proyectos 
+			» Administración de Proyectos
 			
 		</div>
 	</div>
@@ -53,7 +53,7 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Proyectos</h2>
+		<h2>Administración de Proyectos</h2>
 		<div style='margin:4px 0' >
 			<?php echo $this->Html->link(
 				'<span class="k-icon k-i-plus"></span> Registrar proyecto', 
@@ -74,7 +74,7 @@ $this->end(); ?>
 		        <th data-field="estadoproyecto">Estado</th>
 		        <th data-field="montoplaneado">Monto</th>
 		        <th data-field="idfichatecnica">idficha</th>
-		        <th data-field="accion" width="150px">Acción</th>
+		        <th data-field="accion">Acción</th>
 		    </tr>
 			<?php foreach ($proyectos as $proy): ?>
 		    <tr>
@@ -95,10 +95,10 @@ $this->end(); ?>
 			            {
 			            	echo $this->Html->link('<span class="k-icon k-i-pencil"></span>', 
 						            	array('action' => 'proyecto_modificar', $proy['Proyecto']['idproyecto']),
-						            	array('class'=>'k-button', 'escape' => false));
+						            	array('class'=>'k-button', 'escape' => false,'title'=>'Editar Proyecto'));
 							echo $this->Form->postLink('<span class="k-icon k-i-close"></span>', 
 			            				array('action' => 'proyecto_eliminar', $proy['Proyecto']['idproyecto']),
-			            				array('confirm' => '¿Está seguro que desea eliminar el proyecto?','class'=>'k-button', 'escape' => false));
+			            				array('confirm' => '¿Está seguro que desea eliminar el proyecto?','class'=>'k-button', 'escape' => false,'title'=>'Eliminar Proyecto'));
 			            } else {
 			            	echo 'Sin acciones disponibles';
 			            }
@@ -113,7 +113,17 @@ $this->end(); ?>
 	</div>
 
 
-
+<style scoped>
+        #grid td.k-button
+        {
+            vertical-align: middle;
+            width: 28px;
+            margin: 0 3px;
+            padding: .1em .4em .3em;
+            display: inline;
+            
+        }
+    </style>
 
 
 	<script type="text/x-kendo-template" id="template">

@@ -2,7 +2,7 @@
 						<ul id="menu">
 							<li>Proyectos
 								<ul>	
-									<li disabled="disabled">Consultar ficha t&eacute;cnica</li>
+									<li><?php echo $this->Html->link('Consultar Ficha Técnica', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_consultarficha')); ?></li>
 								</ul>
 							</li>
 							<li>Contratos
@@ -14,7 +14,7 @@
 								<ul>
 									<li disabled="disabled">Consultar Programaci&oacute;n</li>
 									<li disabled="disabled">Consultar informe supervisi&oacute;n</li>
-									<li disabled="disabled">Consultar estimaci&oacute;n de avance</li>
+									<li><?php echo $this->Html->link('Consultar Estimación de Avance', array('controller' => 'Estimacions','action'=>'estimacion_consultar')); ?></li>
 									<li>Informe t&eacute;cnico
 										<ul>
 											<li><?php echo $this->Html->link('Registrar informe técnico', array('controller' => 'Informetecnicos','action'=>'informetecnico_registrar')); ?></li>
@@ -36,7 +36,6 @@
 								<ul>
 									<li disabled="disabled">Modificar perfil</li>
 									<li><?php echo $this->Html->link('Cambiar Contraseña', array('controller' => 'Users','action'=>'cambiarpass')); ?></li>
-									<li disabled="disabled">Consultar perfil</li>
 								</ul>
 							</li>
 							

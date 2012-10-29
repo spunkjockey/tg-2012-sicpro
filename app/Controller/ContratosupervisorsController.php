@@ -168,56 +168,62 @@
 	{
 		$this->layout = 'cyanspark';
 		$this->Contratoconstructor->id = $id;
-		if ($this->request->is('get')) {
-	        $this->request->data = $this->Contratosupervisor->read(null, $id);
-		}
+		$idcontrato = $id;
 		$info = $this->Contratosupervisor->find('all',
 			array('conditions'=>array('Contratosupervisor.idcontrato'=>$id)));
 		$this->set('infoc',$info);
+		$contratos = $this->Contratoconstructor->query('select idcontrato, codigocontrato
+				FROM sicpro2012.contratoconstructor
+				WHERE 
+					idcontrato NOT IN (SELECT con_idcontrato 
+							FROM sicpro2012.contratosupervisor)
+					OR
+					idcontrato IN (SELECT con_idcontrato 
+							FROM sicpro2012.contratosupervisor 
+							WHERE contratosupervisor.idcontrato = '.$id.');');
+		$this->set('con_idcontrato',$contratos);
+		
 		
 		if ($this->request->is('post')) 
 		{
-			$fechafin = $this->request->data['Contratosupervisor']['fechafincontrato'];
-			$fechaf = substr($fechafin,6,4).'-'.substr($fechafin,3,2).'-'.substr($fechafin,0,2);
-			$fechaini= $this->request->data['Contratosupervisor']['fechainicontrato'];
-			$fechai=$fechaf = substr($fechaini,6,4).'-'.substr($fechaini,3,2).'-'.substr($fechaini,0,2);
 			$this->Contrato->create();
-			$id = $this->request->data['Contratosupervisor']['contratos'];
-			$this->Contrato->read(null, $id);
-			$this->Contrato->set('idcontrato', $this->request->data['Contratosupervisor']['contratos']);
+			//$id = $this->request->data['Contratosupervisor']['contratos'];
+			
+			$this->Contrato->set('idcontrato', $id);
+			$this->Contrato->set('con_idcontrato',$this->request->data['Contratosupervisor']['con_idcontrato']);
 			$this->Contrato->set('idpersona', $this->request->data['Contratosupervisor']['admin']);
 			$this->Contrato->set('idempresa', $this->request->data['Contratosupervisor']['empresas']);
 			$this->Contrato->set('codigocontrato', $this->request->data['Contratosupervisor']['codigocontrato']);
 			$this->Contrato->set('nombrecontrato', $this->request->data['Contratosupervisor']['nombrecontrato']);
-			$this->Contrato->set('montooriginal', $this->request->data['Contratosupervisor']['montocon']);
+			$this->Contrato->set('montooriginal', $this->request->data['Contratosupervisor']['montooriginal']);
 			$this->Contrato->set('plazoejecucion', $this->request->data['Contratosupervisor']['plazoejecucion']);
-			$this->Contrato->set('fechainiciocontrato', $fechaini);
-			$this->Contrato->set('fechafincontrato', $fechafin);
-			$this->Contrato->set('detalleobras', $this->request->data['Contratosupervisor']['obras']);
+			$this->Contrato->set('fechainiciocontrato', $this->request->data['Contratosupervisor']['fechainiciocontrato']);
+			$this->Contrato->set('fechafincontrato', $this->request->data['Contratosupervisor']['fechafincontrato']);
+			$this->Contrato->set('detalleobras', $this->request->data['Contratosupervisor']['detalleobras']);
 			$this->Contrato->set('userm', $this->Session->read('User.username'));
 			$this->Contrato->set('modificacion', date('Y-m-d h:i:s'));
 			if ($this->Contrato->save($id, array(
 										'fieldList'=>array('idpersona','idempresa','codigocontrato','nombrecontrato',
 														   'montooriginal','plazoejecucion','fechainiciocontrato',
-														   'fechafincontrato','detalleobras','userm','modificacion')))) 
+														   'fechafincontrato','detalleobras','userm','modificacion',
+														   'con_idcontrato')))) 
 				
 				{
 					//Registro en tabla contrato supervisor
 					$this->Contratosupervisor->create();
-					$id = $this->request->data['Contratosupervisor']['contratos'];
-					$this->Contratosupervisor->read(null, $id);
-					$this->Contratosupervisor->set('idcontrato', $this->request->data['Contratosupervisor']['contratos']);
+					
+					$this->Contratosupervisor->set('idcontrato', $idcontrato);
 					$this->Contratosupervisor->set('idpersona', $this->request->data['Contratosupervisor']['admin']);
 					$this->Contratosupervisor->set('idempresa', $this->request->data['Contratosupervisor']['empresas']);
 					$this->Contratosupervisor->set('codigocontrato', $this->request->data['Contratosupervisor']['codigocontrato']);
 					$this->Contratosupervisor->set('nombrecontrato', $this->request->data['Contratosupervisor']['nombrecontrato']);
-					$this->Contratosupervisor->set('montooriginal', $this->request->data['Contratosupervisor']['montocon']);
+					$this->Contratosupervisor->set('montooriginal', $this->request->data['Contratosupervisor']['montooriginal']);
 					$this->Contratosupervisor->set('plazoejecucion', $this->request->data['Contratosupervisor']['plazoejecucion']);
-					$this->Contratosupervisor->set('fechainiciocontrato', $fechaini);
-					$this->Contratosupervisor->set('fechafincontrato', $fechafin);
-					$this->Contratosupervisor->set('detalleobras', $this->request->data['Contratosupervisor']['obras']);
-					$this->Contratosupervisor->set('con_idcontrato', $this->request->data['Contratosupervisor']['conidcontratos']);
-					$this->Contratosupervisor->set('cantidadinformes', $this->request->data['Contratosupervisor']['cantinf']);
+					$this->Contratosupervisor->set('fechainiciocontrato', $this->request->data['Contratosupervisor']['fechainiciocontrato']);
+					$this->Contratosupervisor->set('fechafincontrato', $this->request->data['Contratosupervisor']['fechafincontrato']);
+					$this->Contratosupervisor->set('detalleobras', $this->request->data['Contratosupervisor']['detalleobras']);
+					$this->Contratosupervisor->set('con_idcontrato', $this->request->data['Contratosupervisor']['con_idcontrato']);
+					$this->Contratosupervisor->set('cantidadinformes', $this->request->data['Contratosupervisor']['cantidadinformes']);
 					$this->Contratosupervisor->set('userm', $this->Session->read('User.username'));
 					$this->Contratosupervisor->set('modificacion', date('Y-m-d h:i:s'));
 	                
@@ -229,7 +235,7 @@
 					{
 						$this->Session->setFlash('El contrato '.$this->request->data['Contratosupervisor']['codigocontrato'].' ha sido actualizado.',
 												 'default',array('class'=>'success'));	
-						$this->redirect(array('controller'=>'Contratoconstructors', 'action' => 'contratoconstructor_listar'));
+						$this->redirect(array('controller'=>'Contratosupervisors', 'action' => 'contratosupervisor_listar'));
 						
 					}
 					else 
@@ -242,6 +248,10 @@
 					$this->Session->setFlash('Ha ocurrido un error c');
 					debug($this->Contrato->validationErrors);
                 }
+		}
+		else 
+		{
+	        $this->request->data = $this->Contratosupervisor->read(null, $id);
 		}
 	}
 	
@@ -270,7 +280,15 @@
 	
 	function conidcontratojson()
 	{
-		$contratos = $this->Contdisponibles->find('all');
+		$contratos = $this->Contratoconstructor->find('all',array(
+			'fields'=>array('Contratoconstructor.idcontrato','Contratoconstructor.codigocontrato'),
+			'conditions'=>array("OR"=>array(
+								'Contratoconstructor.idcontrato NOT IN (SELECT con_idcontrato 
+																	 	  FROM sicpro2012.contratosupervisor)'),
+								'Contratoconstructor.idcontrato IN (SELECT con_idcontrato 
+																	 	  FROM sicpro2012.contratosupervisor) 
+																	 	  WHERE contratosupervisor.idcontrato')
+		));
 		$this->set('construccion', Hash::extract($contratos, "{n}.Contdisponibles"));
 		$this->set('_serialize', 'construccion');	
 		
@@ -298,6 +316,20 @@
 			$this->set('info',$info);
 		}
 		$this->render('/Elements/update_infoconsupervisor', 'ajax');
+	}
+	
+	function contratosupervisor_eliminar($idcontrato=null) {
+		$contra = $this->Contratosupervisor->findByIdcontrato($idcontrato);
+		if (!$this->request->is('post')) {
+	        throw new MethodNotAllowedException();
+	    }
+	    if ($this->Contratosupervisor->delete($idcontrato)) {
+	        $this->Session->setFlash('El contrato de supervisión "'. $contra['Contratosupervisor']['codigocontrato'] .'" ha sido eliminado.','default',array('class' => 'success'));
+	        $this->redirect(array('action' => 'contratosupervisor_listar'));
+	    } else {
+	    	$this->Session->setFlash('El contrato supervisión "'. $contra['Contratosupervisor']['codigocontrato'] .'" no ha sido eliminado, esto se debe a que tiene relaciones con otros elementos');
+			$this->redirect(array('action' => 'contratosupervisor_listar'));
+	    }
 	}
 		
 	}

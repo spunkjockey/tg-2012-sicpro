@@ -44,7 +44,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Contrato constructor » Registrar contrato constructor 
+			?> Contrato Constructor » Registrar Contrato 
 			
 		</div>
 	</div>
@@ -53,7 +53,7 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar contrato constructor</h2>
+		<h2>Registrar Contrato Constructor</h2>
 		<?php echo $this->Form->create('Contratoconstructor'); ?>
 		<ul>
 			<li>
@@ -180,12 +180,13 @@ $this->end(); ?>
 						'id' => 'txplazo',
 						'type'  => 'Text', 
 						'maxlength' => '4',
+						'style' => 'width: 150px;',
 						'placeholder' => 'Cantidad de días', 
-						'div' => array('class' => 'requerido')
+						'div' => array('class' => 'requerido', 'style' => 'display:inline;')
 						));
-					?>
+					?> <div id="diasdiv" style='display:inline;'> días</div>
 				<script type="text/javascript">
-					var txplazo= new LiveValidation( "txplazo", { validMessage: " " } );
+					var txplazo= new LiveValidation( "txplazo", { validMessage: " ", insertAfterWhatNode: "diasdiv"  } );
 					txplazo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 					txplazo.add( Validate.Numericality,{ onlyInteger: true,
 					   								   	notAnIntegerMessage: "Debe ser un número entero",

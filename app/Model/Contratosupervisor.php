@@ -41,7 +41,12 @@
 		        'allowEmpty' => true,
 				'required'=>false) 
 			);
-					
+				
+				
+	public $virtualFields = array(
+		'montototal' => "montooriginal + variacion"
+	);	
+	
 		public function beforeSave($options = array()) {
 		    if (!empty($this->data['Contratosupervisor']['fechainiciocontrato']) && !empty($this->data['Contratosupervisor']['fechafincontrato'])) {
 		        $this->data['Contratosupervisor']['fechainiciocontrato'] = $this->dateFormatBeforeSave($this->data['Contratosupervisor']['fechainiciocontrato']);

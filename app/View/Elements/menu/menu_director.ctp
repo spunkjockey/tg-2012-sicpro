@@ -14,14 +14,13 @@
 								<ul>
 									<li disabled="disabled">Consultar Programaci&oacute;n de avance</li>
 									<li disabled="disabled">Consultar informe supervisi&oacute;n</li>
-									<li disabled="disabled">Consultar estimaci&oacute;n de avance</li>
+									<li><?php echo $this->Html->link('Consultar Estimación de Avance', array('controller' => 'Estimacions','action'=>'estimacion_consultar')); ?></li>
 									<li><?php echo $this->Html->link('Consultar informe técnico', array('controller' => 'Informetecnicos','action'=>'informetecnico_consultar')); ?></li>
 								</ul>
 							</li>	
 							<li>Facturas
 								<ul>
 									<li><?php echo $this->Html->link('Consultar facturas por proyecto', array('controller' => 'Facturas','action'=>'consultarporproyecto')); ?></li>
-									<li disabled="disabled">Consultar facturas por contrato</li>
 								</ul>
 							</li>	
 							<li>Reportes

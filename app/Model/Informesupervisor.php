@@ -18,7 +18,6 @@
 	        'Facturasupervision' => array(
 	            'className' => 'Facturasupervision',
 	            'foreignKey' => 'idinformesupervision',
-	            //'conditions'   => array('Profile.published' => '1'),
 	            'dependent'    => true
 			)
 	    );
@@ -27,36 +26,46 @@
 			 'fechainicio' => "to_char(Informesupervisor.fechainiciosupervision, 'DD/MM/YYYY')",
 			 'fechafin' => "to_char(Informesupervisor.fechafinsupervision, 'DD/MM/YYYY')"
 			 );
-		/*
+		*/
+		
 		public $validate = array(
 	    'fechafinsupervision' => array(
-	        'finmayorinicio' => array(
-            	'rule'    => array('finmayorinicio'),
-            	'message' => 'El valor de fecha fin debe que ser mayor que la fecha de inicio'
-        		),
-        	'formatofecha'=>array(
 				'rule'       => array('date', 'dmy'),
 		        'message'    => 'Ingrese fecha fin con el siguiente formato DD/MM/AAAA.',
 		        'allowEmpty' => true,
 				'required'=>false
-				)
-			),
+		),
 		'fechainiciosupervision' => array(
 		        'rule'       => array('date', 'dmy'),
 		        'message'    => 'Ingrese fecha inicio con el siguiente formato DD/MM/AAAA.',
 		        'allowEmpty' => true,
-				'required'=>false)
+				'required'=>false
+		),
+		'valoravancefinanciero' => array(
+			'montocorrecto' => array(
+            	'rule'    => array('montocorrecto'),
+            	'message' => 'El monto del informe supervisor supera el monto del contrato'
+        	)
+		)
 		
-		);*/
+		);
 	
-	/*public function finmayorinicio($check) 
-		{
-			
-			return date_create_from_format('d/m/Y', $this->data['Informesupervisor']['fechafinsupervision']) > date_create_from_format('d/m/Y', $this->data['Informesupervisor']['fechainiciosupervision']);
-    	
-		}*/
+	public function montocorrecto($check) {
+		$mavance = $this->Contratosupervisor->find('all',array(
+			'fields' => array('Contratosupervisor.montototal'),
+			'conditions' => array('Contratosupervisor.idcontrato' => $this->data['Informesupervisor']['idcontrato'])
+		));
 
+		
+		$montototal = Hash::extract($mavance, '0.Contratosupervisor');
 
+		$monto = $montototal['montototal'] /*- $montoavances['avance']*/;  
+        //Debugger::dump($monto);
+		//Debugger::dump($check['valoravancefinanciero']);
+		//Debugger::dump($check['valoravancefinanciero'] <= (float) $monto );
+        return (float) $check['valoravancefinanciero'] <= (float) $monto;
+
+    }
 	
 	public function beforeDelete($cascade = false) {
 	    $count = $this->Facturasupervision->find("count", array(
