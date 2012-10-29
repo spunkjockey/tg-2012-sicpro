@@ -3,7 +3,7 @@
     {
     	public $helpers = array('Html', 'Form', 'Session','Ajax','AjaxMultiUpload.Upload');
 	    public $components = array('Session','RequestHandler','AjaxMultiUpload.Upload');
-		public $uses = array('Informesupervisor','Proyecto','Contrato','User','Contratosupervisor','Avancedisponible','Avancetodos');
+		public $uses = array('Informesupervisor','Proyecto','Contrato','User','Contratosupervisor','Avancedisponible','Avancetodos','Proyinforsup');
 		
 		public function informesupervisor_index()
 		{
@@ -228,6 +228,22 @@
 			$this->set('contratos', Hash::extract($contratos, "{n}.Contratosupervisor"));
 			$this->set('_serialize', 'contratos');
 			$this->render('/json/jsondatad');
+		}
+		
+		public function informesupervisor_consultar(){
+			$this->layout = 'cyanspark';
+		} 
+		
+		public function informesupervisor_resultado(){
+			$this->layout = 'cyanspark';
+		}
+
+		function proyinforsup(){
+			// hacer consulta con vi_proyinforsup
+			$proyectos = $this->Proyinforsup->find('all');
+			$this->set('proyectos',$proyectos);
+			$this->set('_serialize', 'proyectos');
+			$this->render('/json/proyinforsup');
 		}
 		
     }
