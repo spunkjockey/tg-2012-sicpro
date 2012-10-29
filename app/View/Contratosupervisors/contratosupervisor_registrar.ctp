@@ -125,6 +125,8 @@ $this->end(); ?>
 					var txmonto = new LiveValidation( "txmonto", { validMessage: " " , insertAfterWhatNode: "montot"  } );
 		            txmonto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script>
+		    <?php if ($this->Form->isFieldError('Contrato.montooriginal')) {
+ 	 					echo $this->Form->error('Contrato.montooriginal'); } ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('fechainicontrato', 
@@ -397,7 +399,7 @@ $this->end(); ?>
 			                        }
 			                    }).data("kendoDropDownList");
 			        
-			    $("#empresas").kendoDropDownList({
+			    $("#empresas").kendoComboBox({
             			optionLabel: "Seleccione empresa",
 			            dataTextField: "nombreempresa",
 			            dataValueField: "idempresa",
@@ -408,7 +410,7 @@ $this->end(); ?>
 			                            }
 			                        }
 			        });
-			        var empresas = $("#empresas").data("kendoDropDownList");
+			        var empresas = $("#empresas").data("kendoComboBox");
 			    
 			    $("#admin").kendoDropDownList({
             			optionLabel: "Seleccione administrador",

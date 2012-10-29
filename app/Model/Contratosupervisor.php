@@ -67,5 +67,26 @@
     		return strftime('%Y-%m-%d',$mk);
 		}
 		
-	};
-?>
+public function beforeDelete($cascade = false) {
+	    $count = $this->query("SELECT 
+  contratosupervisor.idcontrato, contratosupervisor.codigocontrato, count(*) conteo
+FROM 
+  sicpro2012.contratosupervisor, 
+  sicpro2012.informesupervision
+WHERE 
+  informesupervision.idcontrato = contratosupervisor.idcontrato AND 
+  contratosupervisor.idcontrato = " . $this->id . "
+GROUP BY 
+  contratosupervisor.idcontrato, contratosupervisor.codigocontrato;");
+	    
+		Debugger::dump(Hash::get($count, '0.0.conteo'));
+	    if (Hash::get($count, '0.0.conteo') == 0) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	    
+	}
+
+
+	}

@@ -61,6 +61,7 @@ $this->end(); ?>
 					}
 		?>
 		<li>
+			<?php echo $this->Form->hidden('idproyecto'); ?>
 			<?php echo $this->Form->input('con_idcontrato', 
 				array(
 					'label' => 'Contrato de construcción a supervisar:', 
@@ -382,7 +383,7 @@ $this->end(); ?>
 	     spinners: false
 	 });
 	 
-    $("#empresas").kendoDropDownList({
+    $("#empresas").kendoComboBox({
 			optionLabel: "Seleccione empresa",
 			dataTextField: "nombreempresa",
             dataValueField: "idempresa",
@@ -393,7 +394,7 @@ $this->end(); ?>
                             }
                         }
         });
-        var empresas = $("#empresas").data("kendoDropDownList");
+        var empresas = $("#empresas").data("kendoComboBox");
     
     $("#con_idcontrato").kendoDropDownList({
 						

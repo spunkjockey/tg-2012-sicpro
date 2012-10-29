@@ -11,9 +11,21 @@
 			$this->set('contratoss',$this->Contratosupervisor->find('all',
 			array('conditions'=> array(
 										'Proyecto.estadoproyecto <>' => 'Finalizado'
-										)
+										),
+				'order' => 'Proyecto.numeroproyecto DESC'
 				  )
 			)); 
+			
+			$contratosup = $this->Contratosupervisor->query('SELECT 
+					  contratosupervisor.idcontrato, 
+					  contratoconstructor.codigocontrato
+					FROM 
+					  sicpro2012.contratosupervisor, 
+					  sicpro2012.contratoconstructor
+					WHERE 
+					  contratosupervisor.con_idcontrato = contratoconstructor.idcontrato;');
+			
+			$this->set('contratosup',$contratosup);
 		}
 		
 		public function contratosupervisor_registrar()
@@ -190,6 +202,7 @@
 			//$id = $this->request->data['Contratosupervisor']['contratos'];
 			
 			$this->Contrato->set('idcontrato', $id);
+			$this->Contrato->set('idproyecto', $this->request->data['Contratosupervisor']['idproyecto']);
 			$this->Contrato->set('con_idcontrato',$this->request->data['Contratosupervisor']['con_idcontrato']);
 			$this->Contrato->set('idpersona', $this->request->data['Contratosupervisor']['admin']);
 			$this->Contrato->set('idempresa', $this->request->data['Contratosupervisor']['empresas']);
@@ -323,7 +336,7 @@
 		if (!$this->request->is('post')) {
 	        throw new MethodNotAllowedException();
 	    }
-	    if ($this->Contratosupervisor->delete($idcontrato)) {
+	    if ($this->Contratosupervisor->delete($idcontrato) && $this->Contrato->delete($idcontrato)) {
 	        $this->Session->setFlash('El contrato de supervisión "'. $contra['Contratosupervisor']['codigocontrato'] .'" ha sido eliminado.','default',array('class' => 'success'));
 	        $this->redirect(array('action' => 'contratosupervisor_listar'));
 	    } else {
