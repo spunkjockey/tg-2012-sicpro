@@ -12,7 +12,6 @@
 								<ul>
 									<li disabled="disabled">Modificar perfil</li>
 									<li><?php echo $this->Html->link('Cambiar Contraseña', array('controller' => 'Users','action'=>'cambiarpass')); ?></li>
-									<li disabled="disabled">Consultar perfil</li>
 								</ul>
 							</li>
 									<!--<li><?php echo $this->Html->link('División', array('controller' => 'divisions','action'=>'index')); ?></li>

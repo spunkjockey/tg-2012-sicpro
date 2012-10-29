@@ -21,7 +21,6 @@
 							<li>Facturas
 								<ul>
 									<li><?php echo $this->Html->link('Consultar facturas por proyecto', array('controller' => 'Facturas','action'=>'consultarporproyecto')); ?></li>
-									<li disabled="disabled">Consultar facturas por contrato</li>
 								</ul>
 							</li>	
 							<li>Reportes
