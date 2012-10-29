@@ -229,10 +229,19 @@
 		
 		public function informesupervisor_consultar(){
 			$this->layout = 'cyanspark';
+			
+			if ($this->request->is('post')) 
+				{
+				$this->redirect(array('action' => 'informesupervisor_resultado',$this->request->data['Supervision']['informesupervision']));
+				}
 		} 
 		
-		public function informesupervisor_resultado(){
+		public function informesupervisor_resultado($idinformesupervision=null){
 			$this->layout = 'cyanspark';
+			$info  = $this->Informesupervisor->find('all',array(
+			'conditions'=> array(
+								'Informesupervisor.idinformesupervision' => $idinformesupervision)));
+			$this->set('infosupervision',$info);
 		}
 
 		function proyinforsup(){

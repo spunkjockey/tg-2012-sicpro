@@ -17,7 +17,7 @@
 							<li>Control y seguimiento
 								<ul>
 									<li disabled="disabled">Consultar Programaci&oacute;n de avance</li>
-									<li disabled="disabled">Consultar informe supervisi&oacute;n</li>
+											<li><?php echo $this->Html->link('Consultar Informe supervisión', array('controller' => 'Informesupervisors','action'=>'informesupervisor_consultar')); ?></li>
 									<li><?php echo $this->Html->link('Consultar Estimación de Avance', array('controller' => 'Estimacions','action'=>'estimacion_consultar')); ?></li>
 									<li><?php echo $this->Html->link('Consultar informe técnico', array('controller' => 'Informetecnicos','action'=>'informetecnico_consultar')); ?></li>
 								</ul>
