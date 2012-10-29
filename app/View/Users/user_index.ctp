@@ -65,35 +65,38 @@ $this->end(); ?>
     </tr>
 
     <?php foreach ($usuarios as $usu): ?>
-    <tr>
-        <td><?php echo $usu['User']['username']; ?></td>
-        <td><?php echo $usu['User']['nombre'].' '.$usu['User']['apellidos']; ?></td>
-        <td><?php echo $usu['Rol']['rol']; ?></td>
-        <td><?php echo ($usu['User']['estado'])? 'Habilitado':'Deshabilitado';  ?></td>
-      <td align="center">
-            <?php echo $this->Html->link(
-            	'<span class="k-icon k-i-pencil"></span>',
-            	array('action' => 'edit', $usu['User']['id']),
-            	array('class'=>'k-button', 'escape' => false,'title' => 'Cambiar contraseña')
-			);?>
+    
+        
+        <?php if($usu['User']['username'] != 'sicproadminsys') { ?>
+        <tr>
+        	<td><?php echo $usu['User']['username']; ?></td>
+        	<td><?php echo $usu['User']['nombre'].' '.$usu['User']['apellidos']; ?></td>
+        	<td><?php echo $usu['Rol']['rol']; ?></td>
+        	<td><?php echo ($usu['User']['estado'])? 'Habilitado':'Deshabilitado';  ?></td>
+      		<td align="center">
+            		<?php echo $this->Html->link(
+            			'<span class="k-icon k-i-pencil"></span>',
+            			array('action' => 'edit', $usu['User']['id']),
+            			array('class'=>'k-button', 'escape' => false,'title' => 'Cambiar contraseña')
+					);?>
 
-             <?php echo $this->Form->postLink(
-                '<span class="k-icon k-i-custom"></span>',
-                array('action' => 'cambiarestado', $usu['User']['id']),
-                array('confirm' => '¿Está seguro que desea cambiar el Estado del Usuario seleccionado?','class'=>'k-button', 'escape' => false,'title' => 'Habilitar/Deshabilitar')
-            )?>
+             		<?php echo $this->Form->postLink(
+                		'<span class="k-icon k-i-custom"></span>',
+                		array('action' => 'cambiarestado', $usu['User']['id']),
+                		array('confirm' => '¿Está seguro que desea cambiar el Estado del Usuario seleccionado?','class'=>'k-button', 'escape' => false,'title' => 'Habilitar/Deshabilitar')
+            		)?>
             
-		<?php if($usu['User']['id']!=$this->Session->read('User.id')) { ?>
-            <?php echo $this->Form->postLink(
-                '<span class="k-icon k-i-close"></span>',
-                array('action' => 'delete', $usu['User']['id']),
-                array('confirm' => '¿Está seguro que desea eliminar el Usuario seleccionado?','class'=>'k-button', 'escape' => false,'title' => 'Eliminar Usuario')
-            );
-           }?>
-            
-
-       </td> 
-    </tr>
+					<?php if($usu['User']['id']!=$this->Session->read('User.id')) { ?>
+            			<?php echo $this->Form->postLink(
+                			'<span class="k-icon k-i-close"></span>',
+                			array('action' => 'delete', $usu['User']['id']),
+                			array('confirm' => '¿Está seguro que desea eliminar el Usuario seleccionado?','class'=>'k-button', 'escape' => false,'title' => 'Eliminar Usuario')
+            			);
+           			}?>
+            	</td>
+            </tr>
+            <?php } ?> 
+    
     <?php endforeach; ?>
     <?php unset($personas); ?>
 </table>

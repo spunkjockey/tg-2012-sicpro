@@ -122,6 +122,8 @@ $this->end(); ?>
 					var txmonto = new LiveValidation( "txmonto", { validMessage: " ", insertAfterWhatNode: "monto"  } );
 		            txmonto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script>
+		         <?php if ($this->Form->isFieldError('Contrato.montooriginal')) {
+ 	 					echo $this->Form->error('Contrato.montooriginal'); } ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('anticipo', 

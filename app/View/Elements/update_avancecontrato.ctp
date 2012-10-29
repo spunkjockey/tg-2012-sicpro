@@ -123,6 +123,7 @@
 		<br />
 		<?php $acumulado = 0 ?>
 		<?php $pacumulado = 0 ?>
+		<?php $estiacumulado=array(); ?>
 		<?php if(!empty($estimaciones)) { ?>
 			<table>
 				<caption>Tabla Estimaciones a la fecha </caption>
@@ -142,18 +143,20 @@
 					<th style="width: 100px">Acumumulado</th>
 				</tr>
 				</thead>
-				<?php foreach ($estimaciones as $esti): ?>
-				<?php $acumulado = $acumulado + $esti['Estimacion']['montoestimado']; ?>
-				<?php $esti['Estimacion']['montoestimadoacum'] = $acumulado; ?>
-				<?php $pacumulado = $pacumulado + $esti['Estimacion']['porcentajeestimadoavance']; ?>
-				<?php $esti['Estimacion']['porcentajeestimadoavanceacum'] = $pacumulado; ?>
+				<?php foreach ($estimaciones as $esti => $value): ?>
+				<?php $acumulado = $acumulado + $value['Estimacion']['montoestimado']; ?>
+				<?php $pacumulado = $pacumulado + $value['Estimacion']['porcentajeestimadoavance']; ?>
+				<?php $estiacumulado[$esti]['Estimacion'] = array(
+								'fechafinestimacion' => $value['Estimacion']['fechafinestimacion']
+								,'porcentajeestimadoavance' => $pacumulado
+								,'montoestimado' => $acumulado); ?>
 				<tr>
-					<td><?php echo date('d/m/Y',strtotime($esti['Estimacion']['fechainicioestimacion'])); ?></td>
-					<td><?php echo date('d/m/Y',strtotime($esti['Estimacion']['fechafinestimacion'])); ?></td>
-					<td><?php echo number_format($esti['Estimacion']['porcentajeestimadoavance'],2).'%'; ?></td>
-					<td><?php echo number_format($esti['Estimacion']['porcentajeestimadoavanceacum'],2).'%'; ?></td>
-					<td><?php echo '$'.number_format($esti['Estimacion']['montoestimado'],2); ?></td>	
-					<td><?php echo '$'.number_format($esti['Estimacion']['montoestimadoacum'],2); ?></td>	
+					<td><?php echo date('d/m/Y',strtotime($value['Estimacion']['fechainicioestimacion'])); ?></td>
+					<td><?php echo date('d/m/Y',strtotime($value['Estimacion']['fechafinestimacion'])); ?></td>
+					<td><?php echo number_format($value['Estimacion']['porcentajeestimadoavance'],2).'%'; ?></td>
+					<td><?php echo number_format($pacumulado,2).'%'; ?></td>
+					<td><?php echo '$'.number_format($value['Estimacion']['montoestimado'],2); ?></td>	
+					<td><?php echo '$'.number_format($acumulado,2); ?></td>	
 				</tr>
 				<?php endforeach; ?>
 				</table>
@@ -163,6 +166,7 @@
 		</div>
 
 
+		
 
 <br />
 
@@ -327,7 +331,7 @@ Highcharts.setOptions({
                 name: 'Monto Estimacion',
                 data: [
             		<?php echo '['.(strtotime($contrato['Contratoconstructor']['ordeninicio']) * 1000).', 0],'; ?>
-            		<?php foreach ($estimaciones as $esti): 
+            		<?php foreach ($estiacumulado as $esti): 
             			echo '['.(strtotime($esti['Estimacion']['fechafinestimacion']) * 1000).', '.$esti['Estimacion']['montoestimado'].'],'; 
             		endforeach; ?>
             		]
@@ -419,7 +423,7 @@ $(function () {
                 name: 'Avance Estimacion',
                 data: [
             		<?php echo '['.(strtotime($contrato['Contratoconstructor']['ordeninicio']) * 1000).', 0],'; ?>
-            		<?php foreach ($estimaciones as $esti): 
+            		<?php foreach ($estiacumulado as $esti): 
             			echo '['.(strtotime($esti['Estimacion']['fechafinestimacion']) * 1000).', '.$esti['Estimacion']['porcentajeestimadoavance'].'],'; 
             		endforeach; ?>
             		]

@@ -9,7 +9,9 @@
 			$this->set('contratosc',$this->Contratoconstructor->find('all',
 			array('conditions'=> array(
 										'Proyecto.estadoproyecto <>' => 'Finalizado'
-										)
+										),
+				'order' => 'Proyecto.numeroproyecto DESC'
+										
 				  )
 			)); 
 						
@@ -36,6 +38,7 @@
 				$this->Contrato->set('fechafincontrato', $this->request->data['Contratoconstructor']['fechafincontrato']);
 				$this->Contrato->set('detalleobras', $this->request->data['Contratoconstructor']['obras']);
 				$this->Contrato->set('tipocontrato', 'Construcción de obras');
+				$this->Contrato->set('estadocontrato', 'sin estado');
 				$this->Contrato->set('userc', $this->Session->read('User.username'));
 				if ($this->Contrato->save()) 
 				{
@@ -54,6 +57,7 @@
 					$this->Contratoconstructor->set('tipocontrato', 'Construcción de obras');
 					$this->Contratoconstructor->set('retencion', $this->request->data['Contratoconstructor']['montocon']*0.05);
 					$this->Contratoconstructor->set('anticipo', $this->request->data['Contratoconstructor']['anticipo']);
+					$this->Contratoconstructor->set('estadocontrato', 'sin estado');
 					$this->Contratoconstructor->set('userc', $this->Session->read('User.username'));
 	                if($this->Contratoconstructor->save($this->Contrato->id))
 					{
@@ -64,13 +68,13 @@
 					}
 					else 
 					{
-						$this->Session->setFlash('Ha ocurrido un error verifique que los datos sean correctos');
+						//$this->Session->setFlash('Ha ocurrido un error verifique que los datos sean correctos');
 						
 	                }
 				}
 				else 
 				{
-					$this->Session->setFlash('Ha ocurrido un error verifique que los datos sean correctos');
+					//$this->Session->setFlash('Ha ocurrido un error verifique que los datos sean correctos');
                 }
 			}
 		}

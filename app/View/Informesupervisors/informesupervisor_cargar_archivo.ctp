@@ -49,10 +49,10 @@ $this->end(); ?>
 	
 <?php $this->end(); ?>
 		   
-<?php Debugger::dump($idinformesupervision); ?>
-				<h2>Cargar archivos:</h2>
 
-				<h3>Archivos a Agregar</h3>
+				<h2>Administración de Archivos:</h2>
+
+				<h3>Archivos Existentes:</h3>
 				<?php echo $this->Upload->edit('Informesupervisor',$idinformesupervision); ?>
 	
             <?php echo $this->Html->link(

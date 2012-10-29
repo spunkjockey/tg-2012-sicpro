@@ -239,6 +239,7 @@ $this->end(); ?>
 				.LV_valid {
 				    color:#00CC00;
 				    margin-left: 10px;
+				    display: none;
 				}
 					
 				.LV_invalid {
