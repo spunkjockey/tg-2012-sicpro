@@ -36,7 +36,7 @@
 									<li>Informe de supervisi&oacute;n
 										<ul>
 											<li><?php echo $this->Html->link('Informe supervisión', array('controller' => 'Informesupervisors','action'=>'informesupervisor_index')); ?></li>
-											<li disabled="disabled">Consultar informe supervisi&oacute;n</li>
+											<li><?php echo $this->Html->link('Consultar Informe supervisión', array('controller' => 'Informesupervisors','action'=>'informesupervisor_consultar')); ?></li>
 										</ul>
 									</li>
 									<li>Estimaci&oacute;n de avance
