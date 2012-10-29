@@ -237,10 +237,33 @@
 
 		function proyinforsup(){
 			// hacer consulta con vi_proyinforsup
-			$proyectos = $this->Proyinforsup->find('all');
-			$this->set('proyectos',$proyectos);
+			$proyectos = $this->Proyinforsup->find('all',
+			array(
+				'fields' => array('DISTINCT idproyecto','numeroproyecto')	
+				));
+			$this->set('proyectos',Hash::extract($proyectos,'{n}.Proyinforsup'));
 			$this->set('_serialize', 'proyectos');
 			$this->render('/json/proyinforsup');
+		}
+		
+		function contratojson() {
+			$contratos = $this->Proyinforsup->find('all',
+			array(
+				'fields' => array('DISTINCT idcontrato','codigocontrato','idproyecto')	
+				));
+			$this->set('contratos', Hash::extract($contratos, "{n}.Proyinforsup"));
+			$this->set('_serialize', 'contratos');
+			$this->render('/json/jsondatad');
+		}
+		
+		function infosupjson(){
+			$infossup = $this->Proyinforsup->find('all',array(
+				'fields' => array(
+									'idinformesupervision','tituloinformesup','idcontrato'
+									)));
+			$this->set('infossup', Hash::extract($infossup,"{n}.Proyinforsup"));
+			$this->set('_serialize', 'infossup');
+			$this->render('/json/jsoninfosup');
 		}
 		
     }

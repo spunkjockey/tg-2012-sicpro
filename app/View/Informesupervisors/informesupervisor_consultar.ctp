@@ -75,7 +75,7 @@ $this->end(); ?>
 				<?php echo $this->Form->input('informesupervision',
 					array(
 						'label' => 'Informe:', 
-						'id' => 'informes',
+						'id' => 'infossup',
 						'div' => array('class' => 'requerido')
 					)); ?>
 				<script type="text/javascript">
@@ -186,8 +186,8 @@ $this->end(); ?>
 	$(document).ready(function() {
 			$("#proys").kendoDropDownList({
 			            optionLabel: "Seleccione proyecto",
-			            dataTextField: "Proyinforsup.numeroproyecto",
-			            dataValueField: "Proyinforsup.idproyecto",
+			            dataTextField: "numeroproyecto",
+			            dataValueField: "idproyecto",
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
@@ -195,5 +195,37 @@ $this->end(); ?>
 			                            }
 			                        }
 			});
+			
+			var proys = $("#proys").data("kendoDropDownList");
+			        
+			var contratos = $("#contratos").kendoDropDownList({
+			            autoBind: true,
+			            cascadeFrom: "proys",
+			            optionLabel: "Seleccione contrato",
+			            dataTextField: "codigocontrato",
+			            dataValueField: "idcontrato",
+			            dataSource: {
+			                         type: "json",
+			                         transport: {
+			                            read: "/Informesupervisors/contratojson.json"
+			                         }
+			                        }
+			            }).data("kendoDropDownList"); 
+			            
+			var infossup = $("#infossup").kendoDropDownList({
+			            autoBind: true,
+			            cascadeFrom: "contratos",
+			            optionLabel: "Seleccione Informe",
+			            dataTextField: "tituloinformesup",
+			            dataValueField: "idinformesupervision",
+			            dataSource: {
+			                         type: "json",
+			                         transport: {
+			                            read: "/Informesupervisors/infosupjson.json"
+			                         }
+			                        }
+			            }).data("kendoDropDownList");   
+			            
+			  
     });
 </script>
