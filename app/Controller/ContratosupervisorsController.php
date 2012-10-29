@@ -317,6 +317,20 @@
 		}
 		$this->render('/Elements/update_infoconsupervisor', 'ajax');
 	}
+	
+	function contratosupervisor_eliminar($idcontrato=null) {
+		$contra = $this->Contratosupervisor->findByIdcontrato($idcontrato);
+		if (!$this->request->is('post')) {
+	        throw new MethodNotAllowedException();
+	    }
+	    if ($this->Contratosupervisor->delete($idcontrato)) {
+	        $this->Session->setFlash('El contrato de supervisión "'. $contra['Contratosupervisor']['codigocontrato'] .'" ha sido eliminado.','default',array('class' => 'success'));
+	        $this->redirect(array('action' => 'contratosupervisor_listar'));
+	    } else {
+	    	$this->Session->setFlash('El contrato supervisión "'. $contra['Contratosupervisor']['codigocontrato'] .'" no ha sido eliminado, esto se debe a que tiene relaciones con otros elementos');
+			$this->redirect(array('action' => 'contratosupervisor_listar'));
+	    }
+	}
 		
 	}
 ?>
