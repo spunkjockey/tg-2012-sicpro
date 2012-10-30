@@ -53,34 +53,42 @@ $this->end(); ?>
 	<div id="formulario">
 		<h2>Consultar Informe Supervisión</h2>
 		
-		<?php echo $this->Form->create('Supervision',array('action' => 'estimacion_consultar')); ?>
+		<?php echo $this->Form->create('Supervision'); ?>
 		<ul>
 			<li>
 				<?php echo $this->Form->input('proyectos',
 					array(
 						'label' => 'Proyectos:', 
-						'id' => 'proys',
-						'div' => array('class' => 'requerido')
+						'id' => 'proyectos',
+						'div' => array('id'=>'proyo','class' => 'requerido')
 					)); ?>
+				<script type="text/javascript">
+					var proyectos= new LiveValidation( "proyectos", { validMessage: " ", insertAfterWhatNode: "proyo" } );
+					proyectos.add(Validate.Presence, { failureMessage: "Seleccione un Proyecto" } );
+				</script>
 			</li>
 			<li>
 				<?php echo $this->Form->input('contratos',
 					array(
 						'label' => 'Contratos:', 
 						'id' => 'contratos',
-						'div' => array('class' => 'requerido')
+						'div' => array('id'=>'contra','class' => 'requerido')
 					)); ?>
+				<script type="text/javascript">
+					var contratos= new LiveValidation( "contratos", { validMessage: " ", insertAfterWhatNode: "contra" } );
+					contratos.add(Validate.Presence, { failureMessage: "Seleccione un Contrato" } );
+				</script>
 			</li>
 			<li>
 				<?php echo $this->Form->input('informesupervision',
 					array(
 						'label' => 'Informe:', 
 						'id' => 'infossup',
-						'div' => array('class' => 'requerido')
+						'div' => array('id'=>'infos','class' => 'requerido')
 					)); ?>
 				<script type="text/javascript">
-					var informes = new LiveValidation( "informes", { validMessage: " " , insertAfterWhatNode: "admc"  } );
-		            informes.add(Validate.Presence, { failureMessage: "Selecciona un elemento" } );
+					var infossup = new LiveValidation( "infossup", { validMessage: " " , insertAfterWhatNode: "infos"  } );
+		            infossup.add(Validate.Presence, { failureMessage: "Seleccione un Informe" } );
 		        </script>
 			</li>
 			<li  class="accept">
@@ -184,7 +192,7 @@ $this->end(); ?>
 </style>
 <script>
 	$(document).ready(function() {
-			$("#proys").kendoDropDownList({
+			$("#proyectos").kendoDropDownList({
 			            optionLabel: "Seleccione proyecto",
 			            dataTextField: "numeroproyecto",
 			            dataValueField: "idproyecto",
@@ -196,11 +204,11 @@ $this->end(); ?>
 			                        }
 			});
 			
-			var proys = $("#proys").data("kendoDropDownList");
+			var proys = $("#proyectos").data("kendoDropDownList");
 			        
 			var contratos = $("#contratos").kendoDropDownList({
 			            autoBind: true,
-			            cascadeFrom: "proys",
+			            cascadeFrom: "proyectos",
 			            optionLabel: "Seleccione contrato",
 			            dataTextField: "codigocontrato",
 			            dataValueField: "idcontrato",
