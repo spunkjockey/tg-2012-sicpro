@@ -135,10 +135,39 @@
 		
 		public function proyectojson() 
 		{
-			$proyectos = $this->Contdisponibles->find('all');
-			$this->set('proyectos', Hash::extract($proyectos, "{n}.Contdisponibles"));
+			$proyectos = $this->Contdisponibles->find('all',array(
+				'order' => array('numeroproyecto DESC')));
+			//$this->set('proyectos', Hash::extract($proyectos, "{n}.Contdisponibles"));
+			$this->set('proyectos', $this->eliminarduplicados(Hash::extract($proyectos, "{n}.Contdisponibles")));
 			$this->set('_serialize', 'proyectos');
 			$this->render('/json/jsondata');
+		}
+		
+		public function eliminarduplicados($array=null) {
+			$count = 0;
+			$value = ""; 
+	    	foreach($array as $array_key => $array_value) 
+	    	{	 
+	        	if ( $count >= 1 ) {
+	        		if($value != $array_value['idproyecto']) {
+	        			$count = 0; 
+	        		}
+	        	}
+	        	if ( $count == 0 ) 
+	        	{
+	            	$value = $array_value['idproyecto']; 
+	            	$count++;
+	        	} else {
+	        		if($array_value['idproyecto'] == $value) {
+	        			unset($array[$array_key]);
+						$count++;
+					} else {
+						$count = 0;
+					}
+	        	}
+	        	
+	    	} 
+	        return array_values($array);
 		}
 		
 		public function contratojson() 

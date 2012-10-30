@@ -54,14 +54,7 @@ $this->end(); ?>
 
 <h2>Contratos</h2>
 
-<table style="margin-left: 100px; margin-bottom: 20px;">
-	<tr>
-	<td>Tipo de Contrato</td><td><div id="tipocontrato" style="width: 300px"></div></td>
-	</tr>
-	<tr>
-	<td>Estado de Contrato</td><td><div id="estadocontrato" style="width: 300px"></div></td>
-	</tr>
-</table>
+
 <table id="grid">
 	<tr>
         <th data-field="numeroproyecto" >Proyecto</th>
@@ -76,7 +69,13 @@ $this->end(); ?>
     <tr>
         <td><?php echo $cc['Proyecto']['numeroproyecto']; ?></td>
         <td><?php echo $cc['Contrato']['codigocontrato']; ?></td>
-        <td><?php echo $cc['Contrato']['nombrecontrato']; ?></td>
+        
+        <td><?php echo $this->Html->link(
+            	$cc['Contrato']['nombrecontrato'], 
+            	array('action' => 'contrato_detalle', $cc['Contrato']['idcontrato']),
+            	array('class'=>'detalles')
+			);?></td>
+        
         <td><?php echo $cc['Contrato']['tipocontrato']; ?></td>
         <td><?php echo $cc['Contrato']['estadocontrato']; ?></td>
         <td><?php echo '$'.number_format($cc['Contrato']['montooriginal'],2); ?></td>
@@ -86,11 +85,7 @@ $this->end(); ?>
             	array('action' => 'contrato_detalle', $cc['Contrato']['idcontrato']),
             	array('class'=>'k-button','escape' => false,'title' => 'Detalle Contrato')
 			);?>-->
-            <!--<?php echo $this->Html->link(
-            	'Detalles', 
-            	array('action' => 'view', $cc['Empresa']['idempresa']),
-            	array('class'=>'k-button')
-			);?>-->
+
         </td>
         
     </tr>
@@ -99,6 +94,50 @@ $this->end(); ?>
 </table>
 
 
+<style scoped="scoped">
+    #grid .k-toolbar
+    {
+        min-height: 27px;
+    }
+    .category-label
+    {
+        vertical-align: middle;
+        padding-right: .5em;
+    }
+    #category
+    {
+        vertical-align: middle;
+    }
+    .toolbar {
+        float: right;
+        margin-right: .8em;
+    }
+    
+    
+     a.detalles:link {text-decoration:none; color: #045773;} /* Link no visitado*/
+	 a.detalles:visited {text-decoration:none; color:#045773;} /*Link visitado*/
+	 a.detalles:active {text-decoration:none; color:#045773; background:#CCCCCC} /*Link activo*/
+	 a.detalles:hover {text-decoration:underline; color:#045773; background: #CCCCCC} /*Mause sobre el link*/
+    
+</style>
+
+<script type="text/x-kendo-template" id="template">
+    <div class="toolbar">
+        <label class="category-label" for="category">Código Contrato:</label>
+        <input type="search" id="tipocontrato" style="width: 230px"></input>
+    </div>
+</script>
+
+<!--
+<table style="margin-left: 100px; margin-bottom: 20px;">
+	<tr>
+	<td>Tipo de Contrato</td><td><div id="tipocontrato" style="width: 300px"></div></td>
+	</tr>
+	<tr>
+	<td>Estado de Contrato</td><td><div id="estadocontrato" style="width: 300px"></div></td>
+	</tr>
+</table>
+-->
 
 <script>
 	$(document).ready(function() {
@@ -106,6 +145,7 @@ $this->end(); ?>
     	var grid = $("#grid").kendoGrid({
             	dataSource: {
 	           		pageSize: 10,
+	           		group: { field: "numeroproyecto" }
             	},
             	pageable: true,
             	pageable: {
@@ -127,11 +167,11 @@ $this->end(); ?>
  			    	mode: "single", // enables multi-column sorting
         			allowUnsort: true
 				},
-				scrollable: true,
-				height: 400,
+				scrollable: false,
+				toolbar: kendo.template($("#template").html()),
 				columns: [ {
                                 field: "numeroproyecto",
-                                width: 100
+                                title: "Proyecto"
                             } , {
                                 field: "codigocontrato",
                                 width: 100
@@ -151,22 +191,28 @@ $this->end(); ?>
                         ]
         	});
         	
+        	grid.data("kendoGrid").hideColumn("numeroproyecto");
         	grid.data("kendoGrid").hideColumn("estadocontrato");
 	        grid.data("kendoGrid").hideColumn("tipocontrato");
 
 
 		function chequear() {
-            var valuee = dropDown.data("kendoDropDownList").value();
-            var valuet = dropDown1.data("kendoDropDownList").value();
-            if(valuee == null) {
+            //var valuee = dropDown.data("kendoDropDownList").value();
+            var valuet = dropDown1.data("kendoComboBox").value();
+            /*if(valuee == null) {
             	valuee = "Todos los estados";
-            }
-            
+            }*/
+            //alert(valuet);
             if(valuet == null) {
-            	valuet = "Ambos";
+            	valuet = "";
             }
             
-            if(valuee != null && valuet != null) {
+            if(valuet != "") {
+            	grid.data("kendoGrid").dataSource.filter({ field: "numeroproyecto", operator: "eq", value: valuet });
+            } else {
+            	grid.data("kendoGrid").dataSource.filter({  });
+            }
+            /*if(valuee != null && valuet != null) {
             	//alert("filtrar")
 	            if (valuee != "Todos los estados" && valuet != "Ambos") {
 	                grid.data("kendoGrid").dataSource.filter({ field: "estadocontrato", operator: "eq", value: valuee },{ field: "tipocontrato", operator: "eq", value: valuet });
@@ -183,15 +229,15 @@ $this->end(); ?>
 	            if (valuee == "Todos los estados" && valuet == "Ambos") {
 	                   grid.data("kendoGrid").dataSource.filter({});
 	            }
-            }
+            }*/
 	    }
 
 
-	var  dropDown1 = $("#tipocontrato").kendoDropDownList({
-			            	dataTextField: "tipocontrato",
-	                dataValueField: "tipocontrato",
+	var  dropDown1 = $("#tipocontrato").kendoComboBox({
+			        dataTextField: "numeroproyecto",
+	                dataValueField: "numeroproyecto",
 	                autoBind: false,
-	                optionLabel: "Ambos",
+	                optionLabel: "Todos los proyectos",
 	                dataSource: {
 	                	type: "json",
 		                transport: {
@@ -203,7 +249,7 @@ $this->end(); ?>
         
 
 
-		var dropDown = $("#estadocontrato").kendoDropDownList({
+/*		var dropDown = $("#estadocontrato").kendoDropDownList({
 	            	dataTextField: "estadocontrato",
 	                dataValueField: "estadocontrato",
 	                autoBind: false,
@@ -215,7 +261,7 @@ $this->end(); ?>
 		               	}
 		            },
 	                change: chequear   });
-
+*/
   });
 
 </script>

@@ -313,7 +313,7 @@ $this->end(); ?>
 
                 .accept, .status {
                 	padding-top: 15px;
-                    padding-left: 150px;
+                    padding-left: 490px;
                 }
 
                 .valid {
@@ -326,6 +326,13 @@ $this->end(); ?>
                 
                 span.k-tooltip {
                     margin-left: 6px;
+                }
+                
+                #listpicker {
+                	display: block;
+                	width: 600px; 
+                	height: 150px;
+                	margin: 25px;
                 }
 </style>
 

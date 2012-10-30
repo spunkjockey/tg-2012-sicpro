@@ -116,7 +116,7 @@ $this->end(); ?>
 
                 .k-textbox {
                     width: 300px;
-                    margin-left: 5px;
+                    
                     
                 }
 				
@@ -151,7 +151,7 @@ $this->end(); ?>
                     display: inline-block;
                     width: 160px;
                     text-align: right;
-                    
+                    margin-right: 5px;
                 }
 
                 /*.required {

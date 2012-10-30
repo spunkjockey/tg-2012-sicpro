@@ -252,7 +252,7 @@
 			$("#menu").kendoMenu();
 			
 			$(document).ready(function() {
-  						$("#flashMessage").delay(5000).slideUp('easy');
+  						$("#flashMessage").delay(15000).slideUp('easy');
   	});
 		
 	</script>

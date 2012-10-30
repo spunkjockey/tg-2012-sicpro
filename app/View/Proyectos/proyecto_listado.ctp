@@ -113,18 +113,6 @@ $this->end(); ?>
 	</div>
 
 
-<style scoped>
-        #grid td.k-button
-        {
-            vertical-align: middle;
-            width: 28px;
-            margin: 0 3px;
-            padding: .1em .4em .3em;
-            display: inline;
-            
-        }
-    </style>
-
 
 	<script type="text/x-kendo-template" id="template">
 	    <div class="toolbar">

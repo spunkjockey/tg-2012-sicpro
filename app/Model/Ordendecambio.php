@@ -11,6 +11,12 @@ public $primaryKey = 'idordencambio';
 			        'allowEmpty' => true,
 					'required'=>false
 				)
+			),
+			'montoordencambio' => array(
+				'montocorrecto' => array(
+	            	'rule'    => array('montocorrecto'),
+	            	'message' => 'El nuevo monto del contrato supera el monto disponible del proyecto'
+	        	)
 			)
 		);
 
@@ -23,6 +29,20 @@ public $primaryKey = 'idordencambio';
 		    return true;
 		}
 		
+		
+		public function montocorrecto($check) {
+			$mavance = $this->Contratoconstructor->find('all',array(
+				'fields' => array('Contratoconstructor.montototal'),
+				'conditions' => array('Contratoconstructor.idcontrato' => $this->data['Avanceprogramado']['idcontrato'])
+			));
+	
+			
+			$montototal = Hash::extract($mavance, '0.Contratoconstructor');
+	
+			$monto = $montototal['montototal'] /*- $montoavances['avance']*/;  
+	        return (float) $check['montoavfinancieroprog'] <= (float) $monto;
+	
+	    }
 		
 		public function dateFormatBeforeSave($dateString) {
 		    

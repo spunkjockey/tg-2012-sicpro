@@ -100,9 +100,17 @@ class AvanceprogramadosController extends AppController {
 		if (!$this->request->is('post')) {
 	        throw new MethodNotAllowedException();
 	    }
+		$avance = $this->Avanceprogramado->findByIdavanceprogramado($id);
 	    if ($this->Avanceprogramado->delete($id)) {
 	        $this->Session->setFlash('El Avance seleccionado ha sido eliminado.','default',array('class'=>'success'));
-	        $this->redirect(array('action' => 'index'));
+	        $this->redirect(array('action' => 'index',
+	        	$avance['Contratoconstructor']['idproyecto'],
+				$avance['Contratoconstructor']['idcontrato']));
+	    } else {
+	    	$this->Session->setFlash('Imposible eliminar el Avance seleccionado. Verifique que no existan Informes de Supervisión asociados a dicho avance');
+	        $this->redirect(array('action' => 'index',
+	        	$avance['Contratoconstructor']['idproyecto'],
+				$avance['Contratoconstructor']['idcontrato']));
 	    }
 	}
 	

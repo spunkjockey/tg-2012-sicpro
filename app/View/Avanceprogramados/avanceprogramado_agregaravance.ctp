@@ -61,8 +61,12 @@ $this->end(); ?>
 			<li>
 				<?php echo '<label>Código de Contrato:</label> '.$contrato['Contratoconstructor']['codigocontrato']; ?>
 			</li>
-
-
+			<li>
+				<?php echo '<label>Orden de Inicio:</label> '. date('d/m/Y',strtotime($contrato['Contratoconstructor']['ordeninicio'])); ?>
+			</li>
+			<li>
+				<?php echo '<label>Fecha Fin:</label> '. date('d/m/Y',strtotime($contrato['Contratoconstructor']['fechafincontrato'])); ?>
+			</li>
 			<li>
 				<?php echo $this->Form->input('plazoejecuciondias', array(
 								'label' => 'Plazo de Ejecución',
@@ -295,7 +299,9 @@ $this->end(); ?>
                     
 					$("#fechaavance").kendoDatePicker({
 		   				culture: "es-ES",
-		   				format: "dd/MM/yyyy" //Define el formato de fecha
+		   				format: "dd/MM/yyyy", 
+		   				<?php if(!empty($contrato['Contratoconstructor']['ordeninicio'])) { echo 'min: kendo.parseDate("' . $contrato['Contratoconstructor']['ordeninicio'] . '", "yyyy-MM-dd"),';} ?>
+		   				<?php if(!empty($contrato['Contratoconstructor']['fechafincontrato'])) { echo 'max: kendo.parseDate("' . $contrato['Contratoconstructor']['fechafincontrato'] . '", "yyyy-MM-dd"),';} ?>
 					});
                     
                     $("#montoavfinancieroprog").kendoNumericTextBox({

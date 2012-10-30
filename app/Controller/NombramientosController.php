@@ -110,26 +110,87 @@ class NombramientosController extends AppController {
 	
 	
 	public function proyectojson() {
-		$conditions =
-		array(
-		    'OR' => array(
-		        array('Proyecto.estadoproyecto' => 'Ejecucion'),
-		        array('Proyecto.estadoproyecto' => 'Adjudicacion')
-				)
-			);
-		$proyectos = $this->Proyecto->find('all',array(
-			'fields' => array('Proyecto.idproyecto', 'Proyecto.numeroproyecto'), 
+		$conditions = array();
+		switch ($this->Session->read('User.idrol')) {
+			case 3:
+		        $conditions =
+					array(
+						'Contratoconstructor.idpersona' => $this->Session->read('User.idpersona'),
+					    'OR' => array(
+					        array('Proyecto.estadoproyecto' => 'Ejecucion'),
+					        array('Proyecto.estadoproyecto' => 'Adjudicacion')
+							)
+						);
+		        break;
+		    case 2:
+		        $conditions =
+					array(
+						'OR' => array(
+					        array('Proyecto.estadoproyecto' => 'Ejecucion'),
+					        array('Proyecto.estadoproyecto' => 'Adjudicacion')
+							)
+						);
+		        break;
+		}
+			
+		
+		$proyectos = $this->Contratoconstructor->find('all',array(
+			'fields' => array('DISTINCT Proyecto.idproyecto', 'Proyecto.numeroproyecto'), 
 			'conditions' => $conditions,
 			'order' => array('Proyecto.numeroproyecto')
 		));
-		$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
+		//$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
+		$this->set('proyectos', $this->eliminarduplicados(Hash::extract($proyectos, "{n}.Proyecto")));
 		$this->set('_serialize', 'proyectos');
 		$this->render('/json/jsondata');
 	}
 	
+	public function eliminarduplicados($array=null) {
+		$count = 0;
+		$value = ""; 
+    	foreach($array as $array_key => $array_value) 
+    	{	 
+        	if ( $count >= 1 ) {
+        		if($value != $array_value['idproyecto']) {
+        			$count = 0; 
+        		}
+        	}
+        	if ( $count == 0 ) 
+        	{
+            	$value = $array_value['idproyecto']; 
+            	$count++;
+        	} else {
+        		if($array_value['idproyecto'] == $value) {
+        			unset($array[$array_key]);
+					$count++;
+				} else {
+					$count = 0;
+				}
+        	}
+        	
+    	} 
+        return array_values($array);
+	}
+	
+	
+	
 	public function contratojson() {
+		$conditions = array();
+		switch ($this->Session->read('User.idrol')) {
+			case 3:
+		        $conditions =
+					array(
+						'Contratoconstructor.idpersona' => $this->Session->read('User.idpersona')
+						);
+		        break;
+		    case 2:
+		        $conditions = array();
+		        break;
+		}	
+			
 		$contratos = $this->Contratoconstructor->find('all',array(
 			'fields' => array('Contratoconstructor.idproyecto','Contratoconstructor.idcontrato', 'Contratoconstructor.codigocontrato'),
+			'conditions' => $conditions,
 			'order' => array('Contratoconstructor.codigocontrato')
 		));
 		$this->set('contratos', Hash::extract($contratos, "{n}.Contratoconstructor"));

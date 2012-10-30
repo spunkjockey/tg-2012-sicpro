@@ -106,14 +106,57 @@
 
 	public function proyectoejecjson() 
 		{
-			$proyectos = $this->Proyecto->find('all', array(
+			$conditions = array();
+				switch ($this->Session->read('User.idrol')) {
+					case 3:
+				        $conditions =
+							array(
+								'Contratoconstructor.idpersona' => $this->Session->read('User.idpersona'),
+								'Proyecto.estadoproyecto' => 'Ejecucion'
+								);
+				        break;
+				    case 2:
+				        $conditions = array('Proyecto.estadoproyecto' => 'Ejecucion');
+				        break;
+				}
+			$proyectos = $this->Contratoconstructor->find('all', array(
 											'fields'=> array('Proyecto.idproyecto','Proyecto.numeroproyecto'),
-											'conditions'=>array( 
-															'Proyecto.estadoproyecto' => 'Ejecucion')));
-			$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
+											'conditions' => $conditions,
+											'order' => 'Proyecto.numeroproyecto DESC'
+											));
+			//$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
+			$this->set('proyectos', $this->eliminarduplicados(Hash::extract($proyectos, "{n}.Proyecto")));
 			$this->set('_serialize', 'proyectos');
 			$this->render('/json/jsondata');
 		}
+		
+		
+		public function eliminarduplicados($array=null) {
+		$count = 0;
+		$value = ""; 
+    	foreach($array as $array_key => $array_value) 
+    	{	 
+        	if ( $count >= 1 ) {
+        		if($value != $array_value['idproyecto']) {
+        			$count = 0; 
+        		}
+        	}
+        	if ( $count == 0 ) 
+        	{
+            	$value = $array_value['idproyecto']; 
+            	$count++;
+        	} else {
+        		if($array_value['idproyecto'] == $value) {
+        			unset($array[$array_key]);
+					$count++;
+				} else {
+					$count = 0;
+				}
+        	}
+        	
+    	} 
+        return array_values($array);
+	}
 		
 	public function empresajson()
 	{
@@ -134,8 +177,23 @@
 	}
 
 	public function contratojson() {
+		$conditions = array();
+		switch ($this->Session->read('User.idrol')) {
+			case 3:
+		        $conditions =
+					array(
+						'Contratoconstructor.idpersona' => $this->Session->read('User.idpersona')
+						);
+		        break;
+		    case 2:
+		        $conditions = array();
+		        break;
+		}
+			
 		$contratos = $this->Contratoconstructor->find('all',array(
 			'fields' => array('Contratoconstructor.idproyecto','Contratoconstructor.idcontrato', 'Contratoconstructor.codigocontrato'),
+			'conditions' => $conditions,
+			
 			'order' => array('Contratoconstructor.codigocontrato')
 		));
 		
@@ -210,47 +268,69 @@
 	{
 		$this->layout = 'cyanspark';
 		$this->Contratoconstructor->id = $id;
-		
-		$info = $this->Contratoconstructor->find('all',
-			array('conditions'=>array('Contratoconstructor.idcontrato'=>$id)));
+		$info = $this->Contratoconstructor->find('all',array(
+			'conditions'=>array('Contratoconstructor.idcontrato'=>$id)));
 		$this->set('infoc',$info);
+		
 		if ($this->request->is('post')) 
 		{
-
-			$this->Contratoconstructor->create();
-			
-			$this->Contratoconstructor->set('idcontrato', $id);
-			$this->Contratoconstructor->set('idpersona', $this->request->data['Contratoconstructor']['admin']);
-			$this->Contratoconstructor->set('idempresa', $this->request->data['Contratoconstructor']['empresas']);
-			$this->Contratoconstructor->set('codigocontrato', $this->request->data['Contratoconstructor']['codigocontrato']);
-			$this->Contratoconstructor->set('nombrecontrato', $this->request->data['Contratoconstructor']['nombrecontrato']);
-			$this->Contratoconstructor->set('montooriginal', $this->request->data['Contratoconstructor']['montooriginal']);
-			$this->Contratoconstructor->set('plazoejecucion', $this->request->data['Contratoconstructor']['plazoejecucion']);
-			$this->Contratoconstructor->set('fechainiciocontrato', $this->request->data['Contratoconstructor']['fechainiciocontrato']);
-			$this->Contratoconstructor->set('fechafincontrato', $this->request->data['Contratoconstructor']['fechafincontrato']);
-			$this->Contratoconstructor->set('detalleobras', $this->request->data['Contratoconstructor']['detalleobras']);
-			$this->Contratoconstructor->set('tipocontrato', 'Construcción de obras');
-			$this->Contratoconstructor->set('retencion', $this->request->data['Contratoconstructor']['montooriginal']*0.05);
-			$this->Contratoconstructor->set('anticipo', $this->request->data['Contratoconstructor']['anticipo']);
-			$this->Contratoconstructor->set('userm', $this->Session->read('User.username'));
-			$this->Contratoconstructor->set('modificacion', date('Y-m-d h:i:s'));
-            if($this->Contratoconstructor->save($id,array(
-					'fieldList'=>array('idcontrato','idpersona','idempresa','codigocontrato','nombrecontrato',
-									   'montooriginal','plazoejecucion','fechainiciocontrato',
-									   'fechafincontrato','detalleobras','userm','modificacion',
-									   'retencion','anticipo'))))
+			$contrato = $this->Contrato->findByCodigocontrato($this->request->data['Contratoconstructor']['codigocontrato']);	
+			$id = $contrato['Contrato']['idcontrato'];
+			$this->Contrato->create();
+			$datacontrato = array(
+				'idcontrato' => $contrato['Contrato']['idcontrato'],
+				'idproyecto' => $contrato['Contrato']['idproyecto'],
+				'idpersona' => $this->request->data['Contratoconstructor']['admin'],
+				'idempresa' => $this->request->data['Contratoconstructor']['empresas'],
+				'codigocontrato' => $this->request->data['Contratoconstructor']['codigocontrato'],
+				'nombrecontrato' => $this->request->data['Contratoconstructor']['nombrecontrato'],
+				'montooriginal' => $this->request->data['Contratoconstructor']['montooriginal'],
+				'plazoejecucion' => $this->request->data['Contratoconstructor']['plazoejecucion'],
+				'fechainiciocontrato' => $this->request->data['Contratoconstructor']['fechainiciocontrato'],
+				'fechafincontrato' => $this->request->data['Contratoconstructor']['fechafincontrato'],
+				'detalleobras' => $this->request->data['Contratoconstructor']['detalleobras'],
+				'tipocontrato' => 'Construcción de obras',
+				'userm' => $this->Session->read('User.username'),
+				'modificacion' => date('Y-m-d h:i:s'));
+            if($this->Contrato->save($datacontrato))
 			{
-				//Debugger::dump($this->request->data);
+				$this->Contratoconstructor->create();
+				$constructor = array(
+					'idcontrato' => $contrato['Contrato']['idcontrato'],
+					'idproyecto' => $contrato['Contrato']['idproyecto'],
+					'idpersona' => $this->request->data['Contratoconstructor']['admin'],
+					'idempresa' => $this->request->data['Contratoconstructor']['empresas'],
+					'codigocontrato' => $this->request->data['Contratoconstructor']['codigocontrato'],
+					'nombrecontrato' => $this->request->data['Contratoconstructor']['nombrecontrato'],
+					'montooriginal' => $this->request->data['Contratoconstructor']['montooriginal'],
+					'plazoejecucion' => $this->request->data['Contratoconstructor']['plazoejecucion'],
+					'fechainiciocontrato' => $this->request->data['Contratoconstructor']['fechainiciocontrato'],
+					'fechafincontrato' => $this->request->data['Contratoconstructor']['fechafincontrato'],
+					'detalleobras' => $this->request->data['Contratoconstructor']['detalleobras'],
+					'tipocontrato' => 'Construcción de obras',
+					'userm' => $this->Session->read('User.username'),
+					'retencion', $this->request->data['Contratoconstructor']['montooriginal']*0.05,
+					'anticipo', $this->request->data['Contratoconstructor']['anticipo'],
+					'modificacion' => date('Y-m-d h:i:s'));
 				
-				$this->Session->setFlash('El contrato '.$this->request->data['Contratoconstructor']['codigocontrato'].' ha sido actualizado.',
-										 'default',array('class'=>'success'));	
-				$this->redirect(array('controller'=>'Contratoconstructors', 'action' => 'contratoconstructor_listar'));
+				if($this->Contratoconstructor->save($constructor))
+				{
+					$this->Session->setFlash('El Contrato de tipo Constructor '.$this->request->data['Contratoconstructor']['codigocontrato'].' ha sido actualizado.',
+											 'default',array('class'=>'success'));	
+					$this->redirect(array('controller'=>'Contratoconstructors', 'action' => 'contratoconstructor_listar'));
+				}
+				else 
+				{
+					$this->Session->setFlash('Ha ocurrido un error Contrato constructor');
+	            }
 				
 			}
 			else 
 			{
-				//$this->Session->setFlash('Ha ocurrido un error verifique que los datos sean correctos');
+				$this->Session->setFlash('Ha ocurrido un error Contrato');
+				$this->set('error',$this->Contrato->invalidFields());
             }
+			
         }
 	else
 		{

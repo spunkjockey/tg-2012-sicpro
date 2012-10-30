@@ -99,15 +99,26 @@
 				
 				UNION
 				
-				 SELECT 
+				SELECT 
 				  contratoconstructor.idcontrato, 0 as count
 				FROM 
 				  sicpro2012.contratoconstructor
-				
 				GROUP BY 
 				 contratoconstructor.idcontrato
 				
 				UNION
+				
+				SELECT 
+				  contratoconstructor.idcontrato, count(contratoconstructor.idcontrato)
+				FROM 
+				  sicpro2012.contratoconstructor, 
+				  sicpro2012.nombramiento
+				WHERE 
+				  contratoconstructor.idcontrato = nombramiento.idcontrato
+				GROUP BY 
+				 contratoconstructor.idcontrato
+				 
+				 UNION
 				
 				 SELECT 
 				  contratoconstructor.idcontrato, count(contratoconstructor.idcontrato)

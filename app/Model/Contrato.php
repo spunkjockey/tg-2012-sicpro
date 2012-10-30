@@ -57,6 +57,7 @@
 			);
 				
 		public function montocorrecto($check) {
+			//Debugger::dump($this->data);
 			$mproyecto = $this->Proyecto->find('first',array(
 				'fields' => array('Proyecto.montoplaneado'),
 				'conditions' => array('Proyecto.idproyecto' => $this->data['Contrato']['idproyecto']),

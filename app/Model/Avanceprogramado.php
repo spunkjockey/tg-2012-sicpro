@@ -31,12 +31,6 @@ class Avanceprogramado extends AppModel {
     		)
 		),
 		'montoavfinancieroprog' => array(
-	    	/*'decimal' => array(
-	        	'rule'    => array('decimal',2),
-	        	'required' => true,
-	        	'allowEmpty' => false,
-	            'message' => 'Ingrese un monto de avance'
-	        ),*/
 			'montocorrecto' => array(
             	'rule'    => array('montocorrecto'),
             	'message' => 'El monto del avance supera el monto del contrato'
@@ -86,4 +80,36 @@ class Avanceprogramado extends AppModel {
     		$mk=mktime(0, 0, 0, $m, $d, $y);
     		return strftime('%Y-%m-%d',$mk);
 		}
+		
+		
+		
+		public function beforeDelete($cascade = false) {
+	    	
+			
+		    $count = $this->query('SELECT 
+				  avanceprogramado.idavanceprogramado, 
+				  contratosupervisor.con_idcontrato,
+				  avanceprogramado.fechaavance,
+				  count(*)
+				FROM 
+				  sicpro2012.avanceprogramado, 
+				  sicpro2012.informesupervision, 
+				  sicpro2012.contratosupervisor
+				WHERE 
+				  avanceprogramado.fechaavance = informesupervision.fechafinsupervision AND
+				  informesupervision.idcontrato = contratosupervisor.idcontrato AND
+				  contratosupervisor.con_idcontrato = avanceprogramado.idcontrato AND
+				  avanceprogramado.idavanceprogramado = '. $this->id .'
+				GROUP BY
+				  avanceprogramado.idavanceprogramado, 
+				  contratosupervisor.con_idcontrato;');
+		    
+			//Debugger::dump(Hash::get($count, '0.0.sum'));
+		    if (Hash::get($count, '0.0.count') == 0) {
+		        return true;
+		    } else {
+		        return false;
+		    }
+	    
+	}
 }

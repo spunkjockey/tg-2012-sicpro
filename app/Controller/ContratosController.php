@@ -13,78 +13,88 @@ class ContratosController extends AppController {
 	 
 	 public function addordeninicio($id=null) {
 		$this->layout = 'cyanspark';
-		
-		
-        if ($this->request->is('post')) 
+		if ($this->request->is('post')) 
         {
         	//Debugger::dump($this->request->data);	
         	$id = $this->request->data['Contrato']['contratos'];
 			$this->Contrato->create();
 			$tipo = $this->Contrato->field('tipocontrato',array('idcontrato'=>$id));
-			//Debugger::dump($tipo);
-            $this->Contrato->set('idcontrato', $this->request->data['Contrato']['contratos']);
-            $this->Contrato->set('ordeninicio', $this->request->data['Contrato']['ordeninicio']);
-			$this->Contrato->set('userm', $this->Session->read('User.username'));
-			$this->Contrato->set('modificacion', date('Y-m-d h:i:s'));
-			$this->Contrato->set('estadocontrato','en marcha');
-			if($this->Contrato->save($id, array('fieldList'=>array('ordeninicio','userm','modificacion','estadocontrato'))))
-			{
-            	//Verifica el tipo de contrato para actualizar en la tabla correspondiente
-            	//Primero se verifica si es de construccion
-            	if($tipo=='Construcción de obras')
-				{
-					$this->Contratoconstructor->set('idcontrato', $this->request->data['Contrato']['contratos']);
-		            $this->Contratoconstructor->set('ordeninicio', $this->request->data['Contrato']['ordeninicio']);
-					$this->Contratoconstructor->set('userm', $this->Session->read('User.username'));
-					$this->Contratoconstructor->set('modificacion', date('Y-m-d h:i:s'));
-					$this->Contratoconstructor->set('estadocontrato','en marcha');
-					if($this->Contratoconstructor->save($id, array('fieldList'=>array('estadocontrato','ordeninicio','userm','modificacion'))))
-					{
-						$this->Session->setFlash('La Orden de Inicio ha sido registrada.','default',array('class'=>'success'));
-            			$this->redirect(array('controller'=>'mains', 'action' => 'index'));
-					}
-					else 
-					{
-						$this->Session->setFlash('No se pudo realizar el registro');
-					}
-				}
-				//Si no es de construccion se asume es de supervision
-				else 
-				{
-					$this->Contratosupervisor->set('idcontrato', $this->request->data['Contrato']['contratos']);
-		            $this->Contratosupervisor->set('ordeninicio', $this->request->data['Contrato']['ordeninicio']);
-					$this->Contratosupervisor->set('userm', $this->Session->read('User.username'));
-					$this->Contratosupervisor->set('modificacion', date('Y-m-d h:i:s'));
-					$this->Contratosupervisor->set('estadocontrato','en marcha');
-					if($this->Contratosupervisor->save($id, array('fieldList'=>array('estadocontrato','ordeninicio','userm','modificacion'))))
-					{
-						$this->Session->setFlash('La Orden de Inicio ha sido registrada.','default',array('class'=>'success'));
-            			$this->redirect(array('controller'=>'mains', 'action' => 'index'));
-					}
-					else 
-					{
-						$this->Session->setFlash('No se pudo realizar el registro');
-					}
-	
-				}
+			
+			$this->Contrato->create();
+			if($tipo=='Construcción de obras') {
+				$data = array(
+					'idcontrato' => $this->request->data['Contrato']['contratos'],
+					'ordeninicio'=> $this->request->data['Contrato']['ordeninicio'],
+					'userm'=> $this->Session->read('User.username'),
+					'modificacion' => date('Y-m-d h:i:s'),
+					'estadocontrato' => 'en marcha');
+			} else {
+				$data = array(
+					'idcontrato' => $this->request->data['Contrato']['contratos'],
+					'ordeninicio'=> $this->request->data['Contrato']['ordeninicio'],
+					'userm'=> $this->Session->read('User.username'),
+					'modificacion' => date('Y-m-d h:i:s'));
 			}
-			else 
+			if($this->Contrato->save($data)) 
 			{
-				$this->Session->setFlash('No se pudo realizar el registro');	
-			}      	
-        } 
-    	else 
-    	{
-        		
-        	//no es post
+			       	if($tipo=='Construcción de obras')
+					{
+							$this->Contratoconstructor->set('idcontrato', $this->request->data['Contrato']['contratos']);
+				            $this->Contratoconstructor->set('ordeninicio', $this->request->data['Contrato']['ordeninicio']);
+							$this->Contratoconstructor->set('userm', $this->Session->read('User.username'));
+							$this->Contratoconstructor->set('modificacion', date('Y-m-d h:i:s'));
+							$this->Contratoconstructor->set('estadocontrato','en marcha');
+							if($this->Contratoconstructor->save($id, array('fieldList'=>array('estadocontrato','ordeninicio','userm','modificacion'))))
+							{
+								$this->Session->setFlash('La Orden de Inicio ha sido registrada en el Contrato Constructor.','default',array('class'=>'success'));
+		            			$this->redirect(array('controller'=>'mains', 'action' => 'index'));	
+							}
+							else 
+							{
+								$this->Session->setFlash('No se pudo realizar el registro en el Contrato Constructor');
+							}
+					}
+					//Si no es de construccion se asume es de supervision
+					else 
+					{
+							$this->Contratosupervisor->set('idcontrato', $this->request->data['Contrato']['contratos']);
+				            $this->Contratosupervisor->set('ordeninicio', $this->request->data['Contrato']['ordeninicio']);
+							$this->Contratosupervisor->set('userm', $this->Session->read('User.username'));
+							$this->Contratosupervisor->set('modificacion', date('Y-m-d h:i:s'));
+							//$this->Contratosupervisor->set('estadocontrato','en marcha');
+							if($this->Contratosupervisor->save($id, array('fieldList'=>array('estadocontrato','ordeninicio','userm','modificacion'))))
+							{
+									
+								$this->Session->setFlash('La Orden de Inicio ha sido registrada en el Contrato Supervisor.','default',array('class'=>'success'));
+		            			$this->redirect(array('controller'=>'mains', 'action' => 'index'));	
+							}
+							else 
+							{
+								$this->Session->setFlash('No se pudo realizar el registro en el Contrato Supervisor');
+							}
+			
+					}	
+
+			}
+			else
+			{
+				$this->Session->setFlash('No se pudo realizar el registro en el Contrato');	
+			}
+			//Debugger::dump($tipo);
+           	//Verifica el tipo de contrato para actualizar en la tabla correspondiente
+           	//Primero se verifica si es de construccion
+    
 		}
+  	
+
 	}
     
 	public function contratojson() {
 		$contratos = $this->Contrato->find('all',array(
 			'fields' => array('Contrato.idproyecto','Contrato.idcontrato', 'Contrato.codigocontrato'),
 			'conditions'=> array(
-			'OR' => array('Contrato.ordeninicio' => null, 'Contrato.ordeninicio >= now()')),
+			/*'OR' => array('Contrato.ordeninicio' => null, 'Contrato.ordeninicio >= now()')*/
+			'Contrato.idpersona' => $this->Session->read('User.idpersona')),
 			
 			'order' => array('Contrato.codigocontrato')
 		));
@@ -109,8 +119,11 @@ class ContratosController extends AppController {
 	public function proyectoordenjson() {
 		$proyectos = $this->Contrato->find('all',array(
 					'fields' => array('DISTINCT Proyecto.idproyecto', 'Proyecto.numeroproyecto'),
-					'conditions' => array('Proyecto.estadoproyecto' => array('Ejecucion','Adjudicacion'),
-						'OR' => array('Contrato.ordeninicio' => null, 'Contrato.ordeninicio >= now()')),
+					'conditions' => array(
+							'Proyecto.estadoproyecto' => array('Ejecucion','Adjudicacion'),
+							'Contrato.idpersona' => $this->Session->read('User.idpersona')//,
+							//'OR' => array('Contrato.ordeninicio' => null, 'Contrato.ordeninicio >= now()')
+							),
 					'order'=>'Proyecto.numeroproyecto')
 		 );
 		$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
@@ -337,7 +350,8 @@ order by avance.fechaavance');
 	
 	public function contrato_consultar(){
 		$this->layout = 'cyanspark';
-			$this->set('contratos',$this->Contrato->find('all')); 
+			$this->set('contratos',$this->Contrato->find('all',array(
+				'order' => array('Contrato.idproyecto DESC','Contrato.codigocontrato ASC')))); 
 	}
 
 	public function contrato_detalle($idcontrato=null){
@@ -365,12 +379,12 @@ order by avance.fechaavance');
 	
 	function tipojson() {
 		$contratos = $this->Contrato->find('all', array(
-			'fields'=>array('DISTINCT Contrato.tipocontrato'),
-			'recursive' => 0,
-			'order' => 'Contrato.tipocontrato'
+			'fields'=>array('DISTINCT Proyecto.numeroproyecto'),
+			//'recursive' => 0,
+			'order' => 'Proyecto.numeroproyecto'
 			));
 		
-		$this->set('contratos', Hash::extract($contratos, "{n}.Contrato"));
+		$this->set('contratos', Hash::extract($contratos, "{n}.Proyecto"));
 		//$this->set('contratos', $contratos);
 		$this->set('_serialize', 'contratos');
 		$this->render('/json/jsoncontratotecproy');

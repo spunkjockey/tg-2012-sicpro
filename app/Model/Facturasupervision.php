@@ -19,7 +19,7 @@ class Facturasupervision extends AppModel {
 	    'montofactura' => array(
 	        'montocorrecto' => array(
             	'rule'    => array('montocorrecto'),
-            	'message' => 'El monto a facturar sobrepasa el mondo del contrato'
+            	'message' => 'El monto a facturar sobrepasa el monto del contrato'
         	)
 		),
 	    'fechafactura' => array(
