@@ -27,9 +27,7 @@ class OrdendecambiosController extends AppController {
 				    	$contraselected=$this->Contratoconstructor->findByIdcontrato($idcontrato);
 		            	$this->Session->setFlash('La Orden de Cambio "'.$this->request->data['Ordenc']['tituloordendecambio'].'" ha sido registrada al Contrato "'.$contraselected['Contratoconstructor']['codigocontrato'].'".','default',array('class' => 'success'));
 		            	$this->redirect(array('action' => 'ordendecambio_listar'));
-		        	} else {
-		            	$this->Session->setFlash('No se pudo realizar el registro' );
-		        	}			
+		        	} 			
 		}
 		
 	}

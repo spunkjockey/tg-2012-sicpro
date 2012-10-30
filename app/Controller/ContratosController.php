@@ -236,11 +236,19 @@ class ContratosController extends AppController {
 				);
 				
 				
+				
 				$avancesupervision = $this->Informesupervisor->query('select * 
-					from 
-					sicpro2012.avanceprogramado LEFT JOIN sicpro2012.informesupervision ON avanceprogramado.fechaavance = informesupervision.fechafinsupervision 
-					where avanceprogramado.idcontrato = '. $contrato['Contratoconstructor']['idcontrato'] .'
-					order by avanceprogramado.fechaavance');
+from 
+
+(select * from sicpro2012.avanceprogramado where avanceprogramado.idcontrato = '. $contrato['Contratoconstructor']['idcontrato'] .') avance 
+
+LEFT JOIN 
+
+(select * from sicpro2012.informesupervision where informesupervision.idcontrato = '. $scontrato['Contratosupervisor']['idcontrato'] .') informe 
+
+ON avance.fechaavance = informe.fechafinsupervision 
+
+order by avance.fechaavance');
 				
 				//Debugger::dump($avancesupervision);
 				//Debugger::dump(Hash::extract($avance,'{n}.Avanceprogramado'));

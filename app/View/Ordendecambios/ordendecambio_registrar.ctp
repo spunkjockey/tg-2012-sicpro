@@ -116,6 +116,8 @@ $this->end(); ?>
 		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 		            datePicker1.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
 		        </script>
+		        <?php if ($this->Form->isFieldError('Ordendecambio.fecharegistroorden')) {
+ 	 					echo $this->Form->error('Ordendecambio.fecharegistroorden'); } ?>
 			</li>
 			<li  class="accept">
 				<table>
