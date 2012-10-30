@@ -34,7 +34,7 @@ if(!empty($ordenes)){ ?>
             <?php echo $this->Html->link(
             	'<span class="k-icon k-i-pencil"></span>', 
             	array('action' => 'ordendecambio_modificar', $or['Ordendecambio']['idordencambio']),
-            	array('class'=>'k-button','escape' => false)
+            	array('class'=>'k-button','escape' => false,'title' => 'Modificar orden de cambio')
 			);?>
 			
 			
@@ -42,7 +42,7 @@ if(!empty($ordenes)){ ?>
                 '<span class="k-icon k-i-close"></span>',
                 array('action' => 'ordendecambio_eliminar', $or['Ordendecambio']['idordencambio']),
                 array('confirm' => '¿Está seguro que desea eliminar la Orden de Cambio ?',
-                		'class'=>'k-button','escape' => false)
+                		'class'=>'k-button','escape' => false,'title' => 'Eliminar orden de cambio')
             );
             }
 				else{
