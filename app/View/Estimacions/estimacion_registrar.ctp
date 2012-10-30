@@ -61,16 +61,24 @@ $this->end(); ?>
 					array(
 						'label' => 'Proyectos:', 
 						'id' => 'proyectos',
-						'div' => array('class' => 'requerido')
+						'div' => array('id'=>'proy','class' => 'requerido')
 					)); ?>
+				<script type="text/javascript">
+		            var proyectos = new LiveValidation( "proyectos", { validMessage: " ", insertAfterWhatNode: "proy" } );
+		            proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script> 
 			</li>
 				<li>
 				<?php echo $this->Form->input('idcontrato',
 					array(
 						'label' => 'Contratos:', 
 						'id' => 'contratos',
-						'div' => array('class' => 'requerido')
+						'div' => array('id'=>'contra','class' => 'requerido')
 					)); ?>
+				<script type="text/javascript">
+		            var contratos = new LiveValidation( "contratos", { validMessage: " ", insertAfterWhatNode: "contra" } );
+		            contratos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script> 
 			</li>
 			<li>
 				<?php echo $this->Form->input('tituloestimacion', 
@@ -122,6 +130,7 @@ $this->end(); ?>
 						'label' => 'Monto Estimado:',
 						'id'    => 'moneda',
 						'type'=>'text',
+						'maxlength'=> 12,
 						'placeholder' => 'Monto Estimado',
 						'div' => array('id' => 'monto', 'class' => 'requerido')
 						)); ?>
@@ -135,15 +144,15 @@ $this->end(); ?>
 				<?php echo $this->Form->input('porcentajeestimadoavance', 
 					array(
 						'label' => 'Porcentaje Estimación: ', 
-						'class' => 'k-textbox', 
+						//'class' => 'k-textbox', 
 						'style' => 'width: 150px;',
 						'id'=>  'porcentaje',
 						'type' => 'text',
 						'placeholder' => 'Porcentaje Estimado',
 						'maxlength'=> 5,
-						'div' => array('class' => 'requerido'))); ?>
+						'div' => array('id'=>'prc','class' => 'requerido'))); ?>
 				<script type="text/javascript">
-		            var porcentaje = new LiveValidation( "porcentaje", { validMessage: " " } );
+		            var porcentaje = new LiveValidation( "porcentaje", { validMessage: " ", insertAfterWhatNode: "prc" } );
 		            porcentaje.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            porcentaje.add( Validate.Numericality,{ minimum: 0, maximum: 100, tooLowMessage: "El porcentaje no puede ser menor a 0 %", tooHighMessage: "El porcentaje no debe ser mayor al 100 %", notANumberMessage:"Debe ser un número"} );
 		        </script>
@@ -252,7 +261,7 @@ $this->end(); ?>
                     margin-left: 6px;
                 }
                 
- 				.LV_validation_message{
+ 				.LV_validation_message, .error-message{
 				    /*font-weight:bold;*/
 				    margin:0 0 0 5px;
 				}
@@ -263,28 +272,11 @@ $this->end(); ?>
 				    display: none;
 				}
 					
-				.LV_invalid {
+				.LV_invalid, .error-message {
 				    color:#CC0000;
                		display:block;
                		margin-left: 145px;
 				}
-				    
-			/*	.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
-				}
-				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
-                */
             </style>
             
 <script>
@@ -338,6 +330,10 @@ $this->end(); ?>
 		});
          $("#moneda").kendoNumericTextBox({
 		     format: "c2", //Define currency type and 2 digits precision
+		     spinners: false
+		 });
+		 $("#porcentaje").kendoNumericTextBox({
+		     format: "c1", //Define currency type and 2 digits precision
 		     spinners: false
 		 });
 

@@ -137,7 +137,7 @@ form .error-message {
 }
 
 form .error-message {
-	color: #9E2424;
+    color: rgb(204, 0, 0);
 }
 
 /** Notices and Errors **/
@@ -185,7 +185,7 @@ p.error,
 .error-message {
 	clear: both;
 	color: #fff;
-	background: #c43c35;
+	background: #CC0000;
 	border: 1px solid rgba(0, 0, 0, 0.5);
 	background-repeat: repeat-x;
 	background-image: -moz-linear-gradient(top, #ee5f5b, #c43c35);

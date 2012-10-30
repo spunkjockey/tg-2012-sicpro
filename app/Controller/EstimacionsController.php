@@ -123,7 +123,7 @@ class EstimacionsController extends AppController {
             $this->render('/Elements/update_selectContrato1', 'ajax');
 	}
 
-	function ModificarEstimacion($id = null)  {
+	function estimacion_modificar($id = null)  {
 	    $this->layout = 'cyanspark';
         //preguntar si es post
         $this->Estimacion->id = $id;
@@ -152,7 +152,7 @@ class EstimacionsController extends AppController {
         $this->set ('idestimacion', $id);    
     }
 
-	function delete($id) {
+	function estimacion_eliminar($id) {
 		if (!$this->request->is('post')) {
 	        throw new MethodNotAllowedException();
 	    }

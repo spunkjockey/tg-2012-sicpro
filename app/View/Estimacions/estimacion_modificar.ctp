@@ -64,6 +64,7 @@ $this->end(); ?>
 					array(
 						'label' => 'Título Estimación: ', 
 						'class' => 'k-textbox', 
+						'id'=>'tituloestimacion',
 						'placeholder' => 'Título Estimación',
 						'div' => array('class' => 'requerido'))); ?>
 				<script type="text/javascript">

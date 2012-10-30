@@ -58,7 +58,6 @@ $this->end(); ?>
 
 <?php foreach ($infosupervision as $ifs): ?>
 	<h4><?php echo $ifs['Informesupervisor']['tituloinformesup'] ?></h4>
-	<strong>Fecha Inicio: </strong><?php  date('d/m/Y',strtotime($ifs['Informesupervisor']['fechainiciosupervision'])) ;?>
 	<strong>Fecha Fin: </strong><?php echo  date('d/m/Y',strtotime($ifs['Informesupervisor']['fechafinsupervision'])) ;?><br />
 		<strong>Pazo Ejecución: </strong><?php echo $ifs['Informesupervisor']['plazoejecuciondias'] ;?><br />
 	<strong>Avance Fisico: </strong><?php echo $ifs['Informesupervisor']['porcentajeavancefisico'] ;?>%<br />
