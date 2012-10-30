@@ -103,12 +103,14 @@ $this->end(); ?>
 						'class' => 'k-textbox',  
 						'id' => 'txmonto',
 						'type' => 'text',
+						'maxlength' => '12',
 						'placeholder' => 'Monto del contrato',
 						'div' => array('id' => 'monto','class' => 'requerido')
 						)); ?>
 				<script type="text/javascript">
 					var txmonto = new LiveValidation( "txmonto", { validMessage: " ", insertAfterWhatNode: "monto"  } );
 		            txmonto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		       		txmonto.add( Validate.Numericality, { minimum: 0.01, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.01", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
 		        </script>
 			</li>
 			<li>
@@ -118,12 +120,15 @@ $this->end(); ?>
 						'class' => 'k-textbox',  
 						'id' => 'txanticipo',
 						'type' => 'text',
+						'maxlength' => '12',
 						'placeholder' => 'Anticipo del contrato',
 						'div' => array('id'=> 'antic','class' => 'requerido'))); ?>
 				<script type="text/javascript">
 					var txanticipo = new LiveValidation( "txanticipo", { validMessage: " " , insertAfterWhatNode: "antic" } );
 		            txanticipo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		       		txanticipo.add( Validate.Numericality, { minimum: 0.00, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.01", tooHighMessage: "El anticipo no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
 		        </script>
+		        <div id="erroranticipo" class="LV_validation_message LV_invalid"></div>
 			</li>
 			<li>
 				<?php echo $this->Form->input('fechainiciocontrato', 
@@ -338,18 +343,29 @@ $this->end(); ?>
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
 
-                    $("#ContratoconstructorContratoconstructorRegistrarForm").submit(function() {
-	                       	if(empresas.dataItem()){
+                   $("#ContratoconstructorContratoconstructorModificarForm").submit(function() {
+	                       	
+	                       	if($('#txmonto').val()*0.30 >= $('#txanticipo').val()) {
+	                       		$('#erroranticipo').hide();
 								
-								$('#errorempresa').hide();
-								return true;
-							}
-							else {
-									//alert("No Existe");
-										$('#errorempresa').show().text('No Existe la empresa');
+								if(empresas.dataItem()){
+									$('#errorempresa').hide();
+									return true;
+								}
+								else {
+									$('#errorempresa').show().text('No Existe la empresa');
+									return false;
+								}
+								
+	                       	} else {
+	                       		$('#erroranticipo').show().text('El anticipo no debe ser mayor al 30% del monto');
 								return false;
-							}
+	                       	}
                     });
+                    
+                    $("#txanticipo").focusin(function() {
+				         $('#erroranticipo').hide();
+				    });
                                     
 
 				$("#txmonto").kendoNumericTextBox({

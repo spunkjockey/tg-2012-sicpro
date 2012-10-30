@@ -40,20 +40,24 @@
 		);
 	
 	public function montocorrecto($check) {
-		$mavance = $this->Contratosupervisor->find('all',array(
-			'fields' => array('Contratosupervisor.montototal'),
-			'conditions' => array('Contratosupervisor.idcontrato' => $this->data['Informesupervisor']['idcontrato'])
-		));
+	
 
+		$mtotal = $this->query("SELECT 
+  contratoconstructor.idcontrato, 
+  contratoconstructor.montooriginal + contratoconstructor.variacion montototal
+FROM 
+  sicpro2012.contratoconstructor 
+WHERE
+  contratoconstructor.idcontrato = (SELECT contratosupervisor.con_idcontrato
+FROM sicpro2012.contratosupervisor
+WHERE contratosupervisor.idcontrato = ". $this->data['Informesupervisor']['idcontrato']." );");
 		
-		$montototal = Hash::extract($mavance, '0.Contratosupervisor');
-
-		$monto = $montototal['montototal'] /*- $montoavances['avance']*/;  
-        Debugger::dump($monto);
-		Debugger::dump($check['valoravancefinanciero']);
-		Debugger::dump($check['valoravancefinanciero'] <= (float) $monto );
-		Debugger::dump($this->data);
-        return (float) $check['valoravancefinanciero'] <= (float) $monto;
+		//Debugger::dump($mtotal); 
+		$monto = Hash::get($mtotal, '0.0.montototal');
+        //Debugger::dump($monto);
+		//Debugger::dump($check['valoravancefinanciero']);
+		//Debugger::dump($check['valoravancefinanciero'] <= (float) $monto );
+		return (float) $check['valoravancefinanciero'] <= (float) $monto;
 
     }
 	

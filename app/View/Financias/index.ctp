@@ -111,7 +111,7 @@ $this->end(); ?>
 							<?php echo $this->Form->end(array('label' => 'Asignar Fondos', 'class' => 'k-button', 'id' => 'button')); ?>
 						</td>
 						<td>
-							<?php echo $this->Html->link('Cancelar',array('controller' => 'Mains', 'action' => 'index'),array('class'=>'k-button')); ?>
+							<?php echo $this->Html->link('Regresar',array('controller' => 'Mains', 'action' => 'index'),array('class'=>'k-button')); ?>
 						</td>
 					</tr>
 				</table>
