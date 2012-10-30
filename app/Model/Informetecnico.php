@@ -53,5 +53,26 @@
     	
 		}
 		
+		
+		public function beforeSave($options = array()) {
+			if(!empty($this->data['Informetecnico']['fechavisita'] )){
+				$this->data['Informetecnico']['fechavisita'] = $this->dateFormatBeforeSave($this->data['Informetecnico']['fechavisita']);
+			}
+
+			if(!empty($this->data['Informetecnico']['fechaelaboracion'] )){
+				$this->data['Informetecnico']['fechaelaboracion'] = $this->dateFormatBeforeSave($this->data['Informetecnico']['fechaelaboracion']);
+			}
+			//Debugger::dump($this->data);
+		    return true;
+		}
+		
+		
+		public function dateFormatBeforeSave($dateString) {
+		    
+    		list($d, $m, $y) = explode('/', $dateString);
+    		$mk=mktime(0, 0, 0, $m, $d, $y);
+    		return strftime('%Y-%m-%d',$mk);
+		}
+		
     }
 ?>

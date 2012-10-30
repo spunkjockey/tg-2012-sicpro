@@ -57,7 +57,7 @@ $this->end(); ?>
 			<li>
 				<?php 
 					echo $this->Form->input('contratos', array(
-							'label' => 'Seleccione código de Contrato:', 
+							'label' => 'Código de Contrato:', 
 							'div' => array('id' => 'contrat', 'class' => 'requerido'),
 							'id' => 'contratos'));
 				?>
@@ -215,6 +215,7 @@ $this->end(); ?>
                 
                 .LV_validation_message{
 				    margin:0 0 0 5px;
+				    display: none;
 				}
 				
 				.LV_valid {
@@ -255,7 +256,7 @@ $this->end(); ?>
 		});
                 
 				$("#contratos").kendoDropDownList({
-            			optionLabel: "Seleccione contrato...",
+            			optionLabel: "Seleccione contrato",
 			            dataTextField: "codigocontrato",
 			            dataValueField: "idcontrato",
 			            dataSource: {
