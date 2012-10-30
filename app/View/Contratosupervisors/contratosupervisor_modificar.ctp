@@ -51,7 +51,8 @@ $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Modificar contrato supervisor</h2>
-			<?php echo $this->Form->create('Contratosupervisor',array('action' => 'contratosupervisor_modificar')); ?>
+			<?php 
+			echo $this->Form->create('Contratosupervisor',array('action' => 'contratosupervisor_modificar')); ?>
 		<ul>
 		<?php 
 			$opciones=array();
@@ -61,7 +62,10 @@ $this->end(); ?>
 					}
 		?>
 		<li>
-			<?php echo $this->Form->hidden('idproyecto'); ?>
+			<?php 
+				echo $this->Form->hidden('idproyecto');
+				echo $this->Form->hidden('idcontrato');
+			 ?>
 			<?php echo $this->Form->input('con_idcontrato', 
 				array(
 					'label' => 'Contrato de construcción a supervisar:', 
@@ -92,6 +96,8 @@ $this->end(); ?>
 		        codigo.add(Validate.Format, { pattern: /___-____/i, failureMessage: "No puedes dejar este campo en blanco", negate: true } );
 		        codigo.add(Validate.Format, { pattern: /\d\d\d-\d\d\d\d/i, failureMessage: "El código de contrato debe tener 7 números"} );
 		    </script> 
+		    <?php if ($this->Form->isFieldError('Contrato.codigocontrato')) {
+ 	 					echo $this->Form->error('Contrato.codigocontrato'); } ?>
 		</li>
 		<li>
 			<?php echo $this->Form->input('nombrecontrato', 
@@ -126,6 +132,8 @@ $this->end(); ?>
 				var txmonto = new LiveValidation( "txmonto", { validMessage: " " , insertAfterWhatNode: "montocont"} );
 		        txmonto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		    </script>
+		    <?php if ($this->Form->isFieldError('Contrato.montooriginal')) {
+ 	 					echo $this->Form->error('Contrato.montooriginal'); } ?>
 		</li>
 		
 		<li>
@@ -133,7 +141,7 @@ $this->end(); ?>
 				array(
 					'label' => 'Fecha inicio de vigencia:', 
 					'id'	=> 'datePicker1',
-					'value' => date('d/m/Y',strtotime($this->request->data['Contratosupervisor']['fechainiciocontrato'])),
+					//'value' => date('d/m/Y',strtotime($this->request->data['Contratosupervisor']['fechainiciocontrato'])),
 					'div' => array('id'=>'fchaini','class' => 'requerido'),
 					'type'  => 'Text'
 					));
@@ -151,7 +159,7 @@ $this->end(); ?>
 					'label' => 'Fecha fin de vigencia:', 
 					'id'	=> 'datePicker2',
 					//'value' => date('d/m/Y',strtotime($fincon)),
-					'value' => date('d/m/Y',strtotime($this->request->data['Contratosupervisor']['fechafincontrato'])),
+					//'value' => date('d/m/Y',strtotime($this->request->data['Contratosupervisor']['fechafincontrato'])),
 					'div' => array('id'=>'fchafin','class' => 'requerido'),
 					'type'  => 'Text'
 					)); 
@@ -219,12 +227,12 @@ $this->end(); ?>
 				?>
 		</li>
 		<li>
-			<?php echo $this->Form->input('empresas', 
+			<?php echo $this->Form->input('idempresa', 
 				array(
 					'label' => 'Empresa ejecutora:', 
 					'id' => 'empresas',
 					'class' => 'k-combobox',
-					'value' => $this->request->data['Contratosupervisor']['idempresa'],
+					//'value' => $this->request->data['Contratosupervisor']['idempresa'],
 					//'value' => $idecon,
 					'div' => array('id'=>'empsup','class' => 'requerido')
 					));
@@ -235,12 +243,13 @@ $this->end(); ?>
 		    </script>
 		</li>
 		<li>
-			<?php echo $this->Form->input('admin', 
+			
+			<?php echo $this->Form->input('idpersona', 
 				array(
 					'label' => 'Administrador del contrato:', 
 					'id' => 'admin',
 					'class' => 'k-combobox',
-					'value' => $this->request->data['Contratosupervisor']['idpersona'],
+					//'value' => $this->request->data['Contratosupervisor']['idpersona'],
 					'div' => array('id'=>'admcon','class' => 'requerido')
 					)); 
 				?>
@@ -442,15 +451,23 @@ $this->end(); ?>
     var start = $("#datePicker1").kendoDatePicker({
         culture: "es-ES",
 	   	format: "dd/MM/yyyy",
-        change: startChange,
-        close: filtrarDrop
+	   	change: startChange,
+        close: filtrarDrop,
+        <?php if(isset( $this->request->data['Contratosupervisor']['fechainiciocontrato'] )) 
+			{ echo 'value: kendo.parseDate("'. $this->request->data['Contratosupervisor']['fechainiciocontrato'] .'", "yyyy-MM-dd"),'; } 
+			?>
     }).data("kendoDatePicker");
 	
     var end = $("#datePicker2").kendoDatePicker({
         culture: "es-ES",
 	   	format: "dd/MM/yyyy",
         change: endChange,
-        close: filtrarDrop
+        close: filtrarDrop,
+        <?php if(isset( $this->request->data['Contratosupervisor']['fechafincontrato'] )) 
+			{
+			echo 'value: kendo.parseDate("'. $this->request->data['Contratosupervisor']['fechafincontrato'] .'", "yyyy-MM-dd"),'; 
+			} 
+			?>
     }).data("kendoDatePicker");
 	
     start.max(end.value());

@@ -51,7 +51,8 @@ $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Modificar contrato constructor</h2>
-		<?php echo $this->Form->create('Contratoconstructor',array('action' => 'contratoconstructor_modificar')); ?>
+		<?php 
+		echo $this->Form->create('Contratoconstructor',array('action' => 'contratoconstructor_modificar')); ?>
 		<ul>
 			<li>
 				<!--- Aqui se carga el nombre del proyecto seleccionado-->
@@ -129,7 +130,7 @@ $this->end(); ?>
 					array(
 						'label' => 'Fecha inicio de vigencia:', 
 						'id'	=> 'datePicker1',
-						'value' => date('d/m/Y',strtotime($this->request->data['Contratoconstructor']['fechainiciocontrato'])),
+						//'value' => date('d/m/Y',strtotime($this->request->data['Contratoconstructor']['fechainiciocontrato'])),
 						'div' => array('id'=>'fechaini','class' => 'requerido'),
 						'type'  => 'Text'
 						));
@@ -147,7 +148,7 @@ $this->end(); ?>
 					array(
 						'label' => 'Fecha fin de vigencia:', 
 						'id'	=> 'datePicker2',
-						'value' => date('d/m/Y',strtotime($this->request->data['Contratoconstructor']['fechafincontrato'])),
+						//'value' => date('d/m/Y',strtotime($this->request->data['Contratoconstructor']['fechafincontrato'])),
 						'div' => array('id'=>'fechafin','class' => 'requerido'),
 						'type'  => 'Text'
 						)); 
@@ -472,14 +473,22 @@ $this->end(); ?>
         culture: "es-ES",
 	   	format: "dd/MM/yyyy",
         change: startChange,
-        close: filtrarDrop
+        close: filtrarDrop,
+        <?php if(isset( $this->request->data['Contratoconstructor']['fechainiciocontrato'] )) 
+			{ echo 'value: kendo.parseDate("'. $this->request->data['Contratoconstructor']['fechainiciocontrato'] .'", "yyyy-MM-dd"),'; } 
+			?>
     }).data("kendoDatePicker");
 	
     var end = $("#datePicker2").kendoDatePicker({
         culture: "es-ES",
 	   	format: "dd/MM/yyyy",
         change: endChange,
-        close: filtrarDrop
+        close: filtrarDrop,
+        <?php if(isset( $this->request->data['Contratoconstructor']['fechafincontrato'] )) 
+			{
+			echo 'value: kendo.parseDate("'. $this->request->data['Contratoconstructor']['fechafincontrato'] .'", "yyyy-MM-dd"),'; 
+			} 
+			?>
     }).data("kendoDatePicker");
 	
     start.max(end.value());
