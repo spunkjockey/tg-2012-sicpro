@@ -85,13 +85,13 @@ $this->end(); ?>
         <td align="center">
             <?php echo $this->Html->link(
             	'<span class="k-icon k-i-pencil"></span>', 
-            	array('action' => 'modificarestimacion', $esti['Estimacion']['idestimacion']),
+            	array('action' => 'estimacion_modificar', $esti['Estimacion']['idestimacion']),
             	array('class'=>'k-button', 'escape' => false, "title"=>"Editar")
 			);?>
 			
             <?php echo $this->Form->postLink(
                 '<span class="k-icon k-i-close"></span>',
-                array('action' => 'delete', $esti['Estimacion']['idestimacion']),
+                array('action' => 'estimacion_eliminar', $esti['Estimacion']['idestimacion']),
                 array('confirm' => '¿Está seguro que desea eliminar la estimación seleccionada?','class'=>'k-button', 'escape' => false, "title"=>"Eliminar")
             )?>
             

@@ -54,7 +54,8 @@ $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Modificar Orden de Cambio</h2>
-		<?php echo $this->Form->create('Ordendecambio'); ?>
+		<?php 
+		echo $this->Form->create('Ordendecambio'); ?>
 		<ul>
 			<li>
 				<?php echo $this->Form->input('tituloordendecambio', 
@@ -258,12 +259,22 @@ $this->end(); ?>
     		spinners: false
 		});
 	
-		$("#datePicker1").kendoDatePicker({
+		var start = $("#datePicker1").kendoDatePicker({
+		   			culture: "es-ES",
 		   			format: "dd/MM/yyyy",
-		   			<?php if(isset($anterior)){	echo "min: kendo.parseDate('".$anterior['Ordendecambio']['fecharegistroorden']."'),";}?>
-		   			<?php	echo "value: kendo.parseDate('".$this->request->data['Ordendecambio']['fecharegistroorden']."'),";?>
-		   			culture: "es-ES"
-		});
+		   			<?php if(isset( $this->request->data['Ordendecambio']['fecharegistroorden'] )) 
+						{
+							 echo 'value: kendo.parseDate("'. $this->request->data['Ordendecambio']['fecharegistroorden'] .'", "yyyy-MM-dd"),'; } 
+						?>
+		   			
+		   			<?php /*if(isset($anterior))
+		   			{
+		   				echo "min: kendo.parseDate('".$anterior['Ordendecambio']['fecharegistroorden']."'),";
+					}
+					?>
+		   			<?php	echo "value: kendo.parseDate('".$this->request->data['Ordendecambio']['fecharegistroorden'].'", "yyyy-MM-dd"),';*/?>
+		   			
+		}).data("kendoDatePicker");
 		                
 	});
 </script>
