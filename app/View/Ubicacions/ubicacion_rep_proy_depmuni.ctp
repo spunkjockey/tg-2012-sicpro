@@ -51,7 +51,7 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Beneficiarios y empleos generados</h2>
+		<h2>Zonas donde se han desarrollado proyecto</h2>
 		
 		
 		<?php echo $this->ajax->form(array(
