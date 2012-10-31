@@ -162,6 +162,8 @@
 <script>
 	
 	$(document).ready(function() {
-    $("#panelBar").kendoPanelBar();
+    $("#panelBar").kendoPanelBar({
+    	 expandMode: "single"
+    });
 });
 </script>

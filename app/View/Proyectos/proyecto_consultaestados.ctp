@@ -53,17 +53,9 @@ $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Consultar Estados</h2>
-		<?php echo $this->ajax->form(array('type' => 'post',
-		    'options' => array(
-		        'model'=>'Proyecto',
-		        'update'=>'consultaestados',
-		        'indicator' => 'loading',
-				'before' => '$("#consultaestados").html(" fdsfsdfsd")',
-		        'url' => array(
-		            'action' => 'update_consultaestados'
-		        )
-		    )
-		)); ?>
+
+		<?php echo $this->Form->create('Proyecto'); ?>
+
 		<ul>
 			<li>
 				<?php echo $this->Form->input('start',
@@ -106,26 +98,29 @@ $this->end(); ?>
 			</li>
 			<li  class="accept">
 				<table>
-				<tr><td>
-				<?php //echo $this->Form->end(array('label' => 'Consultar', 'class' => 'k-button', 'id' => 'submit')); ?>
-				
-				<!--<?php echo $this->Ajax->submit('Buscar', array('class' => 'k-button','url'=> array('controller'=>'Proyectos', 'action'=>'update_consultaestados'), 'update' => 'consultaestados')); ?>-->
-				<?php echo $this->Form->end(array('label' => 'Buscar', 'class' => 'k-button'));?> 
-				</td>
-				<td>
-				<?php echo $this->Html->link('Regresar',
-					array('controller' => 'Mains', 'action' => 'index'),array('id' => 'regresar','class'=>'k-button')); 
-				?>	
-				</td></tr>
+				<tr>
+					<td>
+					<!--<?php echo $this->Form->end(array('label' => 'Buscar', 'class' => 'k-button'));?>-->
+					<?php echo $this->Ajax->submit('Buscar', array(
+							'class' => 'k-button', 
+							'url'=> array('controller'=>'Proyectos', 'action'=>'update_consultaestados'),
+							'indicator' => 'loading',
+							'before' => '$("#avancecontrato").html(" ")', 
+							'update' => 'consultaestados'));
+					echo $this->Form->end(); ?> 
+					</td>
+					<td>
+					<?php echo $this->Html->link('Regresar',
+						array('controller' => 'Mains', 'action' => 'index'),array('id' => 'regresar','class'=>'k-button')); 
+					?>	
+					</td>
+				</tr>
 				</table>
-				</li>
-            
-            <li class="status">
-            </li>
+			</li>
 		</ul>
 		
 	<div id='loading' style="text-align: center; width: 600px; display: none;"><?php echo $this->Html->image('spinner.gif', array('alt' => 'cargando', "style" => "border: 0;")); ?></div>
-		<div id="consultaestados"></div>
+	<div id="consultaestados" style="margin-top: 50px"></div>
 	</div>
 </div>
 

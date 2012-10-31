@@ -117,10 +117,23 @@ WHERE
 
 
 	public function proyectosfactjson() {
+		
+		$conditions = array();
+		switch ($this->Session->read('User.idrol')) {
+			case 3:
+		        $conditions =
+					array('Facturaxcontrato.idpersona' => $this->Session->read('User.idpersona'));
+		        break;
+		    case 2:
+			case 1:
+		        $conditions = array();
+		        break;
+		}	
+			
 		$proyectos = $this->Facturaxcontrato->find('all',array(
 			'fields' => array('DISTINCT Facturaxcontrato.idproyecto', 'Facturaxcontrato.numeroproyecto'),
 			'order' => array('Facturaxcontrato.numeroproyecto'),
-			'conditions' => array('Facturaxcontrato.idpersona' => $this->Session->read('User.idpersona'))
+			'conditions' => $conditions
 		));
 		
 		$this->set('proyectos', Hash::extract($proyectos, "{n}.Facturaxcontrato"));
@@ -134,14 +147,50 @@ WHERE
 		//Debugger::dump($this->request->data);
 		if(isset($this->request->data['proyectos'])&&!empty($this->request->data['proyectos']))
 		{
+			$conditions = array();
+			switch ($this->Session->read('User.idrol')) {
+				case 3:
+			        $conditions =
+						array(
+							'Facturaxcontrato.numeroproyecto' => $this->request->data['proyectos'],
+							'Facturaxcontrato.idpersona' => $this->Session->read('User.idpersona')
+							);
+			        break;
+			    case 2:
+				case 1:
+			        $conditions =
+						array(
+							'Facturaxcontrato.numeroproyecto' => $this->request->data['proyectos']
+							);
+			        break;
+			}
+			
 			$facturas = $this->Facturaxcontrato->find('all',array(
 					//'fields' => array('DISTINCT Facturaxcontrato.idproyecto', 'Facturaxcontrato.numeroproyecto'),
 					'order' => array('Facturaxcontrato.numeroproyecto','Facturaxcontrato.numerofactura'),
-					'conditions' => array(
-						'Facturaxcontrato.numeroproyecto' => $this->request->data['proyectos'],
-						'Facturaxcontrato.idpersona' => $this->Session->read('User.idpersona'))
+					'conditions' => $conditions
 				));
+			
 			$this->set('facturas',$facturas);
+			
+			$conditionss = array();
+			switch ($this->Session->read('User.idrol')) {
+				case 3:
+			        $conditionss =
+						array(
+							'Facturaxcontrato.numeroproyecto' => $this->request->data['proyectos'],
+							'Facturaxcontrato.idpersona' => $this->Session->read('User.idpersona')
+							);
+			        break;
+			    case 2:
+				case 1:
+			        $conditionss =
+						array(
+							'Facturaxcontrato.numeroproyecto' => $this->request->data['proyectos']
+							);
+			        break;
+			}
+			
 			
 			$proyectos = $this->Facturaxcontrato->find('all',array(
 				'fields' => array('DISTINCT Facturaxcontrato.idproyecto', 'Facturaxcontrato.numeroproyecto'
@@ -149,15 +198,45 @@ WHERE
 						, 'Facturaxcontrato.montoplaneado'
 						, 'Facturaxcontrato.estadoproyecto'),
 				'order' => array('Facturaxcontrato.numeroproyecto'),
-				'conditions' => array(
-						'Facturaxcontrato.numeroproyecto' => $this->request->data['proyectos'],
-						'Facturaxcontrato.idpersona' => $this->Session->read('User.idpersona'))
+				'conditions' => $conditionss
 			));
 			
 			$this->set('proyectos', Hash::extract($proyectos, "{n}.Facturaxcontrato"));
 			
-						
-			//Debugger::dump($facturas);
+			$conditionsss = array();
+			switch ($this->Session->read('User.idrol')) {
+				case 3:
+			        $conditionsss =
+						array(
+							'Facturaxcontrato.numeroproyecto' => $this->request->data['proyectos'],
+							'Facturaxcontrato.idpersona' => $this->Session->read('User.idpersona')
+							);
+			        break;
+			    case 2:
+				case 1:
+			        $conditionsss =
+						array(
+							'Facturaxcontrato.numeroproyecto' => $this->request->data['proyectos']
+							);
+			        break;
+			}
+			
+			
+			$facturasa = $this->Facturaxcontrato->find('all',array(
+				'fields' => array('DISTINCT Facturaxcontrato.codigocontrato', 'Facturaxcontrato.nombrecontrato'
+						, 'Facturaxcontrato.tipocontrato'
+						, 'Facturaxcontrato.montooriginal'
+						, 'Facturaxcontrato.idcontrato'
+						, 'Facturaxcontrato.con_idcontrato'
+						, 'Facturaxcontrato.estadocontrato'),
+				'order' => array('Facturaxcontrato.codigocontrato'),
+				'conditions' => $conditionsss
+			));
+			
+			$this->set('facturasa', $facturasa);
+			
+				
+			
 		}
 		
 			

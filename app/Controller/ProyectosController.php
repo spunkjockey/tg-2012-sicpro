@@ -2,7 +2,7 @@
     public $name = 'Proyectos';
     public $components = array('Session','RequestHandler');
 	public $uses = array('Proyecto','Division','Contrato','Financia','Contratoconstructor','Proyembe');
-	public $helpers = array('Html', 'Form', 'Session','Ajax');
+	public $helpers = array('Html', 'Form', 'Session','Ajax', 'Javascript');
 	
 	public function proyecto_registrar() {
         $this->layout = 'cyanspark';

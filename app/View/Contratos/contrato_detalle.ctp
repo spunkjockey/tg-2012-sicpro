@@ -54,29 +54,29 @@ $this->end(); ?>
 <!--<?php Debugger::dump($ordenes); ?>-->
 <p>
 	<h2>Información Contrato</h2>
-	<div id="tablagrid">
+	<div id="Proyecto">
 		<table id="grid">
 		<tbody>
 		<tr>
-			<td width="30%">Codigo Contrato</td><td width="60%"><?php echo $contratos['Contrato']['codigocontrato']?></td>
+			<td width="30%" class="primerac">Codigo Contrato:</td><td width="60%"><?php echo $contratos['Contrato']['codigocontrato']?></td>
 		</tr>
 		<tr>
-			<td>Contrato</td><td><?php echo $contratos['Contrato']['nombrecontrato']?></td>
+			<td class="primerac">Contrato:</td><td><?php echo $contratos['Contrato']['nombrecontrato']?></td>
 		</tr>
 		<tr>
-			<td>Monto Original</td><td><?php echo $contratos['Contrato']['montooriginal']?></td>
+			<td class="primerac">Monto Original:</td><td><?php echo '$' . number_format($contratos['Contrato']['montooriginal'],2)?></td>
 		</tr>
 		<tr>
-			<td>Tipo Contrato</td><td><?php echo $contratos['Contrato']['tipocontrato']?></td>
+			<td class="primerac">Tipo Contrato:</td><td><?php echo $contratos['Contrato']['tipocontrato']?></td>
 		</tr>
 		<tr>
-			<td>Plazo Ejecucion</td><td><?php echo $contratos['Contrato']['plazoejecucion']?></td>
+			<td class="primerac">Plazo Ejecucion:</td><td><?php echo $contratos['Contrato']['plazoejecucion']?> días</td>
 		</tr>
 		<tr>
-			<td>Orden de Inicio</td><td>
+			<td class="primerac">Orden de Inicio:</td><td>
 			<?php 
 			if(isset($contratos['Contrato']['ordeninicio'])){
-			echo $contratos['Contrato']['ordeninicio'];
+			echo date('d/m/Y',strtotime($contratos['Contrato']['ordeninicio']));
 			}
 			else {
 				{echo "Orden de Inicio no disponible";}
@@ -85,10 +85,10 @@ $this->end(); ?>
 			</td>
 		</tr>
 		<tr>
-			<td>Detalle de Obras</td><td><?php echo $contratos['Contrato']['detalleobras']?></td>
+			<td class="primerac">Detalle de Obras:</td><td><?php echo $contratos['Contrato']['detalleobras']?></td>
 		</tr>
 		<tr>
-			<td>Estado contrato</td><td>
+			<td class="primerac">Estado contrato:</td><td>
 			<?php 
 			if(isset($contratos['Contrato']['estadocontrato'])){
 			echo $contratos['Contrato']['estadocontrato'];
@@ -100,10 +100,10 @@ $this->end(); ?>
 			</td>
 		</tr>
 		<tr>
-			<td>Administrador de Contrato</td><td><?php echo $contratos['Persona']['nombrespersona']. ''.$contratos['Persona']['apellidospersona']?></td>
+			<td class="primerac">Administrador de Contrato:</td><td><?php echo $contratos['Persona']['nombrespersona']. ' '.$contratos['Persona']['apellidospersona']?></td>
 		</tr>
 		<tr>
-			<td>Empresa</td><td><?php echo $contratos['Empresa']['nombreempresa']?></td>
+			<td class="primerac">Empresa:</td><td><?php echo $contratos['Empresa']['nombreempresa']?></td>
 		</tr>
 		</tbody>
 		</table>
@@ -159,9 +159,9 @@ $this->end(); ?>
 	#Proyecto .primerac, #Contrato .primerac {
 		font-family: "Trebuchet MS", Arial, sans-serif;
 		font-weight: bold;
-		text-align: right;
-		padding-right: 10px;
-		min-width: 80px;
+		text-align: left;
+		/*padding-right: 10px;
+		min-width: 80px;*/
 	}
 	
 	/* 

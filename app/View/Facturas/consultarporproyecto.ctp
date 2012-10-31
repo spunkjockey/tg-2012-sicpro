@@ -61,6 +61,8 @@ $this->end(); ?>
 		    'options' => array(
 		        'model'=>'Factura',
 		        'update'=>'facturaxproy',
+		        'indicator' => 'loading',
+				'before' => '$("#facturaxproy").html(" ")',
 		        'url' => array(
 		            'action' => 'update_facturasxproyecto'
 		        )
@@ -88,7 +90,7 @@ $this->end(); ?>
 					    	<?php //echo $this->Html->link('Regresar', array('controller' => 'Mains','action' => 'index'),
 					    		//array('class'=>'k-button'));?>
 
-	
+	<div id='loading' style="text-align: center; width: 600px; display: none;"><?php echo $this->Html->image('spinner.gif', array('alt' => 'cargando', "style" => "border: 0;")); ?></div>
 	<div id="facturaxproy"></div>
 	<!--
 		<?php echo $this->ajax->observeForm( 'FacturaConsultarporproyectoForm', 
