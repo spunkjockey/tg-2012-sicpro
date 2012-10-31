@@ -13,6 +13,10 @@
 				'className'    => 'Proyecto',
 				'foreignKey'   => 'idproyecto'
 				),
+			'Realproyecto' => array(
+				'className'    => 'Realproyecto',
+				'foreignKey'   => 'idproyecto'
+				),
 			'Empresa' => array(
 				'className'    => 'Empresa',
 				'foreignKey'   => 'idempresa'
@@ -58,9 +62,9 @@
 				
 		public function montocorrecto($check) {
 			//Debugger::dump($this->data);
-			$mproyecto = $this->Proyecto->find('first',array(
-				'fields' => array('Proyecto.montoplaneado'),
-				'conditions' => array('Proyecto.idproyecto' => $this->data['Contrato']['idproyecto']),
+			$mproyecto = $this->Realproyecto->find('first',array(
+				'fields' => array('Realproyecto.montoreal'),
+				'conditions' => array('Realproyecto.idproyecto' => $this->data['Contrato']['idproyecto']),
 				'recursive' => 0
 			));
 	
@@ -80,9 +84,9 @@
 			  
 	
 			  //Debugger::dump($this->data);
-			  //Debugger::dump($mproyecto['Proyecto']['montoplaneado']);
+			  //Debugger::dump($mproyecto['Realproyecto']['montoreal']);
 			  //Debugger::dump(Hash::get($mcontrato,'0.0.totalmonto'));
-			  $montodisponible = (float) $mproyecto['Proyecto']['montoplaneado'] - (float) Hash::get($mcontrato,'0.0.totalmonto');
+			  $montodisponible = (float) $mproyecto['Realproyecto']['montoreal'] - (float) Hash::get($mcontrato,'0.0.totalmonto');
 			  //Debugger::dump($check['montooriginal']); 
 			  //Debugger::dump(round($montodisponible,2));
 			  //Debugger::dump($check['montooriginal'] <= (float) round($montodisponible,2));

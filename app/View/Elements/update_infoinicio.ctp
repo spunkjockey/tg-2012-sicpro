@@ -2,9 +2,12 @@
 <?php if(isset($informacion)){
 	//Debugger::dump($informacion);
 	foreach ($informacion as $inf): ?>
-		<p><label>Nombre Contrato: </label> <?php echo $inf['nombrecontrato']; ?></p>
-		<p><label>Fecha Inicio: </label><?php echo date('d/m/Y',strtotime( $inf['fechainiciocontrato'])); ?></p>
-		<p><label>Fecha Fin: </label><?php echo date('d/m/Y',strtotime($inf['fechafincontrato'])); ?></p>
+		
+		<table>
+		<tr><td><label>Nombre Contrato: </label> </td><td> <?php echo $inf['nombrecontrato']; ?></td></tr>
+		<tr><td><label>Fecha Inicio: </label> </td><td> <?php echo date('d/m/Y',strtotime( $inf['fechainiciocontrato'])); ?></td></tr>
+		<tr><td><label>Fecha Fin: </label> </td><td> <?php echo date('d/m/Y',strtotime($inf['fechafincontrato'])); ?></td></tr>
+		</table>
 		<!--<p><label>Orden de Inicio: </label><?php echo date('d/m/Y',strtotime($inf['ordeninicio'])); ?></p>-->
 	<?php endforeach; ?>
 
@@ -145,7 +148,7 @@
 			culture:"es-ES",
 			<?php	if(isset($informacion['Contrato']['fechainiciocontrato'])) { echo "min: kendo.parseDate('".$informacion['Contrato']['fechainiciocontrato']."'),";}?>
 		   	<?php	if(isset($informacion['Contrato']['fechafincontrato'])) { echo "max: kendo.parseDate('".$informacion['Contrato']['fechafincontrato']."'),";}?>
-		   	<?php	if(isset($informacion['Contrato']['ordeninicio'])) { echo "value: kendo.parseDate('".$informacion['Contrato']['ordeninicio']."'),";}?>
+		   	<?php	if(isset($informacion['Contrato']['ordeninicio'])) { echo "value: kendo.parseDate('".$informacion['Contrato']['ordeninicio']."'),";} else { echo "value: ' ', ";} ?>
     		format: "dd/MM/yyyy" //Define el formato de fecha
     	});
     	$("input[type=submit]").click(function() {

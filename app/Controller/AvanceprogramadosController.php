@@ -59,7 +59,7 @@ class AvanceprogramadosController extends AppController {
 		}
 	}
 
-	public function Avanceprogramado_editaravance($id=null) {
+	public function Avanceprogramado_editaravance($id=null,$idcontrato=null) {
 		$this->layout = 'cyanspark';
 
 			$avances = $this->Avanceprogramado->find('all', array(
@@ -83,12 +83,15 @@ class AvanceprogramadosController extends AppController {
 			$this->Avanceprogramado->set('porcentajeavfisicoprog', $this->request->data['Avanceprogramado']['porcentajeavfisicoprog']);
 			$this->Avanceprogramado->set('montoavfinancieroprog', $this->request->data['Avanceprogramado']['montoavfinancieroprog']);
 			$this->Avanceprogramado->set('fechaavance', $this->request->data['Avanceprogramado']['avance']);
-			$this->Avanceprogramado->set('idcontrato', $id);
+			$this->Avanceprogramado->set('idcontrato', $idcontrato);
 			$this->Avanceprogramado->set('userm', $this->Session->read('User.username'));
 			$this->Avanceprogramado->set('modificacion', date("Y-m-d H:i:s"));
 		    if ($this->Avanceprogramado->save()) {
 	            $this->Session->setFlash('El Avance ha sido actualizado exitosamente.','default',array('class'=>'success'));
-	            $this->redirect(array('action' => 'index'));
+				$contratoc = $this->Contratoconstructor->findByIdcontrato($idcontrato);
+	            $this->redirect(array('action' => 'index',
+	            	$contratoc['Contratoconstructor']['idproyecto'],
+					$contratoc['Contratoconstructor']['idcontrato']));
 	        } else {
             	//$this->Session->setFlash('Ha ocurrido un error. No se pudo realizar el registro');
 

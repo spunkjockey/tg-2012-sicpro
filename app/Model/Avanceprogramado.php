@@ -9,10 +9,7 @@ class Avanceprogramado extends AppModel {
             'foreignKey'   => 'idcontrato'
         )
     );
-	
 
-	
-	
 	public $validate = array(
 		'plazoejecuciondias' => array(
 	    	'naturalNumber' => array(
@@ -58,7 +55,8 @@ class Avanceprogramado extends AppModel {
 			'conditions' => array('Contratoconstructor.idcontrato' => $this->data['Avanceprogramado']['idcontrato'])
 		));
 
-		
+		//Debugger::dump($mavance);
+		//Debugger::dump($this->data);
 		$montototal = Hash::extract($mavance, '0.Contratoconstructor');
 
 		$monto = $montototal['montototal'] /*- $montoavances['avance']*/;  

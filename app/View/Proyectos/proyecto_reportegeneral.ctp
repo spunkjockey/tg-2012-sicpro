@@ -60,12 +60,13 @@ $this->end(); ?>
 						'label' => 'Seleccione proyecto:', 
 						'id' => 'proys',
 						'class'=>'k-combobox',
-						'div' => array('class' => 'requerido'))); 
+						'div' => array('id' => 'proyogen', 'class' => 'requerido'))); 
 				?>
 				<script type="text/javascript">
-					var proys = new LiveValidation( "proys", { validMessage: " " } );
+					var proys = new LiveValidation( "proys", { validMessage: " ", insertAfterWhatNode: 'proyogen' } );
 		            proys.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script>
+		        <div id="errornumero" class="LV_validation_message LV_invalid"></div>
 			</li>
 			
 			<li  class="accept">
@@ -140,7 +141,7 @@ $this->end(); ?>
 
                 .accept, .status {
                 	padding-top: 15px;
-                    padding-left: 150px;
+                    padding-left: 350px;
                 }
 
                 .valid {
@@ -155,52 +156,44 @@ $this->end(); ?>
                 }
                 
                 .LV_validation_message{
-				    font-weight:bold;
+				   
 				    margin:0 0 0 5px;
 				}
 				
 				.LV_valid {
 				    color:#00CC00;
+				    display:none;
 				}
 					
 				.LV_invalid {
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 170px; 
+               		margin-left: 205px; 
                
 				}
 				    
-				.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
-				}
-				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
+
             </style>
 			
             <script>
                 $(document).ready(function() {
                     
-                    var validator = $("#formulario").kendoValidator().data("kendoValidator"),
-                    status = $(".status");
 
-                    $("#button").click(function() {
-                        if (validator.validate()) {
-                        	save();  
-                        } 
-                    });
+        			$("#ProyectoProyectoReportegeneralForm").submit(function() {
+	                       	
+	                       	if(proys.dataItem()){
+									$('#errornumero').hide();
+									return true;
+								}
+								else {
+									$('#errornumero').show().text('No Existe este Número de Proyecto').delay(5000).slideUp('easy');
+									return false;
+								}
+                    });            
                     
-                    $("#proys").kendoDropDownList({
+                    
+                    $("#proys").kendoComboBox({
 			            optionLabel: "Seleccione proyecto",
 			            dataTextField: "numeroproyecto",
 			            dataValueField: "idproyecto",
@@ -212,7 +205,7 @@ $this->end(); ?>
 			                        }
 			        });
 			        
-			        var proys = $("#proys").data("kendoDropDownList");
+			        var proys = $("#proys").data("kendoComboBox");
                     proys.list.width(300);
                     
                     

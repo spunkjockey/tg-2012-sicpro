@@ -7,15 +7,31 @@ class MainsController extends AppController {
 	public function index() {
 		//$this->layout = 'cyanspark';
 		$this->set('title_for_layout', 'Index');
-		$proyectos = $this->Proyecto->find('all', array(
-			'conditions' => array('Proyecto.estadoproyecto' => 'Ejecucion'),
-			'order' => array('Proyecto.numeroproyecto' => 'ASC')
-			));
-		$contratos = $this->Proyecto->Contrato->find('all', array(
-			'order' => array('Contrato.codigocontrato' => 'ASC')
-			));
+		$proyectos = $this->Proyecto->query('SELECT 
+				  proyecto.numeroproyecto, 
+				  proyecto.nombreproyecto, 
+				  proyecto.montoplaneado, 
+				  proyecto.estadoproyecto, 
+				  SUM(financia.montoparcial) montoreal, 
+				  COUNT(contrato.idcontrato) numcontratos, 
+				  SUM(contrato.montooriginal) + SUM(contrato.variacion) AS montocontratos
+				FROM 
+				  sicpro2012.proyecto, 
+				  sicpro2012.financia, 
+				  sicpro2012.contrato
+				WHERE 
+				  proyecto.idproyecto = financia.idproyecto AND
+				  proyecto.idproyecto = contrato.idproyecto
+				GROUP BY
+				  proyecto.numeroproyecto, 
+				  proyecto.nombreproyecto, 
+				  proyecto.montoplaneado, 
+				  proyecto.estadoproyecto
+				ORDER BY
+				  proyecto.numeroproyecto DESC
+				LIMIT 10;');
 		$this->set('proyectos',$proyectos);
-		$this->set('contratos',$contratos);
+
 		//Debugger::dump($proyectos);
         switch ($this->Session->read('User.idrol')) {
 			case 9:

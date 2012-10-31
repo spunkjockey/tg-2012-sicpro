@@ -126,7 +126,7 @@ $this->end(); ?>
 	        <td align="center">
 	            <?php echo $this->Html->link(
 	            	'<span class="k-icon k-i-pencil"></span>', 
-	            	array('action' => 'Avanceprogramado_editaravance', $av['Avanceprogramado']['idavanceprogramado']),
+	            	array('action' => 'Avanceprogramado_editaravance', $av['Avanceprogramado']['idavanceprogramado'],$idcontrato),
 	            	array('class'=>'k-button', 'escape' => false, 'title'=>'Editar avance')
 				);?>
 	            <?php echo $this->Form->postLink(

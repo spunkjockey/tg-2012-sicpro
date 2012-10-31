@@ -3,7 +3,7 @@
     {
 	    public $helpers = array('Html', 'Form', 'Session','Ajax');
 	    public $components = array('Session','RequestHandler');
-		public $uses = array('Contratoconstructor','Contrato','Proyecto','Empresa','Persona','Contratosupervisor','Contdisponibles');
+		public $uses = array('Contratoconstructor','Contrato','Proyecto','Empresa','Persona','Contratosupervisor','Contdisponibles','Realproyecto');
 		
 		
 		public function contratosupervisor_listar(){

@@ -93,7 +93,7 @@ class ContratosController extends AppController {
 		$contratos = $this->Contrato->find('all',array(
 			'fields' => array('Contrato.idproyecto','Contrato.idcontrato', 'Contrato.codigocontrato'),
 			'conditions'=> array(
-			/*'OR' => array('Contrato.ordeninicio' => null, 'Contrato.ordeninicio >= now()')*/
+			'OR' => array('Contrato.ordeninicio' => null, 'Contrato.ordeninicio >= now()'),
 			'Contrato.idpersona' => $this->Session->read('User.idpersona')),
 			
 			'order' => array('Contrato.codigocontrato')
@@ -121,8 +121,8 @@ class ContratosController extends AppController {
 					'fields' => array('DISTINCT Proyecto.idproyecto', 'Proyecto.numeroproyecto'),
 					'conditions' => array(
 							'Proyecto.estadoproyecto' => array('Ejecucion','Adjudicacion'),
-							'Contrato.idpersona' => $this->Session->read('User.idpersona')//,
-							//'OR' => array('Contrato.ordeninicio' => null, 'Contrato.ordeninicio >= now()')
+							'Contrato.idpersona' => $this->Session->read('User.idpersona'),
+							'OR' => array('Contrato.ordeninicio' => null, 'Contrato.ordeninicio >= now()')
 							),
 					'order'=>'Proyecto.numeroproyecto')
 		 );

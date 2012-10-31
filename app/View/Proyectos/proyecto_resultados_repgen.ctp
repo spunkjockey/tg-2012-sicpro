@@ -50,6 +50,9 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
+	
+	<?php if(isset($dataproy['0'])) { ?>
+	
 		<?php echo $this->Form->create('Proyecto',array('action' => 'proyecto_resultados_repgen','target' => '_blank')); ?>
 
 		
@@ -141,6 +144,14 @@ $this->end(); ?>
 			</li>
 			
 		</ul>
+	<?php } else { ?>
+		<div style="font: Arial, Helvetica, sans-serif; width: 600px; vertical-align: middle; margin-left: auto; margin-right: auto;">No existe proyectos relacionados a ese Número de Proyecto.</div>
+		<div style="margin-left: 400px">
+		<?php echo $this->Html->link('Regresar', 
+				array('controller' => 'Proyectos','action' => 'proyecto_reportegeneral'),
+				array('class'=>'k-button')); ?>
+		</div>
+	<?php }  ?>
 	</div>
 </div>
 

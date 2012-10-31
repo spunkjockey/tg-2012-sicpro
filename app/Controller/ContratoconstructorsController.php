@@ -2,7 +2,7 @@
     class ContratoconstructorsController extends AppController {
 	    public $helpers = array('Html', 'Form', 'Session','Ajax');
 	    public $components = array('Session','RequestHandler');
-		public $uses = array('Contratoconstructor','Contrato','Proyecto','Empresa','Persona');
+		public $uses = array('Contratoconstructor','Contrato','Proyecto','Empresa','Persona','Realproyecto');
 		
 		public function contratoconstructor_listar(){
 			$this->layout = 'cyanspark';
@@ -95,11 +95,13 @@
 	/*funcion para recuperar listado de proyectos*/
 	public function proyectojson() 
 		{
-			$proyectos = $this->Proyecto->find('all', array(
-											'fields'=> array('Proyecto.idproyecto','Proyecto.numeroproyecto'),
-											'conditions'=>array( "OR" => array(
-															'Proyecto.estadoproyecto' => array('Licitacion','Adjudicacion','Ejecucion')))));
-			$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
+			$proyectos = $this->Realproyecto->find('all', array(
+											'fields'=> array('Realproyecto.idproyecto','Realproyecto.numeroproyecto'),
+											'conditions'=>array( 
+												
+												"OR" => array(
+															'Realproyecto.estadoproyecto' => array('Licitacion','Adjudicacion','Ejecucion')))));
+			$this->set('proyectos', Hash::extract($proyectos, "{n}.Realproyecto"));
 			$this->set('_serialize', 'proyectos');
 			$this->render('/json/jsondata');
 		}
@@ -328,7 +330,7 @@
 			else 
 			{
 				$this->Session->setFlash('Ha ocurrido un error Contrato');
-				$this->set('error',$this->Contrato->invalidFields());
+				//$this->set('error',$this->Contrato->invalidFields());
             }
 			
         }

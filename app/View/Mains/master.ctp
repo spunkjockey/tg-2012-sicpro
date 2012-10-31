@@ -55,46 +55,151 @@ $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2><span>Bienvenido a SICPRO</span></h2>
+		<div style="display: inline-block; color: #3A90CA; -moz-border-radius:15px 55px 5px;
+-webkit-border-radius: 15px 55px 5px; background: #CFCFCF;">
+			<div style="float: left; width: 500px">
+			Sistema Informático para control y seguimiento de proyectos para la Dirección 
+			General de Ordenamiento Forestal, Cuenca y Riego del 
+			Ministerio de Agricultura y Ganadería
+			</div>
+			<div style="float: left; width: 10px">
+				
+			</div>
+		</div>
+		<br />
 		<p>
-			Proyectos en Seguimiento 
+			<h2>Últimos Proyectos:</h2> 
 		</p>
-		<?php if(isset($proyectos)) { ?>
+		<?php  if(isset($proyectos)) { ?>
+			<?php $monto = array(); ?>
+				<table border="1px">
+				<thead>
+				<tr>
+					<th rowspan="2"> Numero </th>
+					<th rowspan="2"> Proyecto </th>
+					<th rowspan="2"> Estado </th>
+					
+					<th colspan="3"> Montos </th>
+					
+				</tr>
+				<tr>
+					<th> Planeado </th>
+					<th> Asignado </th>
+					<th> Contratado </th>
+				</tr>
+				</thead>
+				<tbody>
+			<?php $monto['montoplaneado'] = 0 ?>
+			<?php $monto['montoreal'] = 0 ?>
+			<?php $monto['montocontratos'] = 0 ?>
 			<?php foreach ($proyectos as $proy): ?>
-				<table>
-					<tr>
-						<td colspan="2"><h3><?php echo $proy['Proyecto']['nombreproyecto'] ?></h3></td>
-					</tr>
-					<tr>
-						<td>Monto Planeado:</td>
-						<td><?php echo number_format($proy['Proyecto']['montoplaneado'],2) ?></td>
-					</tr>
-					<tr>
-							<br />
-							<table>
-							<thead>
-							<tr>
-								<th style="width: 100px">Código</th>
-								<th style="width: 400px">Contrato</th>
-								<th style="width: 100px">Estado</th>
-							</tr>
-							</thead>
-							<tbody>
-							<?php foreach ($contratos as $ctr): ?>
-								<?php if($proy['Proyecto']['idproyecto']==$ctr['Contrato']['idproyecto']) { ?>
-									<tr>
-										<td style="text-align: center"><?php echo $ctr['Contrato']['codigocontrato'] ?></td>
-										<td><?php echo $ctr['Contrato']['nombrecontrato'] ?></td>
-										<td style="text-align: center"><?php echo $ctr['Contrato']['estadocontrato'] ?></td>
-									</tr>
-								<?php } ?>
-							<?php endforeach ?>
-							</tbody>
-							</table>
-							<br />
-					</tr>
-				</table>
+				<tr>
+					<td><?php echo $proy['0']['numeroproyecto'] ?></td>
+					<td><?php echo $proy['0']['nombreproyecto'] ?></td>
+					<td><?php echo $proy['0']['estadoproyecto'] ?></td>
+					
+					<td><?php echo '$' . number_format($proy['0']['montoplaneado'],2) ?></td>
+					<td><?php echo '$' . number_format($proy['0']['montoreal'],2) ?></td>
+					<td><?php echo '$' . number_format($proy['0']['montocontratos'],2) ?></td>
+					
+					<?php $monto['montoplaneado'] = $monto['montoplaneado'] + $proy['0']['montoplaneado'] ?>
+					<?php $monto['montoreal'] = $monto['montoreal'] + $proy['0']['montoreal'] ?>
+					<?php $monto['montocontratos'] = $monto['montocontratos'] + $proy['0']['montocontratos'] ?>
+					
+				</tr>
 			<?php endforeach ?>
+				</tbody>
+				<tfoot>
+					<td colspan="3"> Total Montos: </td>
+					
+					
+					<td><?php echo '$' . number_format($monto['montoplaneado'],2) ?></td>
+					<td><?php echo '$' . number_format($monto['montoreal'],2) ?></td>
+					<td><?php echo '$' . number_format($monto['montocontratos'],2) ?></td>
+				</tfoot>
+				</table>
 		<?php } ?>
+		
+		<style scoped>
+			
+			table {
+					border-collapse:collapse;
+					/*background:#EFF4FB url(http://www.roscripts.com/images/teaser.gif) repeat-x;*/
+					background: white;
+					border-left:1px solid #686868;
+					border-right:1px solid #686868;
+					font:0.9em/145% 'Trebuchet MS',helvetica,arial,verdana;
+					color: #333;
+			}
+			
+			td, th {
+					padding:5px;
+			}
+			
+			caption {
+					padding: 0 0 .5em 0;
+					text-align: left;
+					font-size: 1.4em;
+					font-weight: bold;
+					text-transform: uppercase;
+					color: #333;
+					background: transparent;
+			}
+			
+			/* =links
+			----------------------------------------------- */
+			
+			table a {
+					color:#950000;
+					text-decoration:none;
+			}
+			
+			table a:link {}
+			
+			table a:visited {
+					font-weight:normal;
+					color:#666;
+					text-decoration: line-through;
+			}
+			
+			table a:hover {
+					border-bottom: 1px dashed #bbb;
+			}
+			
+			/* =head =foot
+			----------------------------------------------- */
+			
+			thead th, tfoot th, tfoot td {
+					background:#e1f0f6;
+					color: black;
+			}
+			
+			tfoot td {
+					text-align:right
+			}
+			
+			/* =body
+			----------------------------------------------- */
+			
+			tbody th, tbody td {
+					border-bottom: dotted 1px #333;
+			}
+			
+			tbody th {
+					white-space: nowrap;
+			}
+			
+			tbody th a {
+					color:#333;
+			}
+			
+			.odd {}
+			
+			tbody tr:hover {
+					background:#fafafa
+			}
+			
+		</style>
 		
 	</div>
 </div>

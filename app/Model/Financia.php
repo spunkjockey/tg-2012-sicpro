@@ -19,12 +19,12 @@ class Financia extends AppModel {
             	'rule'    => array('limitarMonto'),
             	'allowEmpty' => true,
             	'message' => 'El valor sobrepasa el monto disponible'
-        	),
+        	)/*,
 			'mayorqueproyecto' => array(
             	'rule'    => array('limitarMontoProyecto'),
             	'allowEmpty' => true,
             	'message' => 'El valor sobrepasa el monto del proyecto'
-        	)
+        	)*/
 		)
 		
 	);
