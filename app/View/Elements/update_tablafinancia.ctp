@@ -33,15 +33,15 @@
 		        <td><?php echo $pro['Financia']['creacion']; ?></td>
 		        <td>  
 		        	<?php echo $this->Html->link(
-            			'<span class="k-icon k-i-pencil"></span> Editar', 
+            			'<span class="k-icon k-i-pencil"></span>', 
             			array('action' => 'financia_modificar', $pro['Financia']['fuente_proyecto']),
-            			array('class'=>'k-button', 'escape' => false)
+            			array('class'=>'k-button', 'escape' => false, 'title'=>'Editar Fuente')
 					);?>
             		<?php echo $this->Form->postLink(
-                		'<span class="k-icon k-i-cancel"></span> Eliminar',
+                		'<span class="k-icon k-i-close"></span>',
                 		array('action' => 'financia_eliminar', $pro['Financia']['fuente_proyecto']),
                 		array('confirm' => '¿Está seguro que desea eliminar el financiamiento ' . $pro['Financia']['fuente_proyecto'] . '?',
-                			'class'=>'k-button', 'escape' => false)
+                			'class'=>'k-button', 'escape' => false, 'title'=>'Eliminar Fuente')
             		)?>
              	</td>
 		    </tr>
@@ -50,6 +50,17 @@
 	</table>
 <?php } ?>
 
+<style scoped>
+        #grid .k-button
+        {
+            vertical-align: middle;
+            width: 28px;
+            margin: 0 3px;
+            padding: .1em .4em .3em;
+            display: inline;
+            
+        }
+    </style>
 
 
 <script>
@@ -77,10 +88,10 @@
             { field: "montoparcial", title: "Monto", format: "{0:c}", footerTemplate: <?php echo "<strong>#= kendo.toString(sum,'c2') #</strong>"; ?>},
             { field: "userc", title: "Usuario"},
             { field: "creacion", title: "Fecha Asignación", format: "{0:dd/MM/yyyy}"},
-            { field: "accion", width: 200} 
+            { field: "accion", width: 90} 
 		]
           
 	}).data("kendoGrid");
 
-grid.hideColumn("userc");
+//grid.hideColumn("userc");
 </script>
