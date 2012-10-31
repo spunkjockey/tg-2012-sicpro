@@ -123,7 +123,7 @@ $this->end(); ?>
 
 <script type="text/x-kendo-template" id="template">
     <div class="toolbar">
-        <label class="category-label" for="category">Código Contrato:</label>
+        <label class="category-label" for="category">Número Proyecto:</label>
         <input type="search" id="tipocontrato" style="width: 230px"></input>
     </div>
 </script>
