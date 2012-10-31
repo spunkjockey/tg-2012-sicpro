@@ -31,7 +31,6 @@
 	}
 $this->end(); ?>
 
-
 <?php $this->start('breadcrumb'); ?>
 	
 	<div id="menuderastros">
@@ -50,6 +49,7 @@ $this->end(); ?>
 	</div>
 	
 <?php $this->end(); ?>
+
 <div id="example" class="k-content">
 	
 	<div id="formulario">
@@ -123,15 +123,15 @@ $this->end(); ?>
 				<?php echo $this->Form->input('porcentajeestimadoavance', 
 					array(
 						'label' => 'Porcentaje Estimación: ', 
-						'class' => 'k-textbox',
-						'id'=>'porcentaje', 
-						'type' => 'text',
+						//'class' => 'k-textbox', 
 						'style' => 'width: 150px;',
+						'id'=>  'porcentaje',
+						'type' => 'text',
 						'placeholder' => 'Porcentaje Estimado',
 						'maxlength'=> 5,
-						'div' => array('class' => 'requerido'))); ?>
+						'div' => array('id'=>'prc','class' => 'requerido'))); ?>
 				<script type="text/javascript">
-		            var porcentaje = new LiveValidation( "porcentaje", { validMessage: " " } );
+		            var porcentaje = new LiveValidation( "porcentaje", { validMessage: " ", insertAfterWhatNode: "prc" } );
 		            porcentaje.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            porcentaje.add( Validate.Numericality,{ minimum: 0, maximum: 100, tooLowMessage: "El porcentaje no puede ser menor a 0 %", tooHighMessage: "El porcentaje no debe ser mayor al 100 %", notANumberMessage:"Debe ser un número"} );
 		        </script>
@@ -324,7 +324,10 @@ function startChange() {
 		     format: "c2", //Define currency type and 2 digits precision
 		     spinners: false
 		 });
-
+		 $("#porcentaje").kendoNumericTextBox({
+		     format: "c1", //Define currency type and 2 digits precision
+		     spinners: false
+		 });
 	         
 	                });
             </script>

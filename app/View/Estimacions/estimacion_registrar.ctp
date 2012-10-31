@@ -129,9 +129,7 @@ $this->end(); ?>
 					array(
 						'label' => 'Monto Estimado:',
 						'id'    => 'moneda',
-						'type'=>'text',
-						'maxlength'=> 12,
-						'placeholder' => 'Monto Estimado',
+						'placeholder' => 'Monto Estimado', 
 						'div' => array('id' => 'monto', 'class' => 'requerido')
 						)); ?>
 				<script type="text/javascript">

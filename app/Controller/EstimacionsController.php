@@ -125,11 +125,15 @@ class EstimacionsController extends AppController {
 
 	function estimacion_modificar($id = null)  {
 	    $this->layout = 'cyanspark';
+		
+		$info=$this->Estimacion->findByIdestimacion($id);
+		$this->set('info',$info);
         //preguntar si es post
         $this->Estimacion->id = $id;
 		if ($this->request->is('get')) {
 		   	$this->request->data=$this->Estimacion->read();
 		} else {
+			$this->Estimacion->set('idcontrato', $info['Contratoconstructor']['idcontrato']);
         	$this->Estimacion->set('tituloestimacion', $this->request->data['Estimacion'] ['tituloestimacion']);
 			$this->Estimacion->set('fechainicioestimacion', $this->request->data['Estimacion'] ['fechainicioestimacion']);
 			$this->Estimacion->set('fechafinestimacion', $this->request->data['Estimacion'] ['fechafinestimacion']);

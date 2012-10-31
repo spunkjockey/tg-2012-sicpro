@@ -88,7 +88,7 @@
 					//Guardar contratosupervisor	
 					if($this->Contratosupervisor->save($this->Contrato->id))
 					{
-						$this->Session->setFlash('Contrato supervisor '.$this->request->data['Contratosupervisor']['codigocontrato'] .'ha sido registrado.',
+						$this->Session->setFlash('Contrato supervisor '.$this->request->data['Contratosupervisor']['codigocontrato'] .' ha sido registrado.',
 												 'default',array('class'=>'success'));	
 						$this->redirect(array('controller'=>'Contratosupervisors', 'action' => 'contratosupervisor_listar'));
 					}
