@@ -18,7 +18,7 @@
 				<tr>
 					<?php foreach ($proys as $pro): ?>
 					<tr>
-						<td width="200px"><?php echo $pro['Proyembe']['nombreproyecto'];?></td>
+						<td width="300px" style="text-align: left;"><?php echo $pro['Proyembe']['nombreproyecto'];?></td>
 						<td width="75px"><?php echo $pro['Proyembe']['numeroproyecto'];?></td>
 						<td width="75px"><?php echo $pro['Proyembe']['beneficiarios'];?></td> 
 						<td width="75px"><?php echo $pro['Proyembe']['empleosgenerados'];?></td>   

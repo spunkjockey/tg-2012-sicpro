@@ -60,6 +60,8 @@ $this->end(); ?>
 			    'options' => array(
 					        'model'=>'Proyembe',
 					        'update'=>'resultadosbusqueda',
+					        'indicator' => 'loading',
+							'before' => '$("#resultadosbusqueda").html(" ")',
 					        'url' => array('action' => 'update_rep_empbene')
 							))); ?>	
 		
@@ -121,6 +123,9 @@ $this->end(); ?>
 				</table>
 			</li>
 		</ul>
+			
+			<div id='loading' style="text-align: center; width: 600px; display: none;"><?php echo $this->Html->image('spinner.gif', array('alt' => 'cargando', "style" => "border: 0;")); ?></div>
+
 			<div id=resultadosbusqueda>
 			
 			</div>
@@ -198,12 +203,13 @@ $this->end(); ?>
                 }
                 
                 .LV_validation_message{
-				    font-weight:bold;
+
 				    margin:0 0 0 5px;
 				}
 				
 				.LV_valid {
 				    color:#00CC00;
+				    display: none;
 				}
 					
 				.LV_invalid {
@@ -214,21 +220,6 @@ $this->end(); ?>
                
 				}
 				    
-				.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
-				}
-				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
             </style>
 			
             <script>
