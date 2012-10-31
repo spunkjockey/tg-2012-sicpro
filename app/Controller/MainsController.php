@@ -8,6 +8,7 @@ class MainsController extends AppController {
 		//$this->layout = 'cyanspark';
 		$this->set('title_for_layout', 'Index');
 		$proyectos = $this->Proyecto->query('SELECT 
+				  proyecto.idproyecto,
 				  proyecto.numeroproyecto, 
 				  proyecto.nombreproyecto, 
 				  proyecto.montoplaneado, 
@@ -23,6 +24,7 @@ class MainsController extends AppController {
 				  proyecto.idproyecto = financia.idproyecto AND
 				  proyecto.idproyecto = contrato.idproyecto
 				GROUP BY
+				  proyecto.idproyecto,
 				  proyecto.numeroproyecto, 
 				  proyecto.nombreproyecto, 
 				  proyecto.montoplaneado, 
@@ -65,7 +67,7 @@ class MainsController extends AppController {
 		
 	}
 
-
+	
 	
 	
 }

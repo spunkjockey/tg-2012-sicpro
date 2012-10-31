@@ -264,4 +264,42 @@ class FichatecnicasController extends AppController {
 		}
 		$this->render('/Elements/update_res_ficha', 'ajax');
 	}
+
+
+	function consultarproyo($idproy=null)
+	{
+			$this->layout = 'cyanspark';
+			$this->set('title_for_layout', 'Consultar Proyecto');
+			
+			$ficha = $this->Fichatecnica->findByIdproyecto($idproy);
+			$idficha = $ficha['Fichatecnica']['idfichatecnica'];
+			$this->set('nomproy',$this->Proyecto->field('nombreproyecto',array('idproyecto' => $idproy)));
+			$this->set('fichatec',$this->Fichatecnica->find('all',array(
+				'conditions'=>array('Fichatecnica.idproyecto'=>$idproy)
+				)));
+			
+			$this->set('component',$this->Componente->find('all',array(
+				'fields'=>array('Componente.nombrecomponente','Componente.descripcioncomponente',
+								'Componente.idcomponente'),
+				'conditions'=>array('Componente.idfichatecnica'=>$idficha),
+				'order'=>'Componente.idcomponente'
+				)));
+				
+			$this->set('metas',$this->Meta->find('all',array(
+			 	'fields'=>array('Componente.idcomponente','Meta.descripcionmeta'),
+				'conditions'=>array('Componente.idfichatecnica'=>$idficha),
+				'order'=>'Meta.idmeta'
+				)));
+			
+			$this->set('ubicaciones',$this->Ubicacion->find('all',array(
+				'fields'=>array('Ubicacion.direccion','Departamento.departamento','Municipio.municipio'),
+				'conditions'=>array('Ubicacion.idfichatecnica'=>$idficha)
+				)));
+				
+			$this->set('financias',$this->Financia->find('all',array(
+			'conditions'=>array('Financia.idproyecto'=>$idproy))));
+		
+		
+	}
+
 } 

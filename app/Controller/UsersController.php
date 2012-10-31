@@ -36,7 +36,7 @@ class UsersController extends AppController {
 						$user['User']['username'] = trim($this->data['User']['username']);
 						$user['User']['password'] = $this->data['User']['password'];
 			    	    //logear en el sistema	
-			    	    if ($this->Auth->login($user)) {
+			    	    if ($this->Auth->login()) {
 				        	$someone = $this->User->findByUsername(trim($this->data['User']['username']));
 							$this->Session->write('User.username',$someone['User']['username']);
 							$this->Session->write('User.idpersona',$someone['User']['idpersona']);

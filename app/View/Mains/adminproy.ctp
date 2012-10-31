@@ -49,8 +49,4 @@ $this->end(); ?>
 	
 <?php $this->end(); ?>
 
-
-<h2><span>Bienvenido Usuario Administrador de proyectos</span></h2>
-<p>
-	Eventos del dia
-</p>
+<?php echo $this->element('homepage', $proyectos); ?>>

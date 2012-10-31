@@ -14,7 +14,7 @@
 		
 		<h3>Contratos: </h3>
 		<ul id="panelBar">
-    	<?php foreach ($facturas as $fac): ?>
+    	<?php foreach ($facturasa as $fac): ?>
 		<li> Contrato: <?php echo $fac['Facturaxcontrato']['codigocontrato']; ?> 
 		<div style="padding: 30px 20px;">
 			<table id="Contrato">
@@ -184,39 +184,9 @@
 <script>
 	
 	$(document).ready(function() {
-    $("#panelBar").kendoPanelBar();
+    $("#panelBar").kendoPanelBar({
+    	 expandMode: "single"
+    });
 });
 </script>
 
-<!--<script>
-	
-	var grid =  $("#grid").kendoGrid({
-    	sortable: false,
-    	scrollable: false,
-		dataSource: {
-        	aggregate: [{ field: "montofactura", aggregate: "sum" }],
-        	schema: {
-		    	model: {
-		        	fields: {
-		            	montofactura: {
-		                	editable: false,
-		                	type: "number"
-		             	},
-		             	fechafactura: {
-		             		type: "date"
-		             	}
-		            }
-		     	}
-		   	}
-		},
-        columns: [
-        	{ field: "numerofactura" },
-        	{ field: "descripcionfactura" },
-            { field: "montofactura", format: "{0:c}", footerTemplate: <?php echo "<strong>#= kendo.toString(sum,'c2') #</strong>"; ?>},
-            { field: "fechafactura", format: "{0:dd/MM/yyyy}"}
-		]
-          
-	}).data("kendoGrid");
-
-	
-</script>-->
