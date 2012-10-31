@@ -2,7 +2,7 @@
 						<ul id="menu">
 							<li>Proyectos
 								<ul>
-									<li><?php echo $this->Html->link('Consultar Ficha Técnica', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_consultarficha')); ?></li>
+									<li><?php echo $this->Html->link('Consultar Proyecto', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_consultarficha')); ?></li>
 								</ul>
 							</li>
 							<li>Contratos

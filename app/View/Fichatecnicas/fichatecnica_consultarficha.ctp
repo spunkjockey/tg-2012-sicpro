@@ -43,7 +43,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Proyectos » Ficha Tecnica » Consultar Ficha Tecnica
+			?> » Proyectos » Consultar Proyecto
 			
 		</div>
 	</div>
@@ -52,12 +52,14 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Consultar ficha técnica</h2>
+		<h2>Consultar Proyecto</h2>
 		<?php echo $this->ajax->form(array(
 				'type' => 'post',
 			    'options' => array(
 					        'model'=>'Fichatecnica',
 					        'update'=>'resultadosficha',
+					        'indicator' => 'loading',
+							'before' => '$("#resultadosficha").html(" ")',
 					        'url' => array('action' => 'update_res_ficha')
 							))); ?>	
 		
@@ -85,18 +87,22 @@ $this->end(); ?>
             <div class="hint">Inicie escribiendo el nombre de un proyecto</div>
 
 		</div>
-		<ul>
-			<li  class="accept">
-			<?php echo $this->Html->link('Regresar', 
-									array('controller' => 'Mains','action' => 'index'),
-									array('class'=>'k-button')); ?>
-			</li>
-		</ul>
+		<div id='loading' style="text-align: center; width: 600px; display: none;"><?php echo $this->Html->image('spinner.gif', array('alt' => 'cargando', "style" => "border: 0;")); ?></div>
 		<div id="resultadosficha"> 
 			
 		</div>
 		<div id="proyo"></div>
-	</div>
+		</div>
+			<table width="600px">
+			<tr>
+			<td style="text-align: right">
+			<?php echo $this->Html->link('Regresar', 
+									array('controller' => 'Mains','action' => 'index'),
+									array('class'=>'k-button')); ?>
+			</td>
+			</tr>
+			</table>
+
 </div>
 <style scoped>
 
@@ -191,7 +197,7 @@ $this->end(); ?>
 
             .k-autocomplete
             {
-                width: 250px;
+                width: 450px;
 				vertical-align: middle;
             }
 

@@ -8,10 +8,10 @@
 										<ul>
 											<li><?php echo $this->Html->link('Registrar Ficha Técnica', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_registrarficha')); ?></li>
 											<li><?php echo $this->Html->link('Modificar Ficha Técnica', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_listarficha')); ?></li>
-											<li><?php echo $this->Html->link('Consultar Ficha Técnica', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_consultarficha')); ?></li>
 										</ul>
 									</li>		
 									<li><?php echo $this->Html->link('Asignación de Fondos', array('controller' => 'Financias','action'=>'index')); ?></li>
+									<li><?php echo $this->Html->link('Consultar Proyecto', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_consultarficha')); ?></li>
 								</ul>
 							</li>
 							<li>Contratos

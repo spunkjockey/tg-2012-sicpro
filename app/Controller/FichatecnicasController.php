@@ -3,7 +3,7 @@ class FichatecnicasController extends AppController {
     public $helpers = array('Html', 'Form', 'Session','Ajax');
     public $components = array('Session','RequestHandler');
 	public $uses = array('Proyecto','Fichatecnica','Ubicacion','Departamento',
-						 'Municipio','Meta','Componente','Proyembe','Division');
+						 'Municipio','Meta','Componente','Proyembe','Division','Financia');
 	
 	
     public function index() {
@@ -231,6 +231,8 @@ class FichatecnicasController extends AppController {
 		{
 			$nomproy= $this->request->data['proyectos'];
 			$idproy = $this->Proyecto->field('idproyecto',array('nombreproyecto' => $nomproy));
+			
+			if($idproy){
 			$this->set('numproy',$this->Proyecto->field('numeroproyecto',array('nombreproyecto' => $nomproy)));
 			$idficha = $this->Fichatecnica->field('idfichatecnica',array('idproyecto' => $idproy));
 			$this->set('nomproy',$nomproy);
@@ -255,6 +257,10 @@ class FichatecnicasController extends AppController {
 				'fields'=>array('Ubicacion.direccion','Departamento.departamento','Municipio.municipio'),
 				'conditions'=>array('Ubicacion.idfichatecnica'=>$idficha)
 				)));
+				
+			$this->set('financias',$this->Financia->find('all',array(
+			'conditions'=>array('Financia.idproyecto'=>$idproy))));
+			}
 		}
 		$this->render('/Elements/update_res_ficha', 'ajax');
 	}
