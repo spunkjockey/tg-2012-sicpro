@@ -61,18 +61,18 @@ $this->end(); ?>
 						'label' => 'Seleccione empresa:', 
 						'id' => 'empresas',
 						'class'=>'k-combobox',
-						'div' => array('class' => 'requerido'))); 
+						'div' => array('id'=>'empre','class' => 'requerido'))); 
 				?>
 				<script type="text/javascript">
-					var empresas = new LiveValidation( "empresas", { validMessage: " " } );
+					var empresas = new LiveValidation( "empresas", { validMessage: " " , insertAfterWhatNode: "empre" } );
 		            empresas.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script>
 			</li>
 			
 			<li  class="accept">
-				<table>
+				<table width="600px">
 					<tr>
-						<td>
+						<td style="text-align: right;">
 							<?php echo $this->Form->end(array('label' => 'Buscar', 
 									'class' => 'k-button', 'id' => 'button')); ?>
 						</td>
@@ -148,7 +148,6 @@ $this->end(); ?>
                 }
                 
                 .LV_validation_message{
-				    font-weight:bold;
 				    margin:0 0 0 5px;
 				}
 				
@@ -160,25 +159,10 @@ $this->end(); ?>
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 170px; 
+               		margin-left: 210px; 
                
 				}
 				    
-				.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
-				}
-				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
             </style>
 			
             <script>

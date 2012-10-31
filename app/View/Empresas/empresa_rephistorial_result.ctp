@@ -98,7 +98,7 @@ $this->end(); ?>
 					<td>
 						<?php echo $this->Html->link('Regresar', 
 							array('controller' => 'Empresas','action' => 'empresa_rephistorial'),
-							array('class'=>'k-button','target' => '_blank')); ?>
+							array('class'=>'k-button')); ?>
 					</td>
 				</tr>
 			</table>

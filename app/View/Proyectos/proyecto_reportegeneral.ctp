@@ -62,10 +62,12 @@ $this->end(); ?>
 						'class'=>'k-combobox',
 						'div' => array('id' => 'proyogen', 'class' => 'requerido'))); 
 				?>
+				<div class="hint">Inicie escribiendo el numero de proyecto</div>
 				<script type="text/javascript">
 					var proys = new LiveValidation( "proys", { validMessage: " ", insertAfterWhatNode: 'proyogen' } );
 		            proys.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script>
+		        
 		        <div id="errornumero" class="LV_validation_message LV_invalid"></div>
 			</li>
 			
@@ -172,6 +174,14 @@ $this->end(); ?>
                		margin-left: 205px; 
                
 				}
+				 .hint {
+	                line-height: 22px;
+	                margin-left: 200px;
+	                color: #aaa;
+	                font-style: italic;
+					font-size: .9em;
+					color:#959595;
+          		}
 				    
 
             </style>

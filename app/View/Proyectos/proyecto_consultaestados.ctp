@@ -57,8 +57,9 @@ $this->end(); ?>
 		    'options' => array(
 		        'model'=>'Proyecto',
 		        'update'=>'consultaestados',
+		        'indicator' => 'loading',
+				'before' => '$("#consultaestados").html(" fdsfsdfsd")',
 		        'url' => array(
-		        	'controller' => 'Proyectos',
 		            'action' => 'update_consultaestados'
 		        )
 		    )
@@ -108,8 +109,8 @@ $this->end(); ?>
 				<tr><td>
 				<?php //echo $this->Form->end(array('label' => 'Consultar', 'class' => 'k-button', 'id' => 'submit')); ?>
 				
-				<?php echo $this->Ajax->submit('Buscar', array('class' => 'k-button','url'=> array('controller'=>'Proyectos', 'action'=>'update_consultaestados'), 'update' => 'consultaestados')); ?>
-				<?php echo $this->Form->end();?> 
+				<!--<?php echo $this->Ajax->submit('Buscar', array('class' => 'k-button','url'=> array('controller'=>'Proyectos', 'action'=>'update_consultaestados'), 'update' => 'consultaestados')); ?>-->
+				<?php echo $this->Form->end(array('label' => 'Buscar', 'class' => 'k-button'));?> 
 				</td>
 				<td>
 				<?php echo $this->Html->link('Regresar',
@@ -122,6 +123,8 @@ $this->end(); ?>
             <li class="status">
             </li>
 		</ul>
+		
+	<div id='loading' style="text-align: center; width: 600px; display: none;"><?php echo $this->Html->image('spinner.gif', array('alt' => 'cargando', "style" => "border: 0;")); ?></div>
 		<div id="consultaestados"></div>
 	</div>
 </div>
