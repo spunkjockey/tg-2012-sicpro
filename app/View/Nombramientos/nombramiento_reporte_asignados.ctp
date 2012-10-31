@@ -58,6 +58,8 @@ $this->end(); ?>
 			    'options' => array(
 					        'model'=>'Nombramiento',
 					        'update'=>'resultadosbusqueda',
+					       	'indicator' => 'loading',
+		        			'before' => '$("#resultadosbusqueda").html(" ")',
 					        'url' => array('action' => 'update_rep_asignados')
 							))); ?>	
 		
@@ -91,7 +93,8 @@ $this->end(); ?>
 									array('class'=>'k-button')); ?>
 			</li>
 		</ul>
-		<div id=resultadosbusqueda> 
+		<div id='loading' style="text-align: center; width: 600px; display: none;"><?php echo $this->Html->image('spinner.gif', array('alt' => 'cargando', "style" => "border: 0;")); ?></div>
+		<div id="resultadosbusqueda"> 
 			
 		</div>
 	</div>
