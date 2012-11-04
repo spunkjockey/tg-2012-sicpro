@@ -56,24 +56,8 @@ $this->end(); ?>
 			
 				<h2>Agregar usuario a persona</h2>
 				<li>
-					<?php echo $this->Form->input('nombrespersona', 
-						array(
-							'label' => 'Nombres:', 
-							'class' => 'k-textbox',
-							//'div' => array('class' => 'requerido'),
-							'readonly'=>'readonly' 
-							)); ?>
+							<label>Nombre: </label><?php echo $this->request->data['Persona']['nombrespersona'] .' '.$this->request->data['Persona']['apellidospersona'];?>
 				</li>
-				<li>
-					<?php echo $this->Form->input('apellidospersona', 
-						array(
-							'label' => 'Apellidos:', 
-							'class' => 'k-textbox',
-							//'div' => array('class' => 'requerido'),
-							'readonly'=>'readonly' 
-							)); ?>
-				</li>
-				<br />
 				<li>
 					<?php echo $this->Form->input('username', 
 						array(
@@ -131,7 +115,20 @@ $this->end(); ?>
 				</li>
 				<?php echo $this->Form->input('idpersona')?>
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar persona', 'class' => 'k-button')); ?>
+				<table>
+					<tr>
+						<td>
+							<?php echo $this->Form->end(array('label' => 'Registrar persona', 'class' => 'k-button')); ?>
+						</td>
+						<td>
+							<?php echo $this->Html->link(
+					   			'Regresar', 
+							   	array('action'=>'persona_index'),
+					   			array('class'=>'k-button')
+							);?>	
+						</td>
+					</tr>
+				</table>
 			</li>
             
             <li class="status">

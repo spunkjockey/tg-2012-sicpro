@@ -66,7 +66,7 @@
 									<!--<li disabled="disabled">Consultar fuente de financiamiento</li>-->
 									<li>Perfil
 										<ul>
-											<!--<li disabled="disabled">Modificar perfil</li>-->
+											<li><?php echo $this->Html->link('Modificar perfil', array('controller' => 'Personas','action'=>'perfil_modificar',$this->Session->read('User.idpersona'))); ?></li>
 											<li><?php echo $this->Html->link('Cambiar Contraseña', array('controller' => 'Users','action'=>'cambiarpass')); ?></li>
 										</ul>
 									</li>

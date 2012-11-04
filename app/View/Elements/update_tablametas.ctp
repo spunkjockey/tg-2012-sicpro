@@ -1,5 +1,5 @@
 <?php
-	if($info!=false){ 
+	if(isset($info)){ 
 ?>
 <br>
 <table id="grid">
