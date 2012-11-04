@@ -145,9 +145,7 @@ class EstimacionsController extends AppController {
 			if ($this->Estimacion->save()) {
 	            $this->Session->setFlash('La Estimación de Avance ha sido actualizada.', 'default', array('class'=>'success'));
 	            $this->redirect(array('action' => 'index'));
-	        } else {
-	          	$this->Session->setFlash('Imposible editar Estimación de Avance');
-    		}
+	        } 
 	    }
 	}
 
