@@ -278,3 +278,6 @@ p.error em {
   vertical-align: middle;
 }
 
+textarea {				        
+	resize: none;
+}

@@ -209,6 +209,7 @@
 	{
 		$this->layout = 'cyanspark';
 		$this->Contratoconstructor->id = $idcontrato;
+		$idproy = $this->Contratosupervisor->field('idproyecto',array('idcontrato'=>$idcontrato));
 		//$idcontrato = $id;
 		$info = $this->Contratosupervisor->find('all',
 			array('conditions'=>array('Contratosupervisor.idcontrato'=>$idcontrato)));
@@ -216,6 +217,8 @@
 		$contratos = $this->Contratoconstructor->query('select idcontrato, codigocontrato
 				FROM sicpro2012.contratoconstructor
 				WHERE 
+					idproyecto ='.$idproy.'
+					 AND 
 					idcontrato NOT IN (SELECT con_idcontrato 
 							FROM sicpro2012.contratosupervisor)
 					OR

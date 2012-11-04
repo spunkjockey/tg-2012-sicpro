@@ -62,10 +62,17 @@ $this->end(); ?>
 				'value'=>$this->request->data['Proyecto']['nombreproyecto'],
 				'type' => 'hidden'
 				)); ?>
+				<table>
+					<tr>
+						<td width="160px" style="text-align: right;">
+						Nombre Proyecto:
+						</td>
+						<td>
+							<?php echo $this->request->data['Proyecto']['nombreproyecto'];?>			
+						</td>
+					</tr>
+				</table>
 				
-				<?php			
-					echo '<label>Nombre Proyecto:  </label> '.$this->request->data['Proyecto']['nombreproyecto']; 
-				?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('problematica', 
@@ -165,7 +172,7 @@ $this->end(); ?>
 						'label' => 'Resultados: ', 
 						'class' => 'k-textbox', 
 						'placeholder' => 'Resultados Esperados',
-						"rows"=>"3"
+						"rows"=>"7"
 						)); ?>
 			</li>							
 			
@@ -281,6 +288,7 @@ $this->end(); ?>
                		margin-left: 170px; 
                
 				}
+
 
 </style>
 
