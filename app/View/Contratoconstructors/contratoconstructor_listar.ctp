@@ -97,7 +97,17 @@ $this->end(); ?>
     <?php endforeach; ?>
     <?php unset($contratosc); ?>
 </table>
-
+	<table width="633">
+		<tr>
+			<td style="text-align: right;">
+			<?php echo $this->Html->link(
+	   			'Regresar', 
+			   	array('controller'=>'Mains'),
+	   			array('class'=>'k-button')
+			);?>
+			</td>
+		</tr>
+	</table>
 <style scoped>
         #grid .k-button
         {

@@ -100,7 +100,18 @@ $this->end(); ?>
     <?php endforeach; ?>
     <?php unset($informes); ?>
 </table>
-
+</table>
+	<table width="633">
+		<tr>
+			<td style="text-align: right;">
+			<?php echo $this->Html->link(
+	   			'Regresar', 
+			   	array('controller'=>'Mains'),
+	   			array('class'=>'k-button')
+			);?>
+			</td>
+		</tr>
+	</table>
 
 <script type="text/x-kendo-template" id="template">
     <div class="toolbar">

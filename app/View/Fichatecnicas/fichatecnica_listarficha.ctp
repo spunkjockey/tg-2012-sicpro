@@ -51,35 +51,52 @@ $this->end(); ?>
 <?php $this->end(); ?>
 <!--<?php Debugger::dump($fichas); ?>-->
 <?php if(!empty($fichas)){ ?>
+	<h2>Fichas Técnicas</h2>
 <table id="grid">
     <tr>
         <th data-field="nombreproyeto">Nombre Proyecto</th>
-        <th data-field="accion" width="270px">Acción</th>
+        <th data-field="accion" width="260px">Acción</th>
     </tr>
 
     <!-- Here is where we loop through our $empresas array, printing out post info -->
 
     <?php foreach ($fichas as $fc): ?>
     <tr>
-        <td><?php echo $fc['Proyecto']['nombreproyecto']; ?></td>     
+        <td><?php echo $fc['Proyecto']['nombreproyecto']; ?></td>
+        <?php if( $fc['Proyecto']['estadoproyecto']=='Formulacion' || $fc['Proyecto']['estadoproyecto']=='Licitacion'|| $fc['Proyecto']['estadoproyecto']=='Adjudicacion') 
+        { ?>
+        	
+
         <td align="center">        	
             <?php echo $this->Html->link(
             	'<span class="k-icon k-i-pencil"></span>Ficha', 
             	array('action' => 'fichatecnica_modificarficha', $fc['Fichatecnica']['idfichatecnica']),
-            	array('class'=>'k-button', 'escape' => false)
+            	array('class'=>'k-button', 'escape' => false,'title'=>'Modificar Ficha')
 			);?>
             <?php echo $this->Html->link(
-            	'<span class="k-icon k-i-pencil"></span>Ubicacion',
+            	'<span class="k-icon k-i-pencil"></span>Ubi.',
             	array('action' => 'fichatecnica_modificarubicacion', $fc['Fichatecnica']['idfichatecnica']),
-            	array('class'=>'k-button', 'escape' => false)
+            	array('class'=>'k-button', 'escape' => false,'title'=>'Modificar Ubicación')
 			);?>
             <?php echo $this->Html->link(
-            	'<span class="k-icon k-i-pencil"></span>Componente',
+            	'<span class="k-icon k-i-pencil"></span>Comp.',
             	array('controller'=>'Componentes','action' => 'componente_listar', $fc['Fichatecnica']['idfichatecnica']),
-            	array('class'=>'k-button', 'escape' => false)
+            	array('class'=>'k-button', 'escape' => false,'title'=>'Modificar Componente')
 			);?>
+			<?php echo $this->Form->postLink(
+                '<span class="k-icon k-i-close"></span>',
+                array('controller'=>'Fichatecnicas','action' => 'fichatecnica_eliminar', $fc['Fichatecnica']['idfichatecnica']),
+                array('confirm' => '¿Está seguro que desea la Ficha Técnica?',
+                		'class'=>'k-button','escape' => false,'title'=>'Eliminar Ficha','style'=>'width: 30px; min-width:30px; margin: 0px; text-align: center; height: 26px;')
+            )?>
         </td>
-        
+        <?php }
+        else
+        {?>
+        	<td>
+        		El proyecto se encuentra en ejecucion o finalizado
+        	</td>
+        <?php }?>     
     </tr>
     <?php endforeach; ?>
     <?php unset($fichas); ?>
@@ -90,12 +107,18 @@ else {
 	echo "No hay Fichas Tecnicas<br />";
 }
 ?>
-	<br />
-	<?php echo $this->Html->link(
-	   	'Regresar', 
-	   	array('controller'=>'Mains'),
-	   	array('class'=>'k-button')
-	);?>
+	<table width="630">
+		<tr>
+			<td style="text-align: right;">
+			<?php echo $this->Html->link(
+	   			'Regresar', 
+			   	array('controller'=>'Mains'),
+	   			array('class'=>'k-button')
+			);?>
+			</td>
+		</tr>
+	</table>
+
 <style scoped>
 
                 .k-textbox {
@@ -206,7 +229,7 @@ else {
 	$(document).ready(function() {
     	$("#grid").kendoGrid({
             	dataSource: {
-	           		pageSize: 5,
+	           		pageSize: 10,
             	},
             	pageable: true,
             	pageable: {

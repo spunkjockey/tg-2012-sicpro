@@ -49,23 +49,23 @@ $this->end(); ?>
 	</div>
 	
 <?php $this->end(); ?>
-<!--
-<?php Debugger::dump($componentesficha); ?>
-<?php Debugger::dump($idfichatecnica); ?>
+
+<!--<?php Debugger::dump($componentesficha); ?>-->
+<!--<?php Debugger::dump($idfichatecnica); ?>
 -->
 <div style='margin:4px 0' >
 	<?php echo $this->Html->link(
-		'Registrar Componente', 
+		'<span class="k-icon k-i-plus"></span>Agregar Componente', 
 		array('controller' => 'Componentes', 'action' => 'componente_registrarmod',$idfichatecnica),
-		array('class'=>'k-button')
+		array('class'=>'k-button','escape'=>false,'title'=>'Agregar nuevo componente')
 	); ?>
 </div> 
 <?php if(!empty($componentesficha)){ ?>
 <table id="grid">
     <tr>
         <th data-field="nombrecomponente">Nombre Componente</th>
-        <th data-field="descripcionmeta">Meta</th>
-        <th data-field="accion" width="100px">Acción</th>
+        <!--<th data-field="descripcionmeta">Meta</th>-->
+        <th data-field="accion" width="50px">Acción</th>
     </tr>
 
     <!-- Here is where we loop through our $empresas array, printing out post info -->
@@ -75,33 +75,29 @@ $this->end(); ?>
         <td><strong>
         	<?php echo $cf['Componente']['nombrecomponente'];
 			echo "</strong><br /><br />"; 
-        		  echo $cf['Componente']['descripcioncomponente']
+        		  echo $cf['Componente']['descripcioncomponente'];
         	?>
-        	
-        	
-        </td> 
-            
-        <td> 
+			<br /><br />
         	<?php foreach ($cf['Meta'] as $meta): ?>
         	<ol><?php echo $meta['descripcionmeta']; ?></ol>
         	<?php endforeach; ?>
         </td>
         <td align="center">
             <?php echo $this->Html->link(
-            	'Modificar Componente', 
+            	'<span class="k-icon k-i-pencil"></span>Comp.', 
             	array('action' => 'componente_modificar', $cf['Componente']['idcomponente'],$idfichatecnica),
-            	array('class'=>'k-button')
+            	array('class'=>'k-button','escape'=>false,'title'=>'Modificar Componente')
 			);?>
             <?php echo $this->Html->link(
-            	'Modificar Metas', 
+            	'<span class="k-icon k-i-pencil"></span>Metas', 
             	array('controller'=>'Metas','action' => 'meta_modificar', $cf['Componente']['idcomponente'],$idfichatecnica),
-            	array('class'=>'k-button')
+            	array('class'=>'k-button','escape'=>false,'title'=>'Modificar Metas')
 			);?>
 			<?php echo $this->Form->postLink(
-                'Eliminar Componente',
+                '<span class="k-icon k-i-close"></span>Comp.',
                 array('controller'=>'Componentes','action' => 'componente_eliminar', $cf['Componente']['idcomponente'],$idfichatecnica),
                 array('confirm' => '¿Está seguro que desea eliminar el Componente?',
-                		'class'=>'k-button')
+                		'class'=>'k-button','escape'=>false,'title'=>'Eliminar Componente')
             )?>
         </td>
         
@@ -115,11 +111,17 @@ else {
 	echo "No hay Componentes para este Proyecto<br />";
 }
 ?>
+	<table width="633">
+		<tr>
+			<td style="text-align: right;">
             <?php echo $this->Html->link(
             	'Regresar', 
             	array('controller'=>'Fichatecnicas','action' => 'fichatecnica_listarficha'),
             	array('class'=>'k-button')
 			);?>
+			</td>
+		</tr>
+	</table>
 
 <style scoped>
 

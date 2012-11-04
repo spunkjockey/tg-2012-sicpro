@@ -10,7 +10,7 @@
 
 <!--<?php Debugger::dump($disponibles); ?>
 <?php Debugger::dump($seleccionados); ?>-->
-
+<?php if(!empty($disponibles)){ ?>
 				<table>
 				<tr>
 					<td><strong>Disponibles</strong></td>
@@ -18,7 +18,6 @@
 					<td><strong>Asignados</strong></td>
 				</tr>
 				<tr>
-					<center>
 					<td>
 					<!--<?php echo $this->Form->create('Disponibles'); ?>-->
 					<?php if(!empty($disponibles)){ ?>
@@ -51,87 +50,27 @@
 			  		</center>
 			  </tr>
 			  <tr>
-			  	<td colspan="3">
-			  			<div id="errordisponibles" style="color:red; position: center"></div>
-			  	</td>
-			  </tr>
-			  <tr>
-			  			<?php if ($this->Form->isFieldError('Nombramiento.idpersona')) {
-						    echo $this->Form->error('Nombramiento.idpersona');
-						} ?>
+				  	<td><?php echo $this->Session->flash('disponibles'); ?></td>
+			  		<td></td>
+			  		<td><?php echo $this->Session->flash('seleccionados'); ?></td>
 			  </tr>
 			</table>
+<?php } ?>
 							
 <script>
-    $(document).ready(function () {   
-    $("#disponibles").click(function(){
-    	$("#seleccionados").val("");
-    });	
-   	$("#seleccionados").click(function(){
-    	$("#disponibles").val("");
-    });	
-    
-    function validardisponibles(){
-    	var select1 = $("#disponibles :selected").val();
-		 if(select1 == undefined){
-		 			alert('indefinido');
-			    	$('#errordisponibles').text("Seleccione un  Técnico disponible");  
-		       return false;
-		    }
-		 else{
-		 		alert('ok');
-		 		return true;
-		 }
-    }
-  /*  $('#boton_1').click(function() {
-		$('#NombramientoNombramientoAsignartecnicoForm').submit(function(){
-		 var select1 = $("#disponibles :selected").val();
-		 if(select1 == null){
-			    	$('#errordisponibles').text("Seleccione un  Técnico disponible");  
-		       return false;
-		    }
-		 else{
-		 		return true;
-		 }
-		});
-
-	});
-	
-    $('#boton_2').click(function() {
-		$('#NombramientoNombramientoAsignartecnicoForm').submit(function(){
-		 var select2 = $("#seleccionados :selected").val();
-		 if(select2 == null){
-			    	$('#errordisponibles').text("Seleccione un  Técnico Asignado");  
-		       return false;
-		    }
-		 else{
-		 		return true;
-		 }
-		});
-
-	});
-/*    
-    $("#NombramientoNombramientoAsignartecnicoForm").submit(function(){
-    	alert($("button").text());
-    	var select = $("#disponibles :selected").val();
-		 if(select == null){
-			    	$('#errordisponibles').text("Seleccione un  Técnico disponible");  
-		       return false;
-		    }
-		 else{
-		 		return true;
-		 }
-	});		
+    $(document).ready(function () {
+    	   
+	    $("#disponibles").click(function(){
+	    	$("#seleccionados").val("");
+	    });	
+	    
+	   	$("#seleccionados").click(function(){
+	    	$("#disponibles").val("");
+	    });
     	
-*/
-	 $("input[type=submit]").click(function() {
-		        var accion = $(this).attr('dir');
-		        $('form').attr('action', accion);
-		        $('form').submit();
-	});
-		
     });
 </script>
+
 <style>
 select {
 		background-color: #E3F1F7;

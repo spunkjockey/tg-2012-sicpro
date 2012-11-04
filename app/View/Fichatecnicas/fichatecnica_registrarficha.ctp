@@ -169,7 +169,7 @@ $this->end(); ?>
 						'label' => 'Resultados: ', 
 						'class' => 'k-textbox', 
 						'placeholder' => 'Resultados Esperados',
-						"rows"=>"3"
+						"rows"=>"7"
 						)); ?>
 			</li>							
 			

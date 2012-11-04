@@ -64,7 +64,7 @@ $this->end(); ?>
         <th data-field="nombreempresa">Nombre empresa</th>
         <th data-field="representantelegal">Representante Legal</th>
         <th data-field="telefonorepresentante" width="55px">Telefono</th>
-        <th data-field="accion" width="225px">Acción</th>
+        <th data-field="accion" width="98px">Acción</th>
     </tr>
 
     <!-- Here is where we loop through our $empresas array, printing out post info -->
@@ -78,18 +78,18 @@ $this->end(); ?>
             <?php echo $this->Html->link(
             	'<span class="k-icon k-i-pencil"></span>', 
             	array('action' => 'empresa_modificar', $emp['Empresa']['idempresa']),
-            	array('class'=>'k-button', 'escape' => false,  'title'=>'Editar Empresa')
+            	array('class'=>'k-button', 'escape' => false,  'title'=>'Editar Empresa','style'=>'width: 30px; min-width:30px; margin: 0px; text-align: center;')
 			);?>
             <?php echo $this->Form->postLink(
                 '<span class="k-icon k-i-close"></span>',
                 array('action' => 'delete', $emp['Empresa']['idempresa']),
                 array('confirm' => '¿Está seguro que desea eliminar la empresa ?',
-                		'class'=>'k-button', 'escape' => false,  'title'=>'Eliminar Empresa')
+                		'class'=>'k-button', 'escape' => false,  'title'=>'Eliminar Empresa','style'=>'width: 30px; min-width:30px; margin: 0px; text-align: center;')
             )?>
             <?php echo $this->Html->link(
             	'<span class="k-icon k-i-note"></span>', 
             	array('action' => 'view', $emp['Empresa']['idempresa']),
-            	array('class'=>'k-button', 'escape' => false,  'title'=>'Detalle de Empresa')
+            	array('class'=>'k-button', 'escape' => false,  'title'=>'Detalle de Empresa','style'=>'width: 30px; min-width:30px; margin: 0px; text-align: center;')
 			);?>
         </td>
         
@@ -98,6 +98,17 @@ $this->end(); ?>
     <?php unset($empresas); ?>
 
 </table>
+	<table width="633">
+		<tr>
+			<td style="text-align: right;">
+			<?php echo $this->Html->link(
+	   			'Regresar', 
+			   	array('controller'=>'Mains'),
+	   			array('class'=>'k-button')
+			);?>
+			</td>
+		</tr>
+	</table>
 <div id="window"></div>
 
 <script>

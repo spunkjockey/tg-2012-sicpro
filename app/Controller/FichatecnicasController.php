@@ -65,12 +65,14 @@ class FichatecnicasController extends AppController {
 	
 	public function fichatecnica_listarficha(){
 		$this->layout = 'cyanspark';	
-		$this->set('fichas', $this->Fichatecnica->find('all',
+		$this->set('fichas', $this->Fichatecnica->find('all',array(
+			'order'=>'Proyecto.idproyecto Desc'
+		)/*,
 		array(
 		'conditions'=>array( "OR" => 
 							array('Proyecto.estadoproyecto' => 
 							array('Formulacion','Licitacion','Adjudicacion')
-		)))));
+		)))*/));
 	}
 	public function view($id = null) {
 		$this->layout = 'cyanspark';   		
@@ -300,6 +302,20 @@ class FichatecnicasController extends AppController {
 			'conditions'=>array('Financia.idproyecto'=>$idproy))));
 		
 		
+	}
+
+	function fichatecnica_eliminar($idfichatecnica=null) {
+		$ficha = $this->Fichatecnica->findByIdfichatecnica($idfichatecnica);
+		if (!$this->request->is('post')) {
+	        throw new MethodNotAllowedException();
+	    }
+	    if ($this->Fichatecnica->delete($idfichatecnica)) {
+	        $this->Session->setFlash('La Ficha Técnica  del Proyecto '. $ficha['Proyecto']['nombreproyecto'] .' ha sido eliminada.','default',array('class' => 'success'));
+	        $this->redirect(array('action' => 'fichatecnica_listarficha'));
+	    } else {
+			$this->Session->setFlash('La Ficha Técnica del proyecto '. $ficha['Proyecto']['nombreproyecto'] .' no se puede eliminar, mientras se encuentra asignada a un contrato.');
+			$this->redirect(array('action' => 'fichatecnica_listarficha'));
+		}
 	}
 
 } 
