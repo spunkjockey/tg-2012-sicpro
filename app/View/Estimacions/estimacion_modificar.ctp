@@ -57,7 +57,7 @@ $this->end(); ?>
 		<?php echo $this->Form->create('Estimacion'); ?>
 		<ul>
 			<li>
-				<label>Código de Contrato: </label> <?php echo $this->request->data['Contratoconstructor']['codigocontrato']; ?>
+				<label>Código de Contrato: </label> <?php echo $info['Contratoconstructor']['codigocontrato']; ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('tituloestimacion', 
@@ -79,7 +79,7 @@ $this->end(); ?>
 						'label' => 'Inicio Estimación:', 
 						'id'	=> 'datePicker1',
 						'type'  => 'Text',
-						'value' => date('d/m/Y',strtotime($this->request->data['Estimacion']['fechainicioestimacion'])),
+						
 						'maxlength'=> 10,
 						'div' => array('id' => 'iniciofecha', 'class' => 'requerido')
 						 ) ); ?>
@@ -94,7 +94,7 @@ $this->end(); ?>
 					array(
 						'label' => 'Fin Estimación:', 
 						'id'	=> 'datePicker2',
-						'value' => date('d/m/Y',strtotime($this->request->data['Estimacion']['fechafinestimacion'])),
+						
 						'type'  => 'Text',
 						'maxlength'=> 10,
 						'div' => array('id' => 'finfecha', 'class' => 'requerido')
@@ -295,13 +295,24 @@ function startChange() {
 	    var start = $("#datePicker1").kendoDatePicker({
 	        culture: "es-ES",
 		   	format: "dd/MM/yyyy",
-	        change: startChange
+	        change: startChange,
+	        <?php if(isset( $this->request->data['Estimacion']['fechainicioestimacion'] )) 
+						{
+							 echo 'value: kendo.parseDate("'. $this->request->data['Estimacion']['fechainicioestimacion'] .'", "yyyy-MM-dd"),'; } 
+						
+						?>
 	    }).data("kendoDatePicker");
 		
 	    var end = $("#datePicker2").kendoDatePicker({
 	        culture: "es-ES",
 		   	format: "dd/MM/yyyy",
-	        change: endChange
+	        change: endChange,
+	        <?php if(isset( $this->request->data['Estimacion']['fechafinestimacion'] )) 
+						{
+							 echo 'value: kendo.parseDate("'. $this->request->data['Estimacion']['fechafinestimacion'] .'", "yyyy-MM-dd"),'; } 
+						
+						?>	
+	        	
 	    }).data("kendoDatePicker");
 		
 	    start.max(end.value());
@@ -318,14 +329,15 @@ function startChange() {
 		});*/
 		$("#datePicker3").kendoDatePicker({
 		   culture: "es-ES",
-		   format: "dd/MM/yyyy" //Define el formato de fecha
+		   format: "dd/MM/yyyy",
+		   
 		});
          $("#moneda").kendoNumericTextBox({
 		     format: "c2", //Define currency type and 2 digits precision
 		     spinners: false
 		 });
 		 $("#porcentaje").kendoNumericTextBox({
-		     format: "c1", //Define currency type and 2 digits precision
+		     format: "n", //Define currency type and 2 digits precision
 		     spinners: false
 		 });
 	         

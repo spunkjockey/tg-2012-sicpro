@@ -28,7 +28,7 @@
             		'message' => 'La fecha de visita debe ser menor o igual a la fecha de elaboración del informe'),
 				'formatofecha'=>array(
 					'rule'       => array('date', 'dmy'),
-			        'message'    => 'Ingrese fecha fin con el siguiente formato DD/MM/AAAA.',
+			        'message'    => 'Ingrese fecha de visita con el siguiente formato DD/MM/AAAA.',
 			        'allowEmpty' => true,
 					'required'=>false
 				)

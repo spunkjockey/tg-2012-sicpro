@@ -23,10 +23,7 @@
 	            	$this->Session->setFlash('El informe técnico ha sido agregado.','default',array('class'=>'success'));
 	            	$this->redirect(array('controller'=>'mains', 'action' => 'index'));
         		}
-        		else 
-        		{
-            		$this->Session->setFlash('No se pudo realizar el registro');
-        		}
+        		
 			}
 			
 				
