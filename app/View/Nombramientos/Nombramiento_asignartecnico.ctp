@@ -43,362 +43,317 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Contrato » Asignacion de Tecnico
+			?> » Contrato » Asignación de Técnico
 			
 		</div>
 	</div>
 	
 <?php $this->end(); ?>
 
-     <div id="example" class="k-content">
-		<div id="formulario">
-			<h2>Asignar Tecnicos</h2>
-            <?php echo $this->Form->create('Nombramiento'); ?>
-            <ul>
-				<li>
-					<?php echo $this->Form->input('proyectos',
-						array(
-							'label' => 'Proyectos:', 
-							'id' => 'proyectos',
-							'class' => 'k-dropdownlist'
-						)); ?>
-						<div id="error1" class="error-message"></div>
-				</li>
-				<li>
-					<?php echo $this->Form->input('contratos',
-						array(
-							'label' => 'Contratos:', 
-							'id' => 'contratos',
-							'class' => 'k-dropdownlist'
-						)); ?>
-						<div id="error2" class="error-message"></div>
-				</li>
-				<div id="listpicker">
-					<?php if(!empty($disponibles) || !empty($seleccionados)){ ?>
-						<table>
-						<tr>
-							<td><strong>Disponibles</strong></td>
-							<td></td>
-							<td><strong>Asignados</strong></td>
-						</tr>
-						<tr>
-							<center>
-							<td>
-							<!--<?php echo $this->Form->create('Disponibles'); ?>-->
-							<?php if(!empty($disponibles)){ ?>
-							  <select id="disponibles" name="disponibles" size="4">
-									<?php foreach ($disponibles as $dis):?>
-				    				<option value='<?php echo $dis['Persona']['idpersona']; ?>'> <?php echo $dis['Persona']['nombrespersona'].' '.$dis['Persona']['apellidospersona']; ?></option>
-								    <?php endforeach; ?>
-						    		<?php unset($disponibles); ?>
-							  </select>
-				        	<?php }
-							else {
-								echo "No Tecnicos Disponibles<br />";
-							}
-							?>
-					  		</td>
-					  		<td>
-					  			<!--<?php echo $this->Form->end(array('label' => '>', 'class' => 'k-button', 'id' => 'button')); ?>-->
-					  			<p><input type="submit" name="boton_1" id="boton_1" value=" > " title="Asignar" class="k-button" onclick="validardisponibles();" /></p>
-					  			<p><input type="submit" name="boton_2" id="boton_2" value=" < " title="Desasignar" class="k-button" onclick= "validarseleccionados();" /></p>
-					  		</td>
-							<td>
-							  <select id="seleccionados" name="seleccionados" size="4">
-									<?php foreach ($seleccionados as $sel):?>
-				    				<option value='<?php echo $sel['Nombramiento']['idnombramiento']; ?>'> <?php echo $sel['Persona']['nombrespersona'].' '.$sel['Persona']['apellidospersona']; ?></option>
-								    <?php endforeach; ?>
-						    		<?php unset($seleccionados); ?>
-							  </select>
-							  <div id="disponiblesinfo"></div>
-					  		</td>
-					  		</center>
-					  </tr>
-					  <tr>
-					  	<td colspan="3">
-					  			<div id="errordisponibles" style="color:red; position: center"></div>
-					  	</td>
-					  </tr>
-					  <tr>
-					  			<?php if ($this->Form->isFieldError('Nombramiento.idpersona')) {
-								    echo $this->Form->error('Nombramiento.idpersona');
-								} ?>
-					  </tr>
-					</table>
-											
-					<?php }
-					?>
-									
-		<script>
-		    $("#disponibles").click(function(){
-		    	$("#seleccionados").val("");
-		    });	
-		   	$("#seleccionados").click(function(){
-		    	$("#disponibles").val("");
-		    });	
-		    
-		    function validardisponibles(){
-		    	var select1 = $("#disponibles :selected").val();
-				 if(select1 == undefined){
-				 			alert('indefinido');
-					    	$('#errordisponibles').text("Seleccione un  Técnico disponible");  
-				       return false;
-				    }
-				 else{
-				 		/*alert('ok');*/
-				 		return true;
-				 }
-		    }
-		  /*  $('#boton_1').click(function() {
-				$('#NombramientoNombramientoAsignartecnicoForm').submit(function(){
-				 var select1 = $("#disponibles :selected").val();
-				 if(select1 == null){
-					    	$('#errordisponibles').text("Seleccione un  Técnico disponible");  
-				       return false;
-				    }
-				 else{
-				 		return true;
-				 }
-				});
-		
-			});
-			
-		    $('#boton_2').click(function() {
-				$('#NombramientoNombramientoAsignartecnicoForm').submit(function(){
-				 var select2 = $("#seleccionados :selected").val();
-				 if(select2 == null){
-					    	$('#errordisponibles').text("Seleccione un  Técnico Asignado");  
-				       return false;
-				    }
-				 else{
-				 		return true;
-				 }
-				});
-		
-			});
-		/*    
-		    $("#NombramientoNombramientoAsignartecnicoForm").submit(function(){
-		    	alert($("button").text());
-		    	var select = $("#disponibles :selected").val();
-				 if(select == null){
-					    	$('#errordisponibles').text("Seleccione un  Técnico disponible");  
-				       return false;
-				    }
-				 else{
-				 		return true;
-				 }
-			});		
-		    	
-		*/
-		/*		
-			 $("input[type=submit]").click(function() {
-				        var accion = $(this).attr('dir');
-				        $('form').attr('action', accion);
-				        $('form').submit();
-			});
-			*/	
-		</script>
-		<style>
-		select {
-				background-color: #E3F1F7;
-				font-size:12px; 
-				width: 250px;
-				height: 110px;
-				/*padding:5px;
-				margin:2px;*/
-			}
-		
-		option{
-				background-color: #E3F1F7;
-				font-size:12px; 
-				width: 250px;
-				padding:5px;
-				margin:2px;
-			}
-		</style>	
-				</div>
-				<!--<select name="myselect[]" id="myselect" class="multiselect" size="6" multiple="true">
-					<?php foreach($tecnicos as $k => $v) {
-						
-	    				echo "<option value='$k'>$v</option>";
-	  				}?>
-				</select>-->
+<div id="example" class="k-content">
+	<div id="formulario">
+		<h2>Asignar Tecnicos</h2>
+        <?php echo $this->Form->create('Nombramiento'); ?>
+        <ul>
+			<li>
+				<?php echo $this->Form->input('proyectos',
+					array(
+						'label' => 'Proyectos:', 
+						'id' => 'proyectos',
+						'class' => 'k-dropdownlist'
+					)); ?>
+					<div id="error1" class="error-message"></div>
+			</li>
+			<li>
+				<?php echo $this->Form->input('contratos',
+					array(
+						'label' => 'Contratos:', 
+						'id' => 'contratos',
+						'class' => 'k-dropdownlist'
+					)); ?>
+					<div id="error2" class="error-message"></div>
+			</li>
 
-				<li  class="accept">
+			<div id="listpicker">
+				<?php if(!empty($disponibles) || !empty($seleccionados)){ ?>
 					<table>
-						<tr>
-							<td>
-								<?php echo $this->Html->link('Regresar',
-									array('controller' => 'Mains', 'action' => 'index'),array('id' => 'regresar','class'=>'k-button')); 
-								?>				
-							</td>
-							<td>
-								<!--<?php echo $this->Form->end(array('label' => 'Registrar Tecnicos', 'class' => 'k-button', 'id' => 'button')); ?>-->
-							</td>
-						</tr>
-					</table>
-				</li>
-				<?php echo $this->ajax->observeField( 'contratos', 
-		    		array(
-		        		'url' => array( 'action' => 'update_tecdispo'),
-		        		'update' => 'listpicker'
-		    		) 
-				);  ?>
-			</ul>
-		</div>
+					<tr>
+						<td><strong>Disponibles</strong></td>
+						<td></td>
+						<td><strong>Asignados</strong></td>
+					</tr>
+					<tr>
+						
+						<td>
+						<!--<?php echo $this->Form->create('Disponibles'); ?>-->
+						<?php if(!empty($disponibles)){ ?>
+						  <select id="disponibles" name="disponibles" size="4">
+								<?php foreach ($disponibles as $dis):?>
+			    				<option value='<?php echo $dis['Persona']['idpersona']; ?>'> <?php echo $dis['Persona']['nombrespersona'].' '.$dis['Persona']['apellidospersona']; ?></option>
+							    <?php endforeach; ?>
+					    		<?php unset($disponibles); ?>
+						  </select>
+			        	<?php }
+						else {
+							echo "No Tecnicos Disponibles<br />";
+						}
+						?>
+				  		</td>
+				  		<td>
+				  			<!--<?php echo $this->Form->end(array('label' => '>', 'class' => 'k-button', 'id' => 'button')); ?>-->
+				  			<p><input type="submit" name="boton_1" id="boton_1" value=" > " title="Asignar" class="k-button" onclick="validardisponibles();" /></p>
+				  			<p><input type="submit" name="boton_2" id="boton_2" value=" < " title="Desasignar" class="k-button" onclick= "validarseleccionados();" /></p>
+				  		</td>
+						<td>
+						  <select id="seleccionados" name="seleccionados" size="4">
+								<?php foreach ($seleccionados as $sel):?>
+			    				<option value='<?php echo $sel['Nombramiento']['idnombramiento']; ?>'> <?php echo $sel['Persona']['nombrespersona'].' '.$sel['Persona']['apellidospersona']; ?></option>
+							    <?php endforeach; ?>
+					    		<?php unset($seleccionados); ?>
+						  </select>
+						  <div id="disponiblesinfo"></div>
+				  		</td>
+				  		
+				  </tr>
+				  <tr>
+				  	<td><?php echo $this->Session->flash('disponibles'); ?></td>
+			  		<td></td>
+			  		<td><?php echo $this->Session->flash('seleccionados'); ?></td>
+				  </tr>
+				</table>
+										
+				<?php }
+				?>
+									
+				<script>
+				    $("#disponibles").click(function(){
+				    	$("#seleccionados").val("");
+				    });	
+				   	$("#seleccionados").click(function(){
+				    	$("#disponibles").val("");
+				    });	
+				    
+				    
+				</script>
+				
+				<style>
+					select {
+						background-color: #E3F1F7;
+						font-size:12px; 
+						width: 250px;
+						height: 110px;
+					}
+					
+					option{
+						background-color: #E3F1F7;
+						font-size:12px; 
+						width: 250px;
+						padding:5px;
+						margin:2px;
+					}
+				</style>	
+			</div>
+
+			<li  class="accept">
+				<table>
+					<tr>
+						<td>
+							<?php echo $this->Html->link('Regresar',
+								array('controller' => 'Mains', 'action' => 'index'),array('id' => 'regresar','class'=>'k-button')); 
+							?>				
+						</td>
+						<td>
+							<!--<?php echo $this->Form->end(array('label' => 'Registrar Tecnicos', 'class' => 'k-button', 'id' => 'button')); ?>-->
+						</td>
+					</tr>
+				</table>
+			</li>
+			
+			<?php echo $this->ajax->observeField( 'contratos', 
+	    		array(
+	        		'url' => array( 'action' => 'update_tecdispo'),
+	        		'update' => 'listpicker'
+	    		) 
+			);  ?>
+			
+			<?php echo $this->ajax->observeField( 'proyectos', 
+	    		array(
+	        		'url' => array( 'action' => 'update_tecdispo'),
+	        		'update' => 'listpicker'
+	    		) 
+			);  ?>
+		</ul>
 	</div>
+</div>
 <style scoped>
 
-                .k-textbox {
-                    width: 70px;
-                }
+            .k-textbox {
+                width: 70px;
+            }
+			
+			#tablat {
+				vertical-align: top;
+			}
+			
+			#formulario {
+                width: 600px;
+                margin: 15px 0;
+                padding: 10px 20px 20px 0px;
+            }
+
+            #formulario h3 {
+                font-weight: normal;
+                font-size: 1.4em;
+                border-bottom: 1px solid #ccc;
+            }
+            
+            #tablafinancia h3 {
+                font-weight: normal;
+                font-size: 1.4em;
+                border-bottom: 1px solid #ccc;
+            }
+
+            #formulario ul {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+            }
+            
+            #formulario li {
+                margin: 10px 0 0 0;
+            }
+
+            label {
+                display: inline-block;
+                width: 150px;
+                text-align: right;
+                margin-right: 5px; 
+            }
+            
+            .etiqueta {
+                display: inline-block;
+                width: 150px;
+                
+                margin-right: 5px; 
+            }
+            
+            
+            form .required label:after {
+            	font-size: 1.4em;
+				color: #e32;
+				content: '*';
+				display:inline;
+			}
+            
+            .required {
+                font-weight: bold;
+            }
+
+            .accept, .status {
+            	padding-top: 15px;
+                padding-left: 490px;
+            }
+
+            .valid {
+                color: green;
+            }
+
+            .invalid {
+                color: red;
+            }
+            
+            span.k-tooltip {
+                margin-left: 6px;
+            }
+            
+            #listpicker {
+            	display: block;
+            	width: 600px; 
+            	height: 150px;
+            	margin: 25px;
+            }
+            
+         	.LV_validation_message{
+			    /*font-weight:bold;*/
+			    margin:0 0 0 5px;
+			}
+			
+			.LV_valid {
+			    color:#00CC00;
+			    margin-left: 10px;
+			    display: none;
+			}
 				
-				#tablat {
-					vertical-align: top;
-				}
-				
-				#formulario {
-                    width: 600px;
-                    margin: 15px 0;
-                    padding: 10px 20px 20px 0px;
-                }
-
-                #formulario h3 {
-                    font-weight: normal;
-                    font-size: 1.4em;
-                    border-bottom: 1px solid #ccc;
-                }
-                
-                #tablafinancia h3 {
-                    font-weight: normal;
-                    font-size: 1.4em;
-                    border-bottom: 1px solid #ccc;
-                }
-
-                #formulario ul {
-                    list-style-type: none;
-                    margin: 0;
-                    padding: 0;
-                }
-                
-                #formulario li {
-                    margin: 10px 0 0 0;
-                }
-
-                label {
-                    display: inline-block;
-                    width: 150px;
-                    text-align: right;
-                    margin-right: 5px; 
-                }
-                
-                .etiqueta {
-                    display: inline-block;
-                    width: 150px;
-                    
-                    margin-right: 5px; 
-                }
-                
-                
-                form .required label:after {
-                	font-size: 1.4em;
-					color: #e32;
-					content: '*';
-					display:inline;
-				}
-                
-                .required {
-                    font-weight: bold;
-                }
-
-                .accept, .status {
-                	padding-top: 15px;
-                    padding-left: 490px;
-                }
-
-                .valid {
-                    color: green;
-                }
-
-                .invalid {
-                    color: red;
-                }
-                
-                span.k-tooltip {
-                    margin-left: 6px;
-                }
-                
-                #listpicker {
-                	display: block;
-                	width: 600px; 
-                	height: 150px;
-                	margin: 25px;
-                }
+			.LV_invalid {
+			    color:#CC0000;
+           		display:block;
+           		
+			}
 </style>
 
 <script type="text/javascript">
-    $(document).ready(function () {    	
-    	
-       	/*$(".multiselect").twosidedmultiselect();*/
-       	
-       	$("#proyectos").kendoDropDownList({
-            			optionLabel: "Seleccione proyecto",
-			            dataTextField: "numeroproyecto",
-			            dataValueField: "idproyecto",
-			            <?php if(isset($idproyecto)){echo "value: ".$idproyecto.",";}?>
-			            dataSource: {
-			                            type: "json",
-			                            transport: {
-			                                read: "/Nombramientos/proyectojson.json"
-			                            }
-			                        }
-			        });
-			        
-		var proyectos = $("#proyectos").data("kendoDropDownList");
-			        
-		var contratos = $("#contratos").kendoDropDownList({
-			            autoBind: true,
-			            cascadeFrom: "proyectos",
-			            optionLabel: "Seleccione contrato",
-			            dataTextField: "codigocontrato",
-			            dataValueField: "idcontrato",
-			            <?php if(isset($idcontrato)){echo "value: ".$idcontrato.",";}?>
-			            dataSource: {
-			                         type: "json",
-			                         transport: {
-			                            read: "/Nombramientos/contratojson.json"
-			                         }
-			                        }
-			            }).data("kendoDropDownList");  
-			            
-		$("#datePicker1").kendoDatePicker({
-		   culture: "es-ES",
-		   format: "dd/MM/yyyy" //Define el formato de fecha
-		});
-		
-		
-				 $('#error1').hide();
-				 $('#error2').hide();
-                    $("#NombramientoNombramientoAsignartecnicoForm").submit( function(){
-				        var selectpro = $("#proyectos").val();
-				        var selectcon = $("#contratos").val();
-				 			$('#error1').hide();
-				 			$('#error2').hide();
-				            if(selectpro == ""){
-				            	$('#error1').show();
-				                $('#error1').text("Seleccione un Proyecto");
-				                
-				                return false;
-				            } else if(selectcon == ""){
-				            	$('#error2').show();
-				                $('#error2').text("Seleccione un Contrato");
-				                
-				                return false;
-				            } else {
-				                $('.error-message').hide();
-				                return true;
-				            }
-				    });
-		
-    });
+$(document).ready(function () {    	
+	
+   	/*$(".multiselect").twosidedmultiselect();*/
+   	
+   	$("#proyectos").kendoDropDownList({
+        			optionLabel: "Seleccione proyecto",
+		            dataTextField: "numeroproyecto",
+		            dataValueField: "idproyecto",
+		            <?php if(isset($idproyecto)){echo "value: ".$idproyecto.",";}?>
+		            dataSource: {
+		                            type: "json",
+		                            transport: {
+		                                read: "/Nombramientos/proyectojson.json"
+		                            }
+		                        }
+		        });
+		        
+	var proyectos = $("#proyectos").data("kendoDropDownList");
+		        
+	var contratos = $("#contratos").kendoDropDownList({
+		            autoBind: true,
+		            cascadeFrom: "proyectos",
+		            optionLabel: "Seleccione contrato",
+		            dataTextField: "codigocontrato",
+		            dataValueField: "idcontrato",
+		            <?php if(isset($idcontrato)){echo "value: ".$idcontrato.",";}?>
+		            dataSource: {
+		                         type: "json",
+		                         transport: {
+		                            read: "/Nombramientos/contratojson.json"
+		                         }
+		                        }
+		            }).data("kendoDropDownList");  
+		            
+	$("#datePicker1").kendoDatePicker({
+	   culture: "es-ES",
+	   format: "dd/MM/yyyy" //Define el formato de fecha
+	});
+	
+	
+			 $('#error1').hide();
+			 $('#error2').hide();
+                $("#NombramientoNombramientoAsignartecnicoForm").submit( function(){
+			        var selectpro = $("#proyectos").val();
+			        var selectcon = $("#contratos").val();
+			 			$('#error1').hide();
+			 			$('#error2').hide();
+			            if(selectpro == ""){
+			            	$('#error1').show();
+			                $('#error1').text("Seleccione un Proyecto");
+			                
+			                return false;
+			            } else if(selectcon == ""){
+			            	$('#error2').show();
+			                $('#error2').text("Seleccione un Contrato");
+			                
+			                return false;
+			            } else {
+			                $('.error-message').hide();
+			                return true;
+			            }
+			    });
+	
+});
 </script>

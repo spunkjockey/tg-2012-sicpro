@@ -69,30 +69,26 @@ $this->end(); ?>
 						'class'=>'k-combobox')); 
 				?>
 			</li>
-			<div id=tablametas>
-				
-			</div>
-			<li>
-</table>
-	<table width="603">
-		<tr>
-			<td style="text-align: right;">
-			<?php echo $this->Html->link(
-	   			'Regresar', 
-			   	array('controller'=>'Mains'),
-	   			array('class'=>'k-button')
-			);?>
-			</td>
-		</tr>
-	</table>
-			</li>
 		</ul>
+			
 		
+				
 		<?php echo $this->ajax->observeField( 'comps',array(
 			        		'url' => array( 'action' => 'update_tablametas'),
 			        		'update' => 'tablametas'));  
 					?>
 	</div>
+	
+	
+	
+	<div id=tablametas></div>
+	
+	<div style="margin: 10px 0px 10px 563px;"> 
+		<?php echo $this->Html->link('Regresar', 
+						array('controller' => 'Mains','action' => 'index'),
+						array('class'=>'k-button')); ?>
+	</div>
+
 </div>
 
 <style scoped>

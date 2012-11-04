@@ -14,9 +14,9 @@
 	    <td><?php echo $inf['Meta']['porcestimado']." %"; ?></td>
 	  	<td align="center">
 	        <?php 
-	        	echo $this->Html->link('Actualizar', 
+	        	echo $this->Html->link('<span class="k-icon k-i-pencil"></span>', 
 	            	array('action' => 'meta_actualizarpje', $inf['Meta']['idmeta']),
-	            	array('class'=>'k-button'));
+	            	array('class'=>'k-button','escape'=>false,'title'=>'Modificar Meta'));
 			?>
 	       </td>
 	</tr>

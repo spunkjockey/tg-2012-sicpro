@@ -13,16 +13,16 @@ class MainsController extends AppController {
 				  proyecto.nombreproyecto, 
 				  proyecto.montoplaneado, 
 				  proyecto.estadoproyecto, 
-				  SUM(financia.montoparcial) montoreal, 
+				  (SELECT SUM(montoparcial) FROM sicpro2012.financia WHERE financia.idproyecto = proyecto.idproyecto) montoreal,
 				  COUNT(contrato.idcontrato) numcontratos, 
 				  SUM(contrato.montooriginal) + SUM(contrato.variacion) AS montocontratos
 				FROM 
 				  sicpro2012.proyecto, 
-				  sicpro2012.financia, 
+				  
 				  sicpro2012.contrato
 				WHERE 
-				  proyecto.idproyecto = financia.idproyecto AND
 				  proyecto.idproyecto = contrato.idproyecto
+				  
 				GROUP BY
 				  proyecto.idproyecto,
 				  proyecto.numeroproyecto, 

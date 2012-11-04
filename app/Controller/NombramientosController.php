@@ -40,72 +40,93 @@ class NombramientosController extends AppController {
 		
 		
 		
-		//Asignar un tecnico y darlo de ALTA
-		if(isset($this->request->data['boton_1'])){
-			if ($this->request->is('post')) {
-					    // it validated logic
-					    $presente = $this->Nombramiento->find('count',array('conditions' => array(
-						'Nombramiento.idpersona' => $this->request->data['disponibles'],
-						'Nombramiento.idcontrato' =>$this->request->data['Nombramiento']['contratos'])));
-						if($presente==0)
-							{
-								$this->Nombramiento->set('idpersona', $this->request->data['disponibles']);
-								$this->Nombramiento->set('idcontrato', $this->request->data['Nombramiento']['contratos']);
-								$this->Nombramiento->set('estado', TRUE);
-								$this->Nombramiento->set('userc', $this->Session->read('User.username'));			
-							    if ($this->Nombramiento->save()) {
-							    	$tecnico=$this->Persona->findByIdpersona($this->request->data['disponibles']);
-									$contrato=$this->Contratoconstructor->findByIdcontrato($this->request->data['Nombramiento']['contratos']);
-					            	//$this->Session->setFlash('Tecnico "'. $tecnico['Persona']['nombrespersona'] .' '. $tecnico['Persona']['apellidospersona'] .'" Asignado al contrato "'. $contrato['Contratoconstructor']['codigocontrato'] .'".','default',array('class'=>'success'));
-					            	//$this->redirect(array('controller' => 'fichatecnicas','action' => 'add'));
-					            	$this->redirect(array('controller' => 'Nombramientos','action' => 'nombramiento_asignartecnico',
-					            	$this->request->data['Nombramiento']['proyectos'],
-					            	$this->request->data['Nombramiento']['contratos']));
-					        	} else {
-					            	$this->Session->setFlash('No se pudo realizar el registro' /*. $this->data['Fichatecnica']['idfichatenica'] */);
-					        	}
-				        	}
-						//Si la persona ya existe en la tabla nombramiento para ese contrato,solo se modifica su estado y respectiva fecha de alta
-						if($presente==1){
-							$idnombramiento=$this->Nombramiento->findByIdpersona($this->request->data['disponibles']);
-							$this->Nombramiento->id = $idnombramiento['Nombramiento']['idnombramiento'];
-							
-							$this->Nombramiento->set('userm', $this->Session->read('User.username'));
-							$this->Nombramiento->set('fechanombramiento', date('Y-m-d h:i:s'));
-							$this->Nombramiento->set('estado', TRUE);
-							if ($this->Nombramiento->save($this->request->data)) {
-							    	$tecnico=$this->Persona->findByIdpersona($this->request->data['disponibles']);
-									$contrato=$this->Contratoconstructor->findByIdcontrato($this->request->data['Nombramiento']['contratos']);
-					            	//$this->Session->setFlash('Tecnico "'. $tecnico['Persona']['nombrespersona'] .' '. $tecnico['Persona']['apellidospersona'] .'" Asignado al contrato "'. $contrato['Contratoconstructor']['codigocontrato'] .'".','default',array('class'=>'success'));
-					            	//$this->redirect(array('controller' => 'fichatecnicas','action' => 'add'));
-					            	$this->redirect(array('controller' => 'Nombramientos','action' => 'nombramiento_asignartecnico',
-					            	$this->request->data['Nombramiento']['proyectos'],
-					            	$this->request->data['Nombramiento']['contratos']));
-					        	} else {
-					            	$this->Session->setFlash('No se pudo realizar el registro' /*. $this->data['Fichatecnica']['idfichatenica'] */);
-					        	}
-						}
-	    	}
+		
+		
+		if ($this->request->is('POST')) {
+				
+			//Debugger::dump(isset($this->request->data['disponibles']));
+			//Debugger::dump(isset($this->request->data['seleccionados']));
+			if(isset($this->request->data['disponibles']) && isset($this->request->data['boton_1']) ){
+			    $presente = $this->Nombramiento->find('count',array('conditions' => array(
+					'Nombramiento.idpersona' => $this->request->data['disponibles'],
+					'Nombramiento.idcontrato' =>$this->request->data['Nombramiento']['contratos'])));
+				if($presente==0) {
+					$this->Nombramiento->set('idpersona', $this->request->data['disponibles']);
+					$this->Nombramiento->set('idcontrato', $this->request->data['Nombramiento']['contratos']);
+					$this->Nombramiento->set('estado', TRUE);
+					$this->Nombramiento->set('userc', $this->Session->read('User.username'));			
+					if ($this->Nombramiento->save()) {
+					   	$tecnico=$this->Persona->findByIdpersona($this->request->data['disponibles']);
+						$contrato=$this->Contratoconstructor->findByIdcontrato($this->request->data['Nombramiento']['contratos']);
+					  	//$this->Session->setFlash('Tecnico "'. 
+				     		//$tecnico['Persona']['nombrespersona'] .' '. 
+		            		//$tecnico['Persona']['apellidospersona'] .'" Asignado al contrato "'. 
+		            		//$contrato['Contratoconstructor']['codigocontrato'] .'".',
+		            		//'default',array('class'=>'success'));
+		            	//$this->redirect(array('controller' => 'fichatecnicas','action' => 'add'));
+		            	$this->redirect(array('controller' => 'Nombramientos','action' => 'nombramiento_asignartecnico',
+		            	$this->request->data['Nombramiento']['proyectos'],
+		            	$this->request->data['Nombramiento']['contratos']));
+		        	} else {
+		            	$this->Session->setFlash('No se pudo realizar el registro' /*. $this->data['Fichatecnica']['idfichatenica'] */);
+		        	}
+	        	}
+				//Si la persona ya existe en la tabla nombramiento para ese contrato,solo se modifica su estado y respectiva fecha de alta
+				if($presente==1){
+					$idnombramiento=$this->Nombramiento->findByIdpersona($this->request->data['disponibles']);
+					$this->Nombramiento->id = $idnombramiento['Nombramiento']['idnombramiento'];
+					$this->Nombramiento->set('userm', $this->Session->read('User.username'));
+					$this->Nombramiento->set('fechanombramiento', date('Y-m-d h:i:s'));
+					$this->Nombramiento->set('estado', TRUE);
+					if ($this->Nombramiento->save($this->request->data)) {
+				    	$tecnico=$this->Persona->findByIdpersona($this->request->data['disponibles']);
+						$contrato=$this->Contratoconstructor->findByIdcontrato($this->request->data['Nombramiento']['contratos']);
+		            	//$this->Session->setFlash('Tecnico "'. $tecnico['Persona']['nombrespersona'] .' '. $tecnico['Persona']['apellidospersona'] .'" Asignado al contrato "'. $contrato['Contratoconstructor']['codigocontrato'] .'".','default',array('class'=>'success'));
+		            	//$this->redirect(array('controller' => 'fichatecnicas','action' => 'add'));
+				    } else {
+					   	$this->Session->setFlash('Un error inesperado ha ocurrido');
+		        	}
+				}
+	    	} else {
+			
+				if(isset($this->request->data['seleccionados']) && isset($this->request->data['boton_2']) ){
+				
+					$valor = $this->request->data['seleccionados'];
+					$this->Nombramiento->set('idcontrato', $this->request->data['Nombramiento']['contratos']);
+					$this->Nombramiento->id = $this->request->data['seleccionados'];
+					//$this->Nombramiento->read(null,$this->request->data['seleccionados']);
+					$this->Nombramiento->set('userm', $this->Session->read('User.username'));
+					$this->Nombramiento->set('fechadebaja', date('Y-m-d h:i:s'));
+					$this->Nombramiento->set('estado', FALSE);
+					$tmp = $this->Nombramiento->findByIdnombramiento($valor);
+					if ($this->Nombramiento->save($this->request->data)) {	
+				        //$this->Session->setFlash('Tecnico "'. $tmp['Persona']['nombrespersona'] .' '. $tmp['Persona']['apellidospersona'] .'" Desasignado al contrato "'. $tmp['Contrato']['codigocontrato'] .'".','default',array('class'=>'success'));				        
+				    } else {
+				    	$this->Session->setFlash('Un error inesperado ha ocurrido');
+				    }
+				} else {
+					
+					//$this->Session->setFlash('Selecciona algo weon');
+					if( !isset($this->request->data['seleccionados']) && isset($this->request->data['boton_2'])) {
+						$this->Session->setFlash('Seleccione un técnico a dar de Baja', 'default', array('class' => 'LV_validation_message LV_invalid'), 'seleccionados');
+					}
+					
+					if( !isset($this->request->data['disponibles']) && isset($this->request->data['boton_1'])) {
+						$this->Session->setFlash('Seleccione un técnico a dar de Alta', 'default', array('class' => 'LV_validation_message LV_invalid'), 'disponibles');
+					}
+					
+				}
+			}
+			
+			$this->redirect(array('controller' => 'Nombramientos','action' => 'nombramiento_asignartecnico',
+		            		$this->request->data['Nombramiento']['proyectos'],
+		            		$this->request->data['Nombramiento']['contratos']));
+			
+
 		}
 		
-		//asignar un tecnico y darlo de baja
-		/*$this->request->data['seleccionados']}*/
-		if(isset($this->request->data['boton_2'])){
-			$valor = $this->request->data['seleccionados'];
-			$this->Nombramiento->set('idcontrato', $this->request->data['Nombramiento']['contratos']);
-			$this->Nombramiento->id = $this->request->data['seleccionados'];
-			//$this->Nombramiento->read(null,$this->request->data['seleccionados']);
-			$this->Nombramiento->set('userm', $this->Session->read('User.username'));
-			$this->Nombramiento->set('fechadebaja', date('Y-m-d h:i:s'));
-			$this->Nombramiento->set('estado', FALSE);
-			$tmp = $this->Nombramiento->findByIdnombramiento($valor);
-			if ($this->Nombramiento->save($this->request->data)) {	
-		        //$this->Session->setFlash('Tecnico "'. $tmp['Persona']['nombrespersona'] .' '. $tmp['Persona']['apellidospersona'] .'" Desasignado al contrato "'. $tmp['Contrato']['codigocontrato'] .'".','default',array('class'=>'success'));
-		        $this->redirect(array('controller' => 'Nombramientos','action' => 'nombramiento_asignartecnico',
-					  $this->request->data['Nombramiento']['proyectos'],
-					  $this->request->data['Nombramiento']['contratos']));
-		    }
-		}
+		
+		
 	}
 	
 	

@@ -38,17 +38,26 @@ class MYPDF extends TCPDF {
     }
 	
 	 // Colored table
-    public function ColoredTable($header,$avancesupervision) {
+    public function ColoredTable($headert,$header,$avancesupervision) {
         // Colors, line width and bold font
         $this->SetTextColor(140,140,140);
         $this->Cell(150, 6, 'Tabla de Avances Programados vs Informes de Avance a la fecha', 0, 0, 'C', 0,'',0,true,'C','C');
 		$this->Ln();
+		$this->Cell(30, 7, '', 0, 0, 'C', 0);
         $this->SetFillColor(230, 237, 245);
         $this->SetTextColor(79,118,163);
         $this->SetDrawColor(0, 0, 0);
         $this->SetLineWidth(0.3);
         $this->SetFont('', 'B');
         // Header
+        
+        $w = array(60, 60);
+        $num_headers = count($headert);
+        for($i = 0; $i < $num_headers; ++$i) {
+            $this->Cell($w[$i], 7, $headert[$i], 1, 0, 'C', 1);
+        }
+        $this->Ln();
+        
         $w = array(30, 30, 30, 30, 30);
         $num_headers = count($header);
         for($i = 0; $i < $num_headers; ++$i) {
@@ -73,18 +82,27 @@ class MYPDF extends TCPDF {
         $this->Cell(array_sum($w), 0, '', 'T');
     }
 
-	public function ColoredTablea($header,$estimaciones) {
+	public function ColoredTablea($headert,$header,$estimaciones) {
         // Colors, line width and bold font
         $this->SetTextColor(140,140,140);
         $this->Cell(120, 6, 'Tabla Estimaciones a la fecha', 0, 0, 'C', 0,'',0,true,'C','C');
 		$this->Ln();
+        
         $this->SetFillColor(230, 237, 245);
         $this->SetTextColor(79,118,163);
         $this->SetDrawColor(0, 0, 0);
         $this->SetLineWidth(0.3);
         $this->SetFont('', 'B');
         // Header
-        $w = array(30, 30, 30, 30);
+        
+        $w = array(60, 40, 50);
+        $num_headers = count($headert);
+        for($i = 0; $i < $num_headers; ++$i) {
+            $this->Cell($w[$i], 7, $headert[$i], 1, 0, 'C', 1);
+        }
+        $this->Ln();
+        
+        $w = array(30, 30, 20, 20, 25, 25);
         $num_headers = count($header);
         for($i = 0; $i < $num_headers; ++$i) {
             $this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', 1);
@@ -96,11 +114,17 @@ class MYPDF extends TCPDF {
         $this->SetFont('');
         // Data
         $fill = 0;
+		$acumulado = 0;
+		$pacumulado = 0;
         foreach ($estimaciones as $esti) {
+        	$acumulado = $acumulado + $esti['Estimacion']['montoestimado'];
+			$pacumulado = $pacumulado + $esti['Estimacion']['porcentajeestimadoavance'];
             $this->Cell($w[0], 6, date('d/m/Y',strtotime($esti['Estimacion']['fechainicioestimacion'])), 'LR', 0, 'C', $fill);
             $this->Cell($w[1], 6, date('d/m/Y',strtotime($esti['Estimacion']['fechafinestimacion'])), 'LR', 0, 'C', $fill);
             $this->Cell($w[2], 6, number_format($esti['Estimacion']['porcentajeestimadoavance'],2).'%', 'LR', 0, 'R', $fill);
-            $this->Cell($w[3], 6, '$'.number_format($esti['Estimacion']['montoestimado'],2), 'LR', 0, 'R', $fill);
+            $this->Cell($w[3], 6, number_format($pacumulado,2).'%', 'LR', 0, 'R', $fill);
+            $this->Cell($w[4], 6, '$'.number_format($esti['Estimacion']['montoestimado'],2), 'LR', 0, 'R', $fill);
+            $this->Cell($w[5], 6, '$'.number_format($acumulado,2), 'LR', 0, 'R', $fill);
 			$this->Ln();
             $fill=!$fill;
         }
@@ -203,9 +227,10 @@ $pdf->writeHTML($htmlc, true, false, true, false, '');
 $pdf->Ln(5);
 
 if(!empty($avancesupervision)) {
+	$headert = array('Físico', 'Financiero');
 	$header = array('Fecha', 'Prog', 'Ejecutado', 'Prog', 'Ejecutado');
 	$pdf->SetFont('helvetica', '', 10);
-	$pdf->ColoredTable($header,$avancesupervision);
+	$pdf->ColoredTable($headert,$header,$avancesupervision);
 } else {
 	$htmla =  'No hay avances asociados a este contrato en particular';
 	$pdf->writeHTML($htmla, true, false, true, false, '');
@@ -214,9 +239,10 @@ if(!empty($avancesupervision)) {
 
 $pdf->Ln(10);
 if(!empty($estimaciones)) {
-	$header = array('Inicio', 'Fin', 'Porcentaje Fisico', 'Avance Finan.');
+	$headert = array('Periodo','Físico', 'Financiero');
+	$header = array('Inicio', 'Fin', 'Estimado', 'Acumulado', 'Estimado', 'Acumulado');
 	$pdf->SetFont('helvetica', '', 10);
-	$pdf->ColoredTablea($header,$estimaciones);
+	$pdf->ColoredTablea($headert,$header,$estimaciones);
 } else {
 	$htmlb =  'No hay estimaciones asociadas a este contrato en particular';
 	$pdf->writeHTML($htmlb, true, false, true, false, '');
@@ -264,7 +290,7 @@ $html .= '</table>';*/
 
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output('example_001.pdf', 'I');
+$pdf->Output('AvanceContrato.pdf', 'I');
 exit;
 //============================================================+
 // END OF FILE

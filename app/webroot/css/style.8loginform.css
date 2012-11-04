@@ -427,7 +427,7 @@ input[type=submit]:active {
 
 .pagination {
 	margin:26px auto 0;
-	width:100px;
+	width:50px;
 }
 
 .pagination li {
