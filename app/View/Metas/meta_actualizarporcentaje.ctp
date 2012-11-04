@@ -73,9 +73,18 @@ $this->end(); ?>
 				
 			</div>
 			<li>
-				<?php echo $this->Html->link('Regresar', 
-						array('controller' => 'Mains','action' => 'index'),
-						array('class'=>'k-button')); ?>
+</table>
+	<table width="603">
+		<tr>
+			<td style="text-align: right;">
+			<?php echo $this->Html->link(
+	   			'Regresar', 
+			   	array('controller'=>'Mains'),
+	   			array('class'=>'k-button')
+			);?>
+			</td>
+		</tr>
+	</table>
 			</li>
 		</ul>
 		
