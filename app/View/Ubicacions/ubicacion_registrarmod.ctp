@@ -81,9 +81,11 @@ $this->end(); ?>
 		            var municipios = new LiveValidation( "municipios", { validMessage: " ", insertAfterWhatNode: "muni" } );
 		            municipios.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script> 
+		        <div style="margin-left: 165px">
 		        <?php if ($this->Form->isFieldError('idmunicipio')) {
 				    echo $this->Form->error('idmunicipio');
 				} ?>
+				</div>
 			</li>
 			<li>
 				<?php echo $this->Form->input('direccion', 
@@ -177,6 +179,7 @@ $this->end(); ?>
 
                 .valid {
                     color: green;
+                    display: none;
                 }
 
                 .invalid {
@@ -194,6 +197,7 @@ $this->end(); ?>
 				
 				.LV_valid {
 				    color:#00CC00;
+				    display: none;
 				}
 					
 				.LV_invalid {

@@ -20,7 +20,7 @@ public $belongsTo = array(
 		'idmunicipio' => array(
 			'llave' => array(
             	'rule'    => array('veryubicacion'),
-            	'message' => 'EL municpio ya fue seleccionado para esta ficha tecnica'
+            	'message' => 'El municipio ya fue seleccionado para esta ficha tecnica'
         	)
 		)
 	);

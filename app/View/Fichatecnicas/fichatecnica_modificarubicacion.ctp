@@ -52,27 +52,30 @@ $this->end(); ?>
 <!--<?php Debugger::dump($ubicaciones); ?>-->
 <div style='margin:4px 0' >
 	<?php echo $this->Html->link(
-		'Registrar Ubicacion', 
+		'<span class="k-icon k-i-plus"></span>Agregar Ubicación', 
 		array('controller' => 'Ubicacions', 'action' => 'ubicacion_registrarmod',$idfichatecnica),
-		array('class'=>'k-button')
+		array('class'=>'k-button','escape' => false,'title'=>'Agregar nueva ubicación')
 	); ?>
 </div> 
 <?php if(!empty($ubicaciones)){ ?>
 <table id="grid">
     <tr>
-        <th data-field="direccion">Direccion</th>
         <th data-field="municipio">Municipio</th>
         <th data-field="departamento">Departamento</th>
+        <th data-field="direccion">Dirección</th>
         <th data-field="accion" width="70px">Acción</th>
     </tr>
 
     <!-- Here is where we loop through our $empresas array, printing out post info -->
 
     <?php foreach ($ubicaciones as $ubi): ?>
-    <tr>
-        <td><?php echo $ubi['Ubicacion']['direccion']; ?></td>   
+    <tr>  
         <td><?php echo $ubi['Municipio']['municipio']; ?></td>
-        <td><?php echo $ubi['Departamento']['departamento']; ?></td>  
+        <td><?php echo $ubi['Departamento']['departamento']; ?></td>
+        <td><?php if(empty($ubi['Ubicacion']['direccion'])){
+        	echo "No Disponible";	
+        }else {
+        echo $ubi['Ubicacion']['direccion']; }?></td>   
         <td align="center">
            <!-- <?php echo $this->Html->link(
             	'Modificar', 
@@ -80,10 +83,10 @@ $this->end(); ?>
             	array('class'=>'k-button')
 			);?>-->
             <?php echo $this->Form->postLink(
-                'Eliminar',
+                '<span class="k-icon k-i-close"></span>',
                 array('controller'=>'Ubicacions','action' => 'ubicacion_eliminar', $ubi['Ubicacion']['idubicacion'],$idfichatecnica),
                 array('confirm' => '¿Está seguro que desea la ubicacion?',
-                		'class'=>'k-button')
+                		'class'=>'k-button','escape' => false,'title'=>'Eliminar Ubicación')
             )?>
         </td>
         
@@ -97,13 +100,18 @@ else {
 	echo "No hay Ubicaciones registradas para esta Ficha Tecnica<br />";
 }
 ?>
-<div style='margin:4px 0' >
+	<table width="633">
+		<tr>
+			<td style="text-align: right;">
 	<?php echo $this->Html->link(
 		'Regresar', 
 		array('controller' => 'Fichatecnicas', 'action' => 'fichatecnica_listarficha'),
 		array('class'=>'k-button')
 	); ?>
-</div>
+				</td>
+		</tr>
+	</table>
+
 <style scoped>
 
                 .k-textbox {

@@ -2,7 +2,7 @@
 class ComponentesController extends AppController {
     public $helpers = array('Html', 'Form', 'Session','Ajax');
     public $components = array('Session');
-	public $uses = array('Fichatecnica','Ubicacion','Componente');
+	public $uses = array('Fichatecnica','Ubicacion','Componente','Meta');
 
 	
 	public function componente_registrar($id=null) {

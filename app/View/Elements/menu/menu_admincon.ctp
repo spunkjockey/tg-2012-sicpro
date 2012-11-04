@@ -19,7 +19,7 @@
 									<li>Programaci&oacute;n de avance
 										<ul>
 											<li><?php echo $this->Html->link('Programación de Avance', array('controller' => 'Avanceprogramados','action'=>'index')); ?></li>
-											<li disabled="disabled">Consultar Programaci&oacute;n</li>
+											<!--<li disabled="disabled">Consultar Programaci&oacute;n</li>-->
 										</ul>
 									</li>
 									<li>Informe de supervisi&oacute;n
@@ -63,10 +63,10 @@
 							<li>Mantenimiento
 								<ul>
 									<li><?php echo $this->Html->link('Empresas', array('controller' => 'empresas','action'=>'index')); ?></li>
-									<li disabled="disabled">Consultar fuente de financiamiento</li>
+									<!--<li disabled="disabled">Consultar fuente de financiamiento</li>-->
 									<li>Perfil
 										<ul>
-											<li disabled="disabled">Modificar perfil</li>
+											<!--<li disabled="disabled">Modificar perfil</li>-->
 											<li><?php echo $this->Html->link('Cambiar Contraseña', array('controller' => 'Users','action'=>'cambiarpass')); ?></li>
 										</ul>
 									</li>

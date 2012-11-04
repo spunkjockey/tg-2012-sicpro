@@ -26,7 +26,7 @@ class UbicacionsController extends AppController {
 		            	$this->redirect(array('controller' => 'Fichatecnicas','action' => 'view',$id
 						));
 		        	} else {
-		            	$this->Session->setFlash('No se pudo realizar el registro' /*. $this->data['Fichatecnica']['idfichatenica'] */);
+		            	//$this->Session->setFlash('No se pudo realizar el registro' /*. $this->data['Fichatecnica']['idfichatenica'] */);
 		        	}
     	}
 	}
@@ -53,7 +53,7 @@ class UbicacionsController extends AppController {
 		            	$this->redirect(array('controller' => 'Fichatecnicas','action' => 'fichatecnica_modificarubicacion',$id
 						));
 		        	} else {
-		            	$this->Session->setFlash('No se pudo realizar el registro' /*. $this->data['Fichatecnica']['idfichatenica'] */);
+		            	//$this->Session->setFlash('No se pudo realizar el registro' /*. $this->data['Fichatecnica']['idfichatenica'] */);
 		        	}
     	}
 	}
