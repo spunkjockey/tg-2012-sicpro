@@ -51,20 +51,37 @@ $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Actualizar meta</h2>
+		
 		<?php echo $this->Form->create('Meta',array('action' => 'meta_actualizarpje')); ?>
-		<h3><?php echo $this->data['Meta']['descripcionmeta'];?></h3>
+		
 		<ul>
+			<li>
+				<table>
+					<tr>
+					<td><label>Componente:</label></td><td><?php echo $this->data['Componente']['nombrecomponente'];?></td>
+					</tr>
+					
+					<tr>
+					<td><label>Meta:</label></td><td><?php echo $this->data['Meta']['descripcionmeta'];?></td>
+					</tr>
+					
+					<tr>
+					<td><label>Porcentaje Actual:</label></td><td><?php echo $this->data['Meta']['porcestimado'] . '%';?></td>
+					</tr>
+				</table>
+			</li>
 			<li>
 				<?php echo $this->Form->input('porcestimado', 
 					array(
 						'label' => 'Porcentaje de avance (%)', 
 						'type'=>'text',  
 						'id' => 'porcestimado',
-						'div' => array('class' => 'requerido'),
+						'div' => array('id' => 'porcentaje', 'class' => 'requerido'),
 						'maxlength'=>'5')); ?>
 				<script type="text/javascript">
-					var porcestimado = new LiveValidation( "porcestimado", { validMessage: " " } );
+					var porcestimado = new LiveValidation( "porcestimado", { validMessage: " ", insertAfterWhatNode: "porcentaje" } );
 		            porcestimado.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            porcestimado.add( Validate.Numericality,{ minimum: 0, maximum: 100, tooLowMessage: "El porcentaje no puede ser menor a 0 %", tooHighMessage: "El porcentaje no debe ser mayor al 100 %", notANumberMessage:"Debe ser un número"} );
 		        </script>
 			</li>
 			<li  class="accept">
@@ -89,131 +106,92 @@ $this->end(); ?>
 </div>
 
 <style scoped>
+	.k-textbox {
+    	width: 300px;
+	}  
 
-                .k-textbox {
-                    width: 300px;
-                    
-                    
-                }
-				
-				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
-				
-				.k-combobox {
-                    width: 300px;
-                }
-                
-                form .requerido label:after {
-					font-size: 1.4em;
-					color: #e32;
-					content: '*';
-					display:inline;
-					}
-                
-                #formulario {
-                    width: 600px;
-                    /*height: 323px;*/
-                    margin: 15px 0;
-                    padding: 10px 20px 20px 0px;
-                    /*background: url('../../content/web/validator/ticketsOnline.png') transparent no-repeat 0 0;*/
-                }
+	.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 
-                #formulario h3 {
-                    font-weight: normal;
-                    font-size: 1.4em;
-                    border-bottom: 1px solid #ccc;
-                }
-
-                #formulario ul {
-                    list-style-type: none;
-                    margin: 0;
-                    padding: 0;
-                }
-                #formulario li {
-                    margin: 10px 0 0 0;
-                }
-
-                label {
-                    display: inline-block;
-                    width: 150px;
-                    text-align: right;
-                    margin-right: 5px;
-                }
-
-                .accept, .status {
-                	padding-top: 15px;
-                    padding-left: 150px;
-                }
-
-                .valid {
-                    color: green;
-                }
-
-                .invalid {
-                    color: red;
-                }
-                span.k-tooltip {
-                    margin-left: 6px;
-                }
-                
-                .LV_validation_message{
-				    font-weight:bold;
-				    margin:0 0 0 5px;
-				}
-				
-				.LV_valid {
-				    color:#00CC00;
-				}
-					
-				.LV_invalid {
-				    color:#CC0000;
-					clear:both;
-               		display:inline-block;
-               		margin-left: 170px; 
-               
-				}
-				    
-				.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
-				}
-				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
-            </style>
+	.k-combobox {
+	    width: 300px;
+	}
+	
+	form .requerido label:after {
+		font-size: 1.4em;
+		color: #e32;
+		content: '*';
+		display:inline;
+		}
+	
+	#formulario {
+	    width: 600px;
+	    margin: 15px 0;
+	    padding: 10px 20px 20px 0px;
+	}
+	
+	#formulario h3 {
+	    font-weight: normal;
+	    font-size: 1.4em;
+	    border-bottom: 1px solid #ccc;
+	}
+	
+	#formulario ul {
+	    list-style-type: none;
+	    margin: 0;
+	    padding: 0;
+	}
+	#formulario li {
+	    margin: 10px 0 0 0;
+	}
+	
+	label {
+	    display: inline-block;
+	    width: 150px;
+	    text-align: right;
+	    margin-right: 5px;
+	}
+	
+	.accept, .status {
+		padding-top: 15px;
+	    padding-left: 150px;
+	}
+	
+	.valid {
+	    color: green;
+	}
+	
+	.invalid {
+	    color: red;
+	}
+	span.k-tooltip {
+	    margin-left: 6px;
+	}
+	
+	.LV_validation_message{
+	    
+	    margin:0 0 0 5px;
+	}
+	
+	.LV_valid {
+	    color:#00CC00;
+	    display:none;
+	}
+		
+	.LV_invalid {
+	    color:#CC0000;
+		clear:both;
+		display:inline-block;
+		margin-left: 155px; 
+	               
+	}
+</style>
             
 <script>
-                $(document).ready(function() {
-                    
-                    var validator = $("#formulario").kendoValidator().data("kendoValidator"),
-                    status = $(".status");
-
-                    $("#button").click(function() {
-                        if (validator.validate()) {
-                        	save();  
-                        } 
-                    });
-                    
-                    
-                    
-                    
-                    $("#porcestimado").kendoNumericTextBox({
-                        decimals: 2,
-                        min: 0,
-    					max: 100.00,
-    					spinners: false
-                    });
-                    
-                    
-               
-                });
-                
-                
-            </script>
+	$(document).ready(function() {
+    	$("#porcestimado").kendoNumericTextBox({
+        	decimals: 2,
+            min: 0,
+			spinners: false
+        });
+	});
+</script>
