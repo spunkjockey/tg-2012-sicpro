@@ -124,6 +124,7 @@ class UsersController extends AppController {
 			$this->User->set('apellidos', $this->request->data['User']['apellidospersona']);
 			$this->User->set('estado', $this->request->data['User']['estado']);
 			$this->User->set('idrol', $this->request->data['User']['roles']);
+			$this->User->set('userc', $this->Session->read('User.username'));
             if ($this->User->save()) 
             {
                 $this->Session->setFlash(__('El Usuario registrado con exito'),'default',array('class'=>'success'));

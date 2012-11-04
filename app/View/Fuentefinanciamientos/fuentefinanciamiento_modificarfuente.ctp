@@ -53,7 +53,7 @@ $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Editar Fuente de Financiamiento</h2>
-		<?php echo $this->Form->create('Fuentefinanciamiento'); ?>
+		<?php echo $this->Form->create('Fuentefinanciamiento',array('action' => 'fuentefinanciamiento_modificarfuente')); ?>
 		<ul>
 			<li>
 				<?php echo $this->Form->input('nombrefuente', 
@@ -76,6 +76,7 @@ $this->end(); ?>
 						'label' => 'Monto disponible actual:', 
 						'id'    => 'moneda',
 						'maxlength'=> 11,
+						'class' => 'k-textbox',
 						'type'=>'text',
 						'placeholder' => 'Monto Inicial', 
 						'div' => array('id' => 'dmonto','class' => 'requerido'))); ?>
@@ -104,51 +105,51 @@ $this->end(); ?>
 					array(
 						'label' => 'Tipo Fuente:', 
 						'id' => 'fuentes',
+						'class' => '.k-combobox',
 						'div' => array('id' => 'dfuentes','class' => 'requerido')
 					)); ?>
 			</li>
-		
-		
-		<li  class="accept">
-				<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
-				<?php echo $this->Form->input('userm', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
-				
-			
-<table border="0">
-<tr>
-<td><?php echo $this->Form->end(array('label' => 'Editar Fuente', 'class' => 'k-button')); ?>
-</td><td>
-    <?php echo $this->Html->link('Regresar', array('controller' => 'Fuentefinanciamientos','action' => 'index'),
-    array('class'=>'k-button'));?>
-</td></tr>
-</table>
-			
+			<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
+			<?php echo $this->Form->input('userm', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
+			<li  class="accept">
+				<table>
+					<tr>
+						<td>
+							<?php echo $this->Form->end(array('label' => 'Editar Fuente', 'class' => 'k-button')); ?>
+						</td>
+						<td>
+							<?php echo $this->Html->link('Regresar', array(
+									'controller' => 'Fuentefinanciamientos',
+									'action' => 'index'),
+			    					array('class'=>'k-button'));?>
+						</td>
+					</tr>
+				</table>
 			</li>
-            
-            <li class="status">
-            </li>
-		</ul>
-		 
- 
- 
-   </div>
-  </div>
+        </ul>
+	</div>
+ </div>
            <style scoped>
 
                 .k-textbox {
                     width: 300px;
-               
+                    
                     
                 }
 				
-				    form .requerido label:after {
-                	font-size: 1.4em;
+				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
+				
+				.k-combobox {
+                    width: 300px;
+                }
+                
+                form .requerido label:after {
+					font-size: 1.4em;
 					color: #e32;
 					content: '*';
 					display:inline;
-				}
+					}
                 
-			
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -174,12 +175,10 @@ $this->end(); ?>
 
                 label {
                     display: inline-block;
-                    width: 210px;
+                    width: 150px;
                     text-align: right;
                     margin-right: 5px;
-                    
                 }
-
 
                 .accept, .status {
                 	padding-top: 15px;
@@ -191,56 +190,61 @@ $this->end(); ?>
                 }
 
                 .invalid {
-                    color: gray;
+                    color: red;
                 }
                 span.k-tooltip {
                     margin-left: 6px;
                 }
                 
-                 .LV_validation_message{
-				   
+                .LV_validation_message{
 				    margin:0 0 0 5px;
 				}
 				
 				.LV_valid {
 				    color:#00CC00;
-				    display:none;
 				}
 					
 				.LV_invalid {
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 215px; 
+               		margin-left: 155px; 
                
 				}
 
             </style>
             
-            <script>
-                $(document).ready(function() {
-                    var validator = $("#formulario").kendoValidator().data("kendoValidator"),
-                    status = $(".status");
+<script>
+    $(document).ready(function() {
+        var validator = $("#formulario").kendoValidator().data("kendoValidator"),
+        status = $(".status");
 
-                    $("button").click(function() {
-                        if (validator.validate()) {
-                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-                            } else {
-                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-                        }
-                    });
-
+        $("button").click(function() {
+            if (validator.validate()) {
+                //status.text("Hooray! Your tickets has been booked!").addClass("valid");
+                } else {
+                //status.text("Oops! There is invalid data in the form.").addClass("invalid");
+            }
+        });
+		
+		$("#moneda").kendoNumericTextBox({
+		     format: "c2", //Define currency type and 2 digits precision
+		     spinners: false,
+		     min:0, 
+		     max:999999999.99
+		 });
 
 		$("#datePicker1").kendoDatePicker({
 		   format: "dd/MM/yyyy", //Define el formato de fecha
 		   culture:"es-ES",
-		   <?php if(isset($this->request->data['Fuentefinanciamiento']['fechadisponible'])) { echo 'value: kendo.parseDate("' . $this->request->data['Fuentefinanciamiento']['fechadisponible'] . '", "dd/MM/yyyy")';} ?>
+		   <?php 
+		   	if(isset($this->request->data['Fuentefinanciamiento']['fechadisponible'])) 
+		   	{
+		   		 echo 'value: kendo.parseDate("' . $this->request->data['Fuentefinanciamiento']['fechadisponible'] . '", "yyyy-MM-dd")';
+			} 
+			?>
 		});
-         $("#moneda").kendoNumericTextBox({
-		     format: "c2", //Define currency type and 2 digits precision
-		     spinners: false,
-		     min:0, max:999999999.99
-		 });
+        var fecha = $("#datePicker1").data("kendoDatePicker");    
 		 
 		$("#fuentes").kendoDropDownList({
             		
@@ -255,6 +259,6 @@ $this->end(); ?>
 			                        }
 			                        
 			        });
-			        var fuentes = $("#fuentes").data("kendoDropDownList");    
-	                });
-            </script>
+        var fuentes = $("#fuentes").data("kendoDropDownList");    
+        });
+</script>
