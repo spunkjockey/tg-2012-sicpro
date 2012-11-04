@@ -160,19 +160,38 @@ class UbicacionsController extends AppController {
 		{
 			$this->set('inicio',$this->request->data['Depmuni']['fechainicio']);
 			$this->set('fin',$this->request->data['Depmuni']['fechafin']);
+			
 			$munis = $this->Depmuni->query(
-				"SELECT DISTINCT municipio, COUNT(DISTINCT idproyecto) cantmuni
+				"SELECT DISTINCT municipio, departamento, COUNT(DISTINCT idproyecto) cantmuni
 				FROM sicpro2012.vi_depmuni
 				WHERE fechainiciocontrato >= '".$fechainicio."' AND fechafincontrato <= '".$fechafin."'
-				GROUP BY municipio");
+					AND estadoproyecto = 'Finalizado'
+				GROUP BY municipio,departamento");
 				$this->set('municipios', Hash::extract($munis, '{n}.0'));
 			
+			$munis_nofin = $this->Depmuni->query(
+				"SELECT DISTINCT municipio, departamento, COUNT(DISTINCT idproyecto) cantmuni
+				FROM sicpro2012.vi_depmuni
+				WHERE fechainiciocontrato >= '".$fechainicio."' AND fechainiciocontrato <= '".$fechafin."'
+					AND estadoproyecto != 'Finalizado'
+				GROUP BY municipio,departamento");
+				$this->set('muninofin', Hash::extract($munis_nofin, '{n}.0'));
+				
 			$deps = $this->Depmuni->query(
-				"SELECT DISTINCT departamento, COUNT(DISTINCT idproyecto) cantidep
+				"SELECT DISTINCT departamento, estadoproyecto, COUNT(DISTINCT idproyecto) cantidep
 				FROM sicpro2012.vi_depmuni
 				WHERE fechainiciocontrato >= '".$fechainicio."' AND fechafincontrato <= '".$fechafin."'
-				GROUP BY departamento");
+					AND estadoproyecto = 'Finalizado'
+				GROUP BY departamento, estadoproyecto");
 				$this->set('departamentos', Hash::extract($deps, '{n}.0'));
+			
+			$deps_nofin = $this->Depmuni->query(
+				"SELECT DISTINCT departamento, estadoproyecto, COUNT(DISTINCT idproyecto) cantidep
+				FROM sicpro2012.vi_depmuni
+				WHERE fechainiciocontrato >= '".$fechainicio."' AND fechainiciocontrato <= '".$fechafin."'
+					AND estadoproyecto != 'Finalizado'
+				GROUP BY departamento, estadoproyecto");
+				$this->set('depsnofin', Hash::extract($deps_nofin, '{n}.0'));
 		}
 		$this->render('/Elements/update_rep_proy_depmuni', 'ajax');
 	 }
