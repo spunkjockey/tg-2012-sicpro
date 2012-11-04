@@ -42,69 +42,25 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Persona » Modificar persona
+			?> Persona » Modificar perfil
 			
 		</div>
 	</div>
 <?php $this->end(); ?>
-
 <div id="example" class="k-content">
 	<div id="formulario">
 		
-		<?php echo $this->Form->create('Persona',array('action' => 'persona_modificar')); ?>
+		<?php echo $this->Form->create('Persona',array('action' => 'perfil_modificar')); ?>
 		<ul>
-			<h2>Modificar persona</h2>
+			<h2>Modificar perfil</h2>
 				<li>
-					<?php echo $this->Form->input('nombrespersona', 
-						array(
-							'label' => 'Nombres:', 
-							'class' => 'k-textbox', 
-							'id'	=>	'nombre',
-							'div' => array('class' => 'requerido'),
-							'placeholder' => 'Nombres')); ?>
-							
-				<script type="text/javascript">
-		            var nombre = new LiveValidation( "nombre", { validMessage: " " } );
-		            nombre.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script>
+					<label>Nombre: </label><div style="margin-left: 10px; display: inline;"><?php echo $this->request->data['Persona']['nombrespersona'] .' '.$this->request->data['Persona']['apellidospersona'];?></div>
 				</li>
 				<li>
-					<?php echo $this->Form->input('apellidospersona', 
-						array(
-							'label' => 'Apellidos:', 
-							'class' => 'k-textbox', 
-							'div' => array('class' => 'requerido'),
-							'id'	=> 'apellido',
-							'placeholder' => 'Apellidos')); ?>
-							
-				<script type="text/javascript">
-		            var apellido = new LiveValidation( "apellido", { validMessage: " " } );
-		            apellido.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script>
+					<label>Plaza: </label><div style="margin-left: 10px; display: inline;"><?php echo $this->request->data['Plaza']['plaza'];?></div>
 				</li>
 				<li>
-					<?php echo $this->Form->input('plazas', 
-						array(
-							'label' => 'Plaza:', 
-							'class' => 'k-combobox',
-							'div' => array('id'=>'plaz','class' => 'requerido'),
-							'id' => 'plazas')); ?>
-				<script type="text/javascript">
-					var plazas = new LiveValidation('plazas' , { validMessage: " " , insertAfterWhatNode: "plaz"});
-					plazas.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script> 
-				</li>
-				<li>
-					<?php echo $this->Form->input('cargos', 
-						array(
-							'label' => 'Cargo funcional:',
-							'class' => 'k-combobox', 
-							'div' => array('id'=>'carg','class' => 'requerido'),
-							'id' => 'cargos')); ?>
-				<script type="text/javascript">
-					var cargos = new LiveValidation('cargos' , { validMessage: " " , insertAfterWhatNode: "carg"});
-					cargos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script> 
+					<label>Cargo: </label><div style="margin-left: 10px; display: inline;"><?php echo $this->request->data['Cargofuncional']['cargofuncional'];?></div>
 				</li>
 				<li>
 					<?php echo $this->Form->input('telefonocontacto', 
@@ -135,15 +91,15 @@ $this->end(); ?>
 		        </script> 
 				</li>
 				<li  class="accept">
-					<table>
+					<table style="margin-left: 10px; display: inline;">
 						<tr>
 							<td>
-								<?php echo $this->Form->end(array('label' => 'Modificar Persona', 'class' => 'k-button')); ?>	
+								<?php echo $this->Form->end(array('label' => 'Modificar Perfil', 'class' => 'k-button')); ?>	
 							</td>
 							<td>
 								<?php echo $this->Html->link(
 						   			'Regresar', 
-								   	array('action'=>'persona_index'),
+								   	array('controller'=>'Mains'),
 						   			array('class'=>'k-button')
 								);?>	
 							</td>

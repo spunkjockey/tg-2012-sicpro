@@ -92,7 +92,11 @@ $this->end(); ?>
 							'label' => 'Plaza:', 
 							'id' => 'plazas',
 							'class' => 'k-combobox',
-							'div' => array('id' => 'plazacb', 'class' => 'requerido'))); ?>
+							'div' => array('id' => 'plz', 'class' => 'requerido'))); ?>
+				<script type="text/javascript">
+					var plazas = new LiveValidation('plazas' , { validMessage: " " , insertAfterWhatNode: "plz"});
+					plazas.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script>
 				</li>
 				<li>
 					<?php echo $this->Form->input('cargos', 
@@ -100,7 +104,11 @@ $this->end(); ?>
 							'label' => 'Cargo funcional:', 
 							'id' => 'cargos',
 							'class' => 'k-combobox',
-							'div' => array('class' => 'requerido'))); ?>
+							'div' => array('id'=>'carg','class' => 'requerido'))); ?>
+				<script type="text/javascript">
+					var cargos = new LiveValidation('cargos' , { validMessage: " " , insertAfterWhatNode: "carg"});
+					cargos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script>
 				</li>
 				<li>
 					<?php echo $this->Form->input('telefonocontacto', 
@@ -136,14 +144,22 @@ $this->end(); ?>
 							'label' => 'Rol:',
 							'id' => 'rol',
 							'class' => 'k-combobox',
-							'div' => array('class' => 'requerido'))); ?>
+							'div' => array('id'=>'rl','class' => 'requerido'))); ?>
+				<script type="text/javascript">
+					var rol = new LiveValidation('rol' , { validMessage: " " , insertAfterWhatNode: "rl"});
+					rol.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script>
 				</li>
 				<li>
 					<?php echo $this->Form->input('estado',
 						array('options' => array(0 => 'Deshabilitado', 1 => 'Habilitado'),
 							  'id' => 'selectedo',
 							  'class' => 'k-combobox',
-							  'div' => array('class' => 'requerido'))); ?>
+							  'div' => array('id'=>'st','class' => 'requerido'))); ?>
+				<script type="text/javascript">
+					var selectedo = new LiveValidation('selectedo' , { validMessage: " " , insertAfterWhatNode: "st"});
+					selectedo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		        </script>
 				</li>
 				<li>
 					<?php echo $this->Form->input('username', 
@@ -173,7 +189,20 @@ $this->end(); ?>
 
 			
 			<li  class="accept">
-				<?php echo $this->Form->end(array('label' => 'Registrar persona', 'class' => 'k-button')); ?>
+				<table>
+					<tr>
+						<td>
+							<?php echo $this->Form->end(array('label' => 'Registrar persona', 'class' => 'k-button')); ?>
+						</td>
+						<td>
+							<?php echo $this->Html->link(
+					   			'Regresar', 
+							   	array('action'=>'persona_index'),
+					   			array('class'=>'k-button')
+							);?>	
+						</td>
+					</tr>
+				</table>
 			</li>
             
             <li class="status">
@@ -287,17 +316,7 @@ $this->end(); ?>
 			
 			<script>
                 $(document).ready(function() {
-                    var validator = $("#formulario").kendoValidator().data("kendoValidator"),
-                    status = $(".status");
 
-                    $("button").click(function() {
-                        if (validator.validate()) {
-                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-                            } else {
-                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-                        }
-                    });
-                
 				$("#plazas").kendoDropDownList({
             			optionLabel: "Seleccione plaza",
 			            dataTextField: "plaza",
