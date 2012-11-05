@@ -5,8 +5,8 @@
 		if(!empty($municipios))
 		{
 		?>
+			<h3> Zonas beneficiadas con desarrollo de proyectos</h3>
 			<p>Período del <?php echo $inicio?> al <?php echo $fin?></p>
-			<h3> Zonas que han sido beneficiadas con desarrollo de proyectos</h3>
 			<h4>Municipios</h4>
 			<div id=tablagrid>
 				<table>
@@ -22,80 +22,36 @@
 									
 										echo "<tr>";
 											echo "<td width='200px'>".$mun['municipio']." (".$mun['departamento'].")</td>";
-											echo "<td width='125px'>".$mun['cantmuni']."</td>";
-											foreach ($muninofin as $munof)
-											{
-												if( isset($munof['municipio']) && ($munof['municipio']==$mun['municipio']))
-													echo "<td width='125px'>".$munof['cantmuni']."</td>";
-												
-											}
+											echo "<td width='125px'>".$mun['finalizados']."</td>";
+											echo "<td width='125px'>".$mun['desarrollo']."</td>";
 										echo "</tr>";	
 								}
-							foreach ($muninofin as $munof) 
-							{
-								foreach ($municipios as $mun) 
-								{
-									if($munof['municipio'] != $mun['municipio'])
-										{
-											echo "<tr>";
-											echo "<td width='200px'>".$munof['municipio']." (".$munof['departamento'].")</td>";
-											echo "<td> 0 </td>";
-											echo "<td width='125px'>".$munof['cantmuni']."</td>";
-											echo "</tr>";
-										}	
-								}	
-							}
+							
 						echo "</thead></table></div>";
-		}
-	}
-	//proyectos que aun no han finalizado
-	if(!empty($depsnofin))
-	{
-		if(!empty($muninofin))
-		{
-			
-		?>
-		<!--
-		<h3> Zonas que serán beneficiadas con la ejecución de proyectos</h3>
+						?>
 			<h4>Departamentos</h4>
-			<div id=tablagrid>
-			<table>
-				<thead>
-					<tr>
-						<th data-field="depto">Departamentos</th>
-						<th data-field="cant">Proyectos en desarrollo</th>
-					</tr>
-					<tr>
-						<?php foreach ($depsnofin as $dep): ?>
-						<tr>
-							<td width="200px"><?php echo $dep['departamento'];?></td>
-							<td width="125px"><?php echo $dep['cantidep'];?></td>
-						</tr>
-						<?php endforeach; ?>
-					</tr>
-				</thead>
-			</table>
-			</div>
-			<h4>Municipios</h4>
 			<div id=tablagrid>
 				<table>
 					<thead>
 						<tr>
-							<th data-field="municipio">Municipio</th>
-							<th data-field="cant">Proyectos en desarrollo</th>
+							<th data-field="depto">Departamento</th>
+							<th data-field="cant">Proyectos realizados</th>
+							<th data-field="cantdes">Proyectos en desarrollo</th>
 						</tr>
-						<tr>
-							<?php foreach ($muninofin as $mun): ?>
-							<tr>
-								<td width="200px"><?php echo $mun['municipio'];?></td>
-								<td width="125px"><?php echo $mun['cantmuni'];?></td>
-							</tr>
-							<?php endforeach; ?>
-						</tr>
-					</thead>
-				</table>
-			</div>
-			<ul>
+						<?php
+							foreach ($departamentos as $dep)
+								{ 
+									
+										echo "<tr>";
+											echo "<td width='200px'>".$dep['departamento']."</td>";
+											echo "<td width='125px'>".$dep['finalizados']."</td>";
+											echo "<td width='125px'>".$dep['desarrollo']."</td>";
+										echo "</tr>";	
+								}
+							
+						echo "</thead></table></div>";
+						?>
+			<ul>	
 				<li  class="accept">
 					<?php 
 						$fechaini = substr($inicio, 0, 2).substr($inicio, 3, 2).substr($inicio, -4);
@@ -107,11 +63,12 @@
 							array('class'=>'k-button','target' => '_blank')); ?>
 				</li>
 			</ul>
-	
-	-->
-	<?php
+					<?php
+									
 		}
 	}
+	//proyectos que aun no han finalizado
+	
 
 	if(empty($departamentos) && empty($depsnofin))
 		echo "<br>No existen coincidencias<br>

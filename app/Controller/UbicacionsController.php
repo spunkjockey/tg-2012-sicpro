@@ -162,36 +162,23 @@ class UbicacionsController extends AppController {
 			$this->set('fin',$this->request->data['Depmuni']['fechafin']);
 			
 			$munis = $this->Depmuni->query(
-				"SELECT DISTINCT municipio, departamento, COUNT(DISTINCT idproyecto) cantmuni
+				"SELECT municipio, departamento, 
+					sum(case when estadoproyecto='Finalizado' then 1 else 0 end) finalizados,
+					sum(case when estadoproyecto!='Finalizado' then 1 else 0 end) desarrollo
 				FROM sicpro2012.vi_depmuni
 				WHERE fechainiciocontrato >= '".$fechainicio."' AND fechafincontrato <= '".$fechafin."'
-					AND estadoproyecto = 'Finalizado'
 				GROUP BY municipio,departamento");
 				$this->set('municipios', Hash::extract($munis, '{n}.0'));
-			
-			$munis_nofin = $this->Depmuni->query(
-				"SELECT DISTINCT municipio, departamento, COUNT(DISTINCT idproyecto) cantmuni
-				FROM sicpro2012.vi_depmuni
-				WHERE fechainiciocontrato >= '".$fechainicio."' AND fechainiciocontrato <= '".$fechafin."'
-					AND estadoproyecto != 'Finalizado'
-				GROUP BY municipio,departamento");
-				$this->set('muninofin', Hash::extract($munis_nofin, '{n}.0'));
-				
+							
 			$deps = $this->Depmuni->query(
-				"SELECT DISTINCT departamento, estadoproyecto, COUNT(DISTINCT idproyecto) cantidep
+				"SELECT departamento, 
+					sum(case when estadoproyecto='Finalizado' then 1 else 0 end) finalizados,
+					sum(case when estadoproyecto!='Finalizado' then 1 else 0 end) desarrollo
 				FROM sicpro2012.vi_depmuni
 				WHERE fechainiciocontrato >= '".$fechainicio."' AND fechafincontrato <= '".$fechafin."'
-					AND estadoproyecto = 'Finalizado'
-				GROUP BY departamento, estadoproyecto");
+				GROUP BY departamento");
 				$this->set('departamentos', Hash::extract($deps, '{n}.0'));
 			
-			$deps_nofin = $this->Depmuni->query(
-				"SELECT DISTINCT departamento, estadoproyecto, COUNT(DISTINCT idproyecto) cantidep
-				FROM sicpro2012.vi_depmuni
-				WHERE fechainiciocontrato >= '".$fechainicio."' AND fechainiciocontrato <= '".$fechafin."'
-					AND estadoproyecto != 'Finalizado'
-				GROUP BY departamento, estadoproyecto");
-				$this->set('depsnofin', Hash::extract($deps_nofin, '{n}.0'));
 		}
 		$this->render('/Elements/update_rep_proy_depmuni', 'ajax');
 	 }
@@ -204,21 +191,29 @@ class UbicacionsController extends AppController {
 		$fechaf = substr($fin,4,4).'-'.substr($fin,2,2).'-'.substr($fin,0,2);
 		
 		$munis = $this->Depmuni->query(
-				"SELECT DISTINCT municipio, COUNT(DISTINCT idproyecto) cantmuni
+				"SELECT municipio, departamento, 
+					sum(case when estadoproyecto='Finalizado' then 1 else 0 end) finalizados,
+					sum(case when estadoproyecto!='Finalizado' then 1 else 0 end) desarrollo
 				FROM sicpro2012.vi_depmuni
 				WHERE fechainiciocontrato >= '".$fechai."' AND fechafincontrato <= '".$fechaf."'
-				GROUP BY municipio");
+				GROUP BY municipio,departamento");
 				$this->set('municipios', Hash::extract($munis, '{n}.0'));
 			
 		$deps = $this->Depmuni->query(
-			"SELECT DISTINCT departamento, COUNT(DISTINCT idproyecto) cantidep
+			"SELECT departamento, 
+					sum(case when estadoproyecto='Finalizado' then 1 else 0 end) finalizados,
+					sum(case when estadoproyecto!='Finalizado' then 1 else 0 end) desarrollo
 			FROM sicpro2012.vi_depmuni
 			WHERE fechainiciocontrato >= '".$fechai."' AND fechafincontrato <= '".$fechaf."'
 			GROUP BY departamento");
 			$this->set('departamentos', Hash::extract($deps, '{n}.0'));
 		
-		$this->set('inicio',$fechai);
-		$this->set('fin',$fechaf);
+		$fechaini = substr($inicio,0,2).'-'.substr($inicio,2,2).'-'.substr($inicio,4,4);
+		$fechafin = substr($fin,0,2).'-'.substr($fin,2,2).'-'.substr($fin,4,4);
+		
+		
+		$this->set('inicio',$fechaini);
+		$this->set('fin',$fechafin);
 		$this->render();
 	}
 
