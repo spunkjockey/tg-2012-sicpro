@@ -1,31 +1,12 @@
 <?php 
-	
+	//proyectos finalizados
 	if(!empty($departamentos))
 	{
 		if(!empty($municipios))
 		{
 		?>
-			<h3> Zonas beneficiadas con el desarrollo de proyectos</h3>
-			<p>Comprendidos entre el período del <?php echo $inicio?> al <?php echo $fin?></p>
-			<h4>Departamentos</h4>
-			<div id=tablagrid>
-			<table>
-				<thead>
-					<tr>
-						<th data-field="depto">Departamentos</th>
-						<th data-field="cant">Proyectos realizados</th>
-					</tr>
-					<tr>
-						<?php foreach ($departamentos as $dep): ?>
-						<tr>
-							<td width="200px"><?php echo $dep['departamento'];?></td>
-							<td width="125px"><?php echo $dep['cantidep'];?></td>
-						</tr>
-						<?php endforeach; ?>
-					</tr>
-				</thead>
-			</table>
-			</div>
+			<h3> Zonas beneficiadas con desarrollo de proyectos</h3>
+			<p>Período del <?php echo $inicio?> al <?php echo $fin?></p>
 			<h4>Municipios</h4>
 			<div id=tablagrid>
 				<table>
@@ -33,19 +14,44 @@
 						<tr>
 							<th data-field="municipio">Municipio</th>
 							<th data-field="cant">Proyectos realizados</th>
+							<th data-field="cantdes">Proyectos en desarrollo</th>
 						</tr>
+						<?php 
+							foreach ($municipios as $mun)
+								{ 
+									
+										echo "<tr>";
+											echo "<td width='200px'>".$mun['municipio']." (".$mun['departamento'].")</td>";
+											echo "<td width='125px'>".$mun['finalizados']."</td>";
+											echo "<td width='125px'>".$mun['desarrollo']."</td>";
+										echo "</tr>";	
+								}
+							
+						echo "</thead></table></div>";
+						?>
+			<h4>Departamentos</h4>
+			<div id=tablagrid>
+				<table>
+					<thead>
 						<tr>
-							<?php foreach ($municipios as $mun): ?>
-							<tr>
-								<td width="200px"><?php echo $mun['municipio'];?></td>
-								<td width="125px"><?php echo $mun['cantmuni'];?></td>
-							</tr>
-							<?php endforeach; ?>
+							<th data-field="depto">Departamento</th>
+							<th data-field="cant">Proyectos realizados</th>
+							<th data-field="cantdes">Proyectos en desarrollo</th>
 						</tr>
-					</thead>
-				</table>
-			</div>
-			<ul>
+						<?php
+							foreach ($departamentos as $dep)
+								{ 
+									
+										echo "<tr>";
+											echo "<td width='200px'>".$dep['departamento']."</td>";
+											echo "<td width='125px'>".$dep['finalizados']."</td>";
+											echo "<td width='125px'>".$dep['desarrollo']."</td>";
+										echo "</tr>";	
+								}
+							
+						echo "</thead></table></div>";
+						?>
+			<ul>	
 				<li  class="accept">
 					<?php 
 						$fechaini = substr($inicio, 0, 2).substr($inicio, 3, 2).substr($inicio, -4);
@@ -57,19 +63,17 @@
 							array('class'=>'k-button','target' => '_blank')); ?>
 				</li>
 			</ul>
-	<?php 
+					<?php
+									
 		}
-		else
-		{
-			echo "<br>No existen coincidencias<br>
-					  Verifique los parámetros para realizar una nueva búsqueda";
-		}	
 	}
-	else
-	{
+	//proyectos que aun no han finalizado
+	
+
+	if(empty($departamentos) && empty($depsnofin))
 		echo "<br>No existen coincidencias<br>
-				  Verifique los parámetros para realizar una nueva búsqueda";
-	}
+					  Verifique los parámetros para realizar una nueva búsqueda";
+
 ?>
 
 <style>

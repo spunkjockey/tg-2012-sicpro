@@ -47,7 +47,7 @@ class MYPDF extends TCPDF {
         $this->SetFont('', 'B');
         // Header
         //$header = array('Proyecto','Número de proyecto','Beneficiarios','Empleos generados');
-        $w = array(50,40);
+        $w = array(50,40,45);
         $num_headers = count($header);
         for($i = 0; $i < $num_headers; ++$i) {
             $this->Cell($w[$i], 6, $header[$i], 1, 0, 'C', 1);
@@ -63,8 +63,8 @@ class MYPDF extends TCPDF {
         {
             //nombre
             $this->MultiCell($w[0], 6, $dep['departamento'], 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 6,'M',true);
-			$this->Cell($w[1], 6, $dep['cantidep'], 'LR', 0, 'C', $fill);
-			
+			$this->Cell($w[1], 6, $dep['finalizados'], 'LR', 0, 'C', $fill);
+			$this->Cell($w[2], 6, $dep['desarrollo'], 'LR', 0, 'C', $fill);
 			 $this->Ln();
             $fill=!$fill;
         }
@@ -80,8 +80,7 @@ class MYPDF extends TCPDF {
         $this->SetLineWidth(0.3);
         $this->SetFont('', 'B');
         // Header
-        //$header = array('Proyecto','Número de proyecto','Beneficiarios','Empleos generados');
-        $w = array(50,40);
+        $w = array(50,40,45);
         $num_headers = count($header);
         for($i = 0; $i < $num_headers; ++$i) {
             $this->Cell($w[$i], 6, $header[$i], 1, 0, 'C', 1);
@@ -96,8 +95,9 @@ class MYPDF extends TCPDF {
 		foreach ($municipios as $mun) 
         {
             //nombre
-            $this->MultiCell($w[0], 6, $mun['municipio'], 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 6,'M',true);
-			$this->Cell($w[1], 6, $mun['cantmuni'], 'LR', 0, 'C', $fill);
+            $this->MultiCell($w[0], 6, $mun['municipio']." (".$mun['departamento'].") ", 'LR', 'C', $fill, 0, '', '', true, 0, false, true, 6,'M',true);
+			$this->Cell($w[1], 6, $mun['finalizados'], 'LR', 0, 'C', $fill);
+			$this->Cell($w[2], 6, $mun['desarrollo'], 'LR', 0, 'C', $fill);
 			
 			 $this->Ln();
             $fill=!$fill;
@@ -155,10 +155,10 @@ $pdf->SetFont('helvetica', '', 10);
 $pdf->Cell(160, 10, 'Comprendidos entre el período del '.$inicio." al ".$fin, 
 			0, false, 'C', 0, '', 0, false, 'T', 'M');
 $pdf->Ln(10);
-$header = array('Departamentos','Proyectos realizados');
+$header = array('Departamentos','Proyectos realizados','Proyectos en desarrollo');
 $pdf->Tabladatos($header, $departamentos);
 $pdf->Ln(10);
-$header = array('Municipios','Proyectos realizados');
+$header = array('Municipios','Proyectos realizados','Proyectos en desarrollo');
 $pdf->Tablamun($header, $municipios);
 
 $pdf->Output('example_001.pdf', 'I');
