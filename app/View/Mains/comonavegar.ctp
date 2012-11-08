@@ -42,11 +42,23 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Bienvenido a SICPRO
+			?> » Como Navegar
 			
 		</div>
 	</div>
 	
 <?php $this->end(); ?>
 
-<?php echo $this->element('homepage', $proyectos); ?>
+<div style="width: 600px; height: 200px; margin: 150px 0; padding-left: 100px">
+	
+	<?php
+			echo $this->Html->image("undercon.jpg", array(
+	    		"alt" => "En Construccion",
+	    		'style' => 'border:0'
+	
+	
+	
+			));
+	?>
+	
+</div>

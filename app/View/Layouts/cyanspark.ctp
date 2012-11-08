@@ -234,10 +234,10 @@
 							<?php echo $this->Html->link('Inicio', array('controller' => 'mains','action'=>'index')); ?>
 						</li>
 						<li>
-							<a href="#">Como Navegar</a>
+							<?php echo $this->Html->link('Como navegar', array('controller' => 'mains','action'=>'comonavegar')); ?>
 						</li>
 						<li>
-							<a href="#">Mapa</a>
+							<?php echo $this->Html->link('Mapa', array('controller' => 'mains','action'=>'sitemapa')); ?>
 						</li>
 					</ul>
 					<div class="clr"></div>

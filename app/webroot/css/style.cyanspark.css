@@ -278,6 +278,13 @@ p.error em {
   vertical-align: middle;
 }
 
+	.ima {
+		padding: 0 !important;
+		margin-bottom: 0 !important;
+		border: none !important; 
+	}
+
 textarea {				        
 	resize: none;
 }
+

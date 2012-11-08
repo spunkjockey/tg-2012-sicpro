@@ -1,8 +1,16 @@
 <!-- /app/views/elements/update_opcionesactualizar.ctp -->
-<?php
-	if(!empty($informacion))
-	{
-	if($informacion != false){
+<?php if(!empty($informacion)) { ?>
+		
+	<table>
+		<tr>
+			<td><label>Nombre Contrato: </label></td><td><?php echo $informacion['nombrecontrato']; ?></td>
+		</tr>
+		<tr>	
+			<td><label>Estado Actual: </label></td><td><?php echo $informacion['estadocontrato']; ?></td>
+		</tr>
+	</table>
+	
+	<?php if($informacion != false){
 		switch ($informacion['estadocontrato']) {
 		    case 'en pausa':
 				{

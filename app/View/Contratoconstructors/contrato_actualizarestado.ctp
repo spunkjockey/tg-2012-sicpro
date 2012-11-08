@@ -63,7 +63,7 @@ $this->end(); ?>
 						'class' => 'k-dropdownlist'
 					)); ?>
 					
-					<div id="error1"  style="margin-left: 155px;" class="error-message"></div>
+					<div id="error1"  style="margin-left: 155px; display: none;" class="error-message"></div>
 			</li>
 			<li>
 				<?php echo $this->Form->input('contratos',
@@ -73,15 +73,11 @@ $this->end(); ?>
 						'id' => 'contratos',
 						'class' => 'k-dropdownlist'
 					)); ?>
-					<div id="error2" style="margin-left: 155px;" class="error-message"></div>
+					<div id="error2" style="margin-left: 155px; display: none;" class="error-message"></div>
 			</li>
-			<div id="info_contrato">
-					<!--Con ajax se llena el contenido con la informacion del contrato seleccionado-->
 
-
-			</div>
-			<li id='opcionesact'>
-				
+			<li>
+				<div id='opcionesact' style="margin-top: 30px"></div>
 			</li>
 			<li  class="accept">
 				<div id='divdiv'>
@@ -93,11 +89,11 @@ $this->end(); ?>
 			
 				<?php echo $this->ajax->observeField( 'contratos', 
 		    		array(
-		        		'url' => array( 'action' => 'update_infocontrato'),
-		        		'update' => 'info_contrato'
+		        		'url' => array( 'action' => 'update_opcionesactualizar'),
+		        		'update' => 'opcionesact'
 		    		) 
 				);  ?>
-				<?php echo $this->ajax->observeField( 'contratos', 
+				<?php echo $this->ajax->observeField( 'proyectos', 
 		    		array(
 		        		'url' => array( 'action' => 'update_opcionesactualizar'),
 		        		'update' => 'opcionesact'
@@ -188,6 +184,7 @@ $this->end(); ?>
 				
 				.LV_valid {
 				    color:#00CC00;
+				    display: none;
 				}
 					
 				.LV_invalid {

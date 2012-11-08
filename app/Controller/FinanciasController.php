@@ -65,14 +65,14 @@ class FinanciasController extends AppController {
 	function financia_eliminar($id) {
 		$financia = $this->Financia->findByFuente_proyecto($id);
 		$financiaa = $this->Fuentefinanciamiento->findByIdfuentefinanciamiento($financia['Financia']['idfuentefinanciamiento']);
-		if (!$this->request->is('post')) {
+		if (!$this->request->is('POST')) {
 	        throw new MethodNotAllowedException();
 	    }
 	    if ($this->Financia->delete($id)) {
-	    	
-	        $this->Session->setFlash('El monto de la fuente de financiamiento: '. $financiaa['Fuentefinanciamiento']['nombrefuente'] .' asignado a este proyecto ha sido eliminado correctamente.','default',array('class' => 'success'));
-	        
-	        
+	    	$this->Session->setFlash('El monto de la fuente de financiamiento: '. $financiaa['Fuentefinanciamiento']['nombrefuente'] .' asignado a este proyecto ha sido eliminado correctamente.','default',array('class' => 'success'));
+	        $this->redirect(array('action' => 'index',$financia['Financia']['idproyecto']));
+	    } else {
+	    	$this->Session->setFlash('No se puede eliminar la Fuente de Financiamiento, el valor del financiamiento total no debe ser menor al valor de los montos de los contratos de este proyecto');
 	        $this->redirect(array('action' => 'index',$financia['Financia']['idproyecto']));
 	    }
 	}
@@ -118,18 +118,7 @@ class FinanciasController extends AppController {
 			  sicpro2012.proyecto, 
 			  sicpro2012.fuentefinanciamiento
 			WHERE 
-			  (proyecto.idproyecto, fuentefinanciamiento.idfuentefinanciamiento) NOT IN (
-			    SELECT 
-			      financia.idproyecto, 
-			      financia.idfuentefinanciamiento
-			    FROM 
-			      sicpro2012.financia, 
-			      sicpro2012.proyecto, 
-			      sicpro2012.fuentefinanciamiento
-			    WHERE 
-			      proyecto.idproyecto = financia.idproyecto AND
-			      fuentefinanciamiento.idfuentefinanciamiento = financia.idfuentefinanciamiento) AND 
-				  proyecto.estadoproyecto != 'Finalizado';"
+			  proyecto.estadoproyecto != 'Finalizado';"
 		);
 				
 		$this->set('proyectos', Hash::extract($proyectos, "{n}.0"));

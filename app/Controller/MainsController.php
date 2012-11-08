@@ -66,8 +66,45 @@ class MainsController extends AppController {
 		}
 		
 	}
-
 	
+	public function sitemapa() {
+		//Debugger::dump($proyectos);
+        switch ($this->Session->read('User.idrol')) {
+			case 9:
+		        $this->render('/Mains/mapa/mapa_all', 'cyanspark');
+		        break;
+		    case 8:
+		        $this->render('/Mains/mapa/mapa_observer', 'cyanspark');
+		        break;
+		    case 7:
+		        $this->render('/Mains/mapa/mapa_jefeplan', 'cyanspark');
+		        break;
+			case 6:
+		        $this->render('/Mains/mapa/mapa_tecproy', 'cyanspark');
+		        break;
+		    case 5:
+		        $this->render('/Mains/mapa/mapa_tecplan', 'cyanspark');
+		        break;
+		    case 4:
+		        $this->render('/Mains/mapa/mapa_adminsys', 'cyanspark');
+		        break;
+			case 3:
+		        $this->render('/Mains/mapa/mapa_admincon', 'cyanspark');
+		        break;
+		    case 2:
+		        $this->render('/Mains/mapa/mapa_adminproy', 'cyanspark');
+		        break;
+		    case 1:
+		        $this->render('/Mains/mapa/mapa_director', 'cyanspark');
+		        break;			
+		}
+		
+	}
+	
+	public function comonavegar() {
+		$this->layout = 'cyanspark';
+		//Debugger::dump($proyectos);
+	}
 	
 	
 }
