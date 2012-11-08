@@ -51,7 +51,7 @@ $this->end(); ?>
 <?php $this->end(); ?>
 
 
-<h2>Página no encontrada.</h2>
+<h2>Error de conexión.</h2>
 
 <div class="pagerror">
 
@@ -61,15 +61,13 @@ $this->end(); ?>
 
 
 <div style="float: right; width: 360px; height: 215px; padding: 10px 20px;">
-	La página que está intentando acceder no existe en el servidor. 
-	Utilice una de las siguientes alternativas para poder ayudarlo a encontrar lo que necesita: 
+	No se puede establecer una conexión con el servidor. 
+	Comunique el error al Administrador del Sistema.
 	<br />
-	<ul>
-		<li> Utilice el menú de navegación para ubicar la página solicitada. </li>
-		<li> Utilice el mapa del sitio para ubicar la página deseada. </li>
-	</ul>
 </div>
 </div>
+
+
 
 
 <style>

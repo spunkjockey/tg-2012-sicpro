@@ -152,8 +152,8 @@
 							<h2 class="star"><span>Notificaciones</span></h2>
 							<div class="twit-reader">
 							    <div id="listView">	
-									
-									<?php echo $this->element('notificaciones', array("notificaciones" => $notificaciones)); ?>
+									<?php if(isset($notificaciones)) { 
+									echo $this->element('notificaciones', array("notificaciones" => $notificaciones)); }?>
 							    	
 							    </div>
 							</div>
