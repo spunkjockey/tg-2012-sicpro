@@ -1,5 +1,8 @@
-<?php class ProyectosController extends AppController {
-	
+<?php 
+
+App::uses('CakeEmail', 'Network/Email');
+
+class ProyectosController extends AppController {
     public $name = 'Proyectos';
     public $components = array('Session','RequestHandler','Email');
 	public $uses = array('Proyecto','Division','Contrato','Financia','Contratoconstructor','Proyembe','CakeEmail','Network/Email');
@@ -17,9 +20,6 @@
 				$this->Proyecto->set('userc', $this->Session->read('User.username'));
 				$this->Proyecto->set('estadoproyecto', 'Formulacion');
 			if ($this->Proyecto->save()) {
-// intento de mandar email.					
-			mail('cesar_alexpr@hotmail.com', 'Mi título', 'holas');
-
 					$this->Session->setFlash('El proyecto "'. $this->request->data['Proyecto']['nombreproyecto'].'" ha sido registrado',
 											 'default',array('class'=>'success'));
 	                $this->redirect(array('action' => 'proyecto_listado'));
@@ -493,7 +493,7 @@
 	} 
 		
 	public function divisionesjson() 
-		{
+	{
 			$divs = $this->Division->find('all', array(
 										'fields'=> array('Division.iddivision','Division.divison'),
 										'order'=> array('Division.iddivision ASC'),
@@ -504,66 +504,16 @@
 			$this->set('divisiones', Hash::extract($divs, "{n}.Division"));
 			$this->set('_serialize', 'divisiones');
 			$this->render('/json/jsondivision');			
-		}
-
-
-	function sendSimpleMail() {
-        $this->Email->to = 'cesar_alexpr@hotnail.com';
-        $this->Email->subject = 'Cake test simple email';
-        $this->Email->replyTo = 'noreply@example.com';
-        $this->Email->from = 'Cake Test Account <noreply@example.com>';
-        //Set the body of the mail as we send it.
-        //Note: the text can be an array, each element will appear as a
-        //seperate line in the message body.
-        if ( $this->Email->send('Here is the body of the email') ) {
-            $this->Session->setFlash('Simple email sent');
-        } else {
-            $this->Session->setFlash('Simple email not sent');
-        }
-        $this->redirect('/');
-    } 
-
-    function send() {
-            $this->Email->template = 'email/confirm';
-            // You can use customised thmls or the default ones you setup at the start
-           
-            $this->set('data', $data);
-            $this->Email->to = 'cesar_alexpr@hotmail.com';
-            $this->Email->subject = 'your new account';
-           
-           
-            //$this->Email->attach($fully_qualified_filename, optionally $new_name_when_attached);
-            // You can attach as many files as you like.
-           
-            $result = $this->Email->send();
- 
-        //the rest of the controller method...
-      } 
-	function testmail()
+	}
+	
+	public function correo()
 	{
-	    // *Some notes*
-	    // Email methods:    http://phpmailer.worxware.com/index.php?pg=methods
-	    // Email properties: http://phpmailer.worxware.com/index.php?pg=properties
-	    //
-	    // Email configuration is done in /app/controllers/components/email.php
-	 
-	    $this->set(compact('some', 'vars'));
-	 
-	    // the email content is just a (html) view in app/views/{controller}/emails/testmail.ctp
-	    $this->Email->renderBody('test');
-	 
-	    // subject
-	    $this->Email->Subject = 'Test from example.com';
-	 
-	    // sender
-	    $this->Email->SetFrom('cesar_alexpr@hotmail.com', 'Test');
-	 
-	    // recipients
-	    $this->Email->AddAddress('spunkjockey18@gmail.com', 'Joe');
-	    //$this->Email->AddAddress('jane@example.com', 'Jane');
-	 
-	    // send!
-	    $this->Email->Send();
+		$email = new CakeEmail('gmail');
+		$email->emailFormat('text')
+				->to('spunkjockey18@gmail.com')
+				->from('shinobi10@gmail.com')
+				->subject('Notificacion') 
+				->send('Hola mundo');
 	}
 	
 }
