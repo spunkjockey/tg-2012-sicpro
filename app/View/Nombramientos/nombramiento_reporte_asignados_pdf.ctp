@@ -21,8 +21,8 @@ class MYPDF extends TCPDF {
 		//$this->Cell(0, 15, '<< TCPDF Example 003 >>', 0, false, 'C', 0, '', 0, false, 'M', 'M');
 		
 		// escudo
-		$escudo_file = K_PATH_IMAGES.'escudo.gif';
-		$this->Image($escudo_file, 168, 20, 22, '', 'GIF', '', 'T', false, 300, '', false, false, 0, false, false, false);
+		$escudo_file = K_PATH_IMAGES.'escudo.jpg';
+		$this->Image($escudo_file, 168, 20, 22, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
     }
 
     // Page footer
