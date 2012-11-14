@@ -143,15 +143,46 @@ $this->end(); ?>
 <?php } else {
 	echo 'No existen avances asociados a este proyecto';
 } ?>
+
+<style scoped>
+        #grid .k-button
+        {
+            vertical-align: middle;
+            width: 28px;
+            margin: 0 3px;
+            padding: .1em .4em .3em;
+            display: inline;
+            
+        }
+    </style>
+
 <script>
 	$(document).ready(function() {
     	$("#grid").kendoGrid({
+            	dataSource: {
+	           		pageSize: 6
+            	},
+            	pageable: true,
+            	pageable: {
+            		messages: {
+            			display: "{0} - {1} de {2} Avances",
+            			empty: "No hay Avances para este Contrato",
+            			page: "Página",
+            			of: "de {0}",
+            			itempsPerPage: "Avances por página",
+            			first: "Ir a la primera página",
+            			previous: "Ir a la página anterior",
+            			next: "Ir a la siguiente página",
+            			last: "Ir a la última página",
+            			refresh: "Actualizar"
+            		}
+            	},
             	sortable: true,
             	sortable: {
  			    	mode: "single", // enables multi-column sorting
         			allowUnsort: true
 				},
-				scrollable: false,
+				scrollable: false
         	});
         	
         });       

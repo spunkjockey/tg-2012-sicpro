@@ -57,7 +57,7 @@ class AppController extends Controller {
 	 public function beforeFilter() {
      
         $this->set('notificaciones',$this->Notificacion->find('all',array(
-			'conditions' => array("Notificacion.creacion >= now() - interval '1 day'"),
+			'conditions' => array("Notificacion.creacion >= now() - interval '30 day'"),
 			'order' => array('Notificacion.creacion DESC'))));
 			
     }

@@ -17,12 +17,7 @@ class MainsController extends AppController {
 				  COUNT(contrato.idcontrato) numcontratos, 
 				  SUM(contrato.montooriginal) + SUM(contrato.variacion) AS montocontratos
 				FROM 
-				  sicpro2012.proyecto, 
-				  
-				  sicpro2012.contrato
-				WHERE 
-				  proyecto.idproyecto = contrato.idproyecto
-				  
+				  sicpro2012.proyecto LEFT JOIN sicpro2012.contrato ON proyecto.idproyecto = contrato.idproyecto
 				GROUP BY
 				  proyecto.idproyecto,
 				  proyecto.numeroproyecto, 

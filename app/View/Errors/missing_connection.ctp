@@ -44,7 +44,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Página no encontrada
+			?> » Error de Conexión
 			
 		</div>
 	</div>

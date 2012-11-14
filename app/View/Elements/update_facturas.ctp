@@ -48,16 +48,16 @@
 						);*/
 						
 			            echo $this->Form->postLink(
-			                '<span class="k-icon k-i-close"></span>Eliminar',
+			                '<span class="k-icon k-i-close"></span>',
 			                array('controller' => 'Facturaestimacions', 'action' => 'facturaestimacion_eliminar', $es['Facturaestimacion']['idfacturaestimacion']),
-			                array('confirm' => '¿Está seguro que desea eliminar la factura seleccionada?','class'=>'k-button', 'escape' => false)
+			                array('confirm' => '¿Está seguro que desea eliminar la factura seleccionada?','class'=>'k-button', 'escape' => false, 'title' => 'Eliminar Factura')
 			            );
 
 	            	} else {
 	            		echo $this->Html->link(
 	            			'<span class="k-icon k-i-plus"></span>Facturar', 
 	            			array('controller' => 'Facturaestimacions', 'action' => 'facturaestimacion_registrar', $es['Estimacion']['idestimacion']),
-	            			array('class'=>'k-button', 'escape' => false)
+	            			array('class'=>'k-button', 'escape' => false, 'title' => 'Facturar la Estimación')
 						);
 	            	}
 	            /*echo $this->Html->link(
@@ -110,9 +110,9 @@
 						);*/
 						
 			            echo $this->Form->postLink(
-			                '<span class="k-icon k-i-close"></span>Eliminar',
+			                '<span class="k-icon k-i-close"></span>',
 			                array('controller' => 'Facturasupervisions', 'action' => 'facturasupervision_eliminar', $su['Facturasupervision']['idfacturasupervision']),
-			                array('confirm' => '¿Está seguro que desea eliminar la factura seleccionada?','class'=>'k-button', 'escape' => false)
+			                array('confirm' => '¿Está seguro que desea eliminar la factura seleccionada?','class'=>'k-button', 'escape' => false, 'title' => 'Eliminar Factura')
 			            );
 
 
@@ -120,7 +120,7 @@
 	            		echo $this->Html->link(
 	            			'<span class="k-icon k-i-plus"></span>Facturar', 
 	            			array('controller' => 'Facturasupervisions', 'action' => 'facturasupervision_registrar', $su['Informesupervisor']['idinformesupervision']),
-	            			array('class'=>'k-button', 'escape' => false)
+	            			array('class'=>'k-button', 'escape' => false, 'title' => 'Facturar el Informe')
 						);
 	            	}
 	            
