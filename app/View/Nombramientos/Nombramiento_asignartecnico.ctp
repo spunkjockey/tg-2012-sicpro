@@ -155,6 +155,9 @@ $this->end(); ?>
 				</style>	
 			</div>
 
+
+			<div id='loading' style="text-align: center; width: 600px; display: none;"><?php echo $this->Html->image('spinner.gif', array('alt' => 'cargando', "style" => "border: 0;")); ?></div>
+			
 			<li  class="accept">
 				<table>
 					<tr>
@@ -173,7 +176,9 @@ $this->end(); ?>
 			<?php echo $this->ajax->observeField( 'contratos', 
 	    		array(
 	        		'url' => array( 'action' => 'update_tecdispo'),
-	        		'update' => 'listpicker'
+	        		'update' => 'listpicker',
+	        		'indicator' => 'loading',
+					'before' => '$("#listpicker").html(" ")',
 	    		) 
 			);  ?>
 			
