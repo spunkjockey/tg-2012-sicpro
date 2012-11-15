@@ -7,7 +7,7 @@
 							</li>
 							<li>Contratos
 								<ul>
-									<li><?php echo $this->Html->link('Administrar contrato constuctor', array('controller' => 'Contratoconstructors','action'=>'contratoconstructor_listar')); ?></li>
+									<li><?php echo $this->Html->link('Administrar contrato constructor', array('controller' => 'Contratoconstructors','action'=>'contratoconstructor_listar')); ?></li>
 									<li><?php echo $this->Html->link('Administrar contrato supervisor', array('controller' => 'Contratosupervisors','action'=>'contratosupervisor_listar')); ?></li>		
 									<li><?php echo $this->Html->link('Consultar contrato', array('controller' => 'Contratos','action'=>'contrato_consultar')); ?></li>
 									<li><?php echo $this->Html->link('Actualizar estado de contrato', array('controller' => 'Contratoconstructors','action'=>'contrato_actualizarestado')); ?></li>
@@ -16,7 +16,7 @@
 							</li>
 							<li>Control y seguimiento
 								<ul>
-									<li disabled="disabled">Consultar Programaci&oacute;n de avance</li>
+									
 											<li><?php echo $this->Html->link('Consultar Informe supervisión', array('controller' => 'Informesupervisors','action'=>'informesupervisor_consultar')); ?></li>
 									<li><?php echo $this->Html->link('Consultar Estimación de Avance', array('controller' => 'Estimacions','action'=>'estimacion_consultar')); ?></li>
 									<li><?php echo $this->Html->link('Consultar informe técnico', array('controller' => 'Informetecnicos','action'=>'informetecnico_consultar')); ?></li>
@@ -42,7 +42,7 @@
 							<li>Mantenimiento
 								<ul>
 									<li><?php echo $this->Html->link('Empresas', array('controller' => 'empresas','action'=>'index')); ?></li>
-									<li disabled="disabled">Consultar fuente de financiamiento</li>
+									
 									<li>Perfil
 										<ul>
 											<li><?php echo $this->Html->link('Modificar perfil', array('controller' => 'Personas','action'=>'perfil_modificar',$this->Session->read('User.idpersona'))); ?></li>
