@@ -188,7 +188,7 @@ $this->end(); ?>
                     //serverPaging: true,
                     //pageSize: 20,
 	                transport: {
-	                	read: "/Contratos/contratosjson.json"
+	                	read: "/Contratos/contratosavjson.json"
 	               	}
 	            }
             });

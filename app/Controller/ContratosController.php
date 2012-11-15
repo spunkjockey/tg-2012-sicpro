@@ -208,6 +208,29 @@ class ContratosController extends AppController {
 		
 	}
 	
+		public function contratosavjson() {
+		$contratos = $this->Contratoconstructor->query('SELECT 
+  DISTINCT contratoconstructor.idcontrato, 
+  contratoconstructor.codigocontrato, 
+  contratoconstructor.nombrecontrato
+FROM 
+  sicpro2012.contratosupervisor, 
+  sicpro2012.contratoconstructor, 
+  sicpro2012.informesupervision
+WHERE 
+  contratoconstructor.idcontrato = contratosupervisor.con_idcontrato AND
+  informesupervision.idcontrato = contratosupervisor.idcontrato
+ORDER BY contratoconstructor.idcontrato;')//,
+			//'conditions' => array('Facturaxcontrato.idpersona' => $this->Session->read('User.idpersona'))
+		;
+		
+		$this->set('contratos', Hash::extract($contratos, "{n}.0"));
+		//$this->set('contratos', $contratos);
+		$this->set('_serialize', 'contratos');
+		$this->render('/json/jsoncontratotecproy');
+		
+	}
+	
 	public function update_avancecontrato() {
 		//Debugger::dump($this->request->data);
 		if(isset($this->request->data['contratos'])&&!empty($this->request->data['contratos']))

@@ -53,6 +53,7 @@ $this->end(); ?>
 			<h2>Modificar informe de supervisión</h2>
 			<li>
 				<label>Código de Contrato: </label> <?php echo $this->request->data['Contratosupervisor']['codigocontrato']; ?>
+				<?php echo $this->Form->hidden('idcontrato'); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('tituloinformesup', 

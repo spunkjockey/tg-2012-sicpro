@@ -168,6 +168,7 @@
 			}
 			else 
 			{
+				$this->Informesupervisor->set('idcontrato',$this->request->data['Informesupervisor']['idcontrato']);	
 				$this->Informesupervisor->set('tituloinformesup',$this->request->data['Informesupervisor']['tituloinformesup']);
 				$this->Informesupervisor->set('fechafinsupervision',$this->request->data['Informesupervisor']['fechas']);
 				$this->Informesupervisor->set('plazoejecuciondias',$this->request->data['Informesupervisor']['plazoejecuciondias']);
