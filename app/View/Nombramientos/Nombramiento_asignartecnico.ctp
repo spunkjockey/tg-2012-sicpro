@@ -1,4 +1,4 @@
-<!-- File: /app/View/Nombramientos/Nombramiento_asignartecnico.ctp -->
+<!-- File: /app/View/Nombramientos/nombramiento_asignartecnico.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -7,6 +7,7 @@
 	    case 8:
 	        echo $this->element('menu/menu_observer');
 	        break;
+			
 	    case 7:
 	        echo $this->element('menu/menu_jefeplan');
 	        break;
@@ -154,6 +155,9 @@ $this->end(); ?>
 				</style>	
 			</div>
 
+
+			<div id='loading' style="text-align: center; width: 600px; display: none;"><?php echo $this->Html->image('spinner.gif', array('alt' => 'cargando', "style" => "border: 0;")); ?></div>
+			
 			<li  class="accept">
 				<table>
 					<tr>
@@ -172,7 +176,9 @@ $this->end(); ?>
 			<?php echo $this->ajax->observeField( 'contratos', 
 	    		array(
 	        		'url' => array( 'action' => 'update_tecdispo'),
-	        		'update' => 'listpicker'
+	        		'update' => 'listpicker',
+	        		'indicator' => 'loading',
+					'before' => '$("#listpicker").html(" ")',
 	    		) 
 			);  ?>
 			

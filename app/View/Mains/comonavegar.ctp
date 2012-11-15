@@ -49,9 +49,13 @@ $this->end(); ?>
 	
 <?php $this->end(); ?>
 
-<div style="width: 600px; height: 200px; margin: 150px 0; padding-left: 100px">
+<div style="text-align: justify; width: 450px; height: 200px; margin: 50px 0; padding-left: 50px">
 	
-	<?php
+	<h2>Como Navegar</h2>
+	<p>SICPRO es un Sistema Informático para control y seguimiento de proyectos desarrollado por estudiantes de a Universidad de El Salvador</p>
+	
+	<p>Y tiene un estructura de navegación que le permitirá, dependiendo del rol asignado a cada usuario, participar en cada una de las etapas en las que se desarrolla un proyecto desde su formulación hasta su finalización</p>
+	<!--<?php
 			echo $this->Html->image("undercon.jpg", array(
 	    		"alt" => "En Construccion",
 	    		'style' => 'border:0'
@@ -59,6 +63,6 @@ $this->end(); ?>
 	
 	
 			));
-	?>
+	?>-->
 	
 </div>

@@ -73,7 +73,11 @@ class NombramientosController extends AppController {
 	        	}
 				//Si la persona ya existe en la tabla nombramiento para ese contrato,solo se modifica su estado y respectiva fecha de alta
 				if($presente==1){
-					$idnombramiento=$this->Nombramiento->findByIdpersona($this->request->data['disponibles']);
+					$idnombramiento=$this->Nombramiento->find('first',array(
+						'conditions' => array( 'Nombramiento.idpersona' => $this->request->data['disponibles'],
+							'Nombramiento.idcontrato' =>  $this->request->data['Nombramiento']['contratos'])
+					));
+					//Debugger::dump($idnombramiento);
 					$this->Nombramiento->id = $idnombramiento['Nombramiento']['idnombramiento'];
 					$this->Nombramiento->set('userm', $this->Session->read('User.username'));
 					$this->Nombramiento->set('fechanombramiento', date('Y-m-d h:i:s'));

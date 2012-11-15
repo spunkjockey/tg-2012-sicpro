@@ -41,7 +41,7 @@
 									<li>Fuentes de financiamiento
 										<ul>
 											<li><?php echo $this->Html->link('Fuente de financiamiento', array('controller' => 'Fuentefinanciamientos','action'=>'index')); ?></li>
-											<li disabled="disabled">Consultar fuentes de financiamiento</li>
+											<!--<li disabled="disabled">Consultar fuentes de financiamiento</li>-->
 										</ul>
 									</li>
 									

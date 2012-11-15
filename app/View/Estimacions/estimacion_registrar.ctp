@@ -331,7 +331,7 @@ $this->end(); ?>
 		     spinners: false
 		 });
 		 $("#porcentaje").kendoNumericTextBox({
-		     format: "c1", //Define currency type and 2 digits precision
+		     format: "n2", //Define currency type and 2 digits precision
 		     spinners: false
 		 });
 
