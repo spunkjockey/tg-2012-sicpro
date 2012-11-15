@@ -72,6 +72,7 @@ $this->end(); ?>
 					array(
 						'label' => 'Contratos:', 
 						'id' => 'contratos',
+						
 						'div' => array('id'=>'contra','class' => 'requerido')
 					)); ?>
 				<script type="text/javascript">
@@ -84,6 +85,7 @@ $this->end(); ?>
 					array(
 						'label' => 'Informe:', 
 						'id' => 'infossup',
+						'class'=>'k-combobox',
 						'div' => array('id'=>'infos','class' => 'requerido')
 					)); ?>
 				<script type="text/javascript">
