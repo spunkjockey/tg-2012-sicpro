@@ -101,7 +101,7 @@
 				FROM 
 				  sicpro2012.estimacion
 				WHERE 
-				  idcontrato = ' . $this->data['Estimacion']['idcontrato'] .'
+				  idcontrato = ' . $this->data['Estimacion']['idcontrato'] .' AND idestimacion <>  ' . $this->data['Estimacion']['idestimacion'] .'
 				GROUP BY
 				  idcontrato;');
 		
