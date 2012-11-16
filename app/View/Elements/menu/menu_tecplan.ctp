@@ -3,7 +3,7 @@
 							<li>Proyectos
 								<ul>
 									<li><?php echo $this->Html->link('Administración de proyectos', array('controller' => 'Proyectos','action'=>'proyecto_listado')); ?></li>
-									<li><?php echo $this->Html->link('Asignar número de proyecto', array('controller' => 'Proyectos','action'=>'proyecto_asignar_num')); ?></li>
+									
 									<li>Ficha t&eacute;cnica
 										<ul>
 											<li><?php echo $this->Html->link('Registrar Ficha Técnica', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_registrarficha')); ?></li>
@@ -12,6 +12,7 @@
 									
 									</li>	
 									<li><?php echo $this->Html->link('Asignación de Fondos', array('controller' => 'Financias','action'=>'index')); ?></li>
+									<li><?php echo $this->Html->link('Asignar número de proyecto', array('controller' => 'Proyectos','action'=>'proyecto_asignar_num')); ?></li>
 									<li><?php echo $this->Html->link('Consultar Proyecto', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_consultarficha')); ?></li>
 								</ul>
 							</li>

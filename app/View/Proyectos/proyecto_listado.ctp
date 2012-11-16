@@ -69,8 +69,8 @@ $this->end(); ?>
 		<?php //Debugger::dump($proyectos); ?>
 		<table id="grid">
 		    <tr>
-		        <th data-field="numeroproyecto"  width="50px">Número</th>
-		        <th data-field="nombreproyecto" width="250px">Nombre proyecto</th>
+		        <th data-field="numeroproyecto" >Número</th>
+		        <th data-field="nombreproyecto" >Nombre proyecto</th>
 		        <th data-field="estadoproyecto">Estado</th>
 		        <th data-field="montoplaneado">Monto</th>
 		        <th data-field="idfichatecnica">idficha</th>
@@ -84,7 +84,8 @@ $this->end(); ?>
 		            				array('action' => 'proyecto_detalles', $proy['Proyecto']['idproyecto']),
 									array('class'=>'detalles')); ?></td>
 		        <td><?php echo $proy['Proyecto']['estadoproyecto']; ?></td>
-		      	<td><?php echo '$ '.number_format($proy['Proyecto']['montoplaneado'],2); ?></td>
+		      	<!--<td><?php echo '$ '.number_format($proy['Proyecto']['montoplaneado'],2); ?></td>-->
+		      	<td><?php echo $proy['Proyecto']['montoplaneado']; ?></td>
 		      	<td><?php echo $proy['Fichatecnica']['idfichatecnica']; ?></td>
 		      	<td align="center">
 		            <?php 
@@ -136,8 +137,26 @@ $this->end(); ?>
 		$(document).ready(function() {
 	    	var grid = $("#grid").kendoGrid({
 	            	dataSource: {
-		           		pageSize: 10,
+	            		pageSize: 10,
+		           		schema: {
+					    	model: {
+					        	fields: {
+					            	montoplaneado: {
+					                	editable: false,
+					                	type: "number"
+					           		}
+					            }
+					     	}
+				   		}
 	            	},
+	            	columns: [
+			        	{ field: "numeroproyecto", width: 50 },
+			        	{ field: "nombreproyecto" },
+			        	"estadoproyecto",
+			            { field: "montoplaneado", title: "Monto", format: "{0:c}", width: 100 },
+			            "idfichatecnica",
+			            { field: "accion", width: 160} 
+					],
 	            	pageable: true,
 	            	pageable: {
 	            		messages: {
@@ -208,17 +227,7 @@ $this->end(); ?>
             float: right;
             margin-right: .8em;
         }
-    
 
-		#grid .k-button
-		{
-			vertical-align: top;
-			width: 28px;
-			padding: .1em .4em .3em;
-			display: inline-block;
-			margin: auto 5px;
-		}
-		
 		 a.detalles:link {text-decoration:none; color: #045773;} /* Link no visitado*/
 		 a.detalles:visited {text-decoration:none; color:#045773;} /*Link visitado*/
 		 a.detalles:active {text-decoration:none; color:#045773; background:#CCCCCC} /*Link activo*/
@@ -227,7 +236,17 @@ $this->end(); ?>
     
     </style>
 
-
+<style scoped>
+        #grid .k-button
+        {
+            vertical-align: middle;
+            width: 28px;
+            margin: 0 3px;
+            padding: .1em .4em .3em;
+            display: inline;
+            
+        }
+    </style>
 </div>
 
 
