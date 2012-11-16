@@ -72,7 +72,7 @@ $this->end(); ?>
 			</li>
 			
 			<li>
-				
+				<?php  echo $this->Form->hidden('fechafinsupervision'); ?>
 				<?php echo $this->Form->input('fechas', 
 					array(
 						'label' => 'Fecha:', 

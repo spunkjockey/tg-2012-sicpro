@@ -158,13 +158,28 @@
 				//Debugger::dump($id);
 				$this->request->data=$this->Informesupervisor->read();
 				$contratoid = $this->Informesupervisor->field('idcontrato',array('idinformesupervision'=>$id));
-				$this->set('fechas',$this->Avancetodos->find('list',array(
+				$informeid = $this->Informesupervisor->field('idinformesupervision',array('idinformesupervision'=>$id));
+				/*$this->set('fechas',$this->Avancetodos->find('list',array(
 						'fields'=>array('Avancetodos.fechaavance','Avancetodos.fechafin'),
 						'conditions'=>array('Avancetodos.idcontrato'=>$contratoid),
 						'order'=>array('Avancetodos.fechaavance')
-						)));
+						)));*/
 				//Debugger::dump($contratoid);
-				
+				$this->set('fechas',Hash::combine($this->Informesupervisor->query("SELECT 
+  avanceprogramado.fechaavance, to_char(avanceprogramado.fechaavance::timestamp with time zone, 'DD/MM/YYYY'::text) AS fechafin
+FROM 
+  sicpro2012.avanceprogramado, 
+  sicpro2012.contratosupervisor
+WHERE 
+  avanceprogramado.idcontrato = contratosupervisor.con_idcontrato AND
+  contratosupervisor.idcontrato = " . $contratoid . "
+EXCEPT
+SELECT 
+  informesupervision.fechafinsupervision AS fechaavance, to_char(informesupervision.fechafinsupervision::timestamp with time zone, 'DD/MM/YYYY'::text) AS fechafin
+FROM 
+  sicpro2012.informesupervision
+WHERE 
+  informesupervision.idcontrato = " . $contratoid . " AND informesupervision.idinformesupervision <> " . $informeid . ";"),'{n}.0.fechaavance','{n}.0.fechafin'));
 			}
 			else 
 			{
@@ -184,8 +199,31 @@
 	        	} 
 	        	else 
 	        	{
-		           	$this->Session->setFlash('Ha ocurrido un error');
-				
+		           	//$this->Session->setFlash('Ha ocurrido un error');
+					
+				$contratoid = $this->Informesupervisor->field('idcontrato',array('idinformesupervision'=>$id));
+				$informeid = $this->Informesupervisor->field('idinformesupervision',array('idinformesupervision'=>$id));
+				/*$this->set('fechas',$this->Avancetodos->find('list',array(
+						'fields'=>array('Avancetodos.fechaavance','Avancetodos.fechafin'),
+						'conditions'=>array('Avancetodos.idcontrato'=>$contratoid),
+						'order'=>array('Avancetodos.fechaavance')
+						)));*/
+				//Debugger::dump($contratoid);
+				$this->set('fechas',Hash::combine($this->Informesupervisor->query("SELECT 
+  avanceprogramado.fechaavance, to_char(avanceprogramado.fechaavance::timestamp with time zone, 'DD/MM/YYYY'::text) AS fechafin
+FROM 
+  sicpro2012.avanceprogramado, 
+  sicpro2012.contratosupervisor
+WHERE 
+  avanceprogramado.idcontrato = contratosupervisor.con_idcontrato AND
+  contratosupervisor.idcontrato = " . $contratoid . "
+EXCEPT
+SELECT 
+  informesupervision.fechafinsupervision AS fechaavance, to_char(informesupervision.fechafinsupervision::timestamp with time zone, 'DD/MM/YYYY'::text) AS fechafin
+FROM 
+  sicpro2012.informesupervision
+WHERE 
+  informesupervision.idcontrato = " . $contratoid . " AND informesupervision.idinformesupervision <> " . $informeid . ";"),'{n}.0.fechaavance','{n}.0.fechafin'));
 					
         		} 
 			}
