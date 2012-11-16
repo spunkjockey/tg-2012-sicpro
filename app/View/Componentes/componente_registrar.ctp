@@ -62,6 +62,7 @@ $this->end(); ?>
 						'class' => 'k-textbox', 
 						'div' => array('class' => 'requerido'),
 						'id' => 'nombrecomponente',
+						'rows' => 3,
 						'placeholder' => 'Nombre del Componente')); ?>
 				<script type="text/javascript">
 		            var nombrecomponente = new LiveValidation( "nombrecomponente", { validMessage: " " } );

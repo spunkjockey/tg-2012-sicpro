@@ -45,9 +45,10 @@ class Financia extends AppModel {
 		
 		$monto_fuente = $this->find('first', array(
             'fields' => 'Financia.montoparcial',
-            'conditions' => array('Financia.fuente_proyecto ' => $this->data['Financia']['fuente_proyecto'])
+            'conditions' => array('Financia.idproyecto ' => $this->data['Financia']['idproyecto'],
+				'Financia.idfuentefinanciamiento ' => $this->data['Financia']['idfuentefinanciamiento'])
         ));
-		//Debugger::dump($this->data['Financia']['idfuentefinanciamiento']);
+		//Debugger::dump($this->data);
 		
 		//Debugger::dump($check['montoparcial']);
         return round(($monto_disponible['Fuentefinanciamiento']['montodisponible'] + $monto_fuente['Financia']['montoparcial']),2) >= $check['montoparcial'];

@@ -247,6 +247,17 @@ $this->end(); ?>
 	</table>
 <?php } ?>
 
+<style scoped>
+        #grid .k-button
+        {
+            vertical-align: middle;
+            width: 28px;
+            margin: 0 3px;
+            padding: .1em .4em .3em;
+            display: inline;
+            
+        }
+    </style>
 
 <script>
 	$(document).ready(function() {
