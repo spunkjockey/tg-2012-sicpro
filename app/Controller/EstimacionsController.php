@@ -134,6 +134,7 @@ class EstimacionsController extends AppController {
 		   	$this->request->data=$this->Estimacion->read();
 		} else {
 			$this->Estimacion->set('idcontrato', $info['Contratoconstructor']['idcontrato']);
+			$this->Estimacion->set('idestimacion', $this->request->data['Estimacion'] ['idestimacion']);
         	$this->Estimacion->set('tituloestimacion', $this->request->data['Estimacion'] ['tituloestimacion']);
 			$this->Estimacion->set('fechainicioestimacion', $this->request->data['Estimacion'] ['fechainicioestimacion']);
 			$this->Estimacion->set('fechafinestimacion', $this->request->data['Estimacion'] ['fechafinestimacion']);

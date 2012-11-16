@@ -46,9 +46,16 @@
 					)
 				),
 		'montoestimado' => array(
-			'mayorqueproyecto' => array(
-            	'rule'    => array('limitarMontoContrato'),
+			'mayorqueproyectoc' => array(
+            	'rule'    => array('limitarMontoContratoc'),
             	'allowEmpty' => true,
+            	'on' => 'create',
+            	'message' => 'El valor  estimado sobrepasa el monto del contrato'
+        	),
+        	'mayorqueproyectou' => array(
+            	'rule'    => array('limitarMontoContratou'),
+            	'allowEmpty' => true,
+            	'on' => 'update',
             	'message' => 'El valor  estimado sobrepasa el monto del contrato'
         	)
 		)
@@ -90,12 +97,36 @@
 	}
 	
 	
-	public function limitarMontoContrato($check) {
+	public function limitarMontoContratoc($check) {
         $monto_disponible = $this->Contratoconstructor->find('first',array(
 			'fields' => array('Contratoconstructor.montototal'),
 			'conditions' => array('Contratoconstructor.idcontrato' => $this->data['Estimacion']['idcontrato'])
 		));
+		$monto_utilizado = $this->query('SELECT 
+				   idcontrato, SUM(montoestimado) as totalmonto 
+				FROM 
+				  sicpro2012.estimacion
+				WHERE 
+				  idcontrato = ' . $this->data['Estimacion']['idcontrato'] .'
+				GROUP BY
+				  idcontrato;');
 		
+		
+		//Debugger::dump(Hash::get($monto_utilizado, '0.0.totalmonto'));
+		
+		$montototal = $monto_disponible['Contratoconstructor']['montototal'] - Hash::get($monto_utilizado, '0.0.totalmonto');
+		
+		//Debugger::dump(round($montototal,2) . ' >= ' .$check['montoestimado']);
+		
+		
+        return (float) round($montototal,2) >= (float) $check['montoestimado'];
+    }
+	
+	public function limitarMontoContratou($check) {
+        $monto_disponible = $this->Contratoconstructor->find('first',array(
+			'fields' => array('Contratoconstructor.montototal'),
+			'conditions' => array('Contratoconstructor.idcontrato' => $this->data['Estimacion']['idcontrato'])
+		));
 		$monto_utilizado = $this->query('SELECT 
 				   idcontrato, SUM(montoestimado) as totalmonto 
 				FROM 
@@ -105,7 +136,7 @@
 				GROUP BY
 				  idcontrato;');
 		
-		//Debugger::dump($monto_disponible['Contratoconstructor']['montototal']);
+		
 		//Debugger::dump(Hash::get($monto_utilizado, '0.0.totalmonto'));
 		
 		$montototal = $monto_disponible['Contratoconstructor']['montototal'] - Hash::get($monto_utilizado, '0.0.totalmonto');

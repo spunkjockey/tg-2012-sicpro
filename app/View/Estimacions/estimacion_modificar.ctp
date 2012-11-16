@@ -58,6 +58,7 @@ $this->end(); ?>
 		<ul>
 			<li>
 				<label>Código de Contrato: </label> <?php echo $info['Contratoconstructor']['codigocontrato']; ?>
+				<?php echo $this->Form->hidden('idestimacion'); ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('tituloestimacion', 
