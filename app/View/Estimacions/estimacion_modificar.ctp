@@ -330,7 +330,9 @@ function startChange() {
 		$("#datePicker3").kendoDatePicker({
 		   culture: "es-ES",
 		   format: "dd/MM/yyyy",
-		   
+		   <?php if(isset( $this->request->data['Estimacion']['fechaestimacion'] )) 
+			{ echo 'value: kendo.parseDate("'. $this->request->data['Estimacion']['fechaestimacion'] .'", "yyyy-MM-dd"),'; } 
+			?>
 		});
          $("#moneda").kendoNumericTextBox({
 		     format: "c2", //Define currency type and 2 digits precision
