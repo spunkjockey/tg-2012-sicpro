@@ -4,6 +4,27 @@
 	    public $components = array('Session','RequestHandler');
 		public $uses = array('Informetecnico','Contratotecproy','Proyecto','Fichatecnica','Contratoconstructor','User','Observacion');
 		
+	    public function informetecnico_index()
+	    {
+	    	$this->layout = 'cyanspark';
+ 			$this->set('informes', $this->Informetecnico->find('all',array(
+				'order' => array('Informetecnico.idinformetecnico'),
+				'conditions' => array('Informetecnico.idpersona' => $this->Session->read('User.idpersona'))
+			)));
+	    }
+		
+		public function contratoinforjson() {
+		$contratos = $this->Contratoconstructor->find('all',array(
+			'fields' => array('Contratoconstructor.idcontrato', 'Contratoconstructor.codigocontrato'),
+			'order' => array('Contratoconstructor.codigocontrato'),
+			'conditions' => array("Contratoconstructor.idcontrato IN (SELECT idcontrato FROM sicpro2012.informetecnico)",
+								  "Contratoconstructor.estadocontrato IN ('a tiempo','en marcha','atrasado','en pausa')")
+		));
+		$this->set('contratos', Hash::extract($contratos, "{n}.Contratoconstructor"));
+		$this->set('_serialize', 'contratos');
+		$this->render('/json/jsondatad');
+	}
+	    
 	    public function informetecnico_registrar()
 	    {
 	    	$this->layout = 'cyanspark';
@@ -197,6 +218,34 @@
 			$this->set('fechas', Hash::extract($fechas, "{n}.Informetecnico"));
 			$this->set('_serialize', 'fechas');
 			$this->render('/json/jsonfechas');
+		}
+		
+		function informetecnico_modificar($id=null)
+		{
+			$this->layout = 'cyanspark';
+			$info=$this->Informetecnico->findByIdinformetecnico($id);
+			$this->set('info',$info);
+			$this->Informetecnico->id = $id;
+			if ($this->request->is('get')) 
+			{
+			   	$this->request->data=$this->Informetecnico->read();
+			} 
+			else 
+			{
+				$this->Informetecnico->set('idcontrato', $info['Contratoconstructor']['idcontrato']);
+				$this->Informetecnico->set('idinformetecnico', $this->request->data['Informetecnico'] ['idinformetecnico']);
+				$this->Informetecnico->set('fechavisita', $this->request->data['Informetecnico'] ['fechavisita']);
+				$this->Informetecnico->set('fechaelaboracion', $this->request->data['Informetecnico'] ['fechaelaboracion']);
+				$this->Informetecnico->set('antecedentes', $this->request->data['Informetecnico'] ['antecedentes']);
+				$this->Informetecnico->set('anotacion', $this->request->data['Informetecnico'] ['anotacion']);
+				$this->Informetecnico->set('userm', $this->Session->read('User.username'));
+				$this->Informetecnico->set('modificacion', date('Y-m-d h:i:s')); 
+				if ($this->Informetecnico->save($id)) 
+				{
+		            $this->Session->setFlash('El informe tecnico ha sido actualizada.', 'default', array('class'=>'success'));
+		            $this->redirect(array('action' => 'informetecnico_index'));
+	        	} 
+			}
 		}
 		
 	}
