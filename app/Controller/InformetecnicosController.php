@@ -1,7 +1,7 @@
 <?php
     class InformetecnicosController extends AppController{
-    	public $helpers = array('Html', 'Form', 'Session','Ajax');
-	    public $components = array('Session','RequestHandler');
+    	public $helpers = array('Html', 'Form', 'Session','Ajax','AjaxMultiUpload.Upload');
+	    public $components = array('Session','RequestHandler','AjaxMultiUpload.Upload');
 		public $uses = array('Informetecnico','Contratotecproy','Proyecto','Fichatecnica','Contratoconstructor','User','Observacion');
 		
 	    public function informetecnico_index()
@@ -246,6 +246,12 @@
 		            $this->redirect(array('action' => 'informetecnico_index'));
 	        	} 
 			}
+		}
+
+		function informetecnico_subirfotos($id=null)
+		{
+			$this->layout = 'cyanspark';
+        	$this->set ('idinformetecnico', $id); 
 		}
 		
 	}

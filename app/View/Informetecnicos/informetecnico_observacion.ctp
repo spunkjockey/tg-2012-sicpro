@@ -72,9 +72,27 @@ $this->end(); ?>
 				</p>
 			</li>
 			<li>
-				<p><strong>Anotaciones:</strong><br>
+				<p><strong>Cuerpo del informe:</strong><br>
 					<?php echo $anota?></p>
 			</li>
+		<!--- Fotos --->
+			<h3>Fotografías de la visita</h3>
+				<?php
+					$results = $this->Upload->listing ('Informetecnico', $idinfo);
+					$directory = $results['directory'];
+					$baseUrl = $results['baseUrl'];
+					$files = $results['files'];
+					echo "<table>";
+					foreach ($files as $file) {
+					    $type = pathinfo($file, PATHINFO_EXTENSION);
+					    $f = basename($file);
+					    $url = $baseUrl . "/$f";
+					    echo "<tr><td>";
+					    echo "<img src='" . Router::url("/") . "ajax_multi_upload/img/fileicons/$type.png' /> <a href='$url'>" . $f . "</a><br />\n";
+						echo "</td></tr>";
+					}
+					echo "</table>";
+				?>
 		<!--- Otras observaciones --->
 			<h3>Observaciones de otros:</h3>
 			<?php

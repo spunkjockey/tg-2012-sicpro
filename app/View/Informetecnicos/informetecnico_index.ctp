@@ -84,7 +84,11 @@ $this->end(); ?>
             	array('action' => 'informetecnico_modificar', $infor['Informetecnico']['idinformetecnico']),
             	array('class'=>'k-button', 'escape' => false, "title"=>"Editar")
 			);?>
-			
+			<?php echo $this->Html->link(
+            	'<span class="k-icon k-i-folder-up"></span>', 
+            	array('action' => 'informetecnico_subirfotos',$infor['Informetecnico']['idinformetecnico']),
+            	array('class'=>'k-button', 'escape' => false, "title"=>"Cargar fotos")
+			);?>
             <?php echo $this->Form->postLink(
                 '<span class="k-icon k-i-close"></span>',
                 array('action' => 'informetecnico_eliminar', $infor['Informetecnico']['idinformetecnico']),
@@ -116,7 +120,7 @@ $this->end(); ?>
 
 <script type="text/x-kendo-template" id="template">
     <div class="toolbar">
-        <label class="codigocontrato-label" for="codigocontrato">Mostrar Estimaciones por Contrato:</label>
+        <label class="codigocontrato-label" for="codigocontrato">Mostrar informes por contrato:</label>
         <input type="search" id="codigocontrato" style="width: 230px"></input>
     </div>
 </script>
