@@ -106,18 +106,19 @@
 		function persona_agregar_usuario($id=null)
 		{
 			$this->layout = 'cyanspark';
-			
-			if ($this->request->is('get'))
-			{
-				$this->data = $this->Persona->read(null,$id);
-			}
+			$idpersona=$id;
+			$nombres = $this->Persona->field('nombrespersona',array('idpersona'=>$idpersona));
+			$this->set('nombrespersona',$nombres);
+			$apellidos = $this->Persona->field('apellidospersona',array('idpersona'=>$idpersona));
+			$this->set('apellidospersona',$apellidos);
 			if ($this->request->is('post')) 
 		{
+			//$this->User->create();
 			$this->User->set('idpersona', $id);
 			$this->User->set('username', $this->request->data['Persona']['username']);
 			$this->User->set('password', $this->request->data['Persona']['password']);
-			$this->User->set('nombre', $this->request->data['Persona']['nombrespersona']);
-			$this->User->set('apellidos', $this->request->data['Persona']['apellidospersona']);
+			$this->User->set('nombre', $nombres);
+			$this->User->set('apellidos', $apellidos);
 			$this->User->set('estado', $this->request->data['Persona']['estado']);
 			$this->User->set('idrol', $this->request->data['Persona']['rol']);
 			$this->User->set('userc', $this->Session->read('User.username'));

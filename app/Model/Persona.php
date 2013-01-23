@@ -23,7 +23,7 @@
 		        )
 		    );
 		
-	public $validate = array(
+	/*public $validate = array(
 		'nombrespersona' => array(
 		    'soloLetras' => array(
 				'rule'    => '/^[a-zA-ZáéíóúAÉÍÓÚÑñ\s]{2,}$/i',
@@ -50,7 +50,7 @@
 		        'message' => 'Passwords must be between 5 and 15 characters long.'
 		    )
 		
-	);
+	);*/
 	
 	public function beforeValidate($options = array()) {
 		parent::beforeValidate(); 

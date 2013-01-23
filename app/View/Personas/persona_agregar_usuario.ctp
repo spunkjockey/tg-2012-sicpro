@@ -56,7 +56,7 @@ $this->end(); ?>
 			
 				<h2>Agregar usuario a persona</h2>
 				<li>
-							<label>Nombre: </label><?php echo $this->request->data['Persona']['nombrespersona'] .' '.$this->request->data['Persona']['apellidospersona'];?>
+							<label>Nombre: </label><?php echo $nombrespersona .' '.$apellidospersona;?>
 				</li>
 				<li>
 					<?php echo $this->Form->input('username', 
@@ -113,12 +113,12 @@ $this->end(); ?>
 							'div' => array('class' => 'requerido'),
 							'id' => 'selectedo')); ?>
 				</li>
-				<?php echo $this->Form->input('idpersona')?>
+				
 			<li  class="accept">
 				<table>
 					<tr>
 						<td>
-							<?php echo $this->Form->end(array('label' => 'Registrar persona', 'class' => 'k-button')); ?>
+							<?php echo $this->Form->end(array('label' => 'Agregar usuario', 'class' => 'k-button')); ?>
 						</td>
 						<td>
 							<?php echo $this->Html->link(

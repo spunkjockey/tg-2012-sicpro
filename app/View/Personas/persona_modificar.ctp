@@ -59,14 +59,15 @@ $this->end(); ?>
 						array(
 							'label' => 'Nombres:', 
 							'class' => 'k-textbox', 
-							'id'	=>	'nombre',
+							'id'	=>	'nombrespersona',
 							'div' => array('class' => 'requerido'),
 							'placeholder' => 'Nombres')); ?>
 							
-				<script type="text/javascript">
-		            var nombre = new LiveValidation( "nombre", { validMessage: " " } );
-		            nombre.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script>
+					<script type="text/javascript">
+						var nombrespersona = new LiveValidation( "nombrespersona", { validMessage: " " } );
+			            nombrespersona.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			            nombrespersona.add(Validate.Format, { pattern: /^[a-zA-Z áéíóúÁÉÍÓÚñÑ]+$/i, failureMessage: "Solo letras" } );
+		            </script>
 				</li>
 				<li>
 					<?php echo $this->Form->input('apellidospersona', 
@@ -74,13 +75,14 @@ $this->end(); ?>
 							'label' => 'Apellidos:', 
 							'class' => 'k-textbox', 
 							'div' => array('class' => 'requerido'),
-							'id'	=> 'apellido',
+							'id'	=> 'apellidospersona',
 							'placeholder' => 'Apellidos')); ?>
 							
 				<script type="text/javascript">
-		            var apellido = new LiveValidation( "apellido", { validMessage: " " } );
-		            apellido.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script>
+						var nombrepersona = new LiveValidation( "apellidospersona", { validMessage: " " } );
+			            nombrepersona.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			            nombrepersona.add(Validate.Format, { pattern: /^[a-zA-Z áéíóúÁÉÍÓÚñÑ]+$/i, failureMessage: "Solo letras" } );
+		            </script>
 				</li>
 				<li>
 					<?php echo $this->Form->input('plazas', 
