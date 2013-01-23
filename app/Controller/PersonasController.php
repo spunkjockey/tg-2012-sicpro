@@ -106,19 +106,22 @@
 		function persona_agregar_usuario($id=null)
 		{
 			$this->layout = 'cyanspark';
-			$idpersona=$id;
-			$nombres = $this->Persona->field('nombrespersona',array('idpersona'=>$idpersona));
+			$this->set('idpersona',$id);
+			
+			$nombres = $this->Persona->field('nombrespersona',array('idpersona'=>$id));
 			$this->set('nombrespersona',$nombres);
-			$apellidos = $this->Persona->field('apellidospersona',array('idpersona'=>$idpersona));
+			
+			$apellidos = $this->Persona->field('apellidospersona',array('idpersona'=>$id));
 			$this->set('apellidospersona',$apellidos);
+			
 			if ($this->request->is('post')) 
 		{
 			//$this->User->create();
-			$this->User->set('idpersona', $id);
+			$this->User->set('idpersona', $this->request->data['Persona']['idpersona']);
 			$this->User->set('username', $this->request->data['Persona']['username']);
 			$this->User->set('password', $this->request->data['Persona']['password']);
-			$this->User->set('nombre', $nombres);
-			$this->User->set('apellidos', $apellidos);
+			$this->User->set('nombre', $this->request->data['Persona']['nombre']);
+			$this->User->set('apellidos', $this->request->data['Persona']['apellidos']);
 			$this->User->set('estado', $this->request->data['Persona']['estado']);
 			$this->User->set('idrol', $this->request->data['Persona']['rol']);
 			$this->User->set('userc', $this->Session->read('User.username'));
@@ -126,12 +129,14 @@
 			{
 				$this->Session->setFlash('Usuario ha sido registrado.','default',array('class'=>'success'));
 				$this->redirect(array('action' => 'persona_index'));
+				
 			}
 			else 
 			{
 				$this->Session->setFlash('Imposible agregar usuario');
 			}
 		}
+		
 		}
 		
 		function persona_eliminar($id) 

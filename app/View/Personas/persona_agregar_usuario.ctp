@@ -57,6 +57,9 @@ $this->end(); ?>
 				<h2>Agregar usuario a persona</h2>
 				<li>
 							<label>Nombre: </label><?php echo $nombrespersona .' '.$apellidospersona;?>
+							<?php echo $this->Form->input('idpersona', array('type' => 'hidden', 'value' => $idpersona)); ?>
+							<?php echo $this->Form->input('nombre', array('type' => 'hidden', 'value' => $nombrespersona)); ?>
+							<?php echo $this->Form->input('apellidos', array('type' => 'hidden', 'value' => $apellidospersona)); ?>
 				</li>
 				<li>
 					<?php echo $this->Form->input('username', 
@@ -118,6 +121,7 @@ $this->end(); ?>
 				<table>
 					<tr>
 						<td>
+							
 							<?php echo $this->Form->end(array('label' => 'Agregar usuario', 'class' => 'k-button')); ?>
 						</td>
 						<td>
