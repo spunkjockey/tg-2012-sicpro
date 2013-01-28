@@ -5,7 +5,7 @@ App::uses('CakeEmail', 'Network/Email');
 class ProyectosController extends AppController {
     public $name = 'Proyectos';
     public $components = array('Session','RequestHandler','Email');
-	public $uses = array('Proyecto','Division','Contrato','Financia','Contratoconstructor','Proyembe','CakeEmail','Network/Email');
+	public $uses = array('Proyecto','Division','Contrato','Financia','Contratoconstructor','Proyembe','CakeEmail','Network/Email','Persona');
 	public $helpers = array('Html', 'Form', 'Session','Ajax', 'Javascript');
 	
 	
@@ -22,6 +22,12 @@ class ProyectosController extends AppController {
 			if ($this->Proyecto->save()) {
 					$this->Session->setFlash('El proyecto "'. $this->request->data['Proyecto']['nombreproyecto'].'" ha sido registrado',
 											 'default',array('class'=>'success'));
+					
+					//Notificacion con envio de correo. Nuevo proyecto registrado se notifica el Director
+					$mensaje = 'El proyecto "'. $this->request->data['Proyecto']['nombreproyecto'].'" ha sido registrado con un monto de $'.$this->request->data['Proyecto']['montoplaneado'];
+					$to = $this->Persona->find('all',array('conditions'=> array('Persona.idplaza' => 7)));
+					$subject = 'Nuevo Proyecto';
+					$this->enviar_correo($to[0]['Persona']['correoelectronico'],$subject,$mensaje);
 	                $this->redirect(array('action' => 'proyecto_listado'));
 	            }
 				else {
@@ -506,14 +512,30 @@ class ProyectosController extends AppController {
 			$this->render('/json/jsondivision');			
 	}
 	
-	public function correo()
+	
+	//funcion para enviar correo
+	public function enviar_correo($to=null,$subject=null,$mensaje=null)
 	{
+		//$mensaje = 'Probando variables 3';
+		//$subject = 'Prueba2';
+		//$to = 'shinobi10@gmail.com';
+		/*$email = new CakeEmail('gmail');
+		$email->emailFormat('text')
+				->to('shinobi10@gmail.com')
+				->from('noreplysicpro@gmail.com')
+				->subject('Notificacion') 
+				->send('Bienvenido a SICPRO');*/
 		$email = new CakeEmail('gmail');
 		$email->emailFormat('text')
-				->to('spunkjockey18@gmail.com')
-				->from('shinobi10@gmail.com')
-				->subject('Notificacion') 
-				->send('Hola mundo');
+				->to($to)
+				->from('noreplysicpro@gmail.com')
+				->subject($subject)
+				->send($mensaje);
 	}
 	
+	//metodo de prueba para el envio de correo.
+	public function correo(){
+		$this->enviar_correo('shinobi10@gmail.com','prueba funcion','probando la implementacion de mensaje por correo');
+	}
+
 }
