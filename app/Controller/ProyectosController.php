@@ -26,7 +26,7 @@ class ProyectosController extends AppController {
 					//Notificacion con envio de correo. Nuevo proyecto registrado se notifica el Director
 					$mensaje = 'El proyecto "'. $this->request->data['Proyecto']['nombreproyecto'].'" ha sido registrado con un monto de $'.$this->request->data['Proyecto']['montoplaneado'];
 					$to = $this->Persona->find('all',array('conditions'=> array('Persona.idplaza' => 7)));
-					$subject = 'Nuevo Proyecto';
+					$subject = 'Notificacion SICRO';
 					$this->enviar_correo($to[0]['Persona']['correoelectronico'],$subject,$mensaje);
 	                $this->redirect(array('action' => 'proyecto_listado'));
 	            }
@@ -158,6 +158,12 @@ class ProyectosController extends AppController {
 						$this->Session->setFlash('Se ha asignado el número '.$this->request->data['Proyecto']['numeroproyecto'].
 												 ' al Proyecto "'.$this->Proyecto->field('nombreproyecto') .'"',
 												 'default',array('class'=>'success'));
+												 
+						//Notificacion con envio de correo. Estado pasa a Licitacion
+						$mensaje = 'El proyecto "'.$this->Proyecto->field('nombreproyecto') .'" pasa a estado de Licitación';
+						$to = $this->Persona->find('all',array('conditions'=> array('Persona.idplaza' => 7)));
+						$subject = 'Notificacion SICRO';
+						$this->enviar_correo($to[0]['Persona']['correoelectronico'],$subject,$mensaje);
 						$this->redirect(array('action' => 'proyecto_listado'));
 		            }
 					else 
@@ -534,8 +540,8 @@ class ProyectosController extends AppController {
 	}
 	
 	//metodo de prueba para el envio de correo.
-	public function correo(){
-		$this->enviar_correo('shinobi10@gmail.com','prueba funcion','probando la implementacion de mensaje por correo');
+	public function test_correo(){
+		$this->enviar_correo('testcorreo@hotmail.com','prueba funcion','probando la implementacion de mensaje por correo');
 	}
 
 }
