@@ -1,8 +1,11 @@
 <?php
+
+App::uses('CakeEmail', 'Network/Email');
+
     class ContratoconstructorsController extends AppController {
 	    public $helpers = array('Html', 'Form', 'Session','Ajax');
-	    public $components = array('Session','RequestHandler');
-		public $uses = array('Contratoconstructor','Contrato','Proyecto','Empresa','Persona','Realproyecto');
+	    public $components = array('Session','RequestHandler','Email');
+		public $uses = array('Contratoconstructor','Contrato','Proyecto','Empresa','Persona','Realproyecto','CakeEmail','Network/Email');
 		
 		public function contratoconstructor_listar(){
 			$this->layout = 'cyanspark';
@@ -24,6 +27,9 @@
 			$this->layout = 'cyanspark';
 			if($this->request->is('post'))
 			{
+				//comprobando que es el primer contrato
+				$estadoproyanterior=$this->Proyecto->find('all', array('conditions'=>array('Proyecto.idproyecto' => $this->request->data['Contratoconstructor']['proyectos'])));			
+	
 				 //Registro en tabla contrato
 				$this->Contrato->create();
 				//Debugger::dump($this->request->data);
@@ -62,7 +68,14 @@
 	                if($this->Contratoconstructor->save($this->Contrato->id))
 					{
 						$this->Session->setFlash('Contrato constructor '.$this->request->data['Contratoconstructor']['codigocontrato'].' ha sido registrado.',
-												'default',array('class'=>'success'));	
+												'default',array('class'=>'success'));
+						
+					if($estadoproyanterior[0]['Proyecto']['estadoproyecto']=="Licitacion"){
+							$mensaje = 'El proyecto "'.$estadoproyanterior[0]['Proyecto']['nombreproyecto'] .'" pasa a estado de Adjudicacion';
+							$to = $this->Persona->find('all',array('conditions'=> array('Persona.idplaza' => 7)));
+							$subject = 'Notificacion SICRO';
+							$this->enviar_correo($to[0]['Persona']['correoelectronico'],$subject,$mensaje);
+						}
 						$this->redirect(array('controller'=>'Contratoconstructors', 'action' => 'contratoconstructor_listar'));
 						
 					}
@@ -416,6 +429,25 @@
 		}
 		
 		$this->render('/Elements/update_opcionesactualizar', 'ajax');
+	}
+
+	public function enviar_correo($to=null,$subject=null,$mensaje=null)
+	{
+		//$mensaje = 'Probando variables 3';
+		//$subject = 'Prueba2';
+		//$to = 'shinobi10@gmail.com';
+		/*$email = new CakeEmail('gmail');
+		$email->emailFormat('text')
+				->to('shinobi10@gmail.com')
+				->from('noreplysicpro@gmail.com')
+				->subject('Notificacion') 
+				->send('Bienvenido a SICPRO');*/
+		$email = new CakeEmail('gmail');
+		$email->emailFormat('text')
+				->to($to)
+				->from('noreplysicpro@gmail.com')
+				->subject($subject)
+				->send($mensaje);
 	}
 
 }
