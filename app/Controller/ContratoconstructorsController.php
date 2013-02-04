@@ -433,15 +433,6 @@ App::uses('CakeEmail', 'Network/Email');
 
 	public function enviar_correo($to=null,$subject=null,$mensaje=null)
 	{
-		//$mensaje = 'Probando variables 3';
-		//$subject = 'Prueba2';
-		//$to = 'shinobi10@gmail.com';
-		/*$email = new CakeEmail('gmail');
-		$email->emailFormat('text')
-				->to('shinobi10@gmail.com')
-				->from('noreplysicpro@gmail.com')
-				->subject('Notificacion') 
-				->send('Bienvenido a SICPRO');*/
 		$email = new CakeEmail('gmail');
 		$email->emailFormat('text')
 				->to($to)

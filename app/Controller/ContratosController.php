@@ -1,8 +1,10 @@
 <?php
+App::uses('CakeEmail', 'Network/Email');
+
 class ContratosController extends AppController {
     public $helpers = array('Html', 'Form', 'Session','Ajax');
-   public $components = array('Session','AjaxMultiUpload.Upload','RequestHandler');
-	public $uses = array('Contrato','Contratoconstructor','Contratosupervisor','Proyecto','Avanceprogramado','Estimacion','Informesupervisor','Ordendecambio');
+   public $components = array('Session','AjaxMultiUpload.Upload','RequestHandler','Email');
+	public $uses = array('Contrato','Contratoconstructor','Contratosupervisor','Proyecto','Avanceprogramado','Estimacion','Informesupervisor','Ordendecambio','Persona','CakeEmail','Network/Email');
 
     public function index() {
     	$this->layout = 'cyanspark';
@@ -35,6 +37,12 @@ class ContratosController extends AppController {
 					'userm'=> $this->Session->read('User.username'),
 					'modificacion' => date('Y-m-d h:i:s'));
 			}
+			
+			//Deterinar el idproyecto y verificar si alguno de posee orden de inicio, para comprobar que es el primer ingreso
+			$proy=$this->Contrato->findByIdcontrato($id);
+			$cantidad=$this->Contrato->find('count', array('conditions'=> array('Contrato.idproyecto'=> $proy['Contrato']['idproyecto'],'Contrato.ordeninicio !='=>null)));
+			
+				
 			if($this->Contrato->save($data)) 
 			{
 			       	if($tipo=='Construcción de obras')
@@ -47,6 +55,15 @@ class ContratosController extends AppController {
 							if($this->Contratoconstructor->save($id, array('fieldList'=>array('estadocontrato','ordeninicio','userm','modificacion'))))
 							{
 								$this->Session->setFlash('La Orden de Inicio ha sido registrada en el Contrato Constructor.','default',array('class'=>'success'));
+		            			
+								//si ninguno de los contratos tiene orden de inicio para es proyecto, es decir es el primer contrato que inicia
+								//el proyecto pasa a estado de ejecucion
+								if($cantidad == 0){
+									$mensaje = 'El proyecto "'. $proy['Proyecto']['nombreproyecto'].'" pasa a estado de Ejecución';
+									$to = $this->Persona->find('all',array('conditions'=> array('Persona.idplaza' => 7)));
+									$subject = 'Notificacion SICRO';
+									$this->enviar_correo($to[0]['Persona']['correoelectronico'],$subject,$mensaje);
+								}
 		            			$this->redirect(array('controller'=>'mains', 'action' => 'index'));	
 							}
 							else 
@@ -411,6 +428,16 @@ order by avance.fechaavance');
 		//$this->set('contratos', $contratos);
 		$this->set('_serialize', 'contratos');
 		$this->render('/json/jsoncontratotecproy');
+	}
+
+	public function enviar_correo($to=null,$subject=null,$mensaje=null)
+	{
+		$email = new CakeEmail('gmail');
+		$email->emailFormat('text')
+				->to($to)
+				->from('noreplysicpro@gmail.com')
+				->subject($subject)
+				->send($mensaje);
 	}
 
 }
