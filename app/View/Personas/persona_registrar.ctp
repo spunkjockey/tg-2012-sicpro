@@ -183,8 +183,14 @@ $this->end(); ?>
 							'class' => 'k-textbox',
 							'type' => 'text', 
 							'placeholder' => 'Contraseña',
+							'id' => 'contrasena',
 							//'readonly' => 'readonly',
 							'div' => array('class' => 'requerido'))); ?>
+					<script type="text/javascript">
+						var contrasena = new LiveValidation( "contrasena", { validMessage: " " } );
+			            contrasena.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			            
+		            </script>
 				</li>
 
 			
