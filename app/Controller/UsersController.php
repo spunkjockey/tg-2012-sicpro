@@ -127,12 +127,12 @@ class UsersController extends AppController {
 			$this->User->set('userc', $this->Session->read('User.username'));
             if ($this->User->save()) 
             {
-                $this->Session->setFlash(__('El Usuario registrado con exito'),'default',array('class'=>'success'));
+                $this->Session->setFlash(__('El Usuario ha sido registrado con exito'),'default',array('class'=>'success'));
                 $this->redirect(array('controller'=>'mains', 'action' => 'index'));
             } 
             else 
             {
-                $this->Session->setFlash('Ha ocurrido un error');
+                //$this->Session->setFlash('Ha ocurrido un error');
             }
         }
     }
@@ -233,7 +233,7 @@ class UsersController extends AppController {
             } 
             else 
             {
-                $this->Session->setFlash('Ha ocurrido un error.');
+               // $this->Session->setFlash('Ha ocurrido un error.');
             }
 		} 
 	} 

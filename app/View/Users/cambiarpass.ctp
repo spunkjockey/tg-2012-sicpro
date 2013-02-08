@@ -70,6 +70,7 @@ $this->end(); ?>
 						'type' => 'password',
 						'class' => 'k-textbox', 
 						'value' => '',
+						'maxlength' => 25,
 						'placeholder' => 'Contraseña',
 						'error' => array('attributes' => array('wrap' => 'span', 'class' => 'LV_validation_message LV_invalid', "id" => 'errorpassword')),
 						'div' => array('class' => 'requerido') 
@@ -86,16 +87,19 @@ $this->end(); ?>
 						'label' => 'Nueva Contraseña:', 
 						'id' => 'passwordnew',
 						'type' => 'password',
-						'class' => 'k-textbox', 
-						'placeholder' => 'Contraseña',
+						'class' => 'k-textbox',
+						'maxlength' => 25, 
+						'placeholder' => 'Nueva Contraseña',
 						'div' => array('class' => 'requerido') 
 				)); ?>
 				<script type="text/javascript">
 		            var passwordnew = new LiveValidation( "passwordnew", { validMessage: " ", onlyOnSubmit: true } );
 		            passwordnew.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            
 		            passwordnew.add(Validate.Format, { pattern: /‎?^.{8,}$/, failureMessage: "Debe contener al menos 8 caracteres"  } );
 		            passwordnew.add(Validate.Format, { pattern: /‎?^.*\d.*$/, failureMessage: "Debe contener al menos un número"  } );
-		            passwordnew.add(Validate.Format, { pattern: /‎?^.*\W+.*$/, failureMessage: "Debe contener al menos un caracter especial"  } );
+		            passwordnew.add(Validate.Format, { pattern: /‎?^.*[ ].*$/, failureMessage: "No se permiten espacios en blanco", negate: true  } );
+		            passwordnew.add(Validate.Format, { pattern: /‎?^.*(_+|\W+).*$/, failureMessage: "Debe contener al menos un caracter especial, por ejemplo: @ # % { ) "  } );
 		            passwordnew.add(Validate.Format, { pattern: /‎?^.*[A-Z].*$/, failureMessage: "Debe contener al menos una letra mayúscula"  } );
 		            passwordnew.add(Validate.Format, { pattern: /‎?^.*[a-z].*$/, failureMessage: "Debe contener al menos una letra minúscula"  } );
 		        
@@ -108,7 +112,8 @@ $this->end(); ?>
 						'id' => 'passwordnewmatch',
 						'class' => 'k-textbox', 
 						'type' => 'password',
-						'placeholder' => 'Contraseña',
+						'maxlength' => 25,
+						'placeholder' => 'Nueva Contraseña',
 						'div' => array('class' => 'requerido') 
 				)); ?>
 				<script type="text/javascript">

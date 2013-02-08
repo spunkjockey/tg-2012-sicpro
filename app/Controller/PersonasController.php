@@ -45,12 +45,12 @@
 						}
 						else 
 						{
-							$this->Session->setFlash('Ha ocurrido un error');
+							//$this->Session->setFlash('Ha ocurrido un error');
 	                    }
 					}
 				else 
 					{
-						$this->Session->setFlash('Ha ocurrido un error');
+						//$this->Session->setFlash('Ha ocurrido un error');
 	                }
 			}
 		}
@@ -97,7 +97,7 @@
 		            $this->Session->setFlash('La persona ha sido modificada.','default',array('class'=>'success'));
 		            $this->redirect(array('action' => 'persona_index'));
 		        } else {
-		            $this->Session->setFlash('Ha ocurrido un error. Imposible editar persona');
+		            //$this->Session->setFlash('Ha ocurrido un error. Imposible editar persona');
 		        }
 		    }
 		}

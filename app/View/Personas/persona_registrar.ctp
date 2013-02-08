@@ -63,6 +63,7 @@ $this->end(); ?>
 							'label' => 'Nombres:', 
 							'class' => 'k-textbox', 
 							'id' => 'nombrepersona',
+							'maxlength' => 50, 
 							'placeholder' => 'Nombre',
 							'div' => array('class' => 'requerido'))); ?>
 					<script type="text/javascript">
@@ -77,6 +78,7 @@ $this->end(); ?>
 							'label' => 'Apellidos:', 
 							'class' => 'k-textbox', 
 							'id' => 'apellidospersona',
+							'maxlength' => 50, 
 							'placeholder' => 'Apellidos',
 							'div' => array('class' => 'requerido') 
 							)); ?>
@@ -127,6 +129,7 @@ $this->end(); ?>
 							'label' => 'Correo electronico:', 
 							'class' => 'k-textbox', 
 							'id' => 'correo',
+							'maxlength' => 50, 
 							'placeholder' => 'Correo Electronico',
 							'div' => array('class' => 'requerido'))); ?>
 					<script type="text/javascript">
@@ -168,6 +171,7 @@ $this->end(); ?>
 							'class' => 'k-textbox', 
 							'placeholder' => 'Usuario',
 							'id' => 'username',
+							'maxlength' => 20, 
 							//'readonly' => 'readonly',
 							'div' => array('class' => 'requerido'))); ?>
 					<script type="text/javascript">
@@ -183,14 +187,22 @@ $this->end(); ?>
 							'class' => 'k-textbox',
 							'type' => 'text', 
 							'placeholder' => 'Contraseña',
-							'id' => 'contrasena',
+							'id' => 'password',
+							'maxlength' => 25,
 							//'readonly' => 'readonly',
 							'div' => array('class' => 'requerido'))); ?>
-					<script type="text/javascript">
-						var contrasena = new LiveValidation( "contrasena", { validMessage: " " } );
-			            contrasena.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-			            
-		            </script>
+			<script type="text/javascript">
+		            var password = new LiveValidation( "password", { validMessage: " " } );
+		            password.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            password.add(Validate.Format, { pattern: /‎?^.{8,}$/, failureMessage: "Debe contener al menos 8 caracteres"  } );
+		            password.add(Validate.Format, { pattern: /‎?^.*\d.*$/, failureMessage: "Debe contener al menos un número"  } );
+		            password.add(Validate.Format, { pattern: /‎?^.*(_+|\W+).*$/, failureMessage: "Debe contener al menos un caracter especial, por ejemplo: @ # % { ) "  } );
+		            //password.add(Validate.Format, { pattern: /‎?^.*\W+.*$/, failureMessage: "Debe contener al menos un caracter especial"  } );
+		            password.add(Validate.Format, { pattern: /‎?^.*[ ].*$/, failureMessage: "No se permiten espacios en blanco", negate: true  } );
+		            password.add(Validate.Format, { pattern: /‎?^.*[A-Z].*$/, failureMessage: "Debe contener al menos una letra mayúscula"  } );
+		            password.add(Validate.Format, { pattern: /‎?^.*[a-z].*$/, failureMessage: "Debe contener al menos una letra minúscula"  } );
+		     </script>
+
 				</li>
 
 			
