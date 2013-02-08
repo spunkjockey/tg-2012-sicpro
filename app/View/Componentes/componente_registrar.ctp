@@ -240,7 +240,7 @@ $this->end(); ?>
 	var nextinput = 0;
 	function AgregarCampos(usuario) {
 		nextinput++;
-		campo = '<li class="meta'+ nextinput +'"><label for="Meta'+nextinput+'Descripcionmeta">Descripcion Meta:</label><textarea name="data[Meta]['+nextinput+'][descripcionmeta]" class="k-textbox" placeholder="Meta" cols="30" rows="6" id="Meta'+ nextinput +'Descripcionmeta"></textarea><a href="#" onclick= "borrar( '+ nextinput +');"" class="k-button"">Borrar</a></li><input type="hidden" name="data[Meta]['+nextinput+'][userc]" value="'+usuario+'" id="Meta'+nextinput+'Userc"/>';
+		campo = '<li class="meta'+ nextinput +'"><label for="Meta'+nextinput+'Descripcionmeta">Descripcion Meta:</label><textarea name="data[Meta]['+nextinput+'][descripcionmeta]" class="k-textbox" placeholder="Meta" cols="30" rows="6" id="Meta'+ nextinput +'Descripcionmeta"></textarea></li><input type="hidden" name="data[Meta]['+nextinput+'][userc]" value="'+usuario+'" id="Meta'+nextinput+'Userc"/>';
 		var cadenas ='<script type="text/javascript"> var Meta = new LiveValidation( "Meta", { validMessage: " " } ); Meta.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" }; )< /script>';
 		$("#metas").append(campo);
 		return false;
