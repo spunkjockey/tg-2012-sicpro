@@ -88,10 +88,10 @@ $this->end(); ?>
 						'type'=>'text',  
 						'id' => 'txmonto',
 						'style'=>'width: 200px',
-						'div' => array('class' => 'requerido'),
+						'div' => array('id'=> 'monpla','class' => 'requerido'),
 						'maxlength'=>'12')); ?>
 				<script type="text/javascript">
-					var txmonto = new LiveValidation( "txmonto", { validMessage: " " } );
+					var txmonto = new LiveValidation( "txmonto", { validMessage: " " , insertAfterWhatNode: "monpla" } );
 		            txmonto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script>
 			</li>
