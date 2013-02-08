@@ -133,7 +133,7 @@ $this->end(); ?>
 					array(
 						'label' => 'Empleos Generados: ', 
 						'div' => array('id' => 'empleos','class' => 'requerido'),
-						'id' => 'numer1',
+						'id' => 'numero1',
 						'type' => 'text',
 						'class' => 'k-textbox', 
 						'placeholder' => 'Empleos Generados',
@@ -153,7 +153,7 @@ $this->end(); ?>
 						'label' => 'Beneficiarios: ', 
 						'div' => array('id' => 'benefic', 'class' => 'requerido'),
 						'type' => 'text',
-						'id' => 'numer2',
+						'id' => 'numero2',
 						'class' => 'k-textbox', 
 						'placeholder' => 'Beneficiarios',
 						'maxlength' => "7"
@@ -318,11 +318,11 @@ $this->end(); ?>
 			                        }
 			        });
                
-               var combobox = $("#select").data("kendoComboBox");
-               combobox.list.width(400);
+              // var combobox = $("#select").data("kendoComboBox");
+              // combobox.list.width(400);
                
                
-       $("#numer1").kendoNumericTextBox({
+  	$("#numero1").kendoNumericTextBox({
                 min: 0000001,
 				max: 9999999,
 				format : "{0:n0}",
@@ -331,7 +331,7 @@ $this->end(); ?>
 				spinners: false
             });
             
-       $("#numer2").kendoNumericTextBox({
+       $("#numero2").kendoNumericTextBox({
                 min: 0000001,
 				max: 9999999,
 				format : "{0:n0}",
