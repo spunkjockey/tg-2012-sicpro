@@ -73,7 +73,7 @@ $this->end(); ?>
 					<script type="text/javascript">
 			            var username = new LiveValidation( "username", { validMessage: " " } );
 			            username.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-			            username.add(Validate.Format, { pattern: /‎?^.*[ ].*$/, failureMessage: "No se permiten espacios en blanco", negate: true  } );
+			            username.add(Validate.Format, { pattern: /^\w+$/i, failureMessage: "No puede llevar espacios en blanco o caracteres especiales" } );
 		        	</script>
 				</li>
 				<li>

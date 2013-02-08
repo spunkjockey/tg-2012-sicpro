@@ -55,6 +55,7 @@ $this->end(); ?>
 		<h2>Editar Fuente de Financiamiento</h2>
 		<?php echo $this->Form->create('Fuentefinanciamiento',array('action' => 'fuentefinanciamiento_modificarfuente')); ?>
 		<ul>
+			
 			<li>
 				<?php echo $this->Form->input('nombrefuente', 
 					array(
@@ -91,7 +92,8 @@ $this->end(); ?>
 					array(
 						'label' => 'Fecha:', 
 						'id'	=> 'datePicker1',
-						'type' => 'text',
+						'type' => 'Text',
+						'maxlength'=> 10,
 						'div' => array('id' => 'dfecha','class' => 'requerido')
 						)); ?>
 			   <script type="text/javascript">
@@ -101,7 +103,7 @@ $this->end(); ?>
 		        </script> 
 			</li>
 			<li>
-                <?php echo $this->Form->input('tipofuentes',
+                <?php echo $this->Form->input('idtipofuente',
 					array(
 						'label' => 'Tipo Fuente:', 
 						'id' => 'fuentes',
@@ -109,7 +111,9 @@ $this->end(); ?>
 						'div' => array('id' => 'dfuentes','class' => 'requerido')
 					)); ?>
 			</li>
-			<?php echo $this->Form->input('id', array('type' => 'hidden')); ?>
+			<?php echo $this->Form->hidden('id'); ?>
+			<?php echo $this->Form->hidden('idfuentefinanciamiento'); ?>
+			
 			<?php echo $this->Form->input('userm', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>	
 			<li  class="accept">
 				<table>
@@ -129,27 +133,20 @@ $this->end(); ?>
         </ul>
 	</div>
  </div>
-           <style scoped>
+<style scoped>
 
                 .k-textbox {
-                    width: 300px;
-                    
-                    
-                }
-				
-				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
-				
-				.k-combobox {
-                    width: 300px;
+                    width: 300px;    
                 }
                 
-                form .requerido label:after {
-					font-size: 1.4em;
+				form .requerido label:after {
+                	font-size: 1.4em;
 					color: #e32;
 					content: '*';
 					display:inline;
-					}
+				}
                 
+			
                 #formulario {
                     width: 600px;
                     /*height: 323px;*/
@@ -173,12 +170,14 @@ $this->end(); ?>
                     margin: 10px 0 0 0;
                 }
 
-                label {
+              label {
                     display: inline-block;
-                    width: 150px;
+                    width: 140px;
                     text-align: right;
                     margin-right: 5px;
+                    
                 }
+
 
                 .accept, .status {
                 	padding-top: 15px;
@@ -190,28 +189,29 @@ $this->end(); ?>
                 }
 
                 .invalid {
-                    color: red;
+                    color: gray;
                 }
                 span.k-tooltip {
                     margin-left: 6px;
                 }
                 
-                .LV_validation_message{
+ 				.LV_validation_message{
+				    /*font-weight:bold;*/
 				    margin:0 0 0 5px;
 				}
 				
 				.LV_valid {
 				    color:#00CC00;
+				    margin-left: 10px;
+				    display: none;
 				}
 					
 				.LV_invalid {
 				    color:#CC0000;
-					clear:both;
-               		display:inline-block;
-               		margin-left: 155px; 
-               
+               		display:block;
+               		margin-left: 145px;
 				}
-
+				    
             </style>
             
 <script>
@@ -234,23 +234,24 @@ $this->end(); ?>
 		     max:999999999.99
 		 });
 
-		$("#datePicker1").kendoDatePicker({
-		   format: "dd/MM/yyyy", //Define el formato de fecha
-		   culture:"es-ES",
-		   <?php 
-		   	if(isset($this->request->data['Fuentefinanciamiento']['fechadisponible'])) 
-		   	{
-		   		 echo 'value: kendo.parseDate("' . $this->request->data['Fuentefinanciamiento']['fechadisponible'] . '", "yyyy-MM-dd")';
-			} 
-			?>
-		});
-        var fecha = $("#datePicker1").data("kendoDatePicker");    
+		var fecha = $("#datePicker1").kendoDatePicker({
+	        culture: "es-ES",
+		   	format: "dd/MM/yyyy",
+	        <?php if(isset( $this->request->data['Fuentefinanciamiento']['fechadisponible'] )) 
+						{
+							 echo 'value: kendo.parseDate("'. $this->request->data['Fuentefinanciamiento']['fechadisponible'] .'", "yyyy-MM-dd"),'; } 
+						
+						?>
+	    }).data("kendoDatePicker");
+		
+		
+		
 		 
 		$("#fuentes").kendoDropDownList({
-            		
+            			
 			            dataTextField: "tipofuente",
 			            dataValueField: "idtipofuente",
-			            index: <?php echo $this->request->data['Fuentefinanciamiento']['idtipofuente']-1; ?>,
+			            
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
@@ -259,6 +260,12 @@ $this->end(); ?>
 			                        }
 			                        
 			        });
-        var fuentes = $("#fuentes").data("kendoDropDownList");    
+        var fuentes = $("#fuentes").data("kendoDropDownList");
+        
+        
+       
+        
+        
+            
         });
 </script>
