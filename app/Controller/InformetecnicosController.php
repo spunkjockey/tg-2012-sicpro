@@ -2,7 +2,7 @@
     class InformetecnicosController extends AppController{
     	public $helpers = array('Html', 'Form', 'Session','Ajax','AjaxMultiUpload.Upload');
 	    public $components = array('Session','RequestHandler','AjaxMultiUpload.Upload');
-		public $uses = array('Informetecnico','Contratotecproy','Proyecto','Fichatecnica','Contratoconstructor','User','Observacion');
+		public $uses = array('Informetecnico','Contratotecproy','Proyecto','Fichatecnica','Contratoconstructor','User','Observacion','Proyinfotec');
 		
 	    public function informetecnico_index()
 	    {
@@ -42,7 +42,7 @@
 				if ($this->Informetecnico->save()) 
 				{
 	            	$this->Session->setFlash('El informe técnico ha sido agregado.','default',array('class'=>'success'));
-	            	$this->redirect(array('controller'=>'mains', 'action' => 'index'));
+	            	$this->redirect(array('controller'=>'Informetecnicos', 'action' => 'informetecnico_index'));
         		}
         		
 			}
@@ -150,10 +150,10 @@
 		  * en estado de ejecucion*/
 		 function proyectojson() 
 		{
-			$proyectos = $this->Proyecto->find('all', array(
-											'fields'=> array('Proyecto.idproyecto','Proyecto.numeroproyecto'),
-											'conditions'=>array('Proyecto.estadoproyecto' => 'Ejecucion')));
-			$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyecto"));
+			$proyectos = $this->Proyinfotec->find('all', array(
+											'fields'=> array('Proyinfotec.idproyecto','Proyinfotec.numeroproyecto')
+											));
+			$this->set('proyectos', Hash::extract($proyectos, "{n}.Proyinfotec"));
 			$this->set('_serialize', 'proyectos');
 			$this->render('/json/jsondata');
 		}
@@ -175,7 +175,7 @@
 					$contratos = $this->Contratoconstructor->find('all',array(
 						'fields'=>array('idproyecto','idcontrato','codigocontrato'),
 						'conditions'=>array("AND"=>array(
-									'Contratoconstructor.estadocontrato'=>array("en marcha","a tiempo","atrasado"),
+									'Contratoconstructor.estadocontrato'=>array("en marcha","a tiempo","atrasado","en pausa"),
 									'Contratoconstructor.idcontrato IN 
 										(select nombramiento.idcontrato from sicpro2012.nombramiento where idpersona='.$idpersona.')')),
 						'order'=>'codigocontrato'
@@ -185,7 +185,7 @@
 				case 'Adminproy':
 					$contratos = $this->Contratoconstructor->find('all',array(
 						'fields'=>array('idproyecto','idcontrato','codigocontrato'),
-						'conditions'=>array('Contratoconstructor.estadocontrato'=>array("en marcha","a tiempo","atrasado")),
+						'conditions'=>array('Contratoconstructor.estadocontrato'=>array("en marcha","a tiempo","atrasado","en pausa")),
 						'order'=>'codigocontrato'
 						));
 					break;
@@ -193,7 +193,7 @@
 					$contratos = $this->Contratoconstructor->find('all',array(
 						'fields'=>array('idproyecto','idcontrato','codigocontrato'),
 						'conditions'=>array("AND"=>array(
-											'Contratoconstructor.estadocontrato'=>array("en marcha","a tiempo","atrasado"),
+											'Contratoconstructor.estadocontrato'=>array("en marcha","a tiempo","atrasado","en pausa"),
 											'Contratoconstructor.idpersona'=>$idpersona)),
 						'order'=>'codigocontrato'
 						));
@@ -252,6 +252,19 @@
 		{
 			$this->layout = 'cyanspark';
         	$this->set ('idinformetecnico', $id); 
+		}
+
+		function informetecnico_eliminar($id) {
+			if (!$this->request->is('post')) {
+		        throw new MethodNotAllowedException();
+		    }
+		    if ($this->Informetecnico->delete($id)) {
+		        $this->Session->setFlash('El informe técnico ha sido eliminada.','default', array('class'=>'success'));
+		        $this->redirect(array('action' => 'informetecnico_index'));
+		    } else {
+		    	$this->Session->setFlash('No se puede eliminar la informe seleccionado');
+		        $this->redirect(array('action' => 'informetecnico_index'));
+		    }
 		}
 		
 	}

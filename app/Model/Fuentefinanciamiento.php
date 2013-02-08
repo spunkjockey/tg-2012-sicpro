@@ -28,10 +28,14 @@
 	            'allowEmpty' => false,
 	            'message' => 'El nombre de la fuente ya existe')
 	        ),
-		'fechadisponible' => array(
-		        'rule'       => array('date', 'dmy'),
-		        'message'    => 'Ingrese fecha bajo el siguiente formato DD/MM/AAAA.',
-		        'required'=>true) 
+		'fechadisponible'=>array(
+				'formatofecha'=>array(
+					'rule'       => array('date', 'dmy'),
+			        'message'    => 'Ingrese fecha de inicio de disponibilidad con el siguiente formato DD/MM/AAAA.',
+			        'allowEmpty' => true,
+					'required'=>false
+				)
+			) 
 		 
 		);
 	
@@ -45,6 +49,23 @@
 	        return false;
 	    }
 	}
+	
+	public function beforeSave($options = array()) {
+			if(!empty($this->data['Fuentefinanciamiento']['fechadisponible'] )){
+				$this->data['Fuentefinanciamiento']['fechadisponible'] = $this->dateFormatBeforeSave($this->data['Fuentefinanciamiento']['fechadisponible']);
+			}
+
+			//Debugger::dump($this->data);
+		    return true;
+		}
+		
+		
+		public function dateFormatBeforeSave($dateString) {
+		    
+    		list($d, $m, $y) = explode('/', $dateString);
+    		$mk=mktime(0, 0, 0, $m, $d, $y);
+    		return strftime('%Y-%m-%d',$mk);
+		}
 	
 	
 }

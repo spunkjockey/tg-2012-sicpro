@@ -51,7 +51,7 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar informe técnico</h2>
+		<h2>Modificar informe técnico</h2>
 		<?php echo $this->Form->create('Informetecnico'); ?>
 		<ul>
 			<li>
