@@ -60,6 +60,7 @@ $this->end(); ?>
 							'label' => 'Nombres:', 
 							'class' => 'k-textbox', 
 							'id'	=>	'nombrespersona',
+							'maxlength' => 50,
 							'div' => array('class' => 'requerido'),
 							'placeholder' => 'Nombres')); ?>
 							
@@ -76,6 +77,7 @@ $this->end(); ?>
 							'class' => 'k-textbox', 
 							'div' => array('class' => 'requerido'),
 							'id'	=> 'apellidospersona',
+							'maxlength' => 50,
 							'placeholder' => 'Apellidos')); ?>
 							
 				<script type="text/javascript">
@@ -128,6 +130,7 @@ $this->end(); ?>
 							'class' => 'k-textbox', 
 							'div' => array('class' => 'requerido'),
 							'id'	=> 'mail',
+							'maxlength' => 50,
 							'placeholder' => 'Ej. usuario@ejemplo.com')); ?>
 							
 				<script type="text/javascript">
