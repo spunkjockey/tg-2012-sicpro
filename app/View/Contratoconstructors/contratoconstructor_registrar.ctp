@@ -160,7 +160,8 @@ $this->end(); ?>
 		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 		            datePicker1.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
 		        </script>
-		        
+		        <?php if ($this->Form->isFieldError('Contrato.fechainicontrato')) {
+ 	 					echo $this->Form->error('Contrato.fechainicontrato'); } ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('fechafincontrato', 
@@ -403,7 +404,14 @@ $this->end(); ?>
 				     spinners: false
 				 });
 				 
-				 
+				 $("#txplazo").kendoNumericTextBox({
+				     min: 0,
+				     max: 9999,
+				     format: "{0:n0}",
+				     decimals: 0,
+				     placeholder: "Ej. 60",
+				     spinners: false
+				 }); 
                 
 				$("#proyectos").kendoDropDownList({
             			optionLabel: "Seleccione proyecto",

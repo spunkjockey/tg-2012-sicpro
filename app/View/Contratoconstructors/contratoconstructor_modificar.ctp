@@ -59,7 +59,9 @@ $this->end(); ?>
 				<table>
 					<tr>
 						<td><label>Nombre Proyecto: </label></td>
-						<td><?php echo $infoc['0']['Proyecto']['nombreproyecto'];	?></td>
+						<td><?php echo $nproy;	?></td>
+						
+						
 					</tr>
 				</table>
 			</li>
@@ -148,7 +150,8 @@ $this->end(); ?>
 		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 		            datePicker1.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
 		        </script>
-		        
+		        <?php if ($this->Form->isFieldError('Contrato.fechainiciocontrato')) {
+ 	 					echo $this->Form->error('Contrato.fechainiciocontrato'); } ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('fechafincontrato', 
@@ -204,11 +207,10 @@ $this->end(); ?>
 					?>
 			</li>
 			<li>
-				<?php echo $this->Form->input('empresas', 
+				<?php echo $this->Form->input('idempresa', 
 					array(
 						'label' => 'Empresa ejecutora:', 
 						'id' => 'empresas',
-						'value' => $infoc['0']['Empresa']['nombreempresa'],
 						'div' => array('id'=>'empeje','class' => 'requerido')
 						));
 					?>
@@ -219,12 +221,11 @@ $this->end(); ?>
 		        <div id="errorempresa" class="LV_validation_message LV_invalid"></div>
 			</li>
 			<li>
-				<?php echo $this->Form->input('admin', 
+				<?php echo $this->Form->input('idpersona', 
 					array(
 						'label' => 'Administrador del contrato:', 
 						'id' => 'admin',
 						'class' => 'k-kendobox',
-						'value' => $infoc['0']['Contratoconstructor']['idpersona'],
 						'div' => array('id'=>'admc','class' => 'requerido')
 						)); 
 					?>
@@ -233,6 +234,10 @@ $this->end(); ?>
 		            admin.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script>
 			</li>
+			
+			<?php echo $this->Form->hidden('idcontrato');
+					echo $this->Form->hidden('idproyecto');	
+			?>
 			<li  class="accept">
 				<table>
 					<tr>
@@ -387,6 +392,15 @@ $this->end(); ?>
 				 });
 				 
 				 
+                $("#txplazo").kendoNumericTextBox({
+				     min: 0,
+				     max: 9999,
+				     format: "{0:n0}",
+				     decimals: 0,
+				     placeholder: "Ej. 60",
+				     spinners: false
+				 });
+                
                 
 				$("#proyectos").kendoDropDownList({
             			optionLabel: "Seleccione proyecto",
