@@ -345,13 +345,13 @@ App::uses('CakeEmail', 'Network/Email');
 				}
 				else 
 				{
-					$this->Session->setFlash('Ha ocurrido un error Contrato constructor');
+					$this->Session->setFlash('Ha ocurrido un error, revise los datos ingresados');
 	            }
 				
 			}
 			else 
 			{
-				$this->Session->setFlash('Ha ocurrido un error Contrato');
+				$this->Session->setFlash('Ha ocurrido un error, revise los datos ingresados');
 				//$this->set('error',$this->Contrato->invalidFields());
             }
 			
