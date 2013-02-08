@@ -430,13 +430,18 @@ order by avance.fechaavance');
 
 	public function enviar_correo($to=null,$subject=null,$mensaje=null)
 	{
+		 try {
 		$email = new CakeEmail('gmail');
 		$email->emailFormat('text')
 				->to($to)
 				->from('noreplysicpro@gmail.com')
 				->subject($subject)
 				->send($mensaje);
-	}
+				 	return true;
+	    } catch (Exception $e) {
+	        return false;
+	    }
+    }
 
 }
 
