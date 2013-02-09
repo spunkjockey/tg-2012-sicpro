@@ -59,8 +59,12 @@ $this->end(); ?>
 					array(
 						'label' => 'Contratos:', 
 						'id' => 'contratos',
-						'div' => array('class' => 'requerido')
+						'div' => array('id'=>'proyo','class' => 'requerido')
 					)); ?>
+				<script type="text/javascript">
+					var contratos = new LiveValidation( "contratos", { validMessage: " " , insertAfterWhatNode: "proyo"  } );
+		            contratos.add(Validate.Presence, { failureMessage: "Selecciona un elemento" } );
+		        </script>
 			</li>
 			<li>
 				<?php echo $this->Form->input('informeestima',
@@ -68,7 +72,7 @@ $this->end(); ?>
 						'label' => 'Estimación:', 
 						'id' => 'estimaciones',
 						'class' => 'k-combobox',
-						'div' => array('class' => 'requerido')
+						'div' => array('id'=>'admc','class' => 'requerido')
 					)); ?>
 				<script type="text/javascript">
 					var estimaciones = new LiveValidation( "estimaciones", { validMessage: " " , insertAfterWhatNode: "admc"  } );

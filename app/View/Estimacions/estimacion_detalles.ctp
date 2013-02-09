@@ -94,7 +94,7 @@ $this->end(); ?>
 			
 			<table>
 			<tr><td>			    
-				<?php echo $this->Html->link('Regresar', array('controller' => 'Estimacions','action' => 'index'),
+				<?php echo $this->Html->link('Regresar', array('controller' => 'Estimacions','action' => 'estimacion_consultar'),
             	array('class'=>'k-button'));?> </td></tr>
 			</table>
 			

@@ -58,9 +58,10 @@ $this->end(); ?>
 					array(
 						'label' => 'Seleccione proyecto:', 
 						'id' => 'proyectos',
-						'div' => array('class' => 'requerido'))); ?>
+						'class'=>'k-combobox',
+						'div' => array('id'=>'proys','class' => 'requerido'))); ?>
 				<script type="text/javascript">
-					var proyectos= new LiveValidation( "proyectos", { validMessage: " " } );
+					var proyectos= new LiveValidation( "proyectos", { validMessage: " " , insertAfterWhatNode: "proys"} );
 					proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				</script>
 			</li>
@@ -68,11 +69,11 @@ $this->end(); ?>
 				<?php echo $this->Form->input('contratos', 
 					array(
 						'label' => 'Contrato de construcción:', 
-						'id' => 'contratos',
-						'div' => array('class' => 'requerido'))); ?>
+						'id' => 'conconstructor',
+						'div' => array('id'=>'contras','class' => 'requerido'))); ?>
 				<script type="text/javascript">
-					var contratos= new LiveValidation( "contratos", { validMessage: " " } );
-					contratos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+					var conconstructor= new LiveValidation( "conconstructor", { validMessage: " " , insertAfterWhatNode: "contras"} );
+					conconstructor.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				</script>
 			</li>
 			<li>
@@ -80,11 +81,11 @@ $this->end(); ?>
 					array(
 						'label' => 'Fecha de visita:', 
 						'id' => 'fechas',
-						'div' => array('class' => 'requerido')
+						'div' => array('id'=>'infos','class' => 'requerido')
 						)); 
 					?>
 				<script type="text/javascript">
-					var fechas= new LiveValidation( "fechas", { validMessage: " " } );
+					var fechas= new LiveValidation( "fechas", { validMessage: " " , insertAfterWhatNode: "infos"} );
 					fechas.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				</script>
 			</li>
@@ -242,7 +243,7 @@ $this->end(); ?>
 			        });
 			        var proyectos = $("#proyectos").data("kendoDropDownList");
 			        
-			    var contratos = $("#contratos").kendoDropDownList({
+			    var conconstructor = $("#conconstructor").kendoDropDownList({
 			                        autoBind: false,
 			                        cascadeFrom: "proyectos",
 			                        optionLabel: "Seleccione contrato",
@@ -258,7 +259,7 @@ $this->end(); ?>
 			    
 			    var fechas = $("#fechas").kendoDropDownList({
 			                        autoBind: false,
-			                        cascadeFrom: "contratos",
+			                        cascadeFrom: "conconstructor",
 			                        optionLabel: "Seleccione fecha",
 			                        dataTextField: "fechav",
 			                        dataValueField: "idinformetecnico",

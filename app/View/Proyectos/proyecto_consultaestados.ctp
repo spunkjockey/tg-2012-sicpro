@@ -88,7 +88,7 @@ $this->end(); ?>
 					array(
 						'label' => 'Division:', 
 						'div' => array('id' => 'divi', 'class' => 'requerido'),
-						'class' => 'k-dropdownlist',
+						'class' => 'k-combobox',
 						'id' => 'division'
 					)); ?>
 				<script type="text/javascript">
