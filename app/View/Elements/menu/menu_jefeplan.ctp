@@ -11,8 +11,6 @@
 										</ul>
 									</li>
 									<li><?php echo $this->Html->link('Asignación de Fondos', array('controller' => 'Financias','action'=>'index')); ?></li>
-									<li><?php echo $this->Html->link('Asignar número de proyecto', array('controller' => 'Proyectos','action'=>'proyecto_asignar_num')); ?></li>		
-									
 									<li><?php echo $this->Html->link('Consultar Proyecto', array('controller' => 'Fichatecnicas','action'=>'fichatecnica_consultarficha')); ?></li>
 								</ul>
 							</li>

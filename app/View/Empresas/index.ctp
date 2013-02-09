@@ -114,8 +114,6 @@ $this->end(); ?>
 <script>
 	$(document).ready(function() {
 		
-		<?php echo 'var idempresa = '.$emp["Empresa"]["idempresa"].';'; ?>
-		
     	$("#grid").kendoGrid({
             	dataSource: {
 	           		pageSize: 10,
