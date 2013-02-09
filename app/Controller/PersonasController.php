@@ -38,7 +38,7 @@
 						$this->User->set('apellidos', $this->request->data['Persona']['apellidospersona']);
 						$this->User->set('estado', $this->request->data['Persona']['estado']);
 						$this->User->set('idrol', $this->request->data['Persona']['rol']);
-						
+						$this->User->set('userc', $this->Session->read('User.username'));
 						if($this->User->save())
 						{
 							$this->Session->setFlash('La persona ha sido registrada','default',array('class'=>'success'));
