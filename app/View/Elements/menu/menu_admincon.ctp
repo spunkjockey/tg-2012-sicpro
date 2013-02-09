@@ -16,12 +16,7 @@
 							</li>
 							<li>Control y seguimiento
 								<ul>
-									<li>Programaci&oacute;n de avance
-										<ul>
-											<li><?php echo $this->Html->link('Programación de Avance', array('controller' => 'Avanceprogramados','action'=>'index')); ?></li>
-											<!--<li disabled="disabled">Consultar Programaci&oacute;n</li>-->
-										</ul>
-									</li>
+									<li><?php echo $this->Html->link('Programación de Avance', array('controller' => 'Avanceprogramados','action'=>'index')); ?></li>
 									<li>Informe de supervisi&oacute;n
 										<ul>
 											<li><?php echo $this->Html->link('Informe supervisión', array('controller' => 'Informesupervisors','action'=>'informesupervisor_index')); ?></li>

@@ -84,14 +84,20 @@ $this->end(); ?>
             <div class="hint">Inicie escribiendo el número de un proyecto</div>
 
 		</div>
-		
-		
 
-					    	<?php //echo $this->Html->link('Regresar', array('controller' => 'Mains','action' => 'index'),
-					    		//array('class'=>'k-button'));?>
 
 	<div id='loading' style="text-align: center; width: 600px; display: none;"><?php echo $this->Html->image('spinner.gif', array('alt' => 'cargando', "style" => "border: 0;")); ?></div>
 	<div id="facturaxproy"></div>
+	
+	<table width="600px">
+			<tr>
+			<td style="text-align: right">
+			<?php echo $this->Html->link('Regresar', 
+									array('controller' => 'Mains','action' => 'index'),
+									array('class'=>'k-button')); ?>
+			</td>
+			</tr>
+			</table>
 	<!--
 		<?php echo $this->ajax->observeForm( 'FacturaConsultarporproyectoForm', 
 		array(

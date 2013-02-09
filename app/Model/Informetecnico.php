@@ -36,7 +36,7 @@
 			'fechaelaboracion'=>array(
 				'formatofecha'=>array(
 					'rule'       => array('date', 'dmy'),
-			        'message'    => 'Ingrese fecha fin con el siguiente formato DD/MM/AAAA.',
+			        'message'    => 'Ingrese fecha de elaboración con el siguiente formato DD/MM/AAAA.',
 			        'allowEmpty' => true,
 					'required'=>false
 				)

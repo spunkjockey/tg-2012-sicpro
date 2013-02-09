@@ -151,7 +151,9 @@ $this->end(); ?>
 				            datePicker1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 				            datePicker1.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
-				</script> 
+				</script>
+				<?php if ($this->Form->isFieldError('Contrato.fechainiciocontrato')) {
+ 	 					echo $this->Form->error('Contrato.fechainiciocontrato'); } ?> 
 		</li>
 		<li>
 			<?php echo $this->Form->input('fechafincontrato', 
@@ -170,6 +172,8 @@ $this->end(); ?>
 				    datePicker2.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 				   	datePicker2.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
 				</script>
+				<?php if ($this->Form->isFieldError('Contrato.fechafincontrato')) {
+ 	 					echo $this->Form->error('Contrato.fechafincontrato'); } ?>
 		</li>
 		<li>
 			<?php echo $this->Form->input('plazoejecucion', 
@@ -178,20 +182,19 @@ $this->end(); ?>
 					'class' => 'k-textbox',  
 					'id' => 'txplazo',
 					//'value' => $placon,
-					'type'  => 'Text', 
+					'type'  => 'Text',
+					'maxlength' => '4',  
 					'placeholder' => 'Cantidad de días', 
-					'div' => array('class' => 'requerido')
-				));
-				?>
+					'div' => array('id'=>'plaej','class' => 'requerido'))); ?>
 			<script type="text/javascript">
-				var txplazo= new LiveValidation( "txplazo", { validMessage: " " } );
+				var txplazo= new LiveValidation( "txplazo", { validMessage: " " , insertAfterWhatNode: "plaej"  } );
 				txplazo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				txplazo.add( Validate.Numericality,{ onlyInteger: true,
 				   								   	notAnIntegerMessage: "Debe ser un número entero",
 					            				 	notANumberMessage:"Debe ser un número"} );
-				txplazo.add(Validate.Length, {minimum: 2, maximum: 3, 
+				txplazo.add(Validate.Length, {minimum: 2, maximum: 4, 
 			           							 tooShortMessage:"Longitud mínima de 2 dígitos",
-			           							 tooLongMessage:"Longitud máxima de 3 dígitos"});
+			           							 tooLongMessage:"Longitud máxima de 4 dígitos"});
 			</script>
 		</li>
 		<li>
@@ -202,10 +205,11 @@ $this->end(); ?>
 					'id' => 'txcanti',
 					//'value'=>$caicon,
 					'type' => 'text',
+					'maxlength' => '2', 
 					'placeholder' => 'Cantidad ej: 3',
-					'div' => array('class' => 'requerido'))); ?>
+					'div' => array('id'=>'caninfo','class' => 'requerido'))); ?>
 			<script type="text/javascript">
-				var txcanti= new LiveValidation( "txcanti", { validMessage: " " } );
+				var txcanti= new LiveValidation( "txcanti", { validMessage: " " , insertAfterWhatNode: "caninfo"  } );
 				txcanti.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				txcanti.add( Validate.Numericality,{ onlyInteger: true,
 				   								   	notAnIntegerMessage: "Debe ser un número entero",
@@ -232,15 +236,15 @@ $this->end(); ?>
 					'label' => 'Empresa ejecutora:', 
 					'id' => 'empresas',
 					'class' => 'k-combobox',
-					//'value' => $this->request->data['Contratosupervisor']['idempresa'],
-					//'value' => $idecon,
-					'div' => array('id'=>'empsup','class' => 'requerido')
+					
+					'div' => array('id'=>'empeje','class' => 'requerido')
 					));
 				?>
 			<script type="text/javascript">
-				var empresas = new LiveValidation( "empresas", { validMessage: " " , insertAfterWhatNode: "empsup"} );
+				var empresas = new LiveValidation( "empresas", { validMessage: " " , insertAfterWhatNode: "empeje"} );
 		        empresas.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		    </script>
+		     <div id="errorempresa" class="LV_validation_message LV_invalid"></div>
 		</li>
 		<li>
 			
@@ -276,9 +280,9 @@ $this->end(); ?>
 	</div>
 </div>
 
-	<style scoped>
+<style scoped>
 
-                .k-textbox {
+                .k-textbox, .k-kendobox{
                     width: 300px;
                     
                     
@@ -349,6 +353,7 @@ $this->end(); ?>
 				
 				.LV_valid {
 				    color:#00CC00;
+				    display:none;
 				}
 					
 				.LV_invalid {
@@ -358,8 +363,12 @@ $this->end(); ?>
                		margin-left: 155px; 
                
 				}
-
-            </style>
+				
+				#errorempresa{
+					display: none;
+				}
+				   
+</style>
 
 <script>
     $(document).ready(function() {
@@ -392,10 +401,32 @@ $this->end(); ?>
 	     spinners: false
 	 });
 	 
+	  $("#txplazo").kendoNumericTextBox({
+				     min: 0,
+				     max: 9999,
+				     format: "{0:n0}",
+				     decimals: 0,
+				     placeholder: "Ej. 60",
+				     spinners: false
+				 });
+	
+	 $("#txcanti").kendoNumericTextBox({
+				     min: 0,
+				     max: 9999,
+				     format: "{0:n0}",
+				     decimals: 0,
+				     placeholder: "Ej. 60",
+				     spinners: false
+				 });
+	 
     $("#empresas").kendoComboBox({
 			optionLabel: "Seleccione empresa",
 			dataTextField: "nombreempresa",
             dataValueField: "idempresa",
+            filter: "contains",
+            highLightFirst: false,
+            ignoreCase: false,
+            change: limpiaremp,
             dataSource: {
                             type: "json",
                             transport: {
@@ -422,7 +453,9 @@ $this->end(); ?>
         });
         var admin = $("#admin").data("kendoDropDownList");
 	
-	
+	function limpiaremp(){        
+				$('#errorempresa').hide("slow");
+		}
 	function filtrarDrop() {
 		var startDate = start.value();
 		var endDate = end.value();

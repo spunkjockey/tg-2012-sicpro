@@ -40,25 +40,13 @@
 							<li>Mantenimiento
 								<ul>
 									<li><?php echo $this->Html->link('Empresas', array('controller' => 'empresas','action'=>'index')); ?></li>
-									<li>Fuentes de financiamiento
-										<ul>
-											<li><?php echo $this->Html->link('Fuente de financiamiento', array('controller' => 'Fuentefinanciamientos','action'=>'index')); ?></li>
-											<!--<li disabled="disabled">Consultar fuentes de financiamiento</li>-->
-										</ul>
-									</li>
-									
+									<li><?php echo $this->Html->link('Fuente de financiamiento', array('controller' => 'Fuentefinanciamientos','action'=>'index')); ?></li>
 									<li>Perfil
 										<ul>
 											<li><?php echo $this->Html->link('Modificar perfil', array('controller' => 'Personas','action'=>'perfil_modificar',$this->Session->read('User.idpersona'))); ?></li>
 											<li><?php echo $this->Html->link('Cambiar Contraseña', array('controller' => 'Users','action'=>'cambiarpass')); ?></li>
 										</ul>
 									</li>
-									<!--<li><?php echo $this->Html->link('División', array('controller' => 'divisions','action'=>'index')); ?></li>
-									<li><?php echo $this->Html->link('Departamentos', array('controller' => 'departamentos','action'=>'index')); ?></li>
-									<li><?php echo $this->Html->link('Municipios', array('controller' => 'municipios','action'=>'index')); ?></li>
-									<li><?php echo $this->Html->link('Plazas', array('controller' => 'plazas','action'=>'index')); ?></li>
-									<li><?php echo $this->Html->link('Cargo funcional', array('controller' => 'cargofuncionals','action'=>'index')); ?></li>
-									<li>Roles</li>-->
 								</ul>
 							</li>
 						</ul>

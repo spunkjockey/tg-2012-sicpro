@@ -140,7 +140,9 @@ $this->end(); ?>
 		            datePicker1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 		            datePicker1.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
-		        </script> 
+		        </script>
+		        <?php if ($this->Form->isFieldError('Contrato.fechainiciocontrato')) {
+ 	 					echo $this->Form->error('Contrato.fechainiciocontrato'); } ?> 
 			</li>
 			<li>
 				<?php echo $this->Form->input('fechafincontrato', 
@@ -164,16 +166,17 @@ $this->end(); ?>
 						'label' => 'Plazo de ejecución:', 
 						'class' => 'k-textbox',
 						'id' => 'txplazo',
-						'type'=>'text', 
+						'type'  => 'Text', 
+						'maxlength' => '4', 
 						'placeholder' => 'Cantidad de días', 
-						'div' => array('class' => 'requerido'))); ?>
+						'div' => array('id'=>'plaej','class' => 'requerido'))); ?>
 				<script type="text/javascript">
-					var txplazo= new LiveValidation( "txplazo", { validMessage: " " } );
+					var txplazo= new LiveValidation( "txplazo", { validMessage: " " , insertAfterWhatNode: "plaej"  } );
 					txplazo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 					txplazo.add( Validate.Numericality,{ onlyInteger: true,
 					   								   	notAnIntegerMessage: "Debe ser un número entero",
 						            				 	notANumberMessage:"Debe ser un número"} );
-					txplazo.add(Validate.Length, {minimum: 2, maximum: 3, 
+					txplazo.add(Validate.Length, {minimum: 2, maximum: 4, 
 				           							 tooShortMessage:"Longitud mínima de 2 dígitos",
 				           							 tooLongMessage:"Longitud máxima de 3 dígitos"});
 				</script>
@@ -185,10 +188,11 @@ $this->end(); ?>
 						'class' => 'k-textbox',  
 						'id' => 'txcanti',
 						'type' => 'text',
+						'maxlength' => '2', 
 						'placeholder' => 'Cantidad ej: 3',
-						'div' => array('class' => 'requerido'))); ?>
+						'div' => array('id'=>'caninfo','class' => 'requerido'))); ?>
 				<script type="text/javascript">
-					var txcanti= new LiveValidation( "txcanti", { validMessage: " " } );
+					var txcanti= new LiveValidation( "txcanti", { validMessage: " " , insertAfterWhatNode: "caninfo"  } );
 					txcanti.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 					txcanti.add( Validate.Numericality,{ onlyInteger: true,
 					   								   	notAnIntegerMessage: "Debe ser un número entero",
@@ -217,6 +221,7 @@ $this->end(); ?>
 					var empresas = new LiveValidation( "empresas", { validMessage: " " , insertAfterWhatNode: "empeje"} );
 		            empresas.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script>
+		         <div id="errorempresa" class="LV_validation_message LV_invalid"></div>
 			</li>
 			<li>
 				<?php echo $this->Form->input('admin', 
@@ -261,7 +266,7 @@ $this->end(); ?>
 
 	<style scoped>
 
-                .k-textbox {
+                .k-textbox, .k-kendobox{
                     width: 300px;
                     
                     
@@ -342,8 +347,12 @@ $this->end(); ?>
                		margin-left: 155px; 
                
 				}
-				    
-            </style>
+				
+				#errorempresa{
+					display: none;
+				}
+				   
+</style>
 			
 			<script>
                 $(document).ready(function() {
@@ -363,6 +372,24 @@ $this->end(); ?>
 				     max: 999999999.99,
 				     format: "c2",
 				     decimals: 2,
+				     spinners: false
+				 });
+				 
+				 $("#txplazo").kendoNumericTextBox({
+				     min: 0,
+				     max: 9999,
+				     format: "{0:n0}",
+				     decimals: 0,
+				     placeholder: "Ej. 60",
+				     spinners: false
+				 });
+	
+	 $("#txcanti").kendoNumericTextBox({
+				     min: 0,
+				     max: 99,
+				     format: "{0:n0}",
+				     decimals: 0,
+				     placeholder: "Ej. 60",
 				     spinners: false
 				 });
 				

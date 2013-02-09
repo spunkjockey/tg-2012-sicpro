@@ -80,7 +80,7 @@ $this->end(); ?>
 						</td>
 						<td>	
 							<?php echo $this->Html->link('Regresar', 
-								array('controller' => 'Proyectos','action' => 'proyecto_listado'),
+								array('controller' => 'Mains','action' => 'index'),
 								array('class'=>'k-button')); ?>
 						</td>
 					</tr>

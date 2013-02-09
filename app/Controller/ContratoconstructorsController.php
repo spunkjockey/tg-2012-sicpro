@@ -345,13 +345,13 @@ App::uses('CakeEmail', 'Network/Email');
 				}
 				else 
 				{
-					$this->Session->setFlash('Ha ocurrido un error Contrato constructor');
+					$this->Session->setFlash('Ha ocurrido un error, revise los datos ingresados');
 	            }
 				
 			}
 			else 
 			{
-				$this->Session->setFlash('Ha ocurrido un error Contrato');
+				$this->Session->setFlash('Ha ocurrido un error, revise los datos ingresados');
 				//$this->set('error',$this->Contrato->invalidFields());
             }
 			
@@ -442,12 +442,16 @@ App::uses('CakeEmail', 'Network/Email');
 
 	public function enviar_correo($to=null,$subject=null,$mensaje=null)
 	{
+		 try {
 		$email = new CakeEmail('gmail');
 		$email->emailFormat('text')
 				->to($to)
 				->from('noreplysicpro@gmail.com')
 				->subject($subject)
 				->send($mensaje);
-	}
-
+				 	return true;
+	    } catch (Exception $e) {
+	        return false;
+	    }
+    }
 }

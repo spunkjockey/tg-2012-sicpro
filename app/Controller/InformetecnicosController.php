@@ -259,10 +259,10 @@
 		        throw new MethodNotAllowedException();
 		    }
 		    if ($this->Informetecnico->delete($id)) {
-		        $this->Session->setFlash('El informe técnico ha sido eliminada.','default', array('class'=>'success'));
+		        $this->Session->setFlash('El informe técnico ha sido eliminado.','default', array('class'=>'success'));
 		        $this->redirect(array('action' => 'informetecnico_index'));
 		    } else {
-		    	$this->Session->setFlash('No se puede eliminar la informe seleccionado');
+		    	$this->Session->setFlash('No se puede eliminar el informe seleccionado');
 		        $this->redirect(array('action' => 'informetecnico_index'));
 		    }
 		}

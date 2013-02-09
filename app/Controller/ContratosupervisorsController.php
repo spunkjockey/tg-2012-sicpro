@@ -94,12 +94,12 @@
 					}
 					else 
 					{
-						$this->Session->setFlash('Ha ocurrido un error');
+						$this->Session->setFlash('Ha ocurrido un error, verfique los datos ingresados');
 	                }
 				}
 				else 
 				{
-					$this->Session->setFlash('Ha ocurrido un error. No se puede guardar el contrato');
+					$this->Session->setFlash('Ha ocurrido un error, verifique los datos ingresados');
                 }
 			}
 			

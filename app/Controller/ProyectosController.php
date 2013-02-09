@@ -522,22 +522,18 @@ class ProyectosController extends AppController {
 	//funcion para enviar correo
 	public function enviar_correo($to=null,$subject=null,$mensaje=null)
 	{
-		//$mensaje = 'Probando variables 3';
-		//$subject = 'Prueba2';
-		//$to = 'shinobi10@gmail.com';
-		/*$email = new CakeEmail('gmail');
-		$email->emailFormat('text')
-				->to('shinobi10@gmail.com')
-				->from('noreplysicpro@gmail.com')
-				->subject('Notificacion') 
-				->send('Bienvenido a SICPRO');*/
+		 try {
 		$email = new CakeEmail('gmail');
 		$email->emailFormat('text')
 				->to($to)
 				->from('noreplysicpro@gmail.com')
 				->subject($subject)
 				->send($mensaje);
-	}
+				 	return true;
+	    } catch (Exception $e) {
+	        return false;
+	    }
+    }
 	
 	//metodo de prueba para el envio de correo.
 	public function test_correo(){

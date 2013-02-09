@@ -91,6 +91,7 @@ $this->end(); ?>
 				<script type="text/javascript">
 		            var representantelegal = new LiveValidation( "representantelegal", { validMessage: " " } );
 		            representantelegal.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            representantelegal.add(Validate.Format, { pattern: /^[a-zA-Z áéíóúÁÉÍÓÚñÑ]+$/i, failureMessage: "Solo letras" } );
 		        </script> 
 			</li>
 			<li>
