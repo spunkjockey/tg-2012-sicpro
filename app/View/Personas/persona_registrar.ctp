@@ -178,6 +178,7 @@ $this->end(); ?>
 						var username = new LiveValidation( "username", { validMessage: " " } );
 			            username.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 			            username.add(Validate.Format, { pattern: /^\w+$/i, failureMessage: "No puede llevar espacios en blanco o caracteres especiales" } );
+		            	username.add(Validate.Format, { pattern: /‎?^.{6,}$/, failureMessage: "Debe contener al menos 6 caracteres"  } );
 		            </script>
 				</li>
 				<li>
@@ -185,7 +186,7 @@ $this->end(); ?>
 						array(
 							'label' => 'Contraseña:', 
 							'class' => 'k-textbox',
-							'type' => 'text', 
+							//'type' => 'text', 
 							'placeholder' => 'Contraseña',
 							'id' => 'password',
 							'maxlength' => 25,

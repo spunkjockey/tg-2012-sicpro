@@ -159,21 +159,22 @@ $this->end(); ?>
 	                },
 	                {
 	                    field: "nombre",
-	                    width: 150,
+	                    //width: 150,
 	                    filterable: true
 	                }, 
 	                {
 	                    field: "rol",
-	                    width: 100,
+	                    width: 75,
 	                    filterable: true
 	                },
 	                {
 	                    field: "estado",
-	                    width: 100,
+	                    width: 95,
 	                    filterable: true
 	                }, 
 	                {
 	                    field: "accion",
+	                    width: 130,
 	                    filterable: false
 	                }
 	            ]

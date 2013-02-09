@@ -88,7 +88,7 @@ class User extends AppModel {
 			$resultado = $this->find('count',array('conditions' => array(
 				'User.id' => $this->data['User']['id'],
 				'User.password' => AuthComponent::password($this->data['User']['oldpass']))));
-			Debugger::dump($resultado);
+			//Debugger::dump($resultado);
 			return $resultado;
 		} else {
 			return true;

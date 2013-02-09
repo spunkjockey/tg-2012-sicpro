@@ -44,7 +44,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Usuario » Registrar usuario
+			?> Usuario » Modificar usuario
 			
 		</div>
 	</div>
@@ -52,10 +52,66 @@ $this->end(); ?>
 
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar usuario</h2>
+		<h2>Modificar usuario</h2>
 		<?php echo $this->Form->create('User'); ?>
     	<ul>
+	    	
 	    	<li>
+				<?php echo $this->Form->input('nombre', 
+					array(
+						'label' => 'Nombres:', 
+						'class' => 'k-textbox', 
+						'id' => 'nombres',
+						'maxlength' => 50,
+						'placeholder' => 'Nombre del usuario',
+						'div' => array('class' => 'requerido') 
+					)); ?>
+			</li>
+			<script type="text/javascript">
+			            var nombres = new LiveValidation( "nombres", { validMessage: " "} );
+			            nombres.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			            nombres.add(Validate.Format, { pattern: /^[a-zA-Z áéíóúÁÉÍÓÚñÑ]+$/i, failureMessage: "Solo letras" } );
+		    </script>
+			<li>
+				<?php echo $this->Form->input('apellidos', 
+					array(
+						'label' => 'Apellidos:', 
+						'class' => 'k-textbox',
+						'id' => 'apellidos',
+						'maxlength' => 50,  
+						'placeholder' => 'Apellido del usuario',
+						'div' => array('class' => 'requerido') 
+					)); ?>
+			<script type="text/javascript">
+			            var apellidos = new LiveValidation( "apellidos", { validMessage: " "} );
+			            apellidos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			            apellidos.add(Validate.Format, { pattern: /^[a-zA-Z áéíóúÁÉÍÓÚñÑ]+$/i, failureMessage: "Solo letras" } );
+		    </script>
+			</li>
+			<script type="text/javascript">
+			            var roles = new LiveValidation( "roles", { validMessage: " ", insertAfterWhatNode: "divrol" } );
+			            roles.add(Validate.Presence, { failureMessage: "Seleccione un rol para continuar" } );
+			            
+		    </script>
+	    	<li>
+				<?php echo $this->Form->input('username', 
+						array(
+							'label' => 'Nombre de usuario:', 
+							'class' => 'k-textbox', 
+							'id' => 'username',
+							'maxlength' => 20,
+							'placeholder' => 'Usuario',
+							'div' => array('class' => 'requerido') 
+					)); ?>
+					<script type="text/javascript">
+			            var username = new LiveValidation( "username", { validMessage: " " } );
+			            username.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			            username.add(Validate.Format, { pattern: /‎?^.*[ ].*$/, failureMessage: "No se permiten espacios en blanco", negate: true  } );
+			            username.add(Validate.Format, { pattern: /‎?^.{6,}$/, failureMessage: "Debe contener al menos 6 caracteres"  } );
+		        	</script>
+				</li>
+	    	
+	    	<!--<li>
 				<?php echo $this->Form->input('nombre', 
 					array(
 						'label' => 'Nombres:', 
@@ -107,7 +163,7 @@ $this->end(); ?>
 			            username.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 			            username.add(Validate.Format, { pattern: /‎?^.*[ ].*$/, failureMessage: "No se permiten espacios en blanco", negate: true  } );
 		        	</script>
-				</li>
+				</li> 
 				<li>
 					<?php echo $this->Form->input('Rol.rol', 
 						array(
@@ -116,13 +172,13 @@ $this->end(); ?>
 							'readOnly' => 'readOnly'
 							)); ?>
 
-				</li>
+				</li> -->
 				<br />
 				<li>
 					<?php echo $this->Form->input('newpassword', 
 						array(
 							'label' => 'Nueva Contraseña:', 
-							'type' => 'text',
+							'type' => 'password',
 							'id' => 'password',
 							'class' => 'k-textbox', 
 							'maxlength' => 25,
@@ -141,7 +197,8 @@ $this->end(); ?>
 		            password.add(Validate.Format, { pattern: /‎?^.*[a-z].*$/, failureMessage: "Debe contener al menos una letra minúscula"  } );
 		        </script>
 				</li>
-
+				
+				
 				<!--<li>
 					<?php echo $this->Form->input('estado', 
 								array(
@@ -157,7 +214,7 @@ $this->end(); ?>
 				<table>
 					<tr>
 					<td>
-						<?php echo $this->Form->end(array('label' => 'Cambiar Contraseña', 'class' => 'k-button')); ?>
+						<?php echo $this->Form->end(array('label' => 'Modificar Usuario', 'class' => 'k-button')); ?>
 					</td>
 					<td>
 						<?php echo $this->Html->link('Regresar',
