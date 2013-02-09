@@ -30,6 +30,7 @@
 				if($this->Persona->save())
 					{
 						$this->User->create();
+						$id = $this->Persona->id;
 						$this->User->set('idpersona', $this->Persona->id);
 						$this->User->set('username', $this->request->data['Persona']['username']);
 						$this->User->set('password', $this->request->data['Persona']['password']);
@@ -45,6 +46,9 @@
 						}
 						else 
 						{
+							if ($this->Persona->delete($id)) {
+								
+							}
 							//$this->Session->setFlash('Ha ocurrido un error');
 	                    }
 					}

@@ -180,6 +180,8 @@ $this->end(); ?>
 			            username.add(Validate.Format, { pattern: /^\w+$/i, failureMessage: "No puede llevar espacios en blanco o caracteres especiales" } );
 		            	username.add(Validate.Format, { pattern: /‎?^.{6,}$/, failureMessage: "Debe contener al menos 6 caracteres"  } );
 		            </script>
+		            <?php if ($this->Form->isFieldError('User.username')) {
+ 	 					echo $this->Form->error('User.username'); } ?>
 				</li>
 				<li>
 					<?php echo $this->Form->input('password', 
