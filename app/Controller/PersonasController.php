@@ -78,7 +78,8 @@
 			$this->set('_serialize', 'rol');
 			$this->render('/json/jsonrol');	
 		}
-    	
+		
+		    	
 		function persona_modificar($id=null)
 		{
 			$this->layout = 'cyanspark';
@@ -114,9 +115,27 @@
 			$apellidos = $this->Persona->field('apellidospersona',array('idpersona'=>$id));
 			$this->set('apellidospersona',$apellidos);
 			
+			if(isset($id)) {
+			$this->set('roles', Hash::combine($this->Persona->query("(SELECT 
+			  rol.idrol, 
+			  rol.rol
+			FROM
+			  sicpro2012.rol)
+			 EXCEPT
+			(SELECT 
+			  rol.idrol, 
+			  rol.rol
+			FROM 
+			  sicpro2012.users, 
+			  sicpro2012.rol
+			WHERE 
+			  users.idrol = rol.idrol AND
+			  users.idpersona =  " . $id . ");"),'{n}.0.idrol','{n}.0.rol'));
+			 }
 			if ($this->request->is('post')) 
 		{
 			//$this->User->create();
+
 			$this->User->set('idpersona', $this->request->data['Persona']['idpersona']);
 			$this->User->set('username', $this->request->data['Persona']['username']);
 			$this->User->set('password', $this->request->data['Persona']['password']);
@@ -125,6 +144,7 @@
 			$this->User->set('estado', $this->request->data['Persona']['estado']);
 			$this->User->set('idrol', $this->request->data['Persona']['rol']);
 			$this->User->set('userc', $this->Session->read('User.username'));
+			
 			if ($this->User->save())
 			{
 				$this->Session->setFlash('Usuario ha sido registrado.','default',array('class'=>'success'));

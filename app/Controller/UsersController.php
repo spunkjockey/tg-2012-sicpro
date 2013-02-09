@@ -19,10 +19,23 @@ class UsersController extends AppController {
 	public function login() {
 		$this->layout = '8loginform';
 		$this->set('title_for_layout', 'Login');
+	    
 	    if($this->Auth->loggedIn()) {
-	    	$this->redirect(array('controller'=>'mains'));
-		} else {
-	    	if ($this->request->is('post')) {
+	    	if(isset($this->data['User']['username'])) {
+	    		if(trim($this->data['User']['username']) == $this->Session->read('User.username'))
+				{
+	    			$this->redirect(array('controller'=>'mains'));
+				} else  {
+					$this->Session->destroy();
+				}
+			} else {
+				$this->redirect(array('controller'=>'mains'));
+			}
+		} 
+		
+		if(!$this->Auth->loggedIn()) { 
+		
+			if ($this->request->is('post')) {
 	    		
 	    	    $conteo = $this->User->find('count', array(
 	    	    				'conditions' => array('User.username' => trim($this->data['User']['username']))));
@@ -53,7 +66,9 @@ class UsersController extends AppController {
 							$this->Auditoria_sesion->set('login', date("Y-m-d H:i:s"));
 							if ($this->Auditoria_sesion->save()) {
 								$this->Session->write('User.idauditoria',$this->Auditoria_sesion->getInsertID());
-								$this->redirect($this->Auth->redirect());
+								//$this->redirect($this->Auth->redirect()); aqui redirecciona a la ultima pagina accedida
+								//pero queremos q redireccione siempre a la misma
+								$this->redirect(array('controller'=>'mains'));
 					        } else {
 					        	$this->Session->setFlash(__('Ha ocurrido un error con la base de datos, notifique al administrador sobre este problema', 'default', array('class' => 'errorlogin')));
 								$this->Session->destroy();
@@ -147,11 +162,14 @@ class UsersController extends AppController {
             	$this->User->create();
 			
 			$this->User->read(null, $id);
+			$this->User->set('nombre', $this->request->data['User']['nombre']);
+			$this->User->set('apellidos', $this->request->data['User']['apellidos']);
+			$this->User->set('username', $this->request->data['User']['username']);
 			$this->User->set('password', $this->request->data['User']['newpassword']);
 			$this->User->set('userm', $this->Session->read('User.username'));
 			$this->User->set('modified', date("Y-m-d H:i:s"));
 			if ($this->User->save($id, array(
-										'fieldList'=>array('password','userm','modified'))))
+										'fieldList'=>array('nombre','apellidos','username','password','userm','modified'))))
 				{
             //if ($this->User->save($this->request->data)) {
                 $this->Session->setFlash(__('El usuario ha sido actualizado'),'default',array('class'=>'success'));

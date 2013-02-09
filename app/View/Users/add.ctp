@@ -69,7 +69,7 @@ $this->end(); ?>
 			<script type="text/javascript">
 			            var nombres = new LiveValidation( "nombres", { validMessage: " "} );
 			            nombres.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-			            
+			            nombres.add(Validate.Format, { pattern: /^[a-zA-Z áéíóúÁÉÍÓÚñÑ]+$/i, failureMessage: "Solo letras" } );
 		    </script>
 			<li>
 				<?php echo $this->Form->input('apellidospersona', 
@@ -84,7 +84,7 @@ $this->end(); ?>
 			<script type="text/javascript">
 			            var apellidos = new LiveValidation( "apellidos", { validMessage: " "} );
 			            apellidos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-			            
+			            apellidos.add(Validate.Format, { pattern: /^[a-zA-Z áéíóúÁÉÍÓÚñÑ]+$/i, failureMessage: "Solo letras" } );
 		    </script>
 			</li>
 			<script type="text/javascript">
@@ -106,6 +106,7 @@ $this->end(); ?>
 			            var username = new LiveValidation( "username", { validMessage: " " } );
 			            username.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 			            username.add(Validate.Format, { pattern: /‎?^.*[ ].*$/, failureMessage: "No se permiten espacios en blanco", negate: true  } );
+			            username.add(Validate.Format, { pattern: /‎?^.{6,}$/, failureMessage: "Debe contener al menos 6 caracteres"  } );
 		        	</script>
 				</li>
 				<li>
@@ -113,7 +114,7 @@ $this->end(); ?>
 						array(
 							'label' => 'Contraseña:', 
 							'id' => 'password',
-							'type'=>'text',
+							//'type'=>'text',
 							'maxlength' => 25,
 							'class' => 'k-textbox', 
 							'placeholder' => 'Contraseña',

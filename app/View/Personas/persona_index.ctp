@@ -141,7 +141,29 @@ $this->end(); ?>
  			    	mode: "single", // enables multi-column sorting
         			allowUnsort: true
 				},
-				scrollable: false
+				scrollable: true,
+            	height: 360,
+            	columns: [{
+	                    field:"nombrespersona",
+	                    //width: 100,
+	                    filterable: true
+	                },
+	                {
+	                    field: "plaza",
+	                    width: 100,
+	                    filterable: true
+	                }, 
+	                {
+	                    field: "cargo",
+	                    width: 150,
+	                    filterable: true
+	                },
+	                {
+	                    field: "accion",
+	                    width: 130,
+	                    filterable: false
+	                }
+	            ]
             	
             	
         	});

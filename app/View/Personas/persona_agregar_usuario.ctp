@@ -74,8 +74,11 @@ $this->end(); ?>
 			            var username = new LiveValidation( "username", { validMessage: " " } );
 			            username.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 			            username.add(Validate.Format, { pattern: /^\w+$/i, failureMessage: "No puede llevar espacios en blanco o caracteres especiales" } );
+		        		username.add(Validate.Format, { pattern: /‎?^.{6,}$/, failureMessage: "Debe contener al menos 6 caracteres"  } );
 		        	</script>
 				</li>
+				
+				<!--
 				<li>
 					<?php echo $this->Form->input('rol', 
 						array(
@@ -89,7 +92,28 @@ $this->end(); ?>
 			            rol.add(Validate.Presence, { failureMessage: "Seleccione un rol para continuar" } );
 			            
 		        	</script>
+		        	
 				</li>
+-->
+					
+					
+				<li>
+					<div class="requerido" id="divrol"><label for="rol">Rol:</label><select name="data[Persona][rol]" id="rol">
+					    <?php 
+					    foreach ($roles as $key => $value) {
+							echo '<option value=' . $key . '>' . $value . '</option>';
+						}
+					    ?>
+
+					</select>
+					
+				<script type="text/javascript">
+			            var rol = new LiveValidation( "rol", { validMessage: " ", insertAfterWhatNode: "divrol" } );
+			            rol.add(Validate.Presence, { failureMessage: "Seleccione un rol para continuar" } );
+			            
+		        	</script>
+		        	
+				</li>	
 				<li>
 					<?php echo $this->Form->input('password', 
 						array(
@@ -102,9 +126,11 @@ $this->end(); ?>
 					<script type="text/javascript">
 			            var password = new LiveValidation( "password", { validMessage: " " } );
 			            password.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			            password.add(Validate.Format, { pattern: /^\w+$/i, failureMessage: "No puede llevar espacios en blanco o caracteres especiales" } );
 			            password.add(Validate.Format, { pattern: /‎?^.{8,}$/, failureMessage: "Debe contener al menos 8 caracteres"  } );
 			            password.add(Validate.Format, { pattern: /‎?^.*\d.*$/, failureMessage: "Debe contener al menos un número"  } );
-			            password.add(Validate.Format, { pattern: /‎?^.*\W+.*$/, failureMessage: "Debe contener al menos un caracter especial"  } );
+			            password.add(Validate.Format, { pattern: /‎?^.*(_+|\W+).*$/, failureMessage: "Debe contener al menos un caracter especial, por ejemplo: @ # % { ) "  } );
+			            //password.add(Validate.Format, { pattern: /‎?^.*\W+.*$/, failureMessage: "Debe contener al menos un caracter especial"  } );
 			            password.add(Validate.Format, { pattern: /‎?^.*[A-Z].*$/, failureMessage: "Debe contener al menos una letra mayúscula"  } );
 			            password.add(Validate.Format, { pattern: /‎?^.*[a-z].*$/, failureMessage: "Debe contener al menos una letra minúscula"  } );
 		        	</script>
@@ -116,6 +142,8 @@ $this->end(); ?>
 							'div' => array('class' => 'requerido'),
 							'id' => 'selectedo')); ?>
 				</li>
+				
+				
 				
 			<li  class="accept">
 				<table>
@@ -241,13 +269,13 @@ $this->end(); ?>
 				$("#rol").kendoDropDownList({
             			optionLabel: "Seleccione rol",
 			            dataTextField: "rol",
-			            dataValueField: "idrol",
+			            dataValueField: "idrol"/*,
 			            dataSource: {
 			                            type: "json",
 			                            transport: {
 			                                read: "/Personas/rolesjson.json"
 			                            }
-			                        }
+			                        }*/
 			        });
 			        var rol = $("#rol").data("kendoDropDownList");
 				
