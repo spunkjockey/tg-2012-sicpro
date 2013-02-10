@@ -76,7 +76,7 @@ $this->end(); ?>
 						'div' => array('class' => 'requerido') 
 				)); ?>
 				<script type="text/javascript">
-		            var password = new LiveValidation( "password", { validMessage: " ", onlyOnSubmit: true } );
+		            var password = new LiveValidation( "password", { validMessage: " "} );
 		            password.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script>
 			</li>
@@ -93,7 +93,7 @@ $this->end(); ?>
 						'div' => array('class' => 'requerido') 
 				)); ?>
 				<script type="text/javascript">
-		            var passwordnew = new LiveValidation( "passwordnew", { validMessage: " ", onlyOnSubmit: true } );
+		            var passwordnew = new LiveValidation( "passwordnew", { validMessage: " " } );
 		            passwordnew.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            
 		            passwordnew.add(Validate.Format, { pattern: /‎?^.{8,}$/, failureMessage: "Debe contener al menos 8 caracteres"  } );
@@ -117,7 +117,7 @@ $this->end(); ?>
 						'div' => array('class' => 'requerido') 
 				)); ?>
 				<script type="text/javascript">
-		            var passwordnewmatch = new LiveValidation('passwordnewmatch', { validMessage: " ", onlyOnSubmit: true }  );
+		            var passwordnewmatch = new LiveValidation('passwordnewmatch', { validMessage: " " }  );
 					passwordnewmatch.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 					passwordnewmatch.add( Validate.Confirmation, { match: 'passwordnew', failureMessage: "La contraseña no coincide" } );
 		        </script>
