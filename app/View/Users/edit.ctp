@@ -56,6 +56,7 @@ $this->end(); ?>
 		<?php echo $this->Form->create('User'); ?>
     	<ul>
 	    	
+	    	<?php if(empty($this->data['User']['idpersona'])) { ?>
 	    	<li>
 				<?php echo $this->Form->input('nombre', 
 					array(
@@ -67,6 +68,7 @@ $this->end(); ?>
 						'div' => array('class' => 'requerido') 
 					)); ?>
 			</li>
+			
 			<script type="text/javascript">
 			            var nombres = new LiveValidation( "nombres", { validMessage: " "} );
 			            nombres.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
@@ -93,7 +95,31 @@ $this->end(); ?>
 			            roles.add(Validate.Presence, { failureMessage: "Seleccione un rol para continuar" } );
 			            
 		    </script>
+		    
+		   <?php } else { ?>
+		    	<li>
+					<label>Nombres: </label><?php echo $this->data['User']['nombre'];?>
+					<?php echo $this->Form->input('nombre', array('type' => 'hidden', 'value' => $this->data['User']['nombre'])); ?>
+				</li>
+				
+		    	<li>
+					<label>Apellidos: </label><?php echo $this->data['User']['apellidos'];?>
+					<?php echo $this->Form->input('apellidos', array('type' => 'hidden', 'value' => $this->data['User']['apellidos'])); ?>
+				</li>
+			<?php } ?>
+		   	
+		    
 	    	<li>
+				<label>Nombre de usuario: </label><?php echo $this->data['User']['username'];?>
+				<?php echo $this->Form->input('username', array('type' => 'hidden', 'value' => $this->data['User']['username'])); ?>
+			</li>
+			
+	    	<li>
+				<label>Rol: </label><?php echo $this->data['Rol']['rol'];?>
+				<?php echo $this->Form->input('Rol.rol', array('type' => 'hidden', 'value' => $this->data['Rol']['rol'])); ?>
+			</li>
+	    	
+	    	<!--<li>
 				<?php echo $this->Form->input('username', 
 						array(
 							'label' => 'Nombre de usuario:', 
@@ -110,7 +136,7 @@ $this->end(); ?>
 			            username.add(Validate.Format, { pattern: /‎?^.{6,}$/, failureMessage: "Debe contener al menos 6 caracteres"  } );
 		        	</script>
 				</li>
-	    	
+	    -->
 	    	<!--<li>
 				<?php echo $this->Form->input('nombre', 
 					array(
@@ -175,12 +201,31 @@ $this->end(); ?>
 				</li> -->
 				<br />
 				<li>
+					<div id="cbox">
+						<input type="checkbox" name="ch" id="ch" onclick="modificarEstado()"  value="1" > Cambiar Contraseña
+					</div> 
+					
+
+					<script>
+						function modificarEstado() { 
+							if(document.getElementById("ch").checked)  { 
+								document.getElementById("password").disabled =false;
+							} else { 
+								document.getElementById("password").value ="";
+								document.getElementById("password").disabled=true;
+							} 
+						}
+					</script>
+					
+				</li>
+				<li>
 					<?php echo $this->Form->input('newpassword', 
 						array(
 							'label' => 'Nueva Contraseña:', 
 							'type' => 'password',
 							'id' => 'password',
-							'class' => 'k-textbox', 
+							'class' => 'k-textbox',
+							'disabled' => true,  
 							'maxlength' => 25,
 							'placeholder' => 'Contraseña',
 							'div' => array('class' => 'requerido') 
@@ -275,6 +320,12 @@ $this->end(); ?>
                     text-align: right;
                     margin-right: 5px;
                     
+                }
+                
+                #cbox {
+                	display: inline-block;
+                    width: 150px;
+                    margin-left: 155px;
                 }
 
                 .accept, .status {

@@ -165,18 +165,33 @@ class UsersController extends AppController {
 			$this->User->set('nombre', $this->request->data['User']['nombre']);
 			$this->User->set('apellidos', $this->request->data['User']['apellidos']);
 			$this->User->set('username', $this->request->data['User']['username']);
-			$this->User->set('password', $this->request->data['User']['newpassword']);
+			
 			$this->User->set('userm', $this->Session->read('User.username'));
 			$this->User->set('modified', date("Y-m-d H:i:s"));
-			if ($this->User->save($id, array(
-										'fieldList'=>array('nombre','apellidos','username','password','userm','modified'))))
+			
+			
+			
+			if(isset($this->request->data['User']['newpassword'])) {
+				$this->User->set('password', $this->request->data['User']['newpassword']);
+				if ($this->User->save($id, array(
+					'fieldList'=>array('nombre','apellidos','username','password','userm','modified'))))
 				{
-            //if ($this->User->save($this->request->data)) {
-                $this->Session->setFlash(__('El usuario ha sido actualizado'),'default',array('class'=>'success'));
-                $this->redirect(array('action' => 'user_index'));
-            } else {
-                $this->Session->setFlash(__('El usuario no puede ser registrado. Intente otra vez.'));
-            }
+	                $this->Session->setFlash(__('El usuario ha sido actualizado'),'default',array('class'=>'success'));
+	                $this->redirect(array('action' => 'user_index'));
+	            } else {
+	                $this->Session->setFlash(__('El usuario no puede ser registrado. Intente otra vez.'));
+				}
+			} else {
+				if ($this->User->save($id, array(
+					'fieldList'=>array('nombre','apellidos','username','userm','modified'))))
+				{
+	                $this->Session->setFlash(__('El usuario ha sido actualizado'),'default',array('class'=>'success'));
+	                $this->redirect(array('action' => 'user_index'));
+	            } else {
+	                $this->Session->setFlash(__('El usuario no puede ser registrado. Intente otra vez.'));
+				}
+			}
+			
         } else {
             $this->request->data = $this->User->read(null, $id);
             unset($this->request->data['User']['password']);

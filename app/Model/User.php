@@ -83,7 +83,7 @@ class User extends AppModel {
 	}
 
 	public function matchPass($check) {
-		Debugger::dump($this->data);
+		//Debugger::dump($this->data);
 		if(isset($this->data['User']['oldpass'])) {
 			$resultado = $this->find('count',array('conditions' => array(
 				'User.id' => $this->data['User']['id'],

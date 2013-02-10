@@ -76,6 +76,13 @@ $this->end(); ?>
 			            username.add(Validate.Format, { pattern: /^\w+$/i, failureMessage: "No puede llevar espacios en blanco o caracteres especiales" } );
 		        		username.add(Validate.Format, { pattern: /‎?^.{6,}$/, failureMessage: "Debe contener al menos 6 caracteres"  } );
 		        	</script>
+		        	
+		        	<?php
+		        	
+		        	if ($this->Form->isFieldError('User.username')) {
+					    echo $this->Form->error('User.username');
+					}
+					?>
 				</li>
 				
 				<!--
@@ -95,13 +102,14 @@ $this->end(); ?>
 		        	
 				</li>
 -->
-					
+				
 					
 				<li>
 					<div class="requerido" id="divrol"><label for="rol">Rol:</label><select name="data[Persona][rol]" id="rol">
 					    <?php 
+					    
 					    foreach ($roles as $key => $value) {
-							echo '<option value=' . $key . '>' . $value . '</option>';
+							echo '<option value=' . $key . '>' . $value . '</option>';	
 						}
 					    ?>
 
@@ -269,7 +277,9 @@ $this->end(); ?>
 				$("#rol").kendoDropDownList({
             			optionLabel: "Seleccione rol",
 			            dataTextField: "rol",
-			            dataValueField: "idrol"/*,
+			            dataValueField: "idrol",
+			            <?php if(isset($this->data['Persona']['rol'])) echo 'value: ' . $this->data['Persona']['rol']; ?> 
+			            /*,
 			            dataSource: {
 			                            type: "json",
 			                            transport: {

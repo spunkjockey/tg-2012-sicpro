@@ -8,6 +8,7 @@
 		public function persona_index()
 		{
 			$this->layout = 'cyanspark';
+			
 			$this->set('personas',$this->Persona->find('all',array(
 										'fields' => array('Persona.idpersona','Persona.nombrespersona','Persona.apellidospersona',
 														  'Plaza.plaza','Cargofuncional.cargofuncional'),
@@ -19,8 +20,48 @@
 	        $this->layout = 'cyanspark';
 			if ($this->request->is('post')) 
 			{
+				$data = array(
+				    'Persona' => array(
+				    	'nombrespersona' => $this->request->data['Persona']['nombrespersona'],
+				    	'apellidospersona' => $this->request->data['Persona']['apellidospersona'],
+				    	'idplaza' => $this->request->data['Persona']['plazas'],
+				    	'idcargofuncional' => $this->request->data['Persona']['cargos'],
+				    	'telefonocontacto' => $this->request->data['Persona']['telefonocontacto'],
+				    	'correoelectronico' => $this->request->data['Persona']['correoelectronico']
+					),
+				    'User' => array(
+				    	array(
+				          'username' => $this->request->data['User']['username'],
+				          'password' => $this->request->data['Persona']['password'],
+				          'nombre' => $this->request->data['Persona']['nombrespersona'],
+				          'apellidos' => $this->request->data['Persona']['apellidospersona'],
+				          'estado' => $this->request->data['Persona']['estado'],
+				          'idrol' => $this->request->data['Persona']['rol'],
+				          'userc' => $this->Session->read('User.username')
+						  )
+				    ),
+				);
+				
+				$this->User->set($this->request->data);
+				
+				if ($this->User->validates(array('fieldList' => array('username')))) {
+				    // valido
+				    if($this->Persona->saveAssociated($data, array('deep' => true))) {
+						$this->Session->setFlash('La persona ha sido registrada','default',array('class'=>'success'));
+						$this->redirect(array('action' => 'persona_index'));
+					}
+				} else {
+				    // invalido
+				    $errors = $this->User->validationErrors;
+				}
+				
+				
+				
+				 
+				
 	        	//persona
-	            $this->Persona->create();
+	            /*
+				 * $this->Persona->create();
 	            $this->Persona->set('nombrespersona', $this->request->data['Persona']['nombrespersona']);
 				$this->Persona->set('apellidospersona', $this->request->data['Persona']['apellidospersona']);
 				$this->Persona->set('idplaza', $this->request->data['Persona']['plazas']);
@@ -56,6 +97,9 @@
 					{
 						//$this->Session->setFlash('Ha ocurrido un error');
 	                }
+				 * 
+				 * 
+				 */
 			}
 		}
 
@@ -77,7 +121,7 @@
 		}
 		public function rolesjson()
 		{
-			$rol = $this->Persona->query("SELECT idrol, rol FROM sicpro2012.rol WHERE idrol NOT IN (9,8) ;");
+			$rol = $this->Persona->query("SELECT idrol, rol FROM sicpro2012.rol WHERE idrol NOT IN (4,9,8) ;");
 			$this->set('rol', Hash::extract($rol, '{n}.0'));
 			$this->set('_serialize', 'rol');
 			$this->render('/json/jsonrol');	
@@ -124,7 +168,7 @@
 			  rol.idrol, 
 			  rol.rol
 			FROM
-			  sicpro2012.rol)
+			  sicpro2012.rol WHERE idrol NOT IN (4,8))
 			 EXCEPT
 			(SELECT 
 			  rol.idrol, 
@@ -157,7 +201,32 @@
 			}
 			else 
 			{
-				$this->Session->setFlash('Imposible agregar usuario');
+				//$this->Session->setFlash('Imposible agregar usuario' . $this->request->data['Persona']['idpersona']);
+				$this->set('idpersona',$this->request->data['Persona']['idpersona']);
+			
+				$nombres = $this->Persona->field('nombrespersona',array('idpersona'=>$this->request->data['Persona']['idpersona']));
+				$this->set('nombrespersona',$nombres);
+				
+				$apellidos = $this->Persona->field('apellidospersona',array('idpersona'=>$this->request->data['Persona']['idpersona']));
+				$this->set('apellidospersona',$apellidos);
+				
+				if(isset($this->request->data['Persona']['idpersona'])) {
+				$this->set('roles', Hash::combine($this->Persona->query("(SELECT 
+				  rol.idrol, 
+				  rol.rol
+				FROM
+				  sicpro2012.rol WHERE idrol NOT IN (4,8))
+				 EXCEPT
+				(SELECT 
+				  rol.idrol, 
+				  rol.rol
+				FROM 
+				  sicpro2012.users, 
+				  sicpro2012.rol
+				WHERE 
+				  users.idrol = rol.idrol AND
+				  users.idpersona =  " . $this->request->data['Persona']['idpersona'] . ");"),'{n}.0.idrol','{n}.0.rol'));
+				 }
 			}
 		}
 		
