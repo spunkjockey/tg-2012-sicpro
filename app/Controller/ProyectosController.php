@@ -5,7 +5,7 @@ App::uses('CakeEmail', 'Network/Email');
 class ProyectosController extends AppController {
     public $name = 'Proyectos';
     public $components = array('Session','RequestHandler','Email');
-	public $uses = array('Proyecto','Division','Contrato','Financia','Contratoconstructor','Proyembe','CakeEmail','Network/Email','Persona');
+	public $uses = array('Proyecto','Division','Contrato','Financia','Contratoconstructor','Proyembe','CakeEmail','Network/Email','Persona','User');
 	public $helpers = array('Html', 'Form', 'Session','Ajax', 'Javascript');
 	
 	
@@ -25,9 +25,23 @@ class ProyectosController extends AppController {
 					
 					//Notificacion con envio de correo. Nuevo proyecto registrado se notifica el Director
 					$mensaje = 'El proyecto "'. $this->request->data['Proyecto']['nombreproyecto'].'" ha sido registrado con un monto de $'.$this->request->data['Proyecto']['montoplaneado'];
-					$to = $this->Persona->find('all',array('conditions'=> array('Persona.idplaza' => 7)));
-					$subject = 'Notificacion SICRO';
-					$this->enviar_correo($to[0]['Persona']['correoelectronico'],$subject,$mensaje);
+
+					$to=Hash::extract($this->Persona->User->query('SELECT
+					persona.idpersona,
+					persona.correoelectronico
+					FROM
+					sicpro2012.users,
+					sicpro2012.persona
+					WHERE
+					persona.idpersona = users.idpersona AND
+					users.idrol = 1 AND
+					users.estado = true;'),'{n}.0');					
+				
+					$subject = 'Notificacion SICPRO';
+					foreach ($to as $key => $value) {
+						$this->enviar_correo($to[$key]['correoelectronico'],$subject,$mensaje);
+					}
+
 	                $this->redirect(array('action' => 'proyecto_listado'));
 	            }
 				else {
@@ -161,9 +175,22 @@ class ProyectosController extends AppController {
 												 
 						//Notificacion con envio de correo. Estado pasa a Licitacion
 						$mensaje = 'El proyecto "'.$this->Proyecto->field('nombreproyecto') .'" pasa a estado de Licitación';
-						$to = $this->Persona->find('all',array('conditions'=> array('Persona.idplaza' => 7)));
-						$subject = 'Notificacion SICRO';
-						$this->enviar_correo($to[0]['Persona']['correoelectronico'],$subject,$mensaje);
+
+						$to=Hash::extract($this->Persona->User->query('SELECT
+						persona.idpersona,
+						persona.correoelectronico
+						FROM
+						sicpro2012.users,
+						sicpro2012.persona
+						WHERE
+						persona.idpersona = users.idpersona AND
+						users.idrol = 1 AND
+						users.estado = true;'),'{n}.0');					
+					
+						$subject = 'Notificacion SICPRO';
+						foreach ($to as $key => $value) {
+							$this->enviar_correo($to[$key]['correoelectronico'],$subject,$mensaje);
+						}
 						$this->redirect(array('action' => 'proyecto_listado'));
 		            }
 					else 

@@ -72,9 +72,22 @@ App::uses('CakeEmail', 'Network/Email');
 						
 					if($estadoproyanterior[0]['Proyecto']['estadoproyecto']=="Licitacion"){
 							$mensaje = 'El proyecto "'.$estadoproyanterior[0]['Proyecto']['nombreproyecto'] .'" pasa a estado de Adjudicacion';
-							$to = $this->Persona->find('all',array('conditions'=> array('Persona.idplaza' => 7)));
-							$subject = 'Notificacion SICRO';
-							$this->enviar_correo($to[0]['Persona']['correoelectronico'],$subject,$mensaje);
+							
+							$to=Hash::extract($this->Persona->User->query('SELECT
+							persona.idpersona,
+							persona.correoelectronico
+							FROM
+							sicpro2012.users,
+							sicpro2012.persona
+							WHERE
+							persona.idpersona = users.idpersona AND
+							users.idrol = 1 AND
+							users.estado = true;'),'{n}.0');					
+						
+							$subject = 'Notificacion SICPRO';
+							foreach ($to as $key => $value) {
+								$this->enviar_correo($to[$key]['correoelectronico'],$subject,$mensaje);
+							}
 						}
 						$this->redirect(array('controller'=>'Contratoconstructors', 'action' => 'contratoconstructor_listar'));
 						
