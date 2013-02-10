@@ -77,7 +77,7 @@ $this->end(); ?>
             		<?php echo $this->Html->link(
             			'<span class="k-icon k-i-pencil"></span>',
             			array('action' => 'edit', $usu['User']['id']),
-            			array('class'=>'k-button', 'escape' => false,'title' => 'Cambiar contraseña')
+            			array('class'=>'k-button', 'escape' => false,'title' => 'Editar Usuario')
 					);?>
 
              		<?php echo $this->Form->postLink(

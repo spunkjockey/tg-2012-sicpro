@@ -150,7 +150,7 @@ $this->end(); ?>
 	                },
 	                {
 	                    field: "plaza",
-	                    width: 100,
+	                    width: 150,
 	                    filterable: true
 	                }, 
 	                {
@@ -160,7 +160,7 @@ $this->end(); ?>
 	                },
 	                {
 	                    field: "accion",
-	                    width: 130,
+	                    width: 90,
 	                    filterable: false
 	                }
 	            ]
