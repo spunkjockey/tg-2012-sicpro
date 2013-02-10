@@ -440,8 +440,10 @@ App::uses('CakeEmail', 'Network/Email');
 		$this->render('/Elements/update_opcionesactualizar', 'ajax');
 	}
 
+	//funcion para enviar correo
 	public function enviar_correo($to=null,$subject=null,$mensaje=null)
 	{
+		if(isset( $to) || isset($mensaje)){
 		 try {
 		$email = new CakeEmail('gmail');
 		$email->emailFormat('text')
@@ -453,5 +455,6 @@ App::uses('CakeEmail', 'Network/Email');
 	    } catch (Exception $e) {
 	        return false;
 	    }
+		}
     }
 }

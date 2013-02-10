@@ -522,6 +522,7 @@ class ProyectosController extends AppController {
 	//funcion para enviar correo
 	public function enviar_correo($to=null,$subject=null,$mensaje=null)
 	{
+		if(isset( $to) || isset($mensaje)){
 		 try {
 		$email = new CakeEmail('gmail');
 		$email->emailFormat('text')
@@ -533,6 +534,7 @@ class ProyectosController extends AppController {
 	    } catch (Exception $e) {
 	        return false;
 	    }
+		}
     }
 	
 	//metodo de prueba para el envio de correo.

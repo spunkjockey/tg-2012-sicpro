@@ -428,8 +428,10 @@ order by avance.fechaavance');
 		$this->render('/json/jsoncontratotecproy');
 	}
 
+	//funcion para enviar correo
 	public function enviar_correo($to=null,$subject=null,$mensaje=null)
 	{
+		if(isset( $to) || isset($mensaje)){
 		 try {
 		$email = new CakeEmail('gmail');
 		$email->emailFormat('text')
@@ -441,6 +443,7 @@ order by avance.fechaavance');
 	    } catch (Exception $e) {
 	        return false;
 	    }
+		}
     }
 
 }
