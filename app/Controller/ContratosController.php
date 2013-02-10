@@ -80,7 +80,7 @@ class ContratosController extends AppController {
 							}
 							else 
 							{
-								$this->Session->setFlash('No se pudo realizar el registro en el Contrato Constructor');
+								$this->Session->setFlash('NNo se pudo agregar la orden de inicio al Contrato Constructor');
 							}
 					}
 					//Si no es de construccion se asume es de supervision
@@ -99,7 +99,7 @@ class ContratosController extends AppController {
 							}
 							else 
 							{
-								$this->Session->setFlash('No se pudo realizar el registro en el Contrato Supervisor');
+								$this->Session->setFlash('No se pudo agregar la orden de inicio al Contrato Supervisor');
 							}
 			
 					}	
@@ -107,7 +107,7 @@ class ContratosController extends AppController {
 			}
 			else
 			{
-				$this->Session->setFlash('No se pudo realizar el registro en el Contrato');	
+				$this->Session->setFlash('No se pudo agregar la orden de inicio al Contrato');	
 			}
 			//Debugger::dump($tipo);
            	//Verifica el tipo de contrato para actualizar en la tabla correspondiente

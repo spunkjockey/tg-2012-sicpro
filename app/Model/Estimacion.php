@@ -22,6 +22,9 @@
 	
 	public $validate = array(
 	    'fechainicioestimacion' => array(
+	    	'visitamenorigual'=>array(
+					'rule'=>array('iniciomenor'),
+            		'message' => 'La fecha de inicio debe ser menor a la fecha de fin de la estimación'),
 	        'formatofecha'=>array(
 					'rule'       => array('date', 'dmy'),
 			        'message'    => 'Ingrese fecha de inicio con el siguiente formato DD/MM/AAAA.',
@@ -38,6 +41,9 @@
 					)
 				),
 		'fechaestimacion' => array(
+			'estimacionmayoroigual'=>array(
+					'rule'=>array('estimacionmayoroigual'),
+            		'message' => 'La fecha de estimación debe ser mayor o igual a la fecha de fin de la estimación'),
 			'formatofecha'=>array(
 					'rule'       => array('date', 'dmy'),
 			        'message'    => 'Ingrese fecha de estimación con el siguiente formato DD/MM/AAAA.',
@@ -63,6 +69,19 @@
 		
 	);
 	
+	public function iniciomenor($check) 
+		{
+			
+			return date_create_from_format('d/m/Y', $this->data['Estimacion']['fechainicioestimacion']) < date_create_from_format('d/m/Y', $this->data['Estimacion']['fechafinestimacion']);
+    	
+		}
+		
+	public function estimacionmayoroigual($check) 
+		{
+			
+			return date_create_from_format('d/m/Y', $this->data['Estimacion']['fechaestimacion']) >= date_create_from_format('d/m/Y', $this->data['Estimacion']['fechafinestimacion']);
+    	
+		}
 	
 	public function beforeSave($options = array()) {
 		    if (!empty($this->data['Estimacion']['fechainicioestimacion']) && !empty($this->data['Estimacion']['fechafinestimacion'])) 

@@ -108,7 +108,8 @@ $this->end(); ?>
 						'class' => 'k-textbox',
 						'id'=>'titulo', 
 						'placeholder' => 'Título del informe de supervisión', 
-						'rows'=> 2, 
+						'rows'=> 2,
+						'maxlength'=>100, 
 						'div' => array('class' => 'requerido')
 						)); ?>
 				<script type="text/javascript">
