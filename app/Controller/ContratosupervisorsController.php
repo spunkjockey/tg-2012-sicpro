@@ -3,11 +3,13 @@
     {
 	    public $helpers = array('Html', 'Form', 'Session','Ajax');
 	    public $components = array('Session','RequestHandler');
-		public $uses = array('Contratoconstructor','Contrato','Proyecto','Empresa','Persona','Contratosupervisor','Contdisponibles','Realproyecto');
+		public $uses = array('Contratoconstructor','User','Contrato','Proyecto','Empresa','Persona','Contratosupervisor','Contdisponibles','Realproyecto');
 		
 		
 		public function contratosupervisor_listar(){
 			$this->layout = 'cyanspark';
+			$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+			$this->set('idrol',$rol);
 			$this->set('contratoss',$this->Contratosupervisor->find('all',
 			array('conditions'=> array(
 										'Proyecto.estadoproyecto <>' => 'Finalizado'
@@ -31,7 +33,8 @@
 		public function contratosupervisor_registrar()
 		{
 			$this->layout = 'cyanspark';
-			
+			$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+		$this->set('idrol',$rol);
 			if($this->request->is('post'))
 			{
 				//Registro de contrato
@@ -208,6 +211,8 @@
 	function contratosupervisor_modificar($idcontrato=null)
 	{
 		$this->layout = 'cyanspark';
+		$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+		$this->set('idrol',$rol);
 		$this->Contratoconstructor->id = $idcontrato;
 		$idproy = $this->Contratosupervisor->field('idproyecto',array('idcontrato'=>$idcontrato));
 		//$idcontrato = $id;

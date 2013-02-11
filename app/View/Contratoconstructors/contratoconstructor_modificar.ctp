@@ -54,6 +54,9 @@ $this->end(); ?>
 		<?php 
 		echo $this->Form->create('Contratoconstructor',array('action' => 'contratoconstructor_modificar')); ?>
 		<ul>
+			<?php 
+	if($idrol == 2)
+			{ ?> 
 			<li>
 				<!--- Aqui se carga el nombre del proyecto seleccionado-->
 				<table>
@@ -251,6 +254,15 @@ $this->end(); ?>
 						</td>
 					</tr>
 				</table>
+			<?php 
+            	}
+            	else{
+            		echo "Lo sentimos, su usuario no cuenta con los permisos adecuados para realizar esta función<br><br>";
+            		echo $this->Html->link('Regresar', 
+									array('controller' => 'Mains','action' => 'index'),
+									array('class'=>'k-button'));
+            	}
+            	?>
 		</ul>
 	</div>
 </div>

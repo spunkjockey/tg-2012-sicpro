@@ -56,6 +56,9 @@ $this->end(); ?>
 		<h2>Registrar Contrato Constructor</h2>
 		<?php echo $this->Form->create('Contratoconstructor'); ?>
 		<ul>
+			<?php 
+	if($idrol == 2)
+			{ ?> 
 			<li>
 				<?php echo $this->Form->input('proyectos', 
 					array(
@@ -160,8 +163,8 @@ $this->end(); ?>
 		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 		            datePicker1.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
 		        </script>
-		        <?php if ($this->Form->isFieldError('Contrato.fechainicontrato')) {
- 	 					echo $this->Form->error('Contrato.fechainicontrato'); } ?>
+		        <?php if ($this->Form->isFieldError('Contrato.fechainiciocontrato')) {
+ 	 					echo $this->Form->error('Contrato.fechainiciocontrato'); } ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('fechafincontrato', 
@@ -265,6 +268,15 @@ $this->end(); ?>
 					?>
             <li class="status">
             </li>
+		<?php 
+            	}
+            	else{
+            		echo "Lo sentimos, su usuario no cuenta con los permisos adecuados para realizar esta función<br><br>";
+            		echo $this->Html->link('Regresar', 
+									array('controller' => 'Mains','action' => 'index'),
+									array('class'=>'k-button'));
+            	}
+            	?>
 		</ul>
 	</div>
 </div>

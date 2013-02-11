@@ -52,13 +52,25 @@
 		        	)
 				),
 	        	'fechainiciocontrato' => array(
-		        	'rule'       => array('date', 'dmy'),
-		        	'message'    => 'Ingrese fecha inicio con el siguiente formato DD/MM/AAAA.',
-		        	'allowEmpty' => true,
+				'visitamenorigual'=>array(
+					'rule'=>array('iniciomenor'),
+            		'message' => 'La fecha de inicio de contrato debe ser menor a la fecha de fin del contrato'),
+				'formatofecha'=>array(
+					'rule'       => array('date', 'dmy'),
+			        'message'    => 'Ingrese fecha de inicio con el siguiente formato DD/MM/AAAA.',
+			        'allowEmpty' => true,
 					'required'=>false
-				) 
+					)
+				)
 		 
 			);
+			
+		public function iniciomenor($check) 
+		{
+			
+			return date_create_from_format('d/m/Y', $this->data['Contrato']['fechainiciocontrato']) < date_create_from_format('d/m/Y', $this->data['Contrato']['fechafincontrato']);
+    	
+		}
 				
 		public function montocorrecto($check) {
 			//Debugger::dump($this->data);

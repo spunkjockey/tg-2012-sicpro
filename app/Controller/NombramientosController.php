@@ -2,11 +2,13 @@
 class NombramientosController extends AppController {
     public $helpers = array('Html', 'Form', 'Session','Ajax','Javascript','Js');
     public $components = array('Session','RequestHandler');
-	public $uses = array('Contrato','Persona','Nombramiento','Proyecto',
+	public $uses = array('Contrato','Persona','Nombramiento','Proyecto','User',
 						 'Contratoconstructor','Nombratecnico','Contratosupervisor');
 	
 	public function nombramiento_asignartecnico($idproyecto=null,$idcontrato=null){
 		$this->layout = 'cyanspark';
+		$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+		$this->set('idrol',$rol);
 		//$selected = $this->Nombramiento->find('all',array('conditions' => array('Nombramiento.idcontrato' => '1')));
 		//$d = Hash::extract($selected,'{n}.Nombramiento.idpersona');
 		$this->set('idcontrato',$idcontrato);

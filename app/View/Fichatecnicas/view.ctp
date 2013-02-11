@@ -51,6 +51,10 @@ $this->end(); ?>
 <?php $this->end(); ?>
 	<h2>Registrar Ficha Tecnica</h2>
 	<div style="color: #959595;">Paso 2 de 2</div>
+	<?php 
+		 		if($idrol == 5 || $idrol== 7)
+			{ ?> 
+	
 	<h2>Ubicaciones</h2>			   
 	<?php foreach ($ubicaciones as $ubi): ?>
     	<li class='capa2'>
@@ -99,6 +103,15 @@ $this->end(); ?>
 				array('controller' => 'Mains', 'action' => 'index'),array('id' => 'regresar','class'=>'k-button','escape' => false)); 
 			?>	
 			</p>
+			<?php 
+            	}
+            	else{
+            		echo "Lo sentimos, su usuario no cuenta con los permisos adecuados para realizar esta función<br><br>";
+            		echo $this->Html->link('Regresar', 
+									array('controller' => 'Mains','action' => 'index'),
+									array('class'=>'k-button'));
+            	}
+            	?>
 
 <style scoped>
 				#titulo {

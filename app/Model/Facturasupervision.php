@@ -25,7 +25,7 @@ class Facturasupervision extends AppModel {
 	    'fechafactura' => array(
 	        'date' => array(
             	'rule' => array('date', 'dmy'),
-        		'message'    => 'Digite una fecha valida en formato DD/MM/YYYY.',
+        		'message'    => 'Digite una fecha valida en formato DD/MM/AAAA.',
         		'allowEmpty' => true
         	)
 		)

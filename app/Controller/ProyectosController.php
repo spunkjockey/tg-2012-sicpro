@@ -5,13 +5,14 @@ App::uses('CakeEmail', 'Network/Email');
 class ProyectosController extends AppController {
     public $name = 'Proyectos';
     public $components = array('Session','RequestHandler','Email');
-	public $uses = array('Proyecto','Division','Contrato','Financia','Contratoconstructor','Proyembe','CakeEmail','Network/Email','Persona','User');
+	public $uses = array('Proyecto','Division','User','Contrato','Financia','Contratoconstructor','Proyembe','CakeEmail','Network/Email','Persona','User');
 	public $helpers = array('Html', 'Form', 'Session','Ajax', 'Javascript');
 	
 	
 	public function proyecto_registrar() {
         $this->layout = 'cyanspark';
-		
+		$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+		$this->set('idrol',$rol);
 		if ($this->request->is('post')) 
 			{
                 $this->Proyecto->set('nombreproyecto', $this->request->data['Proyecto']['nombreproyecto']);
@@ -54,6 +55,8 @@ class ProyectosController extends AppController {
 	public function proyecto_listado()
 	{
 		$this->layout = 'cyanspark';
+		$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+		$this->set('idrol',$rol);
 		$this->set('proyectos', $this->Proyecto->find('all', array(
 									'fields'=>array('Proyecto.idproyecto','Proyecto.numeroproyecto','Proyecto.nombreproyecto',
 													'Proyecto.estadoproyecto','Proyecto.montoplaneado','Fichatecnica.idfichatecnica'),
@@ -78,6 +81,8 @@ class ProyectosController extends AppController {
 	{
 		$this->layout = 'cyanspark';
 		$this->Proyecto->id = $id;
+		$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+		$this->set('idrol',$rol);
 		if ($this->request->is('post')) 
 		{
 			$this->Proyecto->set('nombreproyecto', $this->request->data['Proyecto']['nombreproyecto']);
@@ -149,6 +154,8 @@ class ProyectosController extends AppController {
 	public function proyecto_asignar_num()
 	{
 		$this->layout = 'cyanspark';
+		$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+		$this->set('idrol',$rol);
 		//numero proyecto del primer elemento
 		$this->set('num',$this->Proyecto->find('all',array(
 						'fields'=>array('Proyecto.idproyecto','Proyecto.numeroproyecto','Proyecto.nombreproyecto'),

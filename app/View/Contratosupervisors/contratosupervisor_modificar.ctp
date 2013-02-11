@@ -55,6 +55,9 @@ $this->end(); ?>
 			echo $this->Form->create('Contratosupervisor',array('action' => 'contratosupervisor_modificar')); ?>
 		<ul>
 		<?php 
+	if($idrol == 2)
+			{ ?>
+		<?php 
 			$opciones=array();
 			foreach ($con_idcontrato as $con) 
 					{
@@ -88,6 +91,7 @@ $this->end(); ?>
 					//'value' => $codcon, 
 					'placeholder' => 'Ej: 001-2012', 
 					'div' => array('class' => 'requerido')
+					
 					)); 
 			?>
 			<script type="text/javascript">
@@ -143,8 +147,7 @@ $this->end(); ?>
 					'id'	=> 'datePicker1',
 					//'value' => date('d/m/Y',strtotime($this->request->data['Contratosupervisor']['fechainiciocontrato'])),
 					'div' => array('id'=>'fchaini','class' => 'requerido'),
-					'type'  => 'Text'
-					));
+					'type'  => 'Text'));
 				?>
 				<script type="text/javascript">
 				            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " , insertAfterWhatNode: "fchaini"} );
@@ -277,6 +280,16 @@ $this->end(); ?>
 				</tr>
 			</table>
 		</li>
+		<?php 
+            	}
+            	else{
+            		echo "Lo sentimos, su usuario no cuenta con los permisos adecuados para realizar esta función<br><br>";
+            		echo $this->Html->link('Regresar', 
+									array('controller' => 'Mains','action' => 'index'),
+									array('class'=>'k-button'));
+            	}
+            	?>
+		</ul>
 	</div>
 </div>
 
@@ -294,12 +307,7 @@ $this->end(); ?>
                     width: 300px;
                 }
                 
-                form .requerido label:after {
-					font-size: 1.4em;
-					color: #e32;
-					content: '*';
-					display:inline;
-					}
+                
                 
                 #formulario {
                     width: 600px;
@@ -330,6 +338,21 @@ $this->end(); ?>
                     text-align: right;
                     margin-right: 5px;
                 }
+                
+                .etiqueta {
+                    display: inline-block;
+                    width: 150px;
+                    
+                    margin-right: 5px; 
+                }
+                
+                
+                form .requerido label:after {
+                	font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+				}
 
                 .accept, .status {
                 	padding-top: 15px;
@@ -353,14 +376,14 @@ $this->end(); ?>
 				
 				.LV_valid {
 				    color:#00CC00;
-				    display:none;
+				    margin-left: 10px;
+				    display: none;
 				}
 					
 				.LV_invalid {
 				    color:#CC0000;
-					clear:both;
-               		display:inline-block;
-               		margin-left: 155px; 
+               		display:block;
+               		margin-left: 130px;
                
 				}
 				

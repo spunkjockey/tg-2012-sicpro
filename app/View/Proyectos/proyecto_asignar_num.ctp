@@ -57,6 +57,9 @@ $this->end(); ?>
 	<div id="formulario">
 		<h2>Asignar número de proyecto</h2>
 		<?php echo $this->Form->create('Proyecto',array('action' => 'proyecto_asignar_num')); ?>
+		<?php if($idrol == 5 || $idrol== 7)
+			{ ?> 
+		
 		<ul>
 			<li>
 				<?php 
@@ -131,7 +134,15 @@ $this->end(); ?>
 		    					array('url' => array( 'action' => 'update_numeroproy'),'update' => 'actnumero'));  ?>
 			-->	
 			
-				
+		<?php 
+            	}
+            	else{
+            		echo "Lo sentimos, su usuario no cuenta con los permisos adecuados para realizar esta función<br><br>";
+            		echo $this->Html->link('Regresar', 
+									array('controller' => 'Mains','action' => 'index'),
+									array('class'=>'k-button'));
+            	}
+            	?>		
 
 		</ul>
 		

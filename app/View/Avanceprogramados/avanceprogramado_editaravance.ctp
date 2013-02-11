@@ -68,10 +68,10 @@ $this->end(); ?>
 								'maxlength' => 3, 
 								'id' => 'plazoejecuciondias',
 								'class' => 'k-textbox',
-								'div' => array('class' => 'requerido')
+								'div' => array('id' => 'plazo','class' => 'requerido')
 							)); ?> 
 				<script type="text/javascript">
-					var plazoejecuciondias = new LiveValidation( "plazoejecuciondias", { validMessage: " " } );
+					var plazoejecuciondias = new LiveValidation( "plazoejecuciondias", { validMessage: " ", insertAfterWhatNode: "plazo"  } );
 					plazoejecuciondias.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 					plazoejecuciondias.add( Validate.Numericality,{ onlyInteger: true,
 					   								   	notAnIntegerMessage: "Debe ser un número entero",
@@ -110,10 +110,10 @@ $this->end(); ?>
 								'class' => 'k-textbox',
 								'maxlength' => 5,
 								'type' => 'text',
-								'div' => array('class' => 'requerido')
+								'div' => array('id'=>'pctjavnc','class' => 'requerido')
 							)); ?>
 				<script type="text/javascript">
-					var porcentajeavfisicoprog = new LiveValidation( "porcentajeavfisicoprog", { validMessage: " " } );
+					var porcentajeavfisicoprog = new LiveValidation( "porcentajeavfisicoprog", { validMessage: " ", insertAfterWhatNode: "pctjavnc" } );
 		            porcentajeavfisicoprog.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            porcentajeavfisicoprog.add( Validate.Numericality,{ minimum: 0, maximum: 100, tooLowMessage: "El porcentaje no puede ser menor a 0 %", tooHighMessage: "El porcentaje no debe ser mayor al 100 %", notANumberMessage:"Debe ser un número"} );
 		            
@@ -278,6 +278,23 @@ $this->end(); ?>
 		   				culture: "es-ES",
 		   				format: "dd/MM/yyyy" //Define el formato de fecha
 					});
+					
+					$("#plazoejecuciondias").kendoNumericTextBox({
+					     min: 0,
+					     max: 999,
+					     format: "{0:n0}",
+					     decimals: 0,
+					     placeholder: "Ej. 30",
+					     spinners: false
+					 }); 
+					 
+					 
+					 $("#porcentajeavfisicoprog").kendoNumericTextBox({
+					     min: 0,
+					     max: 999.99,
+					     decimals: 2,
+					     spinners: false
+					 });
                     
                     $("#montoavfinancieroprog").kendoNumericTextBox({
                         format: "c",

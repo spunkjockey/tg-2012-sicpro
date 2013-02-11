@@ -138,6 +138,7 @@ $this->end(); ?>
 									'class'=>'k-textbox',
 									'placeholder'=>'Ingrese sus observaciones a este informe',
 									'rows'=>'5',
+									'maxlength'=>250,
 									'div' => array('class' => 'requerido')
 									));
 							 

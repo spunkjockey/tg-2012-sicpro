@@ -2,10 +2,12 @@
 class FinanciasController extends AppController {
     public $helpers = array('Html', 'Form', 'Session','Ajax');
     public $components = array('Session','RequestHandler');
-	public $uses = array('Proyecto','Fuentefinanciamiento','Financia','Division','Contratoconstructor');
+	public $uses = array('Proyecto','Fuentefinanciamiento','Financia','Division','Contratoconstructor','User');
 	
 	public function index($idproyecto=null) {
 		$this->layout = 'cyanspark';
+		$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+		$this->set('idrol',$rol);
 		//Logica de inserción
 		if ($this->request->is('post')) {
 			
