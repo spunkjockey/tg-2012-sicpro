@@ -56,6 +56,9 @@ $this->end(); ?>
 		<div style="color: #959595;">Paso 1 de 2</div>
 				<?php echo $this->Form->create('Fichatecnica'); ?>
 		<ul>
+			<?php 
+		 		if($idrol == 5 || $idrol== 7)
+			{ ?> 
 			<li>
 				<?php echo $this->Form->input('proyectos',
 					array(
@@ -189,6 +192,15 @@ $this->end(); ?>
             
             <li class="status">
             </li>
+            <?php 
+            	}
+            	else{
+            		echo "Lo sentimos, su usuario no cuenta con los permisos adecuados para realizar esta función<br><br>";
+            		echo $this->Html->link('Regresar', 
+									array('controller' => 'Mains','action' => 'index'),
+									array('class'=>'k-button'));
+            	}
+            	?>
 		</ul>
 	</div>
 </div>

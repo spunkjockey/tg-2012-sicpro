@@ -54,62 +54,71 @@ $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Administración de Proyectos</h2>
-		<div style='margin:4px 0' >
-			<?php echo $this->Html->link(
-				'<span class="k-icon k-i-plus"></span> Registrar proyecto', 
-				array('controller' => 'proyectos', 'action' => 'proyecto_registrar'),
-				array('class'=>'k-button', 'escape' => false)); 
-			?>
-			<?php echo $this->Html->link(
-				'Asignar número de proyecto', 
-				array('controller' => 'proyectos', 'action' => 'proyecto_asignar_num'),
-				array('class'=>'k-button')); 
-			?>
-		</div>
-		<?php //Debugger::dump($proyectos); ?>
-		<table id="grid">
-		    <tr>
-		        <th data-field="numeroproyecto" >Número</th>
-		        <th data-field="nombreproyecto" >Nombre proyecto</th>
-		        <th data-field="estadoproyecto">Estado</th>
-		        <th data-field="montoplaneado">Monto</th>
-		        <th data-field="idfichatecnica">idficha</th>
-		        <th data-field="accion">Acción</th>
-		    </tr>
-			<?php foreach ($proyectos as $proy): ?>
-		    <tr>
-		        <!--<td><?php echo $proy['Proyecto']['nombreproyecto']; ?></td>-->
-		        <td><?php echo $proy['Proyecto']['numeroproyecto']; ?></td>
-		        <td><?php echo $this->Html->link($proy['Proyecto']['nombreproyecto'], 
-		            				array('action' => 'proyecto_detalles', $proy['Proyecto']['idproyecto']),
-									array('class'=>'detalles')); ?></td>
-		        <td><?php echo $proy['Proyecto']['estadoproyecto']; ?></td>
-		      	<!--<td><?php echo '$ '.number_format($proy['Proyecto']['montoplaneado'],2); ?></td>-->
-		      	<td><?php echo $proy['Proyecto']['montoplaneado']; ?></td>
-		      	<td><?php echo $proy['Fichatecnica']['idfichatecnica']; ?></td>
-		      	<td align="center">
-		            <?php 
-		            	/*echo $this->Html->link('Detalles', 
-		            				array('action' => 'proyecto_detalles', $proy['Proyecto']['idproyecto']),
-		            				array('class'=>'k-button'));*/ 
-			            if ($proy['Proyecto']['estadoproyecto'] == 'Formulacion')
-			            {
-			            	echo $this->Html->link('<span class="k-icon k-i-pencil"></span>', 
-						            	array('action' => 'proyecto_modificar', $proy['Proyecto']['idproyecto']),
-						            	array('class'=>'k-button', 'escape' => false,'title'=>'Editar Proyecto'));
-							echo $this->Form->postLink('<span class="k-icon k-i-close"></span>', 
-			            				array('action' => 'proyecto_eliminar', $proy['Proyecto']['idproyecto']),
-			            				array('confirm' => '¿Está seguro que desea eliminar el proyecto?','class'=>'k-button', 'escape' => false,'title'=>'Eliminar Proyecto'));
-			            } else {
-			            	echo 'Sin acciones disponibles';
-			            }
-			            
-		            ?>
-		           </td>
-		    </tr>
-		    <?php endforeach; ?>
-		    <?php unset($proyectos); ?>
-	</table>
+		<?php if($idrol == 5 || $idrol== 7)
+			{ ?> 
+				<div style='margin:4px 0' >
+					<?php echo $this->Html->link(
+						'<span class="k-icon k-i-plus"></span> Registrar proyecto', 
+						array('controller' => 'proyectos', 'action' => 'proyecto_registrar'),
+						array('class'=>'k-button', 'escape' => false)); 
+					?>
+					<?php echo $this->Html->link(
+						'Asignar número de proyecto', 
+						array('controller' => 'proyectos', 'action' => 'proyecto_asignar_num'),
+						array('class'=>'k-button')); 
+					?>
+				</div>
+				<?php //Debugger::dump($proyectos); ?>
+				<table id="grid">
+				    <tr>
+				        <th data-field="numeroproyecto" >Número</th>
+				        <th data-field="nombreproyecto" >Nombre proyecto</th>
+				        <th data-field="estadoproyecto">Estado</th>
+				        <th data-field="montoplaneado">Monto</th>
+				        <th data-field="idfichatecnica">idficha</th>
+				        <th data-field="accion">Acción</th>
+				    </tr>
+					<?php foreach ($proyectos as $proy): ?>
+				    <tr>
+				        <!--<td><?php echo $proy['Proyecto']['nombreproyecto']; ?></td>-->
+				        <td><?php echo $proy['Proyecto']['numeroproyecto']; ?></td>
+				        <td><?php echo $this->Html->link($proy['Proyecto']['nombreproyecto'], 
+				            				array('action' => 'proyecto_detalles', $proy['Proyecto']['idproyecto']),
+											array('class'=>'detalles')); ?></td>
+				        <td><?php echo $proy['Proyecto']['estadoproyecto']; ?></td>
+				      	<!--<td><?php echo '$ '.number_format($proy['Proyecto']['montoplaneado'],2); ?></td>-->
+				      	<td><?php echo $proy['Proyecto']['montoplaneado']; ?></td>
+				      	<td><?php echo $proy['Fichatecnica']['idfichatecnica']; ?></td>
+				      	<td align="center">
+				            <?php 
+				            	/*echo $this->Html->link('Detalles', 
+				            				array('action' => 'proyecto_detalles', $proy['Proyecto']['idproyecto']),
+				            				array('class'=>'k-button'));*/ 
+					            if ($proy['Proyecto']['estadoproyecto'] == 'Formulacion')
+					            {
+					            	echo $this->Html->link('<span class="k-icon k-i-pencil"></span>', 
+								            	array('action' => 'proyecto_modificar', $proy['Proyecto']['idproyecto']),
+								            	array('class'=>'k-button', 'escape' => false,'title'=>'Editar Proyecto'));
+									echo $this->Form->postLink('<span class="k-icon k-i-close"></span>', 
+					            				array('action' => 'proyecto_eliminar', $proy['Proyecto']['idproyecto']),
+					            				array('confirm' => '¿Está seguro que desea eliminar el proyecto?','class'=>'k-button', 'escape' => false,'title'=>'Eliminar Proyecto'));
+					            } else {
+					            	echo 'Sin acciones disponibles';
+					            }
+					            
+				            ?>
+				           </td>
+				    </tr>
+				    <?php endforeach; ?>
+				    <?php unset($proyectos); ?>
+			</table>
+	<?php 
+            	}
+            	else{
+            		echo "Lo sentimos, su usuario no cuenta con los permisos adecuados para realizar esta función<br><br>";
+            		
+            	}
+            	?>
 	<table width="633">
 		<tr>
 			<td style="text-align: right;">

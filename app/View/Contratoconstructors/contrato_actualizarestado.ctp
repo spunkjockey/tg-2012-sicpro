@@ -54,6 +54,9 @@ $this->end(); ?>
 		<h2>Actualizar Estado de Contrato Constructor</h2>
 		<?php echo $this->Form->create('Estado'); ?>
 		<ul>
+			<?php 
+	if($idrol == 2 || $idrol==3)
+			{ ?> 
 			<li>
 				<?php echo $this->Form->input('proyectos',
 					array(
@@ -103,6 +106,15 @@ $this->end(); ?>
 			</li>
             <li class="status">
             </li>
+            <?php 
+            	}
+            	else{
+            		echo "Lo sentimos, su usuario no cuenta con los permisos adecuados para realizar esta función<br><br>";
+            		echo $this->Html->link('Regresar', 
+									array('controller' => 'Mains','action' => 'index'),
+									array('class'=>'k-button'));
+            	}
+            	?>
 		</ul>
 	</div>
 </div>

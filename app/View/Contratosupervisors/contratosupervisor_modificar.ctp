@@ -55,6 +55,9 @@ $this->end(); ?>
 			echo $this->Form->create('Contratosupervisor',array('action' => 'contratosupervisor_modificar')); ?>
 		<ul>
 		<?php 
+	if($idrol == 2)
+			{ ?>
+		<?php 
 			$opciones=array();
 			foreach ($con_idcontrato as $con) 
 					{
@@ -277,6 +280,16 @@ $this->end(); ?>
 				</tr>
 			</table>
 		</li>
+		<?php 
+            	}
+            	else{
+            		echo "Lo sentimos, su usuario no cuenta con los permisos adecuados para realizar esta función<br><br>";
+            		echo $this->Html->link('Regresar', 
+									array('controller' => 'Mains','action' => 'index'),
+									array('class'=>'k-button'));
+            	}
+            	?>
+		</ul>
 	</div>
 </div>
 

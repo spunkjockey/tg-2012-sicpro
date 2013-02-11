@@ -2,7 +2,7 @@
 class FichatecnicasController extends AppController {
     public $helpers = array('Html', 'Form', 'Session','Ajax');
     public $components = array('Session','RequestHandler');
-	public $uses = array('Proyecto','Fichatecnica','Ubicacion','Departamento',
+	public $uses = array('Proyecto','Fichatecnica','Ubicacion','Departamento','User',
 						 'Municipio','Meta','Componente','Proyembe','Division','Financia');
 	
 	
@@ -12,6 +12,8 @@ class FichatecnicasController extends AppController {
 	
 	public function fichatecnica_registrarficha() {
 		$this->layout = 'cyanspark';
+		$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+		$this->set('idrol',$rol);
         if ($this->request->is('post')) {
 				    // it validated logic	    
 				    $this->Fichatecnica->set('idproyecto', $this->request->data['Fichatecnica']['proyectos']);
@@ -64,7 +66,9 @@ class FichatecnicasController extends AppController {
 	}
 	
 	public function fichatecnica_listarficha(){
-		$this->layout = 'cyanspark';	
+		$this->layout = 'cyanspark';
+		$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+		$this->set('idrol',$rol);	
 		$this->set('fichas', $this->Fichatecnica->find('all',array(
 			'order'=>'Proyecto.idproyecto Desc'
 		)/*,
@@ -77,8 +81,10 @@ class FichatecnicasController extends AppController {
 	public function view($id = null) {
 		$this->layout = 'cyanspark';   		
         $this->Fichatecnica->id = $id;
+		$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+		$this->set('idrol',$rol);
 		if (!$this->Fichatecnica->find('all')) {
-        	throw new NotFoundException('No se puede encontrar la Empresa', 404);
+        	throw new NotFoundException('No se puede encontrar la ficha técnica', 404);
     	} else {
         	$this->set('fichatecnicas', $this->Fichatecnica->read());
 			$this->set('ubicaciones', $this->Fichatecnica->Ubicacion->find('all',

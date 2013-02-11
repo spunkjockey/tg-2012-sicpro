@@ -54,67 +54,80 @@ $this->end(); ?>
 		<h3>Registrar Proyecto</h3>
 		<?php echo $this->Form->create('Proyecto'); ?>
 		<ul>
-			<li>
-				<?php echo $this->Form->input('nombreproyecto', 
-					array(
-						'label' => 'Nombre del proyecto:', 
-						'div' => array('class' => 'requerido'),
-						'id' => 'nombreproyecto',
-						'class' => 'k-textbox',
-						'rows' => '3', 
-						'placeholder' => 'Nombre del proyecto')); ?>
-				<script type="text/javascript">
-		            var nombreproyecto = new LiveValidation( "nombreproyecto", { validMessage: " " } );
-		            nombreproyecto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script>
-			</li>
-			<li>
-				<?php echo $this->Form->input('divisiones', 
-					array(
-						'label' => 'División:', 
-						'id' => 'divisiones',
-						'class'=>'k-combobox',
-						'div' => array('class' => 'requerido'))); ?>
-				<script type="text/javascript">
-					var divisiones = new LiveValidation( "divisiones", { validMessage: " " } );
-		            divisiones.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script>
-			</li>
-			<li>
-				<?php 
-					echo $this->Form->input('montoplaneado', 
-					array(
-						'label' => 'Monto planeado ($):',
-						'type'=>'text',  
-						'id' => 'txmonto',
-						'style'=>'width: 200px',
-						'maxlength'=>'12',
-						'div' => array('id' => 'monto', 'class' => 'requerido')
-						)); 
-				?>
-				<script type="text/javascript">
-					var txmonto = new LiveValidation( "txmonto", { validMessage: " ", insertAfterWhatNode: "monto" } );
-		            txmonto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        	txmonto.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
-		        </script>
-			</li>
-			<li  class="accept">
-			<table>
-				<tr>
-					<td>
-						<?php echo $this->Form->end(array('label' => 'Registrar', 'class' => 'k-button')); ?>
-					</td>
-					<td>
-						<?php echo $this->Html->link('Regresar', 
-									array('controller' => 'Proyectos','action' => 'proyecto_listado'),
-									array('class'=>'k-button')); ?>
-					</td>	
-				</tr>
-			</table>
-			</li>
-            
-            <li class="status">
-            </li>
+		<?php 
+		 
+		if($idrol == 5 || $idrol== 7)
+			{ ?> 
+					<li>
+						<?php echo $this->Form->input('nombreproyecto', 
+							array(
+								'label' => 'Nombre del proyecto:', 
+								'div' => array('class' => 'requerido'),
+								'id' => 'nombreproyecto',
+								'class' => 'k-textbox',
+								'rows' => '3', 
+								'placeholder' => 'Nombre del proyecto')); ?>
+						<script type="text/javascript">
+				            var nombreproyecto = new LiveValidation( "nombreproyecto", { validMessage: " " } );
+				            nombreproyecto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+				        </script>
+					</li>
+					<li>
+						<?php echo $this->Form->input('divisiones', 
+							array(
+								'label' => 'División:', 
+								'id' => 'divisiones',
+								'class'=>'k-combobox',
+								'div' => array('class' => 'requerido'))); ?>
+						<script type="text/javascript">
+							var divisiones = new LiveValidation( "divisiones", { validMessage: " " } );
+				            divisiones.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+				        </script>
+					</li>
+					<li>
+						<?php 
+							echo $this->Form->input('montoplaneado', 
+							array(
+								'label' => 'Monto planeado ($):',
+								'type'=>'text',  
+								'id' => 'txmonto',
+								'style'=>'width: 200px',
+								'maxlength'=>'12',
+								'div' => array('id' => 'monto', 'class' => 'requerido')
+								)); 
+						?>
+						<script type="text/javascript">
+							var txmonto = new LiveValidation( "txmonto", { validMessage: " ", insertAfterWhatNode: "monto" } );
+				            txmonto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+				        	txmonto.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
+				        </script>
+					</li>
+					<li  class="accept">
+					<table>
+						<tr>
+							<td>
+								<?php echo $this->Form->end(array('label' => 'Registrar', 'class' => 'k-button')); ?>
+							</td>
+							<td>
+								<?php echo $this->Html->link('Regresar', 
+											array('controller' => 'Proyectos','action' => 'proyecto_listado'),
+											array('class'=>'k-button')); ?>
+							</td>	
+						</tr>
+					</table>
+					</li>
+		            
+		            <li class="status">
+		            </li>
+            <?php 
+            	}
+            	else{
+            		echo "Lo sentimos, su usuario no cuenta con los permisos adecuados para realizar esta función<br><br>";
+            		echo $this->Html->link('Regresar', 
+									array('controller' => 'Mains','action' => 'index'),
+									array('class'=>'k-button'));
+            	}
+            	?>
 		</ul>
 		
 	</div>

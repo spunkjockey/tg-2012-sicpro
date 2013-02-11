@@ -54,65 +54,76 @@ $this->end(); ?>
 	<div id="formulario">
 		<h2>Modificar Proyecto</h2>
 		<?php echo $this->Form->create('Proyecto',array('action' => 'proyecto_modificar')); ?>
+		<?php if($idrol == 5 || $idrol== 7)
+			{ ?> 
 		<ul>
-			<li>
-				<?php echo $this->Form->input('nombreproyecto', 
-					array(
-						'label' => 'Nombre del proyecto:',
-						'div' => array('class' => 'requerido'),
-						'id' => 'nombreproyecto', 
-						'rows' => '3', 
-						'class' => 'k-textbox')); ?>
-				<script type="text/javascript">
-		            var nombreproyecto = new LiveValidation( "nombreproyecto", { validMessage: " " } );
-		            nombreproyecto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script>
-			</li>
-			<li>
-				<?php echo $this->Form->input('divisiones', 
-					array(
-						'label' => 'División responsable:', 
-						'id' => 'divisiones',
-						'class'=>'k-combobox',
-						'div' => array('class' => 'requerido'))); 
-				?>
-				<script type="text/javascript">
-					var divisiones = new LiveValidation( "divisiones", { validMessage: " " } );
-		            divisiones.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script>
-			</li>
-			<li>
-				<?php echo $this->Form->input('montoplaneado', 
-					array(
-						'label' => 'Monto planeado: ($)', 
-						'type'=>'text',  
-						'id' => 'txmonto',
-						'style'=>'width: 200px',
-						'div' => array('id'=> 'monpla','class' => 'requerido'),
-						'maxlength'=>'12')); ?>
-				<script type="text/javascript">
-					var txmonto = new LiveValidation( "txmonto", { validMessage: " " , insertAfterWhatNode: "monpla" } );
-		            txmonto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script>
-			</li>
-				<?php echo $this->Form->input('idproyecto')?>
-			<li  class="accept">
-				<table>
-					<tr>
-						<td>
-							<?php echo $this->Form->end(array('label' => 'Modificar', 'class' => 'k-button')); ?>
-						</td>
-						<td>	
-							<?php echo $this->Html->link('Regresar', 
-								array('controller' => 'Proyectos','action' => 'proyecto_listado'),
-								array('class'=>'k-button')); ?>
-						</td>
-					</tr>
-				</table>
-			</li>
-            
-            <li class="status">
-            </li>
+				<li>
+					<?php echo $this->Form->input('nombreproyecto', 
+						array(
+							'label' => 'Nombre del proyecto:',
+							'div' => array('class' => 'requerido'),
+							'id' => 'nombreproyecto', 
+							'rows' => '3', 
+							'class' => 'k-textbox')); ?>
+					<script type="text/javascript">
+			            var nombreproyecto = new LiveValidation( "nombreproyecto", { validMessage: " " } );
+			            nombreproyecto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			        </script>
+				</li>
+				<li>
+					<?php echo $this->Form->input('divisiones', 
+						array(
+							'label' => 'División responsable:', 
+							'id' => 'divisiones',
+							'class'=>'k-combobox',
+							'div' => array('class' => 'requerido'))); 
+					?>
+					<script type="text/javascript">
+						var divisiones = new LiveValidation( "divisiones", { validMessage: " " } );
+			            divisiones.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			        </script>
+				</li>
+				<li>
+					<?php echo $this->Form->input('montoplaneado', 
+						array(
+							'label' => 'Monto planeado: ($)', 
+							'type'=>'text',  
+							'id' => 'txmonto',
+							'style'=>'width: 200px',
+							'div' => array('id'=> 'monpla','class' => 'requerido'),
+							'maxlength'=>'12')); ?>
+					<script type="text/javascript">
+						var txmonto = new LiveValidation( "txmonto", { validMessage: " " , insertAfterWhatNode: "monpla" } );
+			            txmonto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			        </script>
+				</li>
+					<?php echo $this->Form->input('idproyecto')?>
+				<li  class="accept">
+					<table>
+						<tr>
+							<td>
+								<?php echo $this->Form->end(array('label' => 'Modificar', 'class' => 'k-button')); ?>
+							</td>
+							<td>	
+								<?php echo $this->Html->link('Regresar', 
+									array('controller' => 'Proyectos','action' => 'proyecto_listado'),
+									array('class'=>'k-button')); ?>
+							</td>
+						</tr>
+					</table>
+				</li>
+	            
+	            <li class="status">
+	            </li>
+            <?php 
+            	}
+            	else{
+            		echo "Lo sentimos, su usuario no cuenta con los permisos adecuados para realizar esta función<br><br>";
+            		echo $this->Html->link('Regresar', 
+									array('controller' => 'Mains','action' => 'index'),
+									array('class'=>'k-button'));
+            	}
+            	?>
 		</ul>
 		
 	

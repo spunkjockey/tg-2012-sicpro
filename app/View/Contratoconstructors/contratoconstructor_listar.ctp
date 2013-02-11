@@ -53,6 +53,10 @@ $this->end(); ?>
 <!--<?php Debugger::dump($contratosc);?>-->
 
 <h2>Contratos</h2>
+<?php 
+	if($idrol == 2)
+			{ ?> 
+			<li>
 <div style='margin:4px 0' >
 	<?php echo $this->Html->link(
 		'<span class="k-icon k-i-plus"></span> Registrar Contrato Constructor', 
@@ -97,6 +101,12 @@ $this->end(); ?>
     <?php endforeach; ?>
     <?php unset($contratosc); ?>
 </table>
+	<?php 
+    	}
+    	else{
+    		echo "Lo sentimos, su usuario no cuenta con los permisos adecuados para realizar esta función<br><br>";
+    	}
+        ?>
 	<table width="633">
 		<tr>
 			<td style="text-align: right;">

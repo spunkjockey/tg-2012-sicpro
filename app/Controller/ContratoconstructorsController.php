@@ -5,10 +5,12 @@ App::uses('CakeEmail', 'Network/Email');
     class ContratoconstructorsController extends AppController {
 	    public $helpers = array('Html', 'Form', 'Session','Ajax');
 	    public $components = array('Session','RequestHandler','Email');
-		public $uses = array('Contratoconstructor','Contrato','Proyecto','Empresa','Persona','Realproyecto','CakeEmail','Network/Email');
+		public $uses = array('Contratoconstructor','Contrato','Proyecto','User','Empresa','Persona','Realproyecto','CakeEmail','Network/Email');
 		
 		public function contratoconstructor_listar(){
 			$this->layout = 'cyanspark';
+			$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+			$this->set('idrol',$rol);
 			$this->set('contratosc',$this->Contratoconstructor->find('all',
 			array('conditions'=> array(
 										'Proyecto.estadoproyecto <>' => 'Finalizado'
@@ -25,6 +27,8 @@ App::uses('CakeEmail', 'Network/Email');
 		public function contratoconstructor_registrar()
 		{
 			$this->layout = 'cyanspark';
+			$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+			$this->set('idrol',$rol);
 			if($this->request->is('post'))
 			{
 				//comprobando que es el primer contrato
@@ -295,6 +299,8 @@ App::uses('CakeEmail', 'Network/Email');
 	function contratoconstructor_modificar($idcontrato=null)
 	{
 		$this->layout = 'cyanspark';
+		$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+			$this->set('idrol',$rol);
 		$this->Contratoconstructor->id = $idcontrato;
 		$this->set('idcontratoconstructor',$idcontrato);
 		$idproyecto = $this->Contratoconstructor->field('idproyecto',array('idcontrato'=>$idcontrato));
@@ -392,6 +398,8 @@ App::uses('CakeEmail', 'Network/Email');
 	
 	public function contrato_actualizarestado(){
 		$this->layout = 'cyanspark';
+		$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+			$this->set('idrol',$rol);
 		if($this->request->is('post'))
 			{
 			$idc=$this->request->data['Estado']['contratos'];

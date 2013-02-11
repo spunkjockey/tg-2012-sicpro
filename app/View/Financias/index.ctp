@@ -57,6 +57,10 @@ $this->end(); ?>
 		<h2>Asignación de Fondos</h2>
 		<?php echo $this->Form->create('Financia'); ?>
 		<ul>
+		<?php 
+		 
+		if($idrol == 5 || $idrol== 7)
+			{ ?> 
 			<li>
 				<?php echo $this->Form->input('proyectos',
 					array(
@@ -116,6 +120,15 @@ $this->end(); ?>
 					</tr>
 				</table>
 			</li>
+		<?php 
+            	}
+            	else{
+            		echo "Lo sentimos, su usuario no cuenta con los permisos adecuados para realizar esta función<br><br>";
+            		echo $this->Html->link('Regresar', 
+									array('controller' => 'Mains','action' => 'index'),
+									array('class'=>'k-button'));
+            	}
+            	?>
 		</ul>
 		
 		<div id='tablafinancia'>
