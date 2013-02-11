@@ -108,13 +108,13 @@ $this->end(); ?>
 								'label' => 'Avance Físico (%):',
 								'id' => 'porcentajeavfisicoprog',
 								'class' => 'k-textbox',
-								'placeholder' => 'Ej. 50',
-								'maxlength' => 5,
+								'placeholder' => 'Ej. 23.50',
+								//'maxlength' => 6,
 								'type' => 'text',
-								'div' => array('class' => 'requerido')
+								'div' => array('id'=>'pctjavnc','class' => 'requerido')
 							)); ?>
 				<script type="text/javascript">
-					var porcentajeavfisicoprog = new LiveValidation( "porcentajeavfisicoprog", { validMessage: " " } );
+					var porcentajeavfisicoprog = new LiveValidation( "porcentajeavfisicoprog", { validMessage: " ", insertAfterWhatNode: "pctjavnc" } );
 		            porcentajeavfisicoprog.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            porcentajeavfisicoprog.add( Validate.Numericality,{ minimum: 0, maximum: 100, tooLowMessage: "El porcentaje no puede ser menor a 0 %", tooHighMessage: "El porcentaje no debe ser mayor al 100 %", notANumberMessage:"Debe ser un número"} );
 		            
@@ -312,6 +312,23 @@ $this->end(); ?>
     					placeholder: "Ej. 10000",
     					spinners: false
                     });
+                    
+                    $("#plazoejecuciondias").kendoNumericTextBox({
+					     min: 0,
+					     max: 999,
+					     format: "{0:n0}",
+					     decimals: 0,
+					     placeholder: "Ej. 30",
+					     spinners: false
+					 }); 
+					 
+					 
+					 $("#porcentajeavfisicoprog").kendoNumericTextBox({
+					     min: 0,
+					     max: 999.99,
+					     decimals: 2,
+					     spinners: false
+					 });
 					        
 					$("#grid").kendoGrid({
                         dataSource: {
