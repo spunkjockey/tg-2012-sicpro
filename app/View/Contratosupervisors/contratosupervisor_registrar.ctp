@@ -359,12 +359,15 @@ $this->end(); ?>
                     var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
 
-                    $("button").click(function() {
-                        if (validator.validate()) {
-                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-                            } else {
-                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-                        }
+ 				$("#ContratosupervisorContratosupervisorRegistrarForm").submit(function() {
+								if(empresas.dataItem()){
+									$('#errorempresa').hide();
+									return true;
+								}
+								else {
+									$('#errorempresa').show().text('No Existe la empresa');
+									return false;
+								}								
                     });
                 
 				$("#txmonto").kendoNumericTextBox({
