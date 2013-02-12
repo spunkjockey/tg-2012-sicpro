@@ -83,12 +83,13 @@ $this->end(); ?>
             			array('class'=>'k-button', 'escape' => false,'title' => 'Editar Usuario')
 					);?>
 
-             		<?php echo $this->Form->postLink(
-                		'<span class="k-icon k-i-custom"></span>',
-                		array('action' => 'cambiarestado', $usu['User']['id']),
-                		array('confirm' => '¿Está seguro que desea cambiar el Estado del Usuario seleccionado?','class'=>'k-button', 'escape' => false,'title' => 'Habilitar/Deshabilitar')
-            		)?>
-            
+             		<?php if($usu['User']['id']!=$this->Session->read('User.id')) { ?>
+	             		<?php echo $this->Form->postLink(
+	                		'<span class="k-icon k-i-custom"></span>',
+	                		array('action' => 'cambiarestado', $usu['User']['id']),
+	                		array('confirm' => '¿Está seguro que desea cambiar el Estado del Usuario seleccionado?','class'=>'k-button', 'escape' => false,'title' => 'Habilitar/Deshabilitar')
+	            		);
+           			}?>
 					<?php if($usu['User']['id']!=$this->Session->read('User.id')) { ?>
             			<?php echo $this->Form->postLink(
                 			'<span class="k-icon k-i-close"></span>',

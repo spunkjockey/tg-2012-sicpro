@@ -117,7 +117,7 @@ $this->end(); ?>
 						'div' => array('class' => 'requerido') 
 				)); ?>
 				<script type="text/javascript">
-		            var passwordnewmatch = new LiveValidation('passwordnewmatch', { validMessage: " " }  );
+		            var passwordnewmatch = new LiveValidation('passwordnewmatch', { validMessage: " ", onlyOnSubmit: true }  );
 					passwordnewmatch.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 					passwordnewmatch.add( Validate.Confirmation, { match: 'passwordnew', failureMessage: "La contraseña no coincide" } );
 		        </script>
