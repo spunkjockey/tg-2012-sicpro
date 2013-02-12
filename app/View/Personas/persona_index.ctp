@@ -48,6 +48,9 @@ $this->end(); ?>
 	</div>
 <?php $this->end(); ?>
 <h2>Personas</h2>
+<?php 
+	if($idrol == 4)
+			{ ?> 
 <div style='margin:4px 0' >
 	<?php echo $this->Html->link(
 		'Registrar persona', 
@@ -92,6 +95,12 @@ $this->end(); ?>
     <?php endforeach; ?>
     <?php unset($personas); ?>
 </table>
+	<?php 
+		}
+		else{
+			echo "Lo sentimos, su usuario no cuenta con los permisos adecuados para realizar esta función<br><br>";
+		}
+		?>
 	<table width="633">
 		<tr>
 			<td style="text-align: right;">

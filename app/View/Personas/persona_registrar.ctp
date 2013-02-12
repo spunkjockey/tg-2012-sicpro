@@ -55,8 +55,10 @@ $this->end(); ?>
 		
 		<?php echo $this->Form->create('Persona'); ?>
 		<ul>
-			
-				<h2>Registrar persona</h2>
+			<h2>Registrar persona</h2>
+			<?php 
+	if($idrol == 4)
+			{ ?> 
 				<li>
 					<?php echo $this->Form->input('nombrespersona', 
 						array(
@@ -227,6 +229,15 @@ $this->end(); ?>
             
             <li class="status">
             </li>
+            <?php 
+            	}
+            	else{
+            		echo "Lo sentimos, su usuario no cuenta con los permisos adecuados para realizar esta función<br><br>";
+            		echo $this->Html->link('Regresar', 
+									array('controller' => 'Mains','action' => 'index'),
+									array('class'=>'k-button'));
+            	}
+            	?>
 		</ul>
 		
 	</div>

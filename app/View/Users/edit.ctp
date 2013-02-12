@@ -55,7 +55,9 @@ $this->end(); ?>
 		<h2>Modificar usuario</h2>
 		<?php echo $this->Form->create('User'); ?>
     	<ul>
-	    	
+	    	<?php 
+	if($idrol == 4)
+			{ ?> 
 	    	<?php if(empty($this->data['User']['idpersona'])) { ?>
 	    	<li>
 				<?php echo $this->Form->input('nombre', 
@@ -270,6 +272,15 @@ $this->end(); ?>
 				</table>
 				</li>
 	            <li class="status">
+	            <?php 
+            	}
+            	else{
+            		echo "Lo sentimos, su usuario no cuenta con los permisos adecuados para realizar esta función<br><br>";
+            		echo $this->Html->link('Regresar', 
+									array('controller' => 'Mains','action' => 'index'),
+									array('class'=>'k-button'));
+            	}
+            	?>
 			</ul>
     	</div>
    </div>
