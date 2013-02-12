@@ -53,8 +53,10 @@ $this->end(); ?>
 		
 		<?php echo $this->Form->create('Persona',array('action' => 'persona_agregar_usuario')); ?>
 		<ul>
-			
-				<h2>Agregar usuario a persona</h2>
+			<h2>Agregar usuario a persona</h2>
+			<?php 
+	if($idrol == 4)
+			{ ?> 
 				<li>
 							<label>Nombre: </label><?php echo $nombrespersona .' '.$apellidospersona;?>
 							<?php echo $this->Form->input('idpersona', array('type' => 'hidden', 'value' => $idpersona)); ?>
@@ -173,6 +175,15 @@ $this->end(); ?>
             
             <li class="status">
             </li>
+            <?php 
+            	}
+            	else{
+            		echo "Lo sentimos, su usuario no cuenta con los permisos adecuados para realizar esta función<br><br>";
+            		echo $this->Html->link('Regresar', 
+									array('controller' => 'Mains','action' => 'index'),
+									array('class'=>'k-button'));
+            	}
+            	?>
 		</ul>
 		
 	</div>

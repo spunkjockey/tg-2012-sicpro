@@ -118,6 +118,8 @@ class UsersController extends AppController {
 	function user_index()
 	{
 		$this->layout = 'cyanspark';
+		$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+		$this->set('idrol',$rol);
 		$this->set('usuarios',$this->User->find('all',array(
 										'fields' => array('User.id','User.nombre','User.apellidos','User.username','User.estado','Rol.rol'),
 										'conditions' => array('User.idrol != 9'),
@@ -126,6 +128,8 @@ class UsersController extends AppController {
 
     public function add() {
         $this->layout = 'cyanspark';
+		$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+		$this->set('idrol',$rol);
 		$this->set('roles', $this->User->Rol->find('list',
 												array('fields' => array('Rol.idrol', 'Rol.rol'),
 													'conditions' => array('Rol.idrol IN (4,8)')
@@ -154,6 +158,8 @@ class UsersController extends AppController {
 
     public function edit($id = null) {
     	$this->layout = 'cyanspark';
+		$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+		$this->set('idrol',$rol);
         $this->User->id = $id;
         if (!$this->User->exists()) {
             throw new NotFoundException(__('Usuario invalido'));

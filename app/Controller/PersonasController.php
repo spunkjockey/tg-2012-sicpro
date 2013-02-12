@@ -8,7 +8,8 @@
 		public function persona_index()
 		{
 			$this->layout = 'cyanspark';
-			
+			$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+			$this->set('idrol',$rol);
 			$this->set('personas',$this->Persona->find('all',array(
 										'fields' => array('Persona.idpersona','Persona.nombrespersona','Persona.apellidospersona',
 														  'Plaza.plaza','Cargofuncional.cargofuncional'),
@@ -18,6 +19,8 @@
 		public function persona_registrar() 
 		{
 	        $this->layout = 'cyanspark';
+			$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+		$this->set('idrol',$rol);
 			if ($this->request->is('post')) 
 			{
 				$data = array(
@@ -131,6 +134,8 @@
 		function persona_modificar($id=null)
 		{
 			$this->layout = 'cyanspark';
+			$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+		$this->set('idrol',$rol);
 			$this->Persona->id = $id;
 			if ($this->request->is('get'))
 			{
@@ -155,6 +160,8 @@
 		function persona_agregar_usuario($id=null)
 		{
 			$this->layout = 'cyanspark';
+			$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+		$this->set('idrol',$rol);
 			$this->set('idpersona',$id);
 			
 			$nombres = $this->Persona->field('nombrespersona',array('idpersona'=>$id));
