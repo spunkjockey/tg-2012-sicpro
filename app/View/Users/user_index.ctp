@@ -174,7 +174,7 @@ $this->end(); ?>
 	                }, 
 	                {
 	                    field: "accion",
-	                    width: 130,
+	                    width: 140,
 	                    filterable: false
 	                }
 	            ]
