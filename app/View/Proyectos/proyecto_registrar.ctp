@@ -249,7 +249,6 @@ $this->end(); ?>
 				
 				$("#txmonto").kendoNumericTextBox({
 				     min: 0,
-				     max: 999999999.99,
 				     spinners: false,
 				     format: "c2",
 				     decimals: 2

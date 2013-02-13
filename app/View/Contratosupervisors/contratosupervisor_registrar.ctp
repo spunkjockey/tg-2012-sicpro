@@ -121,12 +121,14 @@ $this->end(); ?>
 						'label' => 'Monto: ($)',
 						'class' => 'k-textbox',  
 						'id' => 'txmonto',
+						'maxlength' => '12',
 						'type' => 'text',
 						'placeholder' => 'Ingrese Monto',
 						'div' => array('id'=>'montot','class' => 'requerido'))); ?>
 				<script type="text/javascript">
 					var txmonto = new LiveValidation( "txmonto", { validMessage: " " , insertAfterWhatNode: "montot"  } );
 		            txmonto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            txmonto.add( Validate.Numericality, { minimum: 0.01, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.01", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
 		        </script>
 		    <?php if ($this->Form->isFieldError('Contrato.montooriginal')) {
  	 					echo $this->Form->error('Contrato.montooriginal'); } ?>
@@ -384,7 +386,6 @@ $this->end(); ?>
                 
 				$("#txmonto").kendoNumericTextBox({
 				     min: 0,
-				     max: 999999999.99,
 				     format: "c2",
 				     decimals: 2,
 				     spinners: false

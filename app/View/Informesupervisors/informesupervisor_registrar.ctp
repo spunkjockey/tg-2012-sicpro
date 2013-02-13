@@ -145,7 +145,7 @@ $this->end(); ?>
 						'class' => 'k-textbox',  
 						'id' => 'txavfisico',
 						'type'  => 'Text', 
-						'maxlength' => 6,
+						'maxlength' => 5,
 						'placeholder' => 'Porcentaje de avance', 
 						'div' => array('id' => 'porce','class' => 'requerido')
 						));

@@ -95,6 +95,7 @@ $this->end(); ?>
 					<script type="text/javascript">
 						var txmonto = new LiveValidation( "txmonto", { validMessage: " " , insertAfterWhatNode: "monpla" } );
 			            txmonto.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+			            txmonto.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
 			        </script>
 				</li>
 					<?php echo $this->Form->input('idproyecto')?>
@@ -248,7 +249,6 @@ $this->end(); ?>
                         format: "c2",
                         decimals: 2,
                         min: 0,
-    					max: 999999999.99,
     					placeholder: "Ej. 10000",
     					spinners: false
                     });

@@ -115,7 +115,7 @@ $this->end(); ?>
 						'class' => 'k-textbox',  
 						'id' => 'txavfisico',
 						'type'  => 'Text', 
-						'maxlength' => 6,
+						'maxlength' => 5,
 						'placeholder' => 'Porcentaje de avance', 
 						'div' => array('id' => 'porce','class' => 'requerido')
 						));
@@ -262,7 +262,6 @@ $this->end(); ?>
 
                 $("#txavfinanciero").kendoNumericTextBox({
 				     min: 0,
-				     max: 999999999.99,
 				     format: "c2",
 				     decimals: 2,
 				     spinners: false
@@ -270,7 +269,6 @@ $this->end(); ?>
 
 				$("#txavfisico").kendoNumericTextBox({
 				     min: 0,
-				     max: 100.00,
 				     format: "n",
 				     decimals: 2,
 				     spinners: false
