@@ -1,5 +1,4 @@
 <div id='divdos'>
-	div dos div dos
 <?php if(isset($disponible)) { ?>
 	<h3>Detalles Fuente financiamiento</h3>
 	<p><strong class:'etiqueta'>Título Estimación: </strong><?php echo $titulo;?>
