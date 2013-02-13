@@ -38,14 +38,14 @@ public $belongsTo = array(
 		public function montocorrecto($check) {
 			$mavance = $this->Contratoconstructor->find('all',array(
 				'fields' => array('Contratoconstructor.montototal'),
-				'conditions' => array('Contratoconstructor.idcontrato' => $this->data['Avanceprogramado']['idcontrato'])
+				'conditions' => array('Contratoconstructor.idcontrato' => $this->data['Ordendecambio']['idcontrato'])
 			));
 	
 			
 			$montototal = Hash::extract($mavance, '0.Contratoconstructor');
 	
 			$monto = $montototal['montototal'] /*- $montoavances['avance']*/;  
-	        return (float) $check['montoavfinancieroprog'] <= (float) $monto;
+	        return (float) $check['montoordencambio'] <= (float) $monto;
 	
 	    }
 		
