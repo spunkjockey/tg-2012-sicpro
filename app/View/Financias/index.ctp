@@ -212,7 +212,7 @@ $this->end(); ?>
 		},
         columns: [
         	{ field: "idfuentefinanciamiento", title: "Fuente", width: 200 },
-            { field: "montoparcial", title: "Monto", format: "{0:c}", footerTemplate: <?php echo "<strong>#= kendo.toString(sum,'c2') #</strong>"; ?>},
+            { field: "montoparcial", title: "Monto", format: "{0:c}", footerTemplate: "#= kendo.toString(sum,'c2') #"},
             { field: "userc", title: "Usuario"},
             { field: "creacion", title: "Fecha Asignación", format: "{0:dd/MM/yyyy}"},
             { field: "accion", width: 90} 
@@ -220,7 +220,8 @@ $this->end(); ?>
           
 	});
 </script>		
-		</div>
+
+</div>
 		
 
 
