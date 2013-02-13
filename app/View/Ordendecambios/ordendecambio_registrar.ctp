@@ -85,6 +85,8 @@ $this->end(); ?>
 		            montoordencambio.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            montoordencambio.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
 		        </script>	
+		         <?php if ($this->Form->isFieldError('Ordendecambio.montoordencambio')) {
+ 	 					echo $this->Form->error('Ordendecambio.montoordencambio'); } ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('descripcionordencambio', 

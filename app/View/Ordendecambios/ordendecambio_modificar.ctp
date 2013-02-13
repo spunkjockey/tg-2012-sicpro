@@ -87,7 +87,8 @@ $this->end(); ?>
 					var montoordencambio = new LiveValidation( "montoordencambio", { validMessage: " " , insertAfterWhatNode: "montop" } );
 		            montoordencambio.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            montoordencambio.add( Validate.Numericality, { minimum: 0, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99", notANumberMessage: "Debe ser un número" } );
-		        </script>	
+		        </script>
+		        
 			</li>
 			<li>
 				<?php echo $this->Form->input('descripcionordencambio', 
@@ -109,26 +110,29 @@ $this->end(); ?>
 					array(
 						'label' => 'Fecha:', 
 						'id'	=> 'datePicker1',
-						'div' => array('class' => 'requerido'),
+						'div' => array('id' => 'fechaodc','class' => 'requerido'),
 						'type'  => 'Text'
 						));
 					?>
 				<script type="text/javascript">
-		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " " } );
+		            var datePicker1 = new LiveValidation( "datePicker1", { validMessage: " ", insertAfterWhatNode: "fechaodc" } );
 		            datePicker1.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 		            datePicker1.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
 		        </script>
 			</li>
 			<li  class="accept">
+				<?php echo $this->Form->input('idcontrato', array('type' => 'hidden')); ?>
 				<table>
 					<tr>
 						<td>
 							<?php echo $this->Form->end(array('label' => 'Modificar Orden de Cambio', 'class' => 'k-button')); ?>
 						</td>
+						<!--
 						<td>
 							<?php echo $this->Form->button('Reset', array('type' => 'reset','class' => 'k-button')); ?>
 						</td>
+						-->
 						<td>
 							<?php echo $this->Html->link(
 								'Regresar', 
