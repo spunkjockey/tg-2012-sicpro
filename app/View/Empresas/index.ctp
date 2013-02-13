@@ -73,7 +73,12 @@ $this->end(); ?>
     <tr>
         <td><?php echo $emp['Empresa']['nombreempresa']; ?></td>
         <td><?php echo $emp['Empresa']['representantelegal']; ?></td>
-        <td><?php echo $emp['Empresa']['telefonoempresa']; ?></td>        
+        <!--<td><?php echo $emp['Empresa']['telefonoempresa']; ?></td>--> 
+        <td><?php 
+						$tel1 = substr($emp['Empresa']['telefonoempresa'],0 , 4);
+						$tel2 = substr($emp['Empresa']['telefonoempresa'], -4);
+						echo $tel1 .'-'. $tel2; 
+			?></td>       
         <td align="center">
             <?php echo $this->Html->link(
             	'<span class="k-icon k-i-pencil"></span>', 

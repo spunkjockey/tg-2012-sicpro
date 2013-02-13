@@ -85,7 +85,7 @@ $this->end(); ?>
 		            var moneda = new LiveValidation( "moneda", { validMessage: " ", insertAfterWhatNode: "dmonto" } );
 		            moneda.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		            //moneda.add(Validate.Format, { pattern: /[a-zA-Z0-9_ ]+/, failureMessage: "El monto de la fuente debe ser numérico" } );
-		            moneda.add(Validate.Numericality, { minimum: 0.00, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99"  } );
+		            moneda.add(Validate.Numericality, { minimum: 0.00, maximum: 999999999.99, notANumberMessage: "Debe ser un número", tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99"  } );
 		        </script> 
 			</li>
 			<li>

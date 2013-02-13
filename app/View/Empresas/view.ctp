@@ -43,7 +43,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Mantenimiento » Empresa » Detalles Empresa
+			?> » Mantenimiento » Empresa » Detalle Empresa
 			
 		</div>
 	</div>
@@ -72,26 +72,68 @@ $this->end(); ?>
     	<td><?php echo ($empresas['Empresa']['direccionoficina']); ?></td>
     </tr>
     <tr>
-    	<th data-field="representantelegal">Representante Representante: </th>
+    	<th data-field="representantelegal">Representante: </th>
     	<td><?php echo ($empresas['Empresa']['representantelegal']); ?></td>
     </tr>
     <tr>
     	<th data-field="telefonoempresa">Telefono: </th>
-    	<td><?php echo ($empresas['Empresa']['telefonoempresa']); ?></td>
+    	<td>
+    		 <?php 
+						$tel1 = substr($empresas['Empresa']['telefonoempresa'],0 , 4);
+						$tel2 = substr($empresas['Empresa']['telefonoempresa'], -4);
+						echo $tel1 .'-'. $tel2; 
+			?>
+    	</td>
     </tr>
     <tr>
     	<th data-field="correorepresentante">E-mail: </th>
     	<td><?php echo ($empresas['Empresa']['correorepresentante']); ?></td>
     </tr>
 </table>
-			
+<br />
+<table id="grid3">
+	<tr>
+		<td align="right">
 			<?php echo $this->Html->link(
 					'Regresar', 
 					array('controller' => 'Empresas', 'action' => 'index'),
 					array('class'=>'k-button')
 			); ?>
-			
+		</td>
+	</tr>
+</table>			
 
+<style>
+	#grid2 {
+		color: black;
+	}
+	
+	#grid2 tr {
+		height: 40px;
+	}
+	#grid2 th {
+		width: 150px;
+		text-align: right;
+		padding-right:20px;
+	}  
+	
+	#grid2 td {
+		width: 400px;
+	}
+	
+	#grid3 td {
+		width: 550px;
+		text-align: right;
+	}
+	
+</style>		
+
+
+
+
+
+
+<!--
 <script>
 	$(document).ready(function() {
 		
@@ -149,4 +191,4 @@ $this->end(); ?>
 	
 
         });
-</script>
+</script>-->
