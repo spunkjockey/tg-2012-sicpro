@@ -2,6 +2,11 @@
 class Ordendecambio extends AppModel {
 public $useTable = 'ordendecambio';
 public $primaryKey = 'idordencambio';
+public $belongsTo = array(
+        'Contratoconstructor' => array(
+            'className'    => 'Contratoconstructor',
+            'foreignKey'   => 'idcontrato'
+        ));
 
 		public $validate=array(
 			'fecharegistroorden'=>array(
