@@ -45,7 +45,7 @@ class FuentefinanciamientosController extends AppController {
 	        $this->request->data = $this->Fuentefinanciamiento->read();
 	    } else {
 	    	$this->Fuentefinanciamiento->set('nombrefuente', $this->request->data['Fuentefinanciamiento'] ['nombrefuente']);
-			$this->Fuentefinanciamiento->set('montodisponible', $this->request->data['Fuentefinanciamiento'] ['montodisponible']);
+			$this->Fuentefinanciamiento->set('montoinicial', $this->request->data['Fuentefinanciamiento'] ['montoinicial']);
 			$this->Fuentefinanciamiento->set('fechadisponible', $this->request->data['Fuentefinanciamiento'] ['fechadisponible']);
 			$this->Fuentefinanciamiento->set('userm', $this->request->data['Fuentefinanciamiento'] ['userm']);
 			$this->Fuentefinanciamiento->set('idtipofuente', $this->request->data['Fuentefinanciamiento'] ['idtipofuente']);

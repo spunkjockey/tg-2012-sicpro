@@ -72,7 +72,7 @@ $this->end(); ?>
 		        </script> 
 			</li>
 			<li>
-				<?php echo $this->Form->input('montodisponible', 
+				<?php echo $this->Form->input('montoinicial', 
 					array(
 						'label' => 'Monto disponible actual:', 
 						'id'    => 'moneda',
@@ -84,7 +84,8 @@ $this->end(); ?>
 				<script type="text/javascript">
 		            var moneda = new LiveValidation( "moneda", { validMessage: " ", insertAfterWhatNode: "dmonto" } );
 		            moneda.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		            moneda.add(Validate.Format, { pattern: /[a-zA-Z0-9_ ]+/, failureMessage: "El monto de la fuente debe ser numérico" } );
+		            //moneda.add(Validate.Format, { pattern: /[a-zA-Z0-9_ ]+/, failureMessage: "El monto de la fuente debe ser numérico" } );
+		            moneda.add(Validate.Numericality, { minimum: 0.00, maximum: 999999999.99, tooLowMessage: "El monto no puede ser menor a $0.00", tooHighMessage: "El monto no puede ser mayor a $999,999,999.99"  } );
 		        </script> 
 			</li>
 			<li>
@@ -229,9 +230,9 @@ $this->end(); ?>
 		
 		$("#moneda").kendoNumericTextBox({
 		     format: "c2", //Define currency type and 2 digits precision
-		     spinners: false,
-		     min:0, 
-		     max:999999999.99
+		     spinners: false
+		     //min:0.01 
+		     //max:999999999.99
 		 });
 
 		var fecha = $("#datePicker1").kendoDatePicker({
