@@ -113,6 +113,7 @@ $this->end(); ?>
 								'id' => 'montofactura',
 								'style' => 'width:120px;',
 								'maxlength' => 12,
+								'type' => 'text',
 								'div' => array('id' => 'montof', 'class' => 'requerido'),
 								'error' => array('attributes' => array('wrap' => 'span', 'class' => 'LV_validation_message LV_invalid', "id" => 'errormontofactura'))
 							)); ?>

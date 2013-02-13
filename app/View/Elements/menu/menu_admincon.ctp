@@ -29,10 +29,7 @@
 											<li><?php echo $this->Html->link('Consultar Estimación de Avance', array('controller' => 'Estimacions','action'=>'estimacion_consultar')); ?></li>
 										</ul>
 									</li>		
-									<li>Informe t&eacute;cnico
-										<ul>
-											<li><?php echo $this->Html->link('Consultar informe técnico', array('controller' => 'Informetecnicos','action'=>'informetecnico_consultar')); ?></li>
-										</ul>
+									<li><?php echo $this->Html->link('Consultar informe técnico', array('controller' => 'Informetecnicos','action'=>'informetecnico_consultar')); ?></li>
 									</li>	
 									
 								</ul>

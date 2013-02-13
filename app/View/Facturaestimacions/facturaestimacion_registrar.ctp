@@ -115,6 +115,7 @@ $this->end(); ?>
 								'style' => 'width:120px;',
 								'value' => $this->request->data['Estimacion']['montoestimado'],
 								'maxlength' => 12,
+								'type' => 'text',
 								'div' => array('id' => 'montof', 'class' => 'requerido'),
 								'error' => array('attributes' => array('wrap' => 'span', 'class' => 'LV_validation_message LV_invalid', "id" => 'errormontofactura'))
 							)); ?>

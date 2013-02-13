@@ -109,7 +109,7 @@ $this->end(); ?>
 								'id' => 'porcentajeavfisicoprog',
 								'class' => 'k-textbox',
 								'placeholder' => 'Ej. 23.50',
-								//'maxlength' => 6,
+								'maxlength' => 5,
 								'type' => 'text',
 								'div' => array('id'=>'pctjavnc','class' => 'requerido')
 							)); ?>
@@ -126,6 +126,7 @@ $this->end(); ?>
 								'id' => 'montoavfinancieroprog',
 								'style' => 'width:120px;',
 								'maxlength' => 12,
+								'type' => 'text',
 								'div' => array('id' => 'monto', 'class' => 'requerido')
 							)); ?>
 				<script type="text/javascript">
@@ -325,7 +326,6 @@ $this->end(); ?>
 					 
 					 $("#porcentajeavfisicoprog").kendoNumericTextBox({
 					     min: 0,
-					     max: 999.99,
 					     decimals: 2,
 					     spinners: false
 					 });
