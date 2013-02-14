@@ -56,7 +56,7 @@ $this->end(); ?>
 <?php 
 	if($idrol == 2)
 			{ ?> 
-			<li>
+
 <div style='margin:4px 0' >
 	<?php echo $this->Html->link(
 		'<span class="k-icon k-i-plus"></span> Registrar Contrato Constructor', 

@@ -73,6 +73,8 @@ $this->end(); ?>
 		            var proyectos = new LiveValidation( "proyectos", { validMessage: " ", insertAfterWhatNode: "proyo" } );
 		            proyectos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script> 
+		        <?php if ($this->Form->isFieldError('Fichatecnica.idproyecto')) {
+ 	 					echo $this->Form->error('Fichatecnica.idproyecto'); } ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('problematica', 

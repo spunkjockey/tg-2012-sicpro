@@ -406,7 +406,7 @@ order by avance.fechaavance');
 
 	public function contrato_detalle($idcontrato=null){
 		$this->layout = 'cyanspark';
-		if (!$this->Contrato->read()) {
+		if (!$this->Contrato->exists($idcontrato)) {
         	throw new NotFoundException('No se puede encontrar el contrato', 404);
     	} 
     	else {

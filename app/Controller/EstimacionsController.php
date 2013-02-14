@@ -125,7 +125,7 @@ class EstimacionsController extends AppController {
 
 	function estimacion_modificar($id = null)  {
 	    $this->layout = 'cyanspark';
-		if (!$this->Estimacion->read()) {
+		if (!$this->Estimacion->exists($id)) {
         	throw new NotFoundException('No se puede encontrar la estimación', 404);
     	} 
 		else {
@@ -156,7 +156,7 @@ class EstimacionsController extends AppController {
 
 	public function agregar_archivo($id = null) {
 		$this->layout = 'cyanspark';
-		if (!$this->Estimacion->read()) {
+		if (!$this->Estimacion->exists($id)) {
         	throw new NotFoundException('No se puede encontrar la estimación', 404);
     	}
 		else
@@ -169,6 +169,10 @@ class EstimacionsController extends AppController {
 		if (!$this->request->is('post')) {
 	        throw new MethodNotAllowedException();
 	    }
+		if (!$this->Estimacion->exists($id)) {
+        	throw new NotFoundException('No se puede encontrar la estimación', 404);
+    	}
+		else {
 	    if ($this->Estimacion->delete($id)) {
 	        $this->Session->setFlash('La Estimación de Avance ha sido eliminada.','default', array('class'=>'success'));
 	        $this->redirect(array('action' => 'index'));
@@ -176,6 +180,7 @@ class EstimacionsController extends AppController {
 	    	$this->Session->setFlash('No se puede eliminar la Estimacion seleccionada, se han encontrado referencias');
 	        $this->redirect(array('action' => 'index'));
 	    }
+		}
 	}
 	
 	function estimacion_consultar()
@@ -190,7 +195,7 @@ class EstimacionsController extends AppController {
 	function estimacion_detalles($idinfo=null)
 	{
 		$this->layout = 'cyanspark';
-		if (!$this->Estimacion->read()) {
+		if (!$this->Estimacion->exists($id)) {
         	throw new NotFoundException('No se puede encontrar la estimación', 404);
     	}
 		else {

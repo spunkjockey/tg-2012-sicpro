@@ -211,14 +211,15 @@
 	function contratosupervisor_modificar($idcontrato=null)
 	{
 		$this->layout = 'cyanspark';
-		if (!$this->Contrato->read()) 
+		
+		$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+		$this->set('idrol',$rol);
+		$this->Contratoconstructor->id = $idcontrato;
+		if (!$this->Contrato->exists($idcontrato)) 
 		{
         	throw new NotFoundException('No se puede encontrar el contrato', 404);
     	}
 	else {
-		$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
-		$this->set('idrol',$rol);
-		$this->Contratoconstructor->id = $idcontrato;
 		$idproy = $this->Contratosupervisor->field('idproyecto',array('idcontrato'=>$idcontrato));
 		//$idcontrato = $id;
 		$info = $this->Contratosupervisor->find('all',
@@ -370,6 +371,11 @@
 	
 	function contratosupervisor_eliminar($idcontrato=null) {
 		$contra = $this->Contratosupervisor->findByIdcontrato($idcontrato);
+		if (!$this->Contrato->exists($idcontrato)) 
+		{
+        	throw new NotFoundException('No se puede encontrar el contrato', 404);
+    	}
+		else { 
 		if (!$this->request->is('post')) {
 	        throw new MethodNotAllowedException();
 	    }
@@ -380,6 +386,7 @@
 	    	$this->Session->setFlash('El contrato supervisión "'. $contra['Contratosupervisor']['codigocontrato'] .'" no ha sido eliminado, esto se debe a que tiene relaciones con otros elementos');
 			$this->redirect(array('action' => 'contratosupervisor_listar'));
 	    }
+	}
 	}
 		
 	}

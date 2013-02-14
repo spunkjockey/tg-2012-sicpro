@@ -299,7 +299,7 @@ App::uses('CakeEmail', 'Network/Email');
 	function contratoconstructor_modificar($idcontrato=null)
 	{
 		$this->layout = 'cyanspark';
-		if (!$this->Contrato->read()) 
+		if (!$this->Contrato->exists($idcontrato)) 
 		{
         	throw new NotFoundException('No se puede encontrar el contrato', 404);
     	}
@@ -389,6 +389,11 @@ App::uses('CakeEmail', 'Network/Email');
 	function contratoconstructor_eliminar($idcontrato=null) {
 		
 			$contra = $this->Contratoconstructor->findByIdcontrato($idcontrato);
+			if (!$this->Contrato->exists($idcontrato)) 
+		{
+        	throw new NotFoundException('No se puede encontrar el contrato', 404);
+    	}
+		else { 
 			if (!$this->request->is('post')) {
 		        throw new MethodNotAllowedException();
 		    }
@@ -399,6 +404,7 @@ App::uses('CakeEmail', 'Network/Email');
 		    	$this->Session->setFlash('El Contrato Constructor "'. $contra['Contratoconstructor']['codigocontrato'] .'" no ha sido eliminado, esto se debe a que tiene relaciones con otros elementos');
 				$this->redirect(array('action' => 'contratoconstructor_listar'));
 		    }
+		}
 		
 	}
 	

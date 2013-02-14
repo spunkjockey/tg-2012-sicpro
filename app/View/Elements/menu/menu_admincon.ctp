@@ -54,7 +54,7 @@
 							</li>
 							<li>Mantenimiento
 								<ul>
-									<li><?php echo $this->Html->link('Empresas', array('controller' => 'empresas','action'=>'index')); ?></li>
+									<li><?php echo $this->Html->link('Empresas', array('controller' => 'Empresas','action'=>'index')); ?></li>
 									<!--<li disabled="disabled">Consultar fuente de financiamiento</li>-->
 									<li>Perfil
 										<ul>

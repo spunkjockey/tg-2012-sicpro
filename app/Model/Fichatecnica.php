@@ -40,7 +40,12 @@ class Fichatecnica extends AppModel {
 				        'allowEmpty' => true,
 						'required'=>false
 						)
-					)
+					),
+			'idproyecto'=>array(
+			'isUnique' => array(
+		        	'rule'    => 'isUnique',
+		        	'message' => 'Ya existe ficha para el proyecto seleccionado anteriormente.'
+					))
 				);
 	
 	

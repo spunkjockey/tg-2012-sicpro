@@ -31,7 +31,7 @@ class FichatecnicasController extends AppController {
 		            	$this->redirect(array('controller' => 'fichatecnicas','action' => 'view',$this->Fichatecnica->id
 						));
 		        	} else {
-		            	$this->Session->setFlash('No se pudo realizar el registro' /*. $this->data['Fichatecnica']['idfichatenica'] */);
+		            	//$this->Session->setFlash('No se pudo realizar el registro' /*. $this->data['Fichatecnica']['idfichatenica'] */);
 		        	}
     		}	
 	}
@@ -40,7 +40,7 @@ class FichatecnicasController extends AppController {
 		$this->layout = 'cyanspark';	
 		$this->Fichatecnica->id = $id;
 	    if ($this->request->is('get')) {
-	        $this->request->data = $this->Fichatecnica->read();
+	        $this->request->data = $this->Fichatecnica->exists($id);
 	    } else {
 	    	$this->Fichatecnica->set('userm', $this->Session->read('User.username'));
 			$this->Fichatecnica->set('modificacion', date('Y-m-d h:i:s'));

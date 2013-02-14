@@ -80,6 +80,8 @@ $this->end(); ?>
 				var construccion= new LiveValidation( "construccion", { validMessage: " " , insertAfterWhatNode: "contraasu" } );
 				construccion.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 			</script>
+			<?php if ($this->Form->isFieldError('Contrato.con_idcontrato')) {
+ 	 					echo $this->Form->error('Contrato.con_idcontrato'); } ?>
 		</li>
 		
 		<li>

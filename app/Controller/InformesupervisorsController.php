@@ -140,7 +140,7 @@
 		function informesupervisor_cargar_archivo($id=null)
 		{
 			$this->layout = 'cyanspark';
-			if (!$this->Informesupervisor->read()) 
+			if (!$this->Informesupervisor->exists($id)) 
 			{
         		throw new NotFoundException('No se puede encontrar el informe de supervisión', 404);
     		}
@@ -156,7 +156,7 @@
 		{
 			$this->layout = 'cyanspark';
 			$this->Informesupervisor->id = $id;
-			if (!$this->Informesupervisor->read()) 
+			if (!$this->Informesupervisor->exists($id)) 
 			{
         		throw new NotFoundException('No se puede encontrar el informe de supervisión', 404);
     		}
@@ -251,6 +251,11 @@ WHERE
 			{
 	        	throw new MethodNotAllowedException();
 	    	}
+	    	if (!$this->Informesupervisor->exists($id)) 
+			{
+        		throw new NotFoundException('No se puede encontrar el informe de supervisión', 404);
+    		}
+			else {
 		    if ($this->Informesupervisor->delete($id)) 
 		    {
 		        $this->Session->setFlash('El informe "'.$informesupervisor['Informesupervisor']['tituloinformesup'] .'" ha sido eliminado.',
@@ -260,6 +265,7 @@ WHERE
 	    		$this->Session->setFlash('No se puede eliminar el Informe de Supervisión seleccionado, se han encontrado referencias');
 	        	$this->redirect(array('action' => 'informesupervisor_index'));
 	    	}
+			}
 		}
 		
 		
@@ -288,7 +294,7 @@ WHERE
 		
 		public function informesupervisor_resultado($idinformesupervision=null){
 			$this->layout = 'cyanspark';
-			if (!$this->Informesupervisor->read()) {
+			if (!$this->Informesupervisor->exists($idinformesupervision)) {
         	throw new NotFoundException('No se puede encontrar el informe', 404);
     	}
 			else {

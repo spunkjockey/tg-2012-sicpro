@@ -79,6 +79,8 @@ $this->end(); ?>
 					var contratos= new LiveValidation( "contratos", { validMessage: " " , insertAfterWhatNode: "contrasup"} );
 					contratos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				</script>
+				<?php if ($this->Form->isFieldError('Contrato.con_idcontrato')) {
+ 	 					echo $this->Form->error('Contrato.con_idcontrato'); } ?>
 			</li>
 			<div id=infoproy><!--- Aqui se carga el nombre del proyecto seleccionado-->	</div>
 			<div id=infoconstructor><!--- Aqui se muestran datos sobre el contratoconstructor seleccionado --></div>

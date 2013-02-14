@@ -52,16 +52,23 @@
 		        	)
 				),
 	        	'fechainiciocontrato' => array(
-				'visitamenorigual'=>array(
-					'rule'=>array('iniciomenor'),
-            		'message' => 'La fecha de inicio de contrato debe ser menor a la fecha de fin del contrato'),
-				'formatofecha'=>array(
-					'rule'       => array('date', 'dmy'),
-			        'message'    => 'Ingrese fecha de inicio con el siguiente formato DD/MM/AAAA.',
-			        'allowEmpty' => true,
-					'required'=>false
-					)
-				)
+					'visitamenorigual'=>array(
+						'rule'=>array('iniciomenor'),
+	            		'message' => 'La fecha de inicio de contrato debe ser menor a la fecha de fin del contrato'),
+					'formatofecha'=>array(
+						'rule'       => array('date', 'dmy'),
+				        'message'    => 'Ingrese fecha de inicio con el siguiente formato DD/MM/AAAA.',
+				        'allowEmpty' => true,
+						'required'=>false
+						)
+				),
+				'con_idcontrato' => array(
+					'isUnique' => array(
+			        	'rule'    => 'isUnique',
+			            'allowEmpty' => false,
+		            	'message' => 'El contrato seleccionado ya ha sido asignado'
+		        		)
+				),
 		 
 			);
 			
