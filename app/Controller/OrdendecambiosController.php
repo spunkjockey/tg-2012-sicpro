@@ -34,7 +34,9 @@ class OrdendecambiosController extends AppController {
 
 	public function ordendecambio_modificar($idordencambio=null){
 		$this->layout = 'cyanspark';
-		
+		if (!$this->Ordendecambio->exists($idordencambio)) {
+        	throw new NotFoundException('No se ha encontrado la orden de cambio a modificar', 404);
+    	} else {
 		$this->set('anterior',$this->Ordendecambio->find('first',
 				array('conditions'=>array('Ordendecambio.idordencambio !='. $idordencambio),
 					'order'=>'fecharegistroorden DESC')));
@@ -52,6 +54,7 @@ class OrdendecambiosController extends AppController {
             	$this->Session->setFlash('Imposible editar Orden de Cambio');
         	}
 	    }
+	    }
 		
 	}
 	
@@ -62,10 +65,14 @@ class OrdendecambiosController extends AppController {
 		if (!$this->request->is('post')) {
 	        throw new MethodNotAllowedException();
 	    }
+		if (!$this->Ordendecambio->exists($idordencambio)) {
+        	throw new NotFoundException('No se ha encontrado la orden de cambio que desea eliminar', 404);
+    	} else {
 	    if ($this->Ordendecambio->delete($idordencambio)) {
 	        $this->Session->setFlash('La Orden de Cambio "'.$contrato['Ordendecambio']['tituloordendecambio'] .'" del contrato "'. $contraselected['Contratoconstructor']['codigocontrato'].'" ha sido eliminada.','default',array('class' => 'success'));
 	        $this->redirect(array('action' => 'ordendecambio_listar'));
 	    }
+		}
 	}
 
 	public function proyectojson() {

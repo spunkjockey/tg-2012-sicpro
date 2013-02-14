@@ -105,6 +105,9 @@
 		function informetecnico_observacion($idinfo=null)
 		{
 			$this->layout = 'cyanspark';
+			if (!$this->Informetecnico->exists($idinfo)) {
+        	throw new NotFoundException('No se ha encontrado el informe técnico que buscaba', 404);
+    	} else {
 			$info = $this->Informetecnico->find('first',array(
 				'fields'=>array('antecedentes','anotacion'),
 				'conditions'=>array('idinformetecnico'=>$idinfo)
@@ -141,6 +144,7 @@
         		{
             		$this->Session->setFlash('No se pudo agregar la observación');
         		}
+			}
 			}
 		}
 		 
@@ -223,6 +227,9 @@
 		function informetecnico_modificar($id=null)
 		{
 			$this->layout = 'cyanspark';
+			if (!$this->Informetecnico->exists($id)) {
+        	throw new NotFoundException('No se ha encontrado el informe técnico que buscaba', 404);
+    	} else {
 			$info=$this->Informetecnico->findByIdinformetecnico($id);
 			$this->set('info',$info);
 			$this->Informetecnico->id = $id;
@@ -246,18 +253,26 @@
 		            $this->redirect(array('action' => 'informetecnico_index'));
 	        	} 
 			}
+			}
 		}
 
 		function informetecnico_subirfotos($id=null)
 		{
 			$this->layout = 'cyanspark';
-        	$this->set ('idinformetecnico', $id); 
+			if (!$this->Informetecnico->exists($idinfo)) {
+        	throw new NotFoundException('No se ha encontrado el informe técnico que buscaba', 404);
+    	} else {
+        	$this->set ('idinformetecnico', $id);
+		} 
 		}
 
 		function informetecnico_eliminar($id) {
 			if (!$this->request->is('post')) {
 		        throw new MethodNotAllowedException();
 		    }
+			if (!$this->Informetecnico->exists($idinfo)) {
+        	throw new NotFoundException('No se ha encontrado el informe técnico que buscaba', 404);
+    	} else {
 		    if ($this->Informetecnico->delete($id)) {
 		        $this->Session->setFlash('El informe técnico ha sido eliminado.','default', array('class'=>'success'));
 		        $this->redirect(array('action' => 'informetecnico_index'));
@@ -265,6 +280,7 @@
 		    	$this->Session->setFlash('No se puede eliminar el informe seleccionado');
 		        $this->redirect(array('action' => 'informetecnico_index'));
 		    }
+		}
 		}
 		
 	}
