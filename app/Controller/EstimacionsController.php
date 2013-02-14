@@ -125,34 +125,44 @@ class EstimacionsController extends AppController {
 
 	function estimacion_modificar($id = null)  {
 	    $this->layout = 'cyanspark';
-		
-		$info=$this->Estimacion->findByIdestimacion($id);
-		$this->set('info',$info);
-        //preguntar si es post
-        $this->Estimacion->id = $id;
-		if ($this->request->is('get')) {
-		   	$this->request->data=$this->Estimacion->read();
-		} else {
-			$this->Estimacion->set('idcontrato', $info['Contratoconstructor']['idcontrato']);
-			$this->Estimacion->set('idestimacion', $this->request->data['Estimacion'] ['idestimacion']);
-        	$this->Estimacion->set('tituloestimacion', $this->request->data['Estimacion'] ['tituloestimacion']);
-			$this->Estimacion->set('fechainicioestimacion', $this->request->data['Estimacion'] ['fechainicioestimacion']);
-			$this->Estimacion->set('fechafinestimacion', $this->request->data['Estimacion'] ['fechafinestimacion']);
-			$this->Estimacion->set('montoestimado', $this->request->data['Estimacion'] ['montoestimado']);
-			$this->Estimacion->set('porcentajeestimadoavance', $this->request->data['Estimacion'] ['porcentajeestimadoavance']);	
-            $this->Estimacion->set('fechaestimacion', $this->request->data['Estimacion'] ['fechaestimacion']);	
-			$this->Estimacion->set('userm', $this->Session->read('User.username'));
-			$this->Estimacion->set('modificacion', date('Y-m-d h:i:s'));  
-			if ($this->Estimacion->save()) {
-	            $this->Session->setFlash('La Estimación de Avance ha sido actualizada.', 'default', array('class'=>'success'));
-	            $this->redirect(array('action' => 'index'));
-	        } 
-	    }
+		if (!$this->Estimacion->read()) {
+        	throw new NotFoundException('No se puede encontrar la estimación', 404);
+    	} 
+		else {
+			$info=$this->Estimacion->findByIdestimacion($id);
+			$this->set('info',$info);
+	        //preguntar si es post
+	        $this->Estimacion->id = $id;
+			if ($this->request->is('get')) {
+			   	$this->request->data=$this->Estimacion->read();
+			} else {
+				$this->Estimacion->set('idcontrato', $info['Contratoconstructor']['idcontrato']);
+				$this->Estimacion->set('idestimacion', $this->request->data['Estimacion'] ['idestimacion']);
+	        	$this->Estimacion->set('tituloestimacion', $this->request->data['Estimacion'] ['tituloestimacion']);
+				$this->Estimacion->set('fechainicioestimacion', $this->request->data['Estimacion'] ['fechainicioestimacion']);
+				$this->Estimacion->set('fechafinestimacion', $this->request->data['Estimacion'] ['fechafinestimacion']);
+				$this->Estimacion->set('montoestimado', $this->request->data['Estimacion'] ['montoestimado']);
+				$this->Estimacion->set('porcentajeestimadoavance', $this->request->data['Estimacion'] ['porcentajeestimadoavance']);	
+	            $this->Estimacion->set('fechaestimacion', $this->request->data['Estimacion'] ['fechaestimacion']);	
+				$this->Estimacion->set('userm', $this->Session->read('User.username'));
+				$this->Estimacion->set('modificacion', date('Y-m-d h:i:s'));  
+				if ($this->Estimacion->save()) {
+		            $this->Session->setFlash('La Estimación de Avance ha sido actualizada.', 'default', array('class'=>'success'));
+		            $this->redirect(array('action' => 'index'));
+		        } 
+		    }
+		   }
 	}
 
 	public function agregar_archivo($id = null) {
 		$this->layout = 'cyanspark';
-        $this->set ('idestimacion', $id);    
+		if (!$this->Estimacion->read()) {
+        	throw new NotFoundException('No se puede encontrar la estimación', 404);
+    	}
+		else
+		{ 
+        	$this->set ('idestimacion', $id);
+		}    
     }
 
 	function estimacion_eliminar($id) {
@@ -180,14 +190,19 @@ class EstimacionsController extends AppController {
 	function estimacion_detalles($idinfo=null)
 	{
 		$this->layout = 'cyanspark';
-		$this->set ('idestimacion', $idinfo);
-		$info = $this->Estimacion->find('all',array(
-			'fields'=>array('Estimacion.tituloestimacion','Estimacion.fechainicioestimacion',
-							'Estimacion.fechafinestimacion','Estimacion.fechaestimacion',
-							'Estimacion.montoestimado','Estimacion.porcentajeestimadoavance'),
-			'conditions'=>array('Estimacion.idestimacion'=>$idinfo)
-		)); 
-		$this->set('estima',$info);
+		if (!$this->Estimacion->read()) {
+        	throw new NotFoundException('No se puede encontrar la estimación', 404);
+    	}
+		else {
+			$this->set ('idestimacion', $idinfo);
+			$info = $this->Estimacion->find('all',array(
+				'fields'=>array('Estimacion.tituloestimacion','Estimacion.fechainicioestimacion',
+								'Estimacion.fechafinestimacion','Estimacion.fechaestimacion',
+								'Estimacion.montoestimado','Estimacion.porcentajeestimadoavance'),
+				'conditions'=>array('Estimacion.idestimacion'=>$idinfo)
+			)); 
+			$this->set('estima',$info);
+		}
 	}
 
 	public function contrato_est_json() {

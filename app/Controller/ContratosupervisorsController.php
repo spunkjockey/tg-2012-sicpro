@@ -211,6 +211,11 @@
 	function contratosupervisor_modificar($idcontrato=null)
 	{
 		$this->layout = 'cyanspark';
+		if (!$this->Contrato->read()) 
+		{
+        	throw new NotFoundException('No se puede encontrar el contrato', 404);
+    	}
+	else {
 		$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
 		$this->set('idrol',$rol);
 		$this->Contratoconstructor->id = $idcontrato;
@@ -296,6 +301,7 @@
 	        $this->request->data = $this->Contratosupervisor->read(null, $idcontrato);
 			
 		}
+	}
 		
 	}
 	

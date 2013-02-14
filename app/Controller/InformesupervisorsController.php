@@ -140,7 +140,13 @@
 		function informesupervisor_cargar_archivo($id=null)
 		{
 			$this->layout = 'cyanspark';
-        	$this->set('idinformesupervision', $id);
+			if (!$this->Informesupervisor->read()) 
+			{
+        		throw new NotFoundException('No se puede encontrar el informe de supervisión', 404);
+    		}
+			else { 
+        		$this->set('idinformesupervision', $id);
+			}
 		}
 		
 		/*informesupervisor_modificar($id=null)
@@ -150,8 +156,12 @@
 		{
 			$this->layout = 'cyanspark';
 			$this->Informesupervisor->id = $id;
-			
-										
+			if (!$this->Informesupervisor->read()) 
+			{
+        		throw new NotFoundException('No se puede encontrar el informe de supervisión', 404);
+    		}
+			else {
+									
 			if ($this->request->is('get')) 
 			{
 					
@@ -166,20 +176,20 @@
 						)));*/
 				//Debugger::dump($contratoid);
 				$this->set('fechas',Hash::combine($this->Informesupervisor->query("SELECT 
-  avanceprogramado.fechaavance, to_char(avanceprogramado.fechaavance::timestamp with time zone, 'DD/MM/YYYY'::text) AS fechafin
-FROM 
-  sicpro2012.avanceprogramado, 
-  sicpro2012.contratosupervisor
-WHERE 
-  avanceprogramado.idcontrato = contratosupervisor.con_idcontrato AND
-  contratosupervisor.idcontrato = " . $contratoid . "
-EXCEPT
-SELECT 
-  informesupervision.fechafinsupervision AS fechaavance, to_char(informesupervision.fechafinsupervision::timestamp with time zone, 'DD/MM/YYYY'::text) AS fechafin
-FROM 
-  sicpro2012.informesupervision
-WHERE 
-  informesupervision.idcontrato = " . $contratoid . " AND informesupervision.idinformesupervision <> " . $informeid . ";"),'{n}.0.fechaavance','{n}.0.fechafin'));
+				  avanceprogramado.fechaavance, to_char(avanceprogramado.fechaavance::timestamp with time zone, 'DD/MM/YYYY'::text) AS fechafin
+				FROM 
+				  sicpro2012.avanceprogramado, 
+				  sicpro2012.contratosupervisor
+				WHERE 
+				  avanceprogramado.idcontrato = contratosupervisor.con_idcontrato AND
+				  contratosupervisor.idcontrato = " . $contratoid . "
+				EXCEPT
+				SELECT 
+				  informesupervision.fechafinsupervision AS fechaavance, to_char(informesupervision.fechafinsupervision::timestamp with time zone, 'DD/MM/YYYY'::text) AS fechafin
+				FROM 
+				  sicpro2012.informesupervision
+				WHERE 
+				  informesupervision.idcontrato = " . $contratoid . " AND informesupervision.idinformesupervision <> " . $informeid . ";"),'{n}.0.fechaavance','{n}.0.fechafin'));
 			}
 			else 
 			{
@@ -226,6 +236,7 @@ WHERE
   informesupervision.idcontrato = " . $contratoid . " AND informesupervision.idinformesupervision <> " . $informeid . ";"),'{n}.0.fechaavance','{n}.0.fechafin'));
 					
         		} 
+			}
 			}
 		}
 		
@@ -277,10 +288,16 @@ WHERE
 		
 		public function informesupervisor_resultado($idinformesupervision=null){
 			$this->layout = 'cyanspark';
-			$info  = $this->Informesupervisor->find('all',array(
+			if (!$this->Informesupervisor->read()) {
+        	throw new NotFoundException('No se puede encontrar el informe', 404);
+    	}
+			else {
+				$info  = $this->Informesupervisor->find('all',array(
 			'conditions'=> array(
 								'Informesupervisor.idinformesupervision' => $idinformesupervision)));
 			$this->set('infosupervision',$info);
+			} 
+			
 		}
 
 		function proyinforsup(){

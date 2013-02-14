@@ -299,101 +299,107 @@ App::uses('CakeEmail', 'Network/Email');
 	function contratoconstructor_modificar($idcontrato=null)
 	{
 		$this->layout = 'cyanspark';
-		$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
-			$this->set('idrol',$rol);
-		$this->Contratoconstructor->id = $idcontrato;
-		$this->set('idcontratoconstructor',$idcontrato);
-		$idproyecto = $this->Contratoconstructor->field('idproyecto',array('idcontrato'=>$idcontrato));
-		//$this->set('idproyecto',$idproyecto);
-		$nomproy = $this->Proyecto->field('nombreproyecto',array('idproyecto'=>$idproyecto));
-		$this->set('nproy',$nomproy);
-		
-		
-		if ($this->request->is('post')) 
+		if (!$this->Contrato->read()) 
 		{
-			//$contrato = $this->Contrato->findByCodigocontrato($this->request->data['Contratoconstructor']['codigocontrato']);	
-			//$id = $contrato['Contrato']['idcontrato'];
-			$this->Contrato->create();
-			
-			$this->Contrato->set('idcontrato', $idcontrato);
-			$this->Contrato->set('idproyecto', $this->request->data['Contratoconstructor']['idproyecto']);
-			
-			$this->Contrato->set('idpersona', $this->request->data['Contratoconstructor']['idpersona']);
-			$this->Contrato->set('idempresa', $this->request->data['Contratoconstructor']['idempresa']);
-			$this->Contrato->set('codigocontrato', $this->request->data['Contratoconstructor']['codigocontrato']);
-			$this->Contrato->set('nombrecontrato', $this->request->data['Contratoconstructor']['nombrecontrato']);
-			$this->Contrato->set('montooriginal', $this->request->data['Contratoconstructor']['montooriginal']);
-			$this->Contrato->set('plazoejecucion', $this->request->data['Contratoconstructor']['plazoejecucion']);
-			$this->Contrato->set('fechainiciocontrato', $this->request->data['Contratoconstructor']['fechainiciocontrato']);
-			$this->Contrato->set('fechafincontrato', $this->request->data['Contratoconstructor']['fechafincontrato']);
-			$this->Contrato->set('detalleobras', $this->request->data['Contratoconstructor']['detalleobras']);
-			$this->Contrato->set('userm', $this->Session->read('User.username'));
-			$this->Contrato->set('modificacion', date('Y-m-d h:i:s'));
-			
-			if ($this->Contrato->save($idcontrato, array(
-										'fieldList'=>array('idpersona','idempresa','codigocontrato','nombrecontrato',
-														   'montooriginal','plazoejecucion','fechainiciocontrato',
-														   'fechafincontrato','detalleobras','userm','modificacion'))))
-			{
-				$this->Contratoconstructor->create();
-				
-				$this->Contratoconstructor->set('idcontrato', $idcontrato);
-					$this->Contratoconstructor->set('idpersona', $this->request->data['Contratoconstructor']['idpersona']);
-					$this->Contratoconstructor->set('idempresa', $this->request->data['Contratoconstructor']['idempresa']);
-					$this->Contratoconstructor->set('codigocontrato', $this->request->data['Contratoconstructor']['codigocontrato']);
-					$this->Contratoconstructor->set('nombrecontrato', $this->request->data['Contratoconstructor']['nombrecontrato']);
-					$this->Contratoconstructor->set('montooriginal', $this->request->data['Contratoconstructor']['montooriginal']);
-					$this->Contratoconstructor->set('plazoejecucion', $this->request->data['Contratoconstructor']['plazoejecucion']);
-					$this->Contratoconstructor->set('fechainiciocontrato', $this->request->data['Contratoconstructor']['fechainiciocontrato']);
-					$this->Contratoconstructor->set('fechafincontrato', $this->request->data['Contratoconstructor']['fechafincontrato']);
-					$this->Contratoconstructor->set('detalleobras', $this->request->data['Contratoconstructor']['detalleobras']);
-					$this->Contratoconstructor->set('retencion', $this->request->data['Contratoconstructor']['montooriginal']*0.05);
-					$this->Contratoconstructor->set('anticipo', $this->request->data['Contratoconstructor']['anticipo']);
-					$this->Contratoconstructor->set('userm', $this->Session->read('User.username'));
-					$this->Contratoconstructor->set('modificacion', date('Y-m-d h:i:s'));
-	                
-	                if($this->Contratoconstructor->save($idcontrato, array(
-										'fieldList'=>array('idpersona','idempresa','codigocontrato','nombrecontrato',
-														   'montooriginal','plazoejecucion','fechainiciocontrato',
-														   'fechafincontrato','detalleobras','anticipo','retencion',
-														   'userm','modificacion'))))
+        	throw new NotFoundException('No se puede encontrar el contrato', 404);
+    	}
+		else {  
+			$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+				$this->set('idrol',$rol);
+			$this->Contratoconstructor->id = $idcontrato;
+			$this->set('idcontratoconstructor',$idcontrato);
+			$idproyecto = $this->Contratoconstructor->field('idproyecto',array('idcontrato'=>$idcontrato));
+			//$this->set('idproyecto',$idproyecto);
+			$nomproy = $this->Proyecto->field('nombreproyecto',array('idproyecto'=>$idproyecto));
+			$this->set('nproy',$nomproy);
+			if ($this->request->is('post')) 
 				{
-					$this->Session->setFlash('El Contrato de tipo Constructor '.$this->request->data['Contratoconstructor']['codigocontrato'].' ha sido actualizado.',
-											 'default',array('class'=>'success'));	
-					$this->redirect(array('controller'=>'Contratoconstructors', 'action' => 'contratoconstructor_listar'));
-				}
-				else 
+					//$contrato = $this->Contrato->findByCodigocontrato($this->request->data['Contratoconstructor']['codigocontrato']);	
+					//$id = $contrato['Contrato']['idcontrato'];
+					$this->Contrato->create();
+					
+					$this->Contrato->set('idcontrato', $idcontrato);
+					$this->Contrato->set('idproyecto', $this->request->data['Contratoconstructor']['idproyecto']);
+					
+					$this->Contrato->set('idpersona', $this->request->data['Contratoconstructor']['idpersona']);
+					$this->Contrato->set('idempresa', $this->request->data['Contratoconstructor']['idempresa']);
+					$this->Contrato->set('codigocontrato', $this->request->data['Contratoconstructor']['codigocontrato']);
+					$this->Contrato->set('nombrecontrato', $this->request->data['Contratoconstructor']['nombrecontrato']);
+					$this->Contrato->set('montooriginal', $this->request->data['Contratoconstructor']['montooriginal']);
+					$this->Contrato->set('plazoejecucion', $this->request->data['Contratoconstructor']['plazoejecucion']);
+					$this->Contrato->set('fechainiciocontrato', $this->request->data['Contratoconstructor']['fechainiciocontrato']);
+					$this->Contrato->set('fechafincontrato', $this->request->data['Contratoconstructor']['fechafincontrato']);
+					$this->Contrato->set('detalleobras', $this->request->data['Contratoconstructor']['detalleobras']);
+					$this->Contrato->set('userm', $this->Session->read('User.username'));
+					$this->Contrato->set('modificacion', date('Y-m-d h:i:s'));
+					
+					if ($this->Contrato->save($idcontrato, array(
+												'fieldList'=>array('idpersona','idempresa','codigocontrato','nombrecontrato',
+																   'montooriginal','plazoejecucion','fechainiciocontrato',
+																   'fechafincontrato','detalleobras','userm','modificacion'))))
+					{
+						$this->Contratoconstructor->create();
+						
+						$this->Contratoconstructor->set('idcontrato', $idcontrato);
+							$this->Contratoconstructor->set('idpersona', $this->request->data['Contratoconstructor']['idpersona']);
+							$this->Contratoconstructor->set('idempresa', $this->request->data['Contratoconstructor']['idempresa']);
+							$this->Contratoconstructor->set('codigocontrato', $this->request->data['Contratoconstructor']['codigocontrato']);
+							$this->Contratoconstructor->set('nombrecontrato', $this->request->data['Contratoconstructor']['nombrecontrato']);
+							$this->Contratoconstructor->set('montooriginal', $this->request->data['Contratoconstructor']['montooriginal']);
+							$this->Contratoconstructor->set('plazoejecucion', $this->request->data['Contratoconstructor']['plazoejecucion']);
+							$this->Contratoconstructor->set('fechainiciocontrato', $this->request->data['Contratoconstructor']['fechainiciocontrato']);
+							$this->Contratoconstructor->set('fechafincontrato', $this->request->data['Contratoconstructor']['fechafincontrato']);
+							$this->Contratoconstructor->set('detalleobras', $this->request->data['Contratoconstructor']['detalleobras']);
+							$this->Contratoconstructor->set('retencion', $this->request->data['Contratoconstructor']['montooriginal']*0.05);
+							$this->Contratoconstructor->set('anticipo', $this->request->data['Contratoconstructor']['anticipo']);
+							$this->Contratoconstructor->set('userm', $this->Session->read('User.username'));
+							$this->Contratoconstructor->set('modificacion', date('Y-m-d h:i:s'));
+			                
+			                if($this->Contratoconstructor->save($idcontrato, array(
+												'fieldList'=>array('idpersona','idempresa','codigocontrato','nombrecontrato',
+																   'montooriginal','plazoejecucion','fechainiciocontrato',
+																   'fechafincontrato','detalleobras','anticipo','retencion',
+																   'userm','modificacion'))))
+						{
+							$this->Session->setFlash('El Contrato de tipo Constructor '.$this->request->data['Contratoconstructor']['codigocontrato'].' ha sido actualizado.',
+													 'default',array('class'=>'success'));	
+							$this->redirect(array('controller'=>'Contratoconstructors', 'action' => 'contratoconstructor_listar'));
+						}
+						else 
+						{
+							$this->Session->setFlash('Ha ocurrido un error, revise los datos ingresados');
+			            }
+						
+					}
+					else 
+					{
+						$this->Session->setFlash('Ha ocurrido un error, revise los datos ingresados');
+						//$this->set('error',$this->Contrato->invalidFields());
+		            }
+					
+		        }
+			else
 				{
-					$this->Session->setFlash('Ha ocurrido un error, revise los datos ingresados');
-	            }
-				
-			}
-			else 
-			{
-				$this->Session->setFlash('Ha ocurrido un error, revise los datos ingresados');
-				//$this->set('error',$this->Contrato->invalidFields());
-            }
-			
-        }
-	else
-		{
-			$this->request->data = $this->Contratoconstructor->read(null, $idcontrato);	
-	    } 
+					$this->request->data = $this->Contratoconstructor->read(null, $idcontrato);	
+			    } 
+    	}
     }
 
 
 	function contratoconstructor_eliminar($idcontrato=null) {
-		$contra = $this->Contratoconstructor->findByIdcontrato($idcontrato);
-		if (!$this->request->is('post')) {
-	        throw new MethodNotAllowedException();
-	    }
-	    if ($this->Contratoconstructor->delete($idcontrato) && $this->Contrato->delete($idcontrato)) {
-	        $this->Session->setFlash('El Contrato Constructor "'. $contra['Contratoconstructor']['codigocontrato'] .'" ha sido eliminado.','default',array('class' => 'success'));
-	        $this->redirect(array('action' => 'contratoconstructor_listar'));
-	    } else {
-	    	$this->Session->setFlash('El Contrato Constructor "'. $contra['Contratoconstructor']['codigocontrato'] .'" no ha sido eliminado, esto se debe a que tiene relaciones con otros elementos');
-			$this->redirect(array('action' => 'contratoconstructor_listar'));
-	    }
+		
+			$contra = $this->Contratoconstructor->findByIdcontrato($idcontrato);
+			if (!$this->request->is('post')) {
+		        throw new MethodNotAllowedException();
+		    }
+		    if ($this->Contratoconstructor->delete($idcontrato) && $this->Contrato->delete($idcontrato)) {
+		        $this->Session->setFlash('El Contrato Constructor "'. $contra['Contratoconstructor']['codigocontrato'] .'" ha sido eliminado.','default',array('class' => 'success'));
+		        $this->redirect(array('action' => 'contratoconstructor_listar'));
+		    } else {
+		    	$this->Session->setFlash('El Contrato Constructor "'. $contra['Contratoconstructor']['codigocontrato'] .'" no ha sido eliminado, esto se debe a que tiene relaciones con otros elementos');
+				$this->redirect(array('action' => 'contratoconstructor_listar'));
+		    }
+		
 	}
 	
 	public function contrato_actualizarestado(){

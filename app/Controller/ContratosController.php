@@ -406,12 +406,17 @@ order by avance.fechaavance');
 
 	public function contrato_detalle($idcontrato=null){
 		$this->layout = 'cyanspark';
-		$contratos = $this->Contrato->findByIdcontrato($idcontrato);
-		$this->set('contratos',$contratos);
-		
-		$ordenes =$this->Ordendecambio->find('all',
-		array('conditions'=> array('Ordendecambio.idcontrato'=>$idcontrato)));
-		$this->set('ordenes',$ordenes);
+		if (!$this->Contrato->read()) {
+        	throw new NotFoundException('No se puede encontrar el contrato', 404);
+    	} 
+    	else {
+	        $contratos = $this->Contrato->findByIdcontrato($idcontrato);
+			$this->set('contratos',$contratos);
+			
+			$ordenes =$this->Ordendecambio->find('all',
+			array('conditions'=> array('Ordendecambio.idcontrato'=>$idcontrato)));
+			$this->set('ordenes',$ordenes);
+		}
 	}
 	
 	function estadojson() {
