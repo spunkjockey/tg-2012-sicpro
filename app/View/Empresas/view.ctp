@@ -68,12 +68,12 @@ $this->end(); ?>
     	<td><?php echo $empresas['Empresa']['nombreempresa']; ?></td>
     </tr>
     <tr>
-    	<th data-field="direccionoficina">Direccion: </th>
-    	<td><?php echo ($empresas['Empresa']['direccionoficina']); ?></td>
-    </tr>
-    <tr>
     	<th data-field="representantelegal">Representante: </th>
     	<td><?php echo ($empresas['Empresa']['representantelegal']); ?></td>
+    </tr>
+    <tr>
+    	<th data-field="direccionoficina">Direccion: </th>
+    	<td><?php echo ($empresas['Empresa']['direccionoficina']); ?></td>
     </tr>
     <tr>
     	<th data-field="telefonoempresa">Telefono: </th>

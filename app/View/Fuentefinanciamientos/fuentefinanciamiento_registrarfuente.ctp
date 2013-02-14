@@ -77,7 +77,7 @@ $this->end(); ?>
 						'id'    => 'moneda',
 						'type'=> 'text',
 						'placeholder' => 'Monto Inicial', 
-						'maxlength'=> 11,
+						'maxlength'=> 12,
 						'div' => array('id' => 'montoi','class' => 'requerido') )); ?>
 				<script type="text/javascript">
 		            var moneda = new LiveValidation( "moneda", { validMessage: " ", insertAfterWhatNode: "montoi" } );

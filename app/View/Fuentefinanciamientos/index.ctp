@@ -161,7 +161,7 @@ $this->end(); ?>
                                 width: 100,
                             } , {
                                 field: "accion",
-                                width: 80
+                                width: 85
                                 
                             } 
                         ]

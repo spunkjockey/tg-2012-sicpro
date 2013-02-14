@@ -39,25 +39,28 @@ class FuentefinanciamientosController extends AppController {
 	function fuentefinanciamiento_modificarfuente($id = null) {
 		$this->layout = 'cyanspark';
 	    $this->Fuentefinanciamiento->id = $id;
+		if (!$this->Fuentefinanciamiento->read()) {
+        	throw new NotFoundException('No se puede editar la Fuente de Financiamiento', 404);
+    	} else {		
+		    if ($this->request->is('get')) {
+		    	
+		        $this->request->data = $this->Fuentefinanciamiento->read();
+		    } else {
+		    	$this->Fuentefinanciamiento->set('nombrefuente', $this->request->data['Fuentefinanciamiento'] ['nombrefuente']);
+				$this->Fuentefinanciamiento->set('montoinicial', $this->request->data['Fuentefinanciamiento'] ['montoinicial']);
+				$this->Fuentefinanciamiento->set('fechadisponible', $this->request->data['Fuentefinanciamiento'] ['fechadisponible']);
+				$this->Fuentefinanciamiento->set('userm', $this->request->data['Fuentefinanciamiento'] ['userm']);
+				$this->Fuentefinanciamiento->set('idtipofuente', $this->request->data['Fuentefinanciamiento'] ['idtipofuente']);
 				
-	    if ($this->request->is('get')) {
-	    	
-	        $this->request->data = $this->Fuentefinanciamiento->read();
-	    } else {
-	    	$this->Fuentefinanciamiento->set('nombrefuente', $this->request->data['Fuentefinanciamiento'] ['nombrefuente']);
-			$this->Fuentefinanciamiento->set('montoinicial', $this->request->data['Fuentefinanciamiento'] ['montoinicial']);
-			$this->Fuentefinanciamiento->set('fechadisponible', $this->request->data['Fuentefinanciamiento'] ['fechadisponible']);
-			$this->Fuentefinanciamiento->set('userm', $this->request->data['Fuentefinanciamiento'] ['userm']);
-			$this->Fuentefinanciamiento->set('idtipofuente', $this->request->data['Fuentefinanciamiento'] ['idtipofuente']);
-			
-			$this->Fuentefinanciamiento->set('modificacion', date("Y-m-d H:i:s"));
-	        if ($this->Fuentefinanciamiento->save($id)) {
-	            $this->Session->setFlash('La Fuente ha sido actualizada.', 'default', array('class'=>'success'));
-	            $this->redirect(array('action' => 'index'));
-	        } else {
-            	
-        	}
-	    }
+				$this->Fuentefinanciamiento->set('modificacion', date("Y-m-d H:i:s"));
+		        if ($this->Fuentefinanciamiento->save($id)) {
+		            $this->Session->setFlash('La Fuente ha sido actualizada.', 'default', array('class'=>'success'));
+		            $this->redirect(array('action' => 'index'));
+		        } else {
+	            	
+	        	}
+		    }
+	 	}
 	}
 	
 	public function fuentejson() {
@@ -73,19 +76,25 @@ class FuentefinanciamientosController extends AppController {
 	}
 	
 	function delete($id = null) {
-		$fuenfin = $this->Fuentefinanciamiento->find('first',array(
-									'fields'=>array('Fuentefinanciamiento.nombrefuente'),
-									'conditions'=>array('Fuentefinanciamiento.idfuentefinanciamiento'=>$id)));	
-		
-		if (!$this->request->is('post')) {
-	        throw new MethodNotAllowedException();
-	    }
-	    if ($this->Fuentefinanciamiento->delete($id)) {
-	        $this->Session->setFlash('La Fuente de Financiamiento "'.$fuenfin['Fuentefinanciamiento']['nombrefuente'].'" ha sido eliminada.', 'default', array('class'=>'success'));
-	        $this->redirect(array('action' => 'index'));
-	    } else {
-	    	$this->Session->setFlash('La Fuente de Financiamiento "'.$fuenfin['Fuentefinanciamiento']['nombrefuente'].'" no ha sido eliminada, este se debe a que existen referencias con otros elementos');
-	        $this->redirect(array('action' => 'index'));
-	    }
+		$this->Fuentefinanciamiento->id = $id;
+		if (!$this->Fuentefinanciamiento->read()) {
+        	throw new NotFoundException('No se ha encontrado la Fuente Financiamiento', 404);
+    	} else {
+			
+			$fuenfin = $this->Fuentefinanciamiento->find('first',array(
+										'fields'=>array('Fuentefinanciamiento.nombrefuente'),
+										'conditions'=>array('Fuentefinanciamiento.idfuentefinanciamiento'=>$id)));	
+			
+			if (!$this->request->is('post')) {
+		        throw new MethodNotAllowedException();
+		    }
+		    if ($this->Fuentefinanciamiento->delete($id)) {
+		        $this->Session->setFlash('La Fuente de Financiamiento "'.$fuenfin['Fuentefinanciamiento']['nombrefuente'].'" ha sido eliminada.', 'default', array('class'=>'success'));
+		        $this->redirect(array('action' => 'index'));
+		    } else {
+		    	$this->Session->setFlash('La Fuente de Financiamiento "'.$fuenfin['Fuentefinanciamiento']['nombrefuente'].'" no ha sido eliminada, este se debe a que existen referencias con otros elementos');
+		        $this->redirect(array('action' => 'index'));
+		    }
+		}
 	}
 }		

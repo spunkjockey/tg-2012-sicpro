@@ -63,8 +63,8 @@ $this->end(); ?>
     <tr>
         <th data-field="nombreempresa">Nombre empresa</th>
         <th data-field="representantelegal">Representante Legal</th>
-        <th data-field="telefonorepresentante" width="55px">Telefono</th>
-        <th data-field="accion" width="98px">Acción</th>
+        <th data-field="telefonorepresentante">Telefono</th>
+        <th data-field="accion">Acción</th>
     </tr>
 
     <!-- Here is where we loop through our $empresas array, printing out post info -->
@@ -143,7 +143,21 @@ $this->end(); ?>
  			    	mode: "single", // enables multi-column sorting
         			allowUnsort: true
 				},
-				scrollable: false
+				scrollable: false,
+				columns: [ {
+                                field: "nombreempresa",
+                                width: 250
+                                
+                            } , {
+                                field: "representantelegal"
+                            } , {
+                                field: "telefonorepresentante",
+                                width: 80
+                            } , {
+                                field: "accion",
+                                width: 120
+                            } 
+                        ]
             	
             	
         	});

@@ -76,7 +76,7 @@ $this->end(); ?>
 					array(
 						'label' => 'Monto disponible actual:', 
 						'id'    => 'moneda',
-						'maxlength'=> 11,
+						'maxlength'=> 12,
 						'class' => 'k-textbox',
 						'type'=>'text',
 						'placeholder' => 'Monto Inicial', 

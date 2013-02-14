@@ -81,52 +81,58 @@ class ProyectosController extends AppController {
 	{
 		$this->layout = 'cyanspark';
 		$this->Proyecto->id = $id;
-		$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
-		$this->set('idrol',$rol);
-		if ($this->request->is('post')) 
-		{
-			$this->Proyecto->set('nombreproyecto', $this->request->data['Proyecto']['nombreproyecto']);
-			$this->Proyecto->set('iddivision', $this->request->data['Proyecto']['divisiones']);
-			$this->Proyecto->set('idproyecto',$this->request->data['Proyecto']['idproyecto']);
-			$this->Proyecto->set('montoplaneado', $this->request->data['Proyecto']['montoplaneado']);
-			$this->Proyecto->set('userm', $this->Session->read('User.username'));
-			$this->Proyecto->set('modificacion', date('Y-m-d h:i:s'));
-			if ($this->Proyecto->save())
+		if (!$this->Proyecto->exists($id)) {
+        	throw new NotFoundException('No se ha encontrado el Proyecto a modificar', 404);
+    	} else {
+			$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+			$this->set('idrol',$rol);
+			if ($this->request->is('post')) 
 			{
-				$this->Session->setFlash('El Proyecto "'. $this->request->data['Proyecto']['nombreproyecto'].'" ha sido actualizado.',
-										 'default',array('class'=>'success'));
-				$this->redirect(array('action' => 'proyecto_listado'));
-			}
-			else 
-			{
-				//$this->Session->setFlash('Imposible editar proyecto');
+				
+				$this->Proyecto->set('nombreproyecto', $this->request->data['Proyecto']['nombreproyecto']);
+				$this->Proyecto->set('iddivision', $this->request->data['Proyecto']['divisiones']);
+				$this->Proyecto->set('idproyecto',$this->request->data['Proyecto']['idproyecto']);
+				$this->Proyecto->set('montoplaneado', $this->request->data['Proyecto']['montoplaneado']);
+				$this->Proyecto->set('userm', $this->Session->read('User.username'));
+				$this->Proyecto->set('modificacion', date('Y-m-d h:i:s'));
+				if ($this->Proyecto->save())
+				{
+					$this->Session->setFlash('El Proyecto "'. $this->request->data['Proyecto']['nombreproyecto'].'" ha sido actualizado.',
+											 'default',array('class'=>'success'));
+					$this->redirect(array('action' => 'proyecto_listado'));
+				}
+				else 
+				{
+					$this->Session->setFlash('Imposible editar proyecto');
+				}
+			} else {
+				$this->data = $this->Proyecto->read();
 			}
 		}
-		else
-		{
-			$this->data = $this->Proyecto->read();
-		}
-			
 	}
 	
 	function proyecto_eliminar($id=null) 
 		{
-		    $proy = $this->Proyecto->find('first',array(
-									'fields'=>array('Proyecto.nombreproyecto'),
-									'conditions'=>array('Proyecto.idproyecto'=>$id)));
-		    if (!$this->request->is('post')) 
-		    {
-		        throw new MethodNotAllowedException();
-		    }
-		    if ($this->Proyecto->delete($id)) 
-		    {
-		        $this->Session->setFlash('El proyecto "'.$proy['Proyecto']['nombreproyecto'].'" ha sido eliminado'
-		        						,'default',array('class'=>'success'));
-		        $this->redirect(array('action' => 'proyecto_listado'));
-		    } else {
-		    	$this->Session->setFlash('El proyecto "'.$proy['Proyecto']['nombreproyecto'].'" no ha sido eliminado, este se debe a que existen referencias con otros elementos');
-		    	$this->redirect(array('action' => 'proyecto_listado'));
-		    }
+		    if (!$this->Proyecto->exists($id)) {
+        		throw new NotFoundException('No se ha encontrado el Proyecto a eliminar', 404);
+    		} else {
+			    $proy = $this->Proyecto->find('first',array(
+										'fields'=>array('Proyecto.nombreproyecto'),
+										'conditions'=>array('Proyecto.idproyecto'=>$id)));
+			    if (!$this->request->is('post')) 
+			    {
+			        throw new MethodNotAllowedException();
+			    }
+			    if ($this->Proyecto->delete($id)) 
+			    {
+			        $this->Session->setFlash('El proyecto "'.$proy['Proyecto']['nombreproyecto'].'" ha sido eliminado'
+			        						,'default',array('class'=>'success'));
+			        $this->redirect(array('action' => 'proyecto_listado'));
+			    } else {
+			    	$this->Session->setFlash('El proyecto "'.$proy['Proyecto']['nombreproyecto'].'" no ha sido eliminado, este se debe a que existen referencias con otros elementos');
+			    	$this->redirect(array('action' => 'proyecto_listado'));
+			    }
+			}
 		}
 	
 	public function divisionjson() 

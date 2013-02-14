@@ -49,16 +49,20 @@ class EmpresasController extends AppController {
 	function empresa_modificar($id = null) {
 		$this->layout = 'cyanspark';
 	    $this->Empresa->id = $id;
-	    if ($this->request->is('get')) {
-	        $this->request->data = $this->Empresa->read();
-	    } else {
-	        if ($this->Empresa->save($this->request->data)) {
-	            $this->Session->setFlash('La Empresa '. $this->request->data['Empresa']['nombreempresa'] .' ha sido modificada.','default',array('class' => 'success'));
-	            $this->redirect(array('action' => 'index'));
-	        } else {
-            	$this->Session->setFlash('Imposible editar Empresa');
-        	}
-	    }
+		if (!$this->Empresa->read()) {
+        	throw new NotFoundException('Imposible editar la Empresa', 404);
+    	} else {
+		    if ($this->request->is('get')) {
+		        $this->request->data = $this->Empresa->read();
+		    } else {
+		        if ($this->Empresa->save($this->request->data)) {
+		            $this->Session->setFlash('La Empresa '. $this->request->data['Empresa']['nombreempresa'] .' ha sido modificada.','default',array('class' => 'success'));
+		            $this->redirect(array('action' => 'index'));
+		        } else {
+	            	$this->Session->setFlash('Imposible editar Empresa');
+	        	}
+		    }
+		}
 	}
 	
 	function delete($id) {
