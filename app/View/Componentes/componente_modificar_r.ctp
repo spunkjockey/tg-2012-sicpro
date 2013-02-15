@@ -43,15 +43,16 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Proyectos » Ficha Tecnica » Registrar Ficha Tecnica » Registrar Componente
+			?> » Proyectos » Ficha Tecnica » Registrar Ficha Tecnica
 			
 		</div>
 	</div>
 	
 <?php $this->end(); ?>
+<!--<?php Debugger::dump($componentesficha); ?>-->
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar Componentes</h2>
+		<h2>Modificar Componentes</h2>
 		
 				<?php echo $this->Form->create('Componente'); ?>
 		<ul>
@@ -61,6 +62,7 @@ $this->end(); ?>
 						'label' => 'Nombre Componente:', 
 						'class' => 'k-textbox', 
 						'div' => array('class' => 'requerido'),
+						'value' => $componentesficha['0']['nombrecomponente'],
 						'id' => 'nombrecomponente',
 						'placeholder' => 'Nombre del Componente')); ?>
 				<script type="text/javascript">
@@ -72,24 +74,26 @@ $this->end(); ?>
 			<?php echo $this->Form->input('descripcioncomponente', 
 					array(
 						'label' => 'Descripcion Componente:', 
-						'class' => 'k-textbox',
+						'class' => 'k-textbox', 
+						'value' => $componentesficha['0']['descripcioncomponente'],
 						'placeholder' => 'Descripcion del Componente')); ?>
 			</li>
+			<?php echo $this->Form->input('idcomponente', array('type' => 'hidden','value'=>$idcomponente)); ?>
 			<li  class="accept">
-				<?php echo $this->Form->input('idfichatecnica', array('type' => 'hidden','value'=>$idfichatecnica)); ?>
-				<table>
-				<tr>
+			<table>
+			<tr>
+				<td>				
+				<?php echo $this->Form->end(array('label' => 'Modificar Componente', 'class' => 'k-button')); ?>
+				</td>
 				<td>
-				<?php echo $this->Form->end(array('label' => 'Registrar Componente', 'class' => 'k-button')); ?>
-				</td><td>
 				<?php echo $this->Html->link(
 					'Regresar', 
 					array('controller' => 'Componentes', 'action' => 'componente_listar_r',$idfichatecnica),
 					array('class'=>'k-button')
 				); ?>
 				</td>
-				</tr>
-				</table>
+			</tr>
+			</table>
 			</li>
             <li class="status">
             </li>
@@ -151,7 +155,7 @@ $this->end(); ?>
 
                 .accept, .status {
                 	padding-top: 15px;
-                    padding-left: 160px;
+                    padding-left: 150px;
                 }
 
                 .valid {
@@ -167,7 +171,6 @@ $this->end(); ?>
                 
 				
 				.LV_validation_message{
-				    /*font-weight:bold;*/
 				    margin:0 0 0 5px;
 				}
 				
@@ -182,23 +185,8 @@ $this->end(); ?>
                		margin-left: 165px; 
                
 				}
-/*				    
-				.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
-				}
-				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
-*/                
+				  
+                
 </style>
 <script>
                 $(document).ready(function() {

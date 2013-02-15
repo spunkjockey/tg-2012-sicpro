@@ -96,7 +96,7 @@ $this->end(); ?>
 			<p style="text-align: right">
 			<?php echo $this->Html->link(
             	'<span class="k-icon k-i-plus"></span> Agregar Componentes', 
-            	array('controller' => 'Componentes','action' => 'componente_registrar',$fichatecnicas['Fichatecnica']['idfichatecnica']),
+            	array('controller' => 'Componentes','action' => 'componente_listar_r',$fichatecnicas['Fichatecnica']['idfichatecnica']),
             	array('class'=>'k-button', 'escape' => false)
 			);?>
 			<?php echo $this->Html->link('<span class="k-icon k-i-tick"></span> Terminar',

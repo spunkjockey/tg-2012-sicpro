@@ -1,4 +1,4 @@
-<!-- File: /app/View/Componentes/componente_modificar.ctp -->
+<!-- File: /app/View/Metas/add.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -43,7 +43,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Proyectos » Ficha Tecnica » Registrar Ficha Tecnica » Registrar Componente
+			?> » Proyectos » Ficha Tecnica » Registrar Ficha Tecnica » Registrar Meta
 			
 		</div>
 	</div>
@@ -51,51 +51,46 @@ $this->end(); ?>
 <?php $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h2>Registrar Componentes</h2>
+		<h2>Registrar Metas</h2>
 		
-				<?php echo $this->Form->create('Componente'); ?>
+				<?php echo $this->Form->create('Metas'); ?>
 		<ul>
-			<li>
-			<?php echo $this->Form->input('nombrecomponente', 
+			<?php echo $this->Form->input('descripcionmeta', 
 					array(
-						'label' => 'Nombre Componente:', 
+						'label' => 'Descripcion de la meta:', 
 						'class' => 'k-textbox', 
+						'id' => 'descmeta',
+						'rows'=>'5',
 						'div' => array('class' => 'requerido'),
-						'id' => 'nombrecomponente',
-						'placeholder' => 'Nombre del Componente')); ?>
+						'placeholder' => 'Descripcion de la Meta')); ?>
 				<script type="text/javascript">
-		            var nombrecomponente = new LiveValidation( "nombrecomponente", { validMessage: " " } );
-		            nombrecomponente.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
+		            var descmeta = new LiveValidation( "descmeta", { validMessage: " " } );
+		            descmeta.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script> 
 			</li>
-			<li>
-			<?php echo $this->Form->input('descripcioncomponente', 
-					array(
-						'label' => 'Descripcion Componente:', 
-						'class' => 'k-textbox',
-						'placeholder' => 'Descripcion del Componente')); ?>
-			</li>
 			<li  class="accept">
-				<?php echo $this->Form->input('idfichatecnica', array('type' => 'hidden','value'=>$idfichatecnica)); ?>
-				<table>
-				<tr>
+			<table>
+			<tr>
 				<td>
-				<?php echo $this->Form->end(array('label' => 'Registrar Componente', 'class' => 'k-button')); ?>
-				</td><td>
-				<?php echo $this->Html->link(
-					'Regresar', 
-					array('controller' => 'Componentes', 'action' => 'componente_listar_r',$idfichatecnica),
-					array('class'=>'k-button')
-				); ?>
+				<?php echo $this->Form->end(array('label' => 'Registrar Meta', 'class' => 'k-button')); ?>
 				</td>
-				</tr>
-				</table>
+				<td>				
+				<?php echo $this->Html->link(
+	            	'Regresar', 
+	            	array('controller'=>'Metas','action' => 'meta_listar',$idcomponente, $idfichatecnica),
+	            	array('class'=>'k-button')
+				);?>
+				</td>
+			</tr>
+			</table>
 			</li>
+            
             <li class="status">
             </li>
 		</ul>
 	</div>
 </div>
+
 <style scoped>
 
                 .k-textbox {
@@ -151,7 +146,7 @@ $this->end(); ?>
 
                 .accept, .status {
                 	padding-top: 15px;
-                    padding-left: 160px;
+                    padding-left: 165px;
                 }
 
                 .valid {
@@ -167,7 +162,6 @@ $this->end(); ?>
                 
 				
 				.LV_validation_message{
-				    /*font-weight:bold;*/
 				    margin:0 0 0 5px;
 				}
 				
@@ -182,28 +176,12 @@ $this->end(); ?>
                		margin-left: 165px; 
                
 				}
-/*				    
-				.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
-				}
 				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
-*/                
+                
 </style>
 <script>
                 $(document).ready(function() {
-					var validator = $("#formulario").kendoValidator().data("kendoValidator");
-
+                    var validator = $("#formulario").kendoValidator().data("kendoValidator"),
                     status = $(".status");
 
                     $("button").click(function() {
@@ -214,11 +192,8 @@ $this->end(); ?>
                         }
                     });
                     
-                   	$("#phone").mask("9999-9999");
+                    $("#phone").mask("9999-9999");
                     
-	               	$("#nit").mask("9999-999999-999-9");
-                   
-					
-                
+                   $("#nit").mask("9999-999999-999-9");
                 });
 </script>

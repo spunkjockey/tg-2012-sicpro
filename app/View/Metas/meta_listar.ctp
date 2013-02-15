@@ -1,4 +1,4 @@
-<!-- File: /app/View/Componentes/componente_modificar.ctp -->
+<!-- File: /app/View/Metas/meta_modificar.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
 		case 9:
@@ -43,59 +43,62 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Proyectos » Ficha Tecnica » Registrar Ficha Tecnica » Registrar Componente
+			?> » Proyectos » Ficha Tecnica » Registrar Ficha Tecnica » Registrar Metas
 			
 		</div>
 	</div>
 	
 <?php $this->end(); ?>
-<div id="example" class="k-content">
-	<div id="formulario">
-		<h2>Registrar Componentes</h2>
-		
-				<?php echo $this->Form->create('Componente'); ?>
-		<ul>
-			<li>
-			<?php echo $this->Form->input('nombrecomponente', 
-					array(
-						'label' => 'Nombre Componente:', 
-						'class' => 'k-textbox', 
-						'div' => array('class' => 'requerido'),
-						'id' => 'nombrecomponente',
-						'placeholder' => 'Nombre del Componente')); ?>
-				<script type="text/javascript">
-		            var nombrecomponente = new LiveValidation( "nombrecomponente", { validMessage: " " } );
-		            nombrecomponente.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
-		        </script> 
-			</li>
-			<li>
-			<?php echo $this->Form->input('descripcioncomponente', 
-					array(
-						'label' => 'Descripcion Componente:', 
-						'class' => 'k-textbox',
-						'placeholder' => 'Descripcion del Componente')); ?>
-			</li>
-			<li  class="accept">
-				<?php echo $this->Form->input('idfichatecnica', array('type' => 'hidden','value'=>$idfichatecnica)); ?>
-				<table>
-				<tr>
-				<td>
-				<?php echo $this->Form->end(array('label' => 'Registrar Componente', 'class' => 'k-button')); ?>
-				</td><td>
-				<?php echo $this->Html->link(
-					'Regresar', 
-					array('controller' => 'Componentes', 'action' => 'componente_listar_r',$idfichatecnica),
-					array('class'=>'k-button')
-				); ?>
-				</td>
-				</tr>
-				</table>
-			</li>
-            <li class="status">
-            </li>
-		</ul>
-	</div>
-</div>
+
+<!--<?php Debugger::dump($metas);?>-->
+
+
+<div style='margin:4px 0' >
+	<?php echo $this->Html->link(
+		'Registrar Meta', 
+		array('controller' => 'Metas', 'action' => 'meta_registrar_r',$idcomponente,$idfichatecnica),
+		array('class'=>'k-button')
+	); ?>
+</div> 
+<?php if(!empty($metas)){ ?>
+<table id="grid">
+    <tr>
+        <th data-field="descripcionmeta">Meta</th>
+        <th data-field="accion" width="100px">Acción</th>
+    </tr>
+
+    <!--Here is where we loop through our $empresas array, printing out post info -->
+	<?php foreach ($metas as $mt): ?>
+
+    <tr>
+        <td>
+        	<?php echo $mt['Meta']['descripcionmeta'];?>
+        </td> 
+        <td align="center">
+			<?php echo $this->Form->postLink(
+                'Eliminar Meta',
+                array('controller'=>'Metas','action' => 'meta_eliminar_r',  $mt['Meta']['idmeta'],$idcomponente,$idfichatecnica),
+                array('confirm' => '¿Está seguro que desea eliminar la Meta?',
+                		'class'=>'k-button')
+            )?>
+        </td>
+        
+    </tr>
+    <?php endforeach; ?>
+    <?php unset($metas); ?>
+
+</table>
+<?php }
+else {
+	echo "No hay metas para este componente<br />";
+}
+?>
+            <?php echo $this->Html->link(
+            	'Regresar', 
+            	array('controller'=>'Componentes','action' => 'componente_listar_r', $idfichatecnica),
+            	array('class'=>'k-button')
+			);?>
+
 <style scoped>
 
                 .k-textbox {
@@ -105,8 +108,9 @@ $this->end(); ?>
                 }
 				
 				.k-dropdownlist{
-                    width: 200px;
+                    width: 300px;
                 }
+			
 			
                 #formulario {
                     width: 600px;
@@ -151,7 +155,7 @@ $this->end(); ?>
 
                 .accept, .status {
                 	padding-top: 15px;
-                    padding-left: 160px;
+                    padding-left: 150px;
                 }
 
                 .valid {
@@ -167,7 +171,7 @@ $this->end(); ?>
                 
 				
 				.LV_validation_message{
-				    /*font-weight:bold;*/
+				    font-weight:bold;
 				    margin:0 0 0 5px;
 				}
 				
@@ -179,10 +183,10 @@ $this->end(); ?>
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 165px; 
+               		margin-left: 170px; 
                
 				}
-/*				    
+				    
 				.LV_valid_field,
 				input.LV_valid_field:hover, 
 				input.LV_valid_field:active,
@@ -198,27 +202,36 @@ $this->end(); ?>
 				textarea.LV_invalid_field:active {
 				    border: 1px solid #CC0000;
 				}
-*/                
-</style>
-<script>
-                $(document).ready(function() {
-					var validator = $("#formulario").kendoValidator().data("kendoValidator");
-
-                    status = $(".status");
-
-                    $("button").click(function() {
-                        if (validator.validate()) {
-                            //status.text("Hooray! Your tickets has been booked!").addClass("valid");
-                            } else {
-                            //status.text("Oops! There is invalid data in the form.").addClass("invalid");
-                        }
-                    });
-                    
-                   	$("#phone").mask("9999-9999");
-                    
-	               	$("#nit").mask("9999-999999-999-9");
-                   
-					
                 
-                });
+</style>
+
+<script>
+	$(document).ready(function() {
+    	$("#grid").kendoGrid({
+            	dataSource: {
+	           		pageSize: 5,
+            	},
+            	pageable: true,
+            	pageable: {
+            		messages: {
+            			display: "{0} - {1} de {2} Metas",
+            			empty: "No hay Metas a mostrar",
+            			page: "Página",
+            			of: "de {0}",
+            			itempsPerPage: "Metas por página",
+            			first: "Ir a la primera página",
+            			previous: "Ir a la página anterior",
+            			next: "Ir a la siguiente página",
+            			last: "Ir a la última página",
+            			refresh: "Actualizar"
+            		}
+            	},
+            	sortable: true,
+            	sortable: {
+ 			    	mode: "single", // enables multi-column sorting
+        			allowUnsort: true
+				},
+				scrollable: false
+        	});
+        });
 </script>
