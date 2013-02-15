@@ -170,7 +170,9 @@ $this->end(); ?>
                     
                 }
 				
-				
+				textarea {				        
+					white-space: normal !important; 
+				}
 			
                 #formulario {
                     width: 600px;

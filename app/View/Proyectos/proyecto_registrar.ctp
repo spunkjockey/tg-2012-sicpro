@@ -134,7 +134,11 @@ $this->end(); ?>
 </div>
 
 			<style scoped>
-
+				
+				textarea {				        
+					white-space: normal !important; 
+				}
+				
                 .k-textbox {
                     width: 350px;
                     

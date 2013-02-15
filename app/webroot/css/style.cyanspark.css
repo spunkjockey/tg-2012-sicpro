@@ -69,7 +69,6 @@ ul.ex_menu li a:hover { text-decoration:none;}
         -webkit-transform: translatez(0);
     }
 
-
 /* subpages */
 .content .mainbar .comment { margin:0; padding:16px 0 0 0;}
 .content .mainbar .comment img.userpic { border:1px solid #dedede; margin:10px 16px 0 0; padding:0; float:left;}
@@ -286,5 +285,6 @@ p.error em {
 
 textarea {				        
 	resize: none;
+	white-space: pre !important; 
 }
 

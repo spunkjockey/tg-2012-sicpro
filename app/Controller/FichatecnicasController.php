@@ -39,30 +39,38 @@ class FichatecnicasController extends AppController {
 	public function fichatecnica_modificarficha($id = null){
 		$this->layout = 'cyanspark';	
 		$this->Fichatecnica->id = $id;
-	    if ($this->request->is('get')) {
-	        $this->request->data = $this->Fichatecnica->exists($id);
-	    } else {
-	    	$this->Fichatecnica->set('userm', $this->Session->read('User.username'));
-			$this->Fichatecnica->set('modificacion', date('Y-m-d h:i:s'));
-	        if ($this->Fichatecnica->save($this->request->data)) {
-	        	
-	            $this->Session->setFlash('Los Datos Generales de la Ficha tecnica del proyecto "'.$this->request->data['Fichatecnica']['nombreproyecto'] .'" ha sido modificada.','default',array('class' => 'success'));
-	            $this->redirect(array('action' => 'fichatecnica_listarficha'));
-				
-	        } else {
-            	$this->Session->setFlash('Imposible editar Ficha Tecnica');
-        	}
-	    }
+		if (!$this->Fichatecnica->exists($id)) {
+        	throw new NotFoundException('No se ha encontrado la Ficha a modificar', 404);
+    	} else {
+		    if ($this->request->is('get')) {
+		        $this->request->data = $this->Fichatecnica->read();
+		    } else {
+		    	$this->Fichatecnica->set('userm', $this->Session->read('User.username'));
+				$this->Fichatecnica->set('modificacion', date('Y-m-d h:i:s'));
+		        if ($this->Fichatecnica->save($this->request->data)) {
+		        	
+		            $this->Session->setFlash('Los Datos Generales de la Ficha tecnica del proyecto "'.$this->request->data['Fichatecnica']['nombreproyecto'] .'" ha sido modificada.','default',array('class' => 'success'));
+		            $this->redirect(array('action' => 'fichatecnica_listarficha'));
+					
+		        } else {
+	            	$this->Session->setFlash('Imposible editar Ficha Tecnica');
+	        	}
+		    }
+		}
 	}
 	
 	public function fichatecnica_modificarubicacion($id = null){
 		$this->layout = 'cyanspark';	
-		$this->set('idfichatecnica',$id);
-	    $this->set('ubicaciones', $this->Fichatecnica->Ubicacion->find('all',
-				array('fields' => array('Ubicacion.idubicacion','Ubicacion.direccion','Departamento.departamento','Municipio.municipio'),
-				'conditions' => array('Ubicacion.idfichatecnica' => $id))
-				));
-		$this->set('idfichatecnica',$id);
+		if (!$this->Fichatecnica->exists($id)) {
+        	throw new NotFoundException('No se ha encontrado la Ficha a modificar', 404);
+    	} else {
+			$this->set('idfichatecnica',$id);
+		    $this->set('ubicaciones', $this->Fichatecnica->Ubicacion->find('all',
+					array('fields' => array('Ubicacion.idubicacion','Ubicacion.direccion','Departamento.departamento','Municipio.municipio'),
+					'conditions' => array('Ubicacion.idfichatecnica' => $id))
+					));
+			$this->set('idfichatecnica',$id);
+		}
 	}
 	
 	public function fichatecnica_listarficha(){
@@ -81,16 +89,20 @@ class FichatecnicasController extends AppController {
 	public function view($id = null) {
 		$this->layout = 'cyanspark';   		
         $this->Fichatecnica->id = $id;
-		$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
-		$this->set('idrol',$rol);
-		if (!$this->Fichatecnica->find('all')) {
-        	throw new NotFoundException('No se puede encontrar la ficha técnica', 404);
+		if (!$this->Fichatecnica->exists($id)) {
+        	throw new NotFoundException('No se ha encontrado la Ficha Técnica', 404);
     	} else {
-        	$this->set('fichatecnicas', $this->Fichatecnica->read());
-			$this->set('ubicaciones', $this->Fichatecnica->Ubicacion->find('all',
-				array('fields' => array('Ubicacion.direccion','Departamento.departamento','Municipio.municipio'),
-				'conditions' => array('Ubicacion.idfichatecnica' => $id))
-			));			
+			$rol = $this->User->field('idrol',array('username'=>$this->Session->read('User.username')));
+			$this->set('idrol',$rol);
+			if (!$this->Fichatecnica->find('all')) {
+	        	throw new NotFoundException('No se puede encontrar la ficha técnica', 404);
+	    	} else {
+	        	$this->set('fichatecnicas', $this->Fichatecnica->read());
+				$this->set('ubicaciones', $this->Fichatecnica->Ubicacion->find('all',
+					array('fields' => array('Ubicacion.direccion','Departamento.departamento','Municipio.municipio'),
+					'conditions' => array('Ubicacion.idfichatecnica' => $id))
+				));			
+			}
 		}
     }
 	
@@ -311,16 +323,20 @@ class FichatecnicasController extends AppController {
 	}
 
 	function fichatecnica_eliminar($idfichatecnica=null) {
-		$ficha = $this->Fichatecnica->findByIdfichatecnica($idfichatecnica);
-		if (!$this->request->is('post')) {
-	        throw new MethodNotAllowedException();
-	    }
-	    if ($this->Fichatecnica->delete($idfichatecnica)) {
-	        $this->Session->setFlash('La Ficha Técnica  del Proyecto '. $ficha['Proyecto']['nombreproyecto'] .' ha sido eliminada.','default',array('class' => 'success'));
-	        $this->redirect(array('action' => 'fichatecnica_listarficha'));
-	    } else {
-			$this->Session->setFlash('La Ficha Técnica del proyecto '. $ficha['Proyecto']['nombreproyecto'] .' no se puede eliminar, mientras se encuentra asignada a un contrato.');
-			$this->redirect(array('action' => 'fichatecnica_listarficha'));
+		if (!$this->Fichatecnica->exists($idfichatecnica)) {
+        	throw new NotFoundException('No se ha encontrado la Ficha a eliminar', 404);
+    	} else {
+			$ficha = $this->Fichatecnica->findByIdfichatecnica($idfichatecnica);
+			if (!$this->request->is('post')) {
+		        throw new MethodNotAllowedException();
+		    }
+		    if ($this->Fichatecnica->delete($idfichatecnica)) {
+		        $this->Session->setFlash('La Ficha Técnica  del Proyecto '. $ficha['Proyecto']['nombreproyecto'] .' ha sido eliminada.','default',array('class' => 'success'));
+		        $this->redirect(array('action' => 'fichatecnica_listarficha'));
+		    } else {
+				$this->Session->setFlash('La Ficha Técnica del proyecto '. $ficha['Proyecto']['nombreproyecto'] .' no se puede eliminar, mientras se encuentra asignada a un contrato.');
+				$this->redirect(array('action' => 'fichatecnica_listarficha'));
+			}
 		}
 	}
 
