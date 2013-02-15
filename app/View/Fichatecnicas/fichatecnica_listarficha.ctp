@@ -89,7 +89,7 @@ $this->end(); ?>
 						<?php echo $this->Form->postLink(
 			                '<span class="k-icon k-i-close"></span>',
 			                array('controller'=>'Fichatecnicas','action' => 'fichatecnica_eliminar', $fc['Fichatecnica']['idfichatecnica']),
-			                array('confirm' => '¿Está seguro que desea la Ficha Técnica?',
+			                array('confirm' => '¿Está seguro que desea eliminar la Ficha Técnica?',
 			                		'class'=>'k-button','escape' => false,'title'=>'Eliminar Ficha','style'=>'width: 30px; min-width:30px; margin: 0px; text-align: center; height: 26px;')
 			            )?>
 			        </td>
