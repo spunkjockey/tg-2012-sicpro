@@ -7,6 +7,9 @@ class ComponentesController extends AppController {
 	
 	public function componente_registrar($id=null) {
 		$this->layout = 'cyanspark';
+		if (!$this->Fichatecnica->exists($id)) {
+        	throw new NotFoundException('La ficha técnica no se encuentra disponible', 404);
+    	} else {
 		$this->set('idfichatecnica',$id);
         if ($this->request->is('post')) {			
 				    if ($this->Componente->saveAssociated($this->request->data, array('validate' => true, 'callbacks' => true))) {
@@ -18,10 +21,14 @@ class ComponentesController extends AppController {
 		        	}		
 			
 		}
+		}
     }
 	
 	public function componente_registrarmod($id=null) {
 		$this->layout = 'cyanspark';
+		if (!$this->Fichatecnica->exists($id)) {
+        	throw new NotFoundException('La ficha técnica no se encuentra disponible', 404);
+    	} else {
 		$this->set('idfichatecnica',$id);
         if ($this->request->is('post')) {			
 				    if ($this->Componente->saveAssociated($this->request->data, array('validate' => true, 'callbacks' => true))) {
@@ -33,27 +40,39 @@ class ComponentesController extends AppController {
 		        	}		
 			
 		}
+		}
     }
 	
 	public function componente_listar($id = null) {
 		$this->layout = 'cyanspark';	
+		if (!$this->Fichatecnica->exists($id)) {
+        	throw new NotFoundException('No se ha encontrado la Ficha a modificar', 404);
+    	} else {
 		$this->set('idfichatecnica',$id);
 	    $this->set('componentesficha', $this->Componente->find('all',
 				array('conditions' => array('Componente.idfichatecnica' => $id))
 				));
+		}
 	}
 	
 	
 	public function componente_listar_r($id = null) {
-		$this->layout = 'cyanspark';	
+		$this->layout = 'cyanspark';
+		if (!$this->Fichatecnica->exists($id)) {
+        	throw new NotFoundException('La ficha técnica no se encuentra disponible', 404);
+    	} else {	
 		$this->set('idfichatecnica',$id);
 	    $this->set('componentesficha', $this->Componente->find('all',
 				array('conditions' => array('Componente.idfichatecnica' => $id))
 				));
+			}
 	}
 	
 	public function componente_modificar($idcomponente = null,$idfichatecnica = null) {
-		$this->layout = 'cyanspark';	
+		$this->layout = 'cyanspark';
+		if (!$this->Componente->exists($idcomponente)) {
+        	throw new NotFoundException('No se ha encontrado el componente a modificar', 404);
+    	} else {	
 		$this->set('idcomponente',$idcomponente);
 		$this->set('idfichatecnica',$idfichatecnica);
 	  	$this->set('componentesficha', Hash::extract($this->Componente->find('all',
@@ -71,11 +90,15 @@ class ComponentesController extends AppController {
 		            	$this->Session->setFlash('Imposible editar El Componente');
 		        	}
 		    }
+		}
 		
 	}
 	
 	public function componente_modificar_r($idcomponente = null,$idfichatecnica = null) {
-		$this->layout = 'cyanspark';	
+		$this->layout = 'cyanspark';
+		if (!$this->Componente->exists($idcomponente)) {
+        	throw new NotFoundException('No se ha encontrado el componente a modificar', 404);
+    	} else {	
 		$this->set('idcomponente',$idcomponente);
 		$this->set('idfichatecnica',$idfichatecnica);
 	  	$this->set('componentesficha', Hash::extract($this->Componente->find('all',
@@ -93,7 +116,7 @@ class ComponentesController extends AppController {
 		            	$this->Session->setFlash('Imposible editar El Componente');
 		        	}
 		    }
-		
+		}
 	}
 	
 	public function agregarmetas(){
@@ -104,13 +127,18 @@ class ComponentesController extends AppController {
 
 	function componente_eliminar($idcomponente = null,$idfichatecnica = null) {
 		$compo = $this->Componente->findByIdcomponente($idcomponente);
+		
 		if (!$this->request->is('post')) {
 	        throw new MethodNotAllowedException();
 	    }
+		if (!$this->Componente->exists($idcomponente)) {
+        	throw new NotFoundException('No se ha encontrado el componente a eliminar', 404);
+    	} else {
 	    if ($this->Componente->delete($idcomponente)) {
 	        $this->Session->setFlash('El Componente "'. $compo['Componente']['nombrecomponente'] .'" ha sido eliminado.','default',array('class' => 'success'));
 	        $this->redirect(array('controller' => 'Componentes','action' => 'componente_listar',$idfichatecnica));
 	    }
+		}
 	}
 	
 	function componente_eliminar_r($idcomponente = null,$idfichatecnica = null) {
@@ -118,10 +146,14 @@ class ComponentesController extends AppController {
 		if (!$this->request->is('post')) {
 	        throw new MethodNotAllowedException();
 	    }
+		if (!$this->Componente->exists($idcomponente)) {
+        	throw new NotFoundException('No se ha encontrado el componente a modificar', 404);
+    	} else {
 	    if ($this->Componente->delete($idcomponente)) {
 	        $this->Session->setFlash('El Componente "'. $compo['Componente']['nombrecomponente'] .'" ha sido eliminado.','default',array('class' => 'success'));
 	        $this->redirect(array('controller' => 'Componentes','action' => 'componente_listar_r',$idfichatecnica));
 	    }
+		}
 	}
 
 

@@ -20,6 +20,9 @@ class MetasController extends AppController {
 	
 	public function meta_modificar($idcomponente = null,$idfichatecnica = null) {
 		$this->layout = 'cyanspark';
+		if (!$this->Componente->exists($idcomponente)) {
+        	throw new NotFoundException('No se han encontrado las metas del componente.', 404);
+    	} else {
 		$this->set('idcomponente',$idcomponente);
 		$this->set('idfichatecnica',$idfichatecnica);
 		$this->set('metas',$this->Meta->find('all',array(
@@ -34,6 +37,7 @@ class MetasController extends AppController {
 		            	$this->Session->setFlash('No se pudo realizar el registro');
 		        	}		
 			
+		}
 		}
     }
 
@@ -78,6 +82,9 @@ class MetasController extends AppController {
 	
 	public function meta_registrar_r($idcomponente=null,$idfichatecnica = null) {
 		$this->layout = 'cyanspark';
+		if (!$this->Componente->exists($idcomponente)) {
+        	throw new NotFoundException('No se ha encontrado el componente a modificar', 404);
+    	} else {
 		$this->set('idfichatecnica',$idfichatecnica);
 		$this->set('idcomponente',$idcomponente);
         if ($this->request->is('post')) {
@@ -93,26 +100,35 @@ class MetasController extends AppController {
 		        	}		
 			
 		}
+		}
     }
 	
 	function meta_eliminar( $idmeta = null,$idcomponente = null,$idfichatecnica = null) {
 		if (!$this->request->is('post')) {
 	        throw new MethodNotAllowedException();
 	    }
+		if (!$this->Meta->exists($idmeta)) {
+        	throw new NotFoundException('No se ha encontrado la meta a eliminar', 404);
+    	} else {
 	    if ($this->Meta->delete($idmeta)) {
 	        $this->Session->setFlash('La Meta ha sido eliminada.','default',array('class' => 'success'));
 	        $this->redirect(array('controller' => 'Metas','action' => 'meta_modificar',$idcomponente,$idfichatecnica));
 	    }
+		}
 	}
 	
 	function meta_eliminar_r( $idmeta = null,$idcomponente = null,$idfichatecnica = null) {
 		if (!$this->request->is('post')) {
 	        throw new MethodNotAllowedException();
 	    }
+			if (!$this->Meta->exists($idmeta)) {
+        	throw new NotFoundException('No se ha encontrado la meta a eliminar', 404);
+    	} else {
 	    if ($this->Meta->delete($idmeta)) {
 	        $this->Session->setFlash('La Meta ha sido eliminada.','default',array('class' => 'success'));
 	        $this->redirect(array('controller' => 'Metas','action' => 'meta_listar',$idcomponente,$idfichatecnica));
 	    }
+		}
 	}
 	public function index() {
     	$this->layout = 'cyanspark';
@@ -133,6 +149,9 @@ class MetasController extends AppController {
 	function meta_actualizarpje($id=null)
 	{
 		$this->layout = 'cyanspark';
+		if (!$this->Meta->exists($id)) {
+        	throw new NotFoundException('No se ha encontrado la meta a actualizar', 404);
+    	} else {
 		$this->Meta->id = $id;
 		if ($this->request->is('post')) 
 		{
@@ -153,6 +172,7 @@ class MetasController extends AppController {
 		else
 		{
 			$this->data = $this->Meta->read();
+		}
 		}
 	}
 	

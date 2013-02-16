@@ -248,6 +248,10 @@ $this->end(); ?>
                     margin-right: 5px;
                     
                 }
+                
+                textarea {
+				white-space: normal !important;
+				}
 
                 /*.required {
                     font-weight: bold;

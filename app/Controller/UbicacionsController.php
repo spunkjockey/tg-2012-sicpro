@@ -2,11 +2,13 @@
 class UbicacionsController extends AppController {
     public $helpers = array('Html', 'Form', 'Session');
     public $components = array('Session','RequestHandler');
-	public $uses = array('Departamento','Municipio','Ubicacion','Depmuni');
+	public $uses = array('Departamento','Municipio','Ubicacion','Depmuni','Fichatecnica');
 	
 	public function ubicacion_registrar($id=null) {
 		$this->layout = 'cyanspark';
-		
+		if (!$this->Fichatecnica->exists($id)) {
+        	throw new NotFoundException('La ficha técnica no se encuentra disponible', 404);
+    	} else {
 		$this->set('idfct',$id);
 	
         if ($this->request->is('post')) {
@@ -29,11 +31,14 @@ class UbicacionsController extends AppController {
 		            	//$this->Session->setFlash('No se pudo realizar el registro' /*. $this->data['Fichatecnica']['idfichatenica'] */);
 		        	}
     	}
+    	}
 	}
 
 	public function ubicacion_registrarmod($id=null) {
 		$this->layout = 'cyanspark';
-		
+		if (!$this->Fichatecnica->exists($id)) {
+        	throw new NotFoundException('La ficha técnica no se encuentra disponible', 404);
+    	} else {
 		$this->set('idfct',$id);
 	
         if ($this->request->is('post')) {
@@ -56,15 +61,20 @@ class UbicacionsController extends AppController {
 		            	//$this->Session->setFlash('No se pudo realizar el registro' /*. $this->data['Fichatecnica']['idfichatenica'] */);
 		        	}
     	}
+    	}
 	}
 
 	function ubicacion_eliminar($id,$idfichatecnica) {
 		if (!$this->request->is('post')) {
 	        throw new MethodNotAllowedException();
 	    }
+		if (!$this->Ubicacion->exists($id)) {
+        	throw new NotFoundException('No se ha encontrado la ubicación del proyecto a eliminar', 404);
+    	} else {
 	    if ($this->Ubicacion->delete($id)) {
 	        $this->Session->setFlash('La Ubicacion ha sido eliminada.','default',array('class' => 'success'));
 	        $this->redirect(array('controller' => 'Fichatecnicas','action' => 'fichatecnica_modificarubicacion',$idfichatecnica));
+	    }
 	    }
 	}
 	
