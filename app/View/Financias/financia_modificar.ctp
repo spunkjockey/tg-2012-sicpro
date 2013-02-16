@@ -89,6 +89,7 @@ $this->end(); ?>
 		        </script>	
 			</li>
 			<li  class="accept">
+				<?php echo $this->Form->input('idproyecto',array('type' => 'hidden')); ?>
 				<?php echo $this->Form->input('idfuentefinanciamiento',array('type' => 'hidden')); ?>
 				<?php echo $this->Form->input('fuente_proyecto',array('type' => 'hidden')); ?>
 				<?php echo $this->Form->input('userm', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>

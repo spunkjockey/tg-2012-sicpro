@@ -37,6 +37,8 @@ class Financia extends AppModel {
 	);
 	
 	public function limitarMonto($check) {
+        	
+		//Debugger::dump($this->data);
         $monto_disponible = $this->Fuentefinanciamiento->find('first', array(
             'fields' => 'Fuentefinanciamiento.montodisponible',
             'conditions' => array('Fuentefinanciamiento.idfuentefinanciamiento ' => $this->data['Financia']['idfuentefinanciamiento'])   

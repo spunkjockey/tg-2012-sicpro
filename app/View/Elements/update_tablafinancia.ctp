@@ -37,11 +37,18 @@
             			array('action' => 'financia_modificar', $pro['Financia']['fuente_proyecto']),
             			array('class'=>'k-button', 'escape' => false, 'title'=>'Editar Fuente')
 					);?>
-            		<?php echo $this->Form->postLink(
+            		<!--<?php echo $this->Form->postLink(
                 		'<span class="k-icon k-i-close"></span>',
                 		array('action' => 'financia_eliminar', $pro['Financia']['fuente_proyecto']),
-                		array('confirm' => '¿Está seguro que desea eliminar el financiamiento ' . $pro['Financia']['fuente_proyecto'] . '?',
-                			'class'=>'k-button', 'escape' => false, 'title'=>'Eliminar Fuente')
+                		array('confirm' => '¿Está seguro que desea eliminar el financiamiento ' . $pro['Fuentefinanciamiento']['nombrefuente'] . '?',
+                			'class'=>'k-button', 'escape' => false,'title' => 'Eliminar Fuente de Financiamiento')
+            		)?>-->
+            		
+            		<?php echo $this->Html->link(
+                		'<span class="k-icon k-i-close"></span>',
+                		array('action' => 'financia_eliminar', $pro['Financia']['fuente_proyecto']),
+                		array('confirm' => '¿Está seguro que desea eliminar el financiamiento ' . $pro['Fuentefinanciamiento']['nombrefuente'] . '?',
+                			'class'=>'k-button', 'escape' => false,'title' => 'Eliminar Fuente de Financiamiento')
             		)?>
              	</td>
 		    </tr>

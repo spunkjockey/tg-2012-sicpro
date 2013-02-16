@@ -42,41 +42,48 @@ class FinanciasController extends AppController {
 
 	function financia_modificar($id = null) {
 		$this->layout = 'cyanspark';
-	    $this->Financia->id = $id;
-		$idproyecto = $this->Financia->findByFuente_proyecto($id);
-	    if ($this->request->is('get')) {
-	        $this->request->data = $this->Financia->read();
-	    } else {
-	        if ($this->Financia->save($this->request->data)) {
-	        	$financia = $this->Fuentefinanciamiento->findByIdfuentefinanciamiento($this->request->data['Financia']['idfuentefinanciamiento']);
-	            
-	            $this->Session->setFlash('El monto de la fuente de financiamiento: "'. $financia['Fuentefinanciamiento']['nombrefuente'] .'", asignado a este proyecto ha sido modificado correctamente.','default',array('class' => 'success'));
-	            $this->redirect(array('action' => 'index',$idproyecto['Proyecto']['idproyecto']));
-	        } else {
-	        	//$this->request->data = $this->Financia->read();
-	        	$financia = $this->Financia->findByFuente_proyecto($id);
-	        	$this->request->data['Proyecto']['nombreproyecto'] = $financia['Proyecto']['nombreproyecto'];
-				$this->request->data['Proyecto']['montoplaneado'] = $financia['Proyecto']['montoplaneado'];
-				$this->request->data['Fuentefinanciamiento']['nombrefuente'] = $financia['Fuentefinanciamiento']['nombrefuente'];
-				$this->request->data['Fuentefinanciamiento']['montodisponible'] = $financia['Fuentefinanciamiento']['montodisponible'];
-            	//$this->Session->setFlash('Ha ocurrido un error. Imposible modificar el financiamiento');
-        	}
-	    }
+		if (!$this->Financia->exists($id)) {
+        	throw new NotFoundException('No se ha encontrado el Financiamiento a modificar', 404);
+    	} else {
+		    $this->Financia->id = $id;
+			$idproyecto = $this->Financia->findByFuente_proyecto($id);
+			if ($this->request->is('get')) {
+		        $this->request->data = $this->Financia->read();
+		    } else {
+		        if ($this->Financia->save($this->request->data)) {
+		        	$financia = $this->Fuentefinanciamiento->findByIdfuentefinanciamiento($this->request->data['Financia']['idfuentefinanciamiento']);
+		            $this->Session->setFlash('El monto de la fuente de financiamiento: "'. $financia['Fuentefinanciamiento']['nombrefuente'] .'", asignado a este proyecto ha sido modificado correctamente.','default',array('class' => 'success'));
+		            $this->redirect(array('action' => 'index',$idproyecto['Proyecto']['idproyecto']));
+		        } else {
+		        	//$this->request->data = $this->Financia->read();
+		        	$financia = $this->Financia->findByFuente_proyecto($id);
+		        	$this->request->data['Proyecto']['nombreproyecto'] = $financia['Proyecto']['nombreproyecto'];
+					$this->request->data['Proyecto']['montoplaneado'] = $financia['Proyecto']['montoplaneado'];
+					$this->request->data['Fuentefinanciamiento']['nombrefuente'] = $financia['Fuentefinanciamiento']['nombrefuente'];
+					$this->request->data['Fuentefinanciamiento']['montodisponible'] = $financia['Fuentefinanciamiento']['montodisponible'];
+	            	//$this->Session->setFlash('Ha ocurrido un error. Imposible modificar el financiamiento');
+	        	}
+		    }
+		}
 	}
 
 	function financia_eliminar($id) {
-		$financia = $this->Financia->findByFuente_proyecto($id);
-		$financiaa = $this->Fuentefinanciamiento->findByIdfuentefinanciamiento($financia['Financia']['idfuentefinanciamiento']);
-		if (!$this->request->is('POST')) {
-	        throw new MethodNotAllowedException();
-	    }
-	    if ($this->Financia->delete($id)) {
-	    	$this->Session->setFlash('El monto de la fuente de financiamiento: '. $financiaa['Fuentefinanciamiento']['nombrefuente'] .' asignado a este proyecto ha sido eliminado correctamente.','default',array('class' => 'success'));
-	        $this->redirect(array('action' => 'index',$financia['Financia']['idproyecto']));
-	    } else {
-	    	$this->Session->setFlash('No se puede eliminar la Fuente de Financiamiento, el valor del financiamiento total no debe ser menor al valor de los montos de los contratos de este proyecto');
-	        $this->redirect(array('action' => 'index',$financia['Financia']['idproyecto']));
-	    }
+		if (!$this->Financia->exists($id)) {
+        	throw new NotFoundException('No se ha encontrado el Financiamiento a eliminar', 404);
+    	} else {
+			$financia = $this->Financia->findByFuente_proyecto($id);
+			$financiaa = $this->Fuentefinanciamiento->findByIdfuentefinanciamiento($financia['Financia']['idfuentefinanciamiento']);
+			/*if (!$this->request->is('POST')) {
+		        throw new MethodNotAllowedException();
+		    }*/
+		    if ($this->Financia->delete($id)) {
+		    	$this->Session->setFlash('El monto de la fuente de financiamiento: '. $financiaa['Fuentefinanciamiento']['nombrefuente'] .' asignado a este proyecto ha sido eliminado correctamente.','default',array('class' => 'success'));
+		        $this->redirect(array('action' => 'index',$financia['Financia']['idproyecto']));
+		    } else {
+		    	$this->Session->setFlash('No se puede eliminar la Fuente de Financiamiento, el valor del financiamiento total no debe ser menor al valor de los montos de los contratos de este proyecto');
+		        $this->redirect(array('action' => 'index',$financia['Financia']['idproyecto']));
+		    }
+		}
 	}
 
 	function update_tablafinancia() {
