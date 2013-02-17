@@ -282,30 +282,32 @@ class NombramientosController extends AppController {
 		{
 			$numproyecto = $this->request->data['proyectos'];
 			$idproy = $this->Proyecto->field('idproyecto',array('numeroproyecto' => $numproyecto));
-			$nomproy = $this->Proyecto->field('nombreproyecto',array('numeroproyecto' => $numproyecto));
-			$this->set('nombre',$nomproy);
-			$this->set('idproyecto',$idproy);
-			$this->set('construc', $this->Contratoconstructor->find('all',array(
-					'fields'=>array('Contratoconstructor.codigocontrato','Contratoconstructor.nombrecontrato',
-									'Contratoconstructor.idcontrato',
-									'Persona.nombrespersona','Persona.apellidospersona'),
-					'conditions'=>array('Contratoconstructor.idproyecto'=>$idproy),
-					'order'=>'Contratoconstructor.idcontrato'
+			if($this->Proyecto->exists($idproy)) {
+				$nomproy = $this->Proyecto->field('nombreproyecto',array('numeroproyecto' => $numproyecto));
+				$this->set('nombre',$nomproy);
+				$this->set('idproyecto',$idproy);
+				$this->set('construc', $this->Contratoconstructor->find('all',array(
+						'fields'=>array('Contratoconstructor.codigocontrato','Contratoconstructor.nombrecontrato',
+										'Contratoconstructor.idcontrato',
+										'Persona.nombrespersona','Persona.apellidospersona'),
+						'conditions'=>array('Contratoconstructor.idproyecto'=>$idproy),
+						'order'=>'Contratoconstructor.idcontrato'
+						)));
+						
+				$this->set('tecnicos',$this->Nombratecnico->find('all',array(
+						'fields'=>array('Nombratecnico.idcontrato','Nombratecnico.nomcompleto'),
+						'conditions'=>array('Nombratecnico.idproyecto'=>$idproy),
+						'order'=>'Nombratecnico.idcontrato'
 					)));
 					
-			$this->set('tecnicos',$this->Nombratecnico->find('all',array(
-					'fields'=>array('Nombratecnico.idcontrato','Nombratecnico.nomcompleto'),
-					'conditions'=>array('Nombratecnico.idproyecto'=>$idproy),
-					'order'=>'Nombratecnico.idcontrato'
-				)));
-				
-			$this->set('supervi',$this->Contratosupervisor->find('all',array(
-					'fields'=>array('Contratosupervisor.codigocontrato','Contratosupervisor.nombrecontrato',
-									'Contratosupervisor.idcontrato','Contratosupervisor.con_idcontrato',
-									'Persona.nombrespersona', 'Persona.apellidospersona'),
-					'conditions'=>array('Contratosupervisor.idproyecto'=>$idproy),
-					'order'=>'Contratosupervisor.idcontrato'
-				)));
+				$this->set('supervi',$this->Contratosupervisor->find('all',array(
+						'fields'=>array('Contratosupervisor.codigocontrato','Contratosupervisor.nombrecontrato',
+										'Contratosupervisor.idcontrato','Contratosupervisor.con_idcontrato',
+										'Persona.nombrespersona', 'Persona.apellidospersona'),
+						'conditions'=>array('Contratosupervisor.idproyecto'=>$idproy),
+						'order'=>'Contratosupervisor.idcontrato'
+					)));
+					}
 		}
 		$this->render('/Elements/update_rep_asignados', 'ajax');
 	}

@@ -227,7 +227,8 @@ $this->end(); ?>
 	
 	<script>
 		$(document).ready(function() {
-	      	var autoComplete = $("#proyectos").kendoAutoComplete({
+	      	var autoComplete = $("#proyectos").kendoComboBox({
+            	dataValueField: "numeroproyecto",
             	dataTextField: "numeroproyecto",
             	filter: 'contains',
             	minLength: 1,
