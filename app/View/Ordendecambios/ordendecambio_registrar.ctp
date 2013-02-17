@@ -47,7 +47,7 @@ $this->end(); ?>
 			
 		</div>
 	</div>
-	<!-- <?php Debugger::dump($anterior); ?> --> 
+	<!-- <?php Debugger::dump($contrato); ?>-->  
 <?php $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
@@ -61,7 +61,7 @@ $this->end(); ?>
 							<?php echo '<label>Numero de Contrato:</label> ' ?>			
 						</td>
 						<td>
-							<?php echo $anterior['Contratoconstructor']['codigocontrato']; ?>
+							<?php echo $contrato['Contratoconstructor']['codigocontrato']; ?>
 						</td>
 					</tr>
 					<tr>
@@ -69,7 +69,7 @@ $this->end(); ?>
 							<?php echo '<label>Contrato:</label> ' ?>			
 						</td>
 						<td>
-							<?php echo $anterior['Contratoconstructor']['nombrecontrato']; ?>
+							<?php echo $contrato['Contratoconstructor']['nombrecontrato']; ?>
 						</td>
 					</tr>
 				</table>

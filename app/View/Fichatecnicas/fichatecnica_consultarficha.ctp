@@ -115,7 +115,7 @@ $this->end(); ?>
 				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 				
 				.k-combobox {
-                    width: 300px;
+                    width: 450px;
                 }
                 
                 form .requerido label:after {
@@ -195,7 +195,7 @@ $this->end(); ?>
 				margin: 30px 30px 10px 0;
 			}
 
-            .k-autocomplete
+            .k-autocomplete 
             {
                 width: 450px;
 				vertical-align: middle;
@@ -213,6 +213,7 @@ $this->end(); ?>
 	<script>
 		$(document).ready(function() {
 	      	var autoComplete = $("#proyectos").kendoComboBox({
+            	dataValueField: "nombrecontrato",
             	dataTextField: "nombreproyecto",
             	filter: 'contains',
             	minLength: 1,

@@ -14,7 +14,7 @@ class OrdendecambiosController extends AppController {
 		$this->set('anterior',$this->Ordendecambio->find('first',
 				array('conditions'=>array('Ordendecambio.idcontrato'=>$idcontrato),
 					'order'=>'fecharegistroorden DESC')));
-					
+		$this->set('contrato',$this->Contratoconstructor->find('first'));			
 		$this->Ordendecambio->set('idcontrato',$idcontrato);
 		$this->Ordendecambio->set('userc', $this->Session->read('User.username'));
 		$this->Ordendecambio->set('creacion', date('Y-m-d h:i:s'));
