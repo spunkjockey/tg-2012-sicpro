@@ -49,6 +49,7 @@ class ComponentesController extends AppController {
         	throw new NotFoundException('No se ha encontrado la Ficha a modificar', 404);
     	} else {
 		$this->set('idfichatecnica',$id);
+		$this->set('info',$this->Fichatecnica->findByIdfichatecnica($id));
 	    $this->set('componentesficha', $this->Componente->find('all',
 				array('conditions' => array('Componente.idfichatecnica' => $id))
 				));
@@ -62,6 +63,7 @@ class ComponentesController extends AppController {
         	throw new NotFoundException('La ficha técnica no se encuentra disponible', 404);
     	} else {	
 		$this->set('idfichatecnica',$id);
+		$this->set('info',$this->Fichatecnica->findByIdfichatecnica($id));
 	    $this->set('componentesficha', $this->Componente->find('all',
 				array('conditions' => array('Componente.idfichatecnica' => $id))
 				));
