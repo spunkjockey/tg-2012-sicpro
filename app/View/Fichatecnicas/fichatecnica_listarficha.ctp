@@ -115,11 +115,9 @@ $this->end(); ?>
             	}
             	else{
             		echo "Lo sentimos, su usuario no cuenta con los permisos adecuados para realizar esta función<br><br>";
-            		echo $this->Html->link(
-	   			'Regresar', 
-			   	array('controller'=>'Mains'),
-	   			array('class'=>'k-button')
-			);}?>
+				}
+				echo $this->Html->link('Regresar',array('controller'=>'Mains'),	array('class'=>'k-button'));
+				?>
 			</td>
 		</tr>
 	</table>
