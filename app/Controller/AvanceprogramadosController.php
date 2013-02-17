@@ -190,6 +190,7 @@ class AvanceprogramadosController extends AppController {
 			$this->set('ordeninicio',$contrato['Contratoconstructor']['ordeninicio']);
 			$this->set('montooriginal',$contrato['Contratoconstructor']['montooriginal']);
 			$this->set('plazoejecucion',$contrato['Contratoconstructor']['plazoejecucion']);
+			$this->set('variacion',$contrato['Contratoconstructor']['variacion']);
 			$this->set('idcontrato',$idcontrato);
 		}	
 		
