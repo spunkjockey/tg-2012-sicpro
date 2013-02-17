@@ -63,6 +63,7 @@ $this->end(); ?>
         <th data-field="tipocontrato" >Tipo</th>
         <th data-field="estadocontrato" >Estado</th>
         <th data-field="montooriginal" >Monto</th>
+        <th data-field="montofinal" >Monto Final</th>
         
     </tr>
           <?php foreach ($contratos as $cc): ?>
@@ -79,6 +80,15 @@ $this->end(); ?>
         <td><?php echo $cc['Contrato']['tipocontrato']; ?></td>
         <td><?php echo $cc['Contrato']['estadocontrato']; ?></td>
         <td><?php echo '$'.number_format($cc['Contrato']['montooriginal'],2); ?></td>
+        <!--<td align="center">
+            <?php echo $this->Html->link(
+            	'<span class="k-icon k-i-find"></span>', 
+            	array('action' => 'contrato_detalle', $cc['Contrato']['idcontrato']),
+            	array('class'=>'k-button','escape' => false,'title' => 'Detalle Contrato')
+			);?>-->
+
+        </td>
+        <td><?php echo '$'.number_format($cc['Contrato']['montooriginal']+$cc['Contrato']['variacion'],2); ?></td>
         <!--<td align="center">
             <?php echo $this->Html->link(
             	'<span class="k-icon k-i-find"></span>', 
@@ -197,8 +207,12 @@ $this->end(); ?>
                                 width: 100
                             } , {
                                 field: "montooriginal",
-                                width: 110
+                                width: 100
+                            } , {
+                                field: "montofinal",
+                                width: 100
                             }
+                            
                         ]
         	});
         	

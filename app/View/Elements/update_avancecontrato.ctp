@@ -205,9 +205,11 @@
 			</div>
 
 
-<?php } else {
-	echo 'No se han encontrado resultados a la busqueda';
-} ?>
+<?php } else { ?>
+		<div id="noresults">
+			<?php echo "No hay resultados"; ?>
+		</div>
+<?php } ?>
 
 
 
@@ -466,6 +468,12 @@ $(function () {
 		font-family: "Trebuchet MS", Arial, sans-serif;
 		color: #555;
 	}
+	
+	
+	#noresults {
+		margin-left: 40px;
+	}
+	
 	
 	#tablagrid caption {
 		font-size: 100%;

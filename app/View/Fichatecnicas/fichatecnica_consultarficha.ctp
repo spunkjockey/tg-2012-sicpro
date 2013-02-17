@@ -64,7 +64,7 @@ $this->end(); ?>
 							))); ?>	
 		
 		<div id="shipping">
-            <label for="input" class="info">Seleccione un proyecto:</label>
+            <label for="input" class="info">Escriba el nombre de un proyecto::</label>
 			<table border="0">
             	<tr>
             		<!--<td><input id="proyectos" /></td>-->
@@ -84,7 +84,7 @@ $this->end(); ?>
              	</tr>
              
 			</table>
-            <div class="hint">Inicie escribiendo el nombre de un proyecto</div>
+            <!--<div class="hint">Inicie escribiendo el nombre de un proyecto</div>-->
 
 		</div>
 		<div id='loading' style="text-align: center; width: 600px; display: none;"><?php echo $this->Html->image('spinner.gif', array('alt' => 'cargando', "style" => "border: 0;")); ?></div>
@@ -93,7 +93,7 @@ $this->end(); ?>
 		</div>
 		<div id="proyo"></div>
 		</div>
-			<table width="600px">
+			<table width="550px">
 			<tr>
 			<td style="text-align: right">
 			<?php echo $this->Html->link('Regresar', 
@@ -150,9 +150,9 @@ $this->end(); ?>
 
                 label {
                     display: inline-block;
-                    width: 150px;
-                    text-align: right;
-                    margin-right: 5px;
+                    width: 250px;
+                    text-align: left;
+                    margin-left: 5px;
                 }
 
                 .accept, .status {
@@ -212,7 +212,7 @@ $this->end(); ?>
 	
 	<script>
 		$(document).ready(function() {
-	      	var autoComplete = $("#proyectos").kendoAutoComplete({
+	      	var autoComplete = $("#proyectos").kendoComboBox({
             	dataTextField: "nombreproyecto",
             	filter: 'contains',
             	minLength: 1,

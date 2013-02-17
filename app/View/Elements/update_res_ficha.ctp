@@ -100,10 +100,11 @@
 		</div>	
 	</li>
 </ul>
-<?php } 
-	else
-		echo "No hay resultados";
-?>
+<?php } else { ?>
+		<div id="noresults">
+			<?php echo "No hay resultados"; ?>
+		</div>
+<?php } ?>
 <!--
 <h3>Proyecto: <?php echo $nomproy?></h3>
 <p>
@@ -199,6 +200,10 @@
 	#Proyecto, #Contrato {
 		border-collapse: collapse;
 		color: black;
+	}
+	
+	#noresults {
+		margin-left: 40px;
 	}
 	
 	#Proyecto .primerac, #Contrato .primerac {

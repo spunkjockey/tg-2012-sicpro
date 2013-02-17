@@ -150,7 +150,7 @@ class MetasController extends AppController {
 		}
 	}
 	
-	function meta_indexmetas($idcomponente=null)
+	public function meta_indexmetas($idcomponente=null)
 	{
 		$this->layout = 'cyanspark';
 		$info = $this->Meta->find('all',array(
@@ -164,7 +164,7 @@ class MetasController extends AppController {
 		$this->set('nombre',$nomcomponente);
 	}
 	
-	function meta_actualizarpje($id=null,$idc=null)
+	public function meta_actualizarpje($id=null,$idc=null)
 	{
 		$this->layout = 'cyanspark';
 		if (!$this->Meta->exists($id)) {
@@ -179,9 +179,9 @@ class MetasController extends AppController {
 			$this->Meta->set('modificacion', date('Y-m-d h:i:s'));
 			if ($this->Meta->save())
 			{
-				$this->Session->setFlash('Meta ha sido actualizado.',
+				$this->Session->setFlash('Meta ha sido actualizado. ',
 										 'default',array('class'=>'success'));
-				$this->redirect(array('action' => 'meta_indexmetas',$idc));
+				$this->redirect(array('action' => 'meta_indexmetas',$this->request->data['Meta']['idc']));
 			}
 			else 
 			{

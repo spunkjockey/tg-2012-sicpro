@@ -20,7 +20,7 @@ public $belongsTo = array(
 			'montoordencambio' => array(
 				'montocorrecto' => array(
 	            	'rule'    => array('montocorrecto'),
-	            	'message' => 'El nuevo monto del contrato supera el monto disponible del proyecto'
+	            	'message' => 'El monto no debe exceder el 20 por ciento del Contrato'
 	        	)
 			)
 		);
@@ -44,8 +44,16 @@ public $belongsTo = array(
 			
 			$montototal = Hash::extract($mavance, '0.Contratoconstructor');
 	
-			$monto = $montototal['montototal'] /*- $montoavances['avance']*/;  
-	        return (float) $check['montoordencambio'] <= (float) $monto;
+			$monto = $montototal['montototal'] /*- $montoavances['avance']*/;
+			
+			/*Debugger::dump((float)$monto);
+			Debugger::dump($monto*0.20);
+			Debugger::dump((float) $check['montoordencambio']);
+			Debugger::dump($check['montoordencambio']- $monto);*/  
+	        if ($check['montoordencambio'] > $monto)
+	        	return  (float) $check['montoordencambio'] - (float) $monto <= $monto * 0.20;
+			else
+				return TRUE;
 	
 	    }
 		

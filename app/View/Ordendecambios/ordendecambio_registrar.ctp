@@ -47,13 +47,33 @@ $this->end(); ?>
 			
 		</div>
 	</div>
-	
+	<!-- <?php Debugger::dump($anterior); ?> --> 
 <?php $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
 		<h2>Registrar Orden de Cambio</h2>
 		<?php echo $this->Form->create('Ordenc'); ?>
 		<ul>
+			<li>
+				<table>
+					<tr>
+						<td>
+							<?php echo '<label>Numero de Contrato:</label> ' ?>			
+						</td>
+						<td>
+							<?php echo $anterior['Contratoconstructor']['codigocontrato']; ?>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<?php echo '<label>Contrato:</label> ' ?>			
+						</td>
+						<td>
+							<?php echo $anterior['Contratoconstructor']['nombrecontrato']; ?>
+						</td>
+					</tr>
+				</table>
+			</li>
 			<li>
 				<?php echo $this->Form->input('tituloordendecambio', 
 					array(

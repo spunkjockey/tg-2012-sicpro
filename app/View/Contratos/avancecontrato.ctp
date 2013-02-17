@@ -57,6 +57,18 @@ $this->end(); ?>
 		
 		<?php //echo $this->Form->create('Factura'); ?>
 		
+		
+				<?php echo $this->ajax->form(array(
+				'type' => 'post',
+			    'options' => array(
+					        'model'=>'Contrato',
+					        'update'=>'avancecontrato',
+					        'indicator' => 'looading',
+							'before' => '$("#avancecontrato").html(" ")',
+					        'url' => array('action' => 'update_avancecontrato')
+							))); ?>	
+		<!--
+		
 		<?php echo $this->ajax->form(array('type' => 'post',
 		    'options' => array(
 		        'model'=>'Contrato',
@@ -67,7 +79,7 @@ $this->end(); ?>
 		            'action' => 'update_avancecontrato'
 		        )
 		    )
-		)); ?>
+		)); ?>-->
 		
 		<div id="shipping">
             <label for="input" class="info">Seleccione un contrato:</label>
@@ -85,8 +97,9 @@ $this->end(); ?>
 
 		</div>
 		<div id='loading' style="text-align: center; width: 600px; display: none;"><?php echo $this->Html->image('spinner.gif', array('alt' => 'cargando', "style" => "border: 0;")); ?></div>
-	
-	<div id="avancecontrato"></div>
+		<div id="avancecontrato"> 
+			
+		</div>
 	
 	<table width="600px">
 			<tr>

@@ -120,6 +120,8 @@ $this->end(); ?>
 		            datePicker1.add(Validate.Format, { pattern: /\d\d\/\d\d\/\d\d\d\d/, failureMessage: "La Fecha debe contener un formato un formato DD/MM/AAAA"  } );
 		            datePicker1.add(Validate.Length,{is:10, wrongLengthMessage:"Longitud debe ser de 10 caracteres. Formato DD/MM/AAAA"});
 		        </script>
+		         <?php if ($this->Form->isFieldError('Ordendecambio.fecharegistroorden')) {
+ 	 					echo $this->Form->error('Ordendecambio.fecharegistroorden'); } ?>
 			</li>
 			<li  class="accept">
 				<?php echo $this->Form->input('idcontrato', array('type' => 'hidden')); ?>
@@ -155,18 +157,12 @@ $this->end(); ?>
 
                 .k-textbox {
                     width: 300px;
-                    margin-left: 5px;
-                    
                 }
-				
-				
 			
                 #formulario {
                     width: 600px;
-                    /*height: 323px;*/
                     margin: 15px 0;
                     padding: 10px 20px 20px 0px;
-                    /*background: url('../../content/web/validator/ticketsOnline.png') transparent no-repeat 0 0;*/
                 }
 
                 #formulario h3 {
@@ -188,7 +184,7 @@ $this->end(); ?>
                     display: inline-block;
                     width: 160px;
                     text-align: right;
-                    
+					margin-right: 5px;                    
                 }
 
                 /*.required {
@@ -220,37 +216,24 @@ $this->end(); ?>
                 
 				
 				.LV_validation_message{
-				    font-weight:bold;
+				    
 				    margin:0 0 0 5px;
 				}
 				
 				.LV_valid {
 				    color:#00CC00;
+				    display: none;
 				}
 					
 				.LV_invalid {
 				    color:#CC0000;
 					clear:both;
                		display:inline-block;
-               		margin-left: 170px; 
+               		margin-left: 165px; 
                
 				}
 				    
-				.LV_valid_field,
-				input.LV_valid_field:hover, 
-				input.LV_valid_field:active,
-				textarea.LV_valid_field:hover, 
-				textarea.LV_valid_field:active {
-				    border: 1px solid #00CC00;
-				}
-				    
-				.LV_invalid_field, 
-				input.LV_invalid_field:hover, 
-				input.LV_invalid_field:active,
-				textarea.LV_invalid_field:hover, 
-				textarea.LV_invalid_field:active {
-				    border: 1px solid #CC0000;
-				}
+
                 
             </style>
             

@@ -55,9 +55,19 @@ $this->end(); ?>
 	<div id="formulario">
 		<h2>Modificar Fondos Asignados</h2>
 		<?php echo $this->Form->create('Financia'); ?>
+		<!--<?php Debugger::dump($this->data); ?>-->
 		<ul>
 			<li>
-				<?php echo '<label>Nombre de Proyecto:</label> '.$this->request->data['Proyecto']['nombreproyecto']; ?>
+				<table>
+					<tr>
+						<td>
+							<?php echo '<label>Nombre de Proyecto:</label> ' ?>			
+						</td>
+						<td>
+							<?php echo $this->request->data['Proyecto']['nombreproyecto']; ?>
+						</td>
+					</tr>
+				</table>
 			</li>
 			<li>
 				<?php echo '<label>Monto del Proyecto:</label> $'.number_format($this->request->data['Proyecto']['montoplaneado'],2); ?>
@@ -68,11 +78,17 @@ $this->end(); ?>
 			<li>
 				<?php echo '<label>Financiamiento Disponible:</label> $'. number_format($this->request->data['Fuentefinanciamiento']['montodisponible'],2); ?>
 			</li>
+			<li>
+				<?php echo '<label>Financiamiento Asignado:</label> $'. number_format($this->request->data['Financia']['montoparcial'],2); ?>
+			</li>
+			<li>
+				<?php echo '<label>Financiamiento Máximo:</label> $'. number_format($this->request->data['Fuentefinanciamiento']['montodisponible']+$this->request->data['Financia']['montoparcial'],2); ?>
+			</li>
 			<li> 
 				
 				<?php echo $this->Form->input('montoparcial',
 					array(
-						'label' => 'Monto:',
+						'label' => 'Monto actual:',
 						'div' => array('id' => 'mparcial','class' => 'requerido'), 
 						'id' => 'monto', 
 						'type' => 'text',

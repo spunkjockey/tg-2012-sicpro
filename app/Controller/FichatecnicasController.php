@@ -247,6 +247,7 @@ class FichatecnicasController extends AppController {
 
 	function update_res_ficha()
 	{
+		Debugger::dump($this->request->data);
 		if(isset($this->request->data['proyectos']) && !empty($this->request->data['proyectos']))
 		{
 			$nomproy= $this->request->data['proyectos'];

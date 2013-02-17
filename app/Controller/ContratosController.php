@@ -264,10 +264,7 @@ class ContratosController extends AppController {
 		{
 			$contrato = $this->Contratoconstructor->findByNombrecontrato($this->request->data['contratos']);
 			//Debugger::dump($contrato);
-			
-			
 			if(isset($contrato)&&!empty($contrato)) {
-				
 				$avance = $this->Avanceprogramado->findAllByIdcontrato($contrato['Contratoconstructor']['idcontrato'],
 					array(),
 					array('Avanceprogramado.fechaavance' => 'ASC'),
@@ -276,7 +273,6 @@ class ContratosController extends AppController {
 					0 
 				);
 				//Debugger::dump($avance);
-				
 				$estimacion = $this->Estimacion->findAllByIdcontrato($contrato['Contratoconstructor']['idcontrato'],
 					array(),
 					array('Estimacion.fechafinestimacion' => 'ASC'),
@@ -284,12 +280,9 @@ class ContratosController extends AppController {
 					null,
 					0 
 				);
-			
 				//Debugger::dump($estimacion);
-				
 				$scontrato = $this->Contratosupervisor->findByCon_idcontrato($contrato['Contratoconstructor']['idcontrato'],array('recursive'=>0 ));
 				//Debugger::dump($scontrato);
-				
 				$supervision = $this->Informesupervisor->findAllByIdcontrato($scontrato['Contratosupervisor']['idcontrato'],
 					array(),
 					array('Informesupervisor.fechafinsupervision' => 'ASC'),
@@ -297,34 +290,23 @@ class ContratosController extends AppController {
 					null,
 					0
 				);
-				
-				
-				
+		
 				$avancesupervision = $this->Informesupervisor->query('select * 
-from 
-
-(select * from sicpro2012.avanceprogramado where avanceprogramado.idcontrato = '. $contrato['Contratoconstructor']['idcontrato'] .') avance 
-
-LEFT JOIN 
-
-(select * from sicpro2012.informesupervision where informesupervision.idcontrato = '. $scontrato['Contratosupervisor']['idcontrato'] .') informe 
-
-ON avance.fechaavance = informe.fechafinsupervision 
-
-order by avance.fechaavance');
-				
+					from
+						(select * from sicpro2012.avanceprogramado where avanceprogramado.idcontrato = '. $contrato['Contratoconstructor']['idcontrato'] .') avance 
+					LEFT JOIN 
+						(select * from sicpro2012.informesupervision where informesupervision.idcontrato = '. $scontrato['Contratosupervisor']['idcontrato'] .') informe 
+							ON avance.fechaavance = informe.fechafinsupervision 
+					order by avance.fechaavance');
 				//Debugger::dump($avancesupervision);
 				//Debugger::dump(Hash::extract($avance,'{n}.Avanceprogramado'));
-				
-				
 				$this->set('contrato',$contrato);
 				$this->set('avances',$avance);
 				$this->set('estimaciones',$estimacion);
 				$this->set('scontrato',$scontrato);
 				$this->set('supervisiones',$supervision); 
 				$this->set('avancesupervision',$avancesupervision);
-				
-				}
+			}
 		}
 		
 			
@@ -412,6 +394,9 @@ order by avance.fechaavance');
     	else {
 	        $contratos = $this->Contrato->findByIdcontrato($idcontrato);
 			$this->set('contratos',$contratos);
+			
+			$contratosc = $this->Contratoconstructor->findByIdcontrato($idcontrato);
+			$this->set('contratosc',$contratosc);
 			
 			$ordenes =$this->Ordendecambio->find('all',
 			array('conditions'=> array('Ordendecambio.idcontrato'=>$idcontrato)));

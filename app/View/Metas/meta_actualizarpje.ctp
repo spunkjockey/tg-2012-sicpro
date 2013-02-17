@@ -42,7 +42,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> Control y seguimiento » Actualizar porcentaje de avance de meta
+			?> » Control y seguimiento » Actualizar porcentaje de avance de meta
 			
 		</div>
 	</div>
@@ -56,6 +56,7 @@ $this->end(); ?>
 		
 		<ul>
 			<li>
+				
 				<table>
 					<tr>
 					<td><label>Componente:</label></td><td><?php echo $this->data['Componente']['nombrecomponente'];?></td>
@@ -89,7 +90,8 @@ $this->end(); ?>
 				<table>
 					<tr>
 						<td>
-							<?php echo $this->Form->end(array('label' => 'Actualizar', 'class' => 'k-button')); ?>
+							<?php echo $this->Form->end(array('label' => 'Actualizar', 
+															  'class' => 'k-button')); ?>
 						</td>
 						<td>
 							<?php echo $this->Html->link('Regresar', 
