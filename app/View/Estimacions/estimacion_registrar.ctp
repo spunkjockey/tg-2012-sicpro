@@ -80,6 +80,7 @@ $this->end(); ?>
 		            contratos.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 		        </script> 
 			</li>
+			<div id=infoconstructor><!--- Aqui se muestran datos sobre el contratoconstructor seleccionado --></div>
 			<li>
 				<?php echo $this->Form->input('tituloestimacion', 
 					array(
@@ -175,6 +176,10 @@ $this->end(); ?>
 			<div id='prueba'>
 				
 			</div>
+			<?php echo $this->ajax->observeField( 'contratos',array(
+			        		'url' => array( 'action' => 'update_infoconstructor'),
+			        		'update' => 'infoconstructor'));  
+					?>
 			<li  class="accept">
 				<?php echo $this->Form->input('userc', array('type' => 'hidden', 'value'=> $this->Session->read('User.username') )); ?>
 				
@@ -302,7 +307,7 @@ $this->end(); ?>
 	    var start = $("#datePicker1").kendoDatePicker({
 	        culture: "es-ES",
 		   	format: "dd/MM/yyyy",
-	        change: startChange
+		   	change: startChange
 	    }).data("kendoDatePicker");
 		
 	    var end = $("#datePicker2").kendoDatePicker({

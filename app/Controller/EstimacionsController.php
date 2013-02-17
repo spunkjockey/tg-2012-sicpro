@@ -195,7 +195,7 @@ class EstimacionsController extends AppController {
 	function estimacion_detalles($idinfo=null)
 	{
 		$this->layout = 'cyanspark';
-		if (!$this->Estimacion->exists($id)) {
+		if (!$this->Estimacion->exists($idinfo)) {
         	throw new NotFoundException('No se puede encontrar la estimación', 404);
     	}
 		else {
@@ -232,6 +232,20 @@ class EstimacionsController extends AppController {
 		$this->set('_serialize', 'estimacion');
 		$this->render('/json/jsonestimacion');
 	}
+	
+	function update_infoconstructor()
+		{
+			if (!empty($this->data['Estimacion']['idcontrato']))
+			{	
+				$cont_id = $this->request->data['Estimacion']['idcontrato'];
+				$info = $this->Contratoconstructor->find('first',array(
+							'fields'=>array('Contratoconstructor.nombrecontrato','Contratoconstructor.plazoejecucion',
+											'Contratoconstructor.fechainiciocontrato','Contratoconstructor.fechafincontrato'),
+							'conditions'=>array('Contratoconstructor.idcontrato'=>$cont_id)));
+				$this->set('info',$info);
+			}
+			$this->render('/Elements/update_infoconstructor', 'ajax');	
+		}
 	
 
 }

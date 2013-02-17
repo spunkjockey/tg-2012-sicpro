@@ -22,7 +22,7 @@
 		<td style="text-align: right">Vigencia: </td><td><?php echo date('d/m/Y',strtotime( $inicon)); ?> Al <?php echo date('d/m/Y',strtotime($fincon)); ?></td>
 	</tr>
 	<tr>
-		<td style="text-align: right">Plazo de ejecución: </td><td><?php echo $placon; ?></td>
+		<td style="text-align: right">Plazo de ejecución: </td><td><?php echo $placon; ?> días</td>
 	</tr>
 </table>
 
