@@ -50,31 +50,45 @@ $this->end(); ?>
 <?php $this->end(); ?>
 <div id="example" class="k-content">
 	<div id="formulario">
-		<h3>Datos de estimación de avance</h3>
+		<h2>Datos de estimación de avance</h2>
 
 		<?php
 			if($estima!=false)
 				foreach ($estima as $est) 
 				{
 				?>
-					<h4><?php echo $est['Estimacion']['tituloestimacion'] ?></h4>
-					<p>
-						<?php
-							echo "Estimación comprendida del ".date('d/m/Y',strtotime($est['Estimacion'] ['fechainicioestimacion'])).
-								 " al".date('d/m/Y',strtotime($est['Estimacion'] ['fechafinestimacion']))."<br>";
-							echo "Realizada el ".date('d/m/Y',strtotime($est['Estimacion'] ['fechaestimacion']))." <br><br>";
-							echo "<strong>Monto de la estimación:</strong> $".number_format($est['Estimacion']['montoestimado'],2)."<br>";
-							echo "<strong>Porcentaje de avance estimado:</strong> ".number_format($est['Estimacion']['porcentajeestimadoavance'],2)."%<br>";
-							
-						?>
-					</p>
+					<h3><?php echo $est['Estimacion']['tituloestimacion'] ?></h3>
+						<table>
+							<tr>
+								<td>Perteneciente al contrato </td>
+								<td><?php echo $info['Contratoconstructor']['codigocontrato']; ?></td>
+							</tr>
+							<tr>
+								<td>Período de la estimación </td>
+								<td><?php echo "Del ".date('d/m/Y',strtotime($est['Estimacion'] ['fechainicioestimacion']))." al".date('d/m/Y',strtotime($est['Estimacion'] ['fechafinestimacion'])) ?></td>
+							</tr>
+							<tr>
+								<td>Realizada</td>
+								<td><?php echo date('d/m/Y',strtotime($est['Estimacion'] ['fechaestimacion']));?></td>
+							</tr>
+							<tr>
+								<td>Monto estimado </td>
+								<td>$<?php echo number_format($est['Estimacion']['montoestimado'],2); ?> </td>
+							</tr>
+							<tr>
+								<td>Porcentaje estimado de avance</td>
+								<td><?php echo number_format($est['Estimacion']['porcentajeestimadoavance'],2)?>% </td>
+							</tr>
+						</table>
+						
+					
 					
 				<?php	
 				}
 			else 
 				echo "No hay información asociada a esta estimación";
 		?>
-		<h3>Archivos asociados</h3>
+		<h2>Archivos asociados a la estimación</h2>
 				<?php
 					$results = $this->Upload->listing ('Estimacion', $idestimacion);
 					$directory = $results['directory'];

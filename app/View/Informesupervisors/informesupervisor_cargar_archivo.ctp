@@ -52,7 +52,10 @@ $this->end(); ?>
 
 				<h2>Administración de Archivos:</h2>
 
-				<h3>Archivos Existentes:</h3>
+<h3>Informe de supervisión: "<?php echo $info['Informesupervisor']['tituloinformesup']; ?>" <br><br>Perteneciente al 
+			contrato: </label> <?php echo $info['Contratosupervisor']['codigocontrato']; ?><br></h3>
+
+
 				<?php echo $this->Upload->edit('Informesupervisor',$idinformesupervision); ?>
 	
             <?php echo $this->Html->link(
@@ -83,10 +86,11 @@ $this->end(); ?>
                     padding: 10px 20px 20px 0px;
                 }
 
-                h3 {
+               h3 {
                     font-weight: normal;
                     font-size: 1.4em;
-                    border-bottom: 1px solid #ccc;
+                    color:#000000;
+                    /*border-bottom: 1px solid #ccc;*/
                 }
 
                 #formulario ul {

@@ -52,6 +52,16 @@ $this->end(); ?>
 <?php $this->end(); ?>
 		   
 <h2>Administración de Archivos</h2>
+<div id="formulario">
+		<?php echo $this->Form->create('Estimacion'); ?>
+<ul>
+	<li>
+		<h3>Estimación: "<?php echo $info['Estimacion']['tituloestimacion']; ?>" <br><br>Perteneciente al 
+			contrato: </label> <?php echo $info['Contratoconstructor']['codigocontrato']; ?><br></h3>
+	</li>
+	
+</ul>
+</div>
 <table>
 	<tr>
 		<td>
@@ -68,31 +78,32 @@ $this->end(); ?>
 	</tr>
 </table>	
 <style scoped>
-				#titulo {
-					color:#3A90CA;
-				}
-				#capa1{
-					margin-left: 20px;
-					color:#000000;
-				}
-				.capa2{
-					margin-left: 40px;
-					color:#3E3E3E;
-				}
+
                 .k-textbox {
-                    width: 11.8em;
+                    width: 300px;    
                 }
-				
-				#formulario {
+                
+				form .requerido label:after {
+                	font-size: 1.4em;
+					color: #e32;
+					content: '*';
+					display:inline;
+				}
+                
+			
+                #formulario {
                     width: 600px;
+                    /*height: 323px;*/
                     margin: 15px 0;
                     padding: 10px 20px 20px 0px;
+                    /*background: url('../../content/web/validator/ticketsOnline.png') transparent no-repeat 0 0;*/
                 }
 
-                h3 {
+                #formulario h3 {
                     font-weight: normal;
                     font-size: 1.4em;
-                    border-bottom: 1px solid #ccc;
+                    color:#000000;
+                    /*border-bottom: 1px solid #ccc;*/
                 }
 
                 #formulario ul {
@@ -100,36 +111,18 @@ $this->end(); ?>
                     margin: 0;
                     padding: 0;
                 }
-                
                 #formulario li {
                     margin: 10px 0 0 0;
                 }
 
-                label {
+              label {
                     display: inline-block;
-                    width: 150px;
+                    width: 140px;
                     text-align: right;
-                    margin-right: 5px; 
-                }
-                
-                .etiqueta {
-                    display: inline-block;
-                    width: 150px;
+                    margin-right: 5px;
                     
-                    margin-right: 5px; 
                 }
-                
-                
-                form .required label:after {
-                	font-size: 1.4em;
-					color: #e32;
-					content: '*';
-					display:inline;
-				}
-                
-                .required {
-                    font-weight: bold;
-                }
+
 
                 .accept, .status {
                 	padding-top: 15px;
@@ -141,19 +134,30 @@ $this->end(); ?>
                 }
 
                 .invalid {
-                    color: red;
+                    color: gray;
                 }
-                
                 span.k-tooltip {
                     margin-left: 6px;
                 }
                 
-                #tablafinancia {
-                    width: 600px;
-                    margin: 15px 0;
-                    padding: 10px 20px 20px 0px;
-                }
-</style>
+ 				.LV_validation_message{
+				    /*font-weight:bold;*/
+				    margin:0 0 0 5px;
+				}
+				
+				.LV_valid {
+				    color:#00CC00;
+				    margin-left: 10px;
+				    display: none;
+				}
+					
+				.LV_invalid {
+				    color:#CC0000;
+               		display:block;
+               		margin-left: 145px;
+				}
+
+            </style>
 <script>
 	$(document).ready(function() {
     	$("#tabla").kendoGrid({

@@ -57,11 +57,34 @@ $this->end(); ?>
 		<h3>Datos de Informe Supervisión</h3>
 
 <?php foreach ($infosupervision as $ifs): ?>
-	<h4><?php echo $ifs['Informesupervisor']['tituloinformesup'] ?></h4>
-	<strong>Fecha Fin: </strong><?php echo  date('d/m/Y',strtotime($ifs['Informesupervisor']['fechafinsupervision'])) ;?><br />
-		<strong>Pazo Ejecución: </strong><?php echo $ifs['Informesupervisor']['plazoejecuciondias'] ;?><br />
-	<strong>Avance Fisico: </strong><?php echo $ifs['Informesupervisor']['porcentajeavancefisico'] ;?>%<br />
-	<strong>Avance Financiero: </strong> $<?php echo $ifs['Informesupervisor']['valoravancefinanciero'] ;?><br />
+	
+	<table>
+		<tr>
+			<td>Título del informe</td>
+			<td><?php echo $ifs['Informesupervisor']['tituloinformesup'] ?> </td>
+		</tr>
+		<tr>
+			<td>Perteneciente al contrato</td>
+			<td><?php echo $informacion['Contratosupervisor']['codigocontrato']; ?></td>
+		</tr>
+		<tr>
+			<td>Final del período de supervisión</td>
+			<td><?php echo  date('d/m/Y',strtotime($ifs['Informesupervisor']['fechafinsupervision'])) ;?></td>
+		</tr>
+		<tr>
+			<td>Plazo de supervisión</td>
+			<td><?php echo $ifs['Informesupervisor']['plazoejecuciondias'] ;?> días</td>
+		</tr>
+		<tr>
+			<td>Avance físico</td>
+			<td><?php echo $ifs['Informesupervisor']['porcentajeavancefisico'];?>%</td>
+		</tr>
+		<tr>
+			<td>Avance financiero</td>
+			<td>$<?php echo $ifs['Informesupervisor']['valoravancefinanciero'] ;?></td>
+		</tr>
+	</table>
+
 	
 <?php
 	$idsup = $ifs['Informesupervisor']['idinformesupervision'] ;

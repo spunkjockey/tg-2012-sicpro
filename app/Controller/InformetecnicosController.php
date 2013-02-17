@@ -61,6 +61,7 @@
 								'conditions'=>array('AND'=>array(
 													'estadocontrato' => array('a tiempo','atrasado','en marcha','en pausa'),
 													'estadoproyecto'=>'Ejecucion',
+													'estado'=>TRUE,
 													'username'=>$this->Session->read('User.username')))
 										));
 										
@@ -105,9 +106,17 @@
 		function informetecnico_observacion($idinfo=null)
 		{
 			$this->layout = 'cyanspark';
-			if (!$this->Informetecnico->exists($idinfo)) {
+			/*if (!$this->Informetecnico->exists($idinfo)) {
         	throw new NotFoundException('No se ha encontrado el informe técnico que buscaba', 404);
-    	} else {
+    	} else {*/
+			//proyecto y contrato
+			$idcon = $this->Informetecnico->field('idcontrato',array('idinformetecnico'=>$idinfo));
+			$ncon = $this->Contratoconstructor->field('nombrecontrato',array('idcontrato'=>$idcon));
+			$this->set('nomcon',$ncon);
+			$idproy = $this->Contratoconstructor->field('idproyecto',array('idcontrato'=>$idcon));
+			$nproy = $this->Proyecto->field('nombreproyecto',array('idproyecto'=>$idproy));
+			$this->set('nomproy',$nproy);
+			//contenido informe
 			$info = $this->Informetecnico->find('first',array(
 				'fields'=>array('antecedentes','anotacion'),
 				'conditions'=>array('idinformetecnico'=>$idinfo)
@@ -128,7 +137,7 @@
 				));	
 			$this->set('datos',$datos);
 			$this->set('idinfo',$idinfo);
-			
+		//}
 			if($this->request->is('post'))
 			{
 				$this->Observacion->set('idinformetecnico', $this->request->data['Informetecnico']['idinformetecnico']);
@@ -145,7 +154,7 @@
             		$this->Session->setFlash('No se pudo agregar la observación');
         		}
 			}
-			}
+			
 		}
 		 
 		 /*

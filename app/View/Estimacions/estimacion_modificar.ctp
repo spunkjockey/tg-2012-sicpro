@@ -57,7 +57,9 @@ $this->end(); ?>
 		<?php echo $this->Form->create('Estimacion'); ?>
 		<ul>
 			<li>
-				<label>Código de Contrato: </label> <?php echo $info['Contratoconstructor']['codigocontrato']; ?>
+				<label>Título del Contrato: </label> <?php echo $info['Contratoconstructor']['nombrecontrato']; ?><br>
+				<label>Código del Contrato: </label> <?php echo $info['Contratoconstructor']['codigocontrato']; ?><br>
+				
 				<?php echo $this->Form->hidden('idestimacion'); ?>
 			</li>
 			<li>

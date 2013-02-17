@@ -160,7 +160,9 @@ class EstimacionsController extends AppController {
         	throw new NotFoundException('No se puede encontrar la estimación', 404);
     	}
 		else
-		{ 
+		{
+        	$info=$this->Estimacion->findByIdestimacion($id);
+			$this->set('info',$info); 
         	$this->set ('idestimacion', $id);
 		}    
     }
@@ -205,8 +207,10 @@ class EstimacionsController extends AppController {
 								'Estimacion.fechafinestimacion','Estimacion.fechaestimacion',
 								'Estimacion.montoestimado','Estimacion.porcentajeestimadoavance'),
 				'conditions'=>array('Estimacion.idestimacion'=>$idinfo)
-			)); 
+			));
 			$this->set('estima',$info);
+			$info2=$this->Estimacion->findByIdestimacion($idinfo);
+			$this->set('info',$info2); 
 		}
 	}
 

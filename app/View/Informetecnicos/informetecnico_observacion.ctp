@@ -52,6 +52,17 @@ $this->end(); ?>
 	<div id="formulario">
 		<h2>Consultar informe técnico</h2>
 		<?php echo $this->Form->create('Informetecnico',array('action' => 'informetecnico_observacion')); ?>
+		<table>
+			<tr>
+				<td width="15%">Proyecto: </td>
+				<td><?php echo $nomproy ?></td>
+			</tr>
+			<tr>
+				<td width="15%">Contrato: </td>
+				<td><?php echo $nomcon?></td>
+			</tr>
+		</table>
+		
 		<!---- Datos informe  ---->
 		<?php
 			if(isset($info['Informetecnico']['antecedentes']))

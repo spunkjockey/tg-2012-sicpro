@@ -146,6 +146,8 @@
     		}
 			else { 
         		$this->set('idinformesupervision', $id);
+				$info=$this->Informesupervisor->findByIdinformesupervision($id);
+				$this->set('info',$info);
 			}
 		}
 		
@@ -302,6 +304,8 @@ WHERE
 			'conditions'=> array(
 								'Informesupervisor.idinformesupervision' => $idinformesupervision)));
 			$this->set('infosupervision',$info);
+			$info2=$this->Informesupervisor->findByIdinformesupervision($idinformesupervision);
+			$this->set('informacion',$info2);
 			} 
 			
 		}
