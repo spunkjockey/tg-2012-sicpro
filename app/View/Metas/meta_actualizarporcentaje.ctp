@@ -73,21 +73,32 @@ $this->end(); ?>
 			
 		
 				
-		<?php echo $this->ajax->observeField( 'comps',array(
-			        		'url' => array( 'action' => 'update_tablametas'),
-			        		'update' => 'tablametas'));  
-					?>
+		
 	</div>
 	
 	
 	
-	<div id=tablametas></div>
 	
+	<table width="600px">
+					<tr>
+						<td style="text-align: right;">
+							<?php echo $this->Form->end(array('label' => 'Ver metas', 
+									'class' => 'k-button', 'id' => 'button')); ?>
+						</td>
+						<td>	
+							<?php echo $this->Html->link('Regresar', 
+								array('controller' => 'Mains','action' => 'index'),
+								array('class'=>'k-button')); ?>
+						</td>
+					</tr>
+				</table>
+	<!--
 	<div style="margin: 10px 0px 10px 563px;"> 
 		<?php echo $this->Html->link('Regresar', 
 						array('controller' => 'Mains','action' => 'index'),
 						array('class'=>'k-button')); ?>
 	</div>
+	-->
 
 </div>
 

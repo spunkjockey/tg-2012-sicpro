@@ -144,15 +144,34 @@ class MetasController extends AppController {
 	function meta_actualizarporcentaje()
 	{
 		$this->layout = 'cyanspark';
+		if($this->request->is('post')) 
+		{
+			$this->redirect(array('action' => 'meta_indexmetas',$this->request->data['Meta']['comps']));
+		}
 	}
 	
-	function meta_actualizarpje($id=null)
+	function meta_indexmetas($idcomponente=null)
+	{
+		$this->layout = 'cyanspark';
+		$info = $this->Meta->find('all',array(
+					'fields'=>array('idmeta','descripcionmeta','porcestimado'),
+					'conditions'=>array('Meta.idcomponente'=>$idcomponente),
+					'order'=>'idmeta'
+					));
+		$this->set('info',$info);
+		$nomcomponente = $this->Componente->field('nombrecomponente',array('idcomponente'=>$idcomponente));
+		$this->set('idc',$idcomponente);
+		$this->set('nombre',$nomcomponente);
+	}
+	
+	function meta_actualizarpje($id=null,$idc=null)
 	{
 		$this->layout = 'cyanspark';
 		if (!$this->Meta->exists($id)) {
         	throw new NotFoundException('No se ha encontrado la meta a actualizar', 404);
     	} else {
 		$this->Meta->id = $id;
+		$this->set('idc',$idc);
 		if ($this->request->is('post')) 
 		{
 			$this->Meta->set('porcestimado', $this->request->data['Meta']['porcestimado']);
@@ -162,7 +181,7 @@ class MetasController extends AppController {
 			{
 				$this->Session->setFlash('Meta ha sido actualizado.',
 										 'default',array('class'=>'success'));
-				$this->redirect(array('action' => 'meta_actualizarporcentaje'));
+				$this->redirect(array('action' => 'meta_indexmetas',$idc));
 			}
 			else 
 			{

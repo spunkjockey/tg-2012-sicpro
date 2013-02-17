@@ -84,6 +84,7 @@ $this->end(); ?>
 		            porcestimado.add( Validate.Numericality,{ minimum: 0, maximum: 100, tooLowMessage: "El porcentaje no puede ser menor a 0 %", tooHighMessage: "El porcentaje no debe ser mayor al 100 %", notANumberMessage:"Debe ser un número"} );
 		        </script>
 			</li>
+			<?php echo $this->Form->input('idc', array('type' => 'hidden','value'=>$idc)); ?>
 			<li  class="accept">
 				<table>
 					<tr>
@@ -92,7 +93,7 @@ $this->end(); ?>
 						</td>
 						<td>
 							<?php echo $this->Html->link('Regresar', 
-									array('controller' => 'Metas','action' => 'meta_actualizarporcentaje'),
+									array('controller' => 'Metas','action' => 'meta_indexmetas',$idc),
 									array('class'=>'k-button')); ?>
 						</td>
 					</tr>
