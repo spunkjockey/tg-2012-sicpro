@@ -136,8 +136,7 @@ $this->end(); ?>
 						'label' => 'Anticipo: ($)',
 						'class' => 'k-textbox',  
 						'id' => 'txanticipo',
-						'type' => 'text',
-						'value' => 0,						
+						'type' => 'text',					
 						'maxlength' => '12',
 						'placeholder' => 'Anticipo del contrato',
 						'div' => array('id'=> 'antic','class' => 'requerido'))); ?>
@@ -207,6 +206,8 @@ $this->end(); ?>
 				           							 tooShortMessage:"Longitud mínima de 2 dígitos",
 				           							 tooLongMessage:"Longitud máxima de 4 dígitos"});
 				</script>
+				<?php if ($this->Form->isFieldError('Contrato.plazoejecucion')) {
+ 	 					echo $this->Form->error('Contrato.plazoejecucion'); } ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('obras', 
@@ -285,9 +286,11 @@ $this->end(); ?>
 
                 .k-textbox, .k-kendobox{
                     width: 300px;
-                    
-                    
                 }
+
+                textarea {
+				white-space: normal !important;
+				}                
 				
 				.k-textbox:focus{background-color: rgba(255,255,255,.8);}
 				

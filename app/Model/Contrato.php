@@ -69,9 +69,24 @@
 		            	'message' => 'El contrato seleccionado ya ha sido asignado'
 		        		)
 				),
+				'plazoejecucion' => array(
+					'plazomenorigual' => array(
+			        	'rule'    => array('plazomenorigual'),
+		            	'message' => 'El plazo es mayor a la diferencia entre fechas'
+		        		)
+				)
 		 
 			);
 			
+		public function plazomenorigual($check)
+		{
+			    $f1 = str_replace('/', '-', $this->data['Contrato']['fechainiciocontrato']);
+				$f2 = str_replace('/', '-', $this->data['Contrato']['fechafincontrato']);
+			    $diff = strtotime($f2) - strtotime($f1);
+				$diff = $diff/86400;
+				return($this->data['Contrato']['plazoejecucion']<$diff);
+		}
+				
 		public function iniciomenor($check) 
 		{
 			

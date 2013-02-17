@@ -259,7 +259,7 @@
 		function informetecnico_subirfotos($id=null)
 		{
 			$this->layout = 'cyanspark';
-			if (!$this->Informetecnico->exists($idinfo)) {
+			if (!$this->Informetecnico->exists($id)) {
         	throw new NotFoundException('No se ha encontrado el informe técnico que buscaba', 404);
     	} else {
         	$this->set ('idinformetecnico', $id);
@@ -270,7 +270,7 @@
 			if (!$this->request->is('post')) {
 		        throw new MethodNotAllowedException();
 		    }
-			if (!$this->Informetecnico->exists($idinfo)) {
+			if (!$this->Informetecnico->exists($id)) {
         	throw new NotFoundException('No se ha encontrado el informe técnico que buscaba', 404);
     	} else {
 		    if ($this->Informetecnico->delete($id)) {

@@ -137,6 +137,10 @@ $this->end(); ?>
                     text-align: right;
                     
                 }
+                
+                textarea {
+				white-space: normal !important;
+				}
 
                 /*.required {
                     font-weight: bold;

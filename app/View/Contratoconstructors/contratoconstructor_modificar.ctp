@@ -198,6 +198,8 @@ $this->end(); ?>
 				           							 tooShortMessage:"Longitud mínima de 2 dígitos",
 				           							 tooLongMessage:"Longitud máxima de 4 dígitos"});
 				</script>
+				<?php if ($this->Form->isFieldError('Contrato.plazoejecucion')) {
+ 	 					echo $this->Form->error('Contrato.plazoejecucion'); } ?>
 			</li>
 			<li>
 				<?php echo $this->Form->input('detalleobras', 
@@ -317,6 +319,10 @@ $this->end(); ?>
                     text-align: right;
                     margin-right: 5px;
                 }
+
+                textarea {
+				white-space: normal !important;
+				}
 
                 .accept, .status {
                 	padding-top: 15px;
