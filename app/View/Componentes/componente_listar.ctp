@@ -53,6 +53,11 @@ $this->end(); ?>
 <!--<?php Debugger::dump($componentesficha); ?>-->
 <!--<?php Debugger::dump($idfichatecnica); ?>
 -->
+
+<h3>
+<?php 
+echo $info['Proyecto']['nombreproyecto'];
+?></h3>
 <div style='margin:4px 0' >
 	<?php echo $this->Html->link(
 		'<span class="k-icon k-i-plus"></span>Agregar Componente', 
@@ -144,7 +149,13 @@ else {
                     /*background: url('../../content/web/validator/ticketsOnline.png') transparent no-repeat 0 0;*/
                 }
 
-                #formulario h3 {
+				#formulario {
+                    width: 600px;
+                    margin: 15px 0;
+                    padding: 10px 20px 20px 0px;
+                }
+
+                h3 {
                     font-weight: normal;
                     font-size: 1.4em;
                     border-bottom: 1px solid #ccc;
