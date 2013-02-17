@@ -64,7 +64,7 @@ $this->end(); ?>
 							))); ?>	
 		
 		<div id="shipping">
-            <label for="input" class="info">Seleccione un proyecto:</label>
+            <label for="input" class="info">Numero de Proyecto:</label>
 			<table border="0">
             	<tr>
             		<!--<td><input id="proyectos" /></td>-->
@@ -86,17 +86,18 @@ $this->end(); ?>
             <div class="hint">Inicie escribiendo el número de un proyecto</div>
 
 		</div>
-		<ul>
-			<li  class="accept">
-			<?php echo $this->Html->link('Regresar', 
-									array('controller' => 'Mains','action' => 'index'),
-									array('class'=>'k-button')); ?>
-			</li>
-		</ul>
+
 		<div id='loading' style="text-align: center; width: 600px; display: none;"><?php echo $this->Html->image('spinner.gif', array('alt' => 'cargando', "style" => "border: 0;")); ?></div>
 		<div id="resultadosbusqueda"> 
-			
 		</div>
+		<ul>
+			<li  class="accept">
+			<div id="regresar"><?php echo $this->Html->link('Regresar', 
+									array('controller' => 'Mains','action' => 'index'),
+									array('class'=>'k-button')); ?>
+			</div>
+			</li>
+		</ul>	
 	</div>
 </div>
 <style scoped>
@@ -145,11 +146,14 @@ $this->end(); ?>
 
                 label {
                     display: inline-block;
-                    width: 150px;
+                    width: 120px;
                     text-align: right;
                     margin-right: 5px;
                 }
-
+				
+				#regresar {
+					margin-left: 300px;
+				}
                 .accept, .status {
                 	padding-top: 15px;
                     padding-left: 150px;

@@ -50,7 +50,7 @@ $this->end(); ?>
 	
 <?php $this->end(); ?>
 
-<!--<?php Debugger::dump($contratos); ?>-->
+<!-- <?php Debugger::dump($contratoss); ?> -->
 <!--<?php Debugger::dump($ordenes); ?>-->
 <p>
 	<h2>Información Contrato</h2>
@@ -65,6 +65,11 @@ $this->end(); ?>
 		</tr>
 		<tr>
 			<td class="primerac">Monto Original:</td><td width="30%"><?php echo '$' . number_format($contratos['Contrato']['montooriginal'],2)?></td>
+		</tr>
+		<tr>
+			<?php if($contratos['Contrato']['tipocontrato']=='Supervisión de obras') { ?>
+				<td class="primerac">Contrato a Supervisar:</td><td><?php echo $codigocon; ?></td>
+			<?php } ?>
 		</tr>
 		<tr>
 			<?php if($contratos['Contrato']['tipocontrato']=='Construcción de obras') { ?>
@@ -108,7 +113,12 @@ $this->end(); ?>
 			<td class="primerac">Administrador de Contrato:</td><td><?php echo $contratos['Persona']['nombrespersona']. ' '.$contratos['Persona']['apellidospersona']?></td>
 		</tr>
 		<tr>
-			<td class="primerac">Empresa:</td><td><?php echo $contratos['Empresa']['nombreempresa']?></td>
+			<td class="primerac">Empresa ejecutora:</td><td><?php echo $contratos['Empresa']['nombreempresa']?></td>
+		</tr>
+		<tr>
+			<?php if($contratos['Contrato']['tipocontrato']=='Supervisión de obras') { ?>
+				<td class="primerac">Empresa supervisada:</td><td><?php echo $nombreempresa ?></td>
+			<?php } ?>
 		</tr>
 		</tbody>
 		</table>

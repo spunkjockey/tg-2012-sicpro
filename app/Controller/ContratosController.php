@@ -4,7 +4,7 @@ App::uses('CakeEmail', 'Network/Email');
 class ContratosController extends AppController {
     public $helpers = array('Html', 'Form', 'Session','Ajax');
    public $components = array('Session','AjaxMultiUpload.Upload','RequestHandler','Email');
-	public $uses = array('Contrato','Contratoconstructor','Contratosupervisor','Proyecto','Avanceprogramado','Estimacion','Informesupervisor','Ordendecambio','Persona','CakeEmail','Network/Email');
+	public $uses = array('Empresa','Contrato','Contratoconstructor','Contratosupervisor','Proyecto','Avanceprogramado','Estimacion','Informesupervisor','Ordendecambio','Persona','CakeEmail','Network/Email');
 
     public function index() {
     	$this->layout = 'cyanspark';
@@ -395,12 +395,20 @@ class ContratosController extends AppController {
 	        $contratos = $this->Contrato->findByIdcontrato($idcontrato);
 			$this->set('contratos',$contratos);
 			
-			$contratosc = $this->Contratoconstructor->findByIdcontrato($idcontrato);
-			$this->set('contratosc',$contratosc);
-			
-			$ordenes =$this->Ordendecambio->find('all',
-			array('conditions'=> array('Ordendecambio.idcontrato'=>$idcontrato)));
-			$this->set('ordenes',$ordenes);
+			if($contratos['Contrato']['tipocontrato']=='Supervisión de obras') {
+				$contratoss = $this->Contratosupervisor->findByIdcontrato($idcontrato);
+				$this->set('contratoss',$contratoss);
+				$this->set('codigocon', $this->Contratoconstructor->field('codigocontrato',array('idcontrato'=>$contratoss['Contratosupervisor']['con_idcontrato'])));
+				$idempresa = $this->Contratoconstructor->field('idempresa',array('idcontrato'=>$contratoss['Contratosupervisor']['con_idcontrato']));	
+				$this->set('nombreempresa', $this->Empresa->field('nombreempresa',array('idempresa'=>$idempresa)));               			
+			} else {
+				$contratosc = $this->Contratoconstructor->findByIdcontrato($idcontrato);
+				$this->set('contratosc',$contratosc);
+				
+				$ordenes =$this->Ordendecambio->find('all',
+				array('conditions'=> array('Ordendecambio.idcontrato'=>$idcontrato)));
+				$this->set('ordenes',$ordenes);
+			}
 		}
 	}
 	

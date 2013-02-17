@@ -1,53 +1,81 @@
-<h3> Personal asignado al proyecto: <?php echo $nombre?></h3>
-<p>Contratos de construcción</p>
-<?php
-	if(!empty($construc))
-	{
-		if($construc != false)
+<?php if(!empty($nombre)) { ?> 
+	<h3> Personal asignado al proyecto: <?php echo $nombre?></h3>
+	<h4>Contratos de construcción</h4>
+	<?php if(!empty($construc)) {
+		if($construc != false) { ?>
+			<table border="0px" width="600px">
+				<?php foreach ($construc as $con) { ?>
+					<tr> <td id="chead"><?php	echo "Título: "; ?> </td><td> <?php echo $con['Contratoconstructor']['nombrecontrato']; ?> </td></tr> 
+					<tr> <td id="chead"><?php	echo "Código: "; ?> </td><td> <?php echo $con['Contratoconstructor']['codigocontrato']; ?> </td></tr>
+					<tr> <td id="chead"><?php	echo "Administrador: "; ?> </td><td> <?php echo $con['Persona']['nombrespersona']." ".$con['Persona']['apellidospersona']; ?> </td></tr>
+					<tr> <td id="chead"><?php	echo "Técnicos asignados:";  ?> </td></tr>
+	 				<tr> <td id="chead"><?php 	if(!empty($tecnicos))	{
+	 									foreach ($tecnicos as $tec) {
+	 										echo '<ol>';
+	 										if ($con['Contratoconstructor']['idcontrato']==$tec['Nombratecnico']['idcontrato'])	
+	 											echo '<tr><td></td><td><li>'.$tec['Nombratecnico']['nomcompleto'].'</li></td></tr>';
+	 									}	echo '</ol>';
+	 								} ?>
+					</tr>
+					<tr height="50px"></tr>
+				<?php } ?>
+			</table>
+			<?php }
+		if(!empty($supervi))
 		{
-			foreach ($construc as $con):
-				echo "<p>";
-						echo "Título: ".$con['Contratoconstructor']['nombrecontrato']."<br>";
-						echo "Código: ".$con['Contratoconstructor']['codigocontrato']."<br>";
-						echo "Administrador: ".$con['Persona']['nombrespersona']." ".$con['Persona']['apellidospersona']."<br>";
-						echo "Técnicos asignados:<br>";
-						echo "<blockquote>";
-							if(!empty($tecnicos))
-							{
-								foreach ($tecnicos as $tec) 
-								{
-									if ($con['Contratoconstructor']['idcontrato']==$tec['Nombratecnico']['idcontrato'])	
-										echo $tec['Nombratecnico']['nomcompleto']."<br>";
-								}
-							}
-				echo "</blockquote></p>";
-			endforeach;
-		}
-	}
-	if(!empty($supervi))
-	{
-		echo "<p>Contratos de construcción</p>";
-		foreach ($supervi as $sup) 
-		{
-			echo "<p>";
-				echo "Título: ".$sup['Contratosupervisor']['nombrecontrato']."<br>";
-				echo "Código: ".$sup['Contratosupervisor']['codigocontrato']."<br>";
-				echo "Supervisa al contrato".$sup['Contratosupervisor']['con_idcontrato']."<br>";
-				echo "Administrador: ".$sup['Persona']['nombrespersona']." ".$con['Persona']['apellidospersona']."<br>";
-		}
-	}
-?>
-<ul>
-			<li  class="accept">
-				<?php echo $this->Form->input('Nombramiento.idproyecto', 
-					array('type' => 'hidden',
-						  'value'=> $idproyecto)); ?>
+			echo "<h4>Contratos de supervisión</h4>"; ?>
+			<table border="0px" width="600px">
+			<?php foreach ($supervi as $sup) { ?>
+				<tr> <td id="chead"><?php	echo "Título: "; ?> </td><td> <?php echo $sup['Contratosupervisor']['nombrecontrato']; ?> </td></tr>
+				<tr> <td id="chead"><?php	echo "Código: "; ?> </td><td> <?php echo $sup['Contratosupervisor']['codigocontrato']; ?> </td></tr>
+				<tr> <td id="chead"><?php	echo "Administrador: "; ?> </td><td> <?php echo $sup['Persona']['nombrespersona']." ".$con['Persona']['apellidospersona']; ?> </td></tr>
+				<tr> 
+					<td id="chead"><?php	echo "Supervisa al contrato"; ?> </td>
+					<?php if($construc != false) {  
+						foreach ($construc as $con) { 
+							if($sup['Contratosupervisor']['con_idcontrato']==$con['Contratoconstructor']['idcontrato']) ?>
+								<td> <?php echo $con['Contratoconstructor']['codigocontrato'] ?> </td>
+					<?php	}
+					} ?>
+				</tr>
 				
-				<?php 
-					echo $this->Html->link('Generar PDF', 
-						array('controller' => 'Nombramientos','action' => 'nombramiento_reporte_asignados_pdf',
-									$idproyecto),
-						array('class'=>'k-button','target' => '_blank')); ?>
-			</li>
-		</ul>
-			
+			<?php } ?>
+			</table>
+		<?php } ?>
+	<ul>
+				<li  class="accept">
+					<?php echo $this->Form->input('Nombramiento.idproyecto', 
+						array('type' => 'hidden',
+							  'value'=> $idproyecto)); ?>
+					
+					<?php 
+						echo $this->Html->link('Generar PDF', 
+							array('controller' => 'Nombramientos','action' => 'nombramiento_reporte_asignados_pdf',
+										$idproyecto),
+							array('class'=>'k-button','target' => '_blank')); ?>
+				</li>
+			</ul>
+		<?php }
+			} else { ?>	
+			<div id="noresults">No hay asignaciones en este proyecto</div>
+		<?php } ?>
+
+<style>
+	
+
+	#chead {
+		width: 150px;
+		font-family: "Trebuchet MS", Arial, sans-serif;
+		font-size: 100%;
+		font-weight: bold;
+		margin: 5px;
+	}
+	
+	
+	#noresults {
+		margin-left: 40px;
+	}
+	
+
+
+</style>
