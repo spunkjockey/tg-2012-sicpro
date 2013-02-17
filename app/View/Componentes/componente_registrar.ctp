@@ -43,7 +43,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Proyectos » Ficha Tecnica » Registrar Ficha Tecnica » Registrar Componente
+			?> » Proyectos » Ficha Tecnica » Registrar Ficha Tecnica
 			
 		</div>
 	</div>
