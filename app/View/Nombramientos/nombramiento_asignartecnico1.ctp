@@ -1,3 +1,4 @@
+
 <!-- File: /app/View/Nombramientos/nombramiento_asignartecnico.ctp -->
 <?php $this->start('menu');
 	switch ($this->Session->read('User.idrol')) {
@@ -44,7 +45,7 @@ $this->end(); ?>
 				'width' => '30px',
 				'class' => 'homeimg'
 			));
-			?> » Contrato » Asignación de Técnico
+			?> » Contrato » Asignación de Técnicos
 			
 		</div>
 	</div>
