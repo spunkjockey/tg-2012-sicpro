@@ -94,7 +94,7 @@ else {
 }
 ?>
             <?php echo $this->Html->link(
-            	'Regresar', 
+            	'Continuar', 
             	array('controller'=>'Componentes','action' => 'componente_listar_r', $idfichatecnica),
             	array('class'=>'k-button')
 			);?>

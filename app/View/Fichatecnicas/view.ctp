@@ -53,7 +53,10 @@ $this->end(); ?>
 	<div style="color: #959595;">Paso 2 de 2</div>
 	<?php 
 		 		if($idrol == 5 || $idrol== 7)
-			{ ?> 
+			{ 	?> 
+	
+	<h3>
+	<?php echo $fichatecnicas['Proyecto']['nombreproyecto']; ?>	</h3>
 	
 	<h2>Ubicaciones</h2>			   
 	<?php foreach ($ubicaciones as $ubi): ?>
