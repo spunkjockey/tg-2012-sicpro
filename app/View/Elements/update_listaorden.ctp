@@ -10,7 +10,10 @@
 <?php
 //Debugger::dump($ordenes);
 
-if(!empty($ordenes)){ ?>
+if(!empty($ordenes)){ 
+	echo '<br>Titulo Contrato: '.$ordenes[0]['Contratoconstructor']['nombrecontrato'].'<br>';
+	echo 'Monto Original: $'.number_format($ordenes[0]['Contratoconstructor']['montooriginal'],2);
+	?>
 <table id="grid">
     <tr>
         <th data-field="tituloordendecambio">Titulo Orden de Cambio</th>
@@ -26,7 +29,7 @@ if(!empty($ordenes)){ ?>
     <?php foreach ($ordenes as $or): ?>
     <tr>
         <td><?php echo $or['Ordendecambio']['tituloordendecambio']; ?></td>  
-        <td><?php echo "$ ".$or['Ordendecambio']['montoordencambio']; ?></td> 
+        <td><?php echo "$ ".number_format($or['Ordendecambio']['montoordencambio'],2); ?></td> 
 		<td><?php echo $or['Ordendecambio']['descripcionordencambio']; ?></td> 
 		<td><?php echo date('d/m/Y',strtotime($or['Ordendecambio']['fecharegistroorden'])); ?></td> 
         <td align="center">
