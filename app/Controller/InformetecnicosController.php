@@ -116,6 +116,8 @@
 			$idproy = $this->Contratoconstructor->field('idproyecto',array('idcontrato'=>$idcon));
 			$nproy = $this->Proyecto->field('nombreproyecto',array('idproyecto'=>$idproy));
 			$this->set('nomproy',$nproy);
+			$fvisita = $this->Informetecnico->field('fechavisita',array('idinformetecnico'=>$idinfo));
+			$this->set('visita',$fvisita);
 			//contenido informe
 			$info = $this->Informetecnico->find('first',array(
 				'fields'=>array('antecedentes','anotacion'),
@@ -241,6 +243,10 @@
     	} else {
 			$info=$this->Informetecnico->findByIdinformetecnico($id);
 			$this->set('info',$info);
+			$idcon = $this->Informetecnico->field('idcontrato',array('idinformetecnico'=>$id));
+			$idproy = $this->Contratoconstructor->field('idproyecto',array('idcontrato'=>$idcon));
+			$nproy = $this->Proyecto->field('nombreproyecto',array('idproyecto'=>$idproy));
+			$this->set('nomproy',$nproy);
 			$this->Informetecnico->id = $id;
 			if ($this->request->is('get')) 
 			{
@@ -271,6 +277,14 @@
 			if (!$this->Informetecnico->exists($id)) {
         	throw new NotFoundException('No se ha encontrado el informe técnico que buscaba', 404);
     	} else {
+        	$idcon = $this->Informetecnico->field('idcontrato',array('idinformetecnico'=>$id));
+			$ncon = $this->Contratoconstructor->field('nombrecontrato',array('idcontrato'=>$idcon));
+			$this->set('nomcon',$ncon);
+			$idproy = $this->Contratoconstructor->field('idproyecto',array('idcontrato'=>$idcon));
+			$nproy = $this->Proyecto->field('nombreproyecto',array('idproyecto'=>$idproy));
+			$this->set('nomproy',$nproy);
+			$fvisita = $this->Informetecnico->field('fechavisita',array('idinformetecnico'=>$id));
+			$this->set('visita',$fvisita);
         	$this->set ('idinformetecnico', $id);
 		} 
 		}

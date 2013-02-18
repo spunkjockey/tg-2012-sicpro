@@ -51,6 +51,22 @@ $this->end(); ?>
 <?php $this->end(); ?>
 		   
 <h2>Subida de fotografías</h2>
+<b>
+	<table>
+			<tr>
+				Visita realizada el <?php echo date("d-m-Y",strtotime($visita));?>
+			</tr>
+			<tr>
+				<td width="15%">Proyecto: </td>
+				<td><?php echo $nomproy ?></td>
+			</tr>
+			<tr>
+				<td width="15%">Contrato: </td>
+				<td><?php echo $nomcon?></td>
+			</tr>
+			
+		</table>
+</b>
 <table>
 	<tr>
 		<td>

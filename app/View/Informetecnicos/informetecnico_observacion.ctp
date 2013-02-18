@@ -54,6 +54,9 @@ $this->end(); ?>
 		<?php echo $this->Form->create('Informetecnico',array('action' => 'informetecnico_observacion')); ?>
 		<table>
 			<tr>
+				Visita realizada el <?php echo date("d-m-Y",strtotime($visita));?>
+			</tr>
+			<tr>
 				<td width="15%">Proyecto: </td>
 				<td><?php echo $nomproy ?></td>
 			</tr>

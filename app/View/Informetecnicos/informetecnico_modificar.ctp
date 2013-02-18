@@ -54,8 +54,12 @@ $this->end(); ?>
 		<h2>Modificar informe técnico</h2>
 		<?php echo $this->Form->create('Informetecnico'); ?>
 		<ul>
+			<li><label>Proyecto: </label></li><?php echo $nomproy; ?>
 			<li>
-				<label>Código de Contrato: </label> <?php echo $info['Contratoconstructor']['codigocontrato']; ?>
+				<label>Código de Contrato: </label><?php echo $info['Contratoconstructor']['codigocontrato']; ?></td>
+			</li>
+			<li>
+				
 				<?php echo $this->Form->hidden('idinformetecnico'); ?>
 			</li>
 			<li>
