@@ -183,9 +183,8 @@ $this->end(); ?>
 					txplazo.add( Validate.Numericality,{ onlyInteger: true,
 					   								   	notAnIntegerMessage: "Debe ser un número entero",
 						            				 	notANumberMessage:"Debe ser un número"} );
-					txplazo.add(Validate.Length, {minimum: 2, maximum: 4, 
-				           							 tooShortMessage:"Longitud mínima de 2 dígitos",
-				           							 tooLongMessage:"Longitud máxima de 3 dígitos"});
+					txplazo.add( Validate.Numericality, { minimum: 1, tooLowMessage: "Plazo de ejecución mínimo a 1" } );
+					
 				</script>
 				<?php if ($this->Form->isFieldError('Contrato.plazoejecucion')) {
  	 					echo $this->Form->error('Contrato.plazoejecucion'); } ?>

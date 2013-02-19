@@ -197,11 +197,10 @@ $this->end(); ?>
 				var txplazo= new LiveValidation( "txplazo", { validMessage: " " , insertAfterWhatNode: "plaej"  } );
 				txplazo.add(Validate.Presence, { failureMessage: "No puedes dejar este campo en blanco" } );
 				txplazo.add( Validate.Numericality,{ onlyInteger: true,
+													minimum: 1, tooLowMessage: "Plazo mínimo de 1",
 				   								   	notAnIntegerMessage: "Debe ser un número entero",
 					            				 	notANumberMessage:"Debe ser un número"} );
-				txplazo.add(Validate.Length, {minimum: 2, maximum: 4, 
-			           							 tooShortMessage:"Longitud mínima de 2 dígitos",
-			           							 tooLongMessage:"Longitud máxima de 4 dígitos"});
+				txplazo.add( Validate.Numericality, { minimum: 1, tooLowMessage: "Plazo de ejecución mínimo a 1" } );
 			</script>
 			<?php if ($this->Form->isFieldError('Contrato.plazoejecucion')) {
  	 					echo $this->Form->error('Contrato.plazoejecucion'); } ?>

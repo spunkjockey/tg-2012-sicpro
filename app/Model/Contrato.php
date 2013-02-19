@@ -84,7 +84,7 @@
 				$f2 = str_replace('/', '-', $this->data['Contrato']['fechafincontrato']);
 			    $diff = strtotime($f2) - strtotime($f1);
 				$diff = $diff/86400;
-				return($this->data['Contrato']['plazoejecucion']<$diff);
+				return($this->data['Contrato']['plazoejecucion']<=$diff);
 		}
 				
 		public function iniciomenor($check) 
